@@ -517,6 +517,15 @@ function buildRangeControls(){
     };
   }
 }
+/* Driven by the chip filters only — not by the query and not by the ranges
+   themselves. A range matching nothing must keep its control on screen, or
+   there is no way to widen it again. */
+function updateRangeVisibility(chipped){
+  for (const s of SCALES){
+    const box = document.querySelector(`.rng[data-scale="${s.key}"]`);
+    if (box) box.hidden = !chipped.some(r => s.applies(r));
+  }
+}
 function passExtra(r){
   if (!F.extra.size) return true;
   for (const f of F.extra){
@@ -557,6 +566,7 @@ function refresh(){
     if (F.sys.size && !F.sys.has(r.gameSystem)) return false;
     return passExtra(r);
   });
+  updateRangeVisibility(chipped);
   view = chipped.filter(r => {
     if (!passRange(r)) return false;
     if (!q) return true;
