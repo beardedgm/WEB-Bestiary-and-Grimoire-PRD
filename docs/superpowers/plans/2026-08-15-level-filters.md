@@ -184,9 +184,16 @@ Expected: last line reads `index.html   9339 records  5.4 MB  written`
 
 - [ ] **Step 5: Verify the logic against the oracle**
 
+**Read this before asserting.** A range on one scale deliberately leaves every
+other scale untouched, so setting a CR range alone does *not* reduce the
+headline count to the oracle number — spells and Pathfinder creatures still
+pass. Isolate the scale with the kind/system chips to compare against the
+oracle directly.
+
 Reload `http://127.0.0.1:8780/`, open the browser console, and run:
 
 ```js
+F.kind = new Set(["monster"]); F.sys = new Set(["dnd5e"]);
 F.range = { cr5e:{from:5, to:8} };
 refresh();
 document.querySelector("#count").textContent;
@@ -194,9 +201,10 @@ document.querySelector("#count").textContent;
 
 Expected: `"737 of 9,339"` — matches the oracle.
 
-Then check the scales stay independent:
+Now the Pathfinder scale:
 
 ```js
+F.kind = new Set(["monster"]); F.sys = new Set(["pf2e"]);
 F.range = { lvlPf:{from:3, to:6} };
 refresh();
 document.querySelector("#count").textContent;
@@ -204,15 +212,25 @@ document.querySelector("#count").textContent;
 
 Expected: `"670 of 9,339"`.
 
-And that a CR range does not touch Pathfinder creatures:
+Now confirm the scales stay independent — a CR range must not touch anything
+else:
 
 ```js
+F.kind = new Set(); F.sys = new Set();
 F.range = { cr5e:{from:5, to:8} };
 refresh();
-view.filter(r => r.gameSystem === "pf2e" && r._kind === "monster").length;
+JSON.stringify({
+  total:         view.length,
+  dnd5eMonsters: view.filter(r => r._kind === "monster" && r.gameSystem === "dnd5e").length,
+  pf2eMonsters:  view.filter(r => r._kind === "monster" && r.gameSystem === "pf2e").length,
+  spells:        view.filter(r => r._kind === "spell").length
+});
 ```
 
-Expected: `2598` — every Pathfinder creature survives a 5e CR filter.
+Expected exactly: `total` 6935, `dnd5eMonsters` 737, `pf2eMonsters` 2598,
+`spells` 3600. The total is the sum of the other three: only 5e monsters are
+filtered, everything else passes untouched. That sum is the proof the scales
+do not interact.
 
 Reset before moving on:
 
@@ -324,10 +342,13 @@ Expected: last line reads `index.html   9339 records  5.4 MB  written`
 
 - [ ] **Step 5: Verify against the oracle through the UI**
 
-Reload the page. In the console:
+Reload the page. In the console — note the chips are set first, so the headline
+count isolates the 5e monster scale (a range alone leaves other scales
+untouched by design):
 
 ```js
 (() => {
+  F.kind = new Set(["monster"]); F.sys = new Set(["dnd5e"]);
   const box = document.querySelector('.rng[data-scale="cr5e"]');
   const [f, t] = box.querySelectorAll("select");
   f.value = "5"; f.onchange({target:f});
