@@ -840,8 +840,11 @@ source of truth, and every record points back to its origin:
 Nothing in the pipeline ever modifies or deletes markdown.
 
 ```
-monsters/**/*.md  ──convert_monsters.py──▶  sidecar .json  ──bundle──▶  monsters-{5e,pf2e}.json
-spells/**/*.md    ──convert_spells.py────▶  sidecar .json  ──bundle──▶  spells-{5e,pf2e}.json
+monsters/**/*.md  ──convert_monsters.py──▶  sidecar .json  ──┐
+spells/**/*.md    ──convert_spells.py────▶  sidecar .json  ──┤
+                                                             ├─build_bundles.py─▶  monsters-{5e,pf2e}.json
+                                                             │                     spells-{5e,pf2e}.json
+                                                             └────────────────────▶  browser-standalone.html
 ```
 
 To regenerate:
@@ -849,15 +852,31 @@ To regenerate:
 ```bash
 python convert_monsters.py      # rewrites every monster sidecar in place
 python convert_spells.py        # rewrites every spell sidecar in place
+python build_bundles.py         # sidecars -> the four bundles + the standalone browser
 ```
 
-Then rebuild the bundles (concatenate the sidecars per system, sort by `id`, minify).
+`build_bundles.py` collects the sidecars per system, sorts by `id`, minifies, and rebuilds
+`browser-standalone.html` by inlining the four bundles into `browser.html` as gzipped
+base64. It refuses to build on a duplicate `id` or a record whose `gameSystem` doesn't
+match its directory, and it only writes files whose contents actually changed.
+
+To find out whether the committed artifacts are current without touching anything:
+
+```bash
+python build_bundles.py --check
+```
+
+That exits non-zero and names the stale files. It's the check to run before committing.
 
 **The bundles are build artifacts.** If you edit a sidecar without rebuilding, the bundle
 goes stale silently. Pick one as your working copy and regenerate the other.
 
 Records are sorted by `id`, so regenerating produces a byte-identical file when the input
-hasn't changed — which keeps `git diff` meaningful.
+hasn't changed — which keeps `git diff` meaningful. The standalone is byte-reproducible
+too: its gzip payloads are written with `mtime=0` for exactly that reason.
+
+Directories under `monsters/<system>/` and `spells/<system>/` whose name begins with `_`
+are scratch space. Both the converters and the bundle build skip them.
 
 ### Content licensing
 
