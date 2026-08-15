@@ -4,6 +4,8 @@ A queryable dataset of **9,339 monsters and spells** drawn from Dungeons & Drago
 Edition and Pathfinder 2nd Edition, normalised into two JSON schemas that are shared
 across both game systems.
 
+**[Browse all 9,339 records →](https://beardedgm.github.io/TTRPG-Creature-and-Spell-Data/)**
+
 This is meant to be used as a **database** — the information source you build tools on
 top of. Encounter builders, spell lookups, random generators, VTT importers, statistical
 analysis, whatever. The point of the normalisation work is that you write your query
@@ -70,9 +72,15 @@ Alongside the bundles, every source markdown file also has a **sidecar** `.json`
 it (one record per file, pretty-printed). Same data, different packaging — use the
 bundles for loading, the sidecars for browsing and diffing.
 
-To read the data rather than query it, open **`index.html`** — a browser for all 9,339
-records with the data baked in, so it works offline from a `file://` URL with nothing
-installed and nothing to serve.
+To read the data rather than query it, there is a browser for all 9,339 records:
+
+- **Hosted** — <https://beardedgm.github.io/TTRPG-Creature-and-Spell-Data/>
+- **Local** — open **`index.html`**. The data is baked into the file, so it works offline
+  from a `file://` URL with nothing installed and nothing to serve.
+
+Both are the same file. The four bundles are served alongside it, so
+`https://beardedgm.github.io/TTRPG-Creature-and-Spell-Data/monsters-5e.json` and its three
+siblings can be fetched directly without cloning the repo.
 
 ### Coverage at a glance
 
