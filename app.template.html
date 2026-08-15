@@ -155,9 +155,12 @@ label.tog input{accent-color:var(--gilt)}
 }
 .trait.rarity{background:var(--gilt); border-color:var(--gilt); color:#241E0C}
 
-.kv{margin:4px 0}
+/* fixed label column: values line up down the block, and a long value hangs
+   in its own column instead of wrapping back under the label */
+.kv{display:grid; grid-template-columns:6.6em 1fr; gap:0 10px;  /* 6.6em fits "Saving Throw" */
+    align-items:baseline; margin:4px 0}
 .kv b{font-weight:700; color:var(--ink)}
-.kv span{color:var(--dim)}
+.kv span{color:var(--dim); font-variant-numeric:tabular-nums}
 
 .sec{margin:24px 0 9px; padding-bottom:5px; color:var(--sysink)}
 #pane.dnd5e .sec{
@@ -179,7 +182,10 @@ label.tog input{accent-color:var(--gilt)}
 .ent{margin:13px 0}
 .ent .en{font-weight:700; color:var(--ink)}
 #pane.dnd5e .ent .en{font-style:italic}
-.act{font-family:var(--mono); font-size:.9em; color:var(--sysink)}
+.act{font-family:var(--mono); font-size:.9em; color:var(--sysink);
+     font-variant-numeric:tabular-nums}
+.act.sym{font-size:1.05em; color:var(--ink); letter-spacing:.06em}  /* ◆◇ read as marks, not text */
+.qual{color:var(--dim); font-size:.85em}
 
 .grid6{display:grid; grid-template-columns:repeat(6,1fr); gap:6px; margin:14px 0}
 .ab{
@@ -237,6 +243,8 @@ kbd{
   .sb{padding:22px 18px 20px}
   .sb h2{font-size:25px; flex-wrap:wrap; gap:8px}
   .grid6{grid-template-columns:repeat(3,1fr)}
+  .kv{display:block}                       /* no room for a label column */
+  .kv b{margin-right:7px}
 }
 @media (prefers-reduced-motion:reduce){
   .sb{animation:none}
@@ -634,16 +642,26 @@ function monsterHTML(r){
   return h + `</div>`;
 }
 
+// "1 action" under an Actions heading says nothing the heading didn't. Pathfinder
+// symbols always carry cost, and so does any count above one (legendary 2, 3).
+const IMPLIED_BY_SECTION = {action:1, reaction:1, bonus:1, legendary:1, free:1};
+function showsActivity(a){
+  if (!a) return false;
+  if (a.symbol) return true;
+  return !(a.number === 1 && IMPLIED_BY_SECTION[a.unit]);
+}
+
 function entryHTML(e){
   let h = `<div class="ent"><span class="en">${esc(e.name)}</span>`;
-  if (e.activity) h += ` <span class="act">${esc(glyph(e.activity))}</span>`;
+  if (showsActivity(e.activity))
+    h += ` <span class="act${e.activity.symbol ? " sym" : ""}">${esc(glyph(e.activity))}</span>`;
   if (e.traits && e.traits.length)
-    h += ` <span style="color:var(--dim);font-size:12px">(${esc(e.traits.join(", "))})</span>`;
+    h += ` <span class="qual">(${esc(e.traits.join(", "))})</span>`;
   if (e.attack){
     const a = e.attack;
     h += ` <span class="act">${a.map ? a.map.map(x => (x>=0?"+":"")+x).join("/") : ""}</span>`;
-    if (a.reach) h += ` <span style="color:var(--dim);font-size:12px">reach ${a.reach.value} ft</span>`;
-    if (a.range_) h += ` <span style="color:var(--dim);font-size:12px">range ${a.range_.value} ft</span>`;
+    if (a.reach) h += ` <span class="qual">reach ${a.reach.value} ft</span>`;
+    if (a.range_) h += ` <span class="qual">range ${a.range_.value} ft</span>`;
   }
   if (e.damage && e.damage.length)
     h += `<br><span style="color:var(--dim)">Damage</span> ${esc(e.damage.map(x =>
