@@ -411,7 +411,45 @@ function start(){
 }
 
 /* ---------------- filters ---------------- */
-const F = { kind:new Set(), sys:new Set(), extra:new Set() };
+const F = { kind:new Set(), sys:new Set(), extra:new Set(), range:{} };
+
+/* The corpus carries four separate numeric scales. CR 15 is not Creature 15,
+   so each scale filters only its own records and they never interact.
+   Pathfinder focus spells share the rank scale: they are numbered 1-10 exactly
+   as ranks are, and the FOCUS chip already isolates them as a category. */
+const SCALES = [
+  { key:"cr5e",   label:"D&D 5e · CR",
+    applies: r => r._kind === "monster" && r.gameSystem === "dnd5e",
+    valueOf: r => r.challenge.value,
+    labelOf: r => r.challenge.display },
+  { key:"lvlPf",  label:"Pathfinder 2e · Creature level",
+    applies: r => r._kind === "monster" && r.gameSystem === "pf2e",
+    valueOf: r => r.challenge.value,
+    labelOf: r => String(r.challenge.value) },
+  { key:"spl5e",  label:"D&D 5e · Spell level",
+    applies: r => r._kind === "spell" && r.gameSystem === "dnd5e",
+    valueOf: r => r.level.value,
+    labelOf: r => String(r.level.value) },
+  { key:"rankPf", label:"Pathfinder 2e · Rank",
+    applies: r => r._kind === "spell" && r.gameSystem === "pf2e",
+    valueOf: r => r.level.value,
+    labelOf: r => String(r.level.value) },
+];
+
+function scaleFor(r){
+  for (const s of SCALES) if (s.applies(r)) return s;
+  return null;
+}
+
+function passRange(r){
+  const s = scaleFor(r);
+  if (!s) return true;                       // no scale governs this record
+  const g = F.range[s.key];
+  if (!g) return true;                       // control not built, so inactive
+  const v = s.valueOf(r);
+  if (v == null) return true;                // never hide a record for lacking a value
+  return v >= g.from && v <= g.to;
+}
 function chip(row, label, set, val, cls){
   const b = document.createElement("button");
   b.className = "chip" + (cls ? " " + cls : "");
@@ -465,10 +503,17 @@ function deepText(r){
 function refresh(){
   const q = $("#q").value.trim().toLowerCase();
   const deep = $("#deep").checked;
-  view = DATA.filter(r => {
+  // chipped is everything the chips allow, before ranges and before the query.
+  // Range control visibility is computed from it in Task 3 — deliberately not
+  // from the final view, or a range matching nothing would hide the control
+  // needed to widen it again.
+  const chipped = DATA.filter(r => {
     if (F.kind.size && !F.kind.has(r._kind)) return false;
     if (F.sys.size && !F.sys.has(r.gameSystem)) return false;
-    if (!passExtra(r)) return false;
+    return passExtra(r);
+  });
+  view = chipped.filter(r => {
+    if (!passRange(r)) return false;
     if (!q) return true;
     return deep ? deepText(r).includes(q) : r._search.includes(q);
   });
