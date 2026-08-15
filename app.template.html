@@ -162,6 +162,21 @@ label.tog input{accent-color:var(--gilt)}
 .kv b{font-weight:700; color:var(--ink)}
 .kv span{color:var(--dim); font-variant-numeric:tabular-nums}
 
+/* Saves are the number a GM hunts for mid-turn, so they get lifted out of the
+   defense block as chips instead of running text. The tint is the same one the
+   ability cells use, so this borrows existing vocabulary rather than adding a
+   colour. */
+.saves{display:inline-flex; flex-wrap:wrap; gap:5px; align-items:baseline}
+.saves .save{
+  display:inline-flex; align-items:baseline; gap:5px;
+  padding:2px 7px; border-radius:2px;
+  background:var(--cell); border:1px solid var(--sheet-edge);
+  color:var(--ink); font-family:var(--mono); font-size:.82em;
+  font-variant-numeric:tabular-nums;
+}
+.saves .save b{text-transform:uppercase; letter-spacing:.07em; color:var(--sysink)}
+.saves .savenote{color:var(--dim)}
+
 .sec{margin:24px 0 9px; padding-bottom:5px; color:var(--sysink)}
 #pane.dnd5e .sec{
   font:600 17px/1 var(--serif); font-variant:small-caps; letter-spacing:.05em;
@@ -180,8 +195,10 @@ label.tog input{accent-color:var(--gilt)}
 .ht{margin:8px 0; padding-left:12px; border-left:2px solid var(--gilt)}
 .ht b{font:700 11.5px/1.5 var(--mono); text-transform:uppercase; letter-spacing:.06em; color:var(--gilt)}
 .ent{margin:13px 0}
-.ent .en{font-weight:700; color:var(--ink)}
-#pane.dnd5e .ent .en{font-style:italic}
+/* Pathfinder prints strike names lowercase ("jaws"); they read as headings here.
+   Italic on the 5e stock hurt legibility at body size, so both stocks set these
+   upright. */
+.ent .en{font-weight:700; color:var(--ink); text-transform:capitalize}
 .act{font-family:var(--mono); font-size:.9em; color:var(--sysink);
      font-variant-numeric:tabular-nums}
 .act.sym{font-size:1.05em; color:var(--ink); letter-spacing:.06em}  /* ◆◇ read as marks, not text */
@@ -589,9 +606,13 @@ function monsterHTML(r){
 
   h += `<div class="sec">Defense</div>`;
   h += kv("AC", (d.ac.value ?? "—") + (d.ac.note ? " (" + d.ac.note + ")" : ""));
-  if (d.savingThrows.length) h += kv("Saves", d.savingThrows.map(s =>
-      s.name + " " + (s.mod>=0?"+":"") + s.mod).join(", ") +
-      (d.saveNote ? "; " + d.saveNote : ""));
+  if (d.savingThrows.length){
+    const chips = d.savingThrows.map(s =>
+      `<span class="save"><b>${esc(s.name)}</b>${esc((s.mod>=0?"+":"") + s.mod)}</span>`).join("");
+    h += `<div class="kv"><b>Saves</b><span class="saves">${chips}` +
+         (d.saveNote ? `<span class="savenote">${esc(d.saveNote)}</span>` : "") +
+         `</span></div>`;
+  }
   h += kv("HP", d.hp.map(x => (x.value ?? "—") +
       (x.formula ? " (" + x.formula + ")" : "") + (x.note ? "; " + x.note : "")).join(" / "));
   const im = d.immunities, imAll = [].concat(im.damage, im.conditions, im.other);
