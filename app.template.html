@@ -182,16 +182,16 @@ label.tog input{accent-color:var(--gilt)}
    defense block as chips instead of running text. The tint is the same one the
    ability cells use, so this borrows existing vocabulary rather than adding a
    colour. */
-.saves{display:inline-flex; flex-wrap:wrap; gap:5px; align-items:baseline}
-.saves .save{
+.chips{display:inline-flex; flex-wrap:wrap; gap:5px; align-items:baseline}
+.chips .statchip{
   display:inline-flex; align-items:baseline; gap:5px;
   padding:2px 7px; border-radius:2px;
   background:var(--cell); border:1px solid var(--sheet-edge);
-  color:var(--ink); font-family:var(--mono); font-size:.82em;
+  color:var(--ink); font:700 .82em var(--mono);
   font-variant-numeric:tabular-nums;
 }
-.saves .save b{text-transform:uppercase; letter-spacing:.07em; color:var(--sysink)}
-.saves .savenote{color:var(--dim)}
+.chips .statchip b{text-transform:uppercase; letter-spacing:.07em; color:var(--sysink)}
+.chips .qual{color:var(--dim); font-size:.85em}   /* formula, note — detail, not the number */
 
 .sec{margin:24px 0 9px; padding-bottom:5px; color:var(--sysink)}
 #pane.dnd5e .sec{
@@ -624,6 +624,12 @@ function glyph(a){
   return (n != null ? n + " " : "") + u + (n > 1 ? "s" : "");
 }
 function kv(label, val){ return val ? `<div class="kv"><b>${label}</b> <span>${esc(val)}</span></div>` : ""; }
+/* a labelled row whose value is a single number worth picking out of the block */
+function chipKV(label, value, qual){
+  return `<div class="kv"><b>${esc(label)}</b><span class="chips">` +
+         `<span class="statchip">${esc(value)}</span>` +
+         (qual ? `<span class="qual">${esc(qual)}</span>` : "") + `</span></div>`;
+}
 
 const DEGLABEL = {criticalSuccess:"Critical Success", success:"Success",
                   failure:"Failure", criticalFailure:"Critical Failure"};
@@ -731,16 +737,21 @@ function monsterHTML(r){
   }
 
   h += `<div class="sec">Defense</div>`;
-  h += kv("AC", (d.ac.value ?? "—") + (d.ac.note ? " (" + d.ac.note + ")" : ""));
+  // AC, saves and HP all read as chips: the numbers carry the chip, the detail
+  // that qualifies them (armour note, hit dice formula) sits outside it.
+  h += chipKV("AC", d.ac.value ?? "—", d.ac.note ? "(" + d.ac.note + ")" : "");
   if (d.savingThrows.length){
     const chips = d.savingThrows.map(s =>
-      `<span class="save"><b>${esc(s.name)}</b>${esc((s.mod>=0?"+":"") + s.mod)}</span>`).join("");
-    h += `<div class="kv"><b>Saves</b><span class="saves">${chips}` +
-         (d.saveNote ? `<span class="savenote">${esc(d.saveNote)}</span>` : "") +
+      `<span class="statchip"><b>${esc(s.name)}</b>${esc((s.mod>=0?"+":"") + s.mod)}</span>`).join("");
+    h += `<div class="kv"><b>Saves</b><span class="chips">${chips}` +
+         (d.saveNote ? `<span class="qual">${esc(d.saveNote)}</span>` : "") +
          `</span></div>`;
   }
-  h += kv("HP", d.hp.map(x => (x.value ?? "—") +
-      (x.formula ? " (" + x.formula + ")" : "") + (x.note ? "; " + x.note : "")).join(" / "));
+  h += `<div class="kv"><b>HP</b><span class="chips">` + d.hp.map(x =>
+      `<span class="statchip">${esc(x.value ?? "—")}</span>` +
+      ([x.formula, x.note].filter(Boolean).length
+        ? `<span class="qual">${esc([x.formula ? "(" + x.formula + ")" : "", x.note].filter(Boolean).join(" "))}</span>`
+        : "")).join("") + `</span></div>`;
   const im = d.immunities, imAll = [].concat(im.damage, im.conditions, im.other);
   if (imAll.length) h += kv("Immunities", imAll.join(", "));
   if (d.resistances.length) h += kv("Resistances", d.resistances.map(x =>
