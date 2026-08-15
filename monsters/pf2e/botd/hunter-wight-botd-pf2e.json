@@ -1,0 +1,309 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:hunter-wight",
+  "name": "Hunter Wight",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/hunter-wight.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "wight"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "le",
+      "medium",
+      "undead",
+      "wight"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 4,
+    "con": 2,
+    "int": 1,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 14
+    },
+    {
+      "name": "Crafting",
+      "mod": 14
+    },
+    {
+      "name": "Intimidation",
+      "mod": 12
+    },
+    {
+      "name": "Stealth",
+      "mod": 17
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 112,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 13
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 14
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Final Snare",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The hunter wight has rigged their own body with a snare, which they trigger before being destroyed. Slivers of bone launch at an adjacent creature, dealing 4d8 piercing damage (DC 25 basic Reflex save)."
+      ],
+      "trigger": "The hunter wight is reduced to 0 Hit Points",
+      "save": {
+        "defense": "reflex",
+        "dc": 25,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          12,
+          8
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+9",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "drain life"
+      ]
+    },
+    {
+      "name": "composite longbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          13,
+          8
+        ],
+        "traits": [
+          "deadly <d10>",
+          "propulsive",
+          "range increment <100 feet>",
+          "volley <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+7",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "drain life"
+      ]
+    },
+    {
+      "name": "Drain Life",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "When the hunter wight damages a living creature using an unarmed attack or their bound weapon, they gain 7 temporary"
+      ]
+    },
+    {
+      "name": "Hit",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Points, and the creature must succeed at a DC 22 Fortitude save or become drained 1. Further damage dealt by the hunter wight's unarmed and bound weapon attacks increases the value of the drained condition by 1 on a failed save, to a maximum of drained 4."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Spawn Hunter Wight",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "A living humanoid killed by a hunter wight's weapon or claw Strike rises as a hunter wight spawn after 1d4 rounds. This spawn is under the command of the hunter wight that killed them. They don't have drain life or spawn hunter wight and are clumsy 2 for as long as they're a hunter wight spawn. If the creator of the hunter wight spawn dies, the hunter wight spawn becomes a fully autonomous hunter wight; they regain their free will, gain drain life and spawn hunter wight, and are no longer clumsy."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 25
+      }
+    ],
+    "items": [
+      "+1 composite longbow",
+      "leather armor",
+      "snare kit"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

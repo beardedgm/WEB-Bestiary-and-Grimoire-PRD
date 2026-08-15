@@ -1,0 +1,211 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:master-alchemist",
+  "name": "Master Alchemist",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/master_alchemist_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 7,
+    "xp": 2900,
+    "display": "7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 4,
+    "con": 6,
+    "int": 7,
+    "wis": 1,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 11,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "-",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "any two languages"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": "studded leather"
+    },
+    "hp": [
+      {
+        "value": 152,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Tools of the Trade",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The master alchemist is proficient with alchemist's supplies and doubles its proficiency bonus for any ability check it makes with alchemist's supplies."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The master alchemist makes three Hasty Concoction attacks."
+      ]
+    },
+    {
+      "name": "Hasty Concoction",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee or Ranged Weapon Attack:_ +7 to hit, reach 5 ft. or range 20/60 ft., one target. _Hit:_ 17 (3d8+4) acid, cold, fire, or poison damage (the alchemist's choice). The concoction then causes one of the following effects of the master alchemist's choice.<br>- **Disorienting Vapors.** Overly sweet-smelling, pink vapors erupt from where the concoction hit the target. The target and each creature within 5 feet of it must make a DC 15 INT save. When a creature that failed this save moves on its next turn, it moves in a random direction.<br>- **Poisonous Cloud.** An acrid-smelling, green gas pours out from where the concoction hit the target. The gas fills a 10-foot-radius sphere centered on the target. The gas spreads around corners, and its area is lightly obscured. A creature that enters the gas for the first time on a turn or starts its turn there must succeed on a DC 15 CON save or be poisoned until the end of its next turn. The gas disperses at the start of the master alchemist's next turn.<br>- **Slick Floor.** A thick, purple foam bursts out from where the concoction hit the target. The floor within 10 feet of the target is coated in slick goop until the start of the master alchemist's next turn, when the foam dries. For the duration, when a creature moves through the area, it must succeed on a DC 15 DEX save or fall prone. When the master alchemist makes a Hasty Concoction attack, it can choose to target a point on the ground it can see within 60 feet instead. If it does so, the concoction causes only one of the above effects centered on that point instead of dealing damage."
+      ],
+      "area": {
+        "shape": "sphere",
+        "size": 10,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Explosive Flask",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The master alchemist throws an explosive flask at a point it can see within 30 feet of it. Each creature within 10 feet of that point must make a DC 15 DEX save, taking 31 (7d8) fire damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "7d8",
+          "average": 31,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Healing Unguent",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The master alchemist rubs a greasy unguent on a creature's wounds. The target regains 14 (4d6) HP."
+      ],
+      "uses": {
+        "count": 3,
+        "period": "day",
+        "display": "3/Day"
+      }
+    },
+    {
+      "name": "Protective Draught",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The master alchemist drinks one of its brews and gains resistance to acid, cold, fire, or poison damage (the master alchemist's choice) until the end of its next turn."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 4,
+        "max": 6,
+        "display": "Recharge 4-6"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

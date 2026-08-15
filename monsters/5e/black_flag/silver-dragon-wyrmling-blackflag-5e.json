@@ -1,0 +1,239 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:silver-dragon-wyrmling",
+  "name": "Silver Dragon Wyrmling",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/silver_dragon_wyrmling_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 2,
+    "xp": 450,
+    "display": "2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 5,
+    "int": 1,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "keensense",
+      "range": 10,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Draconic"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 51,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Pounce",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the dragon moves at least 15 feet straight toward a creature and then hits it with a Claw attack on the same turn, that target must succeed on a DC 14 STR save or be knocked prone. If the target is prone, the dragon can make one Claw attack against it as a bonus action."
+      ],
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes one Bite attack and one Claw attack."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +6 to hit, reach 5 ft., one target. _Hit:_ 9 (1d10+4) piercing damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d10+4",
+          "average": 9,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +6 to hit, reach 5 ft., one target. _Hit:_ 7 (1d6+4) slashing damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": 7,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Cold Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon exhales an icy blast in a 15-foot cone. Each creature in that area must make a DC 13 CON save, taking 18 (4d8) cold damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": 18,
+          "type": "cold"
+        }
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Paralyzing Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon exhales paralyzing gas in a 15-foot cone. Each creature in that area must succeed on a DC 13 CON save or be paralyzed for 1 minute. A creature can repeat the save at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "paralyzed",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

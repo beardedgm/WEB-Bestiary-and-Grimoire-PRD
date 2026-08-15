@@ -1,0 +1,271 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd51:young-red-dragon",
+  "name": "Young Red Dragon",
+  "gameSystem": "dnd5e",
+  "variant": "srd51",
+  "source": {
+    "code": "5.1_srd_(2015_mm)",
+    "name": "5.1 SRD (2015 MM)",
+    "page": 288,
+    "path": "monsters/5e/5.1_srd_(2015_mm)/young-red-dragon.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 10,
+    "xp": 5900,
+    "display": "10"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 0,
+    "con": 5,
+    "int": 2,
+    "wis": 0,
+    "cha": 4
+  },
+  "abilityScores": {
+    "str": 23,
+    "dex": 10,
+    "con": 21,
+    "int": 14,
+    "wis": 11,
+    "cha": 19
+  },
+  "perception": {
+    "mod": 8,
+    "passive": 18
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 8
+    },
+    {
+      "name": "Stealth",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 178,
+        "note": null,
+        "formula": "17d10+85"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 4
+      },
+      {
+        "name": "con",
+        "mod": 9
+      },
+      {
+        "name": "wis",
+        "mod": 4
+      },
+      {
+        "name": "cha",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "climb": 40,
+      "fly": 80
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes three attacks: one with its bite and two with its claws."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 17 (2d10 + 6) piercing damage plus 3 (1d6) fire damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 10,
+        "map": [
+          10
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+6",
+          "average": 17,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 13 (2d6 + 6) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 10,
+        "map": [
+          10
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+6",
+          "average": 13,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Fire Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon exhales fire in a 30-foot cone. Each creature in that area must make a DC 17 Dexterity saving throw, taking 56 (16d6) fire damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "16d6",
+          "average": 56,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 17,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

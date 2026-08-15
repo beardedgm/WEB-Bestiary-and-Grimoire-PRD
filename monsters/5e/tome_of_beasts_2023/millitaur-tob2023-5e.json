@@ -1,0 +1,248 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:millitaur",
+  "name": "Millitaur",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 267,
+    "path": "monsters/5e/tome_of_beasts_2023/millitaur-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 2,
+    "con": 3,
+    "int": -1,
+    "wis": 3,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 17,
+    "dex": 14,
+    "con": 16,
+    "int": 8,
+    "wis": 16,
+    "cha": 10
+  },
+  "perception": {
+    "mod": null,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "tremorsense",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Millitaur"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 85,
+        "note": null,
+        "formula": "10d10+30"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "poison",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "burrow": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The millitaur makes two Handaxe attacks."
+      ]
+    },
+    {
+      "name": "Handaxe",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee or Ranged Weapon Attack: +5 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 10 (2d6 + 3) slashing damage plus 3 (1d6) poison damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        },
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Poisonous Flask",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The millitaur hastily combines alchemical substances into a poisonous concoction and throws it at a point the millitaur can see within 30 feet. Each creature within 15 feet of that point must make a DC 13 Dexterity saving throw. On a failure, a creature takes 14 (4d6) poison damage and is poisoned for 1 minute. On a success, a creature takes half the damage and isn't poisoned. A poisoned creature can make a DC 13 Constitution saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Healing Tonic",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The millitaur administers a healing tonic to a willing creature within 5 feet of it. The target magically regains 7 (2d6) hp and is freed from any disease or poison."
+      ],
+      "uses": {
+        "count": 2,
+        "period": "day",
+        "display": "2/Day"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

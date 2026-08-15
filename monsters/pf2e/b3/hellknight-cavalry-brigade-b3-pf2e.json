@@ -1,0 +1,314 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:hellknight-cavalry-brigade",
+  "name": "Hellknight Cavalry Brigade",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/hellknight-cavalry-brigade.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "animal",
+      "humanoid",
+      "troop"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "ln",
+      "gargantuan",
+      "animal",
+      "human",
+      "humanoid",
+      "troop"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 1,
+    "con": 4,
+    "int": 2,
+    "wis": 2,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Infernal"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 13
+    },
+    {
+      "name": "Athletics",
+      "mod": 18
+    },
+    {
+      "name": "Intimidation",
+      "mod": 17
+    },
+    {
+      "name": "Religion",
+      "mod": 12
+    },
+    {
+      "name": "Society",
+      "mod": 12
+    },
+    {
+      "name": "Hell Lore",
+      "mod": 12
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 135,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "mental",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": [
+      "troop movement"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Troop Defenses",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Arrow Volley",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The Hellknights draw or reload their longbows, then launch a ranged attack in the form of a volley. This volley is a 10-foot burst within 100 feet that deals 4d8 piercing damage (DC 23 basic Reflex save). When the troop is reduced to 8 or fewer squares, this area decreases to a 5-foot burst."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 23,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Form Up",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Lance Charge",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The brigade Forms Up, then Strides twice with a +10-foot circumstance bonus to its Speed. If it moves at least 10 feet, the brigade deals 3d8+13 piercing damage (DC 26 basic Reflex save) to each enemy within 10 feet of the brigade at the end of its movement."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 26,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      }
+    },
+    {
+      "name": "Mounted Troop",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Effects that target only animals or only humanoids may not work on the cavalry brigade, subject to the GM's discretion."
+      ]
+    },
+    {
+      "name": "Swing from the Saddle",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The brigade engages in a coordinated melee attack against each enemy within 10 feet (DC 23 basic Reflex save). The damage depends on the number of actions. - 1 2d6 slashing damage",
+        "- 2 2d6+10 slashing damage",
+        "- 3 3d6+13 slashing damage."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 23,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Trailblazing Stride",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While moving on land, the Hellknight cavalry brigade ignores the effects of non-magical terrain."
+      ]
+    },
+    {
+      "name": "Troop Movement",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the cavalry brigade Strides, the brigade first Forms Up as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares), then moves. This works just like a Gargantuan creature moving; for instance, if any square of the brigade enters terrain, the extra movement cost applies to the whole brigade."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Animal",
+        "skill": "Nature, Society",
+        "dc": 24
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

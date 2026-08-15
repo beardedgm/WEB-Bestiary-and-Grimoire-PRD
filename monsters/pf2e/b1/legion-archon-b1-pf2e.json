@@ -1,0 +1,376 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:legion-archon",
+  "name": "Legion Archon",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/legion-archon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "archon",
+      "celestial"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "lg",
+      "lawChaos": "lawful",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "lg",
+      "medium",
+      "archon",
+      "celestial"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 2,
+    "con": 4,
+    "int": 1,
+    "wis": 2,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Draconic",
+    "Infernal; Tongues"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 13
+    },
+    {
+      "name": "Athletics",
+      "mod": 14
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 16
+    },
+    {
+      "name": "Intimidation",
+      "mod": 16
+    },
+    {
+      "name": "Religion",
+      "mod": 13
+    },
+    {
+      "name": "Survival",
+      "mod": 14
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 100,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 17
+      },
+      {
+        "name": "ref",
+        "mod": 11
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "evil",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Menacing Guardian",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "enchantment"
+      ],
+      "entries": [
+        "30 feet. Enemies that start their turn in the area or enter it must attempt a DC 23 Will save. On a failure, they take a –1 status penalty to attack rolls, spell rolls, and damage rolls against any other target while in the aura for 24 hours or until they damage the archon, whichever comes first. On a critical failure, they can't use hostile actions against any other target while in the area for 24 hours or until they damage the archon, whichever comes first. Regardless of the result, a creature is then temporarily immune to further menacing guardian auras for 24 hours."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Retributive Strike",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "A legion archon can also make a Retributive Strike by throwing its flame of justice."
+      ]
+    },
+    {
+      "name": "flame of justice",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          13,
+          8
+        ],
+        "traits": [
+          "magical",
+          "versatile <P>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+5",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "fire"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "good"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "flame of justice",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15,
+          10,
+          5
+        ],
+        "traits": [
+          "magical",
+          "range increment <30 feet>",
+          "versatile <P>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+5",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "fire"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "good"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Archon's Door",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Once per day, if an archon sees another creature cast dimension door, it can cast an innate dimension door (heightened to 5th level) within 1 round to attempt to follow that creature to the maximum distance of the archon's dimension door. If the archon's dimension door has enough distance, the archon appears the same distance and direction from the creature as before either used dimension door."
+      ]
+    },
+    {
+      "name": "Flame of Justice",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "evocation"
+      ],
+      "entries": [
+        "A legion archon's spirit of righteousness manifests in its hands as a mighty two-handed sword called the flame."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 24,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "Cantrips (4th)",
+          "spells": [
+            {
+              "name": "light",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "true strike",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Celestial",
+        "skill": "Religion",
+        "dc": 23
+      }
+    ],
+    "items": [
+      "full plate"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

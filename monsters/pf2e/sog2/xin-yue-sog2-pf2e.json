@@ -1,0 +1,417 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sog2:xin-yue",
+  "name": "Xin Yue",
+  "gameSystem": "pf2e",
+  "variant": "sog2",
+  "source": {
+    "code": "sog2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sog2/xin-yue.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ce",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 0,
+    "int": 2,
+    "wis": 4,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability darkvision}",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 13
+    },
+    {
+      "name": "Athletics",
+      "mod": 17
+    },
+    {
+      "name": "Deception",
+      "mod": 15
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 17
+    },
+    {
+      "name": "Intimidation",
+      "mod": 17
+    },
+    {
+      "name": "Occultism",
+      "mod": 13
+    },
+    {
+      "name": "Religion",
+      "mod": 15
+    },
+    {
+      "name": "Sangpotshi Lore",
+      "mod": 15
+    },
+    {
+      "name": "Society",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 25,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 90,
+        "formula": null,
+        "note": "negative healing|B2"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 11
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 17
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Field of Past Regrets",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "40 feet. All creatures within the aura who have at least one past life (including all PCs in Season of Ghosts) recall failures in their past lives and are bolstered against repeating them, gaining a +1 status bonus to saving throws against mental effects. Living, non-nindoru|SoG2 creatures within the aura feel the pain of all their past lives, as well as their own current pain when they endure mental attacks, and gain weakness 3 to mental damage."
+      ],
+      "aura": {
+        "range": 40,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Chastise Heretic",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Xin Yue attempts to counteract|CRB|3|counteracting|0 the triggering spell using her spell attack modifier and a counteract level of 4. If the spell is counteracted, the caster takes 1d10 persistent mental damage. If Xin Yue fails to counteract the spell, the caster is temporarily immune to further uses of this ability for 24 hours."
+      ],
+      "trigger": "A creature within 60 feet who Xin Yue can see casts a divine spell"
+    },
+    {
+      "name": "Profane Reincarnation",
+      "category": "free",
+      "placement": "mid",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "Xin Yue utters a shriek as her undead body splits open and her shortsword becomes broken. She's instantly reincarnated as a sojiruh|SoG2|sojiruh|5 nindoru with the elite creature adjustment."
+      ],
+      "trigger": "Xin Yue is reduced to 0 Hit Points",
+      "frequency": {
+        "number": 1,
+        "unit": "1,000 days",
+        "text": null
+      }
+    },
+    {
+      "name": "shortsword",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          6,
+          2
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "versatile <s>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+6",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Near-Death Experience",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "divine",
+        "emotion",
+        "mental",
+        "necromancy"
+      ],
+      "entries": [
+        "Time appears to slow down to the dying creature as the immense stress of their near-death experience pushes their brain into overdrive. The target sees their life flash before their eyes, and the urge to resist death grows strong. The target reduces the DC of their recovery checks by 2, but if they lose the dying condition, they must attempt a DC 25 Will save."
+      ],
+      "trigger": "Xin Yue reduces a creature to 0 Hit Points and causes them to gain the dying condition",
+      "save": {
+        "defense": "will",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is empowered by the experience and gains fast healing 5 for 1 minute.",
+          "success": "The creature is empowered by the experience and gains fast healing 1 for 1 minute.",
+          "failure": "The creature becomes depressed by the experience and becomes stupefied 1 for 24 hours.",
+          "criticalFailure": "The creature reels from the experience. They become stupefied 1 and doomed 1."
+        }
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous divine Spells",
+      "type": "spontaneous",
+      "tradition": "divine",
+      "dc": 25,
+      "attackBonus": 17,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "Cantrips (4th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "divine lance",
+              "uses": null
+            },
+            {
+              "name": "guidance",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st (4 slots)",
+          "spells": [
+            {
+              "name": "command",
+              "uses": null
+            },
+            {
+              "name": "fear",
+              "uses": null
+            },
+            {
+              "name": "ray of enfeeblement",
+              "uses": null
+            },
+            {
+              "name": "sanctuary",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd (4 slots)",
+          "spells": [
+            {
+              "name": "deafness",
+              "uses": null
+            },
+            {
+              "name": "harm",
+              "uses": null
+            },
+            {
+              "name": "sound burst",
+              "uses": null
+            },
+            {
+              "name": "spiritual weapon",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd (4 slots)",
+          "spells": [
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "crisis of faith",
+              "uses": null
+            },
+            {
+              "name": "harm",
+              "uses": null
+            },
+            {
+              "name": "vampiric touch",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th (3 slots)",
+          "spells": [
+            {
+              "name": "air walk",
+              "uses": null
+            },
+            {
+              "name": "divine wrath",
+              "uses": null
+            },
+            {
+              "name": "harm",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 33
+      }
+    ],
+    "items": []
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

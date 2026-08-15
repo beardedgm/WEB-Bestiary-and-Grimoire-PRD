@@ -1,0 +1,282 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:cave-giant",
+  "name": "Cave Giant",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 182,
+    "path": "monsters/5e/creature_codex/cave-giant.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 10,
+    "xp": 5900,
+    "display": "10"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "giant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 0,
+    "con": 6,
+    "int": -1,
+    "wis": 1,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 27,
+    "dex": 10,
+    "con": 22,
+    "int": 8,
+    "wis": 13,
+    "cha": 6
+  },
+  "perception": {
+    "mod": 5,
+    "passive": 15
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Giant"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 12
+    },
+    {
+      "name": "Perception",
+      "mod": 5
+    },
+    {
+      "name": "Survival",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 200,
+        "note": null,
+        "formula": "16d12+96"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 4
+      },
+      {
+        "name": "con",
+        "mod": 10
+      },
+      {
+        "name": "wis",
+        "mod": 5
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Sunlight Petrification",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the giant starts its turn in sunlight, it takes 20 radiant damage. While in sunlight, it moves at half speed and has disadvantage on attack rolls and ability checks. If the giant is reduced to 0 hp while in sunlight, it is petrified."
+      ],
+      "condition": {
+        "name": "petrified",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The giant makes three attacks: two with its handaxe and one with its tusks."
+      ]
+    },
+    {
+      "name": "Handaxe",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +12 to hit, reach 10 ft. or range 20/60 ft., one target. Hit: 18 (3d6 + 8) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 12,
+        "map": [
+          12
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        },
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+8",
+          "average": 18,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Tusks",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +12 to hit, reach 10 ft., one target. Hit: 22 (4d6 + 8) slashing damage, and if the target is a Large or smaller creature it must succeed on a DC 20 Strength saving throw or be knocked prone."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 12,
+        "map": [
+          12
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6+8",
+          "average": 22,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Rock",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Weapon Attack: +12 to hit, range 60/240 ft., one target. Hit: 30 (4d10 + 8) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "weapon",
+        "bonus": 12,
+        "map": [
+          12
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+8",
+          "average": 30,
+          "type": "bludgeoning"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

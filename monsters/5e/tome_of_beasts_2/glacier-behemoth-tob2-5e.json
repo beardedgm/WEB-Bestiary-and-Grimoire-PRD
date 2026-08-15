@@ -1,0 +1,258 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:glacier-behemoth",
+  "name": "Glacier Behemoth",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 177,
+    "path": "monsters/5e/tome_of_beasts_2/glacier-behemoth.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 12,
+    "xp": 8400,
+    "display": "12"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": -4,
+    "con": 5,
+    "int": -3,
+    "wis": 2,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 24,
+    "dex": 3,
+    "con": 21,
+    "int": 4,
+    "wis": 14,
+    "cha": 7
+  },
+  "perception": {
+    "mod": 6,
+    "passive": 16
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "tremorsense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 11
+    },
+    {
+      "name": "Perception",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 172,
+        "note": null,
+        "formula": "15d12+75"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 9
+      },
+      {
+        "name": "wis",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold"
+      ],
+      "conditions": [
+        "grappled",
+        "prone",
+        "restrained"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "burrow": 20,
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Ground Disruptor",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the glacier behemoth moves, it can choose to make the area it moves through difficult terrain. When it uses Inexorable Charge, it automatically makes the ground difficult terrain."
+      ]
+    },
+    {
+      "name": "Unstoppable",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Difficult terrain composed of ice, rocks, sand, or natural vegetation, living or dead, doesn't cost the glacier behemoth extra movement. Its speed can't be reduced by any effect."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The glacier behemoth makes two bite attacks."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +11 to hit, reach 5 ft., one creature. Hit: 33 (4d12 + 7) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 11,
+        "map": [
+          11
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d12+7",
+          "average": 33,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Inexorable Charge",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "If the glacier behemoth moves at least 10 feet, it can then use this action to continue moving in a 40-foot line that is 15 feet wide. Each creature in this line must make a DC 17 Dexterity saving throw. On a failure, a creature takes 35 (10d6) bludgeoning damage and is knocked prone. On a success, a creature takes half the damage and isn't knocked prone. The glacier behemoth's movement along this line doesn't provoke opportunity attacks."
+      ],
+      "damage": [
+        {
+          "formula": "10d6",
+          "average": 35,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 17,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "line",
+        "size": 40,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

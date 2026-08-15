@@ -1,0 +1,356 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:ogre-flesh-heap",
+  "name": "Ogre Flesh Heap",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 436,
+    "path": "monsters/5e/a5e_monstrous_menagerie/ogre-flesh-heap-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": -2,
+    "con": 4,
+    "int": -4,
+    "wis": -1,
+    "cha": -3
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 6,
+    "con": 18,
+    "int": 3,
+    "wis": 8,
+    "cha": 4
+  },
+  "perception": {
+    "mod": null,
+    "passive": 8
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Giant but can't speak"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 11,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 59,
+        "note": null,
+        "formula": "7d10+28"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "fatigue",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Undead Fortitude",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the zombie is reduced to 0 hit points by damage that isnt radiant or from a critical hit, its instead reduced to 1 hit point, falls prone, and is stunned until the end of its next turn, appearing to be dead."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Undead Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A zombie doesnt require air, sustenance, or sleep."
+      ]
+    },
+    {
+      "name": "Greatclub",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) bludgeoning damage  and if the target is a Medium or smaller creature  it makes a DC 14 Strength saving throw  falling prone on a failure."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+4",
+          "average": 13,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Sweeping Strike",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft.  all creatures within 5 feet. Hit: 8 (1d8 + 4) bludgeoning damage  and if the target is a Medium or smaller creature  it makes a DC 14 Strength saving throw. On a failure  it is pushed 10 feet away from the ogre."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": 8,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Grab",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) bludgeoning damage  and the target is grappled if its Medium or smaller (escape DC 14)  and until the grapple ends  the zombie can't grab another target."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": 11,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target grappled by a zombie. Hit: 15 (2d10 + 4) piercing damage  and the zombie regains hit points equal to the damage dealt"
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+4",
+          "average": 15,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Bodyblock",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "If the ogre flesh heap is grappling a creature when it is hit with a weapon attack by a creature it can see, it uses the creature as a shield, adding 2 to its AC against the attack. If this causes the attack to miss, the attack hits the grappled creature instead."
+      ]
+    },
+    {
+      "name": "Corpulent Expulsion (Recharge 6",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When it takes damage, the ogre flesh heaps belly splits and releases a torrent of caustic gore in a 30-foot cone. Creatures in this area make a DC 14 Dexterity saving throw, taking 14 (4d6) acid damage on a failure and half damage on a success. The flesh heap then takes 10 (3d6) acid damage."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "acid"
+        },
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

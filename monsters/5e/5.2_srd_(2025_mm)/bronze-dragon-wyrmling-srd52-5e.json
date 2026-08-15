@@ -1,0 +1,272 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd52:bronze-dragon-wyrmling",
+  "name": "Bronze Dragon Wyrmling",
+  "gameSystem": "dnd5e",
+  "variant": "srd52",
+  "source": {
+    "code": "5.2_srd_(2025_mm)",
+    "name": null,
+    "page": null,
+    "path": "monsters/5e/5.2_srd_(2025_mm)/bronze_dragon_wyrmling_mm_2024.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 2,
+    "xp": 450,
+    "display": "2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "metallic"
+    ],
+    "rarity": null,
+    "alignment": {
+      "raw": "Lawful Good",
+      "lawChaos": "lawful",
+      "goodEvil": "good"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 0,
+    "con": 2,
+    "int": 1,
+    "wis": 0,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 17,
+    "dex": 10,
+    "con": 15,
+    "int": 12,
+    "wis": 11,
+    "cha": 15
+  },
+  "perception": {
+    "mod": 4,
+    "passive": 14
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 10,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 4
+    },
+    {
+      "name": "Stealth",
+      "mod": 2
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 39,
+        "note": null,
+        "formula": "6d8+12"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 3
+      },
+      {
+        "name": "dex",
+        "mod": 2
+      },
+      {
+        "name": "con",
+        "mod": 2
+      },
+      {
+        "name": "int",
+        "mod": 1
+      },
+      {
+        "name": "wis",
+        "mod": 2
+      },
+      {
+        "name": "cha",
+        "mod": 2
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "Lightning"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 60,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Amphibious",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dragon can breathe air and water."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes two Rend attacks."
+      ]
+    },
+    {
+      "name": "Rend",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee Attack Roll:* +5, reach 5 ft. 8 (1d10 + 3) Slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10+3",
+          "average": 8,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Lightning Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Dexterity Saving Throw*: DC 12, each creature in a 40-foot-long, 5-foot-wide Line. *Failure:*  16 (3d10) Lightning damage. *Success:*  Half damage."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "3d10",
+          "average": 16,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Repulsion Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Strength Saving Throw*: DC 12, each creature in a 30-foot Cone. *Failure:*  The target is pushed up to 30 feet straight away from the dragon and has the Prone condition."
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {}
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "initiative": 2
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

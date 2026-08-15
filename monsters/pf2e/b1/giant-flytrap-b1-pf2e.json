@@ -1,0 +1,250 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:giant-flytrap",
+  "name": "Giant Flytrap",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/giant-flytrap.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "huge",
+      "mindless",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 5,
+    "con": 5,
+    "int": -5,
+    "wis": 3,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 23
+    },
+    {
+      "name": "Stealth",
+      "mod": 21
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 29,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 185,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 21
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Quick Capture",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The flytrap makes a leaf Strike against the triggering creature. If it hits, the creature is grabbed in that leaf."
+      ],
+      "trigger": "A creature hits or touches the flytrap."
+    },
+    {
+      "name": "leaf",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+7",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "entries": [
+        "Improved Grab",
+        "Improved Grab"
+      ]
+    },
+    {
+      "name": "Focused Assault",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The flytrap attacks a single target all four of its leaves. The flytrap makes one leaf Strike. On a success, the flytrap deals the damage from one leaf Strike plus an additional 1d8 damage for every leaf beyond the first. On a failure, the flytrap deals the damage from one leaf Strike, but it can't use Improved Grab. It deals no damage on a critical failure. This counts toward the flytrap's multiple attack penalty as a number of attacks equal to the number of leaves the flytrap has."
+      ]
+    },
+    {
+      "name": "Hungry Flurry",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The flytrap makes four leaf Strikes at a –2 penalty, each against a different target. These attacks count toward the flytrap's multiple attack penalty, but the multiple attack penalty doesn't increase until after it makes all its attacks."
+      ]
+    },
+    {
+      "name": "Swallow Whole",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "Large, 2d8+3 bludgeoning plus 2d6 acid, Rupture 17."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Plant",
+        "skill": "Nature",
+        "dc": 27
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,289 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:geist",
+  "name": "Geist",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/geist.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "medium",
+      "incorporeal",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 5,
+    "con": 0,
+    "int": 2,
+    "wis": 2,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 20
+    },
+    {
+      "name": "Deception",
+      "mod": 18
+    },
+    {
+      "name": "Intimidation",
+      "mod": 20
+    },
+    {
+      "name": "Religion",
+      "mod": 17
+    },
+    {
+      "name": "Stealth",
+      "mod": 20
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 26,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 120,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 13
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 17
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "paralyze"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all damage",
+        "amount": 10,
+        "note": "except force, ghost touch, or positive; double resistance vs. non-magical"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Power of the Haunt",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If a geist is within 100 feet of a haunt that isn't disabled or destroyed, they gain a +2 status bonus to AC and saving throws and deal an additional 1d6 negative damage with bite Strikes. A creature that succeeds at a DC 20 check to Seek or Recall Knowledge about the geist sees that the tendrils from the geist's cloak grow thicker and more agitated the closer it gets to the haunt."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "bite",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          16,
+          12
+        ],
+        "traits": [
+          "agile",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d10+11",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Terrifying Laugh",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "divine",
+        "emotion",
+        "enchantment",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "The geist unleashes soul-piercing laughter in a 20-foot emanation, lasting until the beginning of their next turn. Any creature in the area or entering it must succeed at a DC 26 Will save or be overcome with panicked laughter, becoming frightened 2 (or frightened 3 on a critical failure). A creature attempts only one save per Terrifying Laugh, and a creature that succeeds on its saving throw is temporarily immune for 24 hours."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "minute",
+        "text": null
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Wrath of the Haunt",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "The haunt feeds necromantic power into the geist, becoming inactive until the end of the geist's next turn and deactivating the power of the haunt aura until the haunt becomes active again. The edges of the geist's cloak transform into whip-like tendrils that lash out at nearby creatures. Any living creature within 10 feet of the geist takes 4d10 slashing damage plus 4d6 negative damage (DC 28 basic Reflex save)."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "requirements": "The geist is within 100 feet of an active haunt",
+      "save": {
+        "defense": "reflex",
+        "dc": 28,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,437 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe3:scathka",
+  "name": "Scathka",
+  "gameSystem": "pf2e",
+  "variant": "aoe3",
+  "source": {
+    "code": "aoe3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe3/scathka.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "elf",
+      "human"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ne",
+      "medium",
+      "elf",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 4,
+    "con": 0,
+    "int": 5,
+    "wis": 4,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 23,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Draconic",
+    "Elven",
+    "Shadowtongue"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 25
+    },
+    {
+      "name": "Deception",
+      "mod": 20
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 20
+    },
+    {
+      "name": "Occultism",
+      "mod": 25
+    },
+    {
+      "name": "Society",
+      "mod": 23
+    },
+    {
+      "name": "Stealth",
+      "mod": 22
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 31,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 210,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 16
+      },
+      {
+        "name": "ref",
+        "mod": 22
+      },
+      {
+        "name": "will",
+        "mod": 24
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "dagger",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "versatile <S>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d4+1",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "dagger",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "thrown <10 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 10,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d4+1",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Drain Wand",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "On their turn, Scathka casts one spell they've prepared and already cast this day without spending a spell slot. Scathka must still Cast the Spell and meet the spell's other requirements."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      },
+      "requirements": "Scathka hasn't acted yet on their turn"
+    },
+    {
+      "name": "Throw Shadow Blade",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "cold",
+        "manipulate",
+        "occult",
+        "shadow"
+      ],
+      "entries": [
+        "Scathka draws a shadowy glyph on the dagger's blade and flings it at a nearby foe. Scathka makes a ranged Strike with the dagger with the range increment increased to 30 feet. If the Strike hits, it deals 8d6 cold damage (double damage on a critical success) and the target must succeed at a DC 32 Fortitude save or be slowed|CRB|slowed 1 until the end of its next turn (or 1d4 rounds on a critical failure). The dagger loses its shadowy magic as soon as the attack is resolved."
+      ],
+      "requirements": "Scathka is wielding a dagger",
+      "save": {
+        "defense": "fortitude",
+        "dc": 32,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": null,
+          "type": "cold"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Prepared arcane Spells",
+      "type": "prepared",
+      "tradition": "arcane",
+      "dc": 33,
+      "attackBonus": 25,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Cantrips (6th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "ray of frost",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "grim tendrils",
+              "uses": null
+            },
+            {
+              "name": "magic missile",
+              "uses": 2
+            },
+            {
+              "name": "ray of enfeeblement",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "mirror image",
+              "uses": null
+            },
+            {
+              "name": "see invisibility",
+              "uses": null
+            },
+            {
+              "name": "spectral hand",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "ghostly weapon",
+              "uses": null
+            },
+            {
+              "name": "paralyze",
+              "uses": null
+            },
+            {
+              "name": "vampiric touch",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "blink",
+              "uses": null
+            },
+            {
+              "name": "phantasmal killer",
+              "uses": null
+            },
+            {
+              "name": "spell immunity",
+              "uses": null
+            },
+            {
+              "name": "weapon storm",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "black tentacles",
+              "uses": null
+            },
+            {
+              "name": "cone of cold",
+              "uses": null
+            },
+            {
+              "name": "shadow siphon",
+              "uses": null
+            },
+            {
+              "name": "shadow walk",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "mislead",
+              "uses": null
+            },
+            {
+              "name": "phantasmal calamity",
+              "uses": null
+            },
+            {
+              "name": "vampiric exsanguination",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 40
+      }
+    ],
+    "items": [
+      "+1 striking dagger",
+      "+1 leather armor",
+      "spellbook",
+      "wand of manifold missiles (3rd level)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

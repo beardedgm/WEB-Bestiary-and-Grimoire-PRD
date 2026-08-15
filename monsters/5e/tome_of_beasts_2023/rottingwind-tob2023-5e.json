@@ -1,0 +1,261 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:rottingwind",
+  "name": "Rotting Wind",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 311,
+    "path": "monsters/5e/tome_of_beasts_2023/rottingwind-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral Evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 5,
+    "con": 3,
+    "int": 1,
+    "wis": 0,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 14,
+    "dex": 20,
+    "con": 16,
+    "int": 12,
+    "wis": 10,
+    "cha": 10
+  },
+  "perception": {
+    "mod": null,
+    "passive": 11
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "―"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 110,
+        "note": null,
+        "formula": "13d10+39"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "necrotic",
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "grappled",
+        "frightened",
+        "paralyzed",
+        "petrified",
+        "poisoned",
+        "prone",
+        "restrained",
+        "unconscious"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Air Form",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The rotting wind can enter a hostile creature's space and stop there. It can move through a space as narrow as 1 inch wide without squeezing."
+      ]
+    },
+    {
+      "name": "Invisibility",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The rotting wind is invisible."
+      ]
+    },
+    {
+      "name": "Poisonous Aura",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The rotting wind radiates an aura of poison and decay that slowly pollutes the area within 30 feet of it. Each hour the rotting wind stays in a place, nonmagical plants in the aura begin to wither, and water in the aura becomes poisoned. Nonmagical plants in the aura for 24 hours die. A creature that drinks water poisoned by the aura must succeed on a DC 14 Constitution saving throw or contract the tomb rot disease (see the Tomb Rot trait). Creatures immune to the poisoned condition are immune to this disease."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "24 hours",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Tomb Rot",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature infested with this disease manifests symptoms 1d4 days after infection, which include muscle weakness and rotten-smelling breath as its body rots from the inside out. Until the disease is cured, at the end of each long rest, the infected creature must succeed on a DC 14 Constitution saving throw or take 10 (3d6) necrotic damage and suffer one level of exhaustion. This exhaustion lasts until the creature finishes a long rest after the disease is cured. A creature that succeeds on two saving throws recovers from the disease."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Undead Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The rotting wind doesn't require air, food, drink, or sleep."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The rotting wind makes two Wind of Decay attacks. If both attacks hit one creature, the target must succeed on a DC 14 Constitution saving throw or contract the tomb rot disease (see the Tomb Rot trait)."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Wind of Decay",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +8 to hit, reach 0 ft., one target in the rotting wind's space. Hit: 12 (2d6 + 5) bludgeoning damage plus 10 (3d6) necrotic damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 0,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+5",
+          "average": 12,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "necrotic"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

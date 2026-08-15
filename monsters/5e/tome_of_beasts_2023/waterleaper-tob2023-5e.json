@@ -1,0 +1,262 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:waterleaper",
+  "name": "Water Leaper",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 394,
+    "path": "monsters/5e/tome_of_beasts_2023/waterleaper-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 2,
+    "con": 2,
+    "int": -3,
+    "wis": 1,
+    "cha": -3
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 14,
+    "con": 15,
+    "int": 4,
+    "wis": 12,
+    "cha": 5
+  },
+  "perception": {
+    "mod": null,
+    "passive": 11
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 97,
+        "note": null,
+        "formula": "13d10+26"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "fly": 5
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Amphibious",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The water leaper can breathe air and water."
+      ]
+    },
+    {
+      "name": "Underwater Camouflage",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The water leaper has advantage on Dexterity (Stealth) checks made while underwater."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The water leaper makes one Bite attack and one Stinger attack."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) piercing damage, and the target is grappled (escape DC 13). Until this grapple ends, the target is restrained, and the water leaper can't Bite another target."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "piercing"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Stinger",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 12 (2d8 + 3) piercing damage, and the target must succeed on a DC 13 Constitution saving throw or be poisoned for 1 minute. While poisoned in this way, the creature takes 5 (2d4) poison damage at the start of each of its turns. A poisoned creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Swallow",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The water leaper makes a Bite attack against a Medium or smaller creature it is grappling. If the attack hits, the target is also swallowed, and the grapple ends. While swallowed, the target is blinded and restrained, it has total cover against attacks and other effects outside the water leaper, and it takes 7 (2d6) acid damage at the start of each of the water leaper's turns. The water leaper can have only one creature swallowed at a time."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "acid"
+        }
+      ],
+      "condition": {
+        "name": "blinded",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

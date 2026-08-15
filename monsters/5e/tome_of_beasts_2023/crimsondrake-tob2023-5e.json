@@ -1,0 +1,295 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:crimsondrake",
+  "name": "Crimson Drake",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 141,
+    "path": "monsters/5e/tome_of_beasts_2023/crimsondrake-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 1,
+    "xp": 200,
+    "display": "1"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Chaotic Evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 2,
+    "con": 2,
+    "int": -1,
+    "wis": -1,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 10,
+    "dex": 14,
+    "con": 14,
+    "int": 8,
+    "wis": 9,
+    "cha": 14
+  },
+  "perception": {
+    "mod": 1,
+    "passive": 11
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 4
+    },
+    {
+      "name": "Perception",
+      "mod": 1
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 45,
+        "note": null,
+        "formula": "10d4+20"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 80,
+      "fly": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The drake has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The crimson drake makes one Bite attack and one Stinger attack."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage plus 3 (1d6) fire damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": 5,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Stinger",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 4 (1d4 + 2) piercing damage, and the target must succeed on a DC 12 Constitution saving throw or become poisoned for 1 minute. If the saving throw fails by 5 or more, the target takes 2 (1d4) poison damage at the start of each of its turns while poisoned. A poisoned creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+2",
+          "average": 4,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d4",
+          "average": 2,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Fire Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The drake exhales fire in a 15-foot cone. Each creature in that area must make a DC 12 Dexterity saving throw, taking 10 (3d6) fire damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Familiar",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The drake can serve another creature as a familiar, forming a magic, telepathic bond with that willing companion. While the two are bonded, the companion can sense what the drake senses as long as they are within 1 mile of each other. While the drake is within 10 feet of its companion, the companion shares the drake's Magic Resistance trait. At any time and for any reason, the drake can end its service as a familiar, ending the telepathic bond."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

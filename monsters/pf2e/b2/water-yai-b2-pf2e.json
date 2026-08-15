@@ -1,0 +1,517 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:water-yai",
+  "name": "Water Yai",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/water-yai.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 17,
+    "xp": null,
+    "display": "Creature 17"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "fiend",
+      "giant",
+      "humanoid",
+      "oni"
+    ],
+    "subtypes": [
+      "water"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "huge",
+      "fiend",
+      "giant",
+      "humanoid",
+      "oni",
+      "water"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 6,
+    "con": 6,
+    "int": 5,
+    "wis": 9,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 32,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Jotun"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 30
+    },
+    {
+      "name": "Arcana",
+      "mod": 29
+    },
+    {
+      "name": "Athletics",
+      "mod": 33
+    },
+    {
+      "name": "Deception",
+      "mod": 32
+    },
+    {
+      "name": "Intimidation",
+      "mod": 32
+    },
+    {
+      "name": "Nature",
+      "mod": 29
+    },
+    {
+      "name": "Performance",
+      "mod": 33
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 40,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 295,
+        "formula": null,
+        "note": "regeneration 15 (deactivated by acid and fire)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 27
+      },
+      {
+        "name": "ref",
+        "mod": 29
+      },
+      {
+        "name": "will",
+        "mod": 34
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "fly": 40,
+      "swim": 50
+    },
+    "special": [
+      "water walk"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Shocking Douse",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The water yai flourishes their kimono and attempts a Performance check to counteract the spell before it comes into effect. If the yai counters the spell, the triggering creature takes 9d6 electricity damage from electrified water that sprays from the kimono (DC 35 basic Reflex save)."
+      ],
+      "trigger": "A creature within 100 feet casts a fire spell",
+      "save": {
+        "defense": "reflex",
+        "dc": 35,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "9d6",
+          "average": null,
+          "type": "electricity"
+        }
+      ]
+    },
+    {
+      "name": "longspear",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "evil",
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+15",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "kimono",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          28,
+          23
+        ],
+        "traits": [
+          "electricity",
+          "evil",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+12",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": [
+        "Enveloping Kimono",
+        "Enveloping Kimono"
+      ]
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          29,
+          25
+        ],
+        "traits": [
+          "agile",
+          "evil",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+15",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "electric missile",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          25,
+          20
+        ],
+        "traits": [
+          "electricity",
+          "evil",
+          "magical",
+          "range increment <60 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+12",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": [
+        "flat-footed for 1 round"
+      ]
+    },
+    {
+      "name": "Change Shape",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "polymorph",
+        "primal",
+        "transmutation"
+      ],
+      "entries": [
+        "The water yai takes on the appearance of an storm giant. This doesn't change their Speed or Strike attack and damage. The yai can also turn into a puddle of water, with the effects of gaseous form except they retain their land Speed, double their swim Speed, and can't fly."
+      ]
+    },
+    {
+      "name": "Enveloping Kimono",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "electricity",
+        "manipulate",
+        "primal",
+        "transmutation",
+        "water"
+      ],
+      "entries": [
+        "The water yai extends a portion of their kimono to attempt to envelop a creature within 15 feet. The water yai must attempt a Performance check against the creature's Reflex DC."
+      ],
+      "requirements": "The water yai's last action was a successful kimono Strike",
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature takes 20d6 electricity damage and is grabbed until the end of its next turn.",
+          "success": "As critical success, but only 10d6 electricity damage.",
+          "failure": "The target takes 5d6 electricity damage but is not grabbed.",
+          "criticalFailure": "The target is unaffected."
+        }
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 38,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 9,
+          "rankLabel": "Constant (9th)",
+          "spells": [
+            {
+              "name": "water walk",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "charm",
+              "uses": 3
+            },
+            {
+              "name": "darkness",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "control water",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "hydraulic torrent",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "chain lightning",
+              "uses": null
+            },
+            {
+              "name": "horrid wilting",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion, Society",
+        "dc": 36
+      }
+    ],
+    "items": [
+      "+2 greater striking longspear"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

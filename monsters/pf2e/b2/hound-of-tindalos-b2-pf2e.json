@@ -1,0 +1,377 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:hound-of-tindalos",
+  "name": "Hound of Tindalos",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/hound-of-tindalos.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration",
+      "time"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ne",
+      "medium",
+      "aberration",
+      "time"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 6,
+    "con": 2,
+    "int": 6,
+    "wis": 4,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 17
+    },
+    {
+      "name": "Athletics",
+      "mod": 15
+    },
+    {
+      "name": "Occultism",
+      "mod": 17
+    },
+    {
+      "name": "Stealth",
+      "mod": 17
+    },
+    {
+      "name": "Survival",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 25,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 90,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 13
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "controlled"
+      ],
+      "other": [
+        "emotion"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "mental",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "poison",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Otherworldly Mind",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "mental"
+      ],
+      "entries": [
+        "Whenever a creature targets the hound with a mental effect, that creature takes 4d6 mental damage (DC 25 basic Will save). On a critical failure, it also becomes confused for 1d4 rounds."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 25,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    },
+    {
+      "name": "Ripping Gaze",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "evocation",
+        "occult",
+        "visual"
+      ],
+      "entries": [
+        "30 feet. The hound of Tindalos's eyes glow balefully, causing painful but bloodless wounds to rip open in the body of a creature that meets its awful gaze. When a creature ends its turn in the aura's emanation, it takes 4d6 slashing damage (DC 25 basic Fortitude save). A creature that critically succeeds at its save is temporarily immune for 24 hours."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 25,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Vulnerable to Curved Space",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a hound of Tindalos is not adjacent to a structural angle of 90o (or more acute), its resistance to physical damage is suppressed and it becomes sickened 1. It can't recover from this sickened condition, but the condition ends automatically once the hound is again adjacent to a suitable angle."
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+7",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          13,
+          9
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+7",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Angled Entry",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The hound of Tindalos casts a 4th-level dimension door spell, but it must transport itself into a space adjacent to an angle of 90o (or more acute) in the structure or environment around it. For example, it could teleport to a space adjacent to a wall (using the angle between the wall and floor) or a corner in a room, or adjacent to a sizable tree growing straight up out of the ground, but not to a flat plain or a room with only curved corners and edges. Once per day, the hound can use this ability to plane shift to or from the Dimension of Time, with the same restrictions on what angles it can appear next to."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 21,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "haste",
+              "uses": null
+            },
+            {
+              "name": "slow",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimensional anchor",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "discern location",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 28
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

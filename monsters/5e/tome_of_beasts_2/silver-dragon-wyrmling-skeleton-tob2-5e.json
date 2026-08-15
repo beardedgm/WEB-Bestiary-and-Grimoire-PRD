@@ -1,0 +1,221 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:silver-dragon-wyrmling-skeleton",
+  "name": "Silver Dragon Wyrmling Skeleton",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 113,
+    "path": "monsters/5e/tome_of_beasts_2/silver-dragon-wyrmling-skeleton.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 2,
+    "xp": 450,
+    "display": "2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "lawful evil",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 0,
+    "con": 3,
+    "int": -1,
+    "wis": 0,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 19,
+    "dex": 10,
+    "con": 17,
+    "int": 8,
+    "wis": 10,
+    "cha": 8
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 10,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands all languages it knew in life but can’t speak"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 45,
+        "note": null,
+        "formula": "6d8+18"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 2
+      },
+      {
+        "name": "con",
+        "mod": 5
+      },
+      {
+        "name": "wis",
+        "mod": 2
+      },
+      {
+        "name": "cha",
+        "mod": 1
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold",
+        "poison"
+      ],
+      "conditions": [
+        "exhaustion",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 9 (1d10 + 4) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10+4",
+          "average": 9,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Breath Weapons",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon uses one of the following breath weapons: <br>* Shard Breath. The skeleton exhales a 15-foot cone of bone shards. Each creature in that area must make a DC 13 Dexterity saving throw, taking 18 (4d8) piercing damage on a failed save, or half as much damage on a successful one. <br>* Noxious Breath. The skeleton exhales a 15-foot cone of gas. Each creature in the area must succeed on a DC 13 Constitution saving throw or become poisoned for 1 minute. A creature poisoned in this way can repeat the saving throw at the end of each of its turns, ending the poisoned condition on itself on a success."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": 18,
+          "type": "piercing"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

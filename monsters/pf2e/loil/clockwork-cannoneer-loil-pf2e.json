@@ -1,0 +1,330 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:loil:clockwork-cannoneer",
+  "name": "Clockwork Cannoneer",
+  "gameSystem": "pf2e",
+  "variant": "loil",
+  "source": {
+    "code": "loil",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/loil/clockwork-cannoneer.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "clockwork",
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "huge",
+      "clockwork",
+      "construct",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 8,
+    "con": 6,
+    "int": -5,
+    "wis": 4,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 30
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 38,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 250,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 27
+      },
+      {
+        "name": "ref",
+        "mod": 29
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy",
+        "nonlethal attacks"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except adamantine or orichalcum"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "electricity",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "orichalcum",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "bore",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 28,
+        "map": [
+          28,
+          23,
+          18
+        ],
+        "traits": [
+          "backswing",
+          "shove"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d12+12",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "cannonball",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          24,
+          19
+        ],
+        "traits": [
+          "range increment <100 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d12",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Bombard",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "fire"
+      ],
+      "entries": [
+        "The clockwork cannoneer launches an explosive shot up to a range of 200 feet that explodes in a 20-foot burst. Creatures within the burst take 5d10 bludgeoning damage (DC 36 basic Reflex save)."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 36,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Muzzleburn",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The heat from a discharged cannon sears those who touch its metal shell. The clockwork cannoneer's bore Strike deal an additional 2d6 fire damage until the end of its next turn after it makes a cannonball Strike or uses its Bombard or Powder Blast abilities."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Powder Blast",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "fire"
+      ],
+      "entries": [
+        "The clockwork cannoneer spews flames from one of its cannons, dealing 8d6 fire damage in a 30-foot cone (DC 36 basic Reflex save). Those that fail the save also take 2d6 persistent fire damage."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 36,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 39
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

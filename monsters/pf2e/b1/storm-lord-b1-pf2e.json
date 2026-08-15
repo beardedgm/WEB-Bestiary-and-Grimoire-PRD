@@ -1,0 +1,262 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:storm-lord",
+  "name": "Storm Lord",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/storm-lord.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [
+      "air"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "large",
+      "air",
+      "elemental"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 7,
+    "con": 4,
+    "int": -1,
+    "wis": 3,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 18,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Auran"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 20
+    },
+    {
+      "name": "Stealth",
+      "mod": 18
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 120,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 15
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 75
+    },
+    "special": [
+      "swiftness"
+    ]
+  },
+  "entries": [
+    {
+      "name": "High Winds",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "air",
+        "aura"
+      ],
+      "entries": [
+        "20 feet. Air within the emanation is terrain for Flying creatures that do not have the air trait."
+      ],
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Disperse",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The storm lord disperses. Until the end of the current turn, it can't be attacked or targeted, doesn't take up space, and any auras or emanations it has are suppressed. At the end of the turn, the storm lord reforms in any space in which it can fit within 50 feet of where it dispersed and any auras or emanations it has are restored as long as their duration didn't run out while it was dispersed."
+      ],
+      "trigger": "The living whirlwind takes damage from a hostile action."
+    },
+    {
+      "name": "gust",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [
+          "finesse",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12+10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Push 5 feet"
+      ]
+    },
+    {
+      "name": "lightning lash",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [
+          "range increment <50 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 50,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12+4",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Swiftness",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The storm lord's movement doesn't trigger reactions."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Elemental",
+        "skill": "Arcana, Nature",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

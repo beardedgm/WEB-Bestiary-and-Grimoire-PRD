@@ -1,0 +1,242 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:weirding-scroll",
+  "name": "Weirding Scroll",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 376,
+    "path": "monsters/5e/creature_codex/weirding-scroll.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.5,
+    "xp": 100,
+    "display": "1/2"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 0,
+    "con": 2,
+    "int": 3,
+    "wis": 0,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 1,
+    "dex": 10,
+    "con": 15,
+    "int": 16,
+    "wis": 10,
+    "cha": 8
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "all",
+    "telepathy 120 ft."
+  ],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 10,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 27,
+        "note": null,
+        "formula": "6d4+12"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "wis",
+        "mod": 2
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "psychic"
+      ],
+      "conditions": [
+        "blinded",
+        "charmed",
+        "deafened",
+        "frightened",
+        "paralyzed",
+        "petrified",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "cold; bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 10,
+      "walk": 0
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Antimagic Susceptibility",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The weirding scroll is incapacitated while in the area of an antimagic field. If targeted by dispel magic, the weirding scroll must succeed on a Constitution saving throw against the caster's spell save DC or fall unconscious for 1 minute."
+      ],
+      "condition": {
+        "name": "incapacitated",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "False Appearance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While the weirding scroll remains motionless, it is indistinguishable from a normal scroll."
+      ]
+    },
+    {
+      "name": "Dominate",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "A weirding scroll beguiles one humanoid that it can see within 30 feet. The target must succeed on a DC 13 Wisdom saving throw or be charmed for 1 hour. The charmed creature obeys the telepathic commands of the weirding scroll to the best of its ability. This action works like the dominate person spell, except the weirding scroll doesn't need to concentrate to maintain the domination, and it can't take total and precise control of the target. The weirding scroll can have only one humanoid under its control at one time. If it dominates another, the effect on the previous target ends."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "charmed",
+        "duration": "1 hour",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Tendril of Light",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Spell Attack: +5 to hit, reach 10 ft., one target. Hit: 3 (1d6) psychic damage plus 3 (1d6) radiant damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "spell",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "psychic"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "radiant"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

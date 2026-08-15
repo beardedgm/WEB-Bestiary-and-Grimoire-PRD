@@ -1,0 +1,450 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa4:king-harral",
+  "name": "King Harral",
+  "gameSystem": "pf2e",
+  "variant": "aoa4",
+  "source": {
+    "code": "aoa4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa4/king-harral.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 14,
+    "xp": null,
+    "display": "Creature 14"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "le",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 5,
+    "con": 0,
+    "int": 7,
+    "wis": 5,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Celestial",
+    "Draconic",
+    "Dwarven",
+    "Necril",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 29
+    },
+    {
+      "name": "Crafting",
+      "mod": 25
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 27
+    },
+    {
+      "name": "Intimidation",
+      "mod": 27
+    },
+    {
+      "name": "Religion",
+      "mod": 25
+    },
+    {
+      "name": "Society",
+      "mod": 23
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 35,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 195,
+        "formula": null,
+        "note": "negative healing, rejuvenation"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 24
+      },
+      {
+        "name": "will",
+        "mod": 28
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. positive",
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "paralysis"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except magic bludgeoning"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "60 feet, DC 33"
+      ],
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 33,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Rejuvenation",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "necromancy"
+      ],
+      "entries": [
+        "24 hours after King Harral is destroyed, his body rebuilds itself on his throne (or, if the throne is destroyed, on the site where the throne once sat), similarly to how a lich's body is restored via its phylactery. If all of Saggorak's buildings are destroyed, or if heroes perform a great service in saving Saggorak (see Concluding the Adventure) King Harral loses this ability."
+      ]
+    },
+    {
+      "name": "Counterspell",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The king expends a prepared spell to counter the triggering creature's casting of that same spell. He can then attempt to dispel the triggering spell."
+      ],
+      "trigger": "A creature casts a spell King Harral has prepared."
+    },
+    {
+      "name": "thundering maul",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 28,
+        "map": [
+          28,
+          23,
+          18
+        ],
+        "traits": [
+          "magical",
+          "shove"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12+12",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "sonic"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Steady Spellcasting",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If another creature's reaction would disrupt King Harral's spell, he attempts a DC 15 flat check. If he succeeds, the spell isn't disrupted."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Prepared arcane Spells",
+      "type": "prepared",
+      "tradition": "arcane",
+      "dc": 35,
+      "attackBonus": 27,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 7,
+          "rankLabel": "Cantrips (7th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "electric arc",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "fleet step",
+              "uses": null
+            },
+            {
+              "name": "ray of enfeeblement",
+              "uses": 2
+            },
+            {
+              "name": "true strike",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "deafness",
+              "uses": null
+            },
+            {
+              "name": "false life",
+              "uses": null
+            },
+            {
+              "name": "mirror image",
+              "uses": null
+            },
+            {
+              "name": "see invisibility",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "magic missile",
+              "uses": 2
+            },
+            {
+              "name": "vampiric touch",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            },
+            {
+              "name": "fire shield",
+              "uses": null
+            },
+            {
+              "name": "fly",
+              "uses": null
+            },
+            {
+              "name": "freedom of movement",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "black tentacles",
+              "uses": 2
+            },
+            {
+              "name": "cloudkill",
+              "uses": null
+            },
+            {
+              "name": "dispel magic",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "disintegrate",
+              "uses": 2
+            },
+            {
+              "name": "vampiric exsanguination",
+              "uses": null
+            },
+            {
+              "name": "wall of force",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "duplicate foe",
+              "uses": null
+            },
+            {
+              "name": "eclipse burst",
+              "uses": null
+            },
+            {
+              "name": "reverse gravity",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 42
+      }
+    ],
+    "items": [
+      "+1 resilient full plate",
+      "+2 thundering striking maul",
+      "wand of smoldering fireballs (7th-level fireball)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

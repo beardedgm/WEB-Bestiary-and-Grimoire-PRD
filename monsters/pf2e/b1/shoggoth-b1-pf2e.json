@@ -1,0 +1,285 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:shoggoth",
+  "name": "Shoggoth",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/shoggoth.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [
+      "amphibious"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "cn",
+      "huge",
+      "aberration",
+      "amphibious"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 6,
+    "con": 9,
+    "int": -3,
+    "wis": 6,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 34,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Aklo"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 36
+    },
+    {
+      "name": "Intimidation",
+      "mod": 29
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 39,
+      "note": "all-around vision abilities"
+    },
+    "hp": [
+      {
+        "value": 275,
+        "formula": null,
+        "note": "fast healing 20"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 33
+      },
+      {
+        "name": "ref",
+        "mod": 30
+      },
+      {
+        "name": "will",
+        "mod": 30
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "precision"
+      ],
+      "conditions": [
+        "blinded",
+        "controlled",
+        "deafened"
+      ],
+      "other": [
+        "critical hits",
+        "sleep"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "cold",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "sonic",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "swim": 50,
+      "climb": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Maddening Cacophony",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "auditory",
+        "aura",
+        "incapacitation",
+        "mental"
+      ],
+      "entries": [
+        "60 feet. A shoggoth constantly voices syllables and mutterings that mortals were not meant to hear. A creature entering the aura or starting its turn in the aura must succeed at a DC 38 Will save or become confused for 1 round (2d4 rounds on a critical failure). A creature that successfully saves is temporarily immune for 24 hours."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "pseudopod",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "magical",
+          "reach <30 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+18",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Constrict",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "2d10+15 bludgeoning."
+      ]
+    },
+    {
+      "name": "Eat Away",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that begins its turn inside the shoggoth takes 9d6 acid damage."
+      ],
+      "damage": [
+        {
+          "formula": "9d6",
+          "average": null,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "Engulf",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "DC 40, 6d6 acid, Escape DC 40, Rupture 40."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 43
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

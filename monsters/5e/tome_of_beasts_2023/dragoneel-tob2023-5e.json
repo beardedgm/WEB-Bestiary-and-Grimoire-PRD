@@ -1,0 +1,344 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:dragoneel",
+  "name": "Dragon Eel",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 111,
+    "path": "monsters/5e/tome_of_beasts_2023/dragoneel-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 12,
+    "xp": 8400,
+    "display": "12"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 1,
+    "con": 5,
+    "int": 2,
+    "wis": 1,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 26,
+    "dex": 12,
+    "con": 20,
+    "int": 14,
+    "wis": 13,
+    "cha": 14
+  },
+  "perception": {
+    "mod": 5,
+    "passive": 15
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic",
+    "Primordial"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 5
+    },
+    {
+      "name": "Athletics",
+      "mod": 12
+    },
+    {
+      "name": "Insight",
+      "mod": 5
+    },
+    {
+      "name": "Perception",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 195,
+        "note": null,
+        "formula": "17d12+85"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 12
+      },
+      {
+        "name": "dex",
+        "mod": 5
+      },
+      {
+        "name": "int",
+        "mod": 6
+      },
+      {
+        "name": "wis",
+        "mod": 5
+      },
+      {
+        "name": "cha",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "lightning"
+      ],
+      "conditions": [
+        "paralyzed",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Limited Amphibiousness",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dragon eel can breathe air and water, but it needs to be submerged at least once every 6 hours to avoid suffocating."
+      ]
+    },
+    {
+      "name": "Shocking Hide",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that touches the dragon eel or hits it with a melee attack while within 5 feet of it takes 5 (1d10) lightning damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d10",
+          "average": 5,
+          "type": "lightning"
+        }
+      ]
+    },
+    {
+      "name": "Storm Glide",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "During storms with ample rain or lightning, the dragon eel gains a flying speed equal to its swimming speed."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon eel makes one Bite attack and one Tail Slap attack."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +12 to hit, reach 10 ft., one target. Hit: 26 (4d8 + 8) piercing damage plus 5 (1d10) lightning damage, and the target must succeed on a DC 18 Constitution saving throw or become paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 12,
+        "map": [
+          12
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+8",
+          "average": 26,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d10",
+          "average": 5,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "paralyzed",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Tail Slap",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +12 to hit, reach 10 ft., one target. Hit: 30 (5d8 + 8) bludgeoning damage plus 5 (1d10) lightning damage, and the target must succeed on a DC 18 Strength saving throw or be pushed up to 10 feet away from the eel. The dragon eel can choose to not push a target."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 12,
+        "map": [
+          12
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d8+8",
+          "average": 30,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d10",
+          "average": 5,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Lightning Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon eel exhales lightning in a 60-foot line that is 5 feet wide. Each target in that line must make a DC 18 Dexterity saving throw, taking 55 (10d10) lightning damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "damage": [
+        {
+          "formula": "10d10",
+          "average": 55,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "line",
+        "size": 60,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

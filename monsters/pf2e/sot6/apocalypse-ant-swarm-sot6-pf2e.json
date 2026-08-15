@@ -1,0 +1,223 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot6:apocalypse-ant-swarm",
+  "name": "Apocalypse Ant Swarm",
+  "gameSystem": "pf2e",
+  "variant": "sot6",
+  "source": {
+    "code": "sot6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot6/apocalypse-ant-swarm.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "animal",
+      "swarm"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "n",
+      "gargantuan",
+      "animal",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": -1,
+    "dex": 9,
+    "con": 7,
+    "int": -5,
+    "wis": 6,
+    "cha": -4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 27
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 41,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 260,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 31
+      },
+      {
+        "name": "ref",
+        "mod": 33
+      },
+      {
+        "name": "will",
+        "mod": 27
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "swarm mind"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Inexorable",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The apocalypse ant swarm recovers from the slowed and stunned conditions at the end of its turn. It's immune to penalties to its Speeds and ignores terrain and terrain."
+      ]
+    },
+    {
+      "name": "Cling",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The swarm loses 2d8 HP as ants cling to the creature and continue biting, dealing 7d8 persistent piercing damage. High winds or immersion in water reduces the DC of the flat check to end this persistent damage to 5. Any area damage dealt to the creature destroys these clinging ants."
+      ],
+      "trigger": "A creature leaves the swarm's space"
+    },
+    {
+      "name": "Swarming Bites",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Each enemy in the swarm's space takes 7d8 piercing damage (DC 39 basic Fortitude save). A creature that fails its save against Swarming Bites becomes clumsy 1 for 1 round (1 minute on a critical failure). If the creature attempts a concentrate or manipulate action while affected, it must succeed at a DC 5 flat check or the action is lost; roll the check after spending the action, but before any effects are applied."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 39,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "7d8",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Animal",
+        "skill": "Nature",
+        "dc": 40
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

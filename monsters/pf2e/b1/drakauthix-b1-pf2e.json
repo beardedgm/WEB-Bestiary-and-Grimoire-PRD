@@ -1,0 +1,255 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:drakauthix",
+  "name": "Drakauthix",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/drakauthix.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "fungus"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "huge",
+      "fungus"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 2,
+    "con": 6,
+    "int": -4,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "sporesight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 15
+    },
+    {
+      "name": "Athletics",
+      "mod": 20
+    },
+    {
+      "name": "Stealth",
+      "mod": 17
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 25,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 190,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 21
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Obscuring Spores",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the drakauthix takes at least 10 slashing damage, it releases a cloud of brown spores that has the effect of obscuring mist for 1 minute, centered around the drakauthix. This cloud of spores does not move with the drakauthix, nor is it displaced by its movement."
+      ]
+    },
+    {
+      "name": "tentacle",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [
+          "reach <30 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+9",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Improved Grab",
+        "Improved Grab"
+      ]
+    },
+    {
+      "name": "Reel In",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The drakauthix pulls all creatures it has grabbed 15 feet closer to itself."
+      ]
+    },
+    {
+      "name": "Spore Tendrils",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The tendrils that cover the drakauthix's body reach out and infest adjacent creatures, dealing 4d6 poison damage and 1d6 persistent poison damage. A creature can attempt a basic DC 27 Reflex save to reduce this damage, but one grabbed by the drakauthix takes a –4 circumstance penalty to this save."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 27,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Whirlwind of Hooks",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "]The drakauthix whirls, whipping creatures around it. The drakauthix makes a tentacle Strike against every creature within its reach."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fungus",
+        "skill": "Nature",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

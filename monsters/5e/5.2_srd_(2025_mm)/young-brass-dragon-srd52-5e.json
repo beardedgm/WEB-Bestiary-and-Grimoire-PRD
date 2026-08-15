@@ -1,0 +1,270 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd52:young-brass-dragon",
+  "name": "Young Brass Dragon",
+  "gameSystem": "dnd5e",
+  "variant": "srd52",
+  "source": {
+    "code": "5.2_srd_(2025_mm)",
+    "name": null,
+    "page": null,
+    "path": "monsters/5e/5.2_srd_(2025_mm)/young_brass_dragon_mm_2024.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "metallic"
+    ],
+    "rarity": null,
+    "alignment": {
+      "raw": "Chaotic Good",
+      "lawChaos": "chaotic",
+      "goodEvil": "good"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 0,
+    "con": 3,
+    "int": 1,
+    "wis": 0,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 19,
+    "dex": 10,
+    "con": 17,
+    "int": 12,
+    "wis": 11,
+    "cha": 15
+  },
+  "perception": {
+    "mod": 6,
+    "passive": 16
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 6
+    },
+    {
+      "name": "Persuasion",
+      "mod": 5
+    },
+    {
+      "name": "Stealth",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 110,
+        "note": null,
+        "formula": "13d10+39"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 4
+      },
+      {
+        "name": "dex",
+        "mod": 3
+      },
+      {
+        "name": "con",
+        "mod": 3
+      },
+      {
+        "name": "int",
+        "mod": 1
+      },
+      {
+        "name": "wis",
+        "mod": 3
+      },
+      {
+        "name": "cha",
+        "mod": 2
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "Fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "burrow": 20,
+      "fly": 80
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes three Rend attacks. It can replace two attacks with a use of Sleep Breath."
+      ]
+    },
+    {
+      "name": "Rend",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee Attack Roll:* +7, reach 10 ft. 15 (2d10 + 4) Slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+4",
+          "average": 15,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Fire Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Dexterity Saving Throw*: DC 14, each creature in a 40-foot-long, 5-foot-wide Line. *Failure:*  38 (11d6) Fire damage. *Success:*  Half damage."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "11d6",
+          "average": 38,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Sleep Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Constitution Saving Throw*: DC 14, each creature in a 30-foot Cone. *Failure:*  The target has the Incapacitated condition until the end of its next turn, at which point it repeats the save. *Second Failure* The target has the Unconscious condition for 1 minute. This effect ends for the target if it takes damage or a creature within 5 feet of it takes an action to wake it."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "initiative": 3
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

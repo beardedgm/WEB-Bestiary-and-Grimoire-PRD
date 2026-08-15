@@ -1,0 +1,304 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:duneshaker-solifugid",
+  "name": "Duneshaker Solifugid",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/duneshaker-solifugid.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "animal"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "gargantuan",
+      "animal"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 7,
+    "con": 7,
+    "int": -5,
+    "wis": 4,
+    "cha": -4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 33
+    },
+    {
+      "name": "Athletics",
+      "mod": 35
+    },
+    {
+      "name": "Stealth",
+      "mod": 33
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 42,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 340,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 31
+      },
+      {
+        "name": "ref",
+        "mod": 33
+      },
+      {
+        "name": "will",
+        "mod": 28
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50,
+      "burrow": 25,
+      "climb": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+17",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          31,
+          27
+        ],
+        "traits": [
+          "agile",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+17",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Earth Shaker",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Each turn, the first time the duneshaker solifugid is adjacent to a Large or smaller creature during a move action it's using, that creature must succeed at a DC 39 Reflex save or fall prone."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 39,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Pounce",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The duneshaker solifugid Strides and makes a Strike at the end of that movement. If the duneshaker solifugid began this action hidden, it remains hidden until after this ability's Strike."
+      ]
+    },
+    {
+      "name": "Rend",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "claw"
+      ]
+    },
+    {
+      "name": "Venom Spray",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "poison"
+      ],
+      "entries": [
+        "The duneshaker solifugid spews toxic barbs at all creatures in a 30-foot cone. Each creature within the area takes 10d6 poison damage (DC 39 basic Fortitude save). A creature that fails its saving throw is blinded for 1d6 rounds (or permanently on a critical failure). The duneshaker solifugid can't use Venom Spray again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 39,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "10d6",
+          "average": null,
+          "type": "poison"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Animal",
+        "skill": "Nature",
+        "dc": 38
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

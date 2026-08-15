@@ -1,0 +1,237 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:mordovermis",
+  "name": "Mordovermis",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/mordovermis_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 2,
+    "con": 2,
+    "int": -2,
+    "wis": 2,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Deep Speech",
+    "telepathy 60 ft."
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 72,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "prone"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "Aberrant Resilience",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aberrant Resilience",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The mordovermis is resistant to the charmed, frightened, paralyzed, and stunned conditions, and it has advantage on saves against spells or effects that would alter its form."
+      ]
+    },
+    {
+      "name": "Sinuous Form",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The mordovermis can easily move through any opening large enough for a Small creature. It can squeeze through any opening large enough for a Tiny creature. The mordovermis's destination must still have suitable room to accommodate its volume."
+      ]
+    },
+    {
+      "name": "Sunlight Sensitivity",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While in sunlight, the mordovermis has disadvantage on attack rolls, and its Perception is 9 when perceiving by sight."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mordovermis makes two Sting attacks. If both Sting attacks hit one Large or smaller creature, the mordovermis can use Consume on the creature without the need for the target to be incapacitated."
+      ],
+      "condition": {
+        "name": "incapacitated",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Sting",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +5 to hit, reach 5 ft., one target. _Hit:_ 7 (1d8+3) piercing damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d8+3",
+          "average": 7,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Consume",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mordovermis wraps its body around an incapacitated creature. The target must make a DC 13 STR save. On a failure, the target takes 5 (2d4) piercing damage and 9 (2d8) acid damage and is grappled (escape DC 13). On a success, the target takes half the damage and isn't grappled. Until this grapple ends, the target is restrained and takes 18 (4d8) acid damage at the start of each of its turns, and the mordovermis can't use Consume."
+      ],
+      "damage": [
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "acid"
+        },
+        {
+          "formula": "4d8",
+          "average": 18,
+          "type": "acid"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Transfixing Gaze",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mordovermis focuses its gaze on one creature it can see within 30 feet of it. The target must succeed on a DC 13 WIS save or be charmed until the end of its next turn. While charmed, the creature is incapacitated and has a speed of 0."
+      ],
+      "condition": {
+        "name": "charmed",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

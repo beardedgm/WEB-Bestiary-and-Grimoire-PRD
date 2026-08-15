@@ -1,0 +1,355 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:fortune-eater",
+  "name": "Fortune Eater",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/fortune-eater.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "spirit",
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "large",
+      "incorporeal",
+      "spirit",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 6,
+    "con": 0,
+    "int": 2,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 13,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 15
+    },
+    {
+      "name": "Intimidation",
+      "mod": 13
+    },
+    {
+      "name": "Performance",
+      "mod": 15
+    },
+    {
+      "name": "Stealth",
+      "mod": 15
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 25,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 100,
+        "formula": null,
+        "note": "negative healing|b2, rejuvenation"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 15
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 13
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all damage",
+        "amount": 5,
+        "note": "except force, ghost touch, or positive; double resistance vs. non-magical"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Rejuvenation",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "Offering the fortune eater a chance to be instrumental in completing a heroic deed releases their component spirits to move on to the afterlife."
+      ]
+    },
+    {
+      "name": "Unluck Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divination",
+        "divine",
+        "mental",
+        "misfortune"
+      ],
+      "entries": [
+        "20 feet. A creature entering the area must attempt a DC 23 Will save, rolling the save twice and using the worse result. On a successful save, the creature is temporarily immune to fortune eater unluck auras for 24 hours. On a failure, the creature must roll twice and use the worse result on all checks as long as it is within the aura."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Luck Osmosis",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "divination",
+        "divine"
+      ],
+      "entries": [
+        "The fortune-eater stores the higher of the two numbers rolled and uses that number in place of their next d20 roll; this is a fortune effect. They can have only one number stored at a time."
+      ],
+      "trigger": "A creature affected by the fortune eater's unluck aura has just rolled two d20s for a check and taken the lower result"
+    },
+    {
+      "name": "ghostly longsword",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "finesse",
+          "magical",
+          "versatile <P>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+8",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d8",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "ghostly light mace",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          13,
+          9
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "shove"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+8",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d8",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "ghostly longbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "deadly <d10>",
+          "magical",
+          "range increment <100 feet>",
+          "volley <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d8",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Team Attack",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Dead teammates coalesce to attack with phantasmal versions of the weapons they used in life. The fortune eater makes a ghostly longsword Strike, ghostly dagger Strike, and ghostly longbow Strike in any order. Each must target a different creature. Their multiple attack penalty doesn't increase until after all the attacks."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Spirit",
+        "skill": "Religion",
+        "dc": 28
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

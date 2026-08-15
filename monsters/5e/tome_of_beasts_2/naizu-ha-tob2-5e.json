@@ -1,0 +1,309 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:naizu-ha",
+  "name": "Naizu-Ha",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 223,
+    "path": "monsters/5e/tome_of_beasts_2/naizu-ha.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 2,
+    "con": 3,
+    "int": 1,
+    "wis": 0,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 17,
+    "dex": 15,
+    "con": 17,
+    "int": 13,
+    "wis": 11,
+    "cha": 13
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 117,
+        "note": null,
+        "formula": "18d6+54"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "blinded",
+        "grappled"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Blunting Ambiance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Each creature that deals piercing or slashing damage with a bladed weapon while within 30 feet of the naizu-ha must roll the damage twice and take the lower result."
+      ]
+    },
+    {
+      "name": "Dagger Form",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As a bonus action, the naizu-ha transforms into a magical dagger. A creature that wields the naizu-ha while it is in this form gains +1 bonus to attack and damage rolls with the dagger, and attacks with the dagger score a critical hit on a roll of 19 or 20. In addition, the wielder can't take the Disengage action unless it succeeds on a DC 12 Wisdom saving throw."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "save": {
+        "defense": "wis",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Spider Climb",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The naizu-ha can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check."
+      ]
+    },
+    {
+      "name": "Tripping Charge",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the naizu-ha moves at least 15 feet straight toward a creature and then hits it with a scythe tail attack on the same turn, that target must succeed on a DC 14 Dexterity saving throw or be knocked prone. If the target is prone, the naizu-ha can make one dagger legs attack against it as a bonus action."
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The naizu-ha makes three attacks: two with its scissor claws and one with its scythe tail. If both scissor claws attacks hit the same target, the target must succeed on a DC 14 Dexterity saving throw or take an extra 7 (2d6) slashing damage."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Scissor Claws",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Scythe Tail",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 12 (2d8 + 3) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Dagger Legs",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one prone creature. Hit: 8 (2d4 + 3) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d4+3",
+          "average": 8,
+          "type": "piercing"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

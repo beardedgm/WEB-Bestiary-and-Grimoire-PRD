@@ -1,0 +1,244 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:blizzardborn",
+  "name": "Blizzardborn",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/blizzardborn.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [
+      "cold",
+      "water"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "medium",
+      "cold",
+      "elemental",
+      "water"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 2,
+    "con": 4,
+    "int": 0,
+    "wis": 4,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "snow vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aquan"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 15
+    },
+    {
+      "name": "Stealth",
+      "mod": 14
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 105,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 16
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 14
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "cold",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": [
+      "ice burrow 20 feet"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Shattering Ice",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "A portion of the blizzardborn's body shatters into an explosion of razor sharp ice crystals and blinding snow that deals 2d6 piercing damage to opponents in a 5-foot emanation (DC 24 basic Reflex save). Anyone who fails is also blinded for 1 round (or 3 rounds on a critical failure)."
+      ],
+      "trigger": "An enemy hits the blizzardborn with an attack that deals physical damage",
+      "area": {
+        "shape": "emanation",
+        "size": 5,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 24,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "ice claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "versatile bludgeoning"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+8",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent cold"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Ice Burrow",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The blizzardborn can Burrow through ice or snow with a."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Elemental",
+        "skill": "Arcana, Nature",
+        "dc": 22
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

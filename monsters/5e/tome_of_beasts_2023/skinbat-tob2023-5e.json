@@ -1,0 +1,206 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:skinbat",
+  "name": "Skin Bat",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 331,
+    "path": "monsters/5e/tome_of_beasts_2023/skinbat-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.5,
+    "xp": 100,
+    "display": "1/2"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral Evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 3,
+    "con": 0,
+    "int": -4,
+    "wis": 1,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 12,
+    "dex": 16,
+    "con": 10,
+    "int": 2,
+    "wis": 13,
+    "cha": 6
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 20,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 28,
+        "note": null,
+        "formula": "8d6"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "fly": 10
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Echolocation",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The skin bat can't use its blindsight while deafened."
+      ]
+    },
+    {
+      "name": "Hungry Dead Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The skin bat doesn't require air or sleep."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 5 (1d4 + 3) piercing damage, and the target must succeed on a DC 10 Constitution saving throw or be paralyzed until the end of its next turn. On a success, the target can't be paralyzed in this way by the skin bat again for 24 hours."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+3",
+          "average": 5,
+          "type": "piercing"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 10,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "paralyzed",
+        "duration": "24 hours",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Attract Bats",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When the skin bat is reduced to below half its hp maximum while underground or outside at night, it releases a high-frequency cry similar to that of an injured bat, attracting other bats to it. On initiative count 20 of the next round, 1d6 bats arrive and aid the skin bat. These bats aren't under the skin bat's control, but they protect it to the best of their abilities, attacking those that harm the skin bat."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

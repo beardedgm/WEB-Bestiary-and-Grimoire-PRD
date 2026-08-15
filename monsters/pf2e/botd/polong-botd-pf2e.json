@@ -1,0 +1,270 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:polong",
+  "name": "Polong",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/polong.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "spirit",
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "medium",
+      "incorporeal",
+      "spirit",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 6,
+    "con": 2,
+    "int": 1,
+    "wis": 5,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "lifesense",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 18
+    },
+    {
+      "name": "Medicine",
+      "mod": 15
+    },
+    {
+      "name": "Occultism",
+      "mod": 13
+    },
+    {
+      "name": "Stealth",
+      "mod": 18
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 100,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 12
+      },
+      {
+        "name": "ref",
+        "mod": 18
+      },
+      {
+        "name": "will",
+        "mod": 19
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all",
+        "amount": 5,
+        "note": "except force, ghost touch, or positive; double resistance vs. non-magical"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 35
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Natural Invisibility",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A polong is naturally invisible outside of their bottle. They become visible only when forced out of a possessed creature against their will. Shattering the polong's bottle also forces them to assume a visible form."
+      ]
+    },
+    {
+      "name": "Regenerating Bond",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "When a polong possesses a creature, the polong's master gains temporary Hit Points equal to the victim's level × the victim's drained value caused by the possession. These temporary Hit Points last as long as the possession lasts."
+      ]
+    },
+    {
+      "name": "scythe claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d4+9",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Polong Possession",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "incapacitation",
+        "mental",
+        "necromancy",
+        "occult",
+        "possession"
+      ],
+      "entries": [
+        "The polong attempts to possess an adjacent corporeal creature. This has the same effect as the possession spell (DC 26 Will), except the duration is 24 hours and, since the polong doesn't have a physical body, they're unaffected by that restriction of the spell. If the target has critically failed its save and become fully possessed by this polong before, it gets a save result one degree of success worse than it rolled. A creature possessed by a polong becomes drained 1 and doomed 1. These conditions don't reduce naturally unless the polong spends an entire day without possessing the creature. For each consecutive day the polong is able to return and possess the creature, the drained and doomed values each increase by 1, to a maximum of 4. If the polong possesses a different creature, the conditions end for any creature it previously possessed."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Rend",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": []
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Spirit",
+        "skill": "Religion",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,285 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:avalanche-screamer",
+  "name": "Avalanche Screamer",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 35,
+    "path": "monsters/5e/tome_of_beasts_2/avalanche-screamer.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 7,
+    "xp": 2900,
+    "display": "7"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": -1,
+    "con": 4,
+    "int": -3,
+    "wis": 1,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 9,
+    "con": 19,
+    "int": 5,
+    "wis": 12,
+    "cha": 8
+  },
+  "perception": {
+    "mod": null,
+    "passive": 11
+  },
+  "senses": [
+    {
+      "name": "tremorsense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 7
+    },
+    {
+      "name": "Stealth",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 133,
+        "note": null,
+        "formula": "14d10+56"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "wis",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bludgeoning",
+        "thunder"
+      ],
+      "conditions": [
+        "frightened",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "burrow": 20,
+      "walk": 40,
+      "climb": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Snow Camouflage",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The avalanche screamer has advantage on Dexterity (Stealth) checks made to hide in snowy terrain."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The avalanche screamer makes three attacks: one with its bite and two with its legs."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 10 ft., one creature. Hit: 13 (2d8 + 4) piercing damage plus 7 (2d6) thunder damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+4",
+          "average": 13,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "thunder"
+        }
+      ]
+    },
+    {
+      "name": "Leg",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 11 (2d6 + 4) piercing damage. If the avalanche screamer scores a critical hit against a creature that is Medium or smaller, the creature is impaled on the screamer's leg and grappled (escape DC 15). Until this grapple ends, the target is restrained and takes 3 (1d6) piercing damage at the start of each of its turns. The avalanche screamer can impale up to four creatures. If it has at least one creature impaled, it can't move. If it has four creatures impaled, it can't make leg attacks. It can release all impaled creatures as a bonus action."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": 11,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "piercing"
+        }
+      ],
+      "condition": {
+        "name": "restrained",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Scream",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The avalanche screamer shrieks thunderously in a 30-foot cone. Each creature in that area must make a DC 15 Dexterity saving throw. On a failure, a creature takes 27 (6d8) thunder damage and is deafened for 1 hour. On a success, a creature takes half as much damage and isn't deafened."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "6d8",
+          "average": 27,
+          "type": "thunder"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "deafened",
+        "duration": "1 hour",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

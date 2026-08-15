@@ -1,0 +1,331 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:sea-serpent",
+  "name": "Sea Serpent",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 386,
+    "path": "monsters/5e/a5e_monstrous_menagerie/sea-serpent-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 16,
+    "xp": 15000,
+    "display": "16"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 0,
+    "con": 6,
+    "int": -3,
+    "wis": 2,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 28,
+    "dex": 10,
+    "con": 22,
+    "int": 4,
+    "wis": 14,
+    "cha": 8
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 247,
+        "note": null,
+        "formula": "15d20+90"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 5
+      },
+      {
+        "name": "con",
+        "mod": 11
+      },
+      {
+        "name": "int",
+        "mod": 2
+      },
+      {
+        "name": "wis",
+        "mod": 7
+      },
+      {
+        "name": "cha",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "swim": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Amphibious",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The serpent can breathe air and water."
+      ]
+    },
+    {
+      "name": "Reactive",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The serpent can take two reactions per round, one with its tail and one with its bite. It can't take two reactions on the same turn."
+      ]
+    },
+    {
+      "name": "Sinuous",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The serpent can share the space of other creatures and objects."
+      ]
+    },
+    {
+      "name": "Coils",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +14 to hit, reach 5 ft., one Large or larger target in its space. Hit: 51 (4d20 + 9) bludgeoning damage. If the target is a creature  it is grappled (escape DC 22). If the target is an object  it is held. Until the grapple or hold ends  the targets speed is reduced to 0  and the sea serpents coils attack automatically hits the target. If an attacker subjects the serpent to a critical hit  this grapple or hold ends."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 14,
+        "map": [
+          14
+        ],
+        "traits": [],
+        "targets": "Until the grapple or hold ends  the targets speed is reduced to 0  and the sea serpents coils attack automatically hits the target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d20+9",
+          "average": 51,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Tail",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +14 to hit, reach 15 ft., one target. Hit: 27 (4d8 + 9) bludgeoning damage. If the target is a creature  it makes a DC 22 Strength saving throw. On a failure  it is pushed up to 15 feet away from the serpent and knocked prone."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 14,
+        "map": [
+          14
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+9",
+          "average": 27,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +14 to hit, reach 15 ft., one target. Hit: 31 (4d10 + 9) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 14,
+        "map": [
+          14
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+9",
+          "average": 31,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Thrash (While Bloodied)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The serpent moves up to its speed and then attacks with its tail and its bite."
+      ]
+    },
+    {
+      "name": "Recover",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The serpent ends one condition or effect on itself."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      }
+    },
+    {
+      "name": "Reactive Bite",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "If the serpent takes 15 damage or more from a melee attack made by a creature it can see, it bites the attacker."
+      ]
+    },
+    {
+      "name": "Reactive Tail",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "If the serpent takes 15 damage or more from an attack made by a creature or object it can see, it makes a tail attack against the attacker."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

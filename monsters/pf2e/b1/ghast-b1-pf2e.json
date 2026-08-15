@@ -1,0 +1,308 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:ghast",
+  "name": "Ghast",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/ghast.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 2,
+    "xp": null,
+    "display": "Creature 2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "ghoul"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "medium",
+      "ghoul",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 4,
+    "con": 2,
+    "int": 1,
+    "wis": 2,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 8,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 10
+    },
+    {
+      "name": "Athletics",
+      "mod": 7
+    },
+    {
+      "name": "Stealth",
+      "mod": 10
+    },
+    {
+      "name": "Survival",
+      "mod": 8
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 30,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 6
+      },
+      {
+        "name": "ref",
+        "mod": 10
+      },
+      {
+        "name": "will",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "burrow": 5
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Stench",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "olfactory"
+      ],
+      "entries": [
+        "10 feet. A creature entering the aura or starting its turn in the aura must succeed at a DC 16 Fortitude save or become sickened 1 (plus slowed 1 as long as it's sickened on a critical failure). While within the aura, the creature takes a –2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 10,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 11,
+        "map": [
+          11,
+          6,
+          1
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+5",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "ghast fever",
+        "paralysis",
+        "ghast fever, paralysis"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 11,
+        "map": [
+          11,
+          7,
+          3
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+5",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "paralysis",
+        "paralysis"
+      ]
+    },
+    {
+      "name": "Consume Flesh",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The ghast regains 3d6 Hit Points. It can regain Hit Points from any given corpse only once."
+      ],
+      "requirements": "The ghast is adjacent to the corpse of a creature that died within the last hour."
+    },
+    {
+      "name": "Ghast Fever",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Paralysis",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "incapacitation",
+        "occult",
+        "necromancy"
+      ],
+      "entries": [
+        "Any living creature hit by a ghast's attack must succeed at a DC 15 Fortitude save or become paralyzed. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Swift Leap",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The ghast jumps up to half its Speed. This movement doesn't trigger reactions."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 16
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

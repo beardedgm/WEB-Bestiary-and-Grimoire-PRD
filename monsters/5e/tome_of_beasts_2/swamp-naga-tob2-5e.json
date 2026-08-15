@@ -1,0 +1,380 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:swamp-naga",
+  "name": "Swamp Naga",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 342,
+    "path": "monsters/5e/tome_of_beasts_2/swamp-naga.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "lawful evil",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 3,
+    "con": 3,
+    "int": 0,
+    "wis": 2,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 16,
+    "con": 17,
+    "int": 11,
+    "wis": 14,
+    "cha": 17
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Nature",
+      "mod": 3
+    },
+    {
+      "name": "Persuasion",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 102,
+        "note": null,
+        "formula": "12d10+36"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 6
+      },
+      {
+        "name": "wis",
+        "mod": 5
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "swim": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Cloud of Insects",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A cloud of biting and stinging insects surrounds the swamp naga. A creature that starts its turn within 5 feet of the naga must make a DC 14 Constitution saving throw. On a failure, a creature takes 9 (2d8) poison damage and is poisoned for 1 minute. On a success, it takes half the damage and isn't poisoned. A poisoned creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. A wind of moderate or greater speed (at least 10 miles per hour) disperses the insect cloud for 1 minute. As a bonus action, the naga can disperse the cloud for 1 minute."
+      ],
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Rejuvenation",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If it dies, the swamp naga returns to life in 1d6 days and regains all its hp. Only a wish spell or removing the naga from its swamp for 1 year can prevent this trait from functioning."
+      ]
+    },
+    {
+      "name": "Insect and Serpent Passivism",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "No insects or serpents can willingly attack the swamp naga. They can be forced to do so through magical means."
+      ]
+    },
+    {
+      "name": "Spellcasting",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The swamp naga is an 8th-level spellcaster. Its spellcasting ability is Charisma (spell save DC 14, +6 to hit with spell attacks), and it needs only verbal components to cast its spells. It knows the following sorcerer spells:",
+        "Cantrips (at will): dancing lights, mage hand, message, poison spray",
+        "1st level (4 slots): charm person, fog cloud, silent image, sleep",
+        "2nd level (3 slots): blindness/deafness, hold person, suggestion",
+        "3rd level (3 slots): hypnotic pattern, stinking cloud, water breathing",
+        "4th level (2 slots): blight"
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 10 ft., one target. Hit: 17 (3d8 + 4) piercing damage plus 13 (3d8) poison damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+4",
+          "average": 17,
+          "type": "piercing"
+        },
+        {
+          "formula": "3d8",
+          "average": 13,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Constrict",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 14 (3d6 + 4) bludgeoning damage, and the target is grappled (escape DC 14). Until this grapple ends, the target is restrained, and the naga can't constrict another target."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+4",
+          "average": 14,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spellcasting",
+      "type": "prepared",
+      "tradition": null,
+      "dc": 14,
+      "attackBonus": 6,
+      "ability": "cha",
+      "levels": [
+        {
+          "rank": 0,
+          "rankLabel": "Cantrips (at will)",
+          "spells": [
+            {
+              "name": "dancing lights",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            },
+            {
+              "name": "poison spray",
+              "uses": null
+            }
+          ],
+          "uses": "at will"
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st level (4 slots)",
+          "spells": [
+            {
+              "name": "charm person",
+              "uses": null
+            },
+            {
+              "name": "fog cloud",
+              "uses": null
+            },
+            {
+              "name": "silent image",
+              "uses": null
+            },
+            {
+              "name": "sleep",
+              "uses": null
+            }
+          ],
+          "slots": 4
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd level (3 slots)",
+          "spells": [
+            {
+              "name": "blindness/deafness",
+              "uses": null
+            },
+            {
+              "name": "hold person",
+              "uses": null
+            },
+            {
+              "name": "suggestion",
+              "uses": null
+            }
+          ],
+          "slots": 3
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd level (3 slots)",
+          "spells": [
+            {
+              "name": "hypnotic pattern",
+              "uses": null
+            },
+            {
+              "name": "stinking cloud",
+              "uses": null
+            },
+            {
+              "name": "water breathing",
+              "uses": null
+            }
+          ],
+          "slots": 3
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th level (2 slots)",
+          "spells": [
+            {
+              "name": "blight",
+              "uses": null
+            }
+          ],
+          "slots": 2
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

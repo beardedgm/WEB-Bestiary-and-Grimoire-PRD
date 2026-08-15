@@ -1,0 +1,399 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:losk:lamp-blighter",
+  "name": "Lamp Blighter",
+  "gameSystem": "pf2e",
+  "variant": "losk",
+  "source": {
+    "code": "losk",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/losk/lamp-blighter.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "small",
+      "fey"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 5,
+    "con": 1,
+    "int": 2,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Fey"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 15
+    },
+    {
+      "name": "Deception",
+      "mod": 13
+    },
+    {
+      "name": "Intimidation",
+      "mod": 13
+    },
+    {
+      "name": "Nature",
+      "mod": 13
+    },
+    {
+      "name": "Stealth",
+      "mod": 15
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 75,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 11
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 14
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "blinded"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold iron",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15,
+      "fly": 45
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          12,
+          8
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d4+7",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "shortbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "deadly <d10>",
+          "magical",
+          "range increment <60 feet>",
+          "reload <0>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Eye Pluck",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The lamp blighter attempts to pluck out one of the required creature's eyes. The target must attempt a DC 21 Fortitude save. On a failure, the target takes 4 persistent damage|PC1|persistent bleed damage and is dazzled|PC1 for 1 round. On a critical failure, the target's eye is also severely damaged, taking a −4 circumstance penalty on all sight-based Perception|PC1 checks until the target returns to full Hit Points or the wound is otherwise healed (by magic such as sound body|PC1 or regenerate|PC1). If all a creature's eyes are severely damaged in this way, that creature is blinded|PC1 for the same duration."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "requirements": "The lamp blighter's last action was a successful claw Strike|PC1 against a creature with eyes",
+      "save": {
+        "defense": "fortitude",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Fear the Darkness",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "concentrate",
+        "emotion",
+        "fear",
+        "mental",
+        "primal"
+      ],
+      "entries": [
+        "The lamp blighter evokes the terror of being unable to see in the dark. Each creature within a 20-foot emanation that doesn't have darkvision must succeed at a DC 23 Will save or become frightened|PC1|frightened 2."
+      ],
+      "requirements": "The lamp blighter must be in an area of darkness",
+      "area": {
+        "shape": "emanation",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Snuff the Light",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "fire",
+        "primal"
+      ],
+      "entries": [
+        "The lamp blighter extinguishes light sources in a 10-foot emanation. They extinguish all non-magical light sources automatically and attempt to extinguish magical light sources with a +16 counteract modifier and a counteract rank of 3. If the lamp blighter successfully extinguishes any light, their next successful claw or shortbow Strike|PC1 deals 1d6 persistent damage|PC1|persistent fire damage."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 10,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 24,
+      "attackBonus": 16,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 3,
+          "rankLabel": "Cantrips (3rd)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "ignition",
+              "uses": null
+            },
+            {
+              "name": "prestidigitation",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "floating flame",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "dispel magic",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 22
+      }
+    ],
+    "items": [
+      "+1 shortbow (60 arrows)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,340 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sf3:mighty-bul-gae",
+  "name": "Mighty Bul-Gae",
+  "gameSystem": "pf2e",
+  "variant": "sf3",
+  "source": {
+    "code": "sf3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sf3/mighty-bul-gae.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 17,
+    "xp": null,
+    "display": "Creature 17"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [
+      "cold",
+      "fire"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "ln",
+      "large",
+      "beast",
+      "cold",
+      "fire"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 5,
+    "con": 8,
+    "int": 5,
+    "wis": 7,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": null,
+      "unit": null,
+      "acuity": "imprecise"
+    },
+    {
+      "name": "60",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 32
+    },
+    {
+      "name": "Intimidation",
+      "mod": 29
+    },
+    {
+      "name": "Stealth",
+      "mod": 30
+    },
+    {
+      "name": "Survival",
+      "mod": 32
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 40,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 310,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 33
+      },
+      {
+        "name": "ref",
+        "mod": 26
+      },
+      {
+        "name": "will",
+        "mod": 30
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Eclipse Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "darkness",
+        "occult"
+      ],
+      "entries": [
+        "100 feet. Light and shadows morph strangely around the bul-gae. A creature attempting to create a light effect within the aura must attempt a DC 5 flat check. On a failure, the attempt fails, the effect is lost, and the DC to counteract darkness effects within the aura is increased by 1."
+      ],
+      "aura": {
+        "range": 100,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Solar Flare",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "evocation",
+        "fire",
+        "occult"
+      ],
+      "entries": [
+        "The bul-gae releases a solar flare in a 30-foot emanation. Each creature in the area takes 6d8 fire damage (DC 38 basic Reflex save). On a critical failure, a creature also takes 2d10 persistent fire damage. After using this ability, the bul-gae's flames cool and they can't use Solar Flare again until after they have used Lunar Burst."
+      ],
+      "trigger": "The bul-gae takes damage",
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 38,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d8",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          28,
+          24
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+17",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "cold or fire"
+        }
+      ],
+      "entries": [
+        "Improved Knockdown"
+      ]
+    },
+    {
+      "name": "Lunar Burst",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "cold",
+        "evocation",
+        "occult"
+      ],
+      "entries": [
+        "The bul-gae releases a blast of otherworldly frost that deals 6d8 cold damage to each creature in a 10-foot emanation (DC 38 basic Reflex save). On a critical failure, a creature also becomes slowed 2. After using this ability, the bul-gae's flames heat up and they can't use Lunar Burst again until after they have used Solar Flare."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 38,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d8",
+          "average": null,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "Shadow Leap",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "conjuration",
+        "occult",
+        "shadow",
+        "teleportation"
+      ],
+      "entries": [
+        "The bul-gae dives into a shadow and reappears from another shadow within 40 feet."
+      ],
+      "requirements": "The bul-gae is in dim light or darkness"
+    },
+    {
+      "name": "Thermal Mastery",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The bul-gae has total control over the powers of cold and fire. Each time they attack with their jaws, they can choose either cold or fire for the additional damage."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 41
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

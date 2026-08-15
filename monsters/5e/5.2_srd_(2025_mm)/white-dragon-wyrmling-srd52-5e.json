@@ -1,0 +1,258 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd52:white-dragon-wyrmling",
+  "name": "White Dragon Wyrmling",
+  "gameSystem": "dnd5e",
+  "variant": "srd52",
+  "source": {
+    "code": "5.2_srd_(2025_mm)",
+    "name": null,
+    "page": null,
+    "path": "monsters/5e/5.2_srd_(2025_mm)/white_dragon_wyrmling_mm_2024.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 2,
+    "xp": 450,
+    "display": "2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "chromatic"
+    ],
+    "rarity": null,
+    "alignment": {
+      "raw": "Chaotic Evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 0,
+    "con": 2,
+    "int": -3,
+    "wis": 0,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 14,
+    "dex": 10,
+    "con": 14,
+    "int": 5,
+    "wis": 10,
+    "cha": 11
+  },
+  "perception": {
+    "mod": 4,
+    "passive": 14
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 10,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 4
+    },
+    {
+      "name": "Stealth",
+      "mod": 2
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 32,
+        "note": null,
+        "formula": "5d8+10"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 2
+      },
+      {
+        "name": "dex",
+        "mod": 2
+      },
+      {
+        "name": "con",
+        "mod": 2
+      },
+      {
+        "name": "int",
+        "mod": -3
+      },
+      {
+        "name": "wis",
+        "mod": 2
+      },
+      {
+        "name": "cha",
+        "mod": 0
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "Cold"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "burrow": 15,
+      "fly": 60,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Ice Walk",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dragon can move across and climb icy surfaces without needing to make an ability check. Additionally, Difficult Terrain composed of ice or snow doesn't cost it extra movement."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes two Rend attacks."
+      ]
+    },
+    {
+      "name": "Rend",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee Attack Roll:* +4, reach 5 ft. 6 (1d8 + 2) Slashing damage plus 2 (1d4) Cold damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+2",
+          "average": 6,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d4",
+          "average": 2,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "Cold Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Constitution Saving Throw*: DC 12, each creature in a 15-foot Cone. *Failure:*  22 (5d8) Cold damage. *Success:*  Half damage."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "5d8",
+          "average": 22,
+          "type": "cold"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "initiative": 2
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

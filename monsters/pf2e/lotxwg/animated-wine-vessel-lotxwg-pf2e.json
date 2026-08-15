@@ -1,0 +1,263 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:lotxwg:animated-wine-vessel",
+  "name": "Animated Wine Vessel",
+  "gameSystem": "pf2e",
+  "variant": "lotxwg",
+  "source": {
+    "code": "lotxwg",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/lotxwg/animated-wine-vessel.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "large",
+      "construct",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 0,
+    "con": 4,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 9,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability darkvision}",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 17
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": "17 when broken, construct armor abilities"
+    },
+    "hp": [
+      {
+        "value": 45,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 11
+      },
+      {
+        "name": "ref",
+        "mod": 7
+      },
+      {
+        "name": "will",
+        "mod": 7
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "mental",
+        "poison",
+        "spirit",
+        "vitality",
+        "void"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "nonlethal attacks"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Construct Armor",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Like normal objects, an animated kite has Hardness. This Hardness reduces any damage it takes by an amount equal to the Hardness. Once an animated kite is reduced to less than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks and its Armor Class is reduced to 17."
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 11,
+        "map": [
+          11,
+          6,
+          1
+        ],
+        "traits": [
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+4",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Spit Wine",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "water"
+      ],
+      "entries": [
+        "The wine vessel opens its mouth and blows a stream of wine in a 15-foot line, dealing 2d8 bludgeoning damage (DC 19 basic Reflex save)."
+      ],
+      "area": {
+        "shape": "line",
+        "size": 15,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 19,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Swallow Whole",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "Medium, 2d8+4 bludgeoning plus wine-soaked, Rupture 10."
+      ]
+    },
+    {
+      "name": "Wine-Soaked",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a creature ends its turn swallow whole|B1|Swallowed Whole by the animated wine vessel, it must succeed at a DC 19 Fortitude save or become sickened 1."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 18
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

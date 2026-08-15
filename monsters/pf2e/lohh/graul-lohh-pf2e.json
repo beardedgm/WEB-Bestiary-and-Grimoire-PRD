@@ -1,0 +1,324 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:lohh:graul",
+  "name": "Graul",
+  "gameSystem": "pf2e",
+  "variant": "lohh",
+  "source": {
+    "code": "lohh",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/lohh/graul.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "n",
+      "large",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 3,
+    "con": 3,
+    "int": 2,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 120,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [
+    "Aklo"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 10
+    },
+    {
+      "name": "Athletics",
+      "mod": 10
+    },
+    {
+      "name": "Deception",
+      "mod": 10
+    },
+    {
+      "name": "Stealth",
+      "mod": 12
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 20,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 60,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 11
+      },
+      {
+        "name": "ref",
+        "mod": 8
+      },
+      {
+        "name": "will",
+        "mod": 14
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Darkvision Invisibility",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The graul's rubbery flesh is saturated with a unique biochemical compound that renders it undetectable by any form of darkvision. In dim or bright light, the creature can be perceived normally by any kind of vision."
+      ]
+    },
+    {
+      "name": "Odorless",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The graul exudes no natural aroma, rendering it undetectable to creatures using the scent ability."
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+5",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "paralysis",
+        "Paralysis"
+      ]
+    },
+    {
+      "name": "tentacle",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          10,
+          6
+        ],
+        "traits": [
+          "agile",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+5",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Tentacle Grab",
+        "Tentacle Grab"
+      ]
+    },
+    {
+      "name": "Paralysis",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison",
+        "incapacitation"
+      ],
+      "entries": [
+        "A living creature struck by a graul's jaws attack must succeed at a DC 20 Fortitude save or become paralyzed. It can attempt a new check at the end of each of its turns, and the DC cumulatively decreases by 1 on each such check. A creature paralyzed by this ability is also affected by the graul's darkvision invisibility for as long as the effect persists."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Seize",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The graul pulls the creature toward itself. The graul attempts an Athletics check against the creature's Fortitude DC. With a success, the graul pulls the creature 15 feet closer to it."
+      ],
+      "requirements": "The graul has a creature grabbed with its tentacle"
+    },
+    {
+      "name": "Sound Mimicry",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The graul can perfectly imitate the sounds and speech of other creatures by attempting a Deception check against a listener's Will DC. The graul doesn't need to understand the language it's mimicking, but when speaking a language it doesn't know, the creature can only repeat specific words and phrases it has heard in the past 24 hours. The graul can't use this ability to duplicate voice-based abilities or spells."
+      ]
+    },
+    {
+      "name": "Tentacle Grab",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature hit by the graul's tentacle becomes grabbed by the graul. The creature isn't immobilized, but it can't move beyond the reach of the graul's tentacle. A creature can sever the tentacle with a Strike against AC 18 that deals at least 10 slashing damage. This deals no damage to the graul but prevents it from using its tentacle Strike until it regrows the tentacle, which takes 1 round. The graul can move without ending the Grab as long as the creature remains within the tentacle's reach."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 18,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "ventriloquism",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "illusory object",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 21
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

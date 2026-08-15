@@ -1,0 +1,387 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:piscodaemon",
+  "name": "Piscodaemon",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/piscodaemon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "daemon",
+      "fiend"
+    ],
+    "subtypes": [
+      "amphibious"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "medium",
+      "amphibious",
+      "daemon",
+      "fiend"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 4,
+    "con": 6,
+    "int": 2,
+    "wis": 3,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "see invisibility",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Daemonic; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 22
+    },
+    {
+      "name": "Intimidation",
+      "mod": 19
+    },
+    {
+      "name": "Medicine",
+      "mod": 17
+    },
+    {
+      "name": "Stealth",
+      "mod": 22
+    },
+    {
+      "name": "Survival",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 200,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 16
+      },
+      {
+        "name": "will",
+        "mod": 19
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [],
+      "other": [
+        "death effects"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "swim": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Enhance Venom",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "divine",
+        "misfortune",
+        "necromancy",
+        "poison"
+      ],
+      "entries": [
+        "The creature takes an additional 2d8 poison damage even if it succeeds at its save."
+      ],
+      "trigger": "A creature within 30 feet attempts a saving throw against piscovenom",
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "evil",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+12",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "tentacle",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile",
+          "evil",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+12",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": [
+        "piscovenom",
+        "piscovenom"
+      ]
+    },
+    {
+      "name": "Constrict",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "2d10+6 bludgeoning, DC 30"
+      ]
+    },
+    {
+      "name": "Gory Rend",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The piscodaemon makes two claw Strikes against the same creature. If both hit, the creature takes 2d10 persistent bleed damage and is exposed to piscovenom."
+      ]
+    },
+    {
+      "name": "Piscovenom",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 29,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Constant (2nd)",
+          "spells": [
+            {
+              "name": "see invisibility",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "detect alignment",
+              "uses": "at will"
+            },
+            {
+              "name": "detect poison",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            },
+            {
+              "name": "stinking cloud",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 27
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

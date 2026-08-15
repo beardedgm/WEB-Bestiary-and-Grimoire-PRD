@@ -1,0 +1,307 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot3:abendego-jailer",
+  "name": "Abendego Jailer",
+  "gameSystem": "pf2e",
+  "variant": "sot3",
+  "source": {
+    "code": "sot3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot3/abendego-jailer.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 4,
+    "con": 1,
+    "int": 0,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 20
+    },
+    {
+      "name": "Athletics",
+      "mod": 21
+    },
+    {
+      "name": "Intimidation",
+      "mod": 18
+    },
+    {
+      "name": "Thievery",
+      "mod": 20
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 175,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 20
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 17
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "mancatcher",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+9",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "restrain"
+      ]
+    },
+    {
+      "name": "dagger",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile",
+          "versatile S"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+9",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "dagger",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          18,
+          14
+        ],
+        "traits": [
+          "agile",
+          "thrown <10 feet>",
+          "versatile S"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 10,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+9",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Restrain",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the jailer makes a successful mancatcher Strike, their target must succeed at a DC 27 Reflex save or become grabbed until the end of the jailer's next turn. Each time the target fails an attempt to Escape the jailer, it takes 2d6 piercing damage."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 27,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Subduing Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Abendego jailers deal an additional 3d6 precision damage to creatures that are frightened or within reach of at least one of their allies. The jailer can make an attack with this additional damage as a nonlethal attack, if they choose."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 27
+      }
+    ],
+    "items": [
+      "dagger",
+      "average manacles",
+      "mancatcher",
+      "religious symbol of Norgorber",
+      "+1 scale mail"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

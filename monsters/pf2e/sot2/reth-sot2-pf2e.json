@@ -1,0 +1,325 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot2:reth",
+  "name": "Reth",
+  "gameSystem": "pf2e",
+  "variant": "sot2",
+  "source": {
+    "code": "sot2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot2/reth.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "lizardfolk"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ne",
+      "medium",
+      "humanoid",
+      "lizardfolk"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 4,
+    "con": 1,
+    "int": 1,
+    "wis": 2,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 13,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Draconic",
+    "Iruxi"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 15
+    },
+    {
+      "name": "Intimidation",
+      "mod": 15
+    },
+    {
+      "name": "Society",
+      "mod": 12
+    },
+    {
+      "name": "Stealth",
+      "mod": 15
+    },
+    {
+      "name": "Survival",
+      "mod": 13
+    },
+    {
+      "name": "Thievery",
+      "mod": 15
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 25,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 115,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 14
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 11
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "swim": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          11,
+          6
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+5",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          12,
+          8
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+5",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "hand crossbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          11,
+          6
+        ],
+        "traits": [
+          "magical",
+          "range increment <60 feet>",
+          "reload <1>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "3d8",
+          "average": null,
+          "type": "precision"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Deadly Bolts",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "stance"
+      ],
+      "entries": [
+        "Reth gains a deadly focus with crossbows while in this stance. His crossbow Strikes deal an additional 3d8 precision damage. He doesn't provoke reactions for making ranged Strikes with crossbows."
+      ],
+      "requirements": "Reth is wielding a crossbow",
+      "damage": [
+        {
+          "formula": "3d8",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    },
+    {
+      "name": "Deep Breath",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Reth can hold his breath for 200 rounds (20 minutes)."
+      ]
+    },
+    {
+      "name": "Running Reload",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Reth Strides, Steps, or Sneaks, then Interacts to reload."
+      ]
+    },
+    {
+      "name": "Skirmishing Shot",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "flourish"
+      ],
+      "entries": [
+        "Reth Strides or Steps, then Strikes with his hand crossbow."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 33
+      }
+    ],
+    "items": [
+      "+1 hand crossbow (10 bolts)",
+      "keyring",
+      "leather armor",
+      "thieves' tools"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

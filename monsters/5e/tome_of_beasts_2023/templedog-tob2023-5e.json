@@ -1,0 +1,273 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:templedog",
+  "name": "Temple Dog",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 359,
+    "path": "monsters/5e/tome_of_beasts_2023/templedog-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 5,
+    "xp": 1800,
+    "display": "5"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "celestial any good"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 2,
+    "int": -1,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 14,
+    "con": 15,
+    "int": 8,
+    "wis": 14,
+    "cha": 10
+  },
+  "perception": {
+    "mod": 5,
+    "passive": 15
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Celestial and Common but can’t speak"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 97,
+        "note": null,
+        "formula": "15d8+30"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 5
+      },
+      {
+        "name": "wis",
+        "mod": 5
+      },
+      {
+        "name": "cha",
+        "mod": 3
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "radiant; bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The temple dog has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Protector's Instincts",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The temple dog has advantage on initiative rolls while in its temple or within 30 feet of a priest of its deity."
+      ]
+    },
+    {
+      "name": "Radiant Jaws",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The temple dog's Bite attacks are magical. When it hits with a Bite attack, the Bite deals an extra 2d6 radiant damage (included in the attack)."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "radiant"
+        }
+      ]
+    },
+    {
+      "name": "Rushing Bite",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the temple dog moves at least 15 feet straight toward a target and then hits it with a Bite attack on the same turn, that target must succeed on a DC 15 Strength saving throw or be pushed up to 10 feet away from the temple dog. If the target is pushed, the temple dog can move up to 10 feet straight toward the target without provoking opportunity attacks."
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The temple dog makes two Bite attacks. If both attacks hit a Medium or smaller target, the temple dog sinks in its teeth, shaking its head violently, and the target must succeed on a DC 15 Strength saving throw or take 9 (2d8) slashing damage and be grappled (escape DC 15). Until this grapple ends, the target is restrained, and temple dog can't Bite another target."
+      ],
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 8 (1d8 + 4) piercing damage plus 7 (2d6) radiant damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": 8,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "radiant"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

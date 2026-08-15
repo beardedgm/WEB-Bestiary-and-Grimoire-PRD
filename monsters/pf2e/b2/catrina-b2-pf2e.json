@@ -1,0 +1,382 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:catrina",
+  "name": "Catrina",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/catrina.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "monitor",
+      "psychopomp"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "medium",
+      "monitor",
+      "psychopomp"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 5,
+    "con": 4,
+    "int": 2,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 13,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "lifesense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Celestial",
+    "Infernal",
+    "Requian; Telepathy 120 Feet",
+    "Tongues"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 14
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 14
+    },
+    {
+      "name": "Intimidation",
+      "mod": 14
+    },
+    {
+      "name": "Medicine",
+      "mod": 12
+    },
+    {
+      "name": "Occultism",
+      "mod": 11
+    },
+    {
+      "name": "Religion",
+      "mod": 12
+    },
+    {
+      "name": "Boneyard Lore",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 22,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 75,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 11
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 13
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "negative",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "poison",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Calming Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "emotion",
+        "enchantment",
+        "incapacitation"
+      ],
+      "entries": [
+        "30 feet. A creature that begins its turn within the area must attempt a DC 18 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected and is temporarily immune to calming presence for 24 hours.",
+          "success": "The creature's attack rolls take a –1 status penalty for 1 round.",
+          "failure": "Any emotion effects that would affect the creature are suppressed and the creature can't use hostile actions. If the creature is subjected to hostility from any other creature, it ceases to be affected by calming presence and is temporarily immune to calming presence for 24 hours.",
+          "criticalFailure": "As failure, but hostility doesn't end the effect."
+        }
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          10,
+          6
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+2",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "spirit touch",
+        "spirit touch"
+      ]
+    },
+    {
+      "name": "Compel Condemned",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "divine",
+        "enchantment",
+        "incapacitation",
+        "mental"
+      ],
+      "entries": [
+        "The catrina telepathically compels a creature within 30 feet to approach and allow the catrina to kiss them, in preparation for using Kiss of Death. The target must attempt a DC 22 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {
+          "success": "The creature is unaffected and is temporarily immune to Compel Condemned for 24 hours.",
+          "failure": "The creature must spend each of its actions to move closer to the catrina as quickly as possible, while avoiding obvious dangers. If the compelled creature is adjacent to the catrina, it stays still and doesn't act. If the creature takes any damage, the effect ends and the creature is temporarily immune to Compel Condemned for 24 hours. This effect lasts for 1 round, but if the catrina uses this ability again on subsequent rounds, it extend the duration by 1 round for all affected creatures.",
+          "criticalFailure": "As failure, but damage does not end the effect."
+        }
+      }
+    },
+    {
+      "name": "Kiss of Death",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "death",
+        "divine",
+        "manipulate",
+        "necromancy"
+      ],
+      "entries": [
+        "The catrina gives a long, passionate kiss to an unconscious or willing creature, dealing 3d6 negative damage. Any creature damaged by the same catrina's Kiss of Death for 3 consecutive rounds becomes unconscious and is dying 1."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "Spirit Touch",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "An esobok's Strikes affect incorporeal creatures with the effects of a ghost touch property rune and deal 1d6 negative damage to living creatures and 1d6 positive damage to undead."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 22,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "Cantrips (3rd)",
+          "spells": [
+            {
+              "name": "dancing lights",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "illusory disguise",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            },
+            {
+              "name": "talking corpse",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Monitor",
+        "skill": "Religion",
+        "dc": 20
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

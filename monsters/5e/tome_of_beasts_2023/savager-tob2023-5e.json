@@ -1,0 +1,267 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:savager",
+  "name": "Savager",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 318,
+    "path": "monsters/5e/tome_of_beasts_2023/savager-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 8,
+    "xp": 3900,
+    "display": "8"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral Evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 2,
+    "con": 5,
+    "int": -4,
+    "wis": 0,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 22,
+    "dex": 14,
+    "con": 21,
+    "int": 2,
+    "wis": 10,
+    "cha": 13
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 105,
+        "note": null,
+        "formula": "10d10+50"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 5
+      },
+      {
+        "name": "con",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "charmed",
+        "frightened"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Mighty Swing",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the savager doesn't move during its turn, it has advantage on the next Claw attack it makes before the start of its next turn."
+      ]
+    },
+    {
+      "name": "Spines",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that touches the savager or hits it with a melee attack while within 5 feet of it takes 5 (2d4) piercing damage. In addition, a creature grappled by or grappling the savager takes 5 (2d4) piercing damage at the start of the savager's turn."
+      ],
+      "damage": [
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The savager makes one Bite attack and two Claw attacks. If both Claw attacks hit one creature, the target must succeed on a DC 15 Strength saving throw or take 9 (2d8) slashing damage as the savager rips into the target."
+      ],
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 19 (2d12 + 6) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12+6",
+          "average": 19,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 15 (2d8 + 6) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+6",
+          "average": 15,
+          "type": "slashing"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

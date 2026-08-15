@@ -1,0 +1,390 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec4:xulgath-hardscale",
+  "name": "Xulgath Hardscale",
+  "gameSystem": "pf2e",
+  "variant": "ec4",
+  "source": {
+    "code": "ec4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec4/xulgath-hardscale.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "xulgath"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "medium",
+      "humanoid",
+      "xulgath"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 3,
+    "con": 4,
+    "int": 0,
+    "wis": 3,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 21,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Draconic",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 19
+    },
+    {
+      "name": "Athletics",
+      "mod": 23
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 19
+    },
+    {
+      "name": "Intimidation",
+      "mod": 21
+    },
+    {
+      "name": "Nature",
+      "mod": 19
+    },
+    {
+      "name": "Stealth",
+      "mod": 19
+    },
+    {
+      "name": "Survival",
+      "mod": 21
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 32,
+      "note": "34 with shield raised"
+    },
+    "hp": [
+      {
+        "value": 215,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 25
+      },
+      {
+        "name": "ref",
+        "mod": 22
+      },
+      {
+        "name": "will",
+        "mod": 19
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Hardscale Shield Stance",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A hardscale always has their shield raised as if they had used the Raise a Shield action, as long as they meet that action's requirements."
+      ]
+    },
+    {
+      "name": "Powerful Stench",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "olfactory"
+      ],
+      "entries": [
+        "30 feet. As xulgath herd-tender (page 10), but DC 32."
+      ],
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Shield Warden",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the hardscale has their shield raised, they can Shield Block when an attack is made against an adjacent ally. If they do, the shield prevents that ally from taking damage instead of the hardscale."
+      ]
+    },
+    {
+      "name": "Aggressive Block",
+      "category": "free",
+      "placement": "mid",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "The hardscale makes an Athletics check to Shove the opponent. This Shove doesn't increase the hardscale's multiple attack penalty. If they roll a critical failure, they get a failure instead. If they roll a success, they get a critical success instead."
+      ],
+      "trigger": "The hardscale uses the Shield Block reaction, and the opponent that triggered Shield Block is adjacent to the hardscale and is not more than one size larger than it"
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Shield Block",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "At the beginning of each of their turns, the hardscale receives an additional reaction that they can use only for Shield Block."
+      ]
+    },
+    {
+      "name": "warhammer",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          19,
+          14
+        ],
+        "traits": [
+          "deadly <2d8>",
+          "magical",
+          "shove"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+11",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d6+11",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d4+11",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "javelin",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          16,
+          11
+        ],
+        "traits": [
+          "thrown <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+11",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Hammer Mastery",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The hardscale deals an extra 1d8 damage with weapons with the shove trait, and weapons with the shove trait gain the deadly 2d8 trait when the hardscale uses them (both the extra weapon damage die and the deadly trait have already been included in the hardscale's warhammer Strike above)."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 30
+      }
+    ],
+    "items": [
+      "+1 resilient breastplate",
+      "moderate elixir of life",
+      "javelins (3)",
+      "necklace of bone and gems worth 100 gp",
+      "lesser sturdy shield (Hardness 10",
+      "HP 80",
+      "BT 40)",
+      "+1 striking warhammer"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

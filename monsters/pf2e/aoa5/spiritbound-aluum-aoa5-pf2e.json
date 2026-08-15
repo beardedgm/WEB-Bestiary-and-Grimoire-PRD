@@ -1,0 +1,368 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa5:spiritbound-aluum",
+  "name": "Spiritbound Aluum",
+  "gameSystem": "pf2e",
+  "variant": "aoa5",
+  "source": {
+    "code": "aoa5",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa5/spiritbound-aluum.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 16,
+    "xp": null,
+    "display": "Creature 16"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "mindless",
+      "soulbound"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "large",
+      "construct",
+      "mindless",
+      "soulbound"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 3,
+    "con": 6,
+    "int": -5,
+    "wis": 4,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 28,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 33
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 39,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 255,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 30
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 28
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "disease",
+        "death effects",
+        "magic (see below)",
+        "nonlethal attacks"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 15,
+        "note": "except adamantine"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "fly": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          28,
+          23
+        ],
+        "traits": [
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d10+17",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "paralyzing force",
+        "paralyzing force"
+      ]
+    },
+    {
+      "name": "Aluum Antimagic",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Spiritbound aluum are immune to spells and magical abilities, with two exceptions. A negative spell or magical ability grants a spiritbound aluum the quickened condition until the end of its next turn instead of its normal effects. A positive spell or ability makes a spiritbound aluum slowed|CRB|slowed 1 until the end of its next turn instead of its normal effects."
+      ]
+    },
+    {
+      "name": "Obliteration Beam",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "arcane",
+        "evocation",
+        "force"
+      ],
+      "entries": [
+        "The spiritbound aluum transforms the captured soul's essence into raw magical energy, channeling the spirit into a beam that deals 20d6 force damage in a 30-foot line (DC 38 basic Reflex save). The remaining fragments of the captured soul are released to the Great Beyond. The spiritbound aluum can't use Obliteration Beam again for 1d4 rounds."
+      ],
+      "requirements": "The spiritbound aluum has bound a soul using its bind soul innate spell",
+      "area": {
+        "shape": "line",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 38,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "20d6",
+          "average": null,
+          "type": "force"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Paralyzing Force",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "incapacitation",
+        "necromancy"
+      ],
+      "entries": [
+        "A creature damaged by the spiritbound aluum's fist Strike must succeed at a DC 35 Fortitude save or become paralyzed for 1 round. On a critical failure, the creature is paralyzed for 1d4 minutes and falls prone."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 35,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Soul Binder",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a spiritbound aluum uses its bind soul innate spell, it binds the soul into its central crystal instead of the normal material component. The crystal can hold up to 60 souls. When encountered, a spiritbound aluum's crystal typically contains 1d6 souls."
+      ]
+    },
+    {
+      "name": "Soul Shriek",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "arcane",
+        "auditory",
+        "evocation",
+        "mental",
+        "sonic"
+      ],
+      "entries": [
+        "The spiritbound aluum emits a keening wail in a 15-foot cone that deals 16d6 sonic damage (DC 27 basic Fortitude save). A creature that fails its save is stunned|CRB|stunned 1, or stunned|CRB|stunned 3 on a critical failure. The aluum can't use Soul Shriek again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 27,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "16d6",
+          "average": null,
+          "type": "sonic"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 38,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "locate",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "bind soul",
+              "uses": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 40
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

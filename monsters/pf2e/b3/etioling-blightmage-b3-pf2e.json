@@ -1,0 +1,429 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:etioling-blightmage",
+  "name": "Etioling Blightmage",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/etioling-blightmage.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "gnome",
+      "mortic"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "cn",
+      "small",
+      "gnome",
+      "humanoid",
+      "mortic"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 5,
+    "con": 3,
+    "int": 3,
+    "wis": 5,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Gnome",
+    "Necril",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 19
+    },
+    {
+      "name": "Deception",
+      "mod": 22
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 22
+    },
+    {
+      "name": "Intimidation",
+      "mod": 22
+    },
+    {
+      "name": "Nature",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 29,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 150,
+        "formula": null,
+        "note": "negative healing|b2"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 19
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 17
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Consecration Vulnerability",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "An angheuvore in a place of worship dedicated to a non-evil deity or on sacred ground, such as an area blessed by sanctified ground, is slowed 1."
+      ]
+    },
+    {
+      "name": "Ectoplasmic Secretions",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "Any creature that hits the etioling with an unarmed attack, tries to Grapple them, or otherwise touches them becomes partially coated in ectoplasm. The creature takes 1d6 negative damage and must succeed at a DC 27 Reflex save or become enfeebled 2 until the ectoplasm is removed. The ectoplasm can be removed with a total of 3 Interact actions by the creature or creatures adjacent to the creature. These actions don't need to be consecutive or made by the same creature."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 27,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "Ectoplasmic Shield",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "abjuration",
+        "occult"
+      ],
+      "entries": [
+        "The etioling interposes a wave of ectoplasm between themself and the source of the ranged attack, giving them a +2 circumstance bonus to AC against the triggering attack. If the attack misses, the ectoplasm deflected it. The ectoplasm can't deflect unusually large or heavy ranged projectiles (such as boulders or ballista bolts)."
+      ],
+      "trigger": "The etioling is the target of a physical ranged attack"
+    },
+    {
+      "name": "Withering Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "20 feet. The etioling drains nutrients from nearby plant and animal life. Each round a creature begins its turn in this aura, it takes 1d6 negative damage and must succeed at a DC 27 Fortitude save or become drained 1. All non-magical plant life in this aura instantly withers, removing any cover and concealment provided by trees and undergrowth."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 27,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "corrupting touch",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          17,
+          13
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12+6",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Death Gasp",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As angheuvore flesh-gnawer, except up to 8 rounds, and the etioling gains the incorporeal trait, a fly Speed of 25 feet, resistance 10 to all damage (except force, ghost touch, or positive; double this resistance vs. non-magical) while they hold their breath. They can't cast spells during this time."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous occult Spells",
+      "type": "spontaneous",
+      "tradition": "occult",
+      "dc": 29,
+      "attackBonus": 21,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Cantrips (5th)",
+          "spells": [
+            {
+              "name": "acid splash",
+              "uses": null
+            },
+            {
+              "name": "dancing lights",
+              "uses": null
+            },
+            {
+              "name": "electric arc",
+              "uses": null
+            },
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "prestidigitation",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st (4 slots)",
+          "spells": [
+            {
+              "name": "bane",
+              "uses": null
+            },
+            {
+              "name": "grease",
+              "uses": null
+            },
+            {
+              "name": "ray of enfeeblement",
+              "uses": null
+            },
+            {
+              "name": "ventriloquism",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd (4 slots)",
+          "spells": [
+            {
+              "name": "blur",
+              "uses": null
+            },
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "glitterdust",
+              "uses": null
+            },
+            {
+              "name": "obscuring mist",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd (4 slots)",
+          "spells": [
+            {
+              "name": "earthbind",
+              "uses": null
+            },
+            {
+              "name": "false life",
+              "uses": null
+            },
+            {
+              "name": "haste",
+              "uses": null
+            },
+            {
+              "name": "wall of thorns",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th (4 slots)",
+          "spells": [
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "freedom of movement",
+              "uses": null
+            },
+            {
+              "name": "grim tendrils",
+              "uses": null
+            },
+            {
+              "name": "phantasmal killer",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th (4 slots)",
+          "spells": [
+            {
+              "name": "cloudkill",
+              "uses": null
+            },
+            {
+              "name": "crushing despair",
+              "uses": null
+            },
+            {
+              "name": "lightning bolt",
+              "uses": null
+            },
+            {
+              "name": "synesthesia",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

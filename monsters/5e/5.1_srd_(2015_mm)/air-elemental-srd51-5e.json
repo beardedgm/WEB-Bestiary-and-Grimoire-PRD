@@ -1,0 +1,242 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd51:air-elemental",
+  "name": "Air Elemental",
+  "gameSystem": "dnd5e",
+  "variant": "srd51",
+  "source": {
+    "code": "5.1_srd_(2015_mm)",
+    "name": "5.1 SRD (2015 MM)",
+    "page": 305,
+    "path": "monsters/5e/5.1_srd_(2015_mm)/air-elemental.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 5,
+    "xp": 1800,
+    "display": "5"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 5,
+    "con": 2,
+    "int": -2,
+    "wis": 0,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 14,
+    "dex": 20,
+    "con": 14,
+    "int": 6,
+    "wis": 10,
+    "cha": 6
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Auran"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 90,
+        "note": null,
+        "formula": "12d10+24"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "exhaustion",
+        "grappled",
+        "paralyzed",
+        "petrified",
+        "poisoned",
+        "prone",
+        "restrained",
+        "unconscious"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "lightning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "thunder; bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 0,
+      "fly": 90
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Air Form",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The elemental can enter a hostile creature's space and stop there. It can move through a space as narrow as 1 inch wide without squeezing."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The elemental makes two slam attacks."
+      ]
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 14 (2d8 + 5) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+5",
+          "average": 14,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Whirlwind",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Each creature in the elemental's space must make a DC 13 Strength saving throw. On a failure, a target takes 15 (3d8 + 2) bludgeoning damage and is flung up 20 feet away from the elemental in a random direction and knocked prone. If a thrown target strikes an object, such as a wall or floor, the target takes 3 (1d6) bludgeoning damage for every 10 feet it was thrown. If the target is thrown at another creature, that creature must succeed on a DC 13 Dexterity saving throw or take the same damage and be knocked prone.<br>If the saving throw is successful, the target takes half the bludgeoning damage and isn't flung away or knocked prone."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 4,
+        "max": 6,
+        "display": "Recharge 4-6"
+      },
+      "damage": [
+        {
+          "formula": "3d8+2",
+          "average": 15,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

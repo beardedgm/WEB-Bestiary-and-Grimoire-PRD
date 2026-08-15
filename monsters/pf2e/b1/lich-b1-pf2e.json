@@ -1,0 +1,452 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:lich",
+  "name": "Lich",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/lich.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ne",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 4,
+    "con": 0,
+    "int": 6,
+    "wis": 4,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 20,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Aklo",
+    "Common",
+    "Draconic",
+    "Elf",
+    "Infernal",
+    "Necril",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 28
+    },
+    {
+      "name": "Crafting",
+      "mod": 24
+    },
+    {
+      "name": "Deception",
+      "mod": 17
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 19
+    },
+    {
+      "name": "Religion",
+      "mod": 22
+    },
+    {
+      "name": "Stealth",
+      "mod": 20
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 31,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 190,
+        "formula": null,
+        "note": "negative healing, rejuvenation"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 17
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except magic bludgeoning"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "60 feet, DC 29"
+      ],
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Counterspell",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The lich expends a prepared spell to counter the triggering creature's casting of that same spell. The lich loses its spell slot as if it had cast the triggering spell. The lich then attempts to counteract the triggering spell."
+      ],
+      "trigger": "A creature casts a spell the lich has prepared."
+    },
+    {
+      "name": "hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          19,
+          14
+        ],
+        "traits": [
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": [
+        "paralyzing touch",
+        "paralyzing touch"
+      ]
+    },
+    {
+      "name": "Drain Phylactery",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "6th level."
+      ]
+    },
+    {
+      "name": "Paralyzing Touch",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "curse",
+        "incapacitation",
+        "necromancy"
+      ],
+      "entries": [
+        "DC 32"
+      ]
+    },
+    {
+      "name": "Steady Spellcasting",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If a reaction would disrupt the lich's spellcasting action, the lich attempts a DC 15 flat check. On a success, the action isn't disrupted."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Prepared arcane Spells",
+      "type": "prepared",
+      "tradition": "arcane",
+      "dc": 36,
+      "attackBonus": 26,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Cantrips (6th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            },
+            {
+              "name": "ray of frost",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "fleet step",
+              "uses": null
+            },
+            {
+              "name": "ray of enfeeblement",
+              "uses": 2
+            },
+            {
+              "name": "true strike",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "false life",
+              "uses": null
+            },
+            {
+              "name": "mirror image",
+              "uses": null
+            },
+            {
+              "name": "resist energy",
+              "uses": null
+            },
+            {
+              "name": "see invisibility",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "locate",
+              "uses": null
+            },
+            {
+              "name": "magic missile",
+              "uses": null
+            },
+            {
+              "name": "vampiric touch",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            },
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "fire shield",
+              "uses": null
+            },
+            {
+              "name": "fly",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "cloudkill",
+              "uses": null
+            },
+            {
+              "name": "cone of cold",
+              "uses": 2
+            },
+            {
+              "name": "wall of ice",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "chain lightning",
+              "uses": null
+            },
+            {
+              "name": "dominate",
+              "uses": null
+            },
+            {
+              "name": "vampiric exsanguination",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 35
+      }
+    ],
+    "items": [
+      "potion of invisibility",
+      "scroll of teleport",
+      "greater staff of fire"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,275 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ooa2:clockwork-door-warden",
+  "name": "Clockwork Door Warden",
+  "gameSystem": "pf2e",
+  "variant": "ooa2",
+  "source": {
+    "code": "ooa2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ooa2/clockwork-door-warden.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "clockwork",
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "medium",
+      "clockwork",
+      "construct",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 2,
+    "int": -5,
+    "wis": 4,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 10
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 20,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 50,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 10
+      },
+      {
+        "name": "ref",
+        "mod": 8
+      },
+      {
+        "name": "will",
+        "mod": 14
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy",
+        "nonlethal attacks",
+        "poisoned"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 5,
+        "note": "except adamantine or orichalcum"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "electricity",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "orichalcum",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+7",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Push"
+      ]
+    },
+    {
+      "name": "repeating hand crossbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          7,
+          2
+        ],
+        "traits": [
+          "range <60 feet>",
+          "reload <0>",
+          "repeating"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+3",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Brace Door",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The door warden holds shut an adjacent door. This ends the door warden's turn. Until the start of its next turn, as long as it remains functional and in the same square, other creatures trying to get through must succeed at a DC 21 Athletics check to Force Open the door."
+      ]
+    },
+    {
+      "name": "Slam Door",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The door warden slams the door shut on the creature."
+      ],
+      "trigger": "The door warden Pushes a creature through an open doorway"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 24
+      }
+    ],
+    "items": [
+      "repeating hand crossbow (Guns & Gears 63",
+      "5 bolts)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

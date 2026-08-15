@@ -1,0 +1,296 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa6:animated-dragonstorm",
+  "name": "Animated Dragonstorm",
+  "gameSystem": "pf2e",
+  "variant": "aoa6",
+  "source": {
+    "code": "aoa6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa6/animated-dragonstorm.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "huge",
+      "construct",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 7,
+    "con": 9,
+    "int": -5,
+    "wis": 5,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 35
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 42,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 255,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 33
+      },
+      {
+        "name": "ref",
+        "mod": 30
+      },
+      {
+        "name": "will",
+        "mod": 27
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy",
+        "nonlethal attacks"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "cold",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "electricity",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Vulnerable to Dispelling",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The animated dragonstorm can be targeted by disjunction and dispel magic. If targeted by such a spell of 9th level or higher, the construct loses its resistance to acid, cold, electricity, fire, and physical damage and is slowed|CRB|slowed 1 for 1d4 rounds."
+      ]
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "deadly <3d12>",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d10+12",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "dragonstorm strike",
+        "dragonstorm strike"
+      ]
+    },
+    {
+      "name": "Channel Dragonstorm",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine"
+      ],
+      "entries": [
+        "The animated dragonstorm directs a 30-foot cone of dragonstorm energy. This deals 3d8 acid, 3d8 cold, 3d8 electricity, 3d8 fire, and 3d8 poison damage to creatures in the cone (DC 40 basic Reflex save). The animated dragonstorm can't use Channel Dragonstorm again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 40,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8",
+          "average": null,
+          "type": "poison"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Destructive Strikes",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The animated dragonstorm's attacks ignore the Hardness of objects with Hardness 20 or less."
+      ]
+    },
+    {
+      "name": "Dragonstorm Strike",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "On a critical hit, the animated dragonstorm's fist bursts with dragonstorm energy. The target takes 1d6 acid, 1d6 cold, 1d6 electricity, 1d6 fire, and 1d6 poison damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 43
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

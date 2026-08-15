@@ -1,0 +1,277 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:abominablebeauty",
+  "name": "Abominable Beauty",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 11,
+    "path": "monsters/5e/tome_of_beasts_2023/abominablebeauty-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 11,
+    "xp": 7200,
+    "display": "11"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral Evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 4,
+    "con": 4,
+    "int": 3,
+    "wis": 3,
+    "cha": 8
+  },
+  "abilityScores": {
+    "str": 17,
+    "dex": 18,
+    "con": 18,
+    "int": 17,
+    "wis": 16,
+    "cha": 26
+  },
+  "perception": {
+    "mod": 7,
+    "passive": 17
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Draconic",
+    "Elvish",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 12
+    },
+    {
+      "name": "Perception",
+      "mod": 7
+    },
+    {
+      "name": "Performance",
+      "mod": 12
+    },
+    {
+      "name": "Persuasion",
+      "mod": 12
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 187,
+        "note": null,
+        "formula": "22d8+88"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 8
+      },
+      {
+        "name": "con",
+        "mod": 8
+      },
+      {
+        "name": "cha",
+        "mod": 12
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Burning Touch",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the abominable beauty hits with a Slam attack, the Slam deals an extra 21 (6d6) fire damage (included in the attack). In addition, a creature that touches the abominable beauty or hits her with a melee weapon attack while within 5 feet of her takes 10 (3d6) fire damage."
+      ],
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "fire"
+        },
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The abominable beauty uses Blinding Gaze. She then makes two Slam attacks."
+      ]
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 8 (1d8 + 4) bludgeoning damage plus 21 (6d6) fire damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": 8,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Blinding Gaze",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The abominable beauty fixes her gaze on a creature within 30 feet of her. If the target can see the beauty's eyes, the target must succeed on a DC 16 Charisma saving throw or be blinded for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful, the creature is immune to the abominable beauty's Blinding Gaze for the next 24 hours."
+      ],
+      "save": {
+        "defense": "cha",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "blinded",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Deafening Voice",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The abominable beauty speaks a lilting incantation. Each creature within 30 feet of her and that can hear her voice must make a DC 16 Constitution saving throw. On a failure, a creature takes 31 (9d6) thunder damage and is deafened for 1 hour. On a success, a creature takes half the damage, isn't deafened, and is immune to the abominable beauty's Deafening Voice for the next 24 hours."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "9d6",
+          "average": 31,
+          "type": "thunder"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "deafened",
+        "duration": "1 hour",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

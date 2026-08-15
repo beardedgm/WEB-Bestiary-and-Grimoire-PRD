@@ -1,0 +1,265 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:qiqirn",
+  "name": "Qiqirn",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 301,
+    "path": "monsters/5e/tome_of_beasts_2/qiqirn.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 2,
+    "xp": 450,
+    "display": "2"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 4,
+    "con": 2,
+    "int": -3,
+    "wis": 1,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 15,
+    "dex": 18,
+    "con": 14,
+    "int": 5,
+    "wis": 12,
+    "cha": 13
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Common but can’t speak"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    },
+    {
+      "name": "Stealth",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 38,
+        "note": null,
+        "formula": "7d6+14"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 4
+      },
+      {
+        "name": "wis",
+        "mod": 3
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "necrotic",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Keen Smell",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The qiqirn has advantage on Wisdom (Perception) checks that rely on smell."
+      ]
+    },
+    {
+      "name": "Self-loathing",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature the qiqirn can hear can use its action to say “qiqirn” and make a Charisma (Intimidation) check. If it does so, the qiqirn must succeed on a Wisdom saving throw with a DC equal to the creature's Charisma (Intimidation) check or be frightened of that creature until the end of its next turn. If the qiqirn succeeds on the saving throw, it can't be frightened by that creature for the next 24 hours."
+      ],
+      "condition": {
+        "name": "frightened",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 7 (1d6 + 4) piercing damage plus 4 (1d8) necrotic damage. If the target is a creature, it must succeed on a DC 12 Strength saving throw or be knocked prone."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": 7,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Spirit-infused Yip",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The qiqirn releases a spirt-infused yip at one creature it can see within 30 feet of it. If the target can hear the qiqirn, it must make a DC 12 Wisdom saving throw, taking 9 (2d8) necrotic damage on a failed save, or half as much damage on a successful one."
+      ],
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Horrifying Wail",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When the qiqirn takes damage, the spirits infusing it cry out, afraid of losing their host. If the creature that dealt the damage can hear the qiqirn, it must succeed on a DC 12 Wisdom saving throw or be frightened until the end of its next turn."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

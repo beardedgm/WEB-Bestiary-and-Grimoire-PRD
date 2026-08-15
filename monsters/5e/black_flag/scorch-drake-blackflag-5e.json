@@ -1,0 +1,250 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:scorch-drake",
+  "name": "Scorch Drake",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/scorch_drake_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 1,
+    "con": 4,
+    "int": -2,
+    "wis": 5,
+    "cha": -1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Draconic"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 145,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Heat Shimmer",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Creatures more than 30 feet from the scorch drake have disadvantage on WIS (Perception) checks to see the drake."
+      ]
+    },
+    {
+      "name": "Scalding Blood",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that hits the scorch drake with a melee attack while within 5 feet of the drake takes 3 (1d6) fire damage and must succeed on a DC 15 DEX save or ignite. Until a creature takes an action to douse the fire, an ignited creature takes 3 (1d6) fire damage at the start of each of its turns."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "fire"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The scorch drake makes one Bite and two Claw attacks."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +6 to hit, reach 5 ft., one target. _Hit:_ 12 (2d8+3) piercing and 3 (1d6) fire damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +6 to hit, reach 5 ft., one target. _Hit:_ 8 (2d4+3) slashing and 3 (1d6) fire damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Fire Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The scorch drake spits liquid fire in a 30-foot cone. Each creature in that area must make a DC 15 DEX save. On a failure, a creature takes 24 (7d6) fire damage and ignites. On a success, a creature takes half the damage and doesn't ignite. Until a creature takes an action to douse the fire, an ignited creature takes 3 (1d6) fire damage at the start of each of its turns. This fire ignites flammable objects in the line that aren't being worn or carried."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "7d6",
+          "average": 24,
+          "type": "fire"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "fire"
+        }
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Fan the Flames",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The scorch drake flaps its wings in the direction of one ignited creature it can see within 15 feet of it. The flames coating the target flare up and generate excess smoke. The target must succeed on a DC 15 CON save or be blinded until the end of its next turn."
+      ],
+      "condition": {
+        "name": "blinded",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

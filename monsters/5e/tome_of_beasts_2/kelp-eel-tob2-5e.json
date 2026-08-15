@@ -1,0 +1,244 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:kelp-eel",
+  "name": "Kelp Eel",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 227,
+    "path": "monsters/5e/tome_of_beasts_2/kelp-eel.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 10,
+    "xp": 5900,
+    "display": "10"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 4,
+    "int": -4,
+    "wis": 2,
+    "cha": -3
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 14,
+    "con": 19,
+    "int": 3,
+    "wis": 15,
+    "cha": 5
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 90,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 157,
+        "note": null,
+        "formula": "15d12+60"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "blinded",
+        "deafened",
+        "unconscious"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "swim": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Disperse",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the kelp eel is reduced to 0 hp, it disperses into its component kelp in a 30-foot cube. The area is difficult terrain for 1 hour. At the end of that hour, the kelp eel reforms, regaining half its hp and becoming active again. If more than half the kelp that comprises the dispersed kelp eel is removed from the water and dried, it can't reform and the creature is destroyed."
+      ],
+      "area": {
+        "shape": "cube",
+        "size": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "False Appearance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While the kelp eel remains motionless, it is indistinguishable from ordinary kelp."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The kelp eel makes two attacks with its kelp tendrils, uses Reel, and makes two attacks with its slam."
+      ]
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +8 to hit, reach 10 ft., one creature. Hit: 31 (6d8 + 4) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d8+4",
+          "average": 31,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Kelp Tendril",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +8 to hit, reach 50 ft., one creature. Hit: The target is grappled (escape DC 16). Until this grapple ends, the target is restrained, and the kelp eel can't use the same kelp tendril on another target. In addition, at the start of the target's next turn, it begins to suffocate as the eel's grip crushes the breath out of it."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 50,
+          "unit": "ft"
+        }
+      },
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Reel",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The kelp eel pulls each creature grappled by it up to 25 feet straight toward it."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

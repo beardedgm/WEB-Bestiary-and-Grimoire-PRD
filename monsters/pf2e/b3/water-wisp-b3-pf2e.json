@@ -1,0 +1,257 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:water-wisp",
+  "name": "Water Wisp",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/water-wisp.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 0,
+    "xp": null,
+    "display": "Creature 0"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [
+      "water"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "tiny",
+      "elemental",
+      "water"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 2,
+    "con": 3,
+    "int": 0,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 6,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "mist vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aquan"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 4
+    },
+    {
+      "name": "Medicine",
+      "mod": 6
+    },
+    {
+      "name": "Plane Of Water Lore",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 20,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 8
+      },
+      {
+        "name": "ref",
+        "mod": 4
+      },
+      {
+        "name": "will",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "fire",
+        "amount": 2,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "swim": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Resonance",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "air"
+      ],
+      "entries": [
+        "30 feet. All wisps vibrate at a frequency attuned to their element, resonating with and empowering all creatures and effects sharing that trait. A creature in the area gains a +1 status bonus to attack and damage rolls for effects with the water trait; a creature with the elemental and water traits gains this bonus to all attack and damage rolls."
+      ],
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Accord Essence",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "air"
+      ],
+      "entries": [
+        "The wisp detonates itself in a small elemental explosion that gives temporary Hit Points equal to half the wisp's current Hit Points to allies within 30 feet that have benefited from the wisp's resonance in the last hour. These temporary Hit Points last 1 hour. A wisp that uses this reaction is permanently destroyed, and it can be restored only by a wish spell or similarly powerful effect. If an ability would prevent the wisp's destruction (for instance, if the wisp is summoned and would merely be dismissed), Accord Essence has no effect."
+      ],
+      "trigger": "An ally within 30 feet that benefited from the wisp's resonance in the last hour is targeted by an attack"
+    },
+    {
+      "name": "tendril",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 6,
+        "map": [
+          6,
+          1,
+          -4
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Drench",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "abjuration",
+        "primal",
+        "water"
+      ],
+      "entries": [
+        "The wisp puts out all fires in a single 5-foot square. It extinguishes non-magical fire of that size or smaller automatically and attempts to counteract magical fires (counteract modifier +6)."
+      ]
+    },
+    {
+      "name": "In Concert",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When an water wisp rolls a critical failure on a check to Aid, they get a failure instead, and when they roll a success, they get a critical success instead."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Elemental",
+        "skill": "Arcana, Nature",
+        "dc": 14
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

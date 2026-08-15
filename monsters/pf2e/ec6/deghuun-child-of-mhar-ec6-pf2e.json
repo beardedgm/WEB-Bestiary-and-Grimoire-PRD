@@ -1,0 +1,348 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec6:deghuun-child-of-mhar",
+  "name": "Deghuun (Child of Mhar)",
+  "gameSystem": "pf2e",
+  "variant": "ec6",
+  "source": {
+    "code": "ec6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec6/deghuun-child-of-mhar.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "huge",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 6,
+    "con": 8,
+    "int": -1,
+    "wis": 0,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "smoke vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 37
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 42,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 420,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 34
+      },
+      {
+        "name": "ref",
+        "mod": 30
+      },
+      {
+        "name": "will",
+        "mod": 26
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire",
+        "poison"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except adamantine"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "good",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "climb": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Unfathomable Aspect",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Anytime a deghuun attempts a Will save against an enchantment spell, the spell's caster must attempt a DC 38 Will save or become confused for up to the spell's duration."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "tentacle",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          31,
+          27
+        ],
+        "traits": [
+          "agile",
+          "reach 20 feet"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+17",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Grab"
+      ]
+    },
+    {
+      "name": "lava ball",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 34,
+        "map": [
+          34,
+          29,
+          24
+        ],
+        "traits": [
+          "brutal",
+          "range increment 60 feet"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6+17",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Beak Crunch",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The creature takes 4d8+17 piercing damage."
+      ],
+      "requirements": "The deghuun has a creature grabbed with its tentacles"
+    },
+    {
+      "name": "Sulfurous Plume",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "fire",
+        "poison"
+      ],
+      "entries": [
+        "The deghuun vents caustic smog for 1d4 rounds. Any creature that ends its turn within 30 feet of the deghuun during this time takes 6d6 fire damage and is sickened 1 (DC 38 Fortitude save; the creature avoids the sickened condition on a critical success, or is sickened 2 on a critical failure). While sickened in this way, a creature takes a –2 status penalty to its saving throw against the deghuun's hallucination. Any creature that's in the smog is concealed and treats other creatures as concealed. Strong winds dissipate the smog."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Tentacle Assault",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The deghuun makes three tentacle Strikes, each against a different creature within reach. These attacks count toward its multiple attack penalty as normal."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 38,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "earthbind",
+              "uses": 3
+            },
+            {
+              "name": "hallucination",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "earthquake",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 40
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

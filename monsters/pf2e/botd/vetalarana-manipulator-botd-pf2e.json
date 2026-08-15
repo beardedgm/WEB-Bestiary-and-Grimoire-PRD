@@ -1,0 +1,476 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:vetalarana-manipulator",
+  "name": "Vetalarana Manipulator",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/vetalarana-manipulator.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 11,
+    "xp": null,
+    "display": "Creature 11"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead",
+      "vampire"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "medium",
+      "undead",
+      "vampire"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 4,
+    "con": 4,
+    "int": 6,
+    "wis": 7,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 22,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "thoughtsense",
+      "range": 100,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 22
+    },
+    {
+      "name": "Deception",
+      "mod": 24
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 24
+    },
+    {
+      "name": "Intimidation",
+      "mod": 22
+    },
+    {
+      "name": "Occultism",
+      "mod": 23
+    },
+    {
+      "name": "Society",
+      "mod": 23
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 140,
+        "formula": null,
+        "note": "fast healing 10, mental rebirth, negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 19
+      },
+      {
+        "name": "ref",
+        "mod": 19
+      },
+      {
+        "name": "will",
+        "mod": 24
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "sleep"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "mental",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except magical cold iron"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "vetalarana vulnerabilities",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "climb": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Psychic Superiority",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "enchantment",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "The manipulator psychically lashes out at the triggering creature, dealing 3d8 mental damage (DC 24 basic Will save)."
+      ],
+      "trigger": "A creature targets the vetalarana manipulator with a mental effect or spell",
+      "save": {
+        "defense": "will",
+        "dc": 24,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          17,
+          13
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magic"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+10",
+          "average": null,
+          "type": "slashing plus"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Grab",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Control Comatose",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "exploration",
+        "incapacitation",
+        "mental",
+        "necromancy",
+        "occult",
+        "possession"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Drain Thoughts",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "divination",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "When Draining Thoughts, the vetalarana manipulator regains 14 HP."
+      ]
+    },
+    {
+      "name": "Paralyzing Claws",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "DC 27"
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 30,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Prepared occult Spells",
+      "type": "prepared",
+      "tradition": "occult",
+      "dc": 30,
+      "attackBonus": 22,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Cantrips (6th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            },
+            {
+              "name": "sigil",
+              "uses": null
+            },
+            {
+              "name": "telekinetic projectile",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "bane",
+              "uses": null
+            },
+            {
+              "name": "command",
+              "uses": 2
+            },
+            {
+              "name": "unseen servant",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "blur",
+              "uses": null
+            },
+            {
+              "name": "darkness",
+              "uses": null
+            },
+            {
+              "name": "telekinetic maneuver",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "false life",
+              "uses": null
+            },
+            {
+              "name": "hypercognition",
+              "uses": null
+            },
+            {
+              "name": "mind reading",
+              "uses": null
+            },
+            {
+              "name": "paralyze",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "agonizing despair",
+              "uses": null
+            },
+            {
+              "name": "fly",
+              "uses": null
+            },
+            {
+              "name": "suggestion",
+              "uses": null
+            },
+            {
+              "name": "talking corpse",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "command",
+              "uses": null
+            },
+            {
+              "name": "mind probe",
+              "uses": null
+            },
+            {
+              "name": "subconscious suggestion",
+              "uses": null
+            },
+            {
+              "name": "synaptic pulse",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "dominate",
+              "uses": 2
+            },
+            {
+              "name": "shadow blast",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 30
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

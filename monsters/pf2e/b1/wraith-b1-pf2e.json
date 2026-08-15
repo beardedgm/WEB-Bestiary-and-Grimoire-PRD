@@ -1,0 +1,252 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:wraith",
+  "name": "Wraith",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/wraith.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal",
+      "wraith"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "le",
+      "medium",
+      "incorporeal",
+      "undead",
+      "wraith"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 4,
+    "con": 0,
+    "int": 2,
+    "wis": 2,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "lifesense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 14
+    },
+    {
+      "name": "Intimidation",
+      "mod": 15
+    },
+    {
+      "name": "Stealth",
+      "mod": 14
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 80,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 8
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 14
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all",
+        "amount": 5,
+        "note": "except force, ghost touch, or positive; double resistance vs. non-magical"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Sunlight Powerlessness",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A wraith caught in sunlight is stunned 2 and clumsy 2."
+      ]
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "spectral hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+5",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": [
+        "drain life",
+        "drain life"
+      ]
+    },
+    {
+      "name": "Drain Life",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "When the wraith damages a living creature with its spectral hand Strike, the wraith gains 5 temporary Hit Points and the creature must succeed at a DC 23 Fortitude save or become drained 1. Further damage dealt by the wraith increases the amount of drain by 1 on a failed save to a maximum of drained 4."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Wraith Spawn",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "A living humanoid slain by a wraith's spectral hand Strike rises as a wraith spawn after 1d4 rounds. This wraith spawn is under the command of the wraith that killed it. It doesn't have drain life or wraith spawn and becomes clumsy 2 for as long as it is a wraith spawn. If the creator of the wraith spawn dies, the wraith spawn becomes a full-fledged, autonomous wraith; it regains its free will, gains Wraith Spawn, and is no longer clumsy."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 22
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

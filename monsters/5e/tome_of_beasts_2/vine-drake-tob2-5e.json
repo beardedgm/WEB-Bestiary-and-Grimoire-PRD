@@ -1,0 +1,364 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:vine-drake",
+  "name": "Vine Drake",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 181,
+    "path": "monsters/5e/tome_of_beasts_2/vine-drake.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 7,
+    "xp": 2900,
+    "display": "7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 3,
+    "int": 0,
+    "wis": 1,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 15,
+    "con": 16,
+    "int": 11,
+    "wis": 12,
+    "cha": 14
+  },
+  "perception": {
+    "mod": 4,
+    "passive": 14
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 90,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 7
+    },
+    {
+      "name": "Nature",
+      "mod": 3
+    },
+    {
+      "name": "Perception",
+      "mod": 4
+    },
+    {
+      "name": "Stealth",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 105,
+        "note": null,
+        "formula": "14d8+42"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 6
+      },
+      {
+        "name": "wis",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning and piercing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "climb": 50,
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Speak with Plants",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The drake can communicate with plants as if they shared a language."
+      ]
+    },
+    {
+      "name": "Thorn Body",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that touches the drake or hits it with a melee attack while within 5 feet of it takes 4 (1d8) piercing damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Innate Spellcasting",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The vine drake can innately cast entangle, requiring no material components. Its innate spellcasting ability is Charisma."
+      ],
+      "uses": {
+        "count": 2,
+        "period": "day",
+        "display": "2/Day"
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The vine drake can make three attacks: one with its bite, one with its claw, and one with its vine lash."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 8 (1d8 + 4) piercing damage plus 4 (1d8) poison damage. The target must succeed on a DC 14 Constitution saving throw or be poisoned for 1 minute. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": 8,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 7 (1d6 + 4) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": 7,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Vine Lash",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 10 ft., one target. Hit: 8 (1d8 + 4) bludgeoning damage. The target is grappled (escape DC 15) if it is a Medium or smaller creature. Until this grapple ends, the target is restrained, and the vine drake can't vine lash another target."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": 8,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Acid Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The vine drake exhales acid in a 30-foot line that is 5 feet wide. Each creature in that line must make a DC 14 Dexterity saving throw, taking 22 (5d8) acid damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "5d8",
+          "average": 22,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "line",
+        "size": 30,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

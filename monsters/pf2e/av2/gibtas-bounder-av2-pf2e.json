@@ -1,0 +1,259 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:av2:gibtas-bounder",
+  "name": "Gibtas Bounder",
+  "gameSystem": "pf2e",
+  "variant": "av2",
+  "source": {
+    "code": "av2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/av2/gibtas-bounder.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "cn",
+      "small",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 4,
+    "con": 2,
+    "int": -3,
+    "wis": 2,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 13,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Aklo (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 11
+    },
+    {
+      "name": "Athletics",
+      "mod": 12
+    },
+    {
+      "name": "Survival",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 22,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 76,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 13
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 11
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15,
+          10,
+          5
+        ],
+        "traits": [
+          "deadly <1d12>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+7",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent acid"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "spit",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [
+          "range increment <30 feet>",
+          "splash"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "acid"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent acid"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "acid splash damage"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Bouncing Slam",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The gibtas Leaps toward a Medium or smaller creature, landing in the creature's space and Shoving the creature. If the Shove fails, the gibtas bounces out of the target's square to an adjacent square of the target's choosing."
+      ]
+    },
+    {
+      "name": "Pinning Chomp",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The gibtas attempts to Trip the target of its Bouncing Slam, then makes a jaws Strike against the target. The Trip and Strike both count against the gibtas's multiple attack penalty, but the penalty doesn't increase until after both attacks."
+      ],
+      "requirements": "The gibtas's last action was a Bouncing Slam and the gibtas successfully Shoved the target"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 22
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

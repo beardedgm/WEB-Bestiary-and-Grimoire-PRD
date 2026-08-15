@@ -1,0 +1,315 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:wendigo",
+  "name": "Wendigo",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 377,
+    "path": "monsters/5e/creature_codex/wendigo.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 11,
+    "xp": 7200,
+    "display": "11"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 4,
+    "con": 3,
+    "int": 0,
+    "wis": 3,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 21,
+    "dex": 18,
+    "con": 16,
+    "int": 11,
+    "wis": 16,
+    "cha": 12
+  },
+  "perception": {
+    "mod": 7,
+    "passive": 17
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 9
+    },
+    {
+      "name": "Perception",
+      "mod": 7
+    },
+    {
+      "name": "Stealth",
+      "mod": 8
+    },
+    {
+      "name": "Survival",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 150,
+        "note": null,
+        "formula": "20d8+60"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold",
+        "fire"
+      ],
+      "conditions": [
+        "exhaustion",
+        "stunned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aura of Starvation",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that starts its turn within 10 feet of the wendigo must succeed on a DC 15 Constitution saving throw or be paralyzed by gnawing cold and crippling hunger for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the wendigo's Aura of Starvation for the next 24 hours."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "paralyzed",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The wendigo has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The wendigo makes three attacks: two with its icy claw and one with its bite. Alternatively, it uses its Frozen Spittle twice."
+      ]
+    },
+    {
+      "name": "Icy Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 12 (2d6 + 5) slashing damage and 14 (4d6) cold damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+5",
+          "average": 12,
+          "type": "slashing"
+        },
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 14 (2d8 + 5) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+5",
+          "average": 14,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Frozen Spittle",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Spell Attack: +7 to hit, range 100 ft., one target. Hit: 28 (8d6) cold damage, and the target must succeed on a DC 16 Dexterity saving throw or be restrained until the end of its next turn."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "spell",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": 28,
+          "type": "cold"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "restrained",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

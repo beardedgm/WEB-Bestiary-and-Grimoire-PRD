@@ -1,0 +1,210 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:nightscorpion",
+  "name": "Night Scorpion",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 320,
+    "path": "monsters/5e/tome_of_beasts_2023/nightscorpion-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 2,
+    "con": 2,
+    "int": -5,
+    "wis": -1,
+    "cha": -4
+  },
+  "abilityScores": {
+    "str": 15,
+    "dex": 14,
+    "con": 14,
+    "int": 1,
+    "wis": 9,
+    "cha": 3
+  },
+  "perception": {
+    "mod": null,
+    "passive": 9
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 90,
+        "note": null,
+        "formula": "12d10+24"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The scorpion makes two Claw attacks and one Sting attack."
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 6 (1d8 + 2) bludgeoning damage, and the target is grappled (escape DC 12). The scorpion has two claws, each of which can grapple only one target."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+2",
+          "average": 6,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Sting",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 7 (1d10 + 2) piercing damage, and the target must make a DC 12 Constitution saving throw. On a failure, the target takes 7 (2d6) poison damage and is blinded for 1 hour. On a success, a creature takes half the damage and isn't blinded. If the target fails the saving throw by 5 or more, it is also poisoned for 1 minute, and it is paralyzed while poisoned in this way. A poisoned creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10+2",
+          "average": 7,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "blinded",
+        "duration": "1 hour",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

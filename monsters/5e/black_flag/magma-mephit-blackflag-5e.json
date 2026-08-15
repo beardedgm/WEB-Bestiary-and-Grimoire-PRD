@@ -1,0 +1,239 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:magma-mephit",
+  "name": "Magma Mephit",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/magma_mephit_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.5,
+    "xp": 100,
+    "display": "1/2"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 0,
+    "con": 0,
+    "int": -2,
+    "wis": 0,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Ignan",
+    "Terran"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 12,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 27,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire",
+        "poison",
+        "poisoned"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Death Burst",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the mephit dies, it explodes in a burst of lava. Each creature within 5 feet of it must succeed on a DC 11 DEX save or be pushed up to 10 feet away from the mephit, knocked prone, and catch on fire. Until a creature takes an action to douse the fire, the creature on fire takes 3 (1d6) fire damage at the start of each of its turns."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "False Appearance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While the mephit remains motionless, it is indistinguishable from an ordinary mound of molten rock."
+      ]
+    },
+    {
+      "name": "Claws",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +4 to hit, reach 5 ft., one target. _Hit:_ 4 (1d4+2) slashing damage plus 3 (1d6) fire damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d4+2",
+          "average": 4,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Lob Magma",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Ranged Weapon Attack:_ +2 to hit, range 20/60 ft., one target. _Hit:_ 7 (2d6) fire damage."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Pyroclastic Burst",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mephit exhales an explosive blast of lava in a 15-foot cone. Each creature in the area must make a DC 11 STR save. On a failure, a creature takes 7 (2d6) fire damage and is pushed up to 10 feet away from the mephit and knocked prone. On a success, a creature takes half the damage and isn't pushed or knocked prone."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "fire"
+        }
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Pyrotechnic Display",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mephit casts the color spray spell (spell save DC 11), requiring no material components and using CHA as the spellcasting ability."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

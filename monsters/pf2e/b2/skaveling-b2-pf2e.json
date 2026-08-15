@@ -1,0 +1,293 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:skaveling",
+  "name": "Skaveling",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/skaveling.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "large",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 4,
+    "con": 2,
+    "int": 1,
+    "wis": 6,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "echolocation",
+      "range": 40,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 13
+    },
+    {
+      "name": "Athletics",
+      "mod": 13
+    },
+    {
+      "name": "Intimidation",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 22,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 80,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 11
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "fangs",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15,
+          10,
+          5
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [],
+      "entries": [
+        "2d8+8",
+        "ghoul fever",
+        "paralysis",
+        "ghoul fever, paralysis"
+      ]
+    },
+    {
+      "name": "wing",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15,
+          11,
+          7
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [],
+      "entries": [
+        "2d4+8",
+        "skrik nettle venom"
+      ]
+    },
+    {
+      "name": "Bone-Chilling Screech",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "auditory",
+        "emotion",
+        "fear",
+        "mental",
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "The skaveling unleashes a horrifying screech that chills the very bones of those close enough to feel it. The screech can be heard for miles, but each creature in a 20-foot emanation must also attempt a DC 22 Will save. The skaveling can't use Bone-Chilling Screech again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected and is temporarily immune to Bone-"
+        }
+      },
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Chilling",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Screech for 24 hours."
+      ],
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "success": "The creature is frightened 1.",
+          "failure": "The creature is frightened 2.",
+          "criticalFailure": "The creature is frightened 2 and stunned 1 by fear."
+        }
+      }
+    },
+    {
+      "name": "Ghoul Fever",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "disease"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Paralysis",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "incapacitation",
+        "occult",
+        "necromancy"
+      ],
+      "entries": [
+        "Any creature hit by the skaveling's Strikes must attempt a DC 22 Fortitude save."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is slowed 1.",
+          "failure": "The creature is paralyzed. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each save. into a standard potion of flying."
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 20
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

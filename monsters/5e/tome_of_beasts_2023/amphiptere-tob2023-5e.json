@@ -1,0 +1,231 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:amphiptere",
+  "name": "Amphiptere",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 16,
+    "path": "monsters/5e/tome_of_beasts_2023/amphiptere-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 4,
+    "con": 3,
+    "int": -4,
+    "wis": 3,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 11,
+    "dex": 18,
+    "con": 17,
+    "int": 2,
+    "wis": 16,
+    "cha": 6
+  },
+  "perception": {
+    "mod": 5,
+    "passive": 15
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 10,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 60,
+        "note": null,
+        "formula": "8d8+24"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "fly": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Flyby",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The amphiptere doesn't provoke opportunity attacks when it flies out of an enemy's reach."
+      ]
+    },
+    {
+      "name": "Swarming",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Up to two amphipteres can share the same space at the same time. The amphiptere has advantage on melee attack rolls if it is sharing its space with another amphiptere that isn't incapacitated."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The amphiptere makes one Bite attack and one Stinger attack."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one creature. Hit: 7 (1d6 + 4) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": 7,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Stinger",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one creature. Hit: 7 (1d6 + 4) piercing damage plus 10 (3d6) poison damage, and the target must succeed on a DC 13 Constitution saving throw or be poisoned for 1 hour."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": 7,
+          "type": "piercing"
+        },
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 hour",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

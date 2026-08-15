@@ -1,0 +1,234 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd51:ghast",
+  "name": "Ghast",
+  "gameSystem": "dnd5e",
+  "variant": "srd51",
+  "source": {
+    "code": "5.1_srd_(2015_mm)",
+    "name": "5.1 SRD (2015 MM)",
+    "page": 311,
+    "path": "monsters/5e/5.1_srd_(2015_mm)/ghast.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 2,
+    "xp": 450,
+    "display": "2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 3,
+    "con": 0,
+    "int": 0,
+    "wis": 0,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 17,
+    "con": 10,
+    "int": 11,
+    "wis": 10,
+    "cha": 8
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 36,
+        "note": null,
+        "formula": "8d8"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "necrotic",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Stench",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Any creature that starts its turn within 5 ft. of the ghast must succeed on a DC 10 Constitution saving throw or be poisoned until the start of its next turn. On a successful saving throw, the creature is immune to the ghast's Stench for 24 hours."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 10,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "24 hours",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Turn Defiance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ghast and any ghouls within 30 ft. of it have advantage on saving throws against effects that turn undead."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +3 to hit, reach 5 ft., one creature. Hit: 12 (2d8 + 3) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 3,
+        "map": [
+          3
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Claws",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage. If the target is a creature other than an undead, it must succeed on a DC 10 Constitution saving throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 10,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "paralyzed",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

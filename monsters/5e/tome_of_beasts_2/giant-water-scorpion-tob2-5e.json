@@ -1,0 +1,240 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:giant-water-scorpion",
+  "name": "Giant Water Scorpion",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 393,
+    "path": "monsters/5e/tome_of_beasts_2/giant-water-scorpion.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 1,
+    "con": 3,
+    "int": -5,
+    "wis": 0,
+    "cha": -4
+  },
+  "abilityScores": {
+    "str": 17,
+    "dex": 12,
+    "con": 16,
+    "int": 1,
+    "wis": 10,
+    "cha": 3
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "blindsight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 93,
+        "note": null,
+        "formula": "11d10+33"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "swim": 30,
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Hold Breath",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The scorpion can hold its breath for 1 hour. If it is within 15 feet of the water's surface, it can use its tail as a breathing tube and doesn't need to hold its breath."
+      ]
+    },
+    {
+      "name": "Poison Injection",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the scorpion hits with a proboscis attack against a grappled, paralyzed, restrained, or stunned creature, it deals an extra 10 (3d6) poison damage."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Underwater Camouflage",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The scorpion has advantage on Dexterity (Stealth) checks made to hide while underwater."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The giant water scorpion makes two claw attacks. If it is grappling a creature, it can use its proboscis once."
+      ]
+    },
+    {
+      "name": "Proboscis",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 8 (1d10 + 3) piercing damage, and the target's Strength score is reduced by 1d4. The target dies if this reduces its Strength to 0. Otherwise, the reduction lasts until the target finishes a short or long rest."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10+3",
+          "average": 8,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Claws",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 10 ft., one target. Hit: 6 (1d6 + 3) piercing damage. The target is grappled (escape DC 13) if it is a Medium or smaller creature and the scorpion doesn't have another creature grappled."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+3",
+          "average": 6,
+          "type": "piercing"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,229 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:mandriano",
+  "name": "Mandriano",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 261,
+    "path": "monsters/5e/creature_codex/mandriano.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 5,
+    "xp": 1800,
+    "display": "5"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "lawful evil",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": -2,
+    "con": 2,
+    "int": 0,
+    "wis": 0,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 15,
+    "dex": 6,
+    "con": 15,
+    "int": 10,
+    "wis": 10,
+    "cha": 7
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Common and Sylvan",
+    "but can't speak"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 5
+    },
+    {
+      "name": "Perception",
+      "mod": 3
+    },
+    {
+      "name": "Stealth",
+      "mod": 1
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 60,
+        "note": null,
+        "formula": "8d10+16"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "exhaustion",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "necrotic; bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mandriano makes two swipe attacks."
+      ]
+    },
+    {
+      "name": "Swipe",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 10 ft., one target. Hit: 11 (2d6 + 4) slashing damage. If the target is Medium or smaller, it is grappled (escape DC 14). Until this grapple ends, the target is restrained. It can grapple up to three creatures."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": 11,
+          "type": "slashing"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Consume the Spark",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mandriano drains the essence of one grappled target. The target must make a DC 14 Constitution saving throw, taking 13 (4d6) necrotic damage on a failed save, or half as much damage on a successful one. The target's hp maximum is reduced by an amount equal to the necrotic damage taken, and the mandriano regains hp equal to that amount. The reduction lasts until the target finishes a long rest. The target dies if this effect reduces its hp maximum to 0. A humanoid slain in this way rises 24 hours later as a zombie or skeleton under the mandriano's control, unless the humanoid is restored to life or its body is destroyed. The mandriano can control up to twelve undead at one time."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": 13,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,241 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:quasit",
+  "name": "Quasit",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/quasit_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 1,
+    "xp": 200,
+    "display": "1"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -3,
+    "dex": 5,
+    "con": 0,
+    "int": -2,
+    "wis": 0,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Common"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 35,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "Demonic Resilience"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Demonic Resilience",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Demonic Resilience",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The quasit is resistant to cold, fire, and lightning damage. In addition, it is immune to poison damage and to the poisoned condition."
+      ]
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The quasit has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Claws (True Form Only)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +5 to hit, reach 5 ft., one target. _Hit:_ 5 (1d4+3) piercing damage, and the target must succeed on a DC 13 Constitution saving throw or take 5 (2d4) poison damage and be poisoned for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "damage": [
+        {
+          "formula": "1d4+3",
+          "average": 5,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Slam (Beast Form Only)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +5 to hit, reach 5 ft., one target. _Hit:_ 10 (2d6+3) bludgeoning, piercing, or slashing damage (based on the type of damage dealt by the Beast form's primary attack, such as Bite)."
+      ]
+    },
+    {
+      "name": "Invisibility (True Form Only)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The quasit magically turns invisible until it attacks, uses Scare, or uses Change Shape, or until its concentration ends (as if concentrating on a spell). Any equipment the quasit wears or carries is invisible with it."
+      ]
+    },
+    {
+      "name": "Change Shape",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The quasit magically transforms into a Medium or smaller Beast that has a CR no higher than its own or back into its true form, which is a Fiend. Its statistics, other than its size and speed, are the same in each form.<br>Any equipment it is wearing or carrying transforms with it. It reverts to its true form if it dies."
+      ]
+    },
+    {
+      "name": "Scare",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "One creature of the quasit's choice within 20 feet of it must succeed on a DC 13 Wisdom saving throw or be frightened for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "save": {
+        "defense": "wis",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

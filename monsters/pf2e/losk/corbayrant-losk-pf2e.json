@@ -1,0 +1,383 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:losk:corbayrant",
+  "name": "Corbayrant",
+  "gameSystem": "pf2e",
+  "variant": "losk",
+  "source": {
+    "code": "losk",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/losk/corbayrant.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 16,
+    "xp": null,
+    "display": "Creature 16"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "beast",
+      "fey",
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "rare",
+      "huge",
+      "beast",
+      "fey",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 5,
+    "con": 6,
+    "int": 4,
+    "wis": 5,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 28,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 100,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [
+    "Common",
+    "Fey",
+    "Muan"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 33
+    },
+    {
+      "name": "Nature",
+      "mod": 29
+    },
+    {
+      "name": "Stealth",
+      "mod": 27
+    },
+    {
+      "name": "Survival",
+      "mod": 27
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 38,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 295,
+        "formula": null,
+        "note": "regeneration 20 (deactivated by cold)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 30
+      },
+      {
+        "name": "ref",
+        "mod": 27
+      },
+      {
+        "name": "will",
+        "mod": 27
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "blinded"
+      ],
+      "other": [
+        "visual"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "fire",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "climb": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Thorny Hide",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A corbayrant's body is covered in jagged spines. Adjacent creatures that hit them with a melee attack, as well as creatures that touch them or hit them with an unarmed attack, take 4d6 piercing damage and are exposed to thorn paralysis."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Vitriolic Miasma",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura"
+      ],
+      "entries": [
+        "30 feet. Non-corbayrants take a −2 circumstance penalty to saves against poison effects and gain weakness 10 to poison damage while within the aura."
+      ],
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Reactive Strike",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "fangs",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          27,
+          22
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d12+18",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Grab"
+      ]
+    },
+    {
+      "name": "stinger",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          27,
+          22
+        ],
+        "traits": [
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+15",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "corbayrant venom"
+      ]
+    },
+    {
+      "name": "spine",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          27,
+          22
+        ],
+        "traits": [
+          "propulsive",
+          "range increment <40 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 40,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+15",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "thorn paralysis"
+      ]
+    },
+    {
+      "name": "Corbayrant Venom",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Spine Volley",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The corbayrant makes four spine Strike|PC1|Strikes, each against a different target. These attacks all count toward the corbayrant's multiple attack penalty, but the penalty doesn't increase until after the corbayrant makes their attacks."
+      ]
+    },
+    {
+      "name": "Swallow Whole",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Large, 9d6 piercing plus thorn paralysis, Rupture 30"
+      ]
+    },
+    {
+      "name": "Thorn Paralysis",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "incapacitation",
+        "poison"
+      ],
+      "entries": [
+        "The corbayrant's spines are covered in a paralyzing toxin that cause verdurous thorns to sprout from their victim's body. When a non-corbayrant creature is exposed, it attempts a DC 37 Fortitude save."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 37,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 40
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Thorn Paralysis)"
+    ],
+    "unmapped": []
+  }
+}

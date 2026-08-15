@@ -1,0 +1,359 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:gw3:mindmoppet",
+  "name": "Mindmoppet",
+  "gameSystem": "pf2e",
+  "variant": "gw3",
+  "source": {
+    "code": "gw3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/gw3/mindmoppet.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ln",
+      "tiny",
+      "ooze"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 4,
+    "con": 2,
+    "int": 5,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "mindsense",
+      "range": null,
+      "unit": null,
+      "acuity": "precise"
+    },
+    {
+      "name": "no vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 13
+    },
+    {
+      "name": "Crafting",
+      "mod": 14
+    },
+    {
+      "name": "Deception",
+      "mod": 11
+    },
+    {
+      "name": "Intimidation",
+      "mod": 11
+    },
+    {
+      "name": "Medicine",
+      "mod": 10
+    },
+    {
+      "name": "Occultism",
+      "mod": 14
+    },
+    {
+      "name": "Society",
+      "mod": 14
+    },
+    {
+      "name": "Stealth",
+      "mod": 13
+    },
+    {
+      "name": "Thievery",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 21,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 75,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 9
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "acid",
+        "piercing",
+        "precision"
+      ],
+      "conditions": [
+        "unconscious"
+      ],
+      "other": [
+        "critical hits",
+        "visual"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "slashing",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "electricity",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Prognosticate",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the mindmoppet uses a reaction, it can Step before or after taking the reaction."
+      ]
+    },
+    {
+      "name": "Synapse Glow",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "light"
+      ],
+      "entries": [
+        "5 feet. The firing of the mindmoppet's synapses create dim light. The range increases to 10 feet if its shell is destroyed."
+      ],
+      "aura": {
+        "range": 5,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Shell",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The mindmoppet believes its shell is an important part of itself. Breaking the mindmoppet's shell (AC 25, Hardness 1, HP 6, BT 3) causes it to become fascinated with its shell. This condition ends when its shell is repaired."
+      ]
+    },
+    {
+      "name": "Redirect Attack",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "mental"
+      ],
+      "entries": [
+        "The mindmoppet attempts a Dexterity saving throw, using the attack roll as the DC for the check. On a success, it redirects the attack at another target within the attacker's range. On a failure, the attack resolves as normal."
+      ],
+      "trigger": "The mindmoppet is targeted by a melee or ranged Strike"
+    },
+    {
+      "name": "telekinetic slam",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15,
+          10,
+          5
+        ],
+        "traits": [
+          "evocation",
+          "force",
+          "occult",
+          "range increment <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "force"
+        }
+      ],
+      "entries": [
+        "Improved Push"
+      ]
+    },
+    {
+      "name": "Anticipate",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The mindmoppet attempts to anticipate its opponent's actions. Until the end of its next turn, the mindmoppet gains one reaction."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 22,
+      "attackBonus": 14,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "Constant (1st)",
+          "spells": [
+            {
+              "name": "mindlink",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "Cantrips (2nd)",
+          "spells": [
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "telekinetic projectile",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "command",
+              "uses": null
+            },
+            {
+              "name": "mending",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "telekinetic maneuver",
+              "uses": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Ooze",
+        "skill": "Occultism",
+        "dc": 22
+      }
+    ],
+    "items": [
+      "shell (porcelain doll)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

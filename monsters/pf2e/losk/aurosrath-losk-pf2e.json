@@ -1,0 +1,268 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:losk:aurosrath",
+  "name": "Aurosrath",
+  "gameSystem": "pf2e",
+  "variant": "losk",
+  "source": {
+    "code": "losk",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/losk/aurosrath.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "metal",
+      "unholy"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "uncommon",
+      "large",
+      "metal",
+      "undead",
+      "unholy"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 2,
+    "con": 4,
+    "int": 0,
+    "wis": 1,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 13
+    },
+    {
+      "name": "Intimidation",
+      "mod": 12
+    },
+    {
+      "name": "Mercantile Lore",
+      "mod": 12
+    },
+    {
+      "name": "Stealth",
+      "mod": 10
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 95,
+        "formula": null,
+        "note": "void healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 14
+      },
+      {
+        "name": "ref",
+        "mod": 9
+      },
+      {
+        "name": "will",
+        "mod": 13
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "electricity",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "slashing",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Smeltable",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If an aurosrath takes 5 or more fire damage from a single attack, the precious metals within their body enter a molten state until the end of their next turn. While in this state, the aurosrath takes a −10-foot status penalty to their Speeds, and their strikes deal an extra 1d6 fire damage. They also lose their weakness to slashing damage and their resistance to electricity damage. Finally, any creature currently grabbed|PC1 or restrained|PC1 by the aurosrath loses 1 round of air if it's holding its breath."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15,
+          10,
+          5
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+5",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Grab"
+      ]
+    },
+    {
+      "name": "Fetters of Debt",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "auditory",
+        "curse",
+        "linguistic",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "The aurosrath bellows a plea for gold, remarking that their foes are overladen. Creatures in a 15-foot emanation must succeed at a DC 19 Will save or become encumbered|PC1 for 1 minute. The creature is aware that it can immediately end the condition by giving the aurosrath items or treasure worth at least 20 gp. Handing a held item to the aurosrath is a single Interact|PC1 action. If the aurosrath's hands are full, the item falls in their space, but the condition still ends."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "minute",
+        "text": null
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 15,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Suffocating Wealth",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As the aurosrath holds their victim, the victim is smothered in a stream of phantom coins. A creature who begins its turn grabbed|PC1 or restrained|PC1 by an aurosrath can't speak and must hold its breath or it begins to suffocate. The coins produced are ephemeral and melt away to nothing when removed from the aurosrath's presence for more than 1 round."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 22
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

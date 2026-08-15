@@ -1,0 +1,969 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/ttrpg-monster-0.2.schema.json",
+  "title": "TTRPG Monster (cross-system)",
+  "description": "One schema for both D&D 5e and Pathfinder 2e stat blocks. System differences are expressed as VALUES (nulls, vocabularies, discriminated unions), never as different keys.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "name",
+    "gameSystem",
+    "source",
+    "challenge",
+    "identity",
+    "abilityMods",
+    "abilityScores",
+    "perception",
+    "senses",
+    "languages",
+    "skills",
+    "defenses",
+    "speeds",
+    "entries",
+    "spellcasting",
+    "systemExtras",
+    "parse"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "ttrpg-monster/0.2"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+:[a-z0-9._()-]+:[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "gameSystem": {
+      "enum": [
+        "dnd5e",
+        "pf2e"
+      ]
+    },
+    "variant": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "code",
+        "path"
+      ],
+      "properties": {
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "page": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    },
+    "challenge": {
+      "type": "object",
+      "required": [
+        "kind",
+        "value",
+        "display"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "cr",
+            "level"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "xp": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "display": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "description": "kind discriminates CR from creature level. Never coerce one into the other."
+    },
+    "identity": {
+      "type": "object",
+      "required": [
+        "size",
+        "types",
+        "subtypes",
+        "alignment",
+        "nativeTraits"
+      ],
+      "properties": {
+        "size": {
+          "enum": [
+            "Tiny",
+            "Small",
+            "Medium",
+            "Large",
+            "Huge",
+            "Gargantuan",
+            "Titanic",
+            null
+          ],
+          "description": "Titanic is an A5E-only class above Gargantuan; null when the source omits size."
+        },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "subtypes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "rarity": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "alignment": {
+          "type": "object",
+          "properties": {
+            "raw": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "lawChaos": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "goodEvil": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "nativeTraits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "abilityMods": {
+      "description": "MODIFIERS, never scores. Bound is -10..20: real modifiers reach +17 (Black Flag's highest-tier creatures), while ability SCORES misfiled here land at 21-30 and fail.",
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "str",
+        "dex",
+        "con",
+        "int",
+        "wis",
+        "cha"
+      ],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^(str|dex|con|int|wis|cha)$": {
+          "type": "integer",
+          "minimum": -10,
+          "maximum": 20
+        }
+      }
+    },
+    "abilityScores": {
+      "description": "Null for systems that have no ability scores. NOT to be back-computed from modifiers.",
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "str",
+        "dex",
+        "con",
+        "int",
+        "wis",
+        "cha"
+      ],
+      "additionalProperties": false,
+      "patternProperties": {
+        "^(str|dex|con|int|wis|cha)$": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 30
+        }
+      }
+    },
+    "perception": {
+      "type": "object",
+      "properties": {
+        "mod": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "passive": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    },
+    "senses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "range": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "acuity": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "skills": {
+      "$ref": "#/$defs/namedModList"
+    },
+    "defenses": {
+      "type": "object",
+      "required": [
+        "ac",
+        "hp",
+        "savingThrows",
+        "immunities",
+        "resistances",
+        "weaknesses"
+      ],
+      "properties": {
+        "ac": {
+          "type": "object",
+          "required": [
+            "value"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "note": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "hp": {
+          "description": "Array because some creatures print multiple HP pools (forms, phases).",
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "value"
+            ],
+            "properties": {
+              "value": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "formula": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "note": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "savingThrows": {
+          "description": "Same shape as skills. PF2e fills fort/ref/will; 5e fills whichever abilities are proficient.",
+          "$ref": "#/$defs/namedModList"
+        },
+        "saveNote": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "immunities": {
+          "type": "object",
+          "required": [
+            "damage",
+            "conditions",
+            "other"
+          ],
+          "properties": {
+            "damage": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "conditions": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "other": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "description": "PF2e prints these on one merged line; they must still be split on the way in."
+        },
+        "resistances": {
+          "$ref": "#/$defs/namedAmountList"
+        },
+        "weaknesses": {
+          "$ref": "#/$defs/namedAmountList"
+        },
+        "hardness": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      }
+    },
+    "speeds": {
+      "type": "object",
+      "required": [
+        "unit",
+        "modes"
+      ],
+      "properties": {
+        "unit": {
+          "type": "string"
+        },
+        "modes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "special": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "entries": {
+      "description": "The ordered spine. Holds traits, actions, strikes, reactions and legendary actions in source order.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    },
+    "spellcasting": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "type"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "tradition": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "dc": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "attackBonus": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "ability": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "levels": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "rank": {
+                  "type": [
+                    "integer",
+                    "string",
+                    "null"
+                  ],
+                  "description": "Spell rank/level. 0 = cantrips. null for usage-based rows (At Will, 3/Day Each) that have no level."
+                },
+                "spells": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "uses": {
+                        "type": [
+                          "integer",
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "rankLabel": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Raw source label, e.g. 'Cantrips (6th)' or '1/Day Each'."
+                },
+                "slots": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "uses": {
+                  "type": [
+                    "integer",
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "systemExtras": {
+      "description": "The ONLY place system-specific keys are allowed. Everything above is universal.",
+      "type": "object"
+    },
+    "parse": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "ok",
+            "partial",
+            "failed"
+          ]
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unmapped": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "namedModList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "mod"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "mod": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "namedAmountList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "amount": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "entry": {
+      "type": "object",
+      "required": [
+        "name",
+        "category",
+        "placement",
+        "entries"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "passive",
+            "action",
+            "reaction",
+            "free",
+            "strike",
+            "legendary",
+            "lair",
+            "mythic"
+          ]
+        },
+        "placement": {
+          "type": "string",
+          "description": "Source section name, in the source system's own vocabulary."
+        },
+        "activity": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "required": [
+            "unit",
+            "number"
+          ],
+          "properties": {
+            "unit": {
+              "enum": [
+                "action",
+                "bonus",
+                "reaction",
+                "free",
+                "legendary",
+                "lair",
+                "mythic"
+              ]
+            },
+            "number": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 3
+            },
+            "symbol": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "traits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "trigger": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "aura": {
+          "type": "object",
+          "properties": {
+            "range": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string"
+            }
+          }
+        },
+        "area": {
+          "type": "object",
+          "properties": {
+            "shape": {
+              "type": "string"
+            },
+            "size": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string"
+            }
+          }
+        },
+        "attack": {
+          "type": "object",
+          "required": [
+            "range",
+            "bonus",
+            "map"
+          ],
+          "properties": {
+            "range": {
+              "enum": [
+                "melee",
+                "ranged"
+              ]
+            },
+            "subtype": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "bonus": {
+              "type": "integer"
+            },
+            "map": {
+              "description": "Full attack progression. PF2e gives 3 entries; 5e gives 1. Never truncate PF2e to its first value.",
+              "type": "array",
+              "items": {
+                "type": "integer"
+              },
+              "minItems": 1
+            },
+            "traits": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "reach": {
+              "type": "object"
+            },
+            "range_": {
+              "type": "object",
+              "description": "Ranged increment. thrown:true marks a distance taken from the 'thrown <N feet>' trait rather than a range field.",
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "thrown": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "targets": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "damage": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "formula",
+              "type"
+            ],
+            "properties": {
+              "formula": {
+                "type": "string"
+              },
+              "average": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "save": {
+          "type": "object",
+          "required": [],
+          "properties": {
+            "defense": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "PF2e: fortitude/reflex/will. 5e: str/dex/con/int/wis/cha. Null when degrees of success are printed without a save on the same line."
+            },
+            "dc": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "basic": {
+              "type": "boolean"
+            },
+            "outcomes": {
+              "description": "Map keyed by degree of success. 5e populates 2 (success/failure). PF2e basic saves get the canonical none/half/full/double; PF2e abilities that PRINT their degrees get the source's own effect text for each. Same field, different fill.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "criticalSuccess": {
+                  "type": "string"
+                },
+                "success": {
+                  "type": "string"
+                },
+                "failure": {
+                  "type": "string"
+                },
+                "criticalFailure": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "condition": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "duration": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "repeatSave": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "recharge": {
+          "description": "Discriminated union on kind: PF2e waits N rounds, 5e rolls a d6 each turn.",
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "formula"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "dice"
+                },
+                "formula": {
+                  "type": "string"
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "required": [
+                "kind",
+                "min",
+                "max"
+              ],
+              "properties": {
+                "kind": {
+                  "const": "d6-range"
+                },
+                "min": {
+                  "type": "integer"
+                },
+                "max": {
+                  "type": "integer"
+                },
+                "display": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "uses": {
+          "type": "object",
+          "properties": {
+            "count": {
+              "type": "integer"
+            },
+            "period": {
+              "type": "string"
+            },
+            "display": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "entries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requirements": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "PF2e: precondition printed before the effect (e.g. 'The creature has a target grabbed')."
+        },
+        "frequency": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "PF2e usage limit. Sources leak a serialized object into the markdown here, so number/unit are parsed out when present; otherwise the prose lands in text.",
+          "properties": {
+            "number": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "text": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

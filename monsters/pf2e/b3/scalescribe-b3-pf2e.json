@@ -1,0 +1,315 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:scalescribe",
+  "name": "Scalescribe",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/scalescribe.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "tiny",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": -2,
+    "dex": 3,
+    "con": 1,
+    "int": 4,
+    "wis": 4,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 11,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 11
+    },
+    {
+      "name": "Occultism",
+      "mod": 9
+    },
+    {
+      "name": "Stealth",
+      "mod": 8
+    },
+    {
+      "name": "Library Lore",
+      "mod": 11
+    },
+    {
+      "name": "Scribing Lore",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 45,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 6
+      },
+      {
+        "name": "ref",
+        "mod": 10
+      },
+      {
+        "name": "will",
+        "mod": 11
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Transcribe",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The scalescribe attempts to copy the incantation onto a scroll by attempting a counteract check (counteract level 2, counteract modifier +10) with the following effects instead of the normal effects of counteracting. The spell still affects the scalescribe, regardless of the results of this check. The scalescribe can Cast a Spell from any scroll they Transcribe as if it were on their spell list. Transcribing a new scroll renders any previously Transcribed scroll inert."
+      ],
+      "trigger": "Another creature targets the scalescribe with a spell requiring verbal components",
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "If the triggering spell's level was no more than 3 higher than the scalescribe's counteract level, the scalescribe captures a copy of the spell in a scroll that appears in their hand. This scroll can be used normally but fades after 24 hours if not used before then.",
+          "success": "As critical success, but only if the spell's level is no more than 1 higher than the scalescribe's counteract level.",
+          "failure": "As critical success, but only if the spell's level is lower than the scalescribe's counteract level.",
+          "criticalFailure": "The scalescribe fails to copy the spell."
+        }
+      }
+    },
+    {
+      "name": "fountain pen",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          6,
+          2
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "inkstain",
+        "inkstain"
+      ]
+    },
+    {
+      "name": "morpheme glyph",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          5,
+          0
+        ],
+        "traits": [
+          "evocation",
+          "magical",
+          "range <40 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 40,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "force"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Inkstain",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the scalescribe deals damage to a creature with their fountain pen, the creature takes 1d4 persistent poison damage. When a creature taking this damage attempts to take an action with the concentrate trait, it must succeed at a DC 5 flat check or the action is disrupted."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 20,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Cantrips (2nd)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            },
+            {
+              "name": "sigil",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "comprehend language",
+              "uses": 3
+            },
+            {
+              "name": "dispel magic",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "secret page",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 18
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

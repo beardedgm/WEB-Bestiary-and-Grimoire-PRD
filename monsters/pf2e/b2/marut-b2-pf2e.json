@@ -1,0 +1,362 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:marut",
+  "name": "Marut",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/marut.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aeon",
+      "monitor"
+    ],
+    "subtypes": [
+      "inevitable"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "ln",
+      "large",
+      "aeon",
+      "inevitable",
+      "monitor"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 4,
+    "con": 6,
+    "int": 1,
+    "wis": 5,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 26,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "true seeing",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Infernal",
+    "Utopian; Truespeech"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 31
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 27
+    },
+    {
+      "name": "Intimidation",
+      "mod": 29
+    },
+    {
+      "name": "Religion",
+      "mod": 26
+    },
+    {
+      "name": "Survival",
+      "mod": 28
+    },
+    {
+      "name": "Axis Lore",
+      "mod": 22
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 37,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 230,
+        "formula": null,
+        "note": "regeneration 15 (deactivated by chaotic)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 27
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 26
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "emotion"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "chaotic",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": [
+      "air walk"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          25,
+          20
+        ],
+        "traits": [
+          "lawful",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+11",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "lawful"
+        }
+      ],
+      "entries": [
+        "fists of thunder",
+        "lightning",
+        "fists of thunder, lightning"
+      ]
+    },
+    {
+      "name": "Final End",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The marut is anathema to beings that unnaturally extend their existence, including undead. Its fists bypass such creatures' resistances to damage and apply the creatures' highest weakness to damage. If a marut kills a creature that rejuvenates, like a lich or ghost, it always knows that the creature isn't fully defeated."
+      ]
+    },
+    {
+      "name": "Fists of Thunder and Lightning",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "evocation",
+        "incapacitation"
+      ],
+      "entries": [
+        "Each time the marut makes a fist Strike, it chooses either lightning or thunder. If it chooses lightning, the attack deals an additional 2d12 electricity damage and the target must succeed at a DC 33 Fortitude save or be blinded for 1 minute. If it chooses thunder, the attack deals an additional 3d8 sonic damage and the target must succeed at a DC 36 Fortitude save or be deafened for 1 minute."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 33,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 37,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 8,
+          "rankLabel": "Constant (8th)",
+          "spells": [
+            {
+              "name": "air walk",
+              "uses": null
+            },
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "command",
+              "uses": null
+            },
+            {
+              "name": "locate",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "fear",
+              "uses": null
+            },
+            {
+              "name": "plane shift",
+              "uses": null
+            },
+            {
+              "name": "wall of force",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "chain lightning",
+              "uses": null
+            },
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "earthquake",
+              "uses": null
+            },
+            {
+              "name": "harm",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Monitor",
+        "skill": "Religion",
+        "dc": 34
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

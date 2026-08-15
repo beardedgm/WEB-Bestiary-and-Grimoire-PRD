@@ -1,0 +1,238 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:yellow-musk-creeper",
+  "name": "Yellow Musk Creeper",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/yellow-musk-creeper.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 2,
+    "xp": null,
+    "display": "Creature 2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "medium",
+      "mindless",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 2,
+    "con": 4,
+    "int": -5,
+    "wis": 0,
+    "cha": -1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 4,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability tremorsense}",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 34,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 10
+      },
+      {
+        "name": "ref",
+        "mod": 6
+      },
+      {
+        "name": "will",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 5
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "tendril",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 9,
+        "map": [
+          9,
+          4,
+          -1
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10+3",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Bore into Brain",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "manipulate",
+        "mental"
+      ],
+      "entries": [
+        "The creeper bores dozens of tendrils into the brain of a Small, Medium, or Large humanoid creature that's unconscious, willing, or fascinated by Spray Pollen, and within reach of the creeper's tendrils. The creature must succeed at a DC 18 Fortitude save or become stupefied 1 (stupefied 2 on a critical failure). Subsequent failed saves against Bore into Brain increase the stupefied value. If the creature reaches stupefied 5, it is turned into a yellow musk thrall (see below). Boring into a creature's brain doesn't end fascination caused by Spray Pollen."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Spray Pollen",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "mental",
+        "poison"
+      ],
+      "entries": [
+        "The yellow musk creeper blasts yellow pollen in either a 30-foot line or a 15-foot cone. Each creature in the emanation must attempt a DC 20 Will save. Once a creature succeeds at any save against."
+      ],
+      "area": {
+        "shape": "line",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Spray",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Pollen, it becomes temporarily immune for 24 hours."
+      ],
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "success": "The creature is unaffected.",
+          "failure": "The creature is fascinated. For as long as it is fascinated, it must spend each of its actions to move closer to the yellow musk creeper as expediently as possible, while avoiding obvious dangers. If the creature is adjacent to the yellow musk creeper, it stays still and doesn't act.",
+          "criticalFailure": "As failure, but the condition doesn't end automatically. The creature can attempt a new save at the end of each of its turns. On a success, the fascinated condition and other effects end."
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Plant",
+        "skill": "Nature",
+        "dc": 16
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

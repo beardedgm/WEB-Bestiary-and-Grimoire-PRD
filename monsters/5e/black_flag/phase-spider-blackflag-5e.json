@@ -1,0 +1,246 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:phase-spider",
+  "name": "Phase Spider",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/phase_spider_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 3,
+    "con": 1,
+    "int": -2,
+    "wis": 0,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Phase Spider"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 73,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "poisoned"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Monstrosity Resilience",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "climb": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Ethereal Sight",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The phase spider can see 60 feet into the Ethereal Plane when it is on the Material Plane, and vice versa."
+      ]
+    },
+    {
+      "name": "Monstrosity Resilience",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The phase spider is resistant to exhaustion and to the frightened condition."
+      ]
+    },
+    {
+      "name": "Spider Climb",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The spider can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check."
+      ]
+    },
+    {
+      "name": "Web Walker",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The spider ignores movement restrictions caused by webbing."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The phase spider makes one Barbed Legs attack and one Bite attack. It can replace one attack with a Phasing Web attack."
+      ]
+    },
+    {
+      "name": "Barbed Legs",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +5 to hit, reach 10 ft., one target. _Hit:_ 8 (2d4+3) piercing damage."
+      ],
+      "damage": [
+        {
+          "formula": "2d4+3",
+          "average": 8,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +5 to hit, reach 5 ft., one creature. _Hit:_ 7 (1d10+3) piercing damage, and the target must make a DC 13 CON save, taking 13 (3d8) poison damage on a failed save, or half as much damage on a successful one. If the poison damage reduces the target to 0 HP, the target is stable but poisoned for 1 hour, even after regaining HP, and is paralyzed while poisoned in this way."
+      ],
+      "damage": [
+        {
+          "formula": "1d10+3",
+          "average": 7,
+          "type": "piercing"
+        },
+        {
+          "formula": "3d8",
+          "average": 13,
+          "type": "poison"
+        }
+      ],
+      "condition": {
+        "name": "paralyzed",
+        "duration": "1 hour",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Phasing Web",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Ranged Weapon Attack:_ +5 to hit, range 30/60 ft., one creature. _Hit:_ The target is restrained by webbing. While restrained in this way, the target can see and attack creatures on the Ethereal Plane, and the restrained target can be seen and attacked by creatures on the Ethereal Plane. A creature, including the restrained target, can take its action to free the target from the webbing by succeeding on a DC 13 STR check. The webbing can also be attacked and destroyed (AC 12; HP 10; vulnerability to fire damage; immunity to bludgeoning, poison, and psychic damage)."
+      ],
+      "condition": {
+        "name": "restrained",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Ethereal Jaunt",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The phase spider magically shifts from the Material Plane to the Ethereal Plane, or vice versa."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:mandrake",
+  "name": "Mandrake",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 260,
+    "path": "monsters/5e/creature_codex/mandrake.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.5,
+    "xp": 100,
+    "display": "1/2"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": -2,
+    "con": 3,
+    "int": -5,
+    "wis": -1,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 10,
+    "dex": 6,
+    "con": 16,
+    "int": 1,
+    "wis": 9,
+    "cha": 12
+  },
+  "perception": {
+    "mod": null,
+    "passive": 9
+  },
+  "senses": [
+    {
+      "name": "tremorsense (blind beyond this radius)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 8,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 22,
+        "note": null,
+        "formula": "4d4+12"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "exhaustion",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 5
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +2 to hit, reach 5 ft., one target. Hit: 5 (2d4) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 2,
+        "map": [
+          2
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Shriek",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "All creatures within 60 feet of the mandrake that can hear it must succeed on a DC 13 Constitution saving throw or take 5 (2d4) thunder damage. If a creature fails the saving throw by 5 or more, it is stunned until the end of its next turn. If it fails by 10 or more, it falls unconscious. An unconscious creature can repeat the saving throw at the end of each of its turns, regaining consciousness on a success."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 4,
+        "max": 6,
+        "display": "Recharge 4-6"
+      },
+      "damage": [
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "thunder"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

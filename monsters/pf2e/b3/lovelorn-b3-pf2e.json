@@ -1,0 +1,325 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:lovelorn",
+  "name": "Lovelorn",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/lovelorn.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "tiny",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 5,
+    "con": 3,
+    "int": -2,
+    "wis": 2,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 12
+    },
+    {
+      "name": "Occultism",
+      "mod": 8
+    },
+    {
+      "name": "Stealth",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 21,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 60,
+        "formula": null,
+        "note": "negative healing|b2"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 9
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 12
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "climb": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Gloom Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "illusion",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "60 feet. A lovelorn's presence instills unease and turns the air cold, dark, and stale. Creatures within the aura take a –1 circumstance penalty to saving throws made to resist emotion effects. If the lovelorn makes a place home for a week or more, that location can become suffused with this magic even outside the lovelorn's aura, lasting until the lovelorn leaves or is destroyed."
+      ],
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Skitter Away",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The lovelorn Strides or Climbs 10 feet away from the triggering creature. This movement does not trigger reactions."
+      ],
+      "trigger": "A creature ends its movement in a space adjacent to the lovelorn"
+    },
+    {
+      "name": "fangs",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 13,
+        "map": [
+          13,
+          8,
+          3
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+6",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": [
+        "cynic's curse",
+        "cynic's curse"
+      ]
+    },
+    {
+      "name": "gory tendril",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 13,
+        "map": [
+          13,
+          9,
+          5
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Grab"
+      ]
+    },
+    {
+      "name": "Cynic's Curse",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "curse",
+        "emotion",
+        "enchantment",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "A creature hit by a lovelorn's fangs Strike must attempt a DC 19 Will save as it grows morose and listless. If the creature would be affected by a calm emotions spell, that spell attempts to counteract this curse instead of having its normal effect."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "For 1 minute, the target can't benefit from helpful emotion effects, but can still be affected by harmful emotion effects.",
+          "failure": "As success, plus the target is fatigued for the same duration.",
+          "criticalFailure": "As failure, but the curse's effects are permanent."
+        }
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 21,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Cantrips (2nd)",
+          "spells": [
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "fear",
+              "uses": 3
+            },
+            {
+              "name": "illusory creature",
+              "uses": "at will"
+            },
+            {
+              "name": "illusory object",
+              "uses": "at will"
+            },
+            {
+              "name": "invisibility",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 21
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

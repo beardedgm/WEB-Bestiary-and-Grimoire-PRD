@@ -1,0 +1,305 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:gw3:protosoul",
+  "name": "Protosoul",
+  "gameSystem": "pf2e",
+  "variant": "gw3",
+  "source": {
+    "code": "gw3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/gw3/protosoul.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 11,
+    "xp": null,
+    "display": "Creature 11"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [],
+    "subtypes": [
+      "divine",
+      "necromancy",
+      "mindless"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "n",
+      "large",
+      "divine",
+      "necromancy",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 5,
+    "con": 7,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "lifesense",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 22
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 31,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 190,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 24
+      },
+      {
+        "name": "ref",
+        "mod": 22
+      },
+      {
+        "name": "will",
+        "mod": 17
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "mental",
+        "negative",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy",
+        "nonlethal attacks"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Absorb Necromancy",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A protosoul is made of necromantic energy. Any time it would be affected by another creature's non-cantrip necromancy spell, after applying its immunity, it also regains 10 Hit Points."
+      ]
+    },
+    {
+      "name": "necromantic tendril",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          17,
+          12
+        ],
+        "traits": [
+          "divine",
+          "magical",
+          "necromancy",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+11",
+          "average": null,
+          "type": "force"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "necromantic bolt",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          17,
+          12
+        ],
+        "traits": [
+          "divine",
+          "magical",
+          "necromancy",
+          "range increment <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+11",
+          "average": null,
+          "type": "force"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Engulf",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "DC 30, 2d8 force plus 3d8 negative, Escape DC 30, Rupture 25"
+      ]
+    },
+    {
+      "name": "Unstable Magic",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The roiling protosoul can't be healed or Repaired, and is destroyed at 0 Hit Points. So long as it is not destroyed, it naturally recovers 77 Hit Points each day. Each time a roiling protosoul casts one of its non-cantrip spells, it drains its own magic to do so, taking 6 force damage."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 30,
+      "attackBonus": 22,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Cantrips (5th)",
+          "spells": [
+            {
+              "name": "chill touch",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "sudden blight",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "enervation",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "harm",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

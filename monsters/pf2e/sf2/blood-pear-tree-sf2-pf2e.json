@@ -1,0 +1,328 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sf2:blood-pear-tree",
+  "name": "Blood-Pear Tree",
+  "gameSystem": "pf2e",
+  "variant": "sf2",
+  "source": {
+    "code": "sf2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sf2/blood-pear-tree.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 17,
+    "xp": null,
+    "display": "Creature 17"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ne",
+      "huge",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 5,
+    "con": 6,
+    "int": -2,
+    "wis": 6,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 29,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Arboreal",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 32
+    },
+    {
+      "name": "Stealth",
+      "mod": 30
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 38,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 350,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 31
+      },
+      {
+        "name": "ref",
+        "mod": 26
+      },
+      {
+        "name": "will",
+        "mod": 27
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "axe vulnerability",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Axe Vulnerability",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The Blood-Pear Tree takes 15 additional damage from axes."
+      ]
+    },
+    {
+      "name": "branch",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 34,
+        "map": [
+          34,
+          29,
+          24
+        ],
+        "traits": [
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+17",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "root",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 34,
+        "map": [
+          34,
+          30,
+          26
+        ],
+        "traits": [
+          "agile",
+          "reach <20 feet>",
+          "trip"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+17",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Grab"
+      ]
+    },
+    {
+      "name": "bloody pear",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          25,
+          20
+        ],
+        "traits": [
+          "range increment <20 feet>",
+          "splash"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+12",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "bleed splash damage"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Take Root",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "necromancy",
+        "primal"
+      ],
+      "entries": [
+        "The Blood-Pear Tree buries its roots into the creature, dealing 2d6+17 piercing damage (DC 38 basic Fortitude save). On a failure, the creature is enfeebled 1 (or increases the value by 1 if already enfeebled), and the corpseroot regains 15 HP. If this would make a creature enfeebled 5, the creature dies."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "requirements": "The Blood-Pear Tree has a creature grabbed or restrained",
+      "save": {
+        "defense": "fortitude",
+        "dc": 38,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 46
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

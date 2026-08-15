@@ -1,0 +1,348 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd52:balor",
+  "name": "Balor",
+  "gameSystem": "dnd5e",
+  "variant": "srd52",
+  "source": {
+    "code": "5.2_srd_(2025_mm)",
+    "name": null,
+    "page": null,
+    "path": "monsters/5e/5.2_srd_(2025_mm)/balor_mm_2024.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 19,
+    "xp": 22000,
+    "display": "19"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [
+      "demon"
+    ],
+    "rarity": null,
+    "alignment": {
+      "raw": "Chaotic Evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 2,
+    "con": 6,
+    "int": 5,
+    "wis": 3,
+    "cha": 6
+  },
+  "abilityScores": {
+    "str": 26,
+    "dex": 15,
+    "con": 22,
+    "int": 20,
+    "wis": 16,
+    "cha": 22
+  },
+  "perception": {
+    "mod": 9,
+    "passive": 19
+  },
+  "senses": [
+    {
+      "name": "truesight",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal; telepathy 120 ft."
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 9
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 287,
+        "note": null,
+        "formula": "23d12+138"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 8
+      },
+      {
+        "name": "dex",
+        "mod": 2
+      },
+      {
+        "name": "con",
+        "mod": 12
+      },
+      {
+        "name": "int",
+        "mod": 5
+      },
+      {
+        "name": "wis",
+        "mod": 9
+      },
+      {
+        "name": "cha",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "Fire",
+        "Poison"
+      ],
+      "conditions": [
+        "Charmed",
+        "Frightened",
+        "Poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Cold",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "Lightning",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "fly": 80
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Death Throes",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The balor explodes when it dies. *Dexterity Saving Throw*: DC 20, each creature in a 30-foot Emanation originating from the balor. *Failure:*  31 (9d6) Fire damage plus 31 (9d6) Force damage. *Success:*  Half damage. *Failure or Success*:  If the balor dies outside the Abyss, it gains a new body instantly, reviving with all its Hit Points somewhere in the Abyss."
+      ],
+      "damage": [
+        {
+          "formula": "9d6",
+          "average": 31,
+          "type": "fire"
+        },
+        {
+          "formula": "9d6",
+          "average": 31,
+          "type": "force"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Fire Aura",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "At the end of each of the balor's turns, each creature in a 5-foot Emanation originating from the balor takes 13 (3d8) Fire damage."
+      ],
+      "damage": [
+        {
+          "formula": "3d8",
+          "average": 13,
+          "type": "fire"
+        }
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 5,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Legendary Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the balor fails a saving throw, it can choose to succeed instead."
+      ],
+      "uses": {
+        "count": 3,
+        "period": "day",
+        "display": "3/Day"
+      }
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The balor has Advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The balor makes one Flame Whip attack and one Lightning Blade attack."
+      ]
+    },
+    {
+      "name": "Flame Whip",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee Attack Roll:* +14, reach 30 ft. 18 (3d6 + 8) Force damage plus 17 (5d6) Fire damage. If the target is a Huge or smaller creature, the balor pulls the target up to 25 feet straight toward itself, and the target has the Prone condition."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+8",
+          "average": 18,
+          "type": "force"
+        },
+        {
+          "formula": "5d6",
+          "average": 17,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Lightning Blade",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee Attack Roll:* +14, reach 10 ft. 21 (3d8 + 8) Force damage plus 22 (4d10) Lightning damage, and the target can't take Reactions until the start of the balor's next turn."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+8",
+          "average": 21,
+          "type": "force"
+        },
+        {
+          "formula": "4d10",
+          "average": 22,
+          "type": "lightning"
+        }
+      ]
+    },
+    {
+      "name": "Teleport",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The balor teleports itself or a willing demon within 10 feet of itself up to 60 feet to an unoccupied space the balor can see."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "initiative": 14
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

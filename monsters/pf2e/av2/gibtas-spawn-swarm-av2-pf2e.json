@@ -1,0 +1,222 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:av2:gibtas-spawn-swarm",
+  "name": "Gibtas Spawn Swarm",
+  "gameSystem": "pf2e",
+  "variant": "av2",
+  "source": {
+    "code": "av2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/av2/gibtas-spawn-swarm.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration",
+      "swarm"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "cn",
+      "large",
+      "aberration",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": -4,
+    "dex": 5,
+    "con": 4,
+    "int": -4,
+    "wis": 2,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 15
+    },
+    {
+      "name": "Survival",
+      "mod": 12
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 70,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 14
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 12
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "swarm mind"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 9,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Bounce",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The swarm bounces to the side and gains a +2 circumstance bonus to AC against the triggering attack. After the attack, the swarm can Stride up to its Speed in a straight line as part of the reaction."
+      ],
+      "trigger": "A creature that the gibtas spawn swarm can see targets the swarm with an attack"
+    },
+    {
+      "name": "Bounding Swarm",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The gibtas spawn swarm moves in loping bounces. The swarm ignores terrain."
+      ]
+    },
+    {
+      "name": "Swarming Bites",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Each enemy in the swarm's space takes 2d8 piercing damage and 1d6 acid damage (DC 22 basic Reflex save). A creature that fails its save against Swarming Bites also takes 1d4 persistent acid damage."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 22,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 24
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

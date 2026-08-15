@@ -1,0 +1,242 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:gorgon",
+  "name": "Gorgon",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/gorgon_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 5,
+    "xp": 1800,
+    "display": "5"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 0,
+    "con": 4,
+    "int": -4,
+    "wis": 2,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 96,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "petrified",
+        "poisoned"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Monstrosity Resilience",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Monstrosity Resilience",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The gorgon is resistant to exhaustion and to the frightened condition."
+      ]
+    },
+    {
+      "name": "Trampling Charge",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the gorgon moves at least 20 feet straight toward a creature and then hits it with a Gore attack on the same turn, that target must succeed on a DC 16 STR save or be knocked prone. If the target is prone, the gorgon can make one Hooves attack against it as a bonus action."
+      ],
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Petrifying Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The gorgon exhales poisonous, petrifying gas in a 30-foot cone. Creatures in the area must make a DC 13 CON save. On a failure, a creature takes 21 (6d6) poison damage and is restrained as it begins to turn to stone. On a success, a creature takes half the damage and isn't restrained. A restrained creature must repeat the save at the end of its next turn. On a success, the effect ends on the creature. On a failure, the creature is petrified until freed by the greater restoration spell or other magic."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "poison"
+        }
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "restrained",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The gorgon makes one Gore attack and one Hooves attack."
+      ]
+    },
+    {
+      "name": "Gore",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +8 to hit, reach 5 ft., one target. _Hit:_ 18 (2d12+5) piercing damage."
+      ],
+      "damage": [
+        {
+          "formula": "2d12+5",
+          "average": 18,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Hooves",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +8 to hit, reach 5 ft., one target. _Hit:_ 16 (2d10+5) bludgeoning damage."
+      ],
+      "damage": [
+        {
+          "formula": "2d10+5",
+          "average": 16,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Poisonous Retort",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When the gorgon is hit by an attack from a creature it can see within 10 feet of it, the gorgon can snort angrily, releasing a puff of poisonous gas at the creature. The attacker must succeed on a DC 16 CON save or be poisoned until the end of its next turn."
+      ],
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

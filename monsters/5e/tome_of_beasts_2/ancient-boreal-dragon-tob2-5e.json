@@ -1,0 +1,456 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:ancient-boreal-dragon",
+  "name": "Ancient Boreal Dragon",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 143,
+    "path": "monsters/5e/tome_of_beasts_2/ancient-boreal-dragon.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 24,
+    "xp": 62000,
+    "display": "24"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic neutral",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 0,
+    "con": 8,
+    "int": 3,
+    "wis": 4,
+    "cha": 4
+  },
+  "abilityScores": {
+    "str": 29,
+    "dex": 10,
+    "con": 27,
+    "int": 17,
+    "wis": 19,
+    "cha": 18
+  },
+  "perception": {
+    "mod": 18,
+    "passive": 28
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Draconic",
+    "Giant"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 16
+    },
+    {
+      "name": "Perception",
+      "mod": 18
+    },
+    {
+      "name": "Stealth",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 22,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 407,
+        "note": null,
+        "formula": "22d20+176"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 7
+      },
+      {
+        "name": "con",
+        "mod": 15
+      },
+      {
+        "name": "wis",
+        "mod": 11
+      },
+      {
+        "name": "cha",
+        "mod": 11
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "fly": 80,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Ember Wreath",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As a bonus action, the boreal dragon wreathes its body in searing blue and white embers. The embers last for 1 minute or until the dragon uses its breath weapon. A creature that enters or starts its turn in a space within 30 feet of the dragon must make a DC 23 Constitution saving throw, taking 10 (3d6) fire damage on a failed save, or half as much damage on a successful one. If a creature fails the saving throw by 5 or more, it suffers one level of exhaustion as the water is sapped from its body by the unrelenting heat."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Legendary Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the dragon fails a saving throw, it can choose to succeed instead."
+      ],
+      "uses": {
+        "count": 3,
+        "period": "day",
+        "display": "3/Day"
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon can use its Frightful Presence. It then makes three attacks: one with its bite and two with its claws."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +16 to hit, reach 15 ft., one target. Hit: 20 (2d10 + 9) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 16,
+        "map": [
+          16
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+9",
+          "average": 20,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +16 to hit, reach 10 ft., one target. Hit: 16 (2d6 + 9) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 16,
+        "map": [
+          16
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+9",
+          "average": 16,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Tail",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +16 to hit, reach 20 ft., one target. Hit: 18 (2d8 + 9) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 16,
+        "map": [
+          16
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+9",
+          "average": 18,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Frightful Presence",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Each creature of the dragon's choice that is within 120 feet of the dragon and aware of it must succeed on a DC 19 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Frightful Presence for the next 24 hours."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Cinder Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon exhales a 90-foot cone of superheated air filled with blue-white embers. Each creature in that area must make a DC 23 Dexterity saving throw, taking 88 (16d10) fire damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "16d10",
+          "average": 88,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 90,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Detect",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes a Wisdom (Perception) check."
+      ]
+    },
+    {
+      "name": "Tail Attack",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes a tail attack."
+      ]
+    },
+    {
+      "name": "Wing Attack",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 2,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon beats its wings. Each creature within 15 feet of the dragon must succeed on a DC 23 Dexterity saving throw or take 16 (2d6 + 9) bludgeoning damage and be knocked prone. The dragon can then fly up to half its flying speed."
+      ],
+      "damage": [
+        {
+          "formula": "2d6+9",
+          "average": 16,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 15,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "legendaryPreamble": "The dragon can take 3 legendary actions, choosing from the options below. Only one legendary action can be used at a time and only at the end of another creature’s turn. The dragon regains spent legendary actions at the start of its turn.",
+    "legendaryActionsPerRound": 3
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,562 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:ancient-red-dragon",
+  "name": "Ancient Red Dragon",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/ancient-red-dragon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 19,
+    "xp": null,
+    "display": "Creature 19"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "fire"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "huge",
+      "dragon",
+      "fire"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 5,
+    "con": 8,
+    "int": 5,
+    "wis": 6,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 35,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    },
+    {
+      "name": "smoke vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Common",
+    "Draconic",
+    "Dwarven",
+    "Jotun",
+    "Orcish"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 30
+    },
+    {
+      "name": "Arcana",
+      "mod": 35
+    },
+    {
+      "name": "Athletics",
+      "mod": 37
+    },
+    {
+      "name": "Deception",
+      "mod": 35
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 35
+    },
+    {
+      "name": "Intimidation",
+      "mod": 37
+    },
+    {
+      "name": "Stealth",
+      "mod": 33
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 45,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 425,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 35
+      },
+      {
+        "name": "ref",
+        "mod": 32
+      },
+      {
+        "name": "will",
+        "mod": 35
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 60,
+      "fly": 180
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Dragon Heat",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "aura",
+        "evocation",
+        "fire"
+      ],
+      "entries": [
+        "10 feet, 4d6 fire damage (DC 39 basic Reflex)"
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 39,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 10,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "90 feet, DC 40"
+      ],
+      "aura": {
+        "range": 90,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 40,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Jaws only."
+      ]
+    },
+    {
+      "name": "Redirect Fire",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "abjuration",
+        "arcane"
+      ],
+      "entries": [
+        "The dragon makes all the choices to determine the targets, destination, or other effects of the spell, as though it were the caster."
+      ],
+      "trigger": "A creature within 100 feet casts a fire spell, or a fire spell otherwise comes into effect from a source within 100 feet."
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 37,
+        "map": [
+          37,
+          32,
+          27
+        ],
+        "traits": [
+          "fire",
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+17",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 37,
+        "map": [
+          37,
+          33,
+          29
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+17",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "magical",
+          "reach <25 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 25,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+15",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "wing",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          31,
+          27
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+15",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "arcane",
+        "evocation",
+        "fire"
+      ],
+      "entries": [
+        "The dragon breathes a blast of flame that deals 20d6 fire damage in a 60-foot cone (DC 42 basic Reflex save). It can't use Breath Weapon again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 42,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "20d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Draconic Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes two claw Strikes and one wing Strike in any order."
+      ]
+    },
+    {
+      "name": "Draconic Momentum",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dragon recharges its Breath Weapon whenever it scores a critical hit with a Strike."
+      ]
+    },
+    {
+      "name": "Manipulate Flames",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "arcane",
+        "concentrate",
+        "transmutation"
+      ],
+      "entries": [
+        "The red dragon attempts to take control of a magical fire or a fire spell within 100 feet. If it succeeds at a counteract check (counteract level 10, counteract modifier +32), the original caster loses control of the spell or magic fire, control is transferred to the dragon, and the dragon counts as having Sustained the Spell with this action (if applicable). The dragon can choose to end the spell instead of taking control, if it chooses."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 42,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 9,
+          "rankLabel": "Cantrips (9th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "suggestion",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana",
+        "dc": 41
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

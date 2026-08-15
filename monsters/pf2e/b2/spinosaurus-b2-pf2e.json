@@ -1,0 +1,306 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:spinosaurus",
+  "name": "Spinosaurus",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/spinosaurus.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 11,
+    "xp": null,
+    "display": "Creature 11"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "animal",
+      "dinosaur"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "gargantuan",
+      "animal",
+      "dinosaur"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 4,
+    "con": 6,
+    "int": -4,
+    "wis": 2,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 21,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 19
+    },
+    {
+      "name": "Athletics",
+      "mod": 23
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 200,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 23
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 19
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "bite",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "deadly <d12>",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12+14",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+14",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Rip and Tear",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The spinosaurus reaches up and slashes with its claws at the creature it has grabbed, dealing 4d8 slashing damage (DC 30 basic Reflex save) and 1d6 persistent bleed damage."
+      ],
+      "requirements": "The spinosaurus has a creature grabbed in its jaws",
+      "save": {
+        "defense": "reflex",
+        "dc": 30,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Staggering Sail",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "incapacitation"
+      ],
+      "entries": [
+        "With a powerful lunge to the side, the spinosaurus uses its sail to slap the surface of the water, creating a crushing wave of water that deals 6d6 bludgeoning damage in a 30-foot cone. Each creature in the water in the area must attempt a DC 30 Reflex save."
+      ],
+      "requirements": "The spinosaurus is swimming on the surface of water",
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 30,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature takes half damage.",
+          "failure": "The creature takes full damage and is slowed 1 until the end of its next turn.",
+          "criticalFailure": "The creature takes double damage and is stunned 3."
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Swallow Whole",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "Medium, 2d12+12 bludgeoning, Rupture 19."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Animal",
+        "skill": "Nature",
+        "dc": 28
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

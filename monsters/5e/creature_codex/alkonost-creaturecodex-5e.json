@@ -1,0 +1,199 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:alkonost",
+  "name": "Alkonost",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 12,
+    "path": "monsters/5e/creature_codex/alkonost.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.5,
+    "xp": 100,
+    "display": "1/2"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 2,
+    "con": 0,
+    "int": -2,
+    "wis": 2,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 11,
+    "dex": 14,
+    "con": 10,
+    "int": 7,
+    "wis": 14,
+    "cha": 13
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 12,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 17,
+        "note": null,
+        "formula": "5d6"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "lightning",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 40,
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "One with Wind",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "An alkonost is immune to the effects of magical and natural wind, including effects that would force it to move, impose disadvantage on Wisdom (Perception) checks, or force it to land when flying. In addition, its weapon attacks do an extra 2 (1d4) lightning damage if it is within 1 mile of a lightning storm."
+      ],
+      "damage": [
+        {
+          "formula": "1d4",
+          "average": 2,
+          "type": "lightning"
+        }
+      ]
+    },
+    {
+      "name": "Claws",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one creature. Hit: 4 (1d4 + 2) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+2",
+          "average": 4,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Charged Melody",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The alkonost sings a beautiful melody. Each creature within 30 feet of it that can hear the melody must succeed on a DC 12 Charisma saving throw or take 7 (2d6) lightning damage the next time it moves."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "cha",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

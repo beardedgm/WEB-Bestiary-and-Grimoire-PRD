@@ -1,0 +1,197 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:rimewing",
+  "name": "Rimewing",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 178,
+    "path": "monsters/5e/creature_codex/rimewing.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.25,
+    "xp": 50,
+    "display": "1/4"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 2,
+    "con": 1,
+    "int": -4,
+    "wis": 0,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 11,
+    "dex": 14,
+    "con": 12,
+    "int": 3,
+    "wis": 10,
+    "cha": 7
+  },
+  "perception": {
+    "mod": 2,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 2
+    },
+    {
+      "name": "Stealth",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 12,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 22,
+        "note": null,
+        "formula": "5d6+5"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 30,
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Antennae",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The giant moth has advantage on Wisdom (Perception) checks that rely on smell."
+      ]
+    },
+    {
+      "name": "Proboscis",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": 5,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Frosted Wings",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "A 20-foot radius cloud of colorful ice crystals extends from the rimewing. Each creature in that area must succeed on a DC 10 Wisdom saving throw or be charmed by the rimewing for 1 minute. While charmed by the rimewing, a creature is incapacitated and must move up to its speed toward the rimewing at the start of its turn, stopping when it is 5 feet away. A charmed creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "save": {
+        "defense": "wis",
+        "dc": 10,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "sphere",
+        "size": 20,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "charmed",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

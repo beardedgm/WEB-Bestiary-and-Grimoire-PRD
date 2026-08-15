@@ -1,0 +1,438 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:spiderofleng",
+  "name": "Spider of Leng",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 341,
+    "path": "monsters/5e/tome_of_beasts_2023/spiderofleng-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 7,
+    "xp": 2900,
+    "display": "7"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Chaotic Evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 3,
+    "con": 3,
+    "int": 4,
+    "wis": 0,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 14,
+    "dex": 16,
+    "con": 16,
+    "int": 18,
+    "wis": 10,
+    "cha": 10
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 240,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Void Speech"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 5
+    },
+    {
+      "name": "Perception",
+      "mod": 3
+    },
+    {
+      "name": "Stealth",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 144,
+        "note": null,
+        "formula": "17d10+51"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 6
+      },
+      {
+        "name": "con",
+        "mod": 6
+      },
+      {
+        "name": "int",
+        "mod": 7
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "poisoned",
+        "unconscious"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Eldritch Understanding",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The spider of Leng can read and use any spell scroll or magic item, ignoring all class, race, and level requirements."
+      ]
+    },
+    {
+      "name": "Poisonous Blood",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that hits the spider of Leng with a melee attack while within 5 feet of it takes 4 (1d8) poison damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Poisonous Death",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the spider of Leng dies, the poisonous blood in its body vaporizes, forming a cloud in the spider's space until initiative count 20 on the next round. Each creature within 5 feet of the spider and each creature that enters the cloud for the first time on a turn must make a DC 15 Constitution saving throw, taking 9 (2d8) poison damage on a failed save, or half as much damage on a successful one."
+      ],
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The spider of Leng makes two Claw attacks and one Staff of Leng attack, or it makes three Spit Venom attacks."
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 12 (2d8 + 3) slashing damage plus 4 (1d8) poison damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Staff of Leng",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 7 (1d6 + 3) bludgeoning damage plus 7 (2d6) psychic damage, and the target must succeed on a DC 15 Wisdom saving throw or be stunned until the end of is next turn."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+3",
+          "average": 7,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Spit Venom",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Weapon Attack: +6 to hit, range 20/60 ft., one target. Hit: 16 (3d8 + 3) poison damage, and the target must succeed on a DC 15 Constitution saving throw or be poisoned and blinded until the end of its next turn."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+3",
+          "average": 16,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Spellcasting",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The spider of Leng casts one of the following spells, requiring no material components and using Intelligence as the spellcasting ability (spell save DC 15):<br>At will: comprehend languages, detect magic<br>3/day each: confusion, silence<br>1/day each: arcane eye, hypnotic pattern"
+      ]
+    },
+    {
+      "name": "Poisonous Riposte",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The spider of Leng adds 3 to its AC against one melee attack that would hit it. To do so, the spider must see the attacker. If this effect causes the attack to miss, the attacker takes 4 (1d8) poison damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "poison"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spellcasting",
+      "type": "prepared",
+      "tradition": null,
+      "dc": 15,
+      "attackBonus": null,
+      "ability": "int",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "comprehend languages",
+              "uses": null
+            },
+            {
+              "name": "detect magic<br>",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "3/day each",
+          "uses": 3,
+          "spells": [
+            {
+              "name": "confusion",
+              "uses": null
+            },
+            {
+              "name": "silence<br>",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "1/day each",
+          "uses": 1,
+          "spells": [
+            {
+              "name": "arcane eye",
+              "uses": null
+            },
+            {
+              "name": "hypnotic pattern",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

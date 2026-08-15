@@ -1,0 +1,324 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot4:baaupa-mdoudu",
+  "name": "Ba'aupa Mdoudu",
+  "gameSystem": "pf2e",
+  "variant": "sot4",
+  "source": {
+    "code": "sot4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot4/baaupa-mdoudu.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "medium",
+      "beast"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 4,
+    "con": 5,
+    "int": -4,
+    "wis": 4,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 23,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "skeleton sense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "tremorsense",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 27
+    },
+    {
+      "name": "Stealth",
+      "mod": 25
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 245,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 26
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "burrow": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Reactive",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A ba'aupa mdoudu gains an additional reaction at the start of its turn but can use this reaction only to Slime Squirt."
+      ]
+    },
+    {
+      "name": "Slime Squirt",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The attacking creature takes 2d10 acid damage."
+      ],
+      "trigger": "A creature inflicts slashing or piercing damage on the ba'aupa mdoudu with a melee Strike",
+      "damage": [
+        {
+          "formula": "2d10",
+          "average": null,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "deadly <d12>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+14",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d10",
+          "average": null,
+          "type": "persistent acid"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "spit",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "acid",
+          "range increment <60 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Caustic Acid",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever a creature takes acid damage from any of a ba'aupa mdoudu's abilities or Strikes, it must succeed at a DC 30 Fortitude save or become drained 1 (drained 2 on a critical failure). On each subsequent failure, the drained condition value increases by 1 (or by 2 on a critical failure), to a maximum of drained 4."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 30,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Caustic Rain",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "evocation",
+        "primal"
+      ],
+      "entries": [
+        "The ba'aupa mdoudu spews copious amounts of acid into the air, creating a cascading rain to fall in a 10- foot radius around itself. All creatures in the area take 14d6 acid damage (DC 33 basic Reflex save). The ba'aupa mdoudu can't use Caustic Rain again for 1d4 rounds."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 33,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "14d6",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Stone Tunneler",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A ba'aupa mdoudu can leave a tunnel when it burrows through earth or stone, and it usually does."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 31
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

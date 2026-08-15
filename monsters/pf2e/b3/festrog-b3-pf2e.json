@@ -1,0 +1,281 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:festrog",
+  "name": "Festrog",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/festrog.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 1,
+    "xp": null,
+    "display": "Creature 1"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 2,
+    "int": 0,
+    "wis": 1,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 6,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 5
+    },
+    {
+      "name": "Athletics",
+      "mod": 7
+    },
+    {
+      "name": "Stealth",
+      "mod": 7
+    },
+    {
+      "name": "Survival",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 24,
+        "formula": null,
+        "note": "negative healing|b2"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 7
+      },
+      {
+        "name": "ref",
+        "mod": 7
+      },
+      {
+        "name": "will",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Diseased Pustules",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "disease",
+        "poison"
+      ],
+      "entries": [
+        "Whenever the festrog takes piercing or slashing damage, creatures adjacent to the festrog take 1d4 poison damage (DC 14 basic Reflex save)."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 14,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 9,
+        "map": [
+          9,
+          4,
+          -1
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 9,
+        "map": [
+          9,
+          5,
+          1
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+4",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Feast",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The festrog tears into the creature's flesh and gulps it down voraciously, dealing 1d4 slashing damage to the creature and gaining temporary Hit Points equal to the damage dealt. These temporary HP last for 1 minute."
+      ],
+      "requirements": "The festrog's last action was a jaws Strike that damaged a living creature",
+      "damage": [
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "On All Fours",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The festrog Strides with a +10-foot circumstance bonus to their Speed."
+      ],
+      "requirements": "The festrog has nothing in their hands"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 15
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

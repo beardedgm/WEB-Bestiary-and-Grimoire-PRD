@@ -1,0 +1,515 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:adult-cloud-dragon",
+  "name": "Adult Cloud Dragon",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/adult-cloud-dragon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 14,
+    "xp": null,
+    "display": "Creature 14"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "dragon",
+      "elemental"
+    ],
+    "subtypes": [
+      "air"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "n",
+      "huge",
+      "air",
+      "dragon",
+      "elemental"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 3,
+    "con": 5,
+    "int": 4,
+    "wis": 6,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 28,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "mist vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Auran",
+    "Common",
+    "Draconic",
+    "Jotun"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 23
+    },
+    {
+      "name": "Athletics",
+      "mod": 28
+    },
+    {
+      "name": "Deception",
+      "mod": 26
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 26
+    },
+    {
+      "name": "Intimidation",
+      "mod": 28
+    },
+    {
+      "name": "Nature",
+      "mod": 24
+    },
+    {
+      "name": "Survival",
+      "mod": 26
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 36,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 254,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 26
+      },
+      {
+        "name": "ref",
+        "mod": 23
+      },
+      {
+        "name": "will",
+        "mod": 26
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "electricity"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50,
+      "fly": 160
+    },
+    "special": [
+      "cloud walk"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "90 feet, DC 32"
+      ],
+      "aura": {
+        "range": 90,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 32,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Deflecting Cloud",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The cloud dragon flexes a wing and creates a billowing cloud of mist. The dragon is treated as if they were hidden for the purposes of resolving the triggering attack, so normally the attacker must succeed at a DC 11 flat check to target them. The dragon also gains a +4 circumstance bonus to AC against the triggering attack."
+      ],
+      "trigger": "The dragon is the target of a ranged attack",
+      "requirements": "The dragon is aware of the attack and has a free wing"
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          24,
+          19
+        ],
+        "traits": [
+          "electricity",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+15",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          25,
+          21
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+15",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+15",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "horn",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "deadly <d10>",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12+13",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "electricity",
+        "evocation",
+        "primal"
+      ],
+      "entries": [
+        "The dragon breathes a thundercloud that deals 15d6 electricity damage in a 50-foot cone (DC 35 basic Reflex save). They can't use Breath Weapon again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 50,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 35,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "15d6",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Cloud Form",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "polymorph",
+        "primal",
+        "transmutation"
+      ],
+      "entries": [
+        "The cloud dragon's body becomes vaporous and misty. They gain the effects of gaseous form, except their fly Speed remains unchanged. The cloud dragon can use this action again to return to physical form."
+      ]
+    },
+    {
+      "name": "Cloud Walk",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The cloud dragon can tread on clouds or fog as though on solid ground."
+      ]
+    },
+    {
+      "name": "Draconic Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes two claw Strikes and one horn Strike in any order."
+      ]
+    },
+    {
+      "name": "Draconic Momentum",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dragon recharges their Breath Weapon whenever they score a critical hit with a Strike."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 36,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "gust of wind",
+              "uses": "at will"
+            },
+            {
+              "name": "obscuring mist",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "wall of wind",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana, Nature",
+        "dc": 34
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

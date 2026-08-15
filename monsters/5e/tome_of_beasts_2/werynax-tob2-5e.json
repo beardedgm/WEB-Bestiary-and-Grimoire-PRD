@@ -1,0 +1,311 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:werynax",
+  "name": "Werynax",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 367,
+    "path": "monsters/5e/tome_of_beasts_2/werynax.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 3,
+    "con": 4,
+    "int": 0,
+    "wis": 2,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 16,
+    "con": 18,
+    "int": 10,
+    "wis": 15,
+    "cha": 14
+  },
+  "perception": {
+    "mod": 5,
+    "passive": 15
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Common but can’t speak"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 7
+    },
+    {
+      "name": "Perception",
+      "mod": 5
+    },
+    {
+      "name": "Stealth",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 114,
+        "note": null,
+        "formula": "12d10+48"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 6
+      },
+      {
+        "name": "wis",
+        "mod": 5
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "force",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 60,
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The werynax has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Pounce",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the werynax moves at least 20 feet straight toward a creature and then hits it with a claw attack on the same turn, the target must succeed on a DC 15 Strength saving throw or be knocked prone. If the target is prone, the werynax can make one bite attack against it as a bonus action."
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The werynax makes three attacks: one with its bite and two with its claws."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 9 (1d10 + 4) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10+4",
+          "average": 9,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 7 (1d6 + 4) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": 7,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Arcane Bombardment",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The werynax unleashes an explosion of multicolored arcane energy from its outstretched wings. Each creature within 20 feet of the werynax must make a DC 15 Dexterity saving throw. On a failure, a creature takes 21 (6d6) force damage and is stunned until the end of its next turn. On a success, a creature takes half the damage and isn't stunned."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "force"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Nature's Healing",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The werynax taps into the power inherent in the land around it. It regains 13 (3d8) hp and is freed from any disease, poison, blindness, or deafness."
+      ],
+      "uses": {
+        "count": 2,
+        "period": "day",
+        "display": "2/Day"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

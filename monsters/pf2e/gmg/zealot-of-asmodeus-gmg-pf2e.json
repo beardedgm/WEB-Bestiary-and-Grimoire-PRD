@@ -1,0 +1,351 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:gmg:zealot-of-asmodeus",
+  "name": "Zealot of Asmodeus",
+  "gameSystem": "pf2e",
+  "variant": "gmg",
+  "source": {
+    "code": "gmg",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/gmg/zealot-of-asmodeus.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 1,
+    "con": 1,
+    "int": 0,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 9,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 9
+    },
+    {
+      "name": "Deception",
+      "mod": 10
+    },
+    {
+      "name": "Intimidation",
+      "mod": 10
+    },
+    {
+      "name": "Religion",
+      "mod": 10
+    },
+    {
+      "name": "Society",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 22,
+      "note": "24 with shield raised"
+    },
+    "hp": [
+      {
+        "value": 58,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 9
+      },
+      {
+        "name": "ref",
+        "mod": 7
+      },
+      {
+        "name": "will",
+        "mod": 11
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Shield Block",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Swear Vengeance",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The zealot gains the effect of a 1st-level true strike spell. If the zealot makes an attack roll against anyone other than the triggering creature, the true strike ends with no effect."
+      ],
+      "trigger": "A creature the zealot can see damages a follower of Asmodeus other than the zealot"
+    },
+    {
+      "name": "mace",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          7,
+          2
+        ],
+        "traits": [
+          "shove"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "composite shortbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 9,
+        "map": [
+          9,
+          4,
+          -1
+        ],
+        "traits": [
+          "deadly <1d10>",
+          "propulsive",
+          "range increment <60 feet>",
+          "reload <0>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Channel Smite",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "The zealot expends a prepared harm spell and makes a melee Strike. Instead of the normal effect of the spell, its negative damage is added to the Strike's damage."
+      ]
+    },
+    {
+      "name": "Deadly Simplicity",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The zealot's mace deals 1d8 damage instead of 1d6."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Prepared divine Spells",
+      "type": "prepared",
+      "tradition": "divine",
+      "dc": 19,
+      "attackBonus": 11,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Cantrips (2nd)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "divine lance",
+              "uses": null
+            },
+            {
+              "name": "forbidding ward",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            },
+            {
+              "name": "sigil",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "detect alignment",
+              "uses": null
+            },
+            {
+              "name": "magic weapon",
+              "uses": null
+            },
+            {
+              "name": "spirit link",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "harm",
+              "uses": 3
+            },
+            {
+              "name": "restoration",
+              "uses": null
+            },
+            {
+              "name": "see invisibility",
+              "uses": null
+            },
+            {
+              "name": "shield other",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 19
+      }
+    ],
+    "items": [
+      "composite shortbow (20 arrows)",
+      "half plate",
+      "mace",
+      "steel shield (Hardness 5",
+      "HP 20",
+      "BT 10)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

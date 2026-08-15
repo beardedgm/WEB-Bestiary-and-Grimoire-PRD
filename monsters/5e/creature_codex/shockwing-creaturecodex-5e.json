@@ -1,0 +1,242 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:shockwing",
+  "name": "Shockwing",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 179,
+    "path": "monsters/5e/creature_codex/shockwing.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 1,
+    "xp": 200,
+    "display": "1"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 2,
+    "con": 2,
+    "int": -4,
+    "wis": 0,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 11,
+    "dex": 15,
+    "con": 14,
+    "int": 3,
+    "wis": 10,
+    "cha": 7
+  },
+  "perception": {
+    "mod": 2,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 2
+    },
+    {
+      "name": "Stealth",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 12,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 27,
+        "note": null,
+        "formula": "5d6+10"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "lightning"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 30,
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Antennae",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The giant moth has advantage on Wisdom (Perception) checks that rely on smell."
+      ]
+    },
+    {
+      "name": "Charged",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "At the start of each of the shockwing's turns, each creature within 5 feet of it must succeed on a DC 12 Constitution saving throw or take 2 (1d4) lightning damage. This trait doesn't function if the shockwing has used its Fulminating Wings in the last 24 hours."
+      ],
+      "damage": [
+        {
+          "formula": "1d4",
+          "average": 2,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The shockwing makes two proboscis attacks."
+      ]
+    },
+    {
+      "name": "Proboscis",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) piercing damage and 2 (1d4) lightning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": 5,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d4",
+          "average": 2,
+          "type": "lightning"
+        }
+      ]
+    },
+    {
+      "name": "Fulminating Wings",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "A 20-foot radius burst of electricity releases from the shockwing. Each creature in that area must succeed on a DC 12 Constitution saving throw or be stunned until the end of its next turn."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "save": {
+        "defense": "con",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "sphere",
+        "size": 20,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

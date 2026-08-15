@@ -1,0 +1,362 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:av2:mulventok",
+  "name": "Mulventok",
+  "gameSystem": "pf2e",
+  "variant": "av2",
+  "source": {
+    "code": "av2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/av2/mulventok.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "n",
+      "medium",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 0,
+    "con": 4,
+    "int": 2,
+    "wis": 4,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Daemonic",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 17
+    },
+    {
+      "name": "Intimidation",
+      "mod": 17
+    },
+    {
+      "name": "Survival",
+      "mod": 15
+    },
+    {
+      "name": "Purpose Lore",
+      "mod": 15
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": "26 with shield raised"
+    },
+    "hp": [
+      {
+        "value": 115,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 15
+      },
+      {
+        "name": "ref",
+        "mod": 11
+      },
+      {
+        "name": "will",
+        "mod": 17
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "death effects"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Explosive Decay",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "necromancy",
+        "negative",
+        "occult"
+      ],
+      "entries": [
+        "When a mulventok dies, its mirrored flesh ruptures and explodes in a 20-foot radius. Creatures caught in the blast are covered with viscera and take 8d6 negative damage (DC 22 basic Reflex save)."
+      ],
+      "area": {
+        "shape": "radius",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 22,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "Stay in the Fight",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "healing",
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "The mulventok imparts some of its own energy to keep the ally fighting. The target creature gains 1 Hit Point, and the mulventok takes 2d6 mental damage."
+      ],
+      "trigger": "An allied creature within 30 feet reaches 0 HP",
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    },
+    {
+      "name": "tamchal chakram",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          14,
+          10
+        ],
+        "traits": [
+          "agile",
+          "deadly <1d6>",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+8",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+8",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tamchal chakram",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 13,
+        "map": [
+          13,
+          9,
+          5
+        ],
+        "traits": [
+          "agile",
+          "deadly <1d6>",
+          "magical",
+          "thrown <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+8",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Fervent Command",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "auditory",
+        "mental"
+      ],
+      "entries": [
+        "The mulventok shouts an order to one of its allies within 30 feet. That ally immediately takes a Raise a Shield or Step action. A creature can benefit from Fervent Command only once per round."
+      ]
+    },
+    {
+      "name": "Psychokinetic Honing",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "occult",
+        "transmutation"
+      ],
+      "entries": [
+        "A thrown weapon gains the effects of a returning rune when a mulventok throws it. Thrown weapons the mulventok uses deal an additional 1d6 mental damage, whether used in melee or thrown."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 25
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

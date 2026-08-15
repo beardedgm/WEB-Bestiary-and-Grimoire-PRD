@@ -1,0 +1,265 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot2:old-thrasher",
+  "name": "Old Thrasher",
+  "gameSystem": "pf2e",
+  "variant": "sot2",
+  "source": {
+    "code": "sot2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot2/old-thrasher.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "animal"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "n",
+      "large",
+      "animal"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 2,
+    "con": 4,
+    "int": -5,
+    "wis": 3,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 18
+    },
+    {
+      "name": "Stealth",
+      "mod": 16
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 26,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 140,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 16
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "swim": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+8",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          16,
+          12
+        ],
+        "traits": [
+          "agile",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+8",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Death Roll",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "Old Thrasher tucks its legs and rolls rapidly, twisting its victim. It makes a jaws Strike with a +2 circumstance bonus to the attack roll against the grabbed creature. If it hits, it also knocks the creature prone. If it fails, it releases the creature."
+      ],
+      "requirements": "Old Thrasher must have a creature grabbed"
+    },
+    {
+      "name": "Deep Breath Old",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Thrasher can hold its breath for about 4 hours."
+      ]
+    },
+    {
+      "name": "Into the Deep",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Old Thrasher Swims, bringing its victim along with it."
+      ],
+      "requirements": "Old Thrasher must have a creature grabbed"
+    },
+    {
+      "name": "Thunderous Tail",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Old Thrasher makes up to three tail Strikes against different targets. Any target hit must succeed at a DC 25 Fortitude save (DC 30 on a critical hit) or be knocked prone."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Animal",
+        "skill": "Nature",
+        "dc": 34
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

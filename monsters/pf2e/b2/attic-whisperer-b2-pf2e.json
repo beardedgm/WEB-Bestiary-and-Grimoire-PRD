@@ -1,0 +1,308 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:attic-whisperer",
+  "name": "Attic Whisperer",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/attic-whisperer.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "small",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 5,
+    "con": 0,
+    "int": 2,
+    "wis": 4,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 11
+    },
+    {
+      "name": "Society",
+      "mod": 10
+    },
+    {
+      "name": "Stealth",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 21,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 60,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 8
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 12
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aura of Sobs",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "auditory",
+        "aura",
+        "emotion",
+        "enchantment",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "10 feet. An attic whisperer enshrouds itself in a tapestry of stolen voices. Each living creature that enters or starts their turn in the aura must succeed at a DC 19 Will save or the unnerving, bitter sobs render them distraught and they become stupefied 1 for as long as they remain within the aura. A creature that succeeds is temporarily immune for 1 hour. The attic whisperer can activate or deactivate the aura with a single free action, which has the concentrate trait."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 10,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Whispered Despair",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The attic whisperer attempts to counteract the emotion effect, with a counteract modifier of +13."
+      ],
+      "trigger": "A creature with an active emotion effect enters an attic whisperer's aura of sobs"
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15,
+          11,
+          7
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "steal breath",
+        "steal breath"
+      ]
+    },
+    {
+      "name": "bony hand (agile)",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 13,
+        "map": [
+          13,
+          8,
+          3
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": [
+        "steal voice",
+        "steal voice"
+      ]
+    },
+    {
+      "name": "Steal Breath",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "curse",
+        "incapacitation",
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "The attic whisperer siphons the breath from living creatures, sapping their strength. A living creature hit by a jaws Strike must attempt a DC 21 Fortitude save."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target is enfeebled 1 for 1 round.",
+          "failure": "The target is enfeebled 1 for 24 hours and fatigued.",
+          "criticalFailure": "The target is enfeebled 1 for 24 hours, is fatigued, and falls unconscious."
+        }
+      }
+    },
+    {
+      "name": "Steal Voice",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "curse",
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "When an attic whisperer hits a living creature with a bony hand Strike, it tries to pull the victim's voice into its aura. The victim must attempt a DC 21 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target's voice is weak for 1 minute. Anytime it attempts an action with the auditory trait, it must succeed at a DC 5 flat check or the action is lost.",
+          "failure": "The target loses the ability to speak for 1 hour, until the curse is removed, or until the attic whisperer is destroyed, whichever comes first. During this time, the attic whisperer can perfectly mimic the target's voice, and the target takes a –2 circumstance penalty to saving throws against that attic whisperer's aura of sobs.",
+          "criticalFailure": "As failure, but the effects lasts until the attic whisperer is destroyed or the curse is removed."
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 19
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

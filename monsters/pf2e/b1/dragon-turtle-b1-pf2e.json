@@ -1,0 +1,247 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:dragon-turtle",
+  "name": "Dragon Turtle",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/dragon-turtle.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "amphibious"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "huge",
+      "amphibious",
+      "dragon"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 0,
+    "con": 4,
+    "int": 1,
+    "wis": 3,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 18,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aquan",
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 21
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 16
+    },
+    {
+      "name": "Intimidation",
+      "mod": 18
+    },
+    {
+      "name": "Stealth",
+      "mod": 13
+    },
+    {
+      "name": "Survival",
+      "mod": 17
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 29,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 140,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 19
+      },
+      {
+        "name": "ref",
+        "mod": 15
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Shell Block",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon turtle rolls its shell toward the triggering creature, gaining a +2 circumstance bonus to its AC against the triggering attack."
+      ],
+      "trigger": "A creature adjacent to the dragon turtle targets it with a melee attack."
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "air",
+        "fire",
+        "primal"
+      ],
+      "entries": [
+        "The dragon turtle breathes a massive blast of steam that deals 10d6 fire damage to creatures within a 50-foot cone (DC 27 basic Reflex save). This steam blast affects creatures within the water, as well as outside. The dragon turtle can't use its Breath Weapon again for 1d4 rounds or until it takes a critical hit (whichever comes first)."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 50,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 27,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "10d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Capsize",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack",
+        "move"
+      ],
+      "entries": [
+        "The dragon turtle tries to capsize an adjacent aquatic vessel of its size or smaller. The dragon turtle must succeed at an Athletics check with a DC of 30 or the pilot's Sailing Lore DC, whichever is higher."
+      ]
+    },
+    {
+      "name": "Draconic Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon turtle makes two claw Strikes and one jaws Strike in any order."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

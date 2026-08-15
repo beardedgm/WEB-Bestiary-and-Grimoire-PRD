@@ -1,0 +1,259 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:carbuncle",
+  "name": "Carbuncle",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/carbuncle.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 1,
+    "xp": null,
+    "display": "Creature 1"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "tiny",
+      "beast"
+    ]
+  },
+  "abilityMods": {
+    "str": -3,
+    "dex": 0,
+    "con": 3,
+    "int": -2,
+    "wis": 3,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 7,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Carbuncle Empathy 30 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 3
+    },
+    {
+      "name": "Survival",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 20,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 8
+      },
+      {
+        "name": "ref",
+        "mod": 3
+      },
+      {
+        "name": "will",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Easy to Influence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Any mental spell can affect a carbuncle, regardless of creature type limitations. Against a suggestion spell, a carbuncle always gets an outcome one degree of success worse than it rolled on its saving throw."
+      ]
+    },
+    {
+      "name": "Fatal Faker",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "arcane",
+        "conjuration",
+        "teleportation"
+      ],
+      "entries": [
+        "The carbuncle feigns death by teleporting away and leaving a replica of its corpse behind, creating a colorful flash of light and a croaking sound. The real carbuncle transports to a clear space within 30 feet that it can see, and a hollow shell remains behind. The fake body appears solid until it is touched, at which point it crumbles to dust."
+      ],
+      "trigger": "The carbuncle takes damage"
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 5,
+        "map": [
+          5,
+          0,
+          -5
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Specious Suggestion",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "enchantment",
+        "incapacitation",
+        "mental"
+      ],
+      "entries": [
+        "The carbuncle concentrates on a creature it can see and tries to manipulate that creature. The target must attempt a DC 18 Will save. The target then becomes temporarily immune for 24 hours."
+      ],
+      "frequency": {
+        "number": 3,
+        "unit": "day",
+        "text": null
+      },
+      "save": {
+        "defense": "will",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The attempt backfires and bolsters the target's mind instead, granting it a +1 status bonus to Will saving throws for 1 hour.",
+          "success": "The target briefly experiences an unusual but harmless sensation like an unexpected flavor or scent, an urge to eat something strange, or an amusing half-forgotten memory.",
+          "failure": "The target is compelled to spend all of its actions on its next turn performing harmless, pointless, and usually embarrassing actions.",
+          "criticalFailure": "As failure, but the compulsion persists for 1 minute. The target can attempt a new save at the end of its turn each round to end the effect."
+        }
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 18,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "jump",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "levitate",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 20
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

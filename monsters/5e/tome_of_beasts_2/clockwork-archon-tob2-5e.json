@@ -1,0 +1,244 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:clockwork-archon",
+  "name": "Clockwork Archon",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 65,
+    "path": "monsters/5e/tome_of_beasts_2/clockwork-archon.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 13,
+    "xp": 10000,
+    "display": "13"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": -1,
+    "con": 5,
+    "int": -2,
+    "wis": 0,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 24,
+    "dex": 9,
+    "con": 20,
+    "int": 7,
+    "wis": 10,
+    "cha": 10
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 201,
+        "note": null,
+        "formula": "13d20+65"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 9
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "psychic"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "frightened",
+        "paralyzed",
+        "petrified",
+        "poisoned",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Armored Transport",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The clockwork archon can carry up to six Medium or eight Small creatures inside its torso. Creatures inside the archon have total cover against attacks and other effects outside the archon. The two escape hatches sit in the torso and can each be opened as a bonus action, allowing creatures in or out of the archon."
+      ]
+    },
+    {
+      "name": "Immutable Form",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The clockwork archon is immune to any spell or effect that would alter its form."
+      ]
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The clockwork archon has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Siege Monster",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The clockwork archon deals double damage to objects and structures."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The clockwork archon makes two attacks with its transforming weapon."
+      ]
+    },
+    {
+      "name": "Transforming Weapon",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 29 (4d10 + 7) bludgeoning or slashing damage. As a bonus action, the archon can change its weapon from a sword to a hammer or vice versa, allowing it to change its damage between bludgeoning and slashing."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 11,
+        "map": [
+          11
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      }
+    },
+    {
+      "name": "Fire from Heaven",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The clockwork archon unleashes a brilliant beam in a 90-foot line that is 10-feet wide. Each creature in that line must make a DC 17 Dexterity saving throw, taking 58 (13d8) radiant damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "13d8",
+          "average": 58,
+          "type": "radiant"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 17,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "line",
+        "size": 90,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

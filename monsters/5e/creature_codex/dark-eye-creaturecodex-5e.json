@@ -1,0 +1,220 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:dark-eye",
+  "name": "Dark Eye",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 72,
+    "path": "monsters/5e/creature_codex/dark-eye.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 2,
+    "con": 2,
+    "int": -1,
+    "wis": 1,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 10,
+    "dex": 14,
+    "con": 15,
+    "int": 9,
+    "wis": 13,
+    "cha": 16
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Umbral"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": "breastplate"
+    },
+    "hp": [
+      {
+        "value": 71,
+        "note": null,
+        "formula": "11d8+22"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Dark Devotion",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dark eye has advantage on saving throws against being charmed or frightened."
+      ]
+    },
+    {
+      "name": "Gaze of Shadows",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a creature that can see the dark eye's eye starts its turn within 30 feet of the dark eye, the dark eye can force it to make a DC 13 Wisdom saving throw if the dark eye isn't incapacitated and can see the creature. On a failure, the creature takes 7 (2d6) psychic damage and is incapacitated until the start of its next turn. On a success, the creature takes half the damage and isn't incapacitated.",
+        "Unless surprised, a creature can avert its eyes to avoid the saving throw at the start of its turn. If the creature does so, it can't see the dark eye until the start of its next turn, when it can avert its eyes again. If the creature looks at the dark eye in the meantime, it must immediately make the save."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "incapacitated",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Sunlight Sensitivity",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While in sunlight, the dark eye has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dark eye makes two attacks with its dagger."
+      ]
+    },
+    {
+      "name": "Dagger",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee or Ranged Weapon Attack: +4 to hit, reach 5 ft. or range 20/60 ft., one target. Hit: 4 (1d4 + 2) piercing damage plus 4 (1d8) cold damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        },
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+2",
+          "average": 4,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "cold"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

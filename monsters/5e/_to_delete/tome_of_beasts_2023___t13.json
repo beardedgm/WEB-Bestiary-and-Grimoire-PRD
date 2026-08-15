@@ -1,0 +1,316 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:algorith-tob1-2023",
+  "name": "Algorith",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 14,
+    "path": "algorith-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 10,
+    "xp": 5900,
+    "display": "10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Lawful Neutral",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 2,
+    "con": 4,
+    "int": 1,
+    "wis": 3,
+    "cha": 4
+  },
+  "abilityScores": {
+    "str": 21,
+    "dex": 14,
+    "con": 19,
+    "int": 13,
+    "wis": 16,
+    "cha": 18
+  },
+  "perception": {
+    "mod": 7,
+    "passive": 17
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Celestial",
+    "Draconic",
+    "Infernal"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 9
+    },
+    {
+      "name": "Insight",
+      "mod": 7
+    },
+    {
+      "name": "Investigation",
+      "mod": 5
+    },
+    {
+      "name": "Perception",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 153,
+        "note": null,
+        "formula": "18d8+72"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 6
+      },
+      {
+        "name": "con",
+        "mod": 8
+      },
+      {
+        "name": "wis",
+        "mod": 7
+      },
+      {
+        "name": "cha",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "frightened",
+        "paralyzed",
+        "petrified",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "lightning",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Construct Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The algorith doesn't require air, food, drink, or sleep."
+      ]
+    },
+    {
+      "name": "Immutable Form",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The algorith is immune to any spell or effect that would alter its form."
+      ]
+    },
+    {
+      "name": "Logic Razor",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 21 (3d10 + 5) force damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+5",
+          "average": 21,
+          "type": "force"
+        }
+      ]
+    },
+    {
+      "name": "Cone of Negation",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The algorith projects null energy in a 30-foot cone. Each creature in the area must make a DC 16 Dexterity saving throw. On a failure, a creature takes 33 (6d10) force damage and any spell of 4th level or lower on the creature ends, as if it had been the target of a dispel magic spell. On a success, a creature takes half the damage and spells on it don't end."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "6d10",
+          "average": 33,
+          "type": "force"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Reality Bomb",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The algorith summons and throws a tiny rune of law at a point it can see within 100 feet. The rune explodes on impact. Each creature within 30 feet of where the rune landed must make a DC 16 Dexterity saving throw. On a failure, a creature takes 27 (5d10) force damage and is stunned until the end of its next turn. On a success, a creature takes half the damage and isn't stunned."
+      ],
+      "uses": {
+        "count": 5,
+        "period": "day",
+        "display": "5/Day"
+      },
+      "damage": [
+        {
+          "formula": "5d10",
+          "average": 27,
+          "type": "force"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Spellcasting",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The algorith casts one of the following spells, requiring no material components and using Charisma as the spellcasting ability (spell save DC 16): <br>At will: bless, detect magic, dimension door, dispel magic<br>1/day each: commune (as an action), wall of force"
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:nachzehrer",
+  "name": "Nachzehrer",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 272,
+    "path": "monsters/5e/creature_codex/nachzehrer.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 8,
+    "xp": 3900,
+    "display": "8"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 1,
+    "con": 4,
+    "int": 0,
+    "wis": 2,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 20,
+    "dex": 12,
+    "con": 18,
+    "int": 10,
+    "wis": 15,
+    "cha": 9
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "the languages it knew in life"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 136,
+        "note": null,
+        "formula": "16d8+64"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "necrotic",
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "frightened",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "burrow": 15,
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Grave Pox",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature infected with grave pox becomes vulnerable to necrotic damage and gains one level of exhaustion that can't be removed until the disease is cured. Additionally, the creature cannot reduce its exhaustion by finishing a long rest. The infected creature is highly contagious. Each creature that touches it, or that is within 10 feet of it when it finishes a long rest, must succeed on a DC 12 Constitution saving throw or also contract grave pox.",
+        "When an infected creature finishes a long rest, it must succeed on a DC 16 Constitution saving throw or gain one level of exhaustion. As the disease progresses, the infected creature becomes weaker and develops painful green pustules all over its skin. A creature that succeeds on two saving throws against the disease recovers from it. The cured creature is no longer vulnerable to necrotic damage and can remove exhaustion levels as normal."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Weakening Shadow",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature other than a construct or undead has disadvantage on attack rolls, saving throws, and ability checks based on Strength while within 5 feet of the nachzehrer."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The nachzehrer makes three attacks: two with its fists and one with its bite."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +8 to hit, reach 5 ft., one creature. Hit: 7 (1d4 + 5) piercing damage plus 13 (3d8) necrotic damage. The target's hp maximum is reduced by an amount equal to the necrotic damage taken, and the nachzehrer regains hp equal to that amount. The reduction lasts until the target finishes a long rest. The target dies if this effect reduces its hp maximum to 0. The target must succeed on a DC 16 Constitution saving throw or become infected with the grave pox disease (see the Grave Pox trait)."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+5",
+          "average": 7,
+          "type": "piercing"
+        },
+        {
+          "formula": "3d8",
+          "average": 13,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Fist",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 12 (2d6 + 5) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+5",
+          "average": 12,
+          "type": "bludgeoning"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

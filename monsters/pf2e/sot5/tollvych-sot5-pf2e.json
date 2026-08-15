@@ -1,0 +1,400 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot5:tollvych",
+  "name": "Tollvych",
+  "gameSystem": "pf2e",
+  "variant": "sot5",
+  "source": {
+    "code": "sot5",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot5/tollvych.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "ghost",
+      "spirit",
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "le",
+      "medium",
+      "ghost",
+      "incorporeal",
+      "spirit",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 4,
+    "con": 0,
+    "int": 6,
+    "wis": 5,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 26,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Infernal",
+    "Taldane"
+  ],
+  "skills": [
+    {
+      "name": "Academia Lore",
+      "mod": 27
+    },
+    {
+      "name": "Arcana",
+      "mod": 29
+    },
+    {
+      "name": "Intimidation",
+      "mod": 27
+    },
+    {
+      "name": "Stealth",
+      "mod": 29
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 200,
+        "formula": null,
+        "note": "negative healing, rejuvenation"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 21
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 28
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all damage",
+        "amount": 15,
+        "note": "except force, ghost touch, or positive; double resistance vs. non-magical"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "ghostly hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 28,
+        "map": [
+          28,
+          24,
+          20
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d12+10",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Bone-Shattering Cry",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine",
+        "evocation",
+        "sonic"
+      ],
+      "entries": [
+        "Tollvych cries out in pain as his body twists and grinds into horrific, distorted shapes. All creatures within a 30-foot emanation take 16d6 bludgeoning damage (DC 36 basic Reflex save) as the sound of the Bone-Shattering Cry shakes and shatters their own bones. Tollvych can't use Bone-Shattering Cry for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 36,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "16d6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Frightful Moan",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "auditory",
+        "divine",
+        "emotion",
+        "enchantment",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "Tollvych laments his fate, forcing each living creature within 30 feet to attempt a DC 36 Will save. On a failure, a creature becomes frightened 2 (or frightened 3 on a critical failure). On a success, a creature is temporarily immune to Tollvych's frightful moan for 1 minute."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 36,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 36,
+      "attackBonus": 28,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 8,
+          "rankLabel": "Cantrips (8th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "prestidigitation",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "ray of enfeeblement",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "telekinetic maneuver",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "nondetection",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "nightmare",
+              "uses": null
+            },
+            {
+              "name": "suggestion",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "cone of cold",
+              "uses": null
+            },
+            {
+              "name": "hallucination",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "chain lightning",
+              "uses": null
+            },
+            {
+              "name": "disintegrate",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "duplicate foe",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "phantasmal killer",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Spirit",
+        "skill": "Religion",
+        "dc": 44
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

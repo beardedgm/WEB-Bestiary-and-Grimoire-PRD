@@ -1,0 +1,256 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:chill-haunt",
+  "name": "Chill Haunt",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 62,
+    "path": "monsters/5e/tome_of_beasts_2/chill-haunt.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -2,
+    "dex": 3,
+    "con": 2,
+    "int": -1,
+    "wis": 3,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 7,
+    "dex": 16,
+    "con": 14,
+    "int": 8,
+    "wis": 16,
+    "cha": 13
+  },
+  "perception": {
+    "mod": null,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "the languages it knew in life"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 39,
+        "note": null,
+        "formula": "6d8+12"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold",
+        "fire",
+        "necrotic",
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "frightened",
+        "grappled",
+        "paralyzed",
+        "petrified",
+        "poisoned",
+        "prone",
+        "restrained"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "lightning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "thunder; bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 0,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Cryophobia",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the chill haunt is subjected to cold damage, it takes no damage, but it must succeed on a DC 13 Wisdom saving throw or become frightened of the source of the damage for 1 minute. This trait overrides the haunt's normal immunity to the frightened condition."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Fire Absorption",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the chill haunt is subjected to fire damage, it takes no damage and instead regains a number of hp equal to the fire damage dealt."
+      ]
+    },
+    {
+      "name": "Incorporeal Movement",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The chill haunt can move through other creatures and objects as if they were difficult terrain. It takes 5 (1d10) force damage if it ends its turn inside an object."
+      ],
+      "damage": [
+        {
+          "formula": "1d10",
+          "average": 5,
+          "type": "force"
+        }
+      ]
+    },
+    {
+      "name": "Shivering Touch",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 10 (2d6 + 3) cold damage plus 3 (1d6) necrotic damage. The target must succeed on a DC 12 Constitution saving throw or take 3 (1d6) cold damage at the start of each of its turns. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If the target takes fire damage, the effect ends."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "cold"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "necrotic"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "cold"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

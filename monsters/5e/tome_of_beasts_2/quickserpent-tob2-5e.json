@@ -1,0 +1,235 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:quickserpent",
+  "name": "Quickserpent",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 303,
+    "path": "monsters/5e/tome_of_beasts_2/quickserpent.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 1,
+    "con": 3,
+    "int": -3,
+    "wis": 2,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 20,
+    "dex": 12,
+    "con": 17,
+    "int": 5,
+    "wis": 14,
+    "cha": 7
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "tremorsense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Terran but can’t speak"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 102,
+        "note": null,
+        "formula": "12d10+36"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "burrow": 20,
+      "climb": 20,
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Swamp Camouflage",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The quickserpent has advantage on Dexterity (Stealth) checks made to hide in swampy terrain."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 8 (1d6 + 5) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+5",
+          "average": 8,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Constrict",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 14 (2d8 + 5) bludgeoning damage, and the target is grappled (escape DC 15) if it is Large or smaller. Until this grapple ends, the creature is restrained, and the quickserpent can't constrict another target."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+5",
+          "average": 14,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Quicksand Pit",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The quickserpent turns a 10-foot cube of natural mud or loose stone into a pit of quicksand. Each creature in the area when the quickserpent creates the pit must succeed on a DC 15 Dexterity saving throw or sink 1d4 feet into the quicksand and become restrained. A creature that successfully saves moves to the pit's edge as it is formed. A creature that enters the quicksand for the first time on a turn or starts its turn in the quicksand it sinks 1d4 feet and is restrained. A creature that is completely submerged in quicksand can't breathe.<br><br>A restrained creature can try to escape by taking an action to make a DC 15 Strength check. On a success, the creature escapes and enters a space of its choice within 5 feet of the edge of the quicksand. A creature within 5 feet of the quicksand can take an action to pull a creature out of the quicksand. Doing so requires a successful DC 15 Strength check, and the quickserpent has advantage on attack rolls against the creature until the end of the creature's next turn."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "save": {
+        "defense": "dex",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cube",
+        "size": 10,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "restrained",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

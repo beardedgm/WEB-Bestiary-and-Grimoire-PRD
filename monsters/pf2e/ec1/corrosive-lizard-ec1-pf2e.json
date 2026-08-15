@@ -1,0 +1,271 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec1:corrosive-lizard",
+  "name": "Corrosive Lizard",
+  "gameSystem": "pf2e",
+  "variant": "ec1",
+  "source": {
+    "code": "ec1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec1/corrosive-lizard.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 2,
+    "xp": null,
+    "display": "Creature 2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "animal",
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "medium",
+      "animal",
+      "fiend"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 2,
+    "con": 4,
+    "int": -4,
+    "wis": 1,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 7,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 6
+    },
+    {
+      "name": "Athletics",
+      "mod": 8
+    },
+    {
+      "name": "Stealth",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 30,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 10
+      },
+      {
+        "name": "ref",
+        "mod": 8
+      },
+      {
+        "name": "will",
+        "mod": 5
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 3,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Gnashing Bite",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The lizard's jaws deal 1d6 piercing damage and 1d6 acid damage to the triggering creature."
+      ],
+      "trigger": "A creature grabbed by the corrosive lizard's jaws fails a check to Escape",
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 11,
+        "map": [
+          11,
+          6,
+          1
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d10+2",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent acid damage"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Gout of Acid",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "acid",
+        "primal"
+      ],
+      "entries": [
+        "The corrosive lizard vomits a gout of acid in a 15-foot cone. Each creature in this area takes 3d6 acid damage (DC 20 basic Reflex save). The lizard can't use Gout of Acid again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 20,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Lurching Charge",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The corrosive lizard Strides up to double its Speed and then makes a jaws Strike. If the lizard moved at least 20 feet away from its starting position, it gains a +2 circumstance bonus to this attack roll."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Animal",
+        "skill": "Nature, Religion",
+        "dc": 18
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

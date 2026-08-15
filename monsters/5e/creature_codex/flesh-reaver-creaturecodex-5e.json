@@ -1,0 +1,249 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:flesh-reaver",
+  "name": "Flesh Reaver",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 160,
+    "path": "monsters/5e/creature_codex/flesh-reaver.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.5,
+    "xp": 100,
+    "display": "1/2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 2,
+    "con": 2,
+    "int": -3,
+    "wis": 0,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 14,
+    "dex": 14,
+    "con": 14,
+    "int": 5,
+    "wis": 10,
+    "cha": 8
+  },
+  "perception": {
+    "mod": 2,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Common and Darakhul but can't speak"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 2
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 12,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 19,
+        "note": null,
+        "formula": "3d8+6"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "necrotic",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Keen Senses",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The flesh reaver has advantage on Wisdom (Perception) checks that rely on sight, hearing, or smell."
+      ]
+    },
+    {
+      "name": "Leap",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the flesh reaver moves at least 15 feet, it can jump up to 20 feet in any direction. If it lands within 5 feet of a creature, the creature must succeed on a DC 13 Strength saving throw or be knocked prone. If the target is prone, the flesh reaver can make one Consume Flesh attack against it as a bonus action."
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Pack Tactics",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The flesh reaver has advantage on attack rolls against a creature if at least one of the flesh reaver's allies is within 5 feet of the creature and the ally isn't incapacitated."
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": 5,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Consume Flesh",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one prone creature. Hit: 4 (1d4 + 2) piercing damage, and the creature must make a DC 13 Constitution saving throw, taking 7 (2d6) necrotic damage on a failed save, or half as much damage on a successful one."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+2",
+          "average": 4,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

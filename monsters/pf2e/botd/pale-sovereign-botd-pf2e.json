@@ -1,0 +1,385 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:pale-sovereign",
+  "name": "Pale Sovereign",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/pale-sovereign.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 16,
+    "xp": null,
+    "display": "Creature 16"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "ln",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 8,
+    "con": 4,
+    "int": 6,
+    "wis": 6,
+    "cha": 9
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 28,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "sense visitors",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 31
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 31
+    },
+    {
+      "name": "Intimidation",
+      "mod": 33
+    },
+    {
+      "name": "Occultism",
+      "mod": 28
+    },
+    {
+      "name": "Society",
+      "mod": 28
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 36,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 298,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 26
+      },
+      {
+        "name": "ref",
+        "mod": 30
+      },
+      {
+        "name": "will",
+        "mod": 28
+      }
+    ],
+    "saveNote": "–2 to all saves vs. curses",
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": [
+      "air walk"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Aura of Charm",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "incapacitation",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "80 feet. The aura of a pale sovereign is beguiling and inviting, affecting creatures beginning their turns within it with an 8th-level charm (DC 39 Will save). A creature that fails its Will save perceives the pale sovereign as they were in life, not their current undead form. A creature that succeeds at its save is then temporarily immune to that pale sovereign's aura for 24 hours."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 39,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 80,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "rosebriar lash",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 28,
+        "map": [
+          28,
+          23,
+          18
+        ],
+        "traits": [
+          "finesse",
+          "magical",
+          "reach <10 feet>",
+          "versatile <P>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+8",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Curse of Eternal Sleep",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "curse",
+        "enchantment",
+        "incapacitation",
+        "mental",
+        "occult",
+        "sleep"
+      ],
+      "entries": [
+        "The pale sovereign touches an adjacent living creature to send it into an endless slumber. The target must attempt a DC 39 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 39,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Siphon Vitality",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "necromancy",
+        "negative",
+        "occult"
+      ],
+      "entries": [
+        "The pale sovereign siphons the life force from creatures around them. All living creatures in a 30-foot emanation take 6d8 negative damage (DC 39 basic Fortitude save). The pale sovereign regains HP equal to the highest damage a single creature took from this effect."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 39,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d8",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 41,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "air walk",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "bestial curse",
+              "uses": null
+            },
+            {
+              "name": "cloak of colors",
+              "uses": null
+            },
+            {
+              "name": "enthrall",
+              "uses": "at will"
+            },
+            {
+              "name": "outcast's curse",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "curse of lost time",
+              "uses": null
+            },
+            {
+              "name": "feeblemind",
+              "uses": null
+            },
+            {
+              "name": "hallucination",
+              "uses": null
+            },
+            {
+              "name": "project image",
+              "uses": null
+            },
+            {
+              "name": "suggestion",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "spirit song",
+              "uses": null
+            },
+            {
+              "name": "spiritual epidemic",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 40
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Curse of Eternal Sleep)"
+    ],
+    "unmapped": []
+  }
+}

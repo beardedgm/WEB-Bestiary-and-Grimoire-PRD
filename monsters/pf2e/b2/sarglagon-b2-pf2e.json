@@ -1,0 +1,398 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:sarglagon",
+  "name": "Sarglagon",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/sarglagon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "devil",
+      "fiend"
+    ],
+    "subtypes": [
+      "amphibious"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "le",
+      "large",
+      "amphibious",
+      "devil",
+      "fiend"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 3,
+    "con": 4,
+    "int": 2,
+    "wis": 4,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 18,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "see invisibility",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Infernal; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 14
+    },
+    {
+      "name": "Athletics",
+      "mod": 18
+    },
+    {
+      "name": "Deception",
+      "mod": 15
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 15
+    },
+    {
+      "name": "Intimidation",
+      "mod": 17
+    },
+    {
+      "name": "Stealth",
+      "mod": 15
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 120,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 5,
+        "note": "except silver"
+      },
+      {
+        "name": "poison",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "fly": 25,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Heavy Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "incapacitation",
+        "transmutation"
+      ],
+      "entries": [
+        "10 feet. A creature that enters the heavy aura must attempt a DC 23 Will save. It is then temporarily immune for 10 minutes."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {
+          "success": "The creature is unaffected.",
+          "failure": "The creature is encumbered while it remains in the area. If the creature is already encumbered, it is immobilized while it remains within the aura.",
+          "criticalFailure": "As failure, but the effect persists for 3 rounds after leaving the aura."
+        }
+      },
+      "aura": {
+        "range": 10,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Stygian Guardian",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The sarglagon interposes themself, giving the creature or object standard cover against the attack (+2 circumstance bonus to AC), or greater cover (+4 circumstance bonus to AC) if the sarglagon was already granting it lesser cover."
+      ],
+      "trigger": "A creature or object within the sarglagon's reach is targeted by an attack"
+    },
+    {
+      "name": "fangs",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [
+          "evil",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12+9",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tentacle arm",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          16,
+          12
+        ],
+        "traits": [
+          "agile",
+          "evil",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+9",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": [
+        "sarglagon venom",
+        "sarglagon venom"
+      ]
+    },
+    {
+      "name": "Drown",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "conjuration",
+        "divine",
+        "incapacitation"
+      ],
+      "entries": [
+        "The sarglagon conjures murky water to fill the lungs of a creature that can't breathe water within 30 feet. The target must attempt a DC 26 Fortitude save."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target coughs up water and is sickened 1.",
+          "failure": "The target is holding its breath (Core Rulebook 478). The only action it can take is to attempt a Fortitude save against Drown to expel the water, which is a single action.",
+          "criticalFailure": "The target falls unconscious and begins suffocating. If the target succeeds at its Fortitude save while suffocating, it coughs up the water and can breathe again."
+        }
+      }
+    },
+    {
+      "name": "Sarglagon Venom",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 23,
+      "attackBonus": 18,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Constant (2nd)",
+          "spells": [
+            {
+              "name": "see invisibility",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            },
+            {
+              "name": "freedom of movement",
+              "uses": null
+            },
+            {
+              "name": "hydraulic torrent",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "control water",
+              "uses": null
+            },
+            {
+              "name": "dimension door",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 24
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

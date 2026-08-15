@@ -1,0 +1,351 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:fire-giant-war-priest",
+  "name": "Fire Giant War Priest",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 235,
+    "path": "monsters/5e/a5e_monstrous_menagerie/fire-giant-war-priest-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 12,
+    "xp": 8400,
+    "display": "12"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "giant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 0,
+    "con": 6,
+    "int": 0,
+    "wis": 2,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 25,
+    "dex": 10,
+    "con": 22,
+    "int": 10,
+    "wis": 14,
+    "cha": 12
+  },
+  "perception": {
+    "mod": 6,
+    "passive": 16
+  },
+  "senses": [],
+  "languages": [
+    "Giant"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 11
+    },
+    {
+      "name": "Perception",
+      "mod": 6
+    },
+    {
+      "name": "Intimidation",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 162,
+        "note": null,
+        "formula": "13d12+78"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 11
+      },
+      {
+        "name": "dex",
+        "mod": 4
+      },
+      {
+        "name": "con",
+        "mod": 10
+      },
+      {
+        "name": "cha",
+        "mod": 5
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Cold Weakness",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the fire giant takes cold damage, its speed is reduced by 10 feet until the end of its next turn."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The giant makes two greatsword attacks."
+      ]
+    },
+    {
+      "name": "Greatsword",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 28 (6d6 + 7) slashing damage. If the target is a Large or smaller creature  it makes a DC 19 Strength saving throw. On a failure  it is pushed up to 10 feet away from the giant and knocked prone."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 11,
+        "map": [
+          11
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d6+7",
+          "average": 28,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Rock",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Weapon Attack: +11 to hit, range 60/240 ft., one target. Hit: 42 (10d6 + 7) bludgeoning damage. If the target is a Large or smaller creature  it makes a DC 19 Strength saving throw  falling prone on a failure."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "weapon",
+        "bonus": 11,
+        "map": [
+          11
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "10d6+7",
+          "average": 42,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Sword Sweep",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The giant makes a greatsword attack against each creature within 10 feet."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      }
+    },
+    {
+      "name": "Ignite Blades",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The greatswords of each fire giant of the giants choice within 30 feet magically kindle into flame. For the next minute  each of their greatsword attacks deal an extra 7 (2d6) fire damage."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Pillar of Flame",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Each creature within a 10-foot-radius  40-foot-high cylinder centered on a point within 60 feet that the fire giant can see makes a DC 18 Dexterity saving throw  taking 56 (16d6) fire damage on a failed save or half damage on a success. Unattended flammable objects are ignited."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "damage": [
+        {
+          "formula": "16d6",
+          "average": 56,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Kick",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When hit by a melee attack by a Medium or smaller creature the giant can see within 10 feet, the giant kicks its attacker. The attacker makes a DC 19 Dexterity saving throw. On a failure, it takes 14 (3d4 + 7) bludgeoning damage, is pushed up to 20 feet from the giant, and falls prone."
+      ],
+      "damage": [
+        {
+          "formula": "3d4+7",
+          "average": 14,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

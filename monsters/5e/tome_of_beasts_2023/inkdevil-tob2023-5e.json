@@ -1,0 +1,365 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:inkdevil",
+  "name": "Ink Devil",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 96,
+    "path": "monsters/5e/tome_of_beasts_2023/inkdevil-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 2,
+    "xp": 450,
+    "display": "2"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Lawful Evil",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 4,
+    "con": 1,
+    "int": 5,
+    "wis": -1,
+    "cha": 4
+  },
+  "abilityScores": {
+    "str": 12,
+    "dex": 18,
+    "con": 12,
+    "int": 20,
+    "wis": 8,
+    "cha": 18
+  },
+  "perception": {
+    "mod": null,
+    "passive": 9
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Common",
+    "Draconic",
+    "Infernal",
+    "telepathy 120 ft."
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 9
+    },
+    {
+      "name": "Deception",
+      "mod": 6
+    },
+    {
+      "name": "History",
+      "mod": 9
+    },
+    {
+      "name": "Stealth",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 54,
+        "note": null,
+        "formula": "12d6+12"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire",
+        "poison"
+      ],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "cold; bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks not made with silvered weapons",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Devil's Sight",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Magical darkness doesn't impede the ink devil's darkvision."
+      ]
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ink devil has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 14 (3d6 + 4) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+4",
+          "average": 14,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Devil's Ink",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee or Ranged Spell Attack: +6 to hit, reach 5 ft. or range 60 ft., one target. Hit: 13 (2d8 + 4) poison damage, and the target must succeed on a DC 13 Dexterity saving throw or be marked with a small, fiendish tattoo for 24 hours. Devils have advantage on attack rolls against the marked target, and the target has disadvantage on saving throws against the spells and abilities of devils."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "spell",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        },
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+4",
+          "average": 13,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Corrupt Scroll",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ink devil touches a scroll, corrupting it. A creature using the scroll must succeed a DC 13 Intelligence saving throw or the spell harms the caster (if an offensive spell), helps the nearest devil (if beneficial), or fails, consuming the scroll (if not offensive or if no devils are in range to benefit from the magic)."
+      ],
+      "save": {
+        "defense": "int",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Invisibility",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ink devil magically turns invisible until it attacks or uses Disrupt Concentration, or until its concentration ends (as if concentrating on a spell). Any equipment the ink devil wears or carries is invisible with it."
+      ]
+    },
+    {
+      "name": "Spellcasting",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ink devil casts one of the following spells, requiring no material components and using Charisma as the spellcasting ability (spell save DC 14):<br>At will: detect magic, illusory script (as an action)<br>1/day: glyph of warding"
+      ]
+    },
+    {
+      "name": "Disrupt Concentration",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "One spellcaster concentrating on a spell within 30 feet of the ink devil that the devil can see must succeed on a DC 13 Wisdom saving throw or lose concentration on the spell."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spellcasting",
+      "type": "prepared",
+      "tradition": null,
+      "dc": 14,
+      "attackBonus": null,
+      "ability": "cha",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "illusory script (as an action)<br>",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "1/day",
+          "uses": 1,
+          "spells": [
+            {
+              "name": "glyph of warding",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

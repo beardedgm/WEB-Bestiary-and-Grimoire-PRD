@@ -1,0 +1,303 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe4:poison-eater",
+  "name": "Poison Eater",
+  "gameSystem": "pf2e",
+  "variant": "aoe4",
+  "source": {
+    "code": "aoe4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe4/poison-eater.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 3,
+    "con": 4,
+    "int": 0,
+    "wis": 1,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 18
+    },
+    {
+      "name": "Intimidation",
+      "mod": 15
+    },
+    {
+      "name": "Religion",
+      "mod": 14
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 25,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 150,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 19
+      },
+      {
+        "name": "ref",
+        "mod": 15
+      },
+      {
+        "name": "will",
+        "mod": 13
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "poison",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Toxin-Inured",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A poison eater can't gain the enfeebled or sickened condition from poisons."
+      ]
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "maul",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 19,
+        "map": [
+          19,
+          14,
+          9
+        ],
+        "traits": [
+          "magical",
+          "shove"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d12+6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Knockdown",
+        "Knockdown"
+      ]
+    },
+    {
+      "name": "dagger",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          14,
+          10
+        ],
+        "traits": [
+          "agile",
+          "versatile <S>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "dagger",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          13,
+          9
+        ],
+        "traits": [
+          "agile",
+          "thrown <10 feet>",
+          "versatile <S>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 10,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+8",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Consume Poison",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The poison eater uses an Interact action to draw a dose of poison and eats it, gaining strength. The poison-eater's Strikes deal two weapon dice of damage rather than one. The poison eater is affected by the consumed poison normally and, therefore, usually chooses poisons mitigated by their poison resistance and toxin-inured ability. At the end of each of their turns, the poison eater attempts a DC 17 flat check; on a success, this ability ends."
+      ]
+    },
+    {
+      "name": "Poison Frenzy",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "The poison eater flies into a frenzy that lasts for 1 minute. While in a frenzy, the poison eater gains a +1 status bonus to attack rolls with melee Strikes, gains a +4 status bonus to damage rolls with melee Strikes, gains 20 temporary Hit Points until the end of the frenzy, and takes a –2 status penalty to AC. The poison eater can't voluntarily end their frenzy. After their frenzy, the poison eater is fatigued."
+      ],
+      "trigger": "the poison eater damages a creature while Consume Poison is in effect",
+      "requirements": "The poison eater isn't fatigued or already in a frenzy"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

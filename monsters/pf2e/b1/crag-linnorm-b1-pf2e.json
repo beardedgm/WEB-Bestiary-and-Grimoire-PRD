@@ -1,0 +1,423 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:crag-linnorm",
+  "name": "Crag Linnorm",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/crag-linnorm.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 14,
+    "xp": null,
+    "display": "Creature 14"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "fire"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "gargantuan",
+      "dragon",
+      "fire"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 4,
+    "con": 6,
+    "int": -3,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 26,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    },
+    {
+      "name": "true seeing",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Draconic",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 22
+    },
+    {
+      "name": "Athletics",
+      "mod": 28
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 37,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 270,
+        "formula": null,
+        "note": "regeneration 10 (deactivated by cold iron)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 28
+      },
+      {
+        "name": "ref",
+        "mod": 24
+      },
+      {
+        "name": "will",
+        "mod": 22
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "curse",
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold iron",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 35,
+      "fly": 100,
+      "swim": 60
+    },
+    "special": [
+      "freedom of movement"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Curse of Fire",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "curse",
+        "fire",
+        "primal"
+      ],
+      "entries": [
+        "When a creature slays a crag linnorm, it must succeed at a DC 35 Will save or permanently gain weakness to fire 15."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 35,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Tail only."
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          25,
+          20
+        ],
+        "traits": [
+          "reach <20 feet>",
+          "magical"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+14",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "crag linnorm venom",
+        "crag linnorm venom"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          25,
+          20
+        ],
+        "traits": [
+          "reach <20 feet>",
+          "magical"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+14",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          25,
+          20
+        ],
+        "traits": [
+          "reach <20 feet>",
+          "magical"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+14",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Improved Grab",
+        "Improved Grab"
+      ]
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "evocation",
+        "fire",
+        "primal"
+      ],
+      "entries": [
+        "The crag linnorm breathes out a stream of magma in a 120-foot line that deals 12d6 fire damage to creatures within the area (DC 34 basic Reflex save). Any creature that fails its save also takes 4d6 persistent fire damage. The crag linnorm can't use Breath Weapon again for 1d4 rounds. The magma remains until the start of the linnorm's next turn. If the linnorm was on the ground, the magma remains as a burning line on the ground directly under the line of the Breath Weapon, and if the linnorm was airborne, the magma rains downward in a sheet 60 feet high. Any creature that moves across or through the magma takes 6d6 fire damage (DC 34 basic Reflex save). At the start of the linnorm's next turn, the magma cools to a thin layer of brittle stone on the ground, or the magma rain finishes falling and turns to harmless pebbles. The cooled magma quickly degrades to powder and sand over the course of several hours."
+      ],
+      "area": {
+        "shape": "line",
+        "size": 120,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 34,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "12d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Constrict",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "2d6+14 bludgeoning, DC 34"
+      ]
+    },
+    {
+      "name": "Crag Linnorm Venom",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "fire",
+        "injury",
+        "poison"
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 33,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Constant (6th)",
+          "spells": [
+            {
+              "name": "freedom of movement",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana",
+        "dc": 34
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

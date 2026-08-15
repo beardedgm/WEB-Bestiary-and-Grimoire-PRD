@@ -1,0 +1,336 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:lacedon",
+  "name": "Lacedon",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/lacedon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 2,
+    "xp": null,
+    "display": "Creature 2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "amphibious",
+      "ghoul"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "medium",
+      "amphibious",
+      "ghoul",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 4,
+    "con": 3,
+    "int": 1,
+    "wis": 1,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 7,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "corpse scent",
+      "range": null,
+      "unit": null,
+      "acuity": "precise"
+    },
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aquan",
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 8
+    },
+    {
+      "name": "Athletics",
+      "mod": 9
+    },
+    {
+      "name": "Stealth",
+      "mod": 8
+    },
+    {
+      "name": "Survival",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 32,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 7
+      },
+      {
+        "name": "ref",
+        "mod": 10
+      },
+      {
+        "name": "will",
+        "mod": 7
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          5,
+          0
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+5",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "ghoul fever"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          6,
+          2
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+5",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Aquatic Ambush",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "45 feet"
+      ]
+    },
+    {
+      "name": "Consume Flesh",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The lacedon devours a chunk of the corpse and regains 2d6 Hit Points. It can regain Hit Points from any given corpse only once. **Ghoul Fever**",
+        "(disease); **Saving Throw** DC 16 Fortitude"
+      ],
+      "requirements": "The lacedon is adjacent to the corpse of a creature that died within the last hour"
+    },
+    {
+      "name": "Stage 1",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "carrier with no ill effect (1 day)"
+      ]
+    },
+    {
+      "name": "Stage 2",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "2d6 negative damage and regains half as many Hit Points from all healing (1 day)"
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "Stage 3",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "as stage 2 (1 day)"
+      ]
+    },
+    {
+      "name": "Stage 4",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "2d6 negative damage and gains no benefit from healing (1 day)"
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "Stage 5",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "as stage 4 (1 day)"
+      ]
+    },
+    {
+      "name": "Stage 6",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "dead and rises as a ghoul the next midnight Paralyzing Spew 1 (incapacitation, occult, necromancy)"
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 16
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

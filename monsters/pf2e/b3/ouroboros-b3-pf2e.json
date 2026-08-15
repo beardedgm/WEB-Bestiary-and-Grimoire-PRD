@@ -1,0 +1,473 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:ouroboros",
+  "name": "Ouroboros",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/ouroboros.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 21,
+    "xp": null,
+    "display": "Creature 21"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "astral",
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "gargantuan",
+      "astral",
+      "beast"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 5,
+    "con": 7,
+    "int": -4,
+    "wis": 4,
+    "cha": 8
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 33,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 36
+    },
+    {
+      "name": "Athletics",
+      "mod": 41
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 45,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 500,
+        "formula": null,
+        "note": "regeneration 50 (deactivated by"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 38
+      },
+      {
+        "name": "ref",
+        "mod": 34
+      },
+      {
+        "name": "will",
+        "mod": 33
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "negative",
+        "poison",
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 100,
+      "fly": 100
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Unfathomable Infinity",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "incapacitation",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "100 feet. The ouroboros is the embodiment of perfect of diamonds in a resurrect ritual infinity, and this concept pulls at the threads of mortal minds, desperately straining the limits of their comprehension. When a creature ends its turn in the aura, it must attempt a DC 41 Will save. The creature is then temporarily immune for 1 minute."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 41,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is stupefied 1 for 1 round.",
+          "success": "The creature is stupefied 1 for 1 minute.",
+          "failure": "The creature is stupefied 1 for 1 minute and stunned 3.",
+          "criticalFailure": "The creature is stupefied 3 and stunned, both for 1 minute."
+        }
+      },
+      "aura": {
+        "range": 100,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "free",
+      "placement": "mid",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "Incalculable fangs only. Because the ouroboros contains an infinite number of snakes that act independently, its Attack of Opportunity is a free action (though it can still use only one per trigger)."
+      ]
+    },
+    {
+      "name": "Sanguine Spray",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the ouroboros takes slashing or piercing damage, or when."
+      ]
+    },
+    {
+      "name": "Devour",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Tail ends, blood gushes from the wound in a 15-foot cone. Each creature in the area takes 5d6 acid damage (DC 41 basic Reflex save). A creature that takes any damage is exposed to the ouroboros's regenerative blood (see below) Where the blood falls upon ground, it coagulates into magical snakes that bite at anyone who passes. This is hazardous terrain deals 17 piercing damage and 5 poison damage to any non-ouroboros creature that moves through the square or ends its turn there. A creature that avoids all the piercing damage doesn't take the poison damage. After 1 hour, a blood patch permanently becomes a living snake, typically an emperor cobra (Bestiary 2 245)."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 41,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d6",
+          "average": null,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "maw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 39,
+        "map": [
+          39,
+          34,
+          29
+        ],
+        "traits": [
+          "magical",
+          "reach <30 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d12+18",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Improved Grab",
+        "Improved"
+      ]
+    },
+    {
+      "name": "body",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 39,
+        "map": [
+          39,
+          34,
+          29
+        ],
+        "traits": [
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+18",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "incalculable fangs",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 37,
+        "map": [
+          37,
+          33,
+          29
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+16",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "poison"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 39,
+        "map": [
+          39,
+          34,
+          29
+        ],
+        "traits": [
+          "magical",
+          "reach <30 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d12+18",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Devour Tail",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "An ouroboros spend most of its life eating its own tail, which perpetually regrows at the same rate it's consumed. The ouroboros places its maw around the end of its tail and begins devouring its own body. While the ouroboros is consuming itself, its regeneration can't be suppressed, and it is immune to drained, enfeebled, fatigued, persistent damage, and sickened conditions. If any of these conditions is in effect when the ouroboros takes this action, the condition immediately ends. While eating its tail, the ouroboros can't make maw or tail strikes, and its Speeds are 50 feet. It continues devouring its tail even while dying, unconscious, stunned, or otherwise unable to act. To end this effect, the ouroboros must first be immobilized, then a creature must successfully Grapple it, which tears the maw free in addition to its normal effects. The ouroboros can also cease Devouring its Tail with a single action. Either of these tears the maw free of the tail, causing the stump to spill blood as described in sanguine spray."
+      ]
+    },
+    {
+      "name": "Fast Swallow",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The ouroboros uses Swallow Whole."
+      ],
+      "trigger": "The ouroboros Grabs a creature with their maw"
+    },
+    {
+      "name": "Flying Wheel",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "As Trample, except the ouroboros can Fly up to double its Speed instead of Striding. Huge or smaller, body, DC 45."
+      ],
+      "requirements": "The ouroboros is eating its own tail (see Devour Tail)"
+    },
+    {
+      "name": "Regenerative Blood",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "contact",
+        "curse",
+        "incapacitation",
+        "poison",
+        "polymorph",
+        "primal",
+        "transmutation"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Swallow Whole",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "Huge, 4d10+9 acid, Rupture 50"
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Astral",
+        "skill": "Occultism, Arcana, Nature",
+        "dc": 47
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,411 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:dero-magister",
+  "name": "Dero Magister",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/dero-magister.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "dero"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "small",
+      "dero",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 4,
+    "con": 2,
+    "int": 3,
+    "wis": -1,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 8,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Crafting",
+      "mod": 12
+    },
+    {
+      "name": "Medicine",
+      "mod": 8
+    },
+    {
+      "name": "Occultism",
+      "mod": 12
+    },
+    {
+      "name": "Stealth",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 22,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 65,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 10
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "confusion"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "vulnerable to sunlight",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Vulnerable to Sunlight",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A dero magister takes 10 damage for every hour they're exposed to sunlight."
+      ]
+    },
+    {
+      "name": "aklys",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          5,
+          0
+        ],
+        "traits": [
+          "trip"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+3",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "aklys",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 13,
+        "map": [
+          13,
+          8,
+          3
+        ],
+        "traits": [
+          "ranged trip",
+          "tethered",
+          "thrown <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+3",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Cytillesh Stare",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "incapacitation",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "The magister focuses their gaze on a creature they can see within 30 feet. The target is dazzled for 1 round and must succeed at a DC 24 Will saving throw or be confused for 1 round."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "save": {
+        "defense": "will",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 24,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "Cantrips (1st)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "ghost sound",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": "at will"
+            },
+            {
+              "name": "sound burst",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "modify memory",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Spontaneous occult Spells",
+      "type": "spontaneous",
+      "tradition": "occult",
+      "dc": 24,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 3,
+          "rankLabel": "Cantrips (3rd)",
+          "spells": [
+            {
+              "name": "chill touch",
+              "uses": null
+            },
+            {
+              "name": "dancing lights",
+              "uses": null
+            },
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "forbidding ward",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st (4 slots)",
+          "spells": [
+            {
+              "name": "grim tendrils",
+              "uses": null
+            },
+            {
+              "name": "magic missile",
+              "uses": null
+            },
+            {
+              "name": "phantom pain",
+              "uses": null
+            },
+            {
+              "name": "soothe",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd (4 slots)",
+          "spells": [
+            {
+              "name": "hideous laughter",
+              "uses": null
+            },
+            {
+              "name": "paranoia",
+              "uses": null
+            },
+            {
+              "name": "spectral hand",
+              "uses": null
+            },
+            {
+              "name": "touch of idiocy",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd (3 slots)",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "vampiric touch",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 22
+      }
+    ],
+    "items": [
+      "aklys|b1"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

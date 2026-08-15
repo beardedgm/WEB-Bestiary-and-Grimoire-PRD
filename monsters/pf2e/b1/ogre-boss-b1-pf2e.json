@@ -1,0 +1,265 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:ogre-boss",
+  "name": "Ogre Boss",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/ogre-boss.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "giant",
+      "humanoid"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "large",
+      "giant",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 0,
+    "con": 4,
+    "int": 0,
+    "wis": 1,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Jotun"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 16
+    },
+    {
+      "name": "Intimidation",
+      "mod": 16
+    },
+    {
+      "name": "Stealth",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 25,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 130,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 17
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "ogre hook",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 19,
+        "map": [
+          19,
+          14,
+          9
+        ],
+        "traits": [
+          "deadly <1d10>",
+          "reach <10 feet>",
+          "trip"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10+11",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "javelin",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          7,
+          2
+        ],
+        "traits": [
+          "thrown <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+11",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Bellowing Command",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "auditory",
+        "fear",
+        "linguistic"
+      ],
+      "entries": [
+        "The ogre boss issues a command to hasten their fellows. Each ogre ally who hears and understands this command becomes quickened until the end of that ally's next turn, but can use the extra action only to Step or Stride."
+      ]
+    },
+    {
+      "name": "Sweeping Hook",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The ogre boss makes an ogre hook Strike against the creature they tripped."
+      ],
+      "trigger": "The ogre boss successfully Trips a creature using an ogre hook."
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 23
+      }
+    ],
+    "items": [
+      "breastplate",
+      "javelin (6)",
+      "+1 ogre hook"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

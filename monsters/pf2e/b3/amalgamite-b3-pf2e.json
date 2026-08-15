@@ -1,0 +1,350 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:amalgamite",
+  "name": "Amalgamite",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/amalgamite.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "uncommon",
+      "ne",
+      "medium",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 6,
+    "con": 4,
+    "int": 8,
+    "wis": 6,
+    "cha": -1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 23,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 27
+    },
+    {
+      "name": "Athletics",
+      "mod": 22
+    },
+    {
+      "name": "Occultism",
+      "mod": 27
+    },
+    {
+      "name": "Lore",
+      "mod": 27
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 220,
+        "formula": null,
+        "note": "regeneration 10 (deactivated by piercing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 22
+      },
+      {
+        "name": "will",
+        "mod": 26
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental"
+      ],
+      "conditions": [
+        "controlled"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "piercing",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Destabilizing Field",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "conjuration"
+      ],
+      "entries": [
+        "40 feet. A creature that begins its turn within the area feels its body begin to stretch and must succeed at a DC 33 Fortitude save or become destabilized. A destabilized creature emits a 10-foot destabilizing field aura and becomes sickened 1. The destabilization ends when the creature is no longer sickened. A creature that succeeds at its saving throw against the aura is temporarily immune to all destabilizing fields for 1 minute."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 33,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 40,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Displace",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The amalgamite Repositions itself or Transposes itself with another creature. If the amalgamite successfully changes its location, it and any Transposed creature take half damage from the triggering Strike."
+      ],
+      "trigger": "The amalgamite is hit by a Strike"
+    },
+    {
+      "name": "limb",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          19,
+          14
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d10+11",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "warping ray",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "deadly <2d8>",
+          "magical",
+          "range <100 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+8",
+          "average": null,
+          "type": "force"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Reposition",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "concentrate",
+        "conjuration",
+        "occult",
+        "teleportation"
+      ],
+      "entries": [
+        "The amalgamite teleports into an unoccupied space it can see within 50 feet."
+      ]
+    },
+    {
+      "name": "Transpose",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "conjuration",
+        "occult",
+        "teleportation"
+      ],
+      "entries": [
+        "The amalgamite chooses up to two destabilized creatures they can see within 50 feet and swaps their positions, or moves a single such creature to an unoccupied space they can see within range. If the amalgamite chooses two creatures, they can choose their self as one of these creatures, but both targets must be the same size. An unwilling creature can attempt a DC 33 Will save. If either target succeeds at this saving throw, both are unaffected."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 33,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 33,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "blink",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "ethereal jaunt",
+              "uses": null
+            },
+            {
+              "name": "warp mind",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 36
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

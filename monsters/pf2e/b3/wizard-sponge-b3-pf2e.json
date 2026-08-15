@@ -1,0 +1,234 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:wizard-sponge",
+  "name": "Wizard Sponge",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/wizard-sponge.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "fungus",
+      "swarm"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "large",
+      "fungus",
+      "mindless",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 4,
+    "con": 5,
+    "int": -5,
+    "wis": 1,
+    "cha": -3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "no vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 12
+    },
+    {
+      "name": "Stealth",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 20,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 65,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 14
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire",
+        "mental",
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "critical hits",
+        "visual"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "piercing",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "climb": 20
+    },
+    "special": [
+      "suction"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Fire Healing",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Anytime a wizard sponge would take fire damage, it instead regains 1d8 Hit Points (regardless of the amount of damage the fire effect would have caused)."
+      ]
+    },
+    {
+      "name": "Swarming Slither",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The wizard sponge slithers over each creature in its space, dealing 2d10 acid damage (DC 20 basic Reflex save). A creature that critically fails is sickened 1."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 20,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10",
+          "average": null,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "Suction",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Wizard sponges can climb on ceilings and other inverted surfaces."
+      ]
+    },
+    {
+      "name": "Weak Acid",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Wizard sponge acid damages only organic material—not metal, stone, or other inorganic substances."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fungus",
+        "skill": "Nature",
+        "dc": 20
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

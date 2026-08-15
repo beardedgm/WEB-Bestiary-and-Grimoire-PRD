@@ -1,0 +1,274 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:glass-golem",
+  "name": "Glass Golem",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/glass-golem.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "golem",
+      "mindless"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "n",
+      "large",
+      "construct",
+      "golem",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 4,
+    "con": 5,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 16
+    },
+    {
+      "name": "Athletics",
+      "mod": 19
+    },
+    {
+      "name": "Stealth",
+      "mod": 14
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 26,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 135,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 17
+      },
+      {
+        "name": "ref",
+        "mod": 16
+      },
+      {
+        "name": "will",
+        "mod": 14
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "magic (see Golem Antimagic below)",
+        "necromancy",
+        "nonlethal attacks"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except adamantine or bludgeoning"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Golem Antimagic",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "harmed by sonic (6d6, 2d6 from areas or persistent damage); healed by fire (area 2d6 HP); slowed by cold."
+      ]
+    },
+    {
+      "name": "Vulnerable to Shatter",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A glass golem is affected by the shatter spell as though the golem were an unattended object."
+      ]
+    },
+    {
+      "name": "Spell Reflection",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "abjuration",
+        "arcane"
+      ],
+      "entries": [
+        "The glass golem positions its magical, reflective surfaces to turn the spell back on the caster. It tries to counteract the spell by attempting an Acrobatics check for its counteract check. If it successfully counteract the spell, the effect is turned back on the caster."
+      ],
+      "trigger": "The glass golem is targeted by a spell"
+    },
+    {
+      "name": "bladed limb",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          16,
+          12
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "versatile <P>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+8",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Dazzling Brilliance",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "evocation",
+        "light",
+        "visual"
+      ],
+      "entries": [
+        "The glass golem creates waves of scintillating luminosity that cast bright light in a 60-foot emanation (and dim light for the next 60 feet). The light lasts until the start of the glass golem's next turn, after which the glass golem can't use Dazzling Brilliance for 1d4 rounds. A creature within the bright light or that enters the bright light must attempt a DC 23 Will save."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {
+          "success": "The creature is unaffected.",
+          "failure": "The creature is dazzled for 1 round.",
+          "criticalFailure": "The creature is blinded for 1 round and then dazzled for an additional 4 rounds."
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sas:loreavor",
+  "name": "Loreavor",
+  "gameSystem": "pf2e",
+  "variant": "sas",
+  "source": {
+    "code": "sas",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sas/loreavor.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "astral"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "small",
+      "astral"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 6,
+    "con": 4,
+    "int": 6,
+    "wis": 4,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "thoughtsense",
+      "range": null,
+      "unit": null,
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Common; Tongues"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 19
+    },
+    {
+      "name": "Arcana",
+      "mod": 17
+    },
+    {
+      "name": "Occultism",
+      "mod": 21
+    },
+    {
+      "name": "Society",
+      "mod": 17
+    },
+    {
+      "name": "Stealth",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 155,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 15
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 19
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "mental",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "fly": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Reconstruct Spell",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "divination",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "The loreavor gains use of the failed spell as an occult innate spell. It can cast that spell once; if the spell is of a higher level than half the loreavor's level (5th level or higher for most loreavors), the loreavor must succeed at a flat check with a DC equal to 5 + the level of the spell it is attempting to cast; on a failure, the spell fails, and the loreavor becomes stupefied 1 for 1 minute. If the spell isn't cast within 24 hours, or if the loreavor uses Reconstruct Spell again before casting the spell, the spell is lost. No more than one loreavor can reconstruct a given spell this way."
+      ],
+      "trigger": "A creature within 30 feet attempts and fails to Cast a Spell while stupefied"
+    },
+    {
+      "name": "touch",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 19,
+        "map": [
+          19,
+          15,
+          11
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+7",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": [
+        "search memory"
+      ]
+    },
+    {
+      "name": "mind bolt",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          16,
+          11
+        ],
+        "traits": [
+          "range 60 feet"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12+4",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Search Memory",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divination",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "When the loreavor damages a creature with its touch Strike, the creature must succeed at a 28 Will save or become stupefied 1, or stupefied 2 on a critical failure."
+      ]
+    },
+    {
+      "name": "Redact",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "occult",
+        "transmutation"
+      ],
+      "entries": [
+        "By spending an hour in contact with a nonmagical document or piece of artwork no larger than 1 Bulk, a loreavor can consume either a few words from the text or render the artistry of the work more mundane. Doing so heals the loreavor of 4d8 HP. Words fade from the text, leaving an obvious blank space behind, while artwork is reduced in worth by 10% of its original value. A loreavor can consume incidental text in this manner from a spellbook but cannot consume actual spells recorded in the book. The loreavor can't use Redact for 24 hours."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 28,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "mage hand",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "Cantrips (5th)",
+          "spells": [
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "modify memory",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Astral",
+        "skill": "Occultism",
+        "dc": 31
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

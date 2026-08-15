@@ -1,0 +1,350 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:devourer",
+  "name": "Devourer",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/devourer.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 11,
+    "xp": null,
+    "display": "Creature 11"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "large",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 3,
+    "con": 5,
+    "int": 5,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 22,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Celestial",
+    "Common",
+    "Infernal",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 21
+    },
+    {
+      "name": "Deception",
+      "mod": 21
+    },
+    {
+      "name": "Intimidation",
+      "mod": 23
+    },
+    {
+      "name": "Occultism",
+      "mod": 23
+    },
+    {
+      "name": "Stealth",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 31,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 175,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 20
+      },
+      {
+        "name": "ref",
+        "mod": 18
+      },
+      {
+        "name": "will",
+        "mod": 24
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "spell deflection"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Spell Deflection",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "abjuration",
+        "divine"
+      ],
+      "entries": [
+        "A spellcaster who targets a devourer with a mental spell, banishment, bind soul, divine decree, divine wrath, possession, spirit blast, or spirit song can attempt a counteract check to free a soul the devourer has trapped with Devour Soul. If this counteract attempt succeeds, the trapped soul is released (though the creature remains dead), and the devourer can't use any soul charges from that creature. Devourers are otherwise immune to these spells."
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          20,
+          16
+        ],
+        "traits": [
+          "agile",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+13",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "drain life",
+        "drain life"
+      ]
+    },
+    {
+      "name": "Devour Soul",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "death",
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "The devourer touches a creature within reach, dealing 8d6 negative damage (DC 31 basic Fortitude save). If a creature is slain by this attack, its soul becomes trapped within the devourer. While its soul is trapped, a creature can't be resurrected except by powerful magic such as a wish spell. Destroying the devourer or successfully counteracting Devour Soul (see Spell Deflection above) releases the soul. The devourer can hold only one soul at a time. A soul has 5 soul charges per level of the originating creature (see Soul Spells below). The devourer can expend these charges to cast spells. If the soul is freed and the creature returns to life, the creature is drained 1 for every 5 soul charges expended. If reduced to 0 soul charges, the soul is consumed and can be restored to life only by powerful magic such as wish."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 31,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "Drain Life",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "When the devourer damages a living creature with its claw Strike, the devourer gains 10 temporary Hit Points and the creature must succeed at a DC 24 Fortitude save or become drained 1. Further damage dealt by the devourer increases the condition value by 1 on a failed save, to a maximum of drained 4."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Soul Spells",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A devourer casts occult innate spells, but to do so it must expend a number of soul charges equal to the spell's level (similar to casting a spell using charges from a staff). It can heighten any spell to a maximum of 6th level by expending more charges as it Casts the Spell. When encountered, a devourer typically has one trapped soul with 10 soul charges."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 31,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "harm",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "death knell",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "bind undead",
+              "uses": null
+            },
+            {
+              "name": "paralyze",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "confusion",
+              "uses": null
+            },
+            {
+              "name": "suggestion",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "feeblemind",
+              "uses": null
+            },
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 30
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

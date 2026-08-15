@@ -1,0 +1,322 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:misery-siktempora",
+  "name": "Misery Siktempora",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/misery-siktempora.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "time"
+    ],
+    "subtypes": [
+      "siktempora"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "large",
+      "siktempora",
+      "time"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 5,
+    "con": 4,
+    "int": 4,
+    "wis": 7,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo (Can'T Speak Any Language); Telepathy 300 Feet (Page 308)"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 23
+    },
+    {
+      "name": "Intimidation",
+      "mod": 23
+    },
+    {
+      "name": "Occultism",
+      "mod": 22
+    },
+    {
+      "name": "Stealth",
+      "mod": 23
+    },
+    {
+      "name": "Dimension Of Time Lore",
+      "mod": 26
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 32,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 160,
+        "formula": null,
+        "note": "regeneration 40 (deactivated by positive, mental, or orichalcum)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 20
+      },
+      {
+        "name": "ref",
+        "mod": 23
+      },
+      {
+        "name": "will",
+        "mod": 25
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [],
+      "other": [
+        "disease",
+        "emotion"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 35
+    },
+    "special": [
+      "air walk"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Slash the Suffering",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Creatures with the confused or stupefied condition are flat-footed to the misery siktempora."
+      ]
+    },
+    {
+      "name": "Uncanny Pounce",
+      "category": "free",
+      "placement": "mid",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "The misery siktempora Strides once and makes a claw Strike, in either order."
+      ],
+      "trigger": "The misery siktempora rolls Dimension of Time Lore for initiative"
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 26,
+        "map": [
+          26,
+          22,
+          18
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+13",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Inflict Misery",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "emotion",
+        "enchantment",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "The misery siktempora fills the target's thoughts with abject despair. The target must attempt a DC 32 Will save. Regardless of outcome, the target is then immune to Inflict Misery for 1 minute."
+      ],
+      "requirements": "The misery siktempora's last action was a claw Strike that damaged the target",
+      "save": {
+        "defense": "will",
+        "dc": 32,
+        "basic": false,
+        "outcomes": {
+          "success": "The target is unaffected.",
+          "failure": "The target is clumsy 2, enfeebled 2, and stupefied 2 for 1 round.",
+          "criticalFailure": "As failure, but for 1 minute."
+        }
+      }
+    },
+    {
+      "name": "Telepathic Wail",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "emotion",
+        "enchantment",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "The misery siktempora assails the mind of one creature within 100 feet with a wail of anguish and torment that deals 8d6 mental damage (DC 32 basic Will save). On a failed save, the target is also confused for the first action of its next turn (or for 1 round on a critical failure)."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 32,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 29,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Constant (6th)",
+          "spells": [
+            {
+              "name": "air walk",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "blink",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

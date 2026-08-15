@@ -1,0 +1,232 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:remorhaz-spawn",
+  "name": "Remorhaz Spawn",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 369,
+    "path": "monsters/5e/a5e_monstrous_menagerie/remorhaz-spawn-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 5,
+    "xp": 1800,
+    "display": "5"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 4,
+    "int": -3,
+    "wis": 1,
+    "cha": -3
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 14,
+    "con": 18,
+    "int": 4,
+    "wis": 12,
+    "cha": 5
+  },
+  "perception": {
+    "mod": null,
+    "passive": 11
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "tremorsense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 95,
+        "note": null,
+        "formula": "10d10+40"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "int",
+        "mod": 0
+      },
+      {
+        "name": "wis",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold",
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "burrow": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Heated Body",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that starts its turn grappled by the remorhaz, touches it, or hits it with a melee attack while within 5 feet takes 3 (1d6) fire damage. A creature can take this damage only once on a turn. If the remorhaz has taken cold damage since the end of its last turn, this trait doesnt function."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The remorhaz makes a bite attack and then a constrict attack."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) piercing damage plus 3 (1d6) fire damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": 11,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Constrict",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) bludgeoning damage  and the target is subjected to the remorhazs Heated Body trait. The target is grappled (escape DC 15) and restrained while grappled. Until this grapple ends  the remorhaz can't grapple another creature."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": 11,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

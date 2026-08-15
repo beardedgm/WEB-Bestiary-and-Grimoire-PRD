@@ -1,0 +1,373 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:lotxwg:kun",
+  "name": "Kun",
+  "gameSystem": "pf2e",
+  "variant": "lotxwg",
+  "source": {
+    "code": "lotxwg",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/lotxwg/kun.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 14,
+    "xp": null,
+    "display": "Creature 14"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [
+      "aquatic",
+      "cold",
+      "unholy"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "uncommon",
+      "gargantuan",
+      "aquatic",
+      "beast",
+      "cold",
+      "unholy"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 4,
+    "con": 7,
+    "int": 1,
+    "wis": 5,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 27,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability darkvision}",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability light blindness}",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability wavesense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Thalassic (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 25
+    },
+    {
+      "name": "Athletics",
+      "mod": 29
+    },
+    {
+      "name": "Intimidation",
+      "mod": 22
+    },
+    {
+      "name": "Survival",
+      "mod": 25
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 36,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 230,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 29
+      },
+      {
+        "name": "ref",
+        "mod": 24
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "holy",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "swim": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Spite",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The kun bats the triggering creature away with their tail, making a tail Strike against the creature. On a hit, the action is disrupted and the creature is pushed 10 feet."
+      ],
+      "trigger": "A creature within reach of the kun's tail uses an action to heal or help anyone else"
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 28,
+        "map": [
+          28,
+          23,
+          18
+        ],
+        "traits": [
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+14",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "heart of darkness",
+        "Grab, heart of darkness"
+      ]
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 28,
+        "map": [
+          28,
+          23,
+          18
+        ],
+        "traits": [
+          "reach <20 feet>",
+          "sweep"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+14",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Funnel",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "cold",
+        "primal",
+        "water"
+      ],
+      "entries": [
+        "The kun inhales violently, sucking in heat and all creatures in the water in a 60-foot cone. Creatures take 10d8 cold damage and must attempt a DC 33 Fortitude save. The kun can't Funnel again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 33,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature takes half damage.",
+          "failure": "The creature takes full damage and is pulled 30 feet toward the kun.",
+          "criticalFailure": "The creature takes double damage and is pulled 60 feet toward the kun."
+        }
+      },
+      "damage": [
+        {
+          "formula": "10d8",
+          "average": null,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "Heart of Darkness",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the kun makes a jaws Strike from within an area of darkness, their jaws deals an additional 2d6 spirit damage and gains the unholy|PC1 trait."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "spirit"
+        }
+      ]
+    },
+    {
+      "name": "Swallow Whole",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "Huge, 3d12+7 bludgeoning, Rupture 30"
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 32,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "control water",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": "at will"
+            },
+            {
+              "name": "wall of ice",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 34
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

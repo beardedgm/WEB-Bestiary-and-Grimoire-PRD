@@ -1,0 +1,220 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:monkey-swarm",
+  "name": "Monkey Swarm",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/monkey-swarm.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 2,
+    "xp": null,
+    "display": "Creature 2"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "animal",
+      "swarm"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "large",
+      "animal",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 4,
+    "con": 0,
+    "int": -4,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 8,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 8
+    },
+    {
+      "name": "Thievery",
+      "mod": 8
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 20,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 6
+      },
+      {
+        "name": "ref",
+        "mod": 10
+      },
+      {
+        "name": "will",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "swarm mind"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "piercing",
+        "amount": 3,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 3,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 3,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 3,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Cacophony",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "auditory",
+        "aura"
+      ],
+      "entries": [
+        "20 feet. The monkeys' awful racket of screeches and howls drowns out other sounds. Any creature performing an auditory action in the area must yell over the din, requiring a successful DC 15 Fortitude save or Performance check to project loudly enough; on a failure, the action is lost."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Ransack",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The swarm rummages through the possessions of a single creature within its space, attempting a Thievery check against the creature's Reflex DC. On a success, the monkeys take one random item of negligible Bulk that the creature is wearing but not closely guarding, such as an object in a loosely carried pouch."
+      ]
+    },
+    {
+      "name": "Swarming Bites",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Each creature in the swarm's space takes 1d8 piercing damage (DC 18 basic Reflex save)."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 18,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Animal",
+        "skill": "Nature",
+        "dc": 16
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

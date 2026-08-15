@@ -1,0 +1,249 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob3:dragonette-sedge",
+  "name": "Dragonette, Sedge",
+  "gameSystem": "dnd5e",
+  "variant": "tob3",
+  "source": {
+    "code": "tome_of_beasts_3",
+    "name": "Tome of Beasts 3",
+    "page": 149,
+    "path": "monsters/5e/tome_of_beasts_3/dragonette-sedge.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.5,
+    "xp": 100,
+    "display": "1/2"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 0,
+    "con": 3,
+    "int": 0,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 14,
+    "dex": 10,
+    "con": 16,
+    "int": 10,
+    "wis": 14,
+    "cha": 11
+  },
+  "perception": {
+    "mod": 2,
+    "passive": 14
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 2
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 27,
+        "note": null,
+        "formula": "5d4+15"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "poison",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "swim": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Swamp Camouflage",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The sedge dragonette has advantage on Dex (Stealth) checks made to hide in swampy terrain."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, 5 ft., one target, 5 (1d6+2) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": 5,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Spines",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, 5 ft., one creature,. 4 (1d4+2) piercing damage and a spine sticks into the target. Until a creature takes an action to remove the spine target has disadvantage on attack rolls."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": "4 (1d4+2) piercing damage and a spine sticks into the target"
+      },
+      "damage": [
+        {
+          "formula": "1d4+2",
+          "average": 4,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Reeking Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Exhales a cloud of nauseating gas in a 15 ft. cone. Each creature in the area: DC 13 Con save or be poisoned for 1 min. A poisoned creature can re-save at end of each of its turns success ends effect on itself."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 min",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Boggy Presence",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Transmutes ground in 10 ft. radius centered on it into a muddy soup for 10 min. For the duration any creature other than sedge dragonette moving through area must spend 4' of move per 1' it moves."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      }
+    },
+    {
+      "name": "Prickly Defense",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When a creature dragonette can see hits dragonette with melee attack while within 5 ft. of it dragonette can make one Spines attack vs. the creature."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

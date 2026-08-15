@@ -1,0 +1,351 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec3:herecite-of-zevgavizeb",
+  "name": "Herecite of Zevgavizeb",
+  "gameSystem": "pf2e",
+  "variant": "ec3",
+  "source": {
+    "code": "ec3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec3/herecite-of-zevgavizeb.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 4,
+    "con": 5,
+    "int": 1,
+    "wis": 4,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 20,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "detect alignment (good only)",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic",
+    "Infernal"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 20
+    },
+    {
+      "name": "Intimidation",
+      "mod": 23
+    },
+    {
+      "name": "Religion",
+      "mod": 22
+    },
+    {
+      "name": "Zevgavizeb Lore",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 200,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 19
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 22
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Perverse Prayer",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "auditory",
+        "divine",
+        "evil"
+      ],
+      "entries": [
+        "The herecite warps the caster's prayers into a sacrilegious echo praising the evils of its own deity. The triggering caster must succeed at a DC 29 Will saving throw or their spell is disrupted and their action wasted."
+      ],
+      "trigger": "A creature within 30 feet uses the Sustain a Spell action to sustain a divine spell or the Cast a Spell action to cast a divine spell with a verbal component",
+      "save": {
+        "defense": "will",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "unholy spiked gauntlet",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          18,
+          14
+        ],
+        "traits": [
+          "agile",
+          "free-hand"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d4+10",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Assault the Soul",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "concentrate",
+        "divine",
+        "evil",
+        "necromancy"
+      ],
+      "entries": [
+        "The herecite casts bind soul, spirit blast, or spiritual epidemic (DC 31) Once a herecite has used this ability (whether or not it was successful), the cabal must wait 24 hours before one of its members can use Assault the Soul again."
+      ],
+      "requirements": "The herecite is in a cabal of three or more members, two of which are within 60 feet and have used Cabal Communion within the last round"
+    },
+    {
+      "name": "Cabal Communion",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "auditory",
+        "concentrate"
+      ],
+      "entries": [
+        "With murmurs and chants, the herecite casts its consciousness toward the other members of its cabal. For 1 round, it senses what other members are sensing, knows their thoughts, and knows their exact location."
+      ]
+    },
+    {
+      "name": "Curse of Defiled Idols",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "curse",
+        "divine",
+        "evil"
+      ],
+      "entries": [
+        "Recalling the cruelty of the foul ritual that birthed it, the herecite curses an enemy with a fragment of its blasphemy. The herecite targets one creature within 30 feet, which must attempt a DC 29 Will save. On a failure, the creature is cursed. As long as the creature is cursed, any art object, symbol, or implement of religious significance in the creature's possession—such as a divine spellcasting focus, holy text, fetish, or rendering of a deity—becomes physically corrupted in a way that debases the deity's tenets (a depiction of Shelyn's songbird, for example, might lose its beautiful plumage to reveal a hideous skeletal form beneath). While these items continue to function normally, the cursed creature is stupefied|CRB|stupefied 2 as long as it possesses an object corrupted in this fashion. The creature can cast off its corrupted objects to remove the stupefied condition, but any new religious objects it takes into its possession become similarly corrupted. The curse can be lifted by a remove curse spell or by an atone ritual. After a creature is targeted with this ability, regardless of whether it was affected, it becomes immune to herecites' Curse of Defiled Idols for 1 day."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 28,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "detect alignment",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "ray of enfeeblement",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "crisis of faith",
+              "uses": null
+            },
+            {
+              "name": "harm",
+              "uses": "at will"
+            },
+            {
+              "name": "meld into stone",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "ravening maw",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 29
+      }
+    ],
+    "items": [
+      "+1 striking spiked gauntlet"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

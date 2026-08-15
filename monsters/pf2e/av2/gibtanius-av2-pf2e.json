@@ -1,0 +1,342 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:av2:gibtanius",
+  "name": "Gibtanius",
+  "gameSystem": "pf2e",
+  "variant": "av2",
+  "source": {
+    "code": "av2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/av2/gibtanius.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "cn",
+      "large",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 3,
+    "con": 6,
+    "int": -3,
+    "wis": 2,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Aklo (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 18
+    },
+    {
+      "name": "Intimidation",
+      "mod": 15
+    },
+    {
+      "name": "Survival",
+      "mod": 16
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 140,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 20
+      },
+      {
+        "name": "ref",
+        "mod": 15
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Powerful Stench",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "olfactory"
+      ],
+      "entries": [
+        "20 feet. A creature that enters the aura must succeed at a DC 26 Fortitude save. On a failure, the creature is sickened|CRB|sickened 2; on a critical failure, the creature is also slowed|CRB|slowed 1 for as long as it is sickened. A creature that succeeds at its save is temporarily immune for 1 minute."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [
+          "deadly <1d12>",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+10",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "persistent acid"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "spit",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "range increment <30 feet>",
+          "splash"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "acid"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent acid"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "acid splash"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Bouncing Crush",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The gibtanius Leaps and can end this Leap occupying the same space as other creatures. It deals 5d6 bludgeoning damage to each creature in the space it Leaps to (DC 26 basic Reflex save), then Shoves each of those creatures. If it fails to Shove any creature out of its space, it bounces to the closest available space of its choosing that does not contain any creatures. Bouncing Crush counts as one attack when determining the gibtanius's multiple attack penalty."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 26,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "acid",
+        "evocation",
+        "primal"
+      ],
+      "entries": [
+        "The gibtanius vomits a stream of acid that deals 9d6 acid damage to all creatures in a 60-foot line (DC 26 basic Reflex save). It can't use Breath Weapon again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "line",
+        "size": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 26,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "9d6",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

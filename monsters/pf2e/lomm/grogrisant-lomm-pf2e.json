@@ -1,0 +1,371 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:lomm:grogrisant",
+  "name": "Grogrisant",
+  "gameSystem": "pf2e",
+  "variant": "lomm",
+  "source": {
+    "code": "lomm",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/lomm/grogrisant.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 16,
+    "xp": null,
+    "display": "Creature 16"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [
+      "primal"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "cn",
+      "huge",
+      "beast",
+      "primal"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 6,
+    "con": 9,
+    "int": -2,
+    "wis": 5,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Common (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 28
+    },
+    {
+      "name": "Athletics",
+      "mod": 35
+    },
+    {
+      "name": "Intimidation",
+      "mod": 32
+    },
+    {
+      "name": "Stealth",
+      "mod": 28
+    },
+    {
+      "name": "Survival",
+      "mod": 28
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 38,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 295,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 30
+      },
+      {
+        "name": "ref",
+        "mod": 28
+      },
+      {
+        "name": "will",
+        "mod": 25
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "blinded"
+      ],
+      "other": [
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 15,
+        "note": "except bludgeoning"
+      },
+      {
+        "name": "poison",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aura of Agony",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "evocation",
+        "incapacitation",
+        "light",
+        "primal",
+        "visual"
+      ],
+      "entries": [
+        "40 feet. Any creature that begins its turn in the aura must attempt a DC 34 Fort save or be blinded for 1 minute and become temporarily immune for 1 day. If the creature critically fails this save, it's permanently blinded."
+      ],
+      "aura": {
+        "range": 40,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          28,
+          23
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d12+18",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Improved Grab",
+        "Improved Grab"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          28,
+          24
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d10+15",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Dual Pounce",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Grogrisant Strides and makes two claw Strikes against the same creature at the end of that movement. Each attack counts against Grogrisant's multiple attack penalty, but the penalty doesn't increase until after Grogrisant makes both attacks. If both attacks hit, combine their damage for the purpose of resistances and weaknesses."
+      ]
+    },
+    {
+      "name": "Rend",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Claw. If Grogrisant Rends after a successful Dual Pounce, combine the Rend's damage with that from the Dual Pounce for the purpose of resistances and weaknesses."
+      ]
+    },
+    {
+      "name": "Vicious Rend",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The target's armor takes damage equal to the damage from Rend. The target can attempt a DC 37 basic Reflex save, negating the armor damage on a successful save."
+      ],
+      "trigger": "Grogrisant uses Rend",
+      "save": {
+        "defense": "reflex",
+        "dc": 37,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 34,
+      "attackBonus": 26,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 3,
+          "rankLabel": "Constant (3rd)",
+          "spells": [
+            {
+              "name": "nondetection",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "Constant (1st)",
+          "spells": [
+            {
+              "name": "pass without trace",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "Cantrips (8th)",
+          "spells": [
+            {
+              "name": "dancing lights",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "fire shield",
+              "uses": null
+            },
+            {
+              "name": "searing lights",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 45
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

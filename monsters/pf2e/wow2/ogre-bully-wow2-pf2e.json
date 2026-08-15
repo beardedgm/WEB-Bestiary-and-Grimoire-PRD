@@ -1,0 +1,266 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:wow2:ogre-bully",
+  "name": "Ogre Bully",
+  "gameSystem": "pf2e",
+  "variant": "wow2",
+  "source": {
+    "code": "wow2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/wow2/ogre-bully.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "giant",
+      "humanoid"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "large",
+      "giant",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 3,
+    "con": 5,
+    "int": -1,
+    "wis": 3,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Jotun"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 17
+    },
+    {
+      "name": "Intimidation",
+      "mod": 14
+    },
+    {
+      "name": "Survival",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 140,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 12
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Reactive Strike",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "ogre hook",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          13,
+          8
+        ],
+        "traits": [
+          "deadly <d10>",
+          "reach <10 feet>",
+          "trip"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10+13",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "hatchet",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          12,
+          8
+        ],
+        "traits": [
+          "agile",
+          "sweep",
+          "thrown <20 ft.>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+13",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Hooking Hurl",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The ogre latches the hook into the target and attempts to Reposition|PC1 the target with a sudden flick, even if the ogre doesn't have a free hand. This attempt doesn't apply the ogre's multiple attack penalty. If the target ends its movement adjacent to an obstacle or adjacent to a creature of equal or greater size, the target also takes 1d10 bludgeoning damage and is off-guard for 1 round."
+      ],
+      "requirements": "The ogre's last action was a successful ogre hook Strike",
+      "damage": [
+        {
+          "formula": "1d10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Stomp the Small",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ogre's melee and ranged Strikes deal an additional 2 damage to Medium creatures. This additional damage increases to 1d6+2 damage to Small or smaller creatures."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 23
+      }
+    ],
+    "items": [
+      "chain shirt",
+      "hatchets (3)",
+      "ogre hook|B1|+1 weapon potency|"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

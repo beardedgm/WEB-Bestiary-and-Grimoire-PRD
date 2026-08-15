@@ -1,0 +1,283 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:stormboar",
+  "name": "Stormboar",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 341,
+    "path": "monsters/5e/tome_of_beasts_2/stormboar.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 1,
+    "con": 4,
+    "int": -4,
+    "wis": 0,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 19,
+    "dex": 12,
+    "con": 18,
+    "int": 3,
+    "wis": 10,
+    "cha": 7
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 95,
+        "note": null,
+        "formula": "10d10+40"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "lightning",
+        "thunder"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Iron Scent",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The boar can pinpoint, by scent, the location of ferrous metal within 60 feet of it."
+      ]
+    },
+    {
+      "name": "Lightning Hide",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that touches the boar or hits it with a melee attack while within 5 feet of it takes 5 (2d4) lightning damage."
+      ],
+      "damage": [
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "lightning"
+        }
+      ]
+    },
+    {
+      "name": "Relentless (Recharges after a Short or Long Rest)",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the boar takes 15 damage or less that would reduce it to 0 hp, it is reduced to 1 hp instead."
+      ]
+    },
+    {
+      "name": "Thunder Charge",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the boar moves at least 20 feet straight toward a target and then hits it with a tusk attack on the same turn, the target takes an extra 11 (2d10) thunder damage. If the target is a creature, it must succeed on a DC 15 Strength saving throw or be knocked prone."
+      ],
+      "damage": [
+        {
+          "formula": "2d10",
+          "average": 11,
+          "type": "thunder"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Tusk",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) slashing damage and 11 (2d10) lightning damage. In addition, nonmagical metal armor worn by the target is partly devoured by the boar and takes a permanent and cumulative -2 penalty to the AC it offers. The armor is destroyed if the penalty reduces its AC to 10."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": 11,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d10",
+          "average": 11,
+          "type": "lightning"
+        }
+      ]
+    },
+    {
+      "name": "Lightning Run",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The boar becomes a bolt of living lightning and moves up to its speed without provoking opportunity attacks. It can move through creatures and objects as if they were difficult terrain. It takes 5 (1d10) force damage and is pushed to the closest unoccupied space if it ends its turn inside an object. Each creature in the boar's path must make a DC 15 Dexterity saving throw, taking 22 (4d10) lightning damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "damage": [
+        {
+          "formula": "1d10",
+          "average": 5,
+          "type": "force"
+        },
+        {
+          "formula": "4d10",
+          "average": 22,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Thunder Leap",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The boar moves up to 20 feet, jumping over obstacles in its way. Difficult terrain doesn't cost it extra movement when it leaps. Each creature within 10 feet of the boar when it leaps and each creature within 10 feet of where it lands must make a DC 15 Constitution saving throw. On a failure, a creature takes 16 (3d10) thunder damage and is pushed up to 10 feet away from the boar. On a success, a creature takes half the damage and isn't pushed."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "damage": [
+        {
+          "formula": "3d10",
+          "average": 16,
+          "type": "thunder"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

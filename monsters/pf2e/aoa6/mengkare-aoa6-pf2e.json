@@ -1,0 +1,743 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa6:mengkare",
+  "name": "Mengkare",
+  "gameSystem": "pf2e",
+  "variant": "aoa6",
+  "source": {
+    "code": "aoa6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa6/mengkare.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 23,
+    "xp": null,
+    "display": "Creature 23"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "fire"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "le",
+      "gargantuan",
+      "dragon",
+      "fire"
+    ]
+  },
+  "abilityMods": {
+    "str": 11,
+    "dex": 5,
+    "con": 9,
+    "int": 8,
+    "wis": 7,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 40,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 120,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic",
+    "Dwarven",
+    "Elven",
+    "Gnomish",
+    "Infernal",
+    "Sylvan",
+    "Utopian"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 32
+    },
+    {
+      "name": "Arcana",
+      "mod": 38
+    },
+    {
+      "name": "Athletics",
+      "mod": 36
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 43
+    },
+    {
+      "name": "Intimidation",
+      "mod": 43
+    },
+    {
+      "name": "Medicine",
+      "mod": 36
+    },
+    {
+      "name": "Nature",
+      "mod": 32
+    },
+    {
+      "name": "Occultism",
+      "mod": 38
+    },
+    {
+      "name": "Society",
+      "mod": 43
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 50,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 575,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 37
+      },
+      {
+        "name": "ref",
+        "mod": 34
+      },
+      {
+        "name": "will",
+        "mod": 42
+      }
+    ],
+    "saveNote": "+2 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": 25,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 60,
+      "fly": 200,
+      "swim": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "90 feet, DC 43"
+      ],
+      "aura": {
+        "range": 90,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 43,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Extra Reaction",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Mengkare gains 2 reactions at the start of his turn each round."
+      ]
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Jaws only."
+      ]
+    },
+    {
+      "name": "Contingency",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Dispel magic (7th level) attempts to counteract the triggering spell."
+      ],
+      "trigger": "Mengkare fails a saving throw against a spell."
+    },
+    {
+      "name": "Golden Luck",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon improves its result by one degree of success, turning a failure into a success or a critical failure into a normal failure. The dragon can't use this ability again for 1d4 rounds."
+      ],
+      "trigger": "The gold dragon fails a saving throw.",
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 42,
+        "map": [
+          42,
+          37,
+          32
+        ],
+        "traits": [
+          "fire",
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d12+11",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 42,
+        "map": [
+          42,
+          38,
+          34
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d10+11",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 40,
+        "map": [
+          40,
+          35,
+          30
+        ],
+        "traits": [
+          "magical",
+          "reach <25 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 25,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d10+11",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "horns",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 40,
+        "map": [
+          40,
+          36,
+          32
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d12+11",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The gold dragon breathes in one of two ways. The dragon can't use Breath Weapon again for 1d4 rounds. -",
+        "-"
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Change Shape",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "arcane",
+        "concentrate",
+        "polymorph",
+        "transmutation"
+      ],
+      "entries": [
+        "Mengkare assumes a Medium humanoid form, posing as the human wizard Lamond Breachton."
+      ]
+    },
+    {
+      "name": "Draconic Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The gold dragon makes two claw Strikes and one horns Strike in any order."
+      ]
+    },
+    {
+      "name": "Draconic Momentum",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the gold dragon scores a critical hit with a Strike, it recharges Breath Weapon."
+      ]
+    },
+    {
+      "name": "Explosive Breath",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When Mengkare uses Breath Weapon, he can expel an explosive orb of flame instead of a cone. When he does, he fires the orb at the corner of a square within 60 feet. The orb immediately detonates and deals 24d6 fire damage (DC 48 basic Reflex save) to all creatures within a 30-foot burst. Creatures that critically fail their save catch on fire and take 4d6 persistent fire damage."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 48,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "24d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 45,
+      "attackBonus": 42,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 10,
+          "rankLabel": "Cantrips (10th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "forbidding word",
+              "uses": null
+            },
+            {
+              "name": "prestidigitation",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "charm",
+              "uses": null
+            },
+            {
+              "name": "magic missile",
+              "uses": null
+            },
+            {
+              "name": "unseen servant",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "comprehend language",
+              "uses": null
+            },
+            {
+              "name": "invisibility",
+              "uses": null
+            },
+            {
+              "name": "water breathing",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "dream message",
+              "uses": null
+            },
+            {
+              "name": "locate",
+              "uses": null
+            },
+            {
+              "name": "slow",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "creation",
+              "uses": null
+            },
+            {
+              "name": "dimension door",
+              "uses": null
+            },
+            {
+              "name": "suggestion",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "chromatic wall",
+              "uses": null
+            },
+            {
+              "name": "mind probe",
+              "uses": null
+            },
+            {
+              "name": "sending",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "dominate",
+              "uses": null
+            },
+            {
+              "name": "true seeing",
+              "uses": null
+            },
+            {
+              "name": "wall of force",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "dimensional lock",
+              "uses": null
+            },
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "plane shift",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "dream council",
+              "uses": null
+            },
+            {
+              "name": "maze",
+              "uses": null
+            },
+            {
+              "name": "power word stun",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "disjunction",
+              "uses": null
+            },
+            {
+              "name": "meteor swarm",
+              "uses": null
+            },
+            {
+              "name": "telepathic demand",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 10,
+          "rankLabel": "10th",
+          "spells": [
+            {
+              "name": "contingency",
+              "uses": null
+            },
+            {
+              "name": "wish",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana",
+        "dc": 56
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

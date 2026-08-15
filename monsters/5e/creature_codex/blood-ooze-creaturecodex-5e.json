@@ -1,0 +1,222 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:blood-ooze",
+  "name": "Blood Ooze",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 282,
+    "path": "monsters/5e/creature_codex/blood-ooze.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": -2,
+    "con": 4,
+    "int": -5,
+    "wis": -1,
+    "cha": -4
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 6,
+    "con": 18,
+    "int": 1,
+    "wis": 8,
+    "cha": 2
+  },
+  "perception": {
+    "mod": null,
+    "passive": 9
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 8,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 76,
+        "note": null,
+        "formula": "8d10+32"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "fire",
+        "necrotic",
+        "slashing"
+      ],
+      "conditions": [
+        "blinded",
+        "charmed",
+        "deafened",
+        "exhaustion",
+        "frightened",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "climb": 20,
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Amorphous",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ooze can move through a space as narrow as 1 inch wide without squeezing."
+      ]
+    },
+    {
+      "name": "Blood Drain",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that touches the ooze or hits it with a melee attack while within 5 feet of it takes 5 (1d10) necrotic damage and the ooze gains temporary hp equal to that amount as it drains blood from the victim. It can add temporary hp gained from this trait to temporary hp gained from its pseudopod attack and Overflow reaction. Its temporary hp can't exceed half its maximum hp. If the ooze takes radiant damage, this trait doesn't function at the start of the ooze's next turn, although it retains any temporary hp it previously gained."
+      ],
+      "damage": [
+        {
+          "formula": "1d10",
+          "average": 5,
+          "type": "necrotic"
+        }
+      ]
+    },
+    {
+      "name": "Spider Climb",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ooze can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check."
+      ]
+    },
+    {
+      "name": "Pseudopod",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6 + 3) bludgeoning damage plus 16 (3d10) necrotic damage. The ooze gains temporary hp equal to the necrotic damage taken."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+3",
+          "average": 6,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "3d10",
+          "average": 16,
+          "type": "necrotic"
+        }
+      ]
+    },
+    {
+      "name": "Overflow",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When the blood ooze is hit with a melee attack, it can drain blood from the attacker. The attacker must make a DC 15 Constitution saving throw, taking 11 (2d10) necrotic damage on a failed save, or half as much damage on a successful one. The ooze gains temporary hp equal to the necrotic damage taken."
+      ],
+      "damage": [
+        {
+          "formula": "2d10",
+          "average": 11,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

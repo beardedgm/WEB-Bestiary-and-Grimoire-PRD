@@ -1,0 +1,301 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:dziriak",
+  "name": "D'ziriak",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/dziriak.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [
+      "shadow"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "medium",
+      "aberration",
+      "shadow"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 3,
+    "con": 1,
+    "int": 1,
+    "wis": 3,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "D'Ziriak",
+    "Shadowtongue; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 8
+    },
+    {
+      "name": "Athletics",
+      "mod": 6
+    },
+    {
+      "name": "Occultism",
+      "mod": 10
+    },
+    {
+      "name": "Stealth",
+      "mod": 10
+    },
+    {
+      "name": "Survival",
+      "mod": 8
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 45,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 6
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Glow",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "light"
+      ],
+      "entries": [
+        "20 feet. The colorful runes that decorate a d'ziriak's body create dim light. The natural bioluminescence is specially adapted to the Shadow Plane, able to overcome magical darkness as if it were magical light of the d'ziriak's level."
+      ],
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          8,
+          4
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d10+4",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Dazzling Burst",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "light",
+        "visual"
+      ],
+      "entries": [
+        "The d'ziriak causes its body to flare with intense colorful light. Non-d'ziriaks in a 20-foot emanation must attempt a DC 20 Fortitude save. After using this ability, the d'ziriak loses its glow for 24 hours; during this time it can't use."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Dazzling",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Burst again. A creature that attempts this save is immune to all."
+      ]
+    },
+    {
+      "name": "Dazzling",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Bursts for 1 minute."
+      ],
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is dazzled for 1 round.",
+          "failure": "The creature is dazzled for 1 minute.",
+          "criticalFailure": "The creature is blinded for 1 round and dazzled for 1 minute."
+        }
+      }
+    },
+    {
+      "name": "Double Claw",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The d'ziriak makes two claw Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. This counts as two attacks for the d'ziriak's multiple attack penalty, and the penalty doesn't increase until after both attacks."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 19,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "plane shift",
+              "uses": null
+            },
+            {
+              "name": "to Shadow",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 18
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,318 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot4:sun-warrior-brigade",
+  "name": "Sun Warrior Brigade",
+  "gameSystem": "pf2e",
+  "variant": "sot4",
+  "source": {
+    "code": "sot4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot4/sun-warrior-brigade.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "humanoid",
+      "troop"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "le",
+      "gargantuan",
+      "humanoid",
+      "troop"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 2,
+    "con": 6,
+    "int": 2,
+    "wis": 5,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 22,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Mzunu"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 23
+    },
+    {
+      "name": "Intimidation",
+      "mod": 22
+    },
+    {
+      "name": "Religion",
+      "mod": 23
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 216,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 24
+      },
+      {
+        "name": "ref",
+        "mod": 18
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 8,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": [
+      "troop movement"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Troop Defenses",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Form Up",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Frenetic Assault",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The members of the brigade wildly swing their weapons—primarily spears—in a frenzied attack at each enemy adjacent to the troop (DC 29 basic Reflex save). The damage depends on the number of actions. 1 1d12+1 piercing damage 2 2d12+11 piercing damage 3 3d12+11 piercing damage"
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 29,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      }
+    },
+    {
+      "name": "Troop Movement",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the troop Strides, they first Form Up as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares), then move up to their Speed. This works just like a Gargantuan creature moving; for instance, if any square of the troop enters terrain, the extra movement cost applies to the whole troop."
+      ]
+    },
+    {
+      "name": "Troop Spellcasting",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the sun warrior brigade Casts a Spell, its constituent members combine their efforts into casting a more powerful version of the spell than any one member could achieve alone. When Casting a Spell that has an area of a burst, cone, or line and doesn't have a duration, increase the area of that spell. Add 5 feet to the radius of a burst that normally has a radius of at least 10 feet (a burst with a smaller radius is not affected). Add 5 feet to the length of a cone or line that is normally 15 feet long or smaller, and add 10 feet to the length of a larger cone or line."
+      ]
+    },
+    {
+      "name": "Walkena's Radiance",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine",
+        "evocation",
+        "fire",
+        "light"
+      ],
+      "entries": [
+        "The brigade calls upon Walkena|LOGM to burn and blind their foes. The sun warriors present their religious symbols and create a white-hot flash of light in a 45-foot cone. Creatures in the cone take 10d8 fire damage (DC 29 basic Fortitude save). Creatures that fail their save become dazzled for 1 round. Creatures that critically fail become blinded for 1 round instead. When the troop is reduced to 8 or fewer squares, this area decreases to a 20-foot cone."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 45,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 29,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "10d8",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous divine Spells",
+      "type": "spontaneous",
+      "tradition": "divine",
+      "dc": 29,
+      "attackBonus": 21,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Cantrips (6th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "divine lance",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th (4 slots)",
+          "spells": [
+            {
+              "name": "burning hands",
+              "uses": null
+            },
+            {
+              "name": "fireball",
+              "uses": null
+            },
+            {
+              "name": "flame strike",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th (3 slots)",
+          "spells": [
+            {
+              "name": "blade barrier",
+              "uses": null
+            },
+            {
+              "name": "vampiric exsanguination",
+              "uses": null
+            },
+            {
+              "name": "wall of fire",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

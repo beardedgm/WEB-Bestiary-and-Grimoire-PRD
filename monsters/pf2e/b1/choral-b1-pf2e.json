@@ -1,0 +1,377 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:choral",
+  "name": "Choral",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/choral.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "angel",
+      "celestial"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ng",
+      "lawChaos": "neutral",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "ng",
+      "small",
+      "angel",
+      "celestial"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 4,
+    "con": 2,
+    "int": 3,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Draconic",
+    "Infernal; Tongues"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 12
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 15
+    },
+    {
+      "name": "Performance",
+      "mod": 17
+    },
+    {
+      "name": "Religion",
+      "mod": 14
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 100,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 10
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "sonic",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "evil",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Harmonizing Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "evocation",
+        "sonic"
+      ],
+      "entries": [
+        "20 feet. Allies in the area gain a +2 status bonus to sonic damage rolls and a +1 status bonus to AC and all saves against sonic and auditory effects. Enemies in the area take a –2 status penalty to sonic damage rolls and a –1 status penalty to AC and all saves against sonic and auditory effects."
+      ],
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          10,
+          6
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "good",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d6+1",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "good"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "piercing hymn",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "good",
+          "magical",
+          "range <90 feet>",
+          "sonic"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 90,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "sonic damage"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "good"
+        }
+      ],
+      "entries": [
+        "deafening aria",
+        "deafening aria"
+      ]
+    },
+    {
+      "name": "Deafening Aria",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "On a critical hit with piercing hymn, the target is deafened for 1 minute."
+      ]
+    },
+    {
+      "name": "Harmonize",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The choral angel adds its harmony to a choral angel ally within its harmonizing aura. The ally can cast calm emotions or heroism on its next turn in place of its 3rd-level sound burst or heighten its 3rd-level sound burst by 1 level. If five different choral angels use Harmonize on the same choral angel ally, it can instead cast divine decree in place of its 3rd-level sound burst."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 23,
+      "attackBonus": 13,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "Cantrips (3rd)",
+          "spells": [
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "inspire competence",
+              "uses": null
+            },
+            {
+              "name": "inspire courage",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "counter performance",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": "at will"
+            },
+            {
+              "name": "sound burst",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "heal",
+              "uses": null
+            },
+            {
+              "name": "remove curse",
+              "uses": null
+            },
+            {
+              "name": "remove disease",
+              "uses": null
+            },
+            {
+              "name": "remove fear",
+              "uses": "at will"
+            },
+            {
+              "name": "sound burst",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Celestial",
+        "skill": "Religion",
+        "dc": 22
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:trailgaunt",
+  "name": "Trailgaunt",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/trailgaunt.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 1,
+    "con": 3,
+    "int": 1,
+    "wis": 3,
+    "cha": -1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 8
+    },
+    {
+      "name": "Survival",
+      "mod": 10
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 45,
+        "formula": null,
+        "note": "negative healing|b2"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 12
+      },
+      {
+        "name": "ref",
+        "mod": 6
+      },
+      {
+        "name": "will",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "burrow": 10
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Pained Muttering",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "auditory",
+        "aura",
+        "emotion",
+        "fear"
+      ],
+      "entries": [
+        "10 feet. The trailgaunt's constant mutters and groans of pain are deeply unsettling. Each creature that starts its turn in the aura must succeed at a DC 20 Fortitude save or become frightened 1 (frightened 2 on a critical failure). The creature is then temporarily immune for 1 minute."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 10,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          7,
+          2
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "share pain",
+        "share pain"
+      ]
+    },
+    {
+      "name": "Create Spawn",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "Any humanoid creature killed by a trailgaunt and left unburied out of sight of a well-maintained road rises as a free-willed trailgaunt at the next sunset."
+      ]
+    },
+    {
+      "name": "Dromophobia",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The trailgaunt can't willingly walk on or across a well-maintained road, though it can Burrow under one. If forced onto the surface of such a road, the trailgaunt is fleeing until it's no longer on the road."
+      ]
+    },
+    {
+      "name": "Share Pain",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A living creature hit by a trailgaunt's jaws Strike must succeed at a DC 20 Fortitude save or suffer intense pain in its legs and feet, taking a –10-foot status penalty to its Speeds, or a –20-foot status penalty on a critical failure."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Sure Stride",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A trailgaunt ignores the effects of terrain and terrain."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 18
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

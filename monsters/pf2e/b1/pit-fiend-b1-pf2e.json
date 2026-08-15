@@ -1,0 +1,617 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:pit-fiend",
+  "name": "Pit Fiend",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/pit-fiend.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 20,
+    "xp": null,
+    "display": "Creature 20"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "devil",
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "le",
+      "large",
+      "devil",
+      "fiend"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 8,
+    "con": 9,
+    "int": 8,
+    "wis": 9,
+    "cha": 8
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 37,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "true seeing",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Common",
+    "Draconic",
+    "Infernal; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 34
+    },
+    {
+      "name": "Arcana",
+      "mod": 32
+    },
+    {
+      "name": "Athletics",
+      "mod": 33
+    },
+    {
+      "name": "Deception",
+      "mod": 39
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 34
+    },
+    {
+      "name": "Intimidation",
+      "mod": 39
+    },
+    {
+      "name": "Religion",
+      "mod": 37
+    },
+    {
+      "name": "Society",
+      "mod": 36
+    },
+    {
+      "name": "Stealth",
+      "mod": 34
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 46,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 335,
+        "formula": null,
+        "note": "regeneration 30 (deactivated by good)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 37
+      },
+      {
+        "name": "ref",
+        "mod": 32
+      },
+      {
+        "name": "will",
+        "mod": 35
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 15,
+        "note": "except silver"
+      },
+      {
+        "name": "poison",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 35,
+      "fly": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Commander's Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "enchantment"
+      ],
+      "entries": [
+        "100 feet. Commanded or allied evil creatures in the aura of lower level than the pit fiend gain a +1 circumstance bonus to attack rolls, damage rolls, AC, saves, and skill checks."
+      ],
+      "aura": {
+        "range": 100,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "emotion",
+        "enchantment",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "20 feet, DC 42"
+      ],
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 42,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The pit fiend can make an Attack of Opportunity when a creature within reach uses a concentrate action, in addition to the usual trigger. The devil can disrupt triggering concentrate actions, and they disrupt actions on any hit, not only a critical hit."
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 40,
+        "map": [
+          40,
+          35,
+          30
+        ],
+        "traits": [
+          "evil",
+          "magical",
+          "poison",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+17",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": [
+        "pit fiend venom",
+        "pit fiend venom"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          34,
+          30
+        ],
+        "traits": [
+          "agile",
+          "evil",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6+17",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 36,
+        "map": [
+          36,
+          31,
+          26
+        ],
+        "traits": [
+          "evil",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+17",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": [
+        "Improved Grab",
+        "Improved Grab"
+      ]
+    },
+    {
+      "name": "wing",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 36,
+        "map": [
+          36,
+          31,
+          26
+        ],
+        "traits": [
+          "evil",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6+17",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Constrict",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "2d10+17 bludgeoning plus 2d6 evil, DC 43"
+      ]
+    },
+    {
+      "name": "Devil Shaping",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "downtime",
+        "transmutation"
+      ],
+      "entries": [
+        "The pit fiend reshapes a large number of lemures within a 600-foot radius into more powerful devils to swell Hell's legions. The pit fiend must have available the number of lemures listed on the table in the sidebar on page 92. The pit fiend can shape 100 lemures per day, to a maximum of 1,100 lemures in 11 days. Devils created in this way are in thrall to the pit fiend and follow its orders, with the exception of created pit fiends or other devils of similar power, which are always independent. As a result, few pit fiends choose to create peers. At the end of the Devil Shaping activity, the pit fiend attempts an incredibly hard Religion check of the desired devil's level, with results as follows."
+      ],
+      "area": {
+        "shape": "radius",
+        "size": 600,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The pit fiend shapes two devils from the massed lemures instead of one.",
+          "success": "The pit fiend shapes a devil of the desired type and level.",
+          "failure": "The devil shaped from the lemures is 2 levels lower than the intended devil.",
+          "criticalFailure": "The pit fiend fails to shape any devils and draws the ire of an archdevil for its waste of resources."
+        }
+      }
+    },
+    {
+      "name": "Fast Swoop",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The pit fiend Flies and makes a wing Strike at any point during its movement."
+      ]
+    },
+    {
+      "name": "Masterful Quickened Casting",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [
+        "concentrate"
+      ],
+      "entries": [
+        "If the pit fiend's next action is to cast an 8th-level or lower innate spell, reduce the number of actions to cast it by 1 (minimum 1 action)."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      }
+    },
+    {
+      "name": "Pit Fiend Venom",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 42,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 8,
+          "rankLabel": "Constant (8th)",
+          "spells": [
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "dispel magic",
+              "uses": "at will"
+            },
+            {
+              "name": "divine decree",
+              "uses": "at will"
+            },
+            {
+              "name": "fireball",
+              "uses": "at will"
+            },
+            {
+              "name": "scrying",
+              "uses": null
+            },
+            {
+              "name": "wall of fire",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "bind soul",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 10,
+          "rankLabel": "10th",
+          "spells": [
+            {
+              "name": "meteor swarm",
+              "uses": null
+            },
+            {
+              "name": "miracle",
+              "uses": null
+            },
+            {
+              "name": "power word stun",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 40
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

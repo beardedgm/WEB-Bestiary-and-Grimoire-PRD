@@ -1,0 +1,245 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:primal-oozer",
+  "name": "Primal Oozer",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 297,
+    "path": "monsters/5e/tome_of_beasts_2/primal-oozer.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 1,
+    "con": 3,
+    "int": -2,
+    "wis": 2,
+    "cha": -3
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 13,
+    "con": 16,
+    "int": 6,
+    "wis": 15,
+    "cha": 5
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Common but can’t speak"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 112,
+        "note": null,
+        "formula": "15d8+45"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "climb": 10,
+      "swim": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Acidic Slime",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that touches the primal oozer or hits it with a melee attack while within 5 feet of it takes 3 (1d6) acid damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "Ooze Plague",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The primal oozer's barbed tentacles inject the ooze plague disease into a creature if the creature fails its saving throw after being bitten twice in a row by the oozer. Until the disease is cured, the infected creature's skin slowly becomes more ooze-like, and its hp maximum decreases by 5 (2d4) for every 24 hours that elapse. This reduction lasts until the disease is cured. The creature dies if the disease reduces its hp maximum to 0. A humanoid slain by this disease rises 24 hours later as an ochre jelly. The jelly isn't under the primal oozer's control, but it views the primal oozer as an ally."
+      ]
+    },
+    {
+      "name": "Pack Tactics",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The primal oozer has advantage on attack rolls against a creature if at least one of the primal oozer's allies is within 5 feet of the creature and the ally isn't incapacitated."
+      ]
+    },
+    {
+      "name": "Slimy Body",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The primal oozer has advantage on ability checks and saving throws made to escape a grapple."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The primal oozer makes two bite attacks. If both attacks hit the same target, the target must make a DC 15 Constitution saving throw. On a failure, the target takes 7 (2d6) acid damage and contracts a disease (see the Ooze Plague trait). On a success, the target takes half the damage and doesn't contract a disease."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) slashing damage. If the target is a creature, it must succeed on a DC 15 Strength saving throw or be knocked prone."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": 11,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

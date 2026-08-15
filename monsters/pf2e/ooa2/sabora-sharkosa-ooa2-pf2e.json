@@ -1,0 +1,350 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ooa2:sabora-sharkosa",
+  "name": "Sabora Sharkosa",
+  "gameSystem": "pf2e",
+  "variant": "ooa2",
+  "source": {
+    "code": "ooa2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ooa2/sabora-sharkosa.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "elf",
+      "half-elf",
+      "human"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "le",
+      "medium",
+      "elf",
+      "half-elf",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 4,
+    "con": 2,
+    "int": 0,
+    "wis": 1,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Elven",
+    "Kelish",
+    "Osiriani"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 17
+    },
+    {
+      "name": "Alkenstar Lore",
+      "mod": 11
+    },
+    {
+      "name": "Athletics",
+      "mod": 17
+    },
+    {
+      "name": "Deception",
+      "mod": 15
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 15
+    },
+    {
+      "name": "Society",
+      "mod": 11
+    },
+    {
+      "name": "Stealth",
+      "mod": 17
+    },
+    {
+      "name": "Thievery",
+      "mod": 17
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 25,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 120,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 15
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 13
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Quickest Draw",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Sharkosa makes two melee Strikes, or draws her pistol and makes a ranged Strike, against an enemy she is aware of."
+      ],
+      "trigger": "Sharkosa rolls for initiative",
+      "requirements": "Sharkosa is aware of at least one of her enemies and not flat-footed"
+    },
+    {
+      "name": "knuckle duster",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          12,
+          8
+        ],
+        "traits": [
+          "agile",
+          "free-hand",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d4+10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "concussive fist"
+      ]
+    },
+    {
+      "name": "[one-action]dueling pistol",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          11,
+          6
+        ],
+        "traits": [
+          "concealable",
+          "concussive",
+          "fatal <d10>",
+          "magical",
+          "range increment <60 feet>",
+          "reload <1>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Concussive Fist",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "incapacitation"
+      ],
+      "entries": [
+        "A living creature hit by Sharkosa's knuckle duster must attempt a DC 23 Fortitude save."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Golden Bullets",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "transmutation"
+      ],
+      "entries": [
+        "Sharkosa's supernatural connection to gold allows her to alter the trajectory of her gold-cased bullets in flight. As long as her target is within 120 feet, Sharkosa gains a +1 circumstance bonus to ranged Strikes against targets with lesser cover and a +2 circumstance bonus to ranged Strikes against targets with standard or greater cover."
+      ]
+    },
+    {
+      "name": "One-Two Punch",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Sharkosa makes three melee Strikes with her knuckle duster. Each Strike counts against her multiple attack penalty as usual."
+      ]
+    },
+    {
+      "name": "Reload Trick",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Sharkosa makes two dueling pistol Strikes, reloading after each shot."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "minute",
+        "text": null
+      },
+      "requirements": "No enemies are within 60 feet of Sharkosa and her dueling pistol is loaded"
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Sharkosa deals an extra 2d6 precision damage to flat-footed creatures."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 33
+      }
+    ],
+    "items": [
+      "+1 striking knuckle dusters (Guns & Gears 152)",
+      "+1 striking dueling pistol (Guns & Gears 152; 10 rounds)",
+      "meteor shot (Guns & Gears 171)"
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Concussive Fist)"
+    ],
+    "unmapped": []
+  }
+}

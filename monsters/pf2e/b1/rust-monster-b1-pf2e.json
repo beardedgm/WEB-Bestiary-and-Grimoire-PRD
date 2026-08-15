@@ -1,0 +1,277 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:rust-monster",
+  "name": "Rust Monster",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/rust-monster.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "medium",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 3,
+    "con": 1,
+    "int": -4,
+    "wis": 1,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 8,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "metal scent",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 40,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 8
+      },
+      {
+        "name": "ref",
+        "mod": 10
+      },
+      {
+        "name": "will",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 35,
+      "climb": 10
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Tail Trip",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The rust monster makes a tail Strike against the triggering creature."
+      ],
+      "trigger": "A creature carrying a metal item attempts to move out of a square within reach of the rust monster's tail."
+    },
+    {
+      "name": "antenna",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          5,
+          0
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [],
+      "entries": []
+    },
+    {
+      "name": "mandibles",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 8,
+        "map": [
+          8,
+          3,
+          -2
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d10+4",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 8,
+        "map": [
+          8,
+          3,
+          -2
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+2",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Improved Knockdown",
+        "Improved Knockdown"
+      ]
+    },
+    {
+      "name": "Antenna Disarm",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The rust monster attempts to Disarm a metal item a creature is holding using its antenna (with the same modifier as an antenna Strike). On a success, the item is subject to the rust monster's rust ability (see below) in addition to the effects of the Disarm, and if the check to Disarm is a critical success, the rust monster drops the item on the ground in its own space."
+      ]
+    },
+    {
+      "name": "Rust",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A rust monster's antenna causes metal to rapidly rust and corrode. If it succeeds at an antenna Strike or Disarm attempt with its antenna, the rust monster deals 2d6 damage (doubled on a critical hit) to a metal item the target is wearing or holding, ignoring its."
+      ]
+    },
+    {
+      "name": "Hardness.",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the rust monster hits an unattended metal item, the item takes this damage automatically. If a creature uses the Shield Block reaction with a metal shield against an antenna attack, the shield is automatically broken, but no other item is rusted on that attack."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 18
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

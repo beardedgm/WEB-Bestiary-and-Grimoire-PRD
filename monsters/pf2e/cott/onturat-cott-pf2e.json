@@ -1,0 +1,471 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:cott:onturat",
+  "name": "Onturat",
+  "gameSystem": "pf2e",
+  "variant": "cott",
+  "source": {
+    "code": "cott",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/cott/onturat.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 19,
+    "xp": null,
+    "display": "Creature 19"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "unholy"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "unique",
+      "huge",
+      "undead",
+      "unholy"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 6,
+    "con": 6,
+    "int": 7,
+    "wis": 8,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 34,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "truesight",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 36
+    },
+    {
+      "name": "Deception",
+      "mod": 38
+    },
+    {
+      "name": "Intimidation",
+      "mod": 35
+    },
+    {
+      "name": "Religion",
+      "mod": 32
+    },
+    {
+      "name": "Skeletal Lore",
+      "mod": 32
+    },
+    {
+      "name": "Stealth",
+      "mod": 34
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 44,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 335,
+        "formula": null,
+        "note": "void healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 33
+      },
+      {
+        "name": "ref",
+        "mod": 35
+      },
+      {
+        "name": "will",
+        "mod": 37
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. vitality",
+    "immunities": {
+      "damage": [
+        "bleed",
+        "cold",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "piercing",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Shard Storm",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "air",
+        "aura",
+        "divine"
+      ],
+      "entries": [
+        "10 feet. A cloud of bone shards surrounds the skulltaker. When a creature moves into the emanation or begins its turn there, shard storm deals 4d6 slashing damage and 4d6 void damage to the creature, with a DC 42 basic Reflex save. If the creature has resistance or immunity to void damage, or an effect that protects it against death effects, or an effect that protects it against the doomed|PC1 or drained|PC1 condition, the creature must first succeed at a DC 42 Will save or have all such benefits suppressed for 1 minute."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 42,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 10,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 37,
+        "map": [
+          37,
+          32,
+          27
+        ],
+        "traits": [
+          "deadly <2d12>",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+16",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "void"
+        }
+      ],
+      "entries": [
+        "void drain"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 37,
+        "map": [
+          37,
+          33,
+          29
+        ],
+        "traits": [
+          "agile",
+          "deadly <2d12>",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+16",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "void"
+        }
+      ],
+      "entries": [
+        "void drain"
+      ]
+    },
+    {
+      "name": "bone javelin",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "magical",
+          "thrown <100 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 100,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+8",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "void"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Bonetaker",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine"
+      ],
+      "entries": [
+        "Whenever a creature dies within 60 feet of a skulltaker, the skulltaker draws a portion of the creature's bones into its shard storm. The creature must succeed at a DC 42 Will save or rise as a skeletal champion (Pathfinder Monster Core 312) in 1d4 rounds. These skeletal champions are controlled|PC1 by the skulltaker."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 42,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Void Drain",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine"
+      ],
+      "entries": [
+        "When a skulltaker hits with a melee Strike|PC1, the target must succeed at a DC 42 Fortitude save or become drained|PC1|drained 2 and doomed|PC1|doomed 1."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 42,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Splintered Ground",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The skulltaker causes splintered bones to erupt from all solid surfaces in a 100-foot emanation, except for surfaces of worked stone. A creature moving through the bones takes 10 piercing damage and 10 void damage for every 5 feet of movement. The first time each round a creature takes piercing damage from these splintered bones, it must succeed at a DC 42 Reflex save or take a –10-foot circumstance penalty to all Speeds for 10 minutes, or a –15-foot circumstance penalty for 24 hours on a critical failure. The bones remain in place until the skulltaker uses this action again or the bones are manually removed, which takes 10 minutes for each 5-foot square."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 100,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 42,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 42,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Constant (6th)",
+          "spells": [
+            {
+              "name": "truesight",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "translocate",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "desiccate",
+              "uses": 2
+            },
+            {
+              "name": "execute",
+              "uses": 2
+            },
+            {
+              "name": "punishing winds",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "metamorphosis",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 49
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

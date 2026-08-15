@@ -1,0 +1,353 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sog4:shisagishin",
+  "name": "Shisagishin",
+  "gameSystem": "pf2e",
+  "variant": "sog4",
+  "source": {
+    "code": "sog4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sog4/shisagishin.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [
+      "nindoru"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "medium",
+      "fiend",
+      "nindoru"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 7,
+    "con": 4,
+    "int": 3,
+    "wis": 4,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 22,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability darkvision}",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 25
+    },
+    {
+      "name": "Deception",
+      "mod": 24
+    },
+    {
+      "name": "Intimidation",
+      "mod": 22
+    },
+    {
+      "name": "Occultism",
+      "mod": 21
+    },
+    {
+      "name": "Stealth",
+      "mod": 25
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 214,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 20
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "death effects"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "negative",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "silver",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Burst From Death",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "The shisagishin violently unfolds into its true form, shredding its decaying corpse shell, and attempts a claw Strike on an adjacent target before it rolls initiative."
+      ],
+      "trigger": "A creature touches the disguised shisagishin or a coffin or other container the shisagishin has been placed into",
+      "requirements": "Initiative hasn't yet been rolled, and the shisagishin is disguised as a corpse with Manifest Corpse Shell"
+    },
+    {
+      "name": "Soul Shred",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Creatures killed by a shisagishin are difficult to bring back to life or animate as undead. The shisagishin automatically attempts to counteract|CRB|3|counteracting|0 any attempt to resurrect or animate any creature that it has killed (counteract modifier +21, counteract level 6th). If the shisagishin who slew the creature is itself slain, the creature can be brought back from death or become undead normally."
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 25,
+        "map": [
+          25,
+          21,
+          17
+        ],
+        "traits": [
+          "agile",
+          "deadly <d6>",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+7",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Spread Decay",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The shisagishin causes the flesh of any number of creatures grabbed or restrained by it to swiftly begin to decay. Each of those creatures must attempt a DC 32 Fortitude save."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 32,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature takes 2d8 negative damage.",
+          "failure": "The creature takes 4d8 negative damage and is enfeebled 1.",
+          "criticalFailure": "The creature takes 6d8 negative damage and is enfeebled 2."
+        }
+      }
+    },
+    {
+      "name": "Manifest Corpse Shell",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "concentrate",
+        "conjuration",
+        "occult"
+      ],
+      "entries": [
+        "The shisagishin tucks its arms and legs into its body, drops prone, and manifests a decaying and/or mutilated humanoid corpse around itself over the course of 10 minutes of concentration. The shisagishin can cause this corpse to appear to be the remains of a specific creature it has seen before by Impersonating that creature with Deception. Once its corpse shell has manifested, until the next time the shisagishin acts, it appears to be a corpse. It has an automatic result of 44 on Deception checks and DCs to pass as a corpse."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 32,
+      "attackBonus": 24,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Cantrips (6th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "death knell",
+              "uses": "at will"
+            },
+            {
+              "name": "item facade",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "hallucination",
+              "uses": null
+            },
+            {
+              "name": "phantasmal killer",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "vampiric exsanguination",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 35
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

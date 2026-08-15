@@ -1,0 +1,241 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:gold-dragon-wyrmling",
+  "name": "Gold Dragon Wyrmling",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 173,
+    "path": "monsters/5e/a5e_monstrous_menagerie/gold-dragon-wyrmling-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 3,
+    "int": 2,
+    "wis": 1,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 14,
+    "con": 16,
+    "int": 14,
+    "wis": 12,
+    "cha": 16
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 10,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    },
+    {
+      "name": "Stealth",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 75,
+        "note": null,
+        "formula": "10d8+30"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 60,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 9 (1d10 + 4) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10+4",
+          "average": 9,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Breath Weapons",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon uses one of the following breath weapons:"
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      }
+    },
+    {
+      "name": "Molten Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon exhales molten gold in a 15-foot cone. Each creature in the area makes a DC 13 Dexterity saving throw  taking 22 (4d10) fire damage on a failed save or half damage on a success."
+      ],
+      "damage": [
+        {
+          "formula": "4d10",
+          "average": 22,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Slowing Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon exhales gas in a 15-foot cone. Each creature in the area must succeed on a DC 13 Strength saving throw or suffer disadvantage on weapon attack rolls for 1 minute. A weakened creature repeats the saving throw at the end of each of its turns  ending the effect on a success."
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

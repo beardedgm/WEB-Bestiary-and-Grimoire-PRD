@@ -1,0 +1,555 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:mechuiti",
+  "name": "Mechuiti",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 78,
+    "path": "monsters/5e/tome_of_beasts_2023/mechuiti-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 27,
+    "xp": 105000,
+    "display": "27"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Chaotic Evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 4,
+    "con": 8,
+    "int": 4,
+    "wis": 4,
+    "cha": 6
+  },
+  "abilityScores": {
+    "str": 29,
+    "dex": 19,
+    "con": 27,
+    "int": 18,
+    "wis": 18,
+    "cha": 22
+  },
+  "perception": {
+    "mod": null,
+    "passive": 22
+  },
+  "senses": [
+    {
+      "name": "truesight",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Celestial",
+    "Common",
+    "Draconic",
+    "Primordial",
+    "telepathy 300 ft."
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 462,
+        "note": null,
+        "formula": "25d20+200"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 17
+      },
+      {
+        "name": "dex",
+        "mod": 12
+      },
+      {
+        "name": "wis",
+        "mod": 12
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "fire",
+        "lightning",
+        "poison; bludgeoning",
+        "piercing",
+        "and slashing from nonmagical attacks"
+      ],
+      "conditions": [
+        "charmed",
+        "frightened",
+        "poisoned",
+        "stunned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Demon Lord's Ichor",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When Mechuiti is subjected to piercing damage or slashing damage, a spray of caustic blood spurts from his hide. Each creature within 10 feet of Mechuiti must succeed on a DC 24 Constitution saving throw or becoming infected with the Mechuiti's deadly ichor disease and be poisoned until the disease is cured. Every 24 hours that elapse, the target must repeat the saving throw, reducing its hp maximum by 14 (4d6) on a failure. This reduction lasts until the disease is cured. The creature dies if the disease reduces its hp maximum to 0. The disease can be cured by the greater restoration spell or similar magic or when the creature succeeds on three saving throws."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Fiery Weapons",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Mechuiti's weapon attacks are magical. When Mechuiti hits with any weapon, the weapon deals an extra 6d6 fire damage (included in the attack)."
+      ],
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Immolating Corona",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "At the start of each of Mechuiti's turns, each creature within 10 feet of him takes 10 (3d6) fire damage and must succeed on a DC 24 Constitution saving throw or catch fire. A creature that touches Mechuiti or hits him with a melee attack while within 5 feet of him takes 10 (3d6) fire damage and must succeed on a DC 24 Constitution saving throw or catch fire. Until a creature uses an action to douse the fire, the creature on fire takes 7 (2d6) fire damage at the start of each of its turns."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "fire"
+        },
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "fire"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Legendary Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If Mechuiti fails a saving throw, he can choose to succeed instead."
+      ],
+      "uses": {
+        "count": 3,
+        "period": "day",
+        "display": "3/Day"
+      }
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Mechuiti has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Speak with Simians",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Mechuiti can communicate with apes and monkeys as if they shared a language."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Mechuiti can use his Frightful Presence. He then makes one Bite attack and two Claw attacks."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +17 to hit, reach 10 ft., one target. Hit: 31 (4d10 + 9) piercing damage plus 21 (6d6) fire damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 17,
+        "map": [
+          17
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+9",
+          "average": 31,
+          "type": "piercing"
+        },
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +17 to hit, reach 20 ft., one target. Hit: 27 (4d8 + 9) slashing damage plus 21 (6d6) fire damage. If Mechuiti scores a critical hit, he rolls damage dice three times, instead of twice."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 17,
+        "map": [
+          17
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+9",
+          "average": 27,
+          "type": "slashing"
+        },
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Frightful Presence",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Each creature of Mechuiti's choice that is within 120 feet of Mechuiti and aware of him must succeed on a DC 24 Wisdom saving throw or become frightened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to Mechuiti's Frightful Presence for the next 24 hours."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Burning Acid Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Mechuiti exhales fire and acid in a 60-foot cone. Each creature in that area must make a DC 24 Dexterity saving throw, taking 49 (14d6) fire damage and 49 (14d6) acid damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "14d6",
+          "average": 49,
+          "type": "fire"
+        },
+        {
+          "formula": "14d6",
+          "average": 49,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Spellcasting",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Mechuiti casts one of the following spells, requiring no material components and using Charisma as the spellcasting ability (spell save DC 22):<br>At will: dispel magic, hold monster, wall of fire<br>3/day each: fire storm, power word stun"
+      ]
+    },
+    {
+      "name": "Move",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Mechuiti moves up to his speed, or he climbs up to half his speed. This movement doesn't provoke opportunity attacks."
+      ]
+    },
+    {
+      "name": "Burn from the Inside",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Mechuiti chooses a creature within 120 feet of him that is infected with the Mechuiti's deadly ichor disease. The target must make a DC 24 Constitution saving throw. On a failure, the target takes 10 (3d6) fire damage and 10 (3d6) acid damage and catches fire. On a success, the target takes half the damage and doesn't catch fire. Until a creature uses an action to douse the fire, the target takes 7 (2d6) fire damage at the start of each of its turns."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "fire"
+        },
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "acid"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 120,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Cast a Spell",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 2,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Mechuiti uses Spellcasting."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spellcasting",
+      "type": "prepared",
+      "tradition": null,
+      "dc": 22,
+      "attackBonus": null,
+      "ability": "cha",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "hold monster",
+              "uses": null
+            },
+            {
+              "name": "wall of fire<br>",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "3/day each",
+          "uses": 3,
+          "spells": [
+            {
+              "name": "fire storm",
+              "uses": null
+            },
+            {
+              "name": "power word stun",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "legendaryPreamble": "Mechuiti can take 3 legendary actions, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature’s turn. Mechuiti regains spent legendary actions at the start of his turn.",
+    "legendaryActionsPerRound": 3
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

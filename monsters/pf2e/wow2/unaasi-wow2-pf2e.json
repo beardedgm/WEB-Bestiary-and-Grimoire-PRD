@@ -1,0 +1,630 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:wow2:unaasi",
+  "name": "Unaasi",
+  "gameSystem": "pf2e",
+  "variant": "wow2",
+  "source": {
+    "code": "wow2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/wow2/unaasi.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 11,
+    "xp": null,
+    "display": "Creature 11"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid",
+      "plant"
+    ],
+    "subtypes": [
+      "ghoran"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "unique",
+      "medium",
+      "ghoran",
+      "humanoid",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 3,
+    "con": 1,
+    "int": 4,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 21,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic",
+    "Fey",
+    "Wildsong"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 18
+    },
+    {
+      "name": "Arcana",
+      "mod": 21
+    },
+    {
+      "name": "Deception",
+      "mod": 24
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 24
+    },
+    {
+      "name": "Intimidation",
+      "mod": 24
+    },
+    {
+      "name": "Nature",
+      "mod": 21
+    },
+    {
+      "name": "Occultism",
+      "mod": 21
+    },
+    {
+      "name": "Performance",
+      "mod": 22
+    },
+    {
+      "name": "Society",
+      "mod": 21
+    },
+    {
+      "name": "Stealth",
+      "mod": 18
+    },
+    {
+      "name": "Survival",
+      "mod": 21
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 160,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "mental",
+        "amount": 8,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 8,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Luminant Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "light"
+      ],
+      "entries": [
+        "20 feet. The volatile planar energy coursing through a woodblessed's veins fills the area with dim light."
+      ],
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Delicious",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Ghorans were originally created to be scrumptious food. A ghoran takes an additional 5 damage from jaws Strikes, fangs Strikes, or other similar Strikes with a creature's mouth. When a ghoran is grabbed or restrained by a creature's jaws, fangs, or mouth, the DC to Escape is increased by 2."
+      ]
+    },
+    {
+      "name": "Reactive Flare",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Unaasi temporarily loses control of the planar energy within them. Both they and the triggering creature take 6d6 fire damage (DC 30 basic Reflex save)."
+      ],
+      "trigger": "Unaasi is damaged by a creature within their reach",
+      "save": {
+        "defense": "reflex",
+        "dc": 30,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "fighting fan",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          18,
+          14
+        ],
+        "traits": [
+          "agile",
+          "backstabber",
+          "deadly <d6>",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d4+6",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "energy surge",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          17,
+          12
+        ],
+        "traits": [
+          "range increment <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6+6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Bard Composition Spells",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Cantrips (6th)",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "courageous anthem, dirge of doom"
+      ]
+    },
+    {
+      "name": "6th",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "counter performance"
+      ]
+    },
+    {
+      "name": "Scouring Surge",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "fire",
+        "primal"
+      ],
+      "entries": [
+        "Unaasi unleashes the planar energy coursing through their body for a split-second, dealing 11d6 fire damage (DC 30 basic Reflex save) to all creatures in their luminant aura. They can't use Scouring Surge again for 1d4 rounds."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 30,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "11d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Signature Spells",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Unaasi can heighten the following spells freely: charm|PC1, force barrage|PC1, resist energy|PC1, rip the spirit|SoM, soothe|PC1."
+      ]
+    },
+    {
+      "name": "Steady",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Spellcasting Unaasi is a confident spellcaster and doesn't easily lose their focus. If a reaction would disrupt their spellcasting action, Unaasi attempts a DC 15 flat check. If they succeed, their action isn't disrupted."
+      ]
+    },
+    {
+      "name": "Tap Planar Energy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "primal"
+      ],
+      "entries": [
+        "Unaasi taps into the planar energy surging through them, using this energy to empower themself or their next attack. - If their next action is to Stride, Unaasi is launched off the ground and propelled forward. During this Stride, they have a fly Speed equal to their Speed. If they don't end their movement on a solid surface that can support their weight, they fall.",
+        "- If their next action is to make a melee or ranged Strike, that Strike deals an additional 3d6 fire damage.",
+        "- If their next action is to Cast a Spell, the range of that spell increases by 30 feet, and the area of that spell increases by 10 feet."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous occult Spells",
+      "type": "spontaneous",
+      "tradition": "occult",
+      "dc": 32,
+      "attackBonus": 24,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Cantrips (6th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "figment",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st (3 slots)",
+          "spells": [
+            {
+              "name": "soothe",
+              "uses": null
+            },
+            {
+              "name": "sure strike",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd (3 slots)",
+          "spells": [
+            {
+              "name": "darkvision",
+              "uses": null
+            },
+            {
+              "name": "invisibility",
+              "uses": null
+            },
+            {
+              "name": "resist energy",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd (3 slots)",
+          "spells": [
+            {
+              "name": "force barrage",
+              "uses": null
+            },
+            {
+              "name": "haste",
+              "uses": null
+            },
+            {
+              "name": "translate",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th (3 slots)",
+          "spells": [
+            {
+              "name": "charm",
+              "uses": null
+            },
+            {
+              "name": "containment",
+              "uses": null
+            },
+            {
+              "name": "telepathy",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th (3 slots)",
+          "spells": [
+            {
+              "name": "mirror malefactors",
+              "uses": null
+            },
+            {
+              "name": "repelling pulse",
+              "uses": null
+            },
+            {
+              "name": "rip the spirit",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th (2 slots)",
+          "spells": [
+            {
+              "name": "dominate",
+              "uses": null
+            },
+            {
+              "name": "slow",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 32,
+      "attackBonus": 24,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Cantrips (6th)",
+          "spells": [
+            {
+              "name": "tangle vine",
+              "uses": null
+            },
+            {
+              "name": "timber",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "cleanse cuisine",
+              "uses": null
+            },
+            {
+              "name": "protector tree",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "detect poison",
+              "uses": null
+            },
+            {
+              "name": "entangling flora",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "oaken resilience",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society, Nature",
+        "dc": 38
+      }
+    ],
+    "items": [
+      "passage charm|WoW2",
+      "4th-level spell scroll of sound body|PC1 (4th)",
+      "6th-level spell scroll of soothe|PC1 (6th)",
+      "4th-level spell wand of thundering echoes|LOtGB|wand of thundering echoes (4th)",
+      "1",
+      "000 gp"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

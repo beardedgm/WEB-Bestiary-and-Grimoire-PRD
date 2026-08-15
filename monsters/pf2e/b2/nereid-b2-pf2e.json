@@ -1,0 +1,295 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:nereid",
+  "name": "Nereid",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/nereid.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [
+      "aquatic",
+      "water"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "cn",
+      "medium",
+      "aquatic",
+      "fey",
+      "water"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 7,
+    "con": 5,
+    "int": 3,
+    "wis": 5,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 20,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aquan",
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 12
+    },
+    {
+      "name": "Deception",
+      "mod": 20
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 22
+    },
+    {
+      "name": "Stealth",
+      "mod": 22
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 175,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 16
+      },
+      {
+        "name": "ref",
+        "mod": 22
+      },
+      {
+        "name": "will",
+        "mod": 18
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold iron",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "swim": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Watery Transparency",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "primal",
+        "transmutation",
+        "water"
+      ],
+      "entries": [
+        "When underwater, the nereid's body is invisible. The nereid can dismiss or resume this transparency as an action that has the concentrate trait."
+      ]
+    },
+    {
+      "name": "poisonous touch",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "poison"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Drowning Touch",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "conjuration",
+        "incapacitation",
+        "primal",
+        "water"
+      ],
+      "entries": [
+        "The nereid touches a creature and causes water from its own body to flow into the creature's lungs. If the creature cannot breathe water, it must attempt a DC 29 Fortitude save."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {
+          "success": "The creature is unaffected and is temporarily immune to Drowning Touch for 24 hours.",
+          "failure": "The creature becomes sickened 3 as it chokes on the water.",
+          "criticalFailure": "The creature chokes on the water and runs out of air. It falls unconscious and starts drowning (Pathfinder Core Rulebook 478). If the creature is above water, it recovers from drowning as soon as it succeeds at a saving throw against suffocation."
+        }
+      }
+    },
+    {
+      "name": "Manifest Shawl",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "conjuration",
+        "primal"
+      ],
+      "entries": [
+        "The nereid divests themself of part of their connection to the First World and imbues this essence into a flowing shawl that enables them to function on land. The nereid can Dismiss this effect as long as they are touching the shawl. As long as the shawl exists, the nereid gains the amphibious trait. A nonnereid who carries the shawl also gains the amphibious trait. If a nereid's shawl is destroyed rather than Dismissed, the nereid can't Manifest a Shawl for 24 hours."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 29,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "suggestion",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "control water",
+              "uses": null
+            },
+            {
+              "name": "elemental form",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "summon elemental",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 27
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

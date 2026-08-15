@@ -1,0 +1,317 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:gibbering-mouther",
+  "name": "Gibbering Mouther",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/gibbering-mouther.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "medium",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 3,
+    "con": 4,
+    "int": -3,
+    "wis": 3,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 12
+    },
+    {
+      "name": "Athletics",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 21,
+      "note": "All-Around Vision abilities"
+    },
+    "hp": [
+      {
+        "value": 120,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 15
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "bludgeoning",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "swim": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Gibbering",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "auditory",
+        "aura",
+        "emotion",
+        "enchantment",
+        "incapacitation",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "Each creature that begins its turn within 60 feet of a gibbering mouther must attempt a DC 19 Will save. On a failure, they are confused for 1 round. On a success, they are temporarily immune for 1 minute."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "All-Around Vision",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Reactive Gnaw",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The gibbering mouther's wound opens into another maw. It makes a jaws Strike against the triggering creature."
+      ],
+      "trigger": "An adjacent creature deals the gibbering mouther slashing damage."
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+5",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "persistent bleed damage"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "spittle",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [
+          "range <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "entries": [
+        "burn eyes",
+        "burn eyes"
+      ]
+    },
+    {
+      "name": "Burn Eyes",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that takes damage from a gibbering mouther's spittle must succeed at a DC 22 Fortitude save or be dazzled for 1 round (or blinded for 1 round on a critical failure)."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Engulf",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "DC 22, 3d8 piercing, Escape DC 22, Rupture 8."
+      ]
+    },
+    {
+      "name": "Ground Manipulation",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "occult",
+        "transmutation"
+      ],
+      "entries": [
+        "The gibbering mouther causes stone and earth under its body to grow soft and muddy, remaining so for 1 minute after the mouther moves off the location. A gibbering mouther can move through these areas with ease, but other creatures treat them as terrain."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 20
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

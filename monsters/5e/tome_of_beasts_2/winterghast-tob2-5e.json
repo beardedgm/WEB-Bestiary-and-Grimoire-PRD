@@ -1,0 +1,295 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:winterghast",
+  "name": "Winterghast",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 371,
+    "path": "monsters/5e/tome_of_beasts_2/winterghast.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 3,
+    "con": 2,
+    "int": 0,
+    "wis": 1,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 17,
+    "con": 15,
+    "int": 10,
+    "wis": 13,
+    "cha": 9
+  },
+  "perception": {
+    "mod": null,
+    "passive": 11
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 78,
+        "note": null,
+        "formula": "12d8+24"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold",
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "necrotic",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Creeping Cold",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that fails its saving throw against the winterghast's bite attack becomes infected with the creeping cold disease. At the end of each long rest, the infected creature must succeed on a DC 13 Constitution saving throw each day or take 9 (2d8) cold damage and 5 (2d4) necrotic damage and suffer one level of exhaustion if the creature has no levels of exhaustion. The target's hp maximum is reduced by an amount equal to the necrotic damage taken. The exhaustion and hp maximum reduction last until the target finishes a long rest after the disease is cured. If the disease reduces the creature's hp maximum to 0, the creature dies, and it rises as a winterghast 1d4 hours later. A creature that succeeds on two saving throws against the diseases recovers from it. Alternatively, the disease can be removed by the lesser restoration spell or similar magic."
+      ],
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "cold"
+        },
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Hidden Stench",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Fire damage melts some of the ice covering the winterghast, unleashing its horrific stench. Each creature within 20 feet of the winterghast when it takes fire damage must succeed on a DC 12 Constitution saving throw or be poisoned until the end of its next turn."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The winterghast makes two attacks: one with its bite and one with its claw or two with its claws."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 7 (1d8 + 3) piercing damage plus 4 (1d8) cold damage. If the target is a humanoid, it must succeed on a DC 13 Constitution saving throw or contract the creeping cold disease (see the Creeping Cold trait)."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+3",
+          "average": 7,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "cold"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 10 (2d6 + 3) slashing damage. If the target is a creature other than an undead, it must succeed on a DC 13 Constitution saving throw or be paralyzed for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "paralyzed",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

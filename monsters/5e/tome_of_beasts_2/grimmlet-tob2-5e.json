@@ -1,0 +1,261 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:grimmlet",
+  "name": "Grimmlet",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 186,
+    "path": "monsters/5e/tome_of_beasts_2/grimmlet.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 1,
+    "xp": 200,
+    "display": "1"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -1,
+    "dex": 1,
+    "con": 1,
+    "int": -4,
+    "wis": 0,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 8,
+    "dex": 12,
+    "con": 13,
+    "int": 3,
+    "wis": 10,
+    "cha": 14
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Void Speech but can’t speak"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 11,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 28,
+        "note": null,
+        "formula": "8d4+8"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "psychic"
+      ],
+      "conditions": [
+        "blinded",
+        "charmed",
+        "deafened",
+        "petrified",
+        "poisoned",
+        "prone",
+        "stunned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 0,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Reproduce",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a grimmlet takes damage from a spell and isn't reduced to 0 hp, a number of new grimmlets equal to the spell's level appear in unoccupied spaces within 10 feet of the grimmlet. If the spell is a cantrip, only one grimmlet is created. Sixteen or more grimmlets within 30 feet of each other can use their reactions to come together and form a grimmlet swarm in a space within 5 feet of one grimmlet."
+      ]
+    },
+    {
+      "name": "Self-destruct",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the grimmlet dies, it explodes in a spray of Void-infused crystal shards. Each creature within 5 feet of the grimmlet must succeed on a DC 12 Dexterity saving throw or take 3 (1d6) slashing damage and 3 (1d6) psychic damage. Grimmlets damaged by this trait don't Reproduce."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Innate Spellcasting (Psionics)",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The grimmlet's innate spellcasting ability is Charisma (spell save DC 12, +4 to hit with spell attacks). It can innately cast the following spells, requiring no components:",
+        "At will: crushing curse, minor illusion",
+        "3/day each: maddening whispers"
+      ]
+    },
+    {
+      "name": "Crystal Edge",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 3 (1d4 + 1) slashing damage plus 2 (1d4) psychic damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 3,
+        "map": [
+          3
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+1",
+          "average": 3,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d4",
+          "average": 2,
+          "type": "psychic"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate Spellcasting (Psionics)",
+      "type": "innate",
+      "tradition": null,
+      "dc": 12,
+      "attackBonus": 4,
+      "ability": "cha",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "crushing curse",
+              "uses": null
+            },
+            {
+              "name": "minor illusion",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "3/day each",
+          "uses": 3,
+          "spells": [
+            {
+              "name": "maddening whispers",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

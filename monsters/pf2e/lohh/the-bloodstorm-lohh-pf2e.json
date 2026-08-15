@@ -1,0 +1,287 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:lohh:the-bloodstorm",
+  "name": "The Bloodstorm",
+  "gameSystem": "pf2e",
+  "variant": "lohh",
+  "source": {
+    "code": "lohh",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/lohh/the-bloodstorm.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 14,
+    "xp": null,
+    "display": "Creature 14"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "demon",
+      "swarm"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ne",
+      "huge",
+      "demon",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 6,
+    "con": 4,
+    "int": 2,
+    "wis": 5,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "bloodsense",
+      "range": 120,
+      "unit": "ft",
+      "acuity": "precise"
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [
+    "Abyssal (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 24
+    },
+    {
+      "name": "Stealth",
+      "mod": 28
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 35,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 250,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 28
+      },
+      {
+        "name": "will",
+        "mod": 25
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "{@ability swarm mind}"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "fly": 15,
+      "climb": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Bloodsense",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The Bloodstorm can precisely sense bleeding creatures within 120 feet."
+      ]
+    },
+    {
+      "name": "**Requirements** The Bloodstorm is in Demon Shape; pincer Pincer (evil, magical, reach <20 feet>), Damage 3d8",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [],
+      "entries": []
+    },
+    {
+      "name": "Biting Constrict",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The writing mass of the Bloodstorm's pincer bites the grabbed creature, dealing 3d8+8 piercing damage (basic Fortitude save). On a failure, the creature also takes 1d8 persistent bleed damage."
+      ],
+      "requirements": "The Bloodstorm is in Demon Shape and has a creature grabbed"
+    },
+    {
+      "name": "Biting Swarm",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Each creature in the Bloodstorm's space takes 3d6 piercing and 3d6 slashing damage (DC 31 basic Fortitude save). Creatures that fail their saving throw also take 1d8 persistent bleed damage."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 31,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Feeding Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The bleeding creatures take 3d8 piercing and 3d8 slashing damage (DC 34 basic Fortitude save). The Bloodstorm gains temporary Hit Points equal to half of the damage dealt this way."
+      ],
+      "requirements": "There are bleeding creatures in the Bloodstorm's space",
+      "save": {
+        "defense": "fortitude",
+        "dc": 34,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Demon Shape",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The swarm condenses into the solid shape of a shemhazian demon. While in this form, it's a gargantuan creature, cannot share the space of another creature, and can use its pincer attack. It loses its resistance to physical damage as well as its weaknesses to area and splash damage. Any creatures sharing a space with the Bloodstorm when it transforms are pushed into the nearest empty space. The Bloodstorm can use this action again to revert to its swarm shape."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,374 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe5:garrote-master-assassin",
+  "name": "Garrote Master Assassin",
+  "gameSystem": "pf2e",
+  "variant": "aoe5",
+  "source": {
+    "code": "aoe5",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe5/garrote-master-assassin.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 16,
+    "xp": null,
+    "display": "Creature 16"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "le",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 6,
+    "con": 3,
+    "int": 1,
+    "wis": 4,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 32
+    },
+    {
+      "name": "Athletics",
+      "mod": 29
+    },
+    {
+      "name": "Deception",
+      "mod": 26
+    },
+    {
+      "name": "Stealth",
+      "mod": 32
+    },
+    {
+      "name": "Thievery",
+      "mod": 30
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 38,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 300,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 26
+      },
+      {
+        "name": "ref",
+        "mod": 31
+      },
+      {
+        "name": "will",
+        "mod": 27
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Sidestep",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The assassin deftly steps out of the way of the attack. If there's another creature adjacent to the assassin and within reach of the triggering attack, the assassin redirects the attack to that adjacent creature. The attacker then rerolls the Strike's attack roll against the new target."
+      ],
+      "trigger": "The attack roll for a Strike targeting the assassin fails or critically fails"
+    },
+    {
+      "name": "dagger",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 31,
+        "map": [
+          31,
+          27,
+          23
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "versatile <S>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d4+11",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "crossbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          25,
+          20
+        ],
+        "traits": [
+          "magical",
+          "range increment <120 feet>",
+          "reload <1>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 120,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "dagger",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          28,
+          24
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "thrown <10 feet>",
+          "versatile <S>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 10,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d4+11",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Point Blank",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "flourish"
+      ],
+      "entries": [
+        "The master assassin makes a crossbow Strike against an adjacent enemy; unlike most ranged Strikes, this Strike doesn't provoke reactions. If successful, the attack deals an additional 4d8 precision damage."
+      ],
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    },
+    {
+      "name": "Running Reload",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The master assassin Strides, Steps, or Sneaks, then Interacts to reload her crossbow."
+      ]
+    },
+    {
+      "name": "Study Target",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The master assassin observes a single target she can see, allowing her to use her Vorpal Garrote during the next round."
+      ]
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The master assassin deals an additional 3d6 precision damage to flat-footed creatures."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    },
+    {
+      "name": "Vorpal Garrote",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "death",
+        "incapacitation"
+      ],
+      "entries": [
+        "The master assassin makes a crossbow Strike against the target she previously studied. If she rolls a success on her attack roll, she gets a critical success instead. The target must attempt a DC 36 Fortitude save."
+      ],
+      "requirements": "The master assassin used Study Target during the previous round and must have a garrote bolt",
+      "save": {
+        "defense": "fortitude",
+        "dc": 36,
+        "basic": false,
+        "outcomes": {
+          "success": "No additional effect.",
+          "failure": "The target takes an additional 3d12 precision damage.",
+          "criticalFailure": "The target is decapitated and instantly dies unless it doesn't require a head to live."
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 37
+      }
+    ],
+    "items": [
+      "+2 striking crossbow with 20 bolts",
+      "+2 striking dagger",
+      "garrote bolts (4; page 77)",
+      "+2 resilient studded leather armor"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

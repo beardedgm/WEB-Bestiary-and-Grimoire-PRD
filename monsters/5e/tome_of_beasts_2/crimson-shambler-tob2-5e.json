@@ -1,0 +1,232 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:crimson-shambler",
+  "name": "Crimson Shambler",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 73,
+    "path": "monsters/5e/tome_of_beasts_2/crimson-shambler.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.5,
+    "xp": 100,
+    "display": "1/2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 0,
+    "con": 2,
+    "int": -5,
+    "wis": 0,
+    "cha": -3
+  },
+  "abilityScores": {
+    "str": 12,
+    "dex": 10,
+    "con": 14,
+    "int": 1,
+    "wis": 11,
+    "cha": 5
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 12,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 32,
+        "note": null,
+        "formula": "5d8+10"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "poison"
+      ],
+      "conditions": [
+        "blinded",
+        "deafened",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Eerie Resemblance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The crimson shambler resembles a bloody zombie. A creature that can see a crimson shambler must succeed on a DC 14 Intelligence (Nature or Religion) check to discern its true nature."
+      ]
+    },
+    {
+      "name": "Spores",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that touches the shambler or hits it with an attack causes spores to spew out of the shambler in a 10-foot radius. Each creature in that area must succeed on a DC 10 Constitution saving throw or become diseased. Creatures immune to the poisoned condition are immune to this disease. The diseased creature's lungs fill with the spores, which kill the creature in a number of days equal to 1d10 + the creature's Constitution score, unless the disease is removed. One hour after infection, the creature becomes poisoned for the rest of the duration. After the creature dies, it rises as a crimson shambler, roaming for 1 week and attempting to infect any other creatures it encounters. At the end of the week, it collapses, its body fertilizing a new patch of crimson slime. A creature that succeeds on the saving throw is immune to the spores of all crimson shamblers and crimson slime for the next 24 hours."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 10,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "sphere",
+        "size": 10,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 week",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 4 (1d6 + 1) bludgeoning damage plus 3 (1d6) acid damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 3,
+        "map": [
+          3
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+1",
+          "average": 4,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "Slime Glob",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Weapon Attack: +2 to hit, range 20/60 ft., one target. Hit: 3 (1d6) acid damage and the target must succeed on a DC 12 Constitution saving throw or become infected with the shambler's spores (see the Spores trait)."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "weapon",
+        "bonus": 2,
+        "map": [
+          2
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

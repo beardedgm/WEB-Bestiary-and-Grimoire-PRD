@@ -1,0 +1,316 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:tveirherjar",
+  "name": "Tveirherjar",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 359,
+    "path": "monsters/5e/creature_codex/tveirherjar.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 7,
+    "xp": 2900,
+    "display": "7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "lawful evil",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 1,
+    "con": 4,
+    "int": 0,
+    "wis": 2,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 19,
+    "dex": 12,
+    "con": 19,
+    "int": 10,
+    "wis": 14,
+    "cha": 14
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "truesight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "chain mail, shield"
+    },
+    "hp": [
+      {
+        "value": 102,
+        "note": null,
+        "formula": "12d8+48"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Battle Frenzy",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Once reduced to 30 hp or less, the tveirherjar makes all attacks with advantage."
+      ]
+    },
+    {
+      "name": "Curse of the Tveirherjar",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As a bonus action, the tveirherjar forces a creature it hit with its Niflheim longsword this round to make a DC 15 Constitution saving throw. The creature takes 36 (8d8) necrotic damage on a failed save, or half as much damage on a successful one. If an einherjar is reduced to 0 hp by this effect, it dies, cursed to become a tveirherjar at sundown."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "damage": [
+        {
+          "formula": "8d8",
+          "average": 36,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Niflheim Longsword",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The tveirherjar's longsword absorbs light within 30 feet of it, changing bright light to dim light and dim light to darkness. When the tveirherjar dies, its longsword crumbles away, its magic returning to the creator for the next tveirherjar."
+      ]
+    },
+    {
+      "name": "Unerring Tracker",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The tveirherjar can locate any einherjar within 1,000 feet. This trait works like the locate creature spell, except running water doesn't block it."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "A tveirherjar makes two attacks with its Niflheim longsword."
+      ]
+    },
+    {
+      "name": "Niflheim Longsword",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) slashing damage plus 4 (1d8) necrotic damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+4",
+          "average": 13,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "necrotic"
+        }
+      ]
+    },
+    {
+      "name": "Spear of the Northern Sky",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Weapon Attack: +7 to hit, range 30/120 ft., one target. Hit: 7 (1d6 + 4) piercing damage plus 10 (3d6) radiant damage, and the target is outlined in a shimmering light until the end of the tveirherjar's next turn. This light works like the faerie fire spell, except only the tveirherjar has advantage on attacks against the creature and the light is not absorbed by the tveirherjar's Niflheim longsword."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "attack": {
+        "range": "ranged",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": 7,
+          "type": "piercing"
+        },
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "radiant"
+        }
+      ]
+    },
+    {
+      "name": "Terrifying Glare",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The tveirherjar targets one creature it can see within 30 feet of it. If the creature can see the tveirherjar, it must succeed on a DC 15 Wisdom saving throw or be frightened for 1 minute. While frightened, the creature is paralyzed. The creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "save": {
+        "defense": "wis",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

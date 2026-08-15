@@ -1,0 +1,322 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sog4:algriever",
+  "name": "Algriever",
+  "gameSystem": "pf2e",
+  "variant": "sog4",
+  "source": {
+    "code": "sog4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sog4/algriever.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "beast",
+      "spirit"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "n",
+      "medium",
+      "beast",
+      "spirit"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 4,
+    "con": 4,
+    "int": 0,
+    "wis": 6,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 21,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability darkvision}",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Intimidation",
+      "mod": 17
+    },
+    {
+      "name": "Religion",
+      "mod": 17
+    },
+    {
+      "name": "Stealth",
+      "mod": 19
+    },
+    {
+      "name": "Survival",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 155,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 15
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 21
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "climb": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Shrine Bond",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The algriever bonds with a shrine after they spend 24 hours at the site. While bonded, the algriever gains a +2 circumstance bonus to Perception checks and skill checks."
+      ]
+    },
+    {
+      "name": "Acolyte's Defense",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "attack",
+        "move"
+      ],
+      "entries": [
+        "The algriever Strides toward the creature; this movement doesn't trigger reactions. The algriever marks the creature as its enemy and gains a +2 status bonus to attack rolls against that enemy until they select a new enemy with Acolyte's Defense."
+      ],
+      "trigger": "A creature within sight of the algriever damages, desecrates, or defiles their bonded shrine*|An algriever follows the edicts and anathemas of the deity or faith of the shrine to which they're bonded, although they remain neutral in alignment. Regardless of how large the shrine is, an algriever chooses three Medium or smaller objects in the shrine as their own focus for defense, and can use Acolyte's Defense against any creature that touches or disturbs those objects.|Reactive Punishment, page 82",
+      "requirements": "The algriever is bonded with a shrine"
+    },
+    {
+      "name": "fangs",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 19,
+        "map": [
+          19,
+          15,
+          11
+        ],
+        "traits": [
+          "agile",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12+7",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "algriever venom",
+        "Algriever Venom"
+      ]
+    },
+    {
+      "name": "web",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 19,
+        "map": [
+          19,
+          14,
+          9
+        ],
+        "traits": [
+          "range increment <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [],
+      "entries": [
+        "web trap",
+        "Web Trap"
+      ]
+    },
+    {
+      "name": "Algriever Venom",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "enchantment",
+        "mental",
+        "poison"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Pilgrim's Ward",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "abjuration",
+        "divine"
+      ],
+      "entries": [
+        "The algriever touches a willing creature and fills it with reverence for their bonded shrine. As long as the target creature obeys the edicts and anathemas of the algriever's bonded shrine, or until that algriever grants Pilgrim's Ward to a different creature, that creature gains a +1 status bonus to all Religion checks and Will saves."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "month",
+        "text": null
+      }
+    },
+    {
+      "name": "Web Trap",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature hit by an algriever's web Strike is immobilized and stuck to the nearest surface until it Escapes (DC 28)."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 25,
+      "attackBonus": 20,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "anathematic reprisal",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "crisis of faith",
+              "uses": null
+            },
+            {
+              "name": "dispel magic",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature, Religion",
+        "dc": 28
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

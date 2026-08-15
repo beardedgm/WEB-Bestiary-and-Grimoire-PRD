@@ -1,0 +1,465 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:horde-demon",
+  "name": "Horde Demon",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 70,
+    "path": "monsters/5e/a5e_monstrous_menagerie/horde-demon-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 1,
+    "con": 2,
+    "int": -1,
+    "wis": -1,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 12,
+    "con": 14,
+    "int": 8,
+    "wis": 8,
+    "cha": 8
+  },
+  "perception": {
+    "mod": null,
+    "passive": 11
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 52,
+        "note": null,
+        "formula": "8d8+16"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "lightning; damage from nonmagical weapons",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Chaotic Evil",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The demon radiates a Chaotic and Evil aura."
+      ]
+    },
+    {
+      "name": "Radiant Weakness",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the demon takes radiant damage while it is bloodied, it is frightened for 1 minute."
+      ],
+      "condition": {
+        "name": "frightened",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Varied Shapes",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Each horde demon has a unique combination of attacks and powers. Roll 1d10 once or twice, rerolling duplicates, or choose one or two features from the following table. A horde demons features determine the attacks it can make."
+      ]
+    },
+    {
+      "name": "1 Bat Head",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The demon emits a 15-foot cone of cacophonous sound. Each creature in the area makes a DC 12 Constitution saving throw, taking 7 (2d6) thunder damage on a failed save or half damage on a success."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "thunder"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "2 Bulging Eyes (Gaze)",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature within 60 feet makes a DC 12 Wisdom saving throw. On a failure, it takes 7 (2d6) psychic damage and is frightened until the end of its next turn."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {}
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "3 Claws",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 12 (2d8 + 3) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "4 Fangs",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 12 (2d8 + 3) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "5 Goat Horns",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) bludgeoning damage and the target makes a DC 13 Strength saving throw, falling prone on a failure."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "6 Lamprey Mouth",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 8 (2d4 + 3) piercing damage, and the target is grappled (escape DC 13). Until this grapple ends, the lamprey mouth attack can be used only on this target and automatically hits."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d4+3",
+          "average": 8,
+          "type": "piercing"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "7 Porcupine Quills",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Ranged Weapon Attack: +5 to hit, range 30/60 ft., one target. Hit: 10 (2d6 + 3) piercing damage."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "8 Scorpion Tail Melee Weapon Attack: +5 to hit, reach 5 ft",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        ", one target. Hit: 7 (1d8 + 3) piercing damage plus 7 (2d6) poison damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d8+3",
+          "average": 7,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "9 Tentacle Arms Melee Weapon Attack: +5 to hit, reach 15 ft",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        ", one target. Hit: 8 (2d4 + 3) bludgeoning damage, and the target is grappled (escape DC 13). Until this grapple ends, the tentacle arms attack can only be used on this target."
+      ],
+      "damage": [
+        {
+          "formula": "2d4+3",
+          "average": 8,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "10 Whispering Mouth",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The demon targets a creature within 30 feet that can hear it. The target makes a DC 12 Wisdom saving throw. On a failure, it takes 7 (1d8 + 3) psychic damage and is magically cursed until the start of the demons next turn. While cursed, the demons attacks against the target are made with advantage, and the target has disadvantage on saving throws against the demons Whispering Mouth."
+      ],
+      "damage": [
+        {
+          "formula": "1d8+3",
+          "average": 7,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The demon makes two attacks  using any attack granted by its Varied Shapes trait."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

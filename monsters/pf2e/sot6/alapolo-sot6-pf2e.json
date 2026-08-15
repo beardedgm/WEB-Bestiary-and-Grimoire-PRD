@@ -1,0 +1,282 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot6:alapolo",
+  "name": "Alapolo",
+  "gameSystem": "pf2e",
+  "variant": "sot6",
+  "source": {
+    "code": "sot6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot6/alapolo.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 17,
+    "xp": null,
+    "display": "Creature 17"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [
+      "shadow"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "cn",
+      "medium",
+      "fey",
+      "shadow"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 9,
+    "con": 5,
+    "int": 0,
+    "wis": 6,
+    "cha": 9
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 28,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 30
+    },
+    {
+      "name": "Deception",
+      "mod": 30
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 30
+    },
+    {
+      "name": "Performance",
+      "mod": 30
+    },
+    {
+      "name": "Shadow Lore",
+      "mod": 30
+    },
+    {
+      "name": "Stealth",
+      "mod": 36
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 41,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 310,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 26
+      },
+      {
+        "name": "ref",
+        "mod": 34
+      },
+      {
+        "name": "will",
+        "mod": 29
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "darkness",
+        "light",
+        "shadow (see one with shadows)"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "One with Shadows",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The alapolo isn't affected by darkness, light, or shadow effects that target it unless it chooses to be. It can choose the degree of its saving throw result against darkness, light, or shadow effects that require it to make a saving throw."
+      ]
+    },
+    {
+      "name": "Cloying Pull",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The triggering creature must succeed at a DC 36 Reflex save or its movement ends before it leaves the alopolo's reach."
+      ],
+      "trigger": "A creature within the alapolo's reach attempts to move away from the alapolo",
+      "save": {
+        "defense": "reflex",
+        "dc": 36,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "shadow claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          29,
+          25
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+15",
+          "average": null,
+          "type": "slashing damage"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Enticing Invitation",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "enchantment",
+        "incapacitation",
+        "mental",
+        "primal"
+      ],
+      "entries": [
+        "The alapolo whispers an invitation to a creature within 30 feet. The creature must attempt a DC 38 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Shifting Shadows",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "An alapolo's movement doesn't trigger reactions."
+      ]
+    },
+    {
+      "name": "Weighty Shadow",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "primal",
+        "transmutation"
+      ],
+      "entries": [
+        "The alapolo petulantly stomps on a target's shadow, making it incredibly heavy to drag around. The creature takes a –20-foot penalty to its Speeds for 1 minute. As normal, this penalty can't reduce a creature's Speed below 5 feet. Any creatures fascinated by the alapolo due to its Enticing Invitation are freed from their fascination when the alapolo uses this ability, jarred by the graceless stomping."
+      ],
+      "requirements": "The alapolo is adjacent to a target creature, or the GM determines the alapolo is adjacent to that creature's shadow"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 41
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Enticing Invitation)"
+    ],
+    "unmapped": []
+  }
+}

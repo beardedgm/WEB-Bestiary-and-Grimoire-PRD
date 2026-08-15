@@ -1,0 +1,269 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd52:bugbear-stalker",
+  "name": "Bugbear Stalker",
+  "gameSystem": "dnd5e",
+  "variant": "srd52",
+  "source": {
+    "code": "5.2_srd_(2025_mm)",
+    "name": null,
+    "page": null,
+    "path": "monsters/5e/5.2_srd_(2025_mm)/bugbear_stalker_mm_2024.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [
+      "goblinoid"
+    ],
+    "rarity": null,
+    "alignment": {
+      "raw": "Chaotic Evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 2,
+    "con": 2,
+    "int": 0,
+    "wis": 1,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 17,
+    "dex": 14,
+    "con": 14,
+    "int": 11,
+    "wis": 12,
+    "cha": 11
+  },
+  "perception": {
+    "mod": null,
+    "passive": 11
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Goblin"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 6
+    },
+    {
+      "name": "Survival",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 65,
+        "note": null,
+        "formula": "10d8+20"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 3
+      },
+      {
+        "name": "dex",
+        "mod": 2
+      },
+      {
+        "name": "con",
+        "mod": 4
+      },
+      {
+        "name": "int",
+        "mod": 0
+      },
+      {
+        "name": "wis",
+        "mod": 3
+      },
+      {
+        "name": "cha",
+        "mod": 0
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Abduct",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The bugbear needn't spend extra movement to move a creature it is grappling."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The bugbear makes two Javelin or Morningstar attacks."
+      ]
+    },
+    {
+      "name": "Javelin",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee or Ranged Attack Roll:* +5, reach 10 ft. or range 30/120 ft. 13 (3d6 + 3) Piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        },
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+3",
+          "average": 13,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Morningstar",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee Attack Roll:* +5 (with Advantage if the target is Grappled by the bugbear), reach 10 ft. 12 (2d8 + 3) Piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "piercing"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Quick Grapple",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Dexterity Saving Throw*: DC 13, one Medium or smaller creature the bugbear can see within 10 feet. *Failure:*  The target has the Grappled condition (escape DC 13)."
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "initiative": 2
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

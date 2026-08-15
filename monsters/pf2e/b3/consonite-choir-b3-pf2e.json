@@ -1,0 +1,276 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:consonite-choir",
+  "name": "Consonite Choir",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/consonite-choir.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "elemental",
+      "swarm"
+    ],
+    "subtypes": [
+      "earth"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "n",
+      "gargantuan",
+      "earth",
+      "elemental",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 5,
+    "con": 8,
+    "int": -2,
+    "wis": 2,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 23,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "echolocation",
+      "range": 120,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [
+    "Terran"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 24
+    },
+    {
+      "name": "Performance",
+      "mod": 27
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 32,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 200,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 27
+      },
+      {
+        "name": "ref",
+        "mod": 22
+      },
+      {
+        "name": "will",
+        "mod": 21
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "swarm mind"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 8,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 8,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 8,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Resonant Chimes",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "evocation",
+        "sonic"
+      ],
+      "entries": [
+        "30 feet. The consonite choir's tones resonate within physical objects. A creature that begins its turn in the aura deals an additional 2d6 sonic damage on any Strike using a weapon."
+      ],
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "sonic"
+        }
+      ]
+    },
+    {
+      "name": "launched blade",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 26,
+        "map": [
+          26,
+          21,
+          16
+        ],
+        "traits": [
+          "magical",
+          "range <120 feet>",
+          "sonic"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 120,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "sonic"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Swarming Chimes",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The swarm deals 4d6 slashing damage plus 2d6 sonic damage to each enemy in the swarm's space (DC 33 basic Reflex save). On a critical failure, the enemy is also deafened for 1 minute."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 33,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Elemental",
+        "skill": "Arcana, Nature",
+        "dc": 33
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

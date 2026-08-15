@@ -1,0 +1,228 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe1:binumir",
+  "name": "Binumir",
+  "gameSystem": "pf2e",
+  "variant": "aoe1",
+  "source": {
+    "code": "aoe1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe1/binumir.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "spirit",
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "le",
+      "medium",
+      "incorporeal",
+      "spirit",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -4,
+    "dex": 4,
+    "con": 3,
+    "int": 0,
+    "wis": 1,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Society",
+      "mod": 10
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 25,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 9
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all damage",
+        "amount": 2,
+        "note": "except force, ghost touch, or positive; double resistance vs. non-magical"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Delay Condition",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The binumir's dual spirit takes longer to be affected by detrimental effects. When the binumir is the target of an effect that imparts the confused, controlled, fascinated, frightened, sickened, slowed, or stunned condition, the condition is automatically suppressed until the end of the binumir's next turn."
+      ]
+    },
+    {
+      "name": "ghostly hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          8,
+          4
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Agonizing Wail",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "auditory",
+        "concentrate"
+      ],
+      "entries": [
+        "The binumir unleashes a distressing cry that fills others with wrenching sadness. Creatures within 30 feet must attempt a DC 17 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 17,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected and is temporarily immune to Agonizing Wail for 1 minute.",
+          "success": "The target can't use reactions for 1 round.",
+          "failure": "The target is slowed|CRB|slowed 1 and can't use reactions for 1 minute as it sobs uncontrollably. It can attempt a new Will save to end the effect at the end of each of its turns.",
+          "criticalFailure": "As failure, but the target can't make saves to end the effect."
+        }
+      }
+    },
+    {
+      "name": "Dual Assault",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The binumir makes four Strikes; no more than two can be against the same target. These attacks count toward the binumir's multiple attack penalty, but the penalty doesn't increase until after all the attacks have been made."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Spirit",
+        "skill": "Religion",
+        "dc": 18
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

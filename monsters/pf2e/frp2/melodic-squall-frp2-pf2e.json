@@ -1,0 +1,334 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:frp2:melodic-squall",
+  "name": "Melodic Squall",
+  "gameSystem": "pf2e",
+  "variant": "frp2",
+  "source": {
+    "code": "frp2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/frp2/melodic-squall.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 16,
+    "xp": null,
+    "display": "Creature 16"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [
+      "air"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "huge",
+      "air",
+      "elemental"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 8,
+    "con": 4,
+    "int": 2,
+    "wis": 6,
+    "cha": 8
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Auran",
+    "Tengu",
+    "Tien"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 32
+    },
+    {
+      "name": "Performance",
+      "mod": 32
+    },
+    {
+      "name": "Stealth",
+      "mod": 32
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 39,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 280,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 24
+      },
+      {
+        "name": "ref",
+        "mod": 32
+      },
+      {
+        "name": "will",
+        "mod": 28
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 100
+    },
+    "special": [
+      "swiftness"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Hostile Duet",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The melodic squall recreates the auditory effect perfectly, gaining the bonuses for itself and its allies as long as the original effect persists."
+      ],
+      "trigger": "A hostile creature within 30 feet creates an effect with the auditory trait that provides bonuses to itself or its allies"
+    },
+    {
+      "name": "Retune",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The melodic squall attempts to counteract the spell. If it succeeds, the spell effect is caught in a blast of wind that sweeps it back to its origin, affecting the caster. Targets of the triggering effect other than the melodic squall are still affected normally."
+      ],
+      "trigger": "The melodic squall is targeted by a spell with the auditory trait"
+    },
+    {
+      "name": "wind gust",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          28,
+          24
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d10+14",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Push 10 feet"
+      ]
+    },
+    {
+      "name": "solid refrain",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          27,
+          22
+        ],
+        "traits": [
+          "range increment <70 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 70,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+14",
+          "average": null,
+          "type": "sonic"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Mesmerizing Melody",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "auditory",
+        "concentrate",
+        "enchantment",
+        "mental",
+        "primal"
+      ],
+      "entries": [
+        "The melodic squall sings in a sonorous chorus. Any creature in a 30-foot emanation must attempt a DC 36 Will save to resist becoming fascinated by the melodic squall. A creature that succeeds at its save is temporarily immune for 24 hours."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 36,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is fascinated for 1 round.",
+          "failure": "The creature is fascinated for 1d4 rounds."
+        }
+      }
+    },
+    {
+      "name": "Subsonic Burst",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "emotion",
+        "evocation",
+        "fear",
+        "mental",
+        "primal",
+        "sonic"
+      ],
+      "entries": [
+        "The melodic squall focuses intense sound at an inaudible frequency in a 100-foot line. Each creature in the line must attempt a DC 34 Fortitude save."
+      ],
+      "area": {
+        "shape": "line",
+        "size": 100,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 34,
+        "basic": false,
+        "outcomes": {
+          "success": "The creature is unaffected.",
+          "failure": "The creature is frightened|CRB|frightened 1.",
+          "criticalFailure": "The creature is frightened|CRB|frightened 2 and confused until the beginning of the melodic squall's next turn."
+        }
+      }
+    },
+    {
+      "name": "Swiftness",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The melodic squall's movement doesn't trigger reactions."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Elemental",
+        "skill": "Arcana, Nature",
+        "dc": 40
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

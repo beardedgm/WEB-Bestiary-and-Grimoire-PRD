@@ -1,0 +1,253 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sog1:hu-ban-niang",
+  "name": "Hu Ban-Niang",
+  "gameSystem": "pf2e",
+  "variant": "sog1",
+  "source": {
+    "code": "sog1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sog1/hu-ban-niang.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "ln",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 1,
+    "con": 1,
+    "int": 2,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 11,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Halfling"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 11
+    },
+    {
+      "name": "Crafting",
+      "mod": 11
+    },
+    {
+      "name": "Deception",
+      "mod": 13
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 11
+    },
+    {
+      "name": "Intimidation",
+      "mod": 13
+    },
+    {
+      "name": "Society",
+      "mod": 11
+    },
+    {
+      "name": "Willowshore Lore",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 20,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 75,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 10
+      },
+      {
+        "name": "ref",
+        "mod": 10
+      },
+      {
+        "name": "will",
+        "mod": 13
+      }
+    ],
+    "saveNote": "+1 status bonus vs fear, nerves of steel",
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Nerves of Steel",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If Granny Hu succeeds at a save against a fear effect, she gets a critical success instead."
+      ]
+    },
+    {
+      "name": "Are You Sure About That?",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "emotion",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "Granny Hu makes a subtle gesture, reminding the triggering creature of their secret. The creature must succeed at a DC 22 Will Save or the triggering action is disrupted. Regardless of the outcome, the creature then becomes temporarily immune to this ability for 24 hours."
+      ],
+      "trigger": "A creature within 30 feet who's visible to Granny Hu and who has been exposed to Want to Try Me? in the past week says or does something that would be against Granny Hu's interests",
+      "save": {
+        "defense": "will",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Want to Try Me?",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "auditory",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "Granny Hu threatens to expose a secret of the triggering creature. She attempts an Intimidation check against the triggering creature's Will DC. Her reputation means she can threaten a PC even if she doesn't actually know a secret, but if she does know an especially dangerous or shameful one, she gains a +2 circumstance bonus to her Intimidation check."
+      ],
+      "trigger": "A creature within 30 feet attempts to Coerce or Demoralize a creature",
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is frightened 2, and the result of their Coerce or Demoralize attempt is reduced by one degree of success.",
+          "success": "As critical success, but frightened 1.",
+          "failure": "The creature is unaffected.",
+          "criticalFailure": "The creature is unaffected, gains a +1 circumstance bonus to their Coerce or Demoralize attempt, and is immune to Want to Try Me? for 24 hours."
+        }
+      }
+    },
+    {
+      "name": "longsword",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 13,
+        "map": [
+          13,
+          8,
+          3
+        ],
+        "traits": [
+          "magical",
+          "versatile <P>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 30
+      }
+    ],
+    "items": [
+      "smoking pipe worth 20 gp",
+      "spider lily tattoo|SoG1"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

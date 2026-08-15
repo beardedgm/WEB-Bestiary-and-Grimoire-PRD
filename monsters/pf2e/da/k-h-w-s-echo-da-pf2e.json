@@ -1,0 +1,396 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:da:k-h-w-s-echo",
+  "name": "K.H.W.'s Echo",
+  "gameSystem": "pf2e",
+  "variant": "da",
+  "source": {
+    "code": "da",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/da/k-h-w-s-echo.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 14,
+    "xp": null,
+    "display": "Creature 14"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "ln",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 5,
+    "con": 4,
+    "int": 5,
+    "wis": 5,
+    "cha": 8
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Tien"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 28
+    },
+    {
+      "name": "Arcana",
+      "mod": 25
+    },
+    {
+      "name": "Athletics",
+      "mod": 25
+    },
+    {
+      "name": "Esoteric Lore",
+      "mod": 30
+    },
+    {
+      "name": "Nature",
+      "mod": 25
+    },
+    {
+      "name": "Occultism",
+      "mod": 25
+    },
+    {
+      "name": "Religion",
+      "mod": 25
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 36,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 280,
+        "formula": null,
+        "note": "destabilized form"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 23
+      },
+      {
+        "name": "ref",
+        "mod": 24
+      },
+      {
+        "name": "will",
+        "mod": 28
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Destabilized Form",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the Echo has fewer than 140 Hit Points, his form destabilizes, large chunks disintegrating from his face, limbs, and torso. White moths constantly stream from the missing spaces, creating a 10-foot emanation that deals 6d6 mental damage with a DC 34 basic Will save. As long as the aura persists, he can dissolve into moths and re-form at another location within 15 feet as a free action at the beginning of each of his turns; this has the occult, conjuration, and teleportation traits."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 34,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The Echo has reach 15 for the purpose of determining when Attack of Opportunity triggers and when making Attacks of Opportunity."
+      ]
+    },
+    {
+      "name": "rope dart",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          24,
+          19
+        ],
+        "traits": [
+          "disarm",
+          "finesse",
+          "magical",
+          "sweep",
+          "tethered",
+          "trip"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "4d4+13",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "rope dart",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          24,
+          19
+        ],
+        "traits": [
+          "disarm",
+          "finesse",
+          "magical",
+          "sweep",
+          "tethered",
+          "thrown <80 feet>",
+          "trip"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 80,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d4+13",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Astral Spindle Implement",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The Echo carries a drop spindle that constantly spins red astral thread, which is both his thaumaturgic implement and weapon. If his rope dart is lost or broken, he can re-form it with an Interact action. If he critically succeeds at a rope dart Strike, overwhelming thoughts and figments flow down the thread into the target's mind. The target becomes confused for 1 round."
+      ]
+    },
+    {
+      "name": "Astral Thread Control",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The Echo flicks his wrist and makes a follow-up thrown rope dart Strike at a different target within 30 feet of the first target, using the same multiple attack penalty as his previous Strike. Regardless of whether his attack hits, he then retrieves the weapon."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "requirements": "The Echo's previous action was a successful thrown rope dart Strike"
+    },
+    {
+      "name": "Contingency Oathday-Nine-Rova",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "The Echo has set up numerous contingencies in the event he's compromised. Talismans on his body shatter, counteracting the triggering effect. The Echo can use this free action even if he can't act."
+      ],
+      "trigger": "The Echo's turn begins and he's stunned, slowed, confused, controlled, immobilized, grabbed, paralyzed, restrained, or otherwise can't act",
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      }
+    },
+    {
+      "name": "Reconstitute from Thought",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "necromancy",
+        "healing"
+      ],
+      "entries": [
+        "The Echo throws his rope dart into the island and uses it to absorb mental essence from the mindscape, repairing himself. He regains 45 Hit Points and the island turns a desaturated gray for 1 day, preventing future absorption and disabling the call of the void hazard on that island (see below)."
+      ],
+      "requirements": "The Echo is standing on one of the eight large islands of the map, and the island hasn't darkened"
+    },
+    {
+      "name": "Spindle's Web",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The Echo's spindle revolves faster and faster until it's a blur, lashing red threads in every direction. The threads deal 7d6 slashing damage and 7d6 mental damage to all creatures in a 30-foot emanation, with a DC 34 basic Reflex save. If a creature fails its save, the threads awaken the mindscape anchor within it, affecting it differently based on which anchor that creature used to gain access to the center of the mindscape. (If there is a PC who didn't absorb a mindscape anchor, for instance because there are more than four PCs in the party, then use the anchor of the PC closest to them.) The Echo then can't use Spindle's Web for 1d4 rounds. - Lantern The lantern outlines the creature with searing faerie fire that deals 2d6 persistent fire damage.",
+        "- Mirror The mirror reflects the creature to another location, teleporting them to a clear space within 25 feet of their current location.",
+        "- Chalice The chalice drains life force, granting the Echo temporary HP equal to half the damage dealt.",
+        "- Tome The tome floods the creature's mind with information; the target is slowed 1 for 1 round."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 34,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "7d6",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 42
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

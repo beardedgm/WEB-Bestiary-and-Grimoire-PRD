@@ -1,0 +1,264 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:dig-widget",
+  "name": "Dig-widget",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/dig-widget.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "small",
+      "construct",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 5,
+    "con": 1,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 9,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 12
+    },
+    {
+      "name": "Athletics",
+      "mod": 9
+    },
+    {
+      "name": "Stealth",
+      "mod": 14
+    },
+    {
+      "name": "Thievery",
+      "mod": 15
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 65,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 10
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 7
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "bleed"
+      ],
+      "conditions": [],
+      "other": [
+        "death"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "burrow": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Mechanical Vulnerability",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature with expert proficiency in Thievery can attempt a check to Disable a Device to damage a dig-widget. The DC is 22, and each success deals 20 damage."
+      ]
+    },
+    {
+      "name": "drill",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [
+          "fatal <d10>",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "corkscrew",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+4",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Fastening Leap",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The dig-widget Leaps up 20 feet onto a creature or object and attempts a corkscrew Strike against it. If the Strike damages the target, the dig-widget attaches to the target (typically to the back of a creature). This is similar to Grabbing the creature, but the dig-widget moves with that creature rather than holding it in place. While attached, the dig-widget can't use its corkscrew. The dig-widget can be Shoved off, or it can detach itself with an Interact action."
+      ]
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A dig-widget's Strikes deal an additional 1d6 precision damage to flat-footed creatures."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 20
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

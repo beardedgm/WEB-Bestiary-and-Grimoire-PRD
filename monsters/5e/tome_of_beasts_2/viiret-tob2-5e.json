@@ -1,0 +1,250 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:viiret",
+  "name": "Viiret",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 361,
+    "path": "monsters/5e/tome_of_beasts_2/viiret.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": -2,
+    "con": 3,
+    "int": -5,
+    "wis": 1,
+    "cha": -3
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 6,
+    "con": 17,
+    "int": 1,
+    "wis": 12,
+    "cha": 5
+  },
+  "perception": {
+    "mod": null,
+    "passive": 11
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 85,
+        "note": null,
+        "formula": "10d10+30"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "necrotic",
+        "poison"
+      ],
+      "conditions": [
+        "blinded",
+        "charmed",
+        "deafened",
+        "frightened",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Disease Eater",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The viiret is immune to disease, and it has advantage on attack rolls against a creature if the creature is poisoned or suffering from a disease."
+      ],
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Disease Sense",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The viiret can pinpoint, by scent, the location of poisoned creatures or creatures suffering from a disease within 60 feet of it."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The viiret makes two attacks, only one of which can be a bite attack."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 12 (2d8 + 3) piercing damage. If the target is Medium or smaller, it must succeed on a DC 13 Dexterity saving throw or be swallowed. A swallowed creature is blinded and restrained, and it has total cover against attacks and other effects outside the viiret. At the start of each of the viiret's turns, the creature takes 7 (2d6) acid damage. If the creature is poisoned or suffering from a disease, it takes 3 (1d6) necrotic damage at the start of each of the viiret's turns instead. In addition, at the start of each of the viiret's turns, a swallowed creature that is poisoned or suffering from a disease can repeat the condition or disease's saving throw as if it had taken a long rest, but it suffers no ill effects on a failed saving throw. The creature has advantage on this saving throw. The viiret can have only one creature swallowed at a time.<br><br>If the viiret takes 10 damage or more on a single turn from the swallowed creature, the viiret must succeed on a DC 13 Constitution saving throw or regurgitate the swallowed creature, which falls prone within 5 feet of the viiret. Alternatively, the viiret can regurgitate the creature as a bonus action, which it does if the swallowed creature isn't poisoned or suffering from a disease and a creature that is poisoned or suffering from a disease is within 60 feet of the viiret. If the viiret dies, a swallowed creature is no longer restrained by it and can escape by using 10 feet of movement, exiting prone."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "acid"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "blinded",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Vine",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 10 ft., one creature. Hit: 8 (2d4 + 3) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d4+3",
+          "average": 8,
+          "type": "bludgeoning"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

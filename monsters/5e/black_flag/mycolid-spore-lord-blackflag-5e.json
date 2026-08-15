@@ -1,0 +1,287 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:mycolid-spore-lord",
+  "name": "Mycolid Spore Lord",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/mycolid_spore_lord_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 2,
+    "con": 1,
+    "int": -1,
+    "wis": 4,
+    "cha": -1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "keensense (can't sense beyond this radius)",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Druidic and Sylvan but can't speak",
+    "telepathy 60 ft."
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 68,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Plant Resilience",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Fungal Toxicity",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that hits the mycolid with a melee attack while within 5 feet of it must succeed on a DC 13 CON save or be poisoned for 5 hours. If the poison isn't neutralized before 5 hours have passed, the creature must succeed on a DC 14 CON save, taking 9 (2d8) poison damage on a failed save, or half as much damage on a successful one."
+      ],
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "poison"
+        }
+      ],
+      "condition": {
+        "name": "poisoned",
+        "duration": "5 hours",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Mycolid Connection",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The spore lord can pinpoint the location of each friendly mycolid within 1 mile of it. In addition, its telepathy range increases to 1 mile when communicating with other mycolids."
+      ]
+    },
+    {
+      "name": "Plant Resilience",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The mycolid is resistant to exhaustion and to the paralyzed, petrified, and unconscious conditions."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The spore lord makes two Fungal Staff attacks or uses Hurl Sap twice."
+      ]
+    },
+    {
+      "name": "Fungal Staff",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +5 to hit, reach 5 ft., one target. _Hit:_ 6 (1d6+3) bludgeoning damage plus 9 (2d8) poison damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d6+3",
+          "average": 6,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Hurl Sap",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Ranged Weapon Attack:_ +4 to hit, range 30/120 ft., one target. _Hit:_ 11 (2d8+2) poison damage, and the sap sticks to the target. While the sap is stuck, the target takes 4 (1d8) poison damage at the start of each of its turns. A creature can use an action to scrape away the sap, ending the effect."
+      ],
+      "damage": [
+        {
+          "formula": "2d8+2",
+          "average": 11,
+          "type": "poison"
+        },
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Mushroom Ring",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The spore lord causes fungal growth to erupt from a point on the ground it can sense within 120 feet of it. A ring of mushrooms sprouts in a 15-foot radius around that point. Each creature that isn't a mycolid within that ring must make a DC 14 CON save, taking 13 (3d8) poison damage on a failed save, or half as much damage on a successful one. Each mycolid within that ring gains 5 (2d4) temporary HP."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "3d8",
+          "average": 13,
+          "type": "poison"
+        }
+      ],
+      "area": {
+        "shape": "sphere",
+        "size": 15,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Slumber Spores",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The spore lord ejects sleep-inducing spores from its body. Each creature that isn't a mycolid within 10 feet of the spore lord must make a DC 14 WIS save. On a failure, a creature takes 9 (2d8) poison damage and falls unconscious for 1 minute. On a success, a creature takes half the damage and doesn't fall unconscious. The unconscious creature wakes if it takes damage or if a creature uses an action to wake it."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Fetid Feast",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The spore lord draws sustenance from a Medium or larger pile of carrion or rotting vegetation within 5 feet of it. It regains 7 (2d6) HP. The spore lord can't use Fetid Feast on a pile of carrion or vegetation if it or another mycolid has already used Fetid Feast on that pile."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

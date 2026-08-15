@@ -1,0 +1,345 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:mirager",
+  "name": "Mirager",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 271,
+    "path": "monsters/5e/tome_of_beasts_2023/mirager-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral Evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 3,
+    "con": 2,
+    "int": 0,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": {
+    "str": 12,
+    "dex": 16,
+    "con": 14,
+    "int": 10,
+    "wis": 14,
+    "cha": 19
+  },
+  "perception": {
+    "mod": 4,
+    "passive": 14
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 6
+    },
+    {
+      "name": "Performance",
+      "mod": 8
+    },
+    {
+      "name": "Perception",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 78,
+        "note": null,
+        "formula": "12d8+24"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Sensuous Grace",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The mirager moves with a flowing grace that Humanoids find appealing. If the mirager moves at least 10 feet on its turn, each Humanoid within 30 feet of it that can see it must succeed on a DC 14 Charisma saving throw or be charmed until the end of its next turn."
+      ],
+      "save": {
+        "defense": "cha",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "charmed",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mirager makes two Slam attacks. If both Slam attacks hit a Medium or smaller creature, the target is also grappled (escape DC 13). The mirager can grapple only one creature at a time."
+      ]
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Thirsting Kiss",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Spell Attack: +6 to hit, reach 5 ft., one willing creature, or a creature that is grappled by the mirager, incapacitated, or restrained. Hit: 22 (4d8 + 4) necrotic damage, and the mirager gains temporary hp equal to half that amount."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "spell",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+4",
+          "average": 22,
+          "type": "necrotic"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Blow Kiss",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mirager blows a kiss at a creature charmed by it. The target must make a DC 14 Charisma saving throw. On a failure, a creature takes 17 (5d6) psychic damage and is stunned until the end of its next turn. On a success, a creature takes half the damage and the charmed condition immediately ends on it."
+      ],
+      "damage": [
+        {
+          "formula": "5d6",
+          "average": 17,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "cha",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Illusory Appearance",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mirager covers itself and anything it is wearing or carrying with a magical illusion that makes it look like another creature of its general size and Humanoid shape. The illusion ends if the mirager takes a bonus action to end it or if the mirager dies."
+      ]
+    },
+    {
+      "name": "Spellcasting",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mirager casts one of the following spells, requiring no material components and using Charisma as the spellcasting ability (spell save DC 14):<br>3/day: charm person<br>1/day each: hallucinatory terrain (as an action), suggestion"
+      ]
+    },
+    {
+      "name": "Sand Dancer",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "While in sandy terrain, the mirager takes the Dash or Disengage action."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spellcasting",
+      "type": "prepared",
+      "tradition": null,
+      "dc": 14,
+      "attackBonus": null,
+      "ability": "cha",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "3/day",
+          "uses": 3,
+          "spells": [
+            {
+              "name": "charm person<br>",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "1/day each",
+          "uses": 1,
+          "spells": [
+            {
+              "name": "hallucinatory terrain (as an action)",
+              "uses": null
+            },
+            {
+              "name": "suggestion",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

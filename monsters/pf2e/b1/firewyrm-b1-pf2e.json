@@ -1,0 +1,331 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:firewyrm",
+  "name": "Firewyrm",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/firewyrm.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [
+      "fire"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "huge",
+      "elemental",
+      "fire"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 5,
+    "con": 4,
+    "int": -1,
+    "wis": 3,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "smoke vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Ignan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 20
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 165,
+        "formula": null,
+        "note": "explosion"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "fire",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Explosion",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "fire"
+      ],
+      "entries": [
+        "When the firewyrm dies, it explodes, dealing 6d6 fire damage to each creature in a 10-foot emanation (DC 28 basic Reflex save)."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 28,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Intense Heat",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "fire"
+      ],
+      "entries": [
+        "10 feet, 4d6 fire, DC 25 basic Reflex."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 25,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 10,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+11",
+          "average": null,
+          "type": "fire"
+        },
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "persistent fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "fire mote",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [
+          "range increment <60 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "evocation",
+        "fire",
+        "primal"
+      ],
+      "entries": [
+        "The firewyrm breathes a 30-foot cone of fire dealing 7d6 fire and 2d8 persistent fire damage to every creature within the cone (DC 28 basic Reflex save). The firewyrm can't use Breath Weapon again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 28,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Elemental",
+        "skill": "Arcana, Nature",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

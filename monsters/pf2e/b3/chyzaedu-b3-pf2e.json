@@ -1,0 +1,427 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:chyzaedu",
+  "name": "Chyzaedu",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/chyzaedu.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "gargantuan",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 3,
+    "con": 4,
+    "int": 2,
+    "wis": 7,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 21,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Aklo",
+    "Common",
+    "Draconic",
+    "Protean",
+    "Undercommon; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 21
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 17
+    },
+    {
+      "name": "Intimidation",
+      "mod": 19
+    },
+    {
+      "name": "Occultism",
+      "mod": 22
+    },
+    {
+      "name": "Religion",
+      "mod": 21
+    },
+    {
+      "name": "Survival",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": "27 without alien vestment"
+    },
+    "hp": [
+      {
+        "value": 135,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 15
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "mental",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "burrow": 20,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Alien Vestment",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The chyzaedu wears an eerie, alien layer of shimmering violet mucus that slithers and crawls over its flesh, but is hard as iron to the touch. If a chyzaedu takes bludgeoning damage from a critical hit, its alien vestment is shattered—this reduces its AC to 27 and causes it to lose its resistance to mental and physical damage; it can grow a new alien vestment by concentrating for 1 hour."
+      ]
+    },
+    {
+      "name": "Ecstatic Hunger",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "enchantment",
+        "incapacitation",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "30 feet. A chyzaedu gains sustenance by feeding upon the metabolisms of organic victims. A living creature that ends its turn in the aura must attempt a Will save."
+      ],
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected and is temporarily immune for 24 hours.",
+          "success": "The creature suffers a painful hunger pang, becoming flat-footed for 1 round.",
+          "failure": "If possible, the creature spends its first 2 actions on its next turn eating or drinking (or spending actions to procure food or drink from its possessions or the surroundings, if necessary). The creature won't consume anything dangerous, but will eat things it normally has no appetite for.",
+          "criticalFailure": "As failure, but the creature will eat or drink dangerous consumables, such as poison or rotten food, if other food or drink are not immediately available. The creature must spend its first 2 actions each round consuming for as long as it remains in the chyzaedu's aura plus 1 minute thereafter, but the creature can attempt a new saving throw at the end of its turn each round to end the effect early."
+        }
+      }
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          16,
+          11
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12+9",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          17,
+          13
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+9",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Swallow Whole",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Medium, 3d8+7 bludgeoning, Rupture 26"
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Prepared divine Spells",
+      "type": "prepared",
+      "tradition": "divine",
+      "dc": 29,
+      "attackBonus": 21,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Cantrips (5th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "divine lance",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            },
+            {
+              "name": "sigil",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "command",
+              "uses": null
+            },
+            {
+              "name": "fear",
+              "uses": null
+            },
+            {
+              "name": "sanctuary",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "enhance victuals",
+              "uses": null
+            },
+            {
+              "name": "ghoulish cravings",
+              "uses": null
+            },
+            {
+              "name": "silence",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "chilling darkness",
+              "uses": null
+            },
+            {
+              "name": "heal",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "air walk",
+              "uses": null
+            },
+            {
+              "name": "dimensional anchor",
+              "uses": null
+            },
+            {
+              "name": "heal",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "command",
+              "uses": null
+            },
+            {
+              "name": "harm",
+              "uses": 4
+            },
+            {
+              "name": "sending",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

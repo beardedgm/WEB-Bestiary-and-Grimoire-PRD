@@ -1,0 +1,352 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:urdefhan-warrior",
+  "name": "Urdefhan Warrior",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/urdefhan-warrior.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "urdefhan"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "medium",
+      "humanoid",
+      "urdefhan"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 1,
+    "con": 2,
+    "int": 0,
+    "wis": 2,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 9,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Daemonic",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 10
+    },
+    {
+      "name": "Intimidation",
+      "mod": 9
+    },
+    {
+      "name": "Religion",
+      "mod": 7
+    },
+    {
+      "name": "Survival",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 55,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 9
+      },
+      {
+        "name": "ref",
+        "mod": 8
+      },
+      {
+        "name": "will",
+        "mod": 9
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "death effects",
+        "disease",
+        "fear"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "positive",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Necrotic Decay",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "divine",
+        "necromancy",
+        "negative"
+      ],
+      "entries": [
+        "When an urdefhan dies, its invisible flesh quickly rots away and sublimates into a foul-smelling gas that fills a 5-foot emanation around the body. This gas deals 3d6 negative damage to creatures in this area as their flesh curdles and rots as well (DC 17 basic Fortitude save)."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 5,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 17,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "rhoka sword",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          7,
+          2
+        ],
+        "traits": [
+          "deadly <1d8>",
+          "two-hand 1d10"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+6",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          7,
+          2
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Wicked Bite",
+        "Wicked Bite"
+      ]
+    },
+    {
+      "name": "composite longbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          5,
+          0
+        ],
+        "traits": [
+          "deadly <1d10>",
+          "propulsive",
+          "range increment <100 feet>",
+          "volley <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Ravenous Attack",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The urdefhan makes one rhoka sword Strike and one jaws Strike against a single creature. Its multiple attack penalty doesn't increase until after both attacks."
+      ]
+    },
+    {
+      "name": "Wicked Bite",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The urdefhan maintains contact, turning the creature's flesh translucent around the site of the injury. The urdefhan chooses one of two options, each of which requires a DC 20 Fortitude save. If the jaws Strike was a critical hit, the creature suffers both effects, using the same save result for both. - Drain Blood The urdefhan drinks some of the creature's blood. On a failed save, the creature is drained 1 and the urdefhan regains 5 HP (or, on a critical failure, it's drained 2 and the urdefhan regains 10 HP).",
+        "- Drain Vitality (necromancy) The urdefhan draws out some of the creature's vital essence. The creature becomes enfeebled 1 for 1 hour on a failed save (or enfeebled 2 for 1 hour on a critical failure)."
+      ],
+      "requirements": "The urdefhan damaged a creature with a jaws Strike on its last action",
+      "save": {
+        "defense": "fortitude",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 18
+      }
+    ],
+    "items": [
+      "composite longbow (20 arrows)",
+      "rhoka sword",
+      "studded leather"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

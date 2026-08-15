@@ -1,0 +1,250 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:fossil-golem",
+  "name": "Fossil Golem",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/fossil-golem.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "golem",
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "huge",
+      "construct",
+      "golem",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 2,
+    "con": 6,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 20,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 20
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 195,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 26
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 18
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing magic (see below)",
+        "necromancy",
+        "nonlethal attacks"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except adamantine or bludgeoning"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Golem Antimagic",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "harmed by cold and water (5d10, 2d8 from areas and persistent damage); healed by acid (area 2d8 HP); slowed by earth."
+      ]
+    },
+    {
+      "name": "Vulnerable to Stone to Flesh",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A stone to flesh spell negates the golem's golem antimagic and its resistance to physical damage for 1 round. A flesh to stone spell reverses this effect immediately."
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 26,
+        "map": [
+          26,
+          21,
+          16
+        ],
+        "traits": [
+          "deadly <2d10>",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+13",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "fossilization",
+        "fossilization"
+      ]
+    },
+    {
+      "name": "Fossilization",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "incapacitation",
+        "transmutation"
+      ],
+      "entries": [
+        "The first time each round a creature takes damage from the fossil golem's jaws, the target must attempt a DC 32 Fortitude save. If it fails and has not already been slowed by this ability, it becomes slowed 1 for 1 minute. If the creature was already slowed by this ability, a failed save causes it to be petrified permanently."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 32,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Reassemble",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The fossil golem reorganizes its bones, increasing its reach to 25 feet and reducing its Speed to 15 feet. It can revert to its original form by taking this action again."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 35
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

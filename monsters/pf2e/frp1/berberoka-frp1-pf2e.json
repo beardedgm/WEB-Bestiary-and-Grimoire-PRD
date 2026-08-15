@@ -1,0 +1,304 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:frp1:berberoka",
+  "name": "Berberoka",
+  "gameSystem": "pf2e",
+  "variant": "frp1",
+  "source": {
+    "code": "frp1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/frp1/berberoka.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "giant",
+      "humanoid"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "huge",
+      "giant",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 4,
+    "con": 6,
+    "int": -1,
+    "wis": 3,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 26,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Common",
+    "Jotun"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 31
+    },
+    {
+      "name": "Deception",
+      "mod": 27
+    },
+    {
+      "name": "Intimidation",
+      "mod": 25
+    },
+    {
+      "name": "Nature",
+      "mod": 26
+    },
+    {
+      "name": "Stealth",
+      "mod": 25
+    },
+    {
+      "name": "Survival",
+      "mod": 26
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 36,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 310,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 29
+      },
+      {
+        "name": "ref",
+        "mod": 23
+      },
+      {
+        "name": "will",
+        "mod": 24
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "fear of crabs",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Fear of Crabs",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "If a berberoka sees a crab or crab-like creature, the berberoka must attempt a DC 33 Will save. They then becomes immune to the sight of that creature for 10 minutes."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 33,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The berberoka is unaffected.",
+          "success": "The berberoka becomes frightened|CRB|frightened 2.",
+          "failure": "The berberoka gains the fleeing condition for 1 round and is frightened|CRB|frightened 4."
+        }
+      }
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 31,
+        "map": [
+          31,
+          26,
+          21
+        ],
+        "traits": [
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+16",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Greater Constrict",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "2d12+12 bludgeoning, DC 33"
+      ]
+    },
+    {
+      "name": "Consume Lake",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The berberoka drinks a prolific amount from an adjacent water source. If the water source is equal to or greater in volume than themself, the berberoka consumes up to 1,500 gallons of water per minute and becomes waterlogged. They can release water at the same rate. While waterlogged, the berberoka can use Spray Water, their size grows to Gargantuan, and their Speed is reduced to 15 feet."
+      ]
+    },
+    {
+      "name": "Spray Water",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The berberoka sprays a blast of water in a 60-foot line. All creatures in the line take 6d8 bludgeoning damage (DC 35 basic Reflex save). On a failed save, a creature is knocked prone and pushed back 5 feet (10 feet on a critically failed save)."
+      ],
+      "requirements": "The berberoka is waterlogged",
+      "area": {
+        "shape": "line",
+        "size": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 35,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d8",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 36
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

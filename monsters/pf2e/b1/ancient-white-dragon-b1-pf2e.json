@@ -1,0 +1,574 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:ancient-white-dragon",
+  "name": "Ancient White Dragon",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/ancient-white-dragon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "cold"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "huge",
+      "cold",
+      "dragon"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 3,
+    "con": 7,
+    "int": 2,
+    "wis": 3,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    },
+    {
+      "name": "snow vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic",
+    "Jotun"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 24
+    },
+    {
+      "name": "Arcana",
+      "mod": 23
+    },
+    {
+      "name": "Athletics",
+      "mod": 31
+    },
+    {
+      "name": "Intimidation",
+      "mod": 28
+    },
+    {
+      "name": "Stealth",
+      "mod": 26
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 36,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 330,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 30
+      },
+      {
+        "name": "ref",
+        "mod": 26
+      },
+      {
+        "name": "will",
+        "mod": 24
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "cold"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "fly": 160
+    },
+    "special": [
+      "ice climb 40 feet"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Blizzard",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "aura",
+        "cold"
+      ],
+      "entries": [
+        "50 feet. After the dragon uses its Breath Weapon, a fierce blizzard of blinding snow surrounds its body for 1 round. Everything in the aura is terrain for other creatures that are on the ground, climbing, or flying. The blowing snow also makes all creatures in the area concealed. While the blizzard rages, the dragon's dragon chill extends to the full area of the blizzard."
+      ],
+      "aura": {
+        "range": 50,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Dragon Chill",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "aura",
+        "cold",
+        "evocation"
+      ],
+      "entries": [
+        "10 feet, 3d6 cold damage (DC 34 basic Reflex)"
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 34,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 10,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "90 feet, DC 34"
+      ],
+      "aura": {
+        "range": 90,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 34,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Freezing Blood",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "arcane",
+        "cold"
+      ],
+      "entries": [
+        "The dragon's blood sprays on the creature, dealing 3d6 cold damage. A creature that takes cold damage in this way is slowed 1 for 1 round."
+      ],
+      "trigger": "An adjacent creature deals piercing or slashing damage to the dragon.",
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 31,
+        "map": [
+          31,
+          26,
+          21
+        ],
+        "traits": [
+          "cold",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+16",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 31,
+        "map": [
+          31,
+          27,
+          23
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+16",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          24,
+          19
+        ],
+        "traits": [
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+14",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "arcane",
+        "cold",
+        "evocation"
+      ],
+      "entries": [
+        "The dragon breathes a cloud of frost that deals 16d6 cold damage in a 50-foot cone (DC 36 basic Reflex save). It can't use Breath Weapon again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 50,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 36,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "16d6",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Draconic Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes two claw Strikes and one tail Strike in any order."
+      ]
+    },
+    {
+      "name": "Draconic Momentum",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the dragon scores a critical hit with a Strike, it recharges its Breath Weapon."
+      ]
+    },
+    {
+      "name": "Ground Slam",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon slams into the ground. It can do this if it's on the ground or Flying within 10 feet of the ground. Each creature on the ground within 10 feet must succeed at a DC 37 Reflex save or fall prone and take 5d6 bludgeoning damage. The dragon can then Step."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 37,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "5d6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Ice Climb",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A white dragon can climb on ice as though it had the listed climb Speed. It ignores terrain and terrain from ice and snow and doesn't risk falling when crossing ice."
+      ]
+    },
+    {
+      "name": "Shape Ice",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "arcane",
+        "transmutation",
+        "water"
+      ],
+      "entries": [
+        "The dragon reshapes a cube of ice or snow it touches, up to 10 feet across. Any creature standing atop the ice must succeed at a DC 15 Reflex save or Acrobatics check. On a failure, the creature falls prone atop the ice; on a critical failure, it falls off the ice entirely and is also prone."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 36,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "gust of wind",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "obscuring mist",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "wall of ice",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana",
+        "dc": 36
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

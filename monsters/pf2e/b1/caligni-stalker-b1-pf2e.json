@@ -1,0 +1,312 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:caligni-stalker",
+  "name": "Caligni Stalker",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/caligni-stalker.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "caligni"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "cn",
+      "medium",
+      "caligni",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 5,
+    "con": 2,
+    "int": -1,
+    "wis": 2,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "light blindness",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Caligni",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 13
+    },
+    {
+      "name": "Athletics",
+      "mod": 8
+    },
+    {
+      "name": "Stealth",
+      "mod": 13
+    },
+    {
+      "name": "Thievery",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 21,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 60,
+        "formula": null,
+        "note": "death flame"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 10
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Death Flame",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "light"
+      ],
+      "entries": [
+        "When the stalker dies, their body combusts in a flash of white-hot flame. All creatures in a 20-foot burst take 5d6 fire damage (DC 21 basic Reflex save) The stalker's gear and treasure are unaffected by the flames and are left in a pile where they died."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 21,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "shortsword",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 13,
+        "map": [
+          13,
+          9,
+          5
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "versatile <S>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+7",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "black smear poison (see below)",
+        "black smear poison (see below)"
+      ]
+    },
+    {
+      "name": "Double Slice",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The caligni stalker makes two Strikes against the same target, one with each of their shortswords. The stalker combines the damage of any attacks that hit and applies precision damage, resistances, and weaknesses only once. Both attacks count toward the stalker's multiple attack penalty, but the penalty increases only after both attacks."
+      ]
+    },
+    {
+      "name": "Encircling Command",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "auditory"
+      ],
+      "entries": [
+        "Each caligni creeper within 30 feet of the stalker can Step. Each creeper can benefit from Encircling Command only once per round."
+      ]
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The caligni stalker deals 1d6 extra precision damage to flat-footed creatures."
+      ]
+    },
+    {
+      "name": "Black Smear Poison",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Many calignis use a debilitating poison crafted from subterranean fungi."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 19,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Cantrips (2nd)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": "at will"
+            },
+            {
+              "name": "obscuring mist",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 19
+      }
+    ],
+    "items": [
+      "black smear poison (6 doses; see below)",
+      "leather armor",
+      "shortsword (2)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:sulfur-zombie",
+  "name": "Sulfur Zombie",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/sulfur-zombie.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead",
+      "zombie"
+    ],
+    "subtypes": [
+      "fire",
+      "mindless"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "medium",
+      "fire",
+      "mindless",
+      "undead",
+      "zombie"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 2,
+    "con": 4,
+    "int": -5,
+    "wis": 2,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 15
+    },
+    {
+      "name": "Stealth",
+      "mod": 12
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 125,
+        "formula": null,
+        "note": "negative healing|b2"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 16
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire",
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "positive",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Death Throes",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a sulfur zombie dies, its body explodes in a 30-foot burst of fire and debris that deals 2d10 bludgeoning and 2d10 fire damage to each creature in the area (DC 21 basic Reflex save)."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 21,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+5",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent fire"
+        }
+      ],
+      "entries": [
+        "blinding sulfur",
+        "blinding sulfur"
+      ]
+    },
+    {
+      "name": "Blinding Sulfur",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "incapacitation"
+      ],
+      "entries": [
+        "A sulfur zombie burns with putrid inner fire. A creature hit by a sulfur zombie's fist Strike must attempt a DC 22 Fortitude save. On a failure, the creature is blinded for 1 round, or for 1 minute on a critical failure."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 22
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

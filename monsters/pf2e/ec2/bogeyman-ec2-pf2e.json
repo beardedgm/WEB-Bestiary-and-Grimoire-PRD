@@ -1,0 +1,369 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec2:bogeyman",
+  "name": "Bogeyman",
+  "gameSystem": "pf2e",
+  "variant": "ec2",
+  "source": {
+    "code": "ec2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec2/bogeyman.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "medium",
+      "fey"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 7,
+    "con": 4,
+    "int": 0,
+    "wis": 3,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Sylvan; Tongues"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 23
+    },
+    {
+      "name": "Athletics",
+      "mod": 19
+    },
+    {
+      "name": "Deception",
+      "mod": 22
+    },
+    {
+      "name": "Intimidation",
+      "mod": 22
+    },
+    {
+      "name": "Society",
+      "mod": 16
+    },
+    {
+      "name": "Stealth",
+      "mod": 23
+    },
+    {
+      "name": "Thievery",
+      "mod": 21
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 175,
+        "formula": null,
+        "note": "fast healing 10"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 16
+      },
+      {
+        "name": "ref",
+        "mod": 23
+      },
+      {
+        "name": "will",
+        "mod": 19
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "fear"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold iron",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": [
+      "mobility"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Deepest Fear",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "illusion",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "60 feet. A bogeyman's aura of terror manifests as a shifting haze of images that reflect the viewers' deepest fears. Whenever a creature ends its turn within the aura, it must succeed at a DC 28 Will save or become frightened|CRB|frightened 1. A creature's frightened condition (including from striking fear) does not reduce as long as the creature remains in the aura. If the creature succeeds at its saving throw, it becomes temporarily immune to the aura for 24 hours."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 28,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          17,
+          13
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12+9",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "striking fear",
+        "striking fear"
+      ]
+    },
+    {
+      "name": "Devour Soul",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "The bogey consumes the creature's soul. The soul is utterly destroyed—nothing short of wish or a similar effect can restore it to life, and only after the bogey has been slain. The bogey regains Hit Points equal to double the level of the consumed creature. After devouring three souls within a year, the bogey transforms into a bugaboo."
+      ],
+      "requirements": "The bogey has killed a creature within the last round and is adjacent to the creature"
+    },
+    {
+      "name": "Mobility",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the bugaboo uses a Stride action to move half their Speed or less, that movement does not trigger reactions."
+      ]
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The bugaboo deals 1d6 extra precision damage to flat-footed creatures. Striking Fear (emotion, fear, mental) If a bugaboo scores a critical hit with a claw Strike, the target must attempt a DC 24 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target is frightened|CRB|frightened 1.",
+          "failure": "The target is frightened|CRB|frightened 2.",
+          "criticalFailure": "The target is frightened|CRB|frightened 3 and fleeing for 1 round."
+        }
+      }
+    },
+    {
+      "name": "Surprise Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "On the first round of combat, creatures that haven't acted yet are flat-footed to the bogey."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 27,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "Constant (4th)",
+          "spells": [
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "Cantrips (4th)",
+          "spells": [
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "knock",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "fear",
+              "uses": null
+            },
+            {
+              "name": "mind reading",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "gaseous form",
+              "uses": null
+            },
+            {
+              "name": "invisibility",
+              "uses": null
+            },
+            {
+              "name": "nightmare",
+              "uses": null
+            },
+            {
+              "name": "phantasmal killer",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 29
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

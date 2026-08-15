@@ -1,0 +1,561 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:ancient-brine-dragon",
+  "name": "Ancient Brine Dragon",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/ancient-brine-dragon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 17,
+    "xp": null,
+    "display": "Creature 17"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "dragon",
+      "elemental"
+    ],
+    "subtypes": [
+      "amphibious",
+      "water"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "ln",
+      "gargantuan",
+      "amphibious",
+      "dragon",
+      "elemental",
+      "water"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 5,
+    "con": 6,
+    "int": 5,
+    "wis": 5,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 32,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Aquan",
+    "Common",
+    "Draconic",
+    "Sylvan",
+    "Utopian"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 28
+    },
+    {
+      "name": "Athletics",
+      "mod": 32
+    },
+    {
+      "name": "Deception",
+      "mod": 32
+    },
+    {
+      "name": "Intimidation",
+      "mod": 34
+    },
+    {
+      "name": "Nature",
+      "mod": 30
+    },
+    {
+      "name": "Society",
+      "mod": 30
+    },
+    {
+      "name": "Survival",
+      "mod": 29
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 40,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 330,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 31
+      },
+      {
+        "name": "ref",
+        "mod": 30
+      },
+      {
+        "name": "will",
+        "mod": 30
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50,
+      "fly": 140,
+      "swim": 70
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "90 feet, DC 36"
+      ],
+      "aura": {
+        "range": 90,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 36,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Brine Spit",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon spits a glob of caustic salt water at the creature. The creature takes 7d6 acid damage (DC 36 basic Reflex save). On a failure, the concentrate action is disrupted."
+      ],
+      "trigger": "A creature the brine dragon observes within 30 feet uses a concentrate action",
+      "save": {
+        "defense": "reflex",
+        "dc": 36,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "7d6",
+          "average": null,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 34,
+        "map": [
+          34,
+          29,
+          24
+        ],
+        "traits": [
+          "acid",
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+17",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "5d4",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 34,
+        "map": [
+          34,
+          30,
+          26
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+17",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          27,
+          22
+        ],
+        "traits": [
+          "magical",
+          "reach <25 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 25,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+17",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "wing",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          27,
+          22
+        ],
+        "traits": [
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12+17",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "acid",
+        "evocation",
+        "primal"
+      ],
+      "entries": [
+        "The dragon breathes a spray of acidic salt water that deals 18d6 acid damage in a 120-foot line (DC 38 basic Reflex save). They can't use Breath Weapon again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "line",
+        "size": 120,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 38,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "18d6",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Capsize",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "The dragon tries to capsize an adjacent aquatic vessel of their size or smaller. They must succeed at an Athletics check with a DC of 35 (reduced by 5 for each size smaller the vessel is than the dragon) or the pilot's Sailing Lore DC, whichever is higher."
+      ]
+    },
+    {
+      "name": "Desiccating Bite",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes a jaws Strike. On a hit, the target takes 6d6 persistent acid damage, and is sickened 3 from the pain of salt and brine in its wounds."
+      ]
+    },
+    {
+      "name": "Draconic Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes two claw Strikes and one wing Strike in any order."
+      ]
+    },
+    {
+      "name": "Draconic Momentum",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dragon recharges their Breath Weapon whenever they score a critical hit with a Strike."
+      ]
+    },
+    {
+      "name": "Painful Strikes",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "acid"
+      ],
+      "entries": [
+        "The brine dragon's body is encrusted with salty, acidic crystals. When a target takes damage from one of the dragon's melee Strikes, it must succeed at a DC 38 Fortitude Save or be stunned 1 (stunned 3 on a critical failure). The target then becomes temporarily immune for 1 minute."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 38,
+      "attackBonus": 30,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "hydraulic push",
+              "uses": "at will"
+            },
+            {
+              "name": "obscuring mist",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "control water",
+              "uses": 3
+            },
+            {
+              "name": "mariner's curse",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "hydraulic torrent",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana, Nature",
+        "dc": 41
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

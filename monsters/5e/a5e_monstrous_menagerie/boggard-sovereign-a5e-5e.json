@@ -1,0 +1,245 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:boggard-sovereign",
+  "name": "Boggard Sovereign",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 36,
+    "path": "monsters/5e/a5e_monstrous_menagerie/boggard-sovereign-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 1,
+    "con": 2,
+    "int": 1,
+    "wis": 2,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 12,
+    "con": 14,
+    "int": 12,
+    "wis": 14,
+    "cha": 12
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [],
+  "languages": [
+    "Boggard",
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 3
+    },
+    {
+      "name": "Perception",
+      "mod": 3
+    },
+    {
+      "name": "Intimidation",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 67,
+        "note": null,
+        "formula": "9d10+18"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "swim": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Amphibious",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The boggard can breathe air and water."
+      ]
+    },
+    {
+      "name": "Speak with Frogs and Toads",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The boggard can communicate with frogs and toads."
+      ]
+    },
+    {
+      "name": "Parting Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 12 (2d8 + 3) piercing damage plus 7 (2d6) poison damage. On a hit  the boggard may jump up to its Speed horizontally and half its Speed vertically without provoking opportunity attacks."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Incite Frenzy",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Each boggard and frog with a Bite attack within 60 feet may use its reaction to make a Bite attack."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      }
+    },
+    {
+      "name": "Earthshaking Croak",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Each non-frog and non-boggard creature within 30 feet makes a DC 12 Constitution saving throw  taking 14 (4d6) thunder damage and falling prone on a failure  or taking half damage on a success."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "thunder"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Summon Frog Guardians",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The boggard magically summons two Medium frog guardians  which wriggle from the ground in an empty space within 30 feet. They follow the boggards orders and disappear after 1 minute. They have the statistics of boggards except they have Intelligence 2  have no spear attack  and can make a bite attack as part of their Vaulting Leap."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

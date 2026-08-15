@@ -1,0 +1,419 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:babau",
+  "name": "Babau",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/babau.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "demon",
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "medium",
+      "demon",
+      "fiend"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 4,
+    "con": 4,
+    "int": 2,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 13,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "see invisibility",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Celestial",
+    "Draconic; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 12
+    },
+    {
+      "name": "Athletics",
+      "mod": 13
+    },
+    {
+      "name": "Intimidation",
+      "mod": 14
+    },
+    {
+      "name": "Religion",
+      "mod": 10
+    },
+    {
+      "name": "Stealth",
+      "mod": 16
+    },
+    {
+      "name": "Thievery",
+      "mod": 14
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 130,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 14
+      },
+      {
+        "name": "ref",
+        "mod": 16
+      },
+      {
+        "name": "will",
+        "mod": 11
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold iron",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "good",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Mercy Vulnerability",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Babaus revel in gore, and when wounds are healed, they recoil in pain. When a creature heals from damage that the babau dealt on their last turn with Grievous Strike, sneak attack, or a critical hit, the demon takes 4d6 mental damage. The babau can take this mental damage only once per round."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    },
+    {
+      "name": "Reactive Slime",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The babau excretes a gout of acidic, bloodlike slime against the attacker and its weapon. The attacker must attempt a DC 24 Reflex save."
+      ],
+      "trigger": "A creature within the babau's reach successfully hits the babau with a Strike",
+      "save": {
+        "defense": "reflex",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The attacker is unaffected.",
+          "success": "The attacker takes 1d6 acid damage.",
+          "failure": "The attacker takes 2d6 acid damage.",
+          "criticalFailure": "As failure, except the weapon used to Strike the babau becomes broken, unless the weapon is made of a material that is immune to acid."
+        }
+      }
+    },
+    {
+      "name": "longspear",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "evil",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+7",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          11,
+          6
+        ],
+        "traits": [
+          "evil",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d10+7",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          12,
+          8
+        ],
+        "traits": [
+          "agile",
+          "evil",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+7",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Grievous Strike",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The babau attacks with the intent of creating a particularly horrific and gory wound. The babau makes a melee Strike. This counts as two attacks when calculating the daemon's multiple attack penalty. If this Strike hits, the babau deals an additional 2d6 damage of the same damage type, and the creature struck is frightened 2."
+      ]
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The babau's Strikes deal an extra 2d6 precision damage to flat-footed creatures. Rituals like planar ally or planar binding are typical for long-term ends, and summon fiend for combat applications. For planar ally, demons."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 24,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "see invisibility",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 22
+      }
+    ],
+    "items": [
+      "+1 longspear"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

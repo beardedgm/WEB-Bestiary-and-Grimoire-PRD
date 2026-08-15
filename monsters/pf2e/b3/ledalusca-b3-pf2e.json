@@ -1,0 +1,324 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:ledalusca",
+  "name": "Ledalusca",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/ledalusca.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 2,
+    "xp": null,
+    "display": "Creature 2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [
+      "cold",
+      "water"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "medium",
+      "cold",
+      "elemental",
+      "water"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 3,
+    "con": 2,
+    "int": 0,
+    "wis": 2,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 8,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aquan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 7
+    },
+    {
+      "name": "Athletics",
+      "mod": 8
+    },
+    {
+      "name": "Deception",
+      "mod": 5
+    },
+    {
+      "name": "Stealth",
+      "mod": 9
+    },
+    {
+      "name": "Thievery",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 40,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 8
+      },
+      {
+        "name": "ref",
+        "mod": 9
+      },
+      {
+        "name": "will",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Shell Block",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The ledalusca angles their shell to absorb the blow, gaining resistance 5 to the triggering damage. If they takes bludgeoning or fire damage after applying this resistance, their frozen shell shatters until they freezes a new one."
+      ],
+      "trigger": "The ledalusca takes physical damage from an attack",
+      "requirements": "The ledalusca's shell is frozen (see Freeze Shell)"
+    },
+    {
+      "name": "wave",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          5,
+          0
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Push 5 feet"
+      ]
+    },
+    {
+      "name": "ice shard",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 9,
+        "map": [
+          9,
+          4,
+          -1
+        ],
+        "traits": [
+          "deadly <d6>",
+          "thrown <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "ice shell",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          5,
+          0
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": null,
+          "type": "physical"
+        },
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Freeze Shell",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "cold",
+        "manipulate"
+      ],
+      "entries": [
+        "The ledalusca freezes their surface into a translucent, faintly colored ice sculpture matching the mirror image of a Medium creature or object they have seen before. While in this form, instead of a wave, they have the following Strike: Melee 1 ice shell +10, Damage 1d6+4 physical plus 1d4 cold The physical damage is a type that matches the new shape of the ledalusca's frozen shell. The ledalusca can revert to their liquid form by taking this action again."
+      ]
+    },
+    {
+      "name": "Hold Still",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate"
+      ],
+      "entries": [
+        "Until the next time they act, the ledalusca appears to be either an ice sculpture (if under the effects of Freeze Shell) or a pool of still water (if not). They have an automatic result of 28 on Deception checks and DCs to pass as what they appear to be."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Elemental",
+        "skill": "Arcana, Nature",
+        "dc": 16
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

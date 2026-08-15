@@ -1,0 +1,416 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:bastion-archon",
+  "name": "Bastion Archon",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/bastion-archon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 20,
+    "xp": null,
+    "display": "Creature 20"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "archon",
+      "celestial"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "lg",
+      "lawChaos": "lawful",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "rare",
+      "lg",
+      "huge",
+      "archon",
+      "celestial"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 7,
+    "con": 10,
+    "int": 6,
+    "wis": 8,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 37,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "true seeing",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Draconic",
+    "Infernal; Tongues"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 38
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 34
+    },
+    {
+      "name": "Intimidation",
+      "mod": 34
+    },
+    {
+      "name": "Religion",
+      "mod": 32
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 47,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 280,
+        "formula": null,
+        "note": "fast healing 30"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 38
+      },
+      {
+        "name": "ref",
+        "mod": 31
+      },
+      {
+        "name": "will",
+        "mod": 34
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "evil",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 70
+    },
+    "special": [
+      "air walk"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Bastion Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "good",
+        "healing",
+        "necromancy"
+      ],
+      "entries": [
+        "50 feet. All good-aligned creatures in the aura have fast healing 30 for as long as they remain in range, and they gain a +2 status bonus to attack rolls and damage rolls."
+      ],
+      "aura": {
+        "range": 50,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Ultimate Sacrifice",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "divine",
+        "good",
+        "healing",
+        "necromancy"
+      ],
+      "entries": [
+        "If the bastion archon is slain by an evil creature, it explodes in a geyser of holy light, restoring 140 HP to all good-aligned creatures in a 40-foot emanation. The ground in the affected area is also subjected to a level 10 consecrate ritual, and the ground is consecrated for 10 years (or only 24 hours if the ultimate sacrifice took place in Hell, Abaddon, or the Abyss)."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 40,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Retributive Strike",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 40,
+        "map": [
+          40,
+          35,
+          30
+        ],
+        "traits": [
+          "good",
+          "lawful",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+20",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "good"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Archon's Door",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Once per day, if an archon sees another creature cast dimension door, the archon can use dimension door (heightened to 5th level) within 1 round to attempt to follow that creature to the maximum distance of the archon's dimension door. If the archon's dimension door has enough distance, the archon appears the same distance and direction from the creature as before either creature used dimension door."
+      ]
+    },
+    {
+      "name": "Blinding Beams",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "; The bastion archon fires its Holy Beam at only the creature it hit twice. The creature's save result is one degree of success worse than the result it rolled."
+      ],
+      "trigger": "The bastion archon hits a creature with two fist Strikes this turn and can use its Holy Beam"
+    },
+    {
+      "name": "Entrench",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The bastion archon locks itself in place, becoming voluntarily immobilized. While Entrenched, the archon can't be forcibly moved or tripped, and it gains a +2 circumstance bonus to AC and Reflex saves. Entrench ends automatically as soon as the bastion archon uses another move action."
+      ]
+    },
+    {
+      "name": "Holy Beam",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine",
+        "good",
+        "incapacitation",
+        "light"
+      ],
+      "entries": [
+        "The bastion archon releases a blinding beam of holy light in a 500-foot line that deals 20d6 good damage to non-archons in the area, with a DC 38 Reflex save. The bastion archon can't use Holy Beam again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "line",
+        "size": 500,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature takes half damage.",
+          "failure": "The creature takes full damage and is blinded for 1d4 rounds.",
+          "criticalFailure": "The creature takes double damage and is blinded permanently."
+        }
+      },
+      "damage": [
+        {
+          "formula": "20d6",
+          "average": null,
+          "type": "good"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 42,
+      "attackBonus": 34,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 10,
+          "rankLabel": "Constant (10th)",
+          "spells": [
+            {
+              "name": "air walk",
+              "uses": null
+            },
+            {
+              "name": "true seeing",
+              "uses": null
+            },
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "prismatic spray",
+              "uses": null
+            },
+            {
+              "name": "true target",
+              "uses": 3
+            },
+            {
+              "name": "vibrant pattern",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 10,
+          "rankLabel": "10th",
+          "spells": [
+            {
+              "name": "meteor swarm",
+              "uses": null
+            },
+            {
+              "name": "polar ray",
+              "uses": null
+            },
+            {
+              "name": "sunburst",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Celestial",
+        "skill": "Religion",
+        "dc": 45
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

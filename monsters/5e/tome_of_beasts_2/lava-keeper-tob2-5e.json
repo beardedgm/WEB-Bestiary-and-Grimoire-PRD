@@ -1,0 +1,408 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:lava-keeper",
+  "name": "Lava Keeper",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 235,
+    "path": "monsters/5e/tome_of_beasts_2/lava-keeper.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 18,
+    "xp": 20000,
+    "display": "18"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "lawful neutral",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 0,
+    "con": 5,
+    "int": 0,
+    "wis": 4,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 24,
+    "dex": 10,
+    "con": 21,
+    "int": 10,
+    "wis": 18,
+    "cha": 12
+  },
+  "perception": {
+    "mod": 10,
+    "passive": 20
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "tremorsense",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Ignan",
+    "Terran"
+  ],
+  "skills": [
+    {
+      "name": "History",
+      "mod": 12
+    },
+    {
+      "name": "Perception",
+      "mod": 10
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 276,
+        "note": null,
+        "formula": "24d12+120"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 11
+      },
+      {
+        "name": "wis",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire",
+        "poison"
+      ],
+      "conditions": [
+        "exhaustion",
+        "paralyzed",
+        "petrified",
+        "poisoned",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "lightning; bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "burrow": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Lava Dribble",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Each creature that starts its turn within 5 feet of the lava keeper must make a DC 19 Dexterity saving throw, taking 7 (2d6) fire damage on a failed save, or half as much damage on a successful one."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Innate Spellcasting",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The lava keeper's innate spellcasting ability is Wisdom (spell save DC 17). It can innately cast the following spells, requiring no material components:",
+        "At will: move earth, stone shape",
+        "3/day each: wall of fire, wall of stone",
+        "1/day each: conjure elemental (earth or fire elemental only), earthquake, fire storm"
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The lava keeper makes four slam attacks. Alternatively, it can use its Lava Lob twice."
+      ]
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +13 to hit, reach 10 ft., one target. Hit: 25 (4d8 + 7) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 13,
+        "map": [
+          13
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+7",
+          "average": 25,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Lava Lob",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Weapon Attack: +13 to hit, range 60/240 ft., one target. Hit: 21 (6d6) fire damage, and the target must succeed on a DC 19 Dexterity saving throw or take 10 (3d6) fire damage at the start of its next turn."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "weapon",
+        "bonus": 13,
+        "map": [
+          13
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "fire"
+        },
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Fumarole",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The crater between the lava keeper's shoulders erupts in a plume of fire, rock, and toxic smoke. Each creature within 60 feet of the lava keeper must make a DC 19 Constitution saving throw. On a failure, a creature takes 21 (6d6) bludgeoning damage and 21 (6d6) fire damage and becomes poisoned for 1 minute. On a success, a creature takes half the damage and isn't poisoned. A poisoned target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. The eruption surrounds the lava keeper in a 20-foot-radius sphere of smoke, considered heavily obscured until the end of its next turn. A wind of moderate or greater speed (at least 10 miles per hour) disperses the smoke."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "sphere",
+        "size": 20,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate Spellcasting",
+      "type": "innate",
+      "tradition": null,
+      "dc": 17,
+      "attackBonus": null,
+      "ability": "wis",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "move earth",
+              "uses": null
+            },
+            {
+              "name": "stone shape",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "3/day each",
+          "uses": 3,
+          "spells": [
+            {
+              "name": "wall of fire",
+              "uses": null
+            },
+            {
+              "name": "wall of stone",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "1/day each",
+          "uses": 1,
+          "spells": [
+            {
+              "name": "conjure elemental (earth or fire elemental only)",
+              "uses": null
+            },
+            {
+              "name": "earthquake",
+              "uses": null
+            },
+            {
+              "name": "fire storm",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

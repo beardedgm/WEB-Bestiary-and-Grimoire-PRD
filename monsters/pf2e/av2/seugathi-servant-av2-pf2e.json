@@ -1,0 +1,372 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:av2:seugathi-servant",
+  "name": "Seugathi Servant",
+  "gameSystem": "pf2e",
+  "variant": "av2",
+  "source": {
+    "code": "av2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/av2/seugathi-servant.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [
+      "seugathi"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "large",
+      "aberration",
+      "seugathi"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 5,
+    "con": 2,
+    "int": 2,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Undercommon; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 15
+    },
+    {
+      "name": "Crafting",
+      "mod": 12
+    },
+    {
+      "name": "Intimidation",
+      "mod": 15
+    },
+    {
+      "name": "Occultism",
+      "mod": 12
+    },
+    {
+      "name": "Stealth",
+      "mod": 13
+    },
+    {
+      "name": "Survival",
+      "mod": 10
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 75,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 14
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 12
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "mental",
+        "poison"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Mindfog Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "enchantment",
+        "mental"
+      ],
+      "entries": [
+        "20 feet. A creature that starts its turn in the aura must succeed at a DC 21 Will save or become confused for 1 round; on a success, that creature is temporarily immune for 1 minute. A seugathi can suppress or activate this aura as a single action with the concentrate trait."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Command Confusion",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The seugathi determines who the confused creature attacks for that round, instead of the target being randomly determined by the GM. If the chosen target is the confused creature's ally, the creature can immediately attempt a DC 21 Will save; on a success, its target is determined randomly as normal for confusion, and on a critical success the target is no longer confused."
+      ],
+      "trigger": "A creature fails its save against the seugathi's mindfog aura",
+      "save": {
+        "defense": "will",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "bite",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          13,
+          9
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+5",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "seugathi venom",
+        "seugathi venom"
+      ]
+    },
+    {
+      "name": "longsword",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [
+          "reach <10 feet>",
+          "versatile <P>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+5",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Envenom Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The seugathi applies their seugathi venom to one weapon they wield."
+      ]
+    },
+    {
+      "name": "Magic Item Mastery",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A seugathi can Cast a Spell from a magic item even if the spell isn't on their spell list. All such spells are occult spells and use the seugathi's innate spell DC and attack modifier."
+      ]
+    },
+    {
+      "name": "Seugathi Venom",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 24,
+      "attackBonus": 16,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 3,
+          "rankLabel": "Cantrips (3rd)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "telekinetic projectile",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "hypercognition",
+              "uses": null
+            },
+            {
+              "name": "levitate",
+              "uses": null
+            },
+            {
+              "name": "mind reading",
+              "uses": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 24
+      }
+    ],
+    "items": [
+      "longsword"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

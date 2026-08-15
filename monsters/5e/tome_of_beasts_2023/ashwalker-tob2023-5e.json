@@ -1,0 +1,217 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:ashwalker",
+  "name": "Ashwalker",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 28,
+    "path": "monsters/5e/tome_of_beasts_2023/ashwalker-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 1,
+    "xp": 200,
+    "display": "1"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral Evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 2,
+    "con": 0,
+    "int": -2,
+    "wis": 0,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 13,
+    "dex": 15,
+    "con": 10,
+    "int": 7,
+    "wis": 10,
+    "cha": 6
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands all languages it knew in life but can’t speak"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 12,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 31,
+        "note": null,
+        "formula": "7d8"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Breath Born",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ashwalker has immunity to a type of damage based on the type of dragon that killed it: acid (black, copper), cold (silver, white), fire (brass, gold, red), lightning (blue, bronze), or poison (green)."
+      ]
+    },
+    {
+      "name": "Burst of Breath",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that touches the ashwalker or hits it with a melee attack while within 5 feet of it takes 3 (1d6) damage of the type noted in its Breath Born trait."
+      ]
+    },
+    {
+      "name": "Last Breath",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The first time the ashwalker is reduced to 0 hp, it drops to 1 hp instead and its Draconic Breath automatically recharges. The ashwalker transforms into raw energy of the type noted in its Breath Born trait. While in this energy form, it is immune to all damage and to being grappled or restrained. At the end of the ashwalker's next turn, it is destroyed."
+      ]
+    },
+    {
+      "name": "Undead Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ashwalker doesn't require air, food, drink, or sleep."
+      ]
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 5 (1d6 + 2) bludgeoning damage plus 3 (1d6) damage of the type noted in the ashwalker's Breath Born trait."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": 5,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Draconic Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ashwalker exhales elemental energy in a 15-foot cone. Each creature in the area must make a DC 12 Constitution saving throw, taking 14 (4d6) damage of the type noted in its Breath Born trait on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "save": {
+        "defense": "con",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

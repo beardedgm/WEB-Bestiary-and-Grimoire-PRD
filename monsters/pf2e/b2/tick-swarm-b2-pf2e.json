@@ -1,0 +1,222 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:tick-swarm",
+  "name": "Tick Swarm",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/tick-swarm.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "animal",
+      "swarm"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "large",
+      "animal",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 6,
+    "con": 4,
+    "int": -5,
+    "wis": 3,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 18,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 16
+    },
+    {
+      "name": "Stealth",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 130,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 19
+      },
+      {
+        "name": "ref",
+        "mod": 19
+      },
+      {
+        "name": "will",
+        "mod": 14
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "swarm"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "splash",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "climb": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Cling",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The swarm takes 1d6 damage as ticks cling to the creature and continue biting, dealing 3d6 persistent piercing damage. Immersion in water reduces the DC of the flat check to end this persistent damage to 5, and any area damage dealt to the creature destroys these clinging ticks."
+      ],
+      "trigger": "A creature leaves the swarm's space"
+    },
+    {
+      "name": "Swarming Bites",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Each enemy in the swarm's space takes 3d6 piercing damage (DC 28 basic Reflex save) plus Cling and exposure to tick fever."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 28,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Tick Fever",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "disease"
+      ],
+      "entries": [
+        "As giant tick but DC 27."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Animal",
+        "skill": "Nature",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

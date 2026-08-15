@@ -1,0 +1,412 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:stardrake",
+  "name": "Star Drake",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 146,
+    "path": "monsters/5e/tome_of_beasts_2023/stardrake-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 15,
+    "xp": 13000,
+    "display": "15"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 3,
+    "con": 5,
+    "int": 3,
+    "wis": 7,
+    "cha": 5
+  },
+  "abilityScores": {
+    "str": 20,
+    "dex": 17,
+    "con": 21,
+    "int": 16,
+    "wis": 24,
+    "cha": 20
+  },
+  "perception": {
+    "mod": 12,
+    "passive": 22
+  },
+  "senses": [
+    {
+      "name": "truesight",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Celestial",
+    "Common",
+    "Draconic",
+    "Infernal",
+    "Primordial"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 8
+    },
+    {
+      "name": "History",
+      "mod": 8
+    },
+    {
+      "name": "Insight",
+      "mod": 12
+    },
+    {
+      "name": "Perception",
+      "mod": 12
+    },
+    {
+      "name": "Religion",
+      "mod": 8
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 189,
+        "note": null,
+        "formula": "18d10+90"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 8
+      },
+      {
+        "name": "con",
+        "mod": 10
+      },
+      {
+        "name": "wis",
+        "mod": 12
+      },
+      {
+        "name": "cha",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold",
+        "fire; bludgeoning",
+        "piercing",
+        "and slashing from nonmagical attacks"
+      ],
+      "conditions": [
+        "blinded",
+        "charmed",
+        "frightened",
+        "paralyzed"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 100,
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The drake has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Nimbus of Swirling Stars",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "At the start of each of the drake's turns, each creature within 10 feet of it and that can see it must succeed on a DC 18 Constitution saving throw or be incapacitated until the end of its next turn."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "incapacitated",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Planar Weapons",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The drake's weapon attacks are magical. When it hits with any weapon, the weapon deals an extra 4d8 force damage (included in the attack)."
+      ],
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": null,
+          "type": "force"
+        }
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The drake makes one Bite attack and two Claw attacks, or it makes four Searing Star attacks. If two Searing Star attacks hit one creature, that creature must succeed on a DC 18 Constitution saving throw or be blinded until the end of its next turn."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "blinded",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +10 to hit, reach 10 ft., one target. Hit: 16 (2d10 + 5) piercing damage plus 18 (4d8) force damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 10,
+        "map": [
+          10
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+5",
+          "average": 16,
+          "type": "piercing"
+        },
+        {
+          "formula": "4d8",
+          "average": 18,
+          "type": "force"
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 12 (2d6 + 5) slashing damage plus 18 (4d8) force damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 10,
+        "map": [
+          10
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+5",
+          "average": 12,
+          "type": "slashing"
+        },
+        {
+          "formula": "4d8",
+          "average": 18,
+          "type": "force"
+        }
+      ]
+    },
+    {
+      "name": "Searing Star",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Spell Attack: +12 to hit, range 120 ft., one target. Hit: 14 (2d6 + 7) radiant damage plus 9 (2d8) force damage."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "spell",
+        "bonus": 12,
+        "map": [
+          12
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 120,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+7",
+          "average": 14,
+          "type": "radiant"
+        },
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "force"
+        }
+      ]
+    },
+    {
+      "name": "Planar Traveler",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The star drake can transport itself to a different plane of existence. This works like the plane shift spell, except the drake can affect only itself and can't use this action to banish an unwilling creature to another plane."
+      ]
+    },
+    {
+      "name": "Plane-Altered Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The drake exhales raw magic in a 60-foot cone. Each creature in that area must make a DC 18 Dexterity saving throw, taking 55 (10d10) force damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "10d10",
+          "average": 55,
+          "type": "force"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 60,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

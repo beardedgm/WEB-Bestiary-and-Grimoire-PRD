@@ -1,0 +1,331 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot5:gluttonworm",
+  "name": "Gluttonworm",
+  "gameSystem": "pf2e",
+  "variant": "sot5",
+  "source": {
+    "code": "sot5",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot5/gluttonworm.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 19,
+    "xp": null,
+    "display": "Creature 19"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "n",
+      "gargantuan",
+      "beast"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 4,
+    "con": 6,
+    "int": -4,
+    "wis": 5,
+    "cha": -1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 32,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "tremorsense",
+      "range": 100,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 37
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 41,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 445,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 35
+      },
+      {
+        "name": "ref",
+        "mod": 29
+      },
+      {
+        "name": "will",
+        "mod": 32
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "burrow": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Dune Dispersal",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura"
+      ],
+      "entries": [
+        "15 feet. Ground in the aura is terrain."
+      ],
+      "aura": {
+        "range": 15,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Sand Armor",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "necromancy",
+        "primal"
+      ],
+      "entries": [
+        "A gluttonworm in contact with a significant body of sand, such as a desert or beach, gains fast healing 10. If the gluttonworm is subject to persistent bleed, the flowing blood quickly congeals with the sand covering its body, instantly ending the bleed duration and giving the gluttonworm a +2 circumstance bonus to AC until the end of its next turn."
+      ]
+    },
+    {
+      "name": "Inexorable",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The gluttonworm recovers from the paralyzed, slowed, and stunned conditions at the end of its turn. It's also immune to penalties to its Speeds and the immobilized condition, and it ignores terrain and terrain."
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 37,
+        "map": [
+          37,
+          32,
+          27
+        ],
+        "traits": [
+          "deadly <3d10>",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d12+18",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Improved Grab"
+      ]
+    },
+    {
+      "name": "body",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          28,
+          23
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "4d8+18",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Fast Swallow",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The gluttonworm uses Swallow Whole."
+      ],
+      "trigger": "The gluttonworm Grabs a creature, or a creature fails a Reflex save against a Gulping Charge"
+    },
+    {
+      "name": "Gulping Charge",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The gluttonworm Strides up to double its Speed and can move through the spaces of Large or smaller creatures, gulping each creature whose space the worm enters and attempting a body Strike against each of them. The gluttonworm can use this Strike on each creature only once in a single use of Gulping Charge. Creatures can attempt a DC 41 basic Reflex save against this damage."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 41,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      }
+    },
+    {
+      "name": "Spew Sandstorm",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "air",
+        "earth",
+        "evocation",
+        "primal"
+      ],
+      "entries": [
+        "The gluttonworm exhales swirling sand in a 60-foot cone. Creatures in the area must attempt a DC 41 Reflex save. It can't Spew Sandstorm again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 41,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Swallow Whole",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "Huge, 3d10+17 bludgeoning plus 2d6 slashing, Rupture 36"
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 41
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Spew Sandstorm)"
+    ],
+    "unmapped": []
+  }
+}

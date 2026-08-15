@@ -1,0 +1,248 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob3:mindshard",
+  "name": "Mindshard",
+  "gameSystem": "dnd5e",
+  "variant": "tob3",
+  "source": {
+    "code": "tome_of_beasts_3",
+    "name": "Tome of Beasts 3",
+    "page": 271,
+    "path": "monsters/5e/tome_of_beasts_3/mindshard.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 3,
+    "con": 1,
+    "int": 0,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": {
+    "str": 1,
+    "dex": 16,
+    "con": 12,
+    "int": 11,
+    "wis": 15,
+    "cha": 19
+  },
+  "perception": {
+    "mod": 2,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Deep Speech",
+    "telepathy 60'"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 2
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 81,
+        "note": null,
+        "formula": "18d6+18"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 3
+      },
+      {
+        "name": "int",
+        "mod": 2
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "frightened",
+        "poisoned",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 0,
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Mindleech Aura",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a charmed creature enters a space within 15 ft. of the mindshard on a turn or starts its turn within 15 ft. of the mindshard that creature takes 7 (2d6) psychic."
+      ]
+    },
+    {
+      "name": "Translucent",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Is invisible to creatures more than 60' away from it."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Two Refracted Light Beam attacks."
+      ]
+    },
+    {
+      "name": "Refracted Light Beam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee or Ranged Spell Attack: +6 to hit 5 ft. or range 60' one target 10 (2d6+3) radiant."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "spell",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": null
+      }
+    },
+    {
+      "name": "Light Construction",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Bends light toward a point it can see within 60' of it creating a colorful pattern on that point. Each creature within 20' of that point: 14 (4d6) psychic and is charmed and incapacitated for 1 min (DC 14 Wis half damage and isn't charmed or incapacitated). A charmed and incapacitated creature can re-save at end of each of its turns success ends effect on itself."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "condition": {
+        "name": "charmed",
+        "duration": "1 min",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Refract Mind",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Pulls a Humanoid with 0 hp into its body refracting creature into fragments of itself. Humanoid dies and 2d4 cultists appear in unoccupied spaces within 15 ft. of mindshard. The cultists which share Humanoid's appearance and memories act as allies of mindshard and obey its telepathic commands. A Humanoid must have an Int score of 5 or higher to be refracted."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      }
+    },
+    {
+      "name": "Enthralling Defense",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When a creature the mindshard can see within 30' of it hits it with an attack that creature must make DC 14 Cha save or be charmed until end of its next turn."
+      ],
+      "condition": {
+        "name": "charmed",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

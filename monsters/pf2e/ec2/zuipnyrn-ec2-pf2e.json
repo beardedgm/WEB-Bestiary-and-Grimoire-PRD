@@ -1,0 +1,258 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec2:zuipnyrn",
+  "name": "Zuipnyrn",
+  "gameSystem": "pf2e",
+  "variant": "ec2",
+  "source": {
+    "code": "ec2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec2/zuipnyrn.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "small",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 3,
+    "con": 3,
+    "int": -2,
+    "wis": 2,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 9,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 20,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 35,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 10
+      },
+      {
+        "name": "ref",
+        "mod": 10
+      },
+      {
+        "name": "will",
+        "mod": 7
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 3,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "climb": 10
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Alluring Aspect",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "occult",
+        "visual"
+      ],
+      "entries": [
+        "30 feet. When a creature ends its turn in the aura, it must attempt a DC 22 Will save. On a failure, it becomes fascinated with the zuipnyrn for 1 minute. Once the fascination ends, the creature is temporarily immune to this ability for 1 hour. The zuipnyrn can deactivate or activate this aura by using a single action, which has the concentrate trait."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "eye stalk",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 8,
+        "map": [
+          8,
+          4,
+          0
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d4+2",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Beguiling Gaze",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "occult",
+        "visual"
+      ],
+      "entries": [
+        "The zuipnyrn attempts to charm a creature within 30 feet that is currently fascinated by the zuipnyrn. The target must attempt a DC 22 Will save. Whether it succeeds or fails the save, the target is temporarily immune for 1 hour."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected and is no longer fascinated.",
+          "success": "The creature is unaffected.",
+          "failure": "The creature is helpful toward the zuipnyrn for 1 hour.",
+          "criticalFailure": "The creature is helpful toward the zuipnyrn for 1 day and will actively attempt to defend the zuipnyrn and even risk its life for it."
+        }
+      }
+    },
+    {
+      "name": "Blinding Flare",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "occult",
+        "visual"
+      ],
+      "entries": [
+        "The zuipnyrn's eye produces a bright flash of light. Each creature in a 30-foot cone must attempt a DC 22 Fortitude save. The zuipnyrn can't use Blinding Flare again for 1 minute."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is dazzled for 1 round.",
+          "failure": "The creature is blinded for 1 round and dazzled for 1 minute.",
+          "criticalFailure": "The creature is blinded for 1 minute."
+        }
+      },
+      "recharge": {
+        "kind": "dice",
+        "formula": "1",
+        "unit": "minute"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 23
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

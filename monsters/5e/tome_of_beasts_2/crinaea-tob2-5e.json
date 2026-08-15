@@ -1,0 +1,285 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:crinaea",
+  "name": "Crinaea",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 74,
+    "path": "monsters/5e/tome_of_beasts_2/crinaea.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 2,
+    "xp": 450,
+    "display": "2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 3,
+    "con": 1,
+    "int": 2,
+    "wis": 1,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 11,
+    "dex": 16,
+    "con": 12,
+    "int": 14,
+    "wis": 12,
+    "cha": 17
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    },
+    {
+      "name": "Stealth",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 44,
+        "note": null,
+        "formula": "8d8+8"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "fire",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "swim": 60,
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Crinaea's Curse",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The crinaea can sense water within 300 feet of it that was drawn from its bonded source within the last 24 hours. As a bonus action, the crinaea can poison up to 1 gallon of water within 300 feet of it that was drawn from its bonded source. This can even affect water that has been used to make another nonmagical substance, such as soup or tea, or water that was consumed within the last 30 minutes. The poison can affect a target through contact or ingestion. A creature subjected to this poison must make a DC 13 Constitution saving throw. On a failure, a creature takes 18 (4d8) poison damage and is poisoned for 1 hour. On a success, a creature takes half the damage and isn't poisoned."
+      ],
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": 18,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 hour",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Water-bound Form",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The crinaea is bound to its water source. If the crinaea is separated from its water source for more than 24 hours, the crinaea gains 1 level of exhaustion. It gains an additional level of exhaustion for each day until it bonds with another water source or it dies. The crinaea can bond with a new water source and remove its levels of exhaustion by finishing a long rest while submerged in the new water source."
+      ]
+    },
+    {
+      "name": "Watery Form",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While fully immersed in water, the crinaea is invisible and it can move through a space as narrow as 1 inch wide without squeezing."
+      ]
+    },
+    {
+      "name": "Innate Spellcasting",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The crinaea's innate spellcasting ability is Charisma (spell save DC 13). It can innately cast the following spells, requiring no material components:",
+        "At will: poison spray",
+        "3/day each: create or destroy water (create water only), purify food and drink (water only)",
+        "1/day each: disguise self, fog cloud, protection from poison"
+      ]
+    },
+    {
+      "name": "Dagger",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 5 (1d4 + 3) piercing damage plus 7 (2d6) cold damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+3",
+          "average": 5,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "cold"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate Spellcasting",
+      "type": "innate",
+      "tradition": null,
+      "dc": 13,
+      "attackBonus": null,
+      "ability": "cha",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "poison spray",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "3/day each",
+          "uses": 3,
+          "spells": [
+            {
+              "name": "create or destroy water (create water only)",
+              "uses": null
+            },
+            {
+              "name": "purify food and drink (water only)",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "1/day each",
+          "uses": 1,
+          "spells": [
+            {
+              "name": "disguise self",
+              "uses": null
+            },
+            {
+              "name": "fog cloud",
+              "uses": null
+            },
+            {
+              "name": "protection from poison",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

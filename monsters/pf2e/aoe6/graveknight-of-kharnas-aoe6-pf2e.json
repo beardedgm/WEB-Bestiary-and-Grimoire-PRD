@@ -1,0 +1,340 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe6:graveknight-of-kharnas",
+  "name": "Graveknight of Kharnas",
+  "gameSystem": "pf2e",
+  "variant": "aoe6",
+  "source": {
+    "code": "aoe6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe6/graveknight-of-kharnas.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 17,
+    "xp": null,
+    "display": "Creature 17"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ne",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 1,
+    "con": 7,
+    "int": 3,
+    "wis": 6,
+    "cha": 8
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 34
+    },
+    {
+      "name": "Intimidation",
+      "mod": 33
+    },
+    {
+      "name": "Warfare Lore",
+      "mod": 28
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 40,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 260,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 32
+      },
+      {
+        "name": "ref",
+        "mod": 24
+      },
+      {
+        "name": "will",
+        "mod": 29
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "positive",
+        "amount": 19,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Sacrilegious Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "abjuration",
+        "aura",
+        "divine",
+        "evil"
+      ],
+      "entries": [
+        "30 feet. When a creature in the aura uses a positive spell or ability, the graveknight automatically attempts to counteract it, with a +27 counteract modifier."
+      ],
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "greater flaming greataxe",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          28,
+          23
+        ],
+        "traits": [
+          "magical",
+          "sweep"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d12+19",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "greater flaming javelin",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          24,
+          19
+        ],
+        "traits": [
+          "magical",
+          "thrown <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+19",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Devastating Blast",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "arcane",
+        "evocation",
+        "fire"
+      ],
+      "entries": [
+        "The graveknight unleashes a 30-foot cone of energy. Creatures in the area take 10d12 fire damage (DC 37 basic Reflex save). The graveknight can't use this ability again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 37,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "10d12",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Graveknight's Curse",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Kharnas's Blessing",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The graveknight carves the sigil of Kharnas onto an adjacent immobilized or unconscious creature. As long as the creature bears the sigil of Kharnas, it takes a –2 status penalty to saving throws against the abilities of any creature that previously served Kharnas, but it can also freely pass through any hazards that can be bypassed by those bearing the sigil of Kharnas, such as Kharnas's glyphs."
+      ]
+    },
+    {
+      "name": "Weapon Master",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The graveknight has access to the critical specialization effects of any weapons it wields."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 41
+      }
+    ],
+    "items": [
+      "+2 greater resilient breastplate",
+      "greataxe",
+      "javelins (3)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

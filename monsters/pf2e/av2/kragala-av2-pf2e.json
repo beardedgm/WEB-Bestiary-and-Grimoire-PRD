@@ -1,0 +1,367 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:av2:kragala",
+  "name": "Kragala",
+  "gameSystem": "pf2e",
+  "variant": "av2",
+  "source": {
+    "code": "av2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/av2/kragala.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "duergar",
+      "dwarf"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "le",
+      "medium",
+      "duergar",
+      "dwarf",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 0,
+    "con": 4,
+    "int": 2,
+    "wis": 0,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 8,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Dwarven",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 11
+    },
+    {
+      "name": "Crafting",
+      "mod": 8
+    },
+    {
+      "name": "Intimidation",
+      "mod": 12
+    },
+    {
+      "name": "Occultism",
+      "mod": 10
+    },
+    {
+      "name": "Performance",
+      "mod": 12
+    },
+    {
+      "name": "Survival",
+      "mod": 8
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 21,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 62,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 14
+      },
+      {
+        "name": "ref",
+        "mod": 8
+      },
+      {
+        "name": "will",
+        "mod": 11
+      }
+    ],
+    "saveNote": "+2 status to saves vs. magic",
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Knock It Away",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Kragala gains a +2 circumstance bonus to AC against the triggering attack."
+      ],
+      "trigger": "Kragala is holding a drumstick and is targeted with a ranged weapon attack by an attacker she can see"
+    },
+    {
+      "name": "drumstick",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 13,
+        "map": [
+          13,
+          9,
+          5
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "drumstick",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          6,
+          2
+        ],
+        "traits": [
+          "agile",
+          "thrown <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Guiding Rhythm",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When Kragala casts guidance while using a percussive instrument, her targets don't become temporarily immune to her guidance."
+      ]
+    },
+    {
+      "name": "Percussive Reverberation",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Kragala deals an additional 1d6 damage with hammers, including drumsticks (already included in the Strikes' damage)."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous occult Spells",
+      "type": "spontaneous",
+      "tradition": "occult",
+      "dc": 21,
+      "attackBonus": 13,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Cantrips (2nd)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "guidance",
+              "uses": null
+            },
+            {
+              "name": "mending",
+              "uses": null
+            },
+            {
+              "name": "telekinetic projectile",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st (4 slots)",
+          "spells": [
+            {
+              "name": "bless",
+              "uses": null
+            },
+            {
+              "name": "magic missile",
+              "uses": null
+            },
+            {
+              "name": "protection",
+              "uses": null
+            },
+            {
+              "name": "sanctuary",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd (3 slots)",
+          "spells": [
+            {
+              "name": "death knell",
+              "uses": null
+            },
+            {
+              "name": "sound burst",
+              "uses": null
+            },
+            {
+              "name": "telekinetic maneuver",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 21,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "enlarge",
+              "uses": null
+            },
+            {
+              "name": "invisibility",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 29
+      }
+    ],
+    "items": [
+      "drumstick (2; as light hammer)",
+      "folding drums (page 72)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

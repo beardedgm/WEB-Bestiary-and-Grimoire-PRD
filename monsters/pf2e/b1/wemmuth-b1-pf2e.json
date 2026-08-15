@@ -1,0 +1,281 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:wemmuth",
+  "name": "Wemmuth",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/wemmuth.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "huge",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 6,
+    "con": 6,
+    "int": -2,
+    "wis": 4,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Sylvan (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 30
+    },
+    {
+      "name": "Deception",
+      "mod": 28
+    },
+    {
+      "name": "Stealth",
+      "mod": 30
+    },
+    {
+      "name": "Survival",
+      "mod": 27
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 37,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 335,
+        "formula": null,
+        "note": "blood leech"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 27
+      },
+      {
+        "name": "ref",
+        "mod": 27
+      },
+      {
+        "name": "will",
+        "mod": 24
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "burrow": 25,
+      "climb": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "pummel",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          24,
+          19
+        ],
+        "traits": [
+          "fatal <d12>",
+          "reach <15 feet>",
+          "sweep"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d12+10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Improved Grab",
+        "Improved Grab"
+      ]
+    },
+    {
+      "name": "boulder",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "fatal <d12>",
+          "range increment <60 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Blood Leech",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The wemmuth heals a number of Hit Points equal to half the total damage dealt by Constrict."
+      ],
+      "trigger": "The wemmuth deals damage to a creature with Constrict."
+    },
+    {
+      "name": "Constrict",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "2d12+10, DC 37"
+      ]
+    },
+    {
+      "name": "Engulf",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "DC 37, 4d8 bludgeoning, Escape DC 35, Rupture 36."
+      ]
+    },
+    {
+      "name": "Thorny Mass",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever a creature within 10 feet attempts a melee attack against a wemmuth or uses Acrobatics to Tumble Through its space, that creature takes 1d12+10 piercing damage."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Plant",
+        "skill": "Nature",
+        "dc": 34
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

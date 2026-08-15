@@ -1,0 +1,301 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:locksmith",
+  "name": "Locksmith",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 240,
+    "path": "monsters/5e/tome_of_beasts_2/locksmith.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 8,
+    "xp": 3900,
+    "display": "8"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 4,
+    "con": 4,
+    "int": 3,
+    "wis": 0,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 20,
+    "dex": 18,
+    "con": 18,
+    "int": 16,
+    "wis": 10,
+    "cha": 6
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 90,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Insight",
+      "mod": 4
+    },
+    {
+      "name": "Stealth",
+      "mod": 8
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 102,
+        "note": null,
+        "formula": "12d8+48"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire",
+        "poison",
+        "psychic"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "frightened",
+        "paralyzed",
+        "petrified",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Expert Lockpicker",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The locksmith can use any piece of its mechanical body to pick locks and disarm traps, as if its entire body was made up of several sets of thieves' tools. It is proficient in using pieces of itself in this way. In addition, the locksmith has advantage on ability checks to pick locks and disarm traps."
+      ]
+    },
+    {
+      "name": "Innate Spellcasting",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The locksmith's innate spellcasting ability is Intelligence (spell save DC 15). It can innately cast the following spells, requiring no material components:",
+        "At will: mending",
+        "3/day each: arcane lock, knock",
+        "1/day: forcecage"
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The locksmith makes two key blade attacks."
+      ]
+    },
+    {
+      "name": "Key Blade",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 18 (3d8 + 5) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+5",
+          "average": 18,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Acid Wash",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The locksmith emits a cloud of rust in a 60-foot cone. Each creature in that area must succeed on a DC 16 Dexterity saving throw, taking 35 (10d6) acid damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "10d6",
+          "average": 35,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 60,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate Spellcasting",
+      "type": "innate",
+      "tradition": null,
+      "dc": 15,
+      "attackBonus": null,
+      "ability": "int",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "mending",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "3/day each",
+          "uses": 3,
+          "spells": [
+            {
+              "name": "arcane lock",
+              "uses": null
+            },
+            {
+              "name": "knock",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "1/day",
+          "uses": 1,
+          "spells": [
+            {
+              "name": "forcecage",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

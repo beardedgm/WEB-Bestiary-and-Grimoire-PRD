@@ -1,0 +1,311 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:garlicle",
+  "name": "Garlicle",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 162,
+    "path": "monsters/5e/tome_of_beasts_2/garlicle.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 1,
+    "xp": 200,
+    "display": "1"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic neutral",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -2,
+    "dex": 2,
+    "con": 1,
+    "int": 1,
+    "wis": 4,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 6,
+    "dex": 14,
+    "con": 12,
+    "int": 12,
+    "wis": 18,
+    "cha": 12
+  },
+  "perception": {
+    "mod": 6,
+    "passive": 16
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Insight",
+      "mod": 6
+    },
+    {
+      "name": "Perception",
+      "mod": 6
+    },
+    {
+      "name": "Persuasion",
+      "mod": 3
+    },
+    {
+      "name": "Stealth",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 12,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 31,
+        "note": null,
+        "formula": "7d6+7"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "burrow": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Plant Camouflage",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The garlicle has advantage on Dexterity (Stealth) checks it makes in any terrain with ample obscuring plant life."
+      ]
+    },
+    {
+      "name": "Tearful Stench",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Each creature other than an alliumite or garlicle within 5 feet of the garlicle when it takes damage must succeed on a DC 14 Constitution saving throw or be blinded until the start of the creature's next turn. On a successful saving throw, the creature is immune to the Tearful Stench of all alliumites and garlicles for 1 minute."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "blinded",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Innate Spellcasting",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The garlicle's innate spellcasting ability is Wisdom (spell save DC 14). It can innately cast the following spells, requiring no material components:",
+        "At will: guidance, shillelagh",
+        "3/day: augury, comprehend languages",
+        "1/day: divination, entangle"
+      ]
+    },
+    {
+      "name": "Walking Staff",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +0 to hit (+6 to hit with shillelagh), reach 5 ft., one target. Hit: 1 (1d6 - 2) bludgeoning damage, 2 (1d8 - 2) bludgeoning damage if wielded with two hands, or 8 (1d8 + 4) bludgeoning damage with shillelagh."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 0,
+        "map": [
+          0
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6-2",
+          "average": 1,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d8-2",
+          "average": 2,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d8+4",
+          "average": 8,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Cloves of Fate",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The garlicle plucks cloves from its head and throws them at up to three creatures it can see within 30 feet of it. Roll a d4 for each creature. The garlicles allies have +1 on the roll while its enemies have a -1 on the roll. Determine the result and consult the following table. <br>| d4 | Fate |<br>|----|------|<br>| 0 | Worst Fortune. Whatever the target is holding slips from its grasp into a random space within 5 feet of the target, and the target falls prone as it trips over a rock, rain-dampened grass, its shoelaces, or similar. |<br>| 1 | Bad Fortune. The target takes 10 (3d6) poison damage and must succeed on a DC 14 Constitution saving throw or be poisoned until the end of its next turn. |<br>| 2 | Adverse Fortune. The target has disadvantage on its next attack roll. |<br>| 3 | Favorable Fortune. The target has advantage on its next attack roll. |<br>| 4 | Good Fortune. The target regains 5 (2d4) hp. |<br>| 5 | Best Fortune. The target's next successful hit is critical. |"
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 4,
+        "max": 6,
+        "display": "Recharge 4-6"
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate Spellcasting",
+      "type": "innate",
+      "tradition": null,
+      "dc": 14,
+      "attackBonus": null,
+      "ability": "wis",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "guidance",
+              "uses": null
+            },
+            {
+              "name": "shillelagh",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "3/day",
+          "uses": 3,
+          "spells": [
+            {
+              "name": "augury",
+              "uses": null
+            },
+            {
+              "name": "comprehend languages",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "1/day",
+          "uses": 1,
+          "spells": [
+            {
+              "name": "divination",
+              "uses": null
+            },
+            {
+              "name": "entangle",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

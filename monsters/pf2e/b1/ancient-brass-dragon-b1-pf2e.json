@@ -1,0 +1,424 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:ancient-brass-dragon",
+  "name": "Ancient Brass Dragon",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/ancient-brass-dragon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 16,
+    "xp": null,
+    "display": "Creature 16"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "fire"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "cg",
+      "lawChaos": "chaotic",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "cg",
+      "huge",
+      "dragon",
+      "fire"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 5,
+    "con": 6,
+    "int": 4,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Auran",
+    "Common",
+    "Draconic",
+    "Gnome",
+    "Halfling",
+    "Sphinx",
+    "Sylvan; Speak With Animals"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 27
+    },
+    {
+      "name": "Athletics",
+      "mod": 31
+    },
+    {
+      "name": "Deception",
+      "mod": 27
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 29
+    },
+    {
+      "name": "Society",
+      "mod": 28
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 39,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 325,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 30
+      },
+      {
+        "name": "ref",
+        "mod": 29
+      },
+      {
+        "name": "will",
+        "mod": 30
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50,
+      "fly": 150,
+      "burrow": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "90 feet, DC 35"
+      ],
+      "aura": {
+        "range": 90,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 35,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Wing Deflection",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon raises its wing, gaining a +2 circumstance bonus to AC against the triggering attack. If the dragon is flying, it descends 10 feet after the attack is complete."
+      ],
+      "trigger": "The dragon is targeted with an attack."
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          27,
+          22
+        ],
+        "traits": [
+          "fire",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+15",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "fire"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "persistent fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          28,
+          24
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+15",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The brass dragon breathes in one of two ways. The dragon can't use Breath Weapon again for 1d4 rounds. - Flame (arcane, evocation, fire) The dragon breathes fire in a 100-foot line that deals 16d6 fire damage (DC 39 basic Reflex save).",
+        "- Sleep Gas (arcane, enchantment, incapacitation, sleep); The dragon breathes an 80-foot cone of sleep gas. Each creature within the cone must succeed at a DC 39 Fortitude save or fall unconscious for 1d6 rounds, or 1 minute on a critical failure."
+      ],
+      "area": {
+        "shape": "line",
+        "size": 100,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 39,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "16d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Desert Wind",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "air",
+        "arcane",
+        "concentrate",
+        "evocation"
+      ],
+      "entries": [
+        "The dragon calls upon the desert wind. This has the same effect as gust of wind (DC 37 Fortitude) but in a 60-foot cone. A creature that fails its save is also blinded until the end of its next turn (or for 1 minute on a critical failure)."
+      ],
+      "frequency": {
+        "number": 3,
+        "unit": "day",
+        "text": null
+      },
+      "area": {
+        "shape": "cone",
+        "size": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 37,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Draconic Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes two claw Strikes and one jaws Strike in any order."
+      ]
+    },
+    {
+      "name": "Draconic Momentum",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the dragon scores a critical hit with a Strike, it recharges Breath Weapon."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 37,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Constant (2nd)",
+          "spells": [
+            {
+              "name": "speak with animals",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana",
+        "dc": 37
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

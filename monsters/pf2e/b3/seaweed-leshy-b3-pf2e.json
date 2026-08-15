@@ -1,0 +1,297 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:seaweed-leshy",
+  "name": "Seaweed Leshy",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/seaweed-leshy.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [
+      "amphibious",
+      "leshy"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "small",
+      "amphibious",
+      "leshy",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 4,
+    "con": 3,
+    "int": 0,
+    "wis": 3,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aquan",
+    "Common",
+    "Druidic",
+    "Sylvan; Speak With Plants (Seaweed Only)"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 9
+    },
+    {
+      "name": "Nature",
+      "mod": 10
+    },
+    {
+      "name": "Stealth",
+      "mod": 9
+    },
+    {
+      "name": "Survival",
+      "mod": 8
+    },
+    {
+      "name": "Ocean Lore",
+      "mod": 9
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 45,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 8
+      },
+      {
+        "name": "ref",
+        "mod": 11
+      },
+      {
+        "name": "will",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "swim": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Verdant Burst",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As vine leshy, except plants regain 3d8 Hit Points and the area sprouts seaweed instead of vines."
+      ]
+    },
+    {
+      "name": "seaweed strand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 11,
+        "map": [
+          11,
+          7,
+          3
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "water jet",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 11,
+        "map": [
+          11,
+          6,
+          1
+        ],
+        "traits": [
+          "range increment <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "sea spray",
+        "sea spray"
+      ]
+    },
+    {
+      "name": "Change Shape",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "polymorph",
+        "primal",
+        "transmutation"
+      ],
+      "entries": [
+        "As vine leshy, except the seaweed leshy transforms into a patch of seaweed."
+      ]
+    },
+    {
+      "name": "Sea Spray",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A seaweed leshy's water jet has enough salt in it to temporarily impair their target's vision. On a hit, the target must succeed at a DC 20 Fortitude save or be dazzled for 1 minute or until it spends 3 Interact actions wiping the salt out of its eyes. On a critical hit, a target that fails its Fortitude save is also blinded for 1 round."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 20,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "speak with plants",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Plant",
+        "skill": "Nature",
+        "dc": 18
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,375 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:wow3:gritblight",
+  "name": "Gritblight",
+  "gameSystem": "pf2e",
+  "variant": "wow3",
+  "source": {
+    "code": "wow3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/wow3/gritblight.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [
+      "earth"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "rare",
+      "large",
+      "earth",
+      "elemental"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 4,
+    "con": 5,
+    "int": 0,
+    "wis": 4,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 23,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "blight sense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "precise"
+    },
+    {
+      "name": "tremorsense",
+      "range": 120,
+      "unit": "ft",
+      "acuity": "imprecise"
+    },
+    {
+      "name": "grit vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Petran"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 21
+    },
+    {
+      "name": "Athletics",
+      "mod": 27
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 235,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 26
+      },
+      {
+        "name": "ref",
+        "mod": 19
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": "+1 status vs. earth effects",
+    "immunities": {
+      "damage": [
+        "bleed",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "sickened"
+      ],
+      "other": [
+        "disease",
+        "sleep"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "burrow": 30
+    },
+    "special": [
+      "earth glide"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Blight Cloud",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "poison",
+        "radiation"
+      ],
+      "entries": [
+        "30 feet. A gritblight continually sheds tiny fragments of radioactive earth in a cloud around it. This cloud conceals the gritblight as a light fog and sheds dim light in the area. Any creature that begins its turn in the aura takes 2d6 poison damage with a DC 30 basic Fortitude save. A creature that fails its save is exposed to Ayrzul's Blight|WoW3 and a creature that critically fails is additionally sickened 1."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 30,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+14",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "caustic shard",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "range increment <60 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+10",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Ayrzul's Blight",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "disease",
+        "earth",
+        "primal"
+      ],
+      "entries": [
+        "See Ayrzul's Blight|WoW3, but DC 33."
+      ]
+    },
+    {
+      "name": "Earth Glide",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The gritblight can Burrow through any earthen matter, including rock. When it does so, the gritblight moves at its full burrow Speed, leaving no tunnels or signs of its passing."
+      ]
+    },
+    {
+      "name": "Labyrinthine Vision",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "mental",
+        "primal"
+      ],
+      "entries": [
+        "The gritblight forces disorienting visions of Ayrzul|LOGM|Ayrzul's Blistering Labyrinth into the minds of nearby creatures. All creatures in a 60-foot cone take 7d12 mental damage with a DC 33 Will save. Creatures blinded by a gritblight's Labyrinthine Vision see only endless earthen tunnels in every direction. The gritblight can't use this ability again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 33,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "7d12",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Trample",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Medium or smaller, claw, DC 33"
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Elemental",
+        "skill": "Arcana, Nature",
+        "dc": 36
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Labyrinthine Vision)"
+    ],
+    "unmapped": []
+  }
+}

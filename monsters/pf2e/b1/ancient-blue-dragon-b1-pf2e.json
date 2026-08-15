@@ -1,0 +1,578 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:ancient-blue-dragon",
+  "name": "Ancient Blue Dragon",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/ancient-blue-dragon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "electricity"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "le",
+      "huge",
+      "dragon",
+      "electricity"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 4,
+    "con": 6,
+    "int": 7,
+    "wis": 5,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 31,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Auran",
+    "Common",
+    "Draconic",
+    "Jotun",
+    "Ignan",
+    "Infernal"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 28
+    },
+    {
+      "name": "Arcana",
+      "mod": 33
+    },
+    {
+      "name": "Deception",
+      "mod": 35
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 35
+    },
+    {
+      "name": "Intimidation",
+      "mod": 33
+    },
+    {
+      "name": "Society",
+      "mod": 35
+    },
+    {
+      "name": "Stealth",
+      "mod": 28
+    },
+    {
+      "name": "Survival",
+      "mod": 29
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 42,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 370,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 32
+      },
+      {
+        "name": "ref",
+        "mod": 30
+      },
+      {
+        "name": "will",
+        "mod": 33
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "electricity"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50,
+      "fly": 200,
+      "burrow": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "90 feet, DC 39"
+      ],
+      "aura": {
+        "range": 90,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 39,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Wing Deflection",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon raises its wing, gaining a +2 circumstance bonus to AC against the triggering attack. If the dragon is Flying, it descends 10 feet after the attack is complete."
+      ],
+      "trigger": "The dragon is targeted with an attack."
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "electricity",
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+15",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          31,
+          27
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+15",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          28,
+          23
+        ],
+        "traits": [
+          "magical",
+          "reach <25 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 25,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+13",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "horns",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          28,
+          23
+        ],
+        "traits": [
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+13",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "electricity",
+        "evocation"
+      ],
+      "entries": [
+        "The dragon breathes lightning that deals 12d12 electricity damage in a 120-foot line (DC 40 basic Reflex save). It can't use Breath Weapon again for 1d4 rounds. Each time the dragon uses Breath Weapon, a 20-foot-radius storm cloud appears 80 feet above a point of the dragon's choosing along the Breath Weapon's path. Clouds last for 10 minutes and allow the dragon to use Storm Breath."
+      ],
+      "area": {
+        "shape": "line",
+        "size": 120,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 40,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "12d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Desert Thirst",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "transmutation"
+      ],
+      "entries": [
+        "When casting create water, the dragon can attempt to destroy liquid instead of creating it, turning an equal amount of liquid into sand. This destroys liquid magic or alchemical items if they're of a lower level than the dragon (a creature can attempt a DC 37 Will save to protect all liquids in its possession). This doesn't affect the liquids in a creature's body."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 37,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Draconic Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes two claw Strikes and one horns Strike in any order."
+      ]
+    },
+    {
+      "name": "Draconic Momentum",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dragon recharges its Breath Weapon whenever it scores a critical hit with a Strike."
+      ]
+    },
+    {
+      "name": "Mirage",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the dragon uses Breath Weapon while the illusory image from its innate project image spell persists, it can cause the Breath Weapon to originate from itself or the image."
+      ]
+    },
+    {
+      "name": "Storm Breath",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "arcane",
+        "concentrate",
+        "electricity",
+        "evocation"
+      ],
+      "entries": [
+        "The dragon calls down a lightning bolt from a storm cloud created by its Breath Weapon. This creates a vertical line of lightning to the ground that deals 6d12 electricity damage to all enemies in its path (DC 40 basic Reflex save)."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "requirements": "A storm cloud created by Breath Weapon is within 500 feet, and the dragon can see the cloud.",
+      "save": {
+        "defense": "reflex",
+        "dc": 40,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 43,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 8,
+          "rankLabel": "Cantrips (8th)",
+          "spells": [
+            {
+              "name": "ghost sound",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "create water",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "project image",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "hallucinatory terrain",
+              "uses": "at will"
+            },
+            {
+              "name": "illusory creature",
+              "uses": "at will"
+            },
+            {
+              "name": "illusory object",
+              "uses": "at will"
+            },
+            {
+              "name": "ventriloquism",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana",
+        "dc": 40
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

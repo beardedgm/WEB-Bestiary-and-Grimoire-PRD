@@ -1,0 +1,238 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:otyugh",
+  "name": "Otyugh",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/otyugh_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 5,
+    "xp": 1800,
+    "display": "5"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 0,
+    "con": 7,
+    "int": -2,
+    "wis": 1,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 11,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Otyugh"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 108,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "poisoned"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Aberrant Resilience",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aberrant Resilience",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The otyugh is resistant to the charmed, frightened, paralyzed, and stunned conditions, and it has advantage on saves against spells or effects that would alter its form."
+      ]
+    },
+    {
+      "name": "Limited Telepathy",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The otyugh can magically transmit simple messages and images to any creature within 120 feet of it that can understand a language. This form of telepathy doesn't allow the receiving creature to telepathically respond."
+      ]
+    },
+    {
+      "name": "Stench",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Each creature that starts its turn within 10 feet of the otyugh must succeed on a DC 15 CON save or be poisoned until the start of its next turn."
+      ],
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The otyugh makes one Bite attack and two Tentacle attacks. It can replace both Tentacle attacks with a use of Tentacle Slam."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +6 to hit, reach 5 ft., one target. _Hit:_ 12 (2d8+3) piercing damage. If the target is a creature, it must succeed on a DC 15 CON save or become infected with a disease. Until the disease is cured, the target is poisoned. Every 24 hours that elapse, the infected creature must repeat the save, reducing its HP maximum by 5 (1d10) on a failure. The disease is cured on a success. The creature dies if the disease reduces its HP maximum to 0. This reduction to the creature's HP maximum lasts until it finishes a long rest after the disease is cured."
+      ],
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "piercing"
+        }
+      ],
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Tentacle",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +6 to hit, reach 10 ft., one target. _Hit:_ 6 (1d6+3) bludgeoning damage plus 9 (2d8) piercing damage. If the target is Medium or smaller, it is grappled (escape DC 13). The otyugh has two tentacles, each of which can grapple one target."
+      ],
+      "damage": [
+        {
+          "formula": "1d6+3",
+          "average": 6,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "piercing"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Tentacle Slam",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The otyugh slams creatures grappled by it into each other or into a solid surface. Each creature must make a DC 15 STR save. On a failure, a creature takes 14 (4d6) bludgeoning damage and is stunned until the end of its next turn. On a success, a creature takes half the damage and isn't stunned."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

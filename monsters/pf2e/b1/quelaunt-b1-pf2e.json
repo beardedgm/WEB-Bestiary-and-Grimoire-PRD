@@ -1,0 +1,322 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:quelaunt",
+  "name": "Quelaunt",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/quelaunt.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "large",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 5,
+    "con": 4,
+    "int": 5,
+    "wis": 6,
+    "cha": 8
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 29,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Aklo (Can'T Speak Any Language); Telepathy"
+  ],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 30
+    },
+    {
+      "name": "Intimidation",
+      "mod": 30
+    },
+    {
+      "name": "Occultism",
+      "mod": 27
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 36,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 305,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 27
+      },
+      {
+        "name": "ref",
+        "mod": 26
+      },
+      {
+        "name": "will",
+        "mod": 31
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": [
+      "air walk"
+    ]
+  },
+  "entries": [
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          26,
+          22
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+12",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Emotional Focus",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The quelaunt can cast the following cleric domain spells as 8th-level occult innate spells at will without spending Focus Points: blind ambition, captivating adoration, and delusional pride."
+      ]
+    },
+    {
+      "name": "Emotional Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The quelaunt casts up to three spells chosen from its at-will innate spells and its emotional focus spells."
+      ]
+    },
+    {
+      "name": "Feed on Emotion",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack",
+        "emotion",
+        "incapacitation",
+        "mental"
+      ],
+      "entries": [
+        "The quelaunt feeds on the emotional unrest of a single creature within 30 feet that's under a harmful emotion effect. The target must succeed at a DC 37 Will save or take 4d10 mental damage and be stunned for 1 round. If the target fails its saving throw, the quelaunt regains the same number of Hit Points and Feed on Emotion does not cost the quelaunt an action, allowing it to use another action this turn."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "save": {
+        "defense": "will",
+        "dc": 37,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "4d10",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    },
+    {
+      "name": "Rapid Strikes",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "The quelaunt makes three melee Strikes, each against a different target within reach. The multiple attack penalty applies to each attack, but increases only after all the attacks have been made."
+      ]
+    },
+    {
+      "name": "Spiral of Despair",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [
+        "emotion",
+        "mental"
+      ],
+      "entries": [
+        "As the quelaunt invades the triggering creature's mind and plants the seeds of negative emotions, it also strips away the target's feelings of hope or positivity. The quelaunt can immediately end a single emotion effect from which the triggering creature is benefiting."
+      ],
+      "trigger": "A creature fails a saving throw to resist one of the quelaunt's innate spells or emotional focus spells."
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 39,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "Constant (4th)",
+          "spells": [
+            {
+              "name": "air walk",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "hideous laughter",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "fear",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "crushing despair",
+              "uses": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 34
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

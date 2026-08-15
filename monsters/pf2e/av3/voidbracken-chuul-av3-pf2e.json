@@ -1,0 +1,294 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:av3:voidbracken-chuul",
+  "name": "Voidbracken Chuul",
+  "gameSystem": "pf2e",
+  "variant": "av3",
+  "source": {
+    "code": "av3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/av3/voidbracken-chuul.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [
+      "amphibious"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "large",
+      "aberration",
+      "amphibious"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 4,
+    "con": 4,
+    "int": 0,
+    "wis": 3,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 18,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 21
+    },
+    {
+      "name": "Nature",
+      "mod": 16
+    },
+    {
+      "name": "Stealth",
+      "mod": 17
+    },
+    {
+      "name": "Survival",
+      "mod": 16
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 31,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 140,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 21
+      },
+      {
+        "name": "ref",
+        "mod": 18
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "swim": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          17,
+          12
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+12",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Constrict",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "1d8+12 bludgeoning, DC 28 (grabbed by claws only)"
+      ]
+    },
+    {
+      "name": "Draining Venom",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": [
+        "Saving Throw DC 28 Fortitude"
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 28,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Maximum Duration",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "6 rounds; Stage 1 drained|CRB|drained 1 (1 round); Stage 2 drained|CRB|drained 2 (1 round)"
+      ]
+    },
+    {
+      "name": "Mind Feeding",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The creature takes 3d6 mental damage."
+      ],
+      "requirements": "A drained creature is grabbed by the chuul's tentacles",
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    },
+    {
+      "name": "Swamp Stride",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The Voidbracken chuul ignores terrain and terrain in swamps."
+      ]
+    },
+    {
+      "name": "Tentacle Transfer",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The chuul transfers the grabbed creature from its claws to its tentacles, or vice versa. The creature is exposed to the chuul's draining venom when transferred into the tentacles and at the start of each of the chuul's turns if it remains grabbed by the tentacles."
+      ],
+      "requirements": "The Voidbracken chuul has a creature grabbed"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 31
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

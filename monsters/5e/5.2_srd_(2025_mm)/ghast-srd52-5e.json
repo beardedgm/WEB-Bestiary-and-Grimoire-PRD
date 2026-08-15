@@ -1,0 +1,245 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd52:ghast",
+  "name": "Ghast",
+  "gameSystem": "dnd5e",
+  "variant": "srd52",
+  "source": {
+    "code": "5.2_srd_(2025_mm)",
+    "name": null,
+    "page": null,
+    "path": "monsters/5e/5.2_srd_(2025_mm)/ghast_mm_2024.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 2,
+    "xp": 450,
+    "display": "2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Chaotic Evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 3,
+    "con": 0,
+    "int": 0,
+    "wis": 0,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 17,
+    "con": 10,
+    "int": 11,
+    "wis": 10,
+    "cha": 8
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 36,
+        "note": null,
+        "formula": "8d8"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 3
+      },
+      {
+        "name": "dex",
+        "mod": 3
+      },
+      {
+        "name": "con",
+        "mod": 0
+      },
+      {
+        "name": "int",
+        "mod": 0
+      },
+      {
+        "name": "wis",
+        "mod": 2
+      },
+      {
+        "name": "cha",
+        "mod": -1
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "Poison"
+      ],
+      "conditions": [
+        "Charmed",
+        "Exhaustion",
+        "Poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Necrotic",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Stench",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "*Constitution Saving Throw*: DC 10, any creature that starts its turn in a 5-foot Emanation originating from the ghast. *Failure:*  The target has the Poisoned condition until the start of its next turn. *Success:*  The target is immune to this ghast's Stench for 24 hours."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 10,
+        "basic": false,
+        "outcomes": {}
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 5,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee Attack Roll:* +5, reach 5 ft. 7 (1d8 + 3) Piercing damage plus 9 (2d8) Necrotic damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+3",
+          "average": 7,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "necrotic"
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee Attack Roll:* +5, reach 5 ft. 10 (2d6 + 3) Slashing damage. If the target is a non-Undead creature, it is subjected to the following effect. *Constitution Saving Throw*: DC 10. *Failure:*  The target has the Paralyzed condition until the end of its next turn."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 10,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "initiative": 3
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

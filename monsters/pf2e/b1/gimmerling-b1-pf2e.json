@@ -1,0 +1,379 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:gimmerling",
+  "name": "Gimmerling",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/gimmerling.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "le",
+      "small",
+      "fey"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 7,
+    "con": 4,
+    "int": 5,
+    "wis": 3,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 21,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "hungersense",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    },
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Crafting",
+      "mod": 23
+    },
+    {
+      "name": "Deception",
+      "mod": 25
+    },
+    {
+      "name": "Nature",
+      "mod": 21
+    },
+    {
+      "name": "Stealth",
+      "mod": 25
+    },
+    {
+      "name": "Thievery",
+      "mod": 25
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 34,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 235,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 19
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold iron",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": [
+      "trickster's step"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Treacherous Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "primal",
+        "transmutation"
+      ],
+      "entries": [
+        "15 feet. Tangled roots, jagged divots, sharp rocks and other hazards appear on surfaces in the aura, creating terrain."
+      ],
+      "aura": {
+        "range": 15,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Trip Up",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The triggering creature must attempt a DC 32 Reflex save."
+      ],
+      "trigger": "A creature critically fails a melee attack to hit the gimmerling or moves into a space within the gimmerling's treacherous aura.",
+      "save": {
+        "defense": "reflex",
+        "dc": 32,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target is flat-footed until the start of its next turn.",
+          "failure": "The target takes 2d10 bludgeoning damage and is flat-footed until the start of its next turn.",
+          "criticalFailure": "As failure, and the target is knocked prone."
+        }
+      }
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 26,
+        "map": [
+          26,
+          22,
+          18
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+7",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "Disarm",
+        "Disarm"
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 26,
+        "map": [
+          26,
+          21,
+          16
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+7",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "poison"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "hand crossbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 28,
+        "map": [
+          28,
+          23,
+          18
+        ],
+        "traits": [
+          "range increment <60 feet>",
+          "reload <1>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "poison"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Change Shape",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "polymorph",
+        "primal",
+        "transmutation"
+      ],
+      "entries": [
+        "The gimmerling changes into its natural form or that of any humanoid. In humanoid form, it loses its treacherous aura, and its equipment appears to be trinkets or toys. As a humanoid that lacks claws or fangs, it loses the matching Strike. If it loses its claw Strike, it gains a fist Strike that is identical except that it deals bludgeoning damage."
+      ]
+    },
+    {
+      "name": "Disarm",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The gimmerling knocks a held or carried weapon to the ground in the target's space."
+      ],
+      "requirements": "The gimmerling's last action was a success with a Strike that has Disarm in its damage entry."
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The gimmerling deals 2d6 extra precision damage to flat-footed creatures."
+      ]
+    },
+    {
+      "name": "Trickster's Step",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The gimmerling ignores terrain and doesn't trigger traps with its movement."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 32
+      }
+    ],
+    "items": [
+      "+1 striking hand crossbow (20 bolts"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

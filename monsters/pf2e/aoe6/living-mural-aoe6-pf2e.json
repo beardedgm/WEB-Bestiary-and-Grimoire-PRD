@@ -1,0 +1,307 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe6:living-mural",
+  "name": "Living Mural",
+  "gameSystem": "pf2e",
+  "variant": "aoe6",
+  "source": {
+    "code": "aoe6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe6/living-mural.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 19,
+    "xp": null,
+    "display": "Creature 19"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "cn",
+      "huge",
+      "construct"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 10,
+    "con": 5,
+    "int": -2,
+    "wis": 2,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 32,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 38
+    },
+    {
+      "name": "Crafting",
+      "mod": 27
+    },
+    {
+      "name": "Deception",
+      "mod": 37
+    },
+    {
+      "name": "Stealth",
+      "mod": 38
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 43,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 100,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 31
+      },
+      {
+        "name": "ref",
+        "mod": 34
+      },
+      {
+        "name": "will",
+        "mod": 30
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "nonlethal",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Backdrop",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a creature attempts to Strike a living mural and critically misses, the attacker hits the surface (a wall, canvas, or so on) behind the living mural. This can damage or break the weapon or surface."
+      ]
+    },
+    {
+      "name": "Surface-Bound",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A living mural can move only along flat surfaces such as floors and walls. This allows it to end its movement wrapped around corners when on a continuous surface. If the surface it's on is destroyed (such as a portrait hit by a fireball spell or a puddle being splashed), the mural takes 10d6 damage and is shunted to the nearest flat surface. If there is no flat surface within 5 feet, the living mural is destroyed."
+      ]
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 37,
+        "map": [
+          37,
+          33,
+          29
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+15",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "splatter",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "magical",
+          "nonlethal",
+          "range increment <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [],
+      "entries": [
+        "3d8+4",
+        "splash of color",
+        "3d8+4, splash of color"
+      ]
+    },
+    {
+      "name": "Splash of Color",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the living mural hits with a splatter attack, the target is also blinded for 1 round."
+      ]
+    },
+    {
+      "name": "Collective Attack",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The subjects depicted within the living mural all reach out at once to attack. The living mural makes a fist Strike against each target within range. These attacks count toward the living mural's multiple attack penalty, but this penalty doesn't increase until after all of the attacks are made."
+      ]
+    },
+    {
+      "name": "Paint the Masses",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The living mural expels a 15-foot cone of paint. Creatures in the area must succeed at a DC 41 Reflex save or be blinded for 1 round. The living mural can't use Paint the Masses again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 41,
+        "basic": false,
+        "outcomes": {}
+      },
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 44
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

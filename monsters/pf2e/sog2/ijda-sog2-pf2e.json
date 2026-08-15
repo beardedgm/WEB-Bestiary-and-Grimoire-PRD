@@ -1,0 +1,357 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sog2:ijda",
+  "name": "Ijda",
+  "gameSystem": "pf2e",
+  "variant": "sog2",
+  "source": {
+    "code": "sog2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sog2/ijda.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [
+      "nindoru"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "large",
+      "fiend",
+      "nindoru"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 2,
+    "con": 5,
+    "int": -2,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability darkvision}",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 16
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 100,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 15
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 12
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "fatigued"
+      ],
+      "other": [
+        "death effects",
+        "emotion effects",
+        "sleep"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "mental",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "negative",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "silver",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aura of Forgetfulness",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "enchantment",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "30 feet. A creature who begins its turn in the aura must attempt a DC 21 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected and is temporarily immune to Aura of Forgetfulness for 24 hours.",
+          "success": "The creature is unaffected.",
+          "failure": "The creature is slowed 1 until the end of its next turn, as it has trouble remembering what it intended to do.",
+          "criticalFailure": "As failure, but slowed 2."
+        }
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Soul Shred",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Creatures killed by an ijda are difficult to bring back to life or animate as undead. The ijda automatically attempts to counteract|CRB|3|counteracting|0 any attempt to resurrect or animate any creature that it has killed (counteract modifier +14, counteract level 3). If the ijda who slew the creature is itself slain, the creature can be brought back from death or become undead normally."
+      ]
+    },
+    {
+      "name": "broken katana",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "deadly <d8>",
+          "magical",
+          "reach <15 feet>",
+          "two-hand <d10>",
+          "versatile <p>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+8",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Manifest False Memories",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "aura",
+        "concentrate",
+        "emotion",
+        "enchantment",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "The ijda releases a cloud of red butterflies from its body, each of which carries a false memory that infects those they brush against. All non-nindoru|SoG2 creatures within 10 feet of the ijda must attempt a DC 21 Will save. The ijda can't Manifest False Memories for 1d4 rounds."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is stupefied 1 until the end of its next turn.",
+          "failure": "The creature is stupefied 1 and confused until the end of its next turn.",
+          "criticalFailure": "The creature is stupefied 1 and confused for 1 minute. It can attempt a new save at the end of each of its turns to end the effects."
+        }
+      },
+      "aura": {
+        "range": 10,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Ruin Wielder",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When an ijda wields a broken non-magical weapon, they do not take any of the disadvantages of the weapon being broken. While the ijda wields it, the weapon becomes a +1 striking weapon that deals an additional 1d6 mental damage on a successful hit."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 24,
+      "attackBonus": 16,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 3,
+          "rankLabel": "Cantrips (3rd)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "true strike",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "item facade",
+              "uses": null
+            },
+            {
+              "name": "touch of idiocy",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "phantom pain",
+              "uses": null
+            },
+            {
+              "name": "shatter",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 27
+      }
+    ],
+    "items": [
+      "broken katana"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

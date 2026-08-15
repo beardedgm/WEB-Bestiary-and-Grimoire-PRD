@@ -1,0 +1,334 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:gmg:assassin",
+  "name": "Assassin",
+  "gameSystem": "pf2e",
+  "variant": "gmg",
+  "source": {
+    "code": "gmg",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/gmg/assassin.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 5,
+    "con": 2,
+    "int": 2,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 17
+    },
+    {
+      "name": "Athletics",
+      "mod": 13
+    },
+    {
+      "name": "Deception",
+      "mod": 12
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 10
+    },
+    {
+      "name": "Intimidation",
+      "mod": 10
+    },
+    {
+      "name": "Medicine",
+      "mod": 14
+    },
+    {
+      "name": "Society",
+      "mod": 12
+    },
+    {
+      "name": "Stealth",
+      "mod": 19
+    },
+    {
+      "name": "Survival",
+      "mod": 12
+    },
+    {
+      "name": "Thievery",
+      "mod": 15
+    },
+    {
+      "name": "Underworld Lore",
+      "mod": 14
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 26,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 130,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 12
+      },
+      {
+        "name": "ref",
+        "mod": 19
+      },
+      {
+        "name": "will",
+        "mod": 14
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Deny Advantage",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The assassin isn't flat-footed to creatures of 8th level or lower that are hidden, undetected, flanking, or using surprise attack."
+      ]
+    },
+    {
+      "name": "Nimble Dodge",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The assassin gains a +2 circumstance bonus to AC against the triggering attack."
+      ],
+      "trigger": "The assassin is targeted with a melee or ranged attack by an attacker they can see"
+    },
+    {
+      "name": "rapier",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          13,
+          8
+        ],
+        "traits": [
+          "deadly <1d8>",
+          "disarm",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+8",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "composite shortbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [
+          "deadly <2d10>",
+          "magical",
+          "propulsive",
+          "range increment <60 feet>",
+          "reload <0>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Poison Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The assassin applies a poison to the weapon."
+      ],
+      "requirements": "The assassin is wielding a piercing or slashing weapon and has a free hand"
+    },
+    {
+      "name": "Quick Draw",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The assassin Interacts to draw a weapon, then Strikes with that weapon."
+      ]
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The assassin deals an extra 2d6 precision damage to flat-footed creatures."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    },
+    {
+      "name": "Surprise Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "On the first round of combat, creatures that haven't acted yet are flatfooted to the assassin."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 24
+      }
+    ],
+    "items": [
+      "+1 striking composite shortbow (20 arrows)",
+      "lesser darkvision elixir",
+      "giant centipede venom (3)",
+      "invisibility potion",
+      "leather armor",
+      "+1 rapier",
+      "simple injury poison (8 doses",
+      "2d4 poison damage)",
+      "sleep poison (2)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,220 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa1:hellcrown",
+  "name": "Hellcrown",
+  "gameSystem": "pf2e",
+  "variant": "aoa1",
+  "source": {
+    "code": "aoa1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa1/hellcrown.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 1,
+    "xp": null,
+    "display": "Creature 1"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "le",
+      "tiny",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -2,
+    "dex": 4,
+    "con": 3,
+    "int": -1,
+    "wis": 1,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Intimidation",
+      "mod": 8
+    },
+    {
+      "name": "Stealth",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 20,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 4
+      },
+      {
+        "name": "ref",
+        "mod": 6
+      },
+      {
+        "name": "will",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "nail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 9,
+        "map": [
+          9,
+          4,
+          -1
+        ],
+        "traits": [
+          "range increment <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+2",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "bleeding nail",
+        "bleeding nail"
+      ]
+    },
+    {
+      "name": "Bleeding Nail",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the hellcrown hits with a nail Strike, the target must attempt a DC 16 Fortitude save. On a failure, the nail is embedded in the creature, making it enfeebled|CRB|enfeebled 1 for 1 minute and giving it 1 persistent bleed damage (enfeebled|CRB|enfeebled 2 and 1d4 persistent bleed damage on a critical failure). Each additional embedded nail increases the enfeebled value by 1 (to a maximum of enfeebled|CRB|enfeebled 4) and the bleed damage by 1. A creature can remove a nail with an Interact action to reduce the enfeeblement and amount of bleed damage. Pulling out the last nail removes both conditions."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Terrifying Stare",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "fear",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "All creatures that can see the hellcrown and are suffering from its bleeding nail must attempt a DC 16 Will saving throw. A creature that fails is frightened|CRB|frightened 1, and on a critical failure becomes fleeing for as long as it's frightened. Any creature that attempts a save is then temporarily immune for 10 minutes."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 17
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

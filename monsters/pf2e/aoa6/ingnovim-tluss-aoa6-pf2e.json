@@ -1,0 +1,315 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa6:ingnovim-tluss",
+  "name": "Ingnovim Tluss",
+  "gameSystem": "pf2e",
+  "variant": "aoa6",
+  "source": {
+    "code": "aoa6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa6/ingnovim-tluss.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 19,
+    "xp": null,
+    "display": "Creature 19"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "le",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 6,
+    "con": 9,
+    "int": 10,
+    "wis": 5,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 33,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 36
+    },
+    {
+      "name": "Crafting",
+      "mod": 39
+    },
+    {
+      "name": "Deception",
+      "mod": 32
+    },
+    {
+      "name": "Intimidation",
+      "mod": 32
+    },
+    {
+      "name": "Medicine",
+      "mod": 38
+    },
+    {
+      "name": "Society",
+      "mod": 36
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 43,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 350,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 35
+      },
+      {
+        "name": "ref",
+        "mod": 29
+      },
+      {
+        "name": "will",
+        "mod": 32
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "dagger",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          25,
+          21
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "thrown <10 feet>",
+          "versatile <S>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 10,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d4+10",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "syringe",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 34,
+        "map": [
+          34,
+          30,
+          26
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+10",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "bomb",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 36,
+        "map": [
+          36,
+          31,
+          26
+        ],
+        "traits": [
+          "range increment <20 feet>",
+          "splash"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [],
+      "entries": []
+    },
+    {
+      "name": "Inject Unstable Mutagen",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [
+        "alchemical",
+        "mutagen",
+        "polymorph"
+      ],
+      "entries": [
+        "The creature injected with unstable mutagen must attempt a DC 41 Fortitude save to resist the injection."
+      ],
+      "trigger": "Ingnovim damages a creature with a syringe Strike",
+      "save": {
+        "defense": "fortitude",
+        "dc": 41,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target is sickened|CRB|sickened 2.",
+          "failure": "The target's body shifts and mutates, growing difficult to control; the target is clumsy|CRB|clumsy 2 and enfeebled|CRB|enfeebled 2 for 24 hours.",
+          "criticalFailure": "The target's body completely distorts into a shuddering blob of warped flesh that is incapable of action; the target is paralyzed. Every 24 hours, the target may attempt a new saving throw against this effect; on a critical success, the paralysis ends."
+        }
+      }
+    },
+    {
+      "name": "Mutagenic Adaptation",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Ingnovim's body has adapted to the constant use of his mutagens. He does not suffer the drawback of any bestial mutagens but is still affected normally by other mutagens."
+      ]
+    },
+    {
+      "name": "Quick Bomber",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Ingnovim draws an alchemical bomb with an Interact action and throws it as a ranged Strike."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 49
+      }
+    ],
+    "items": [
+      "alchemist's tools",
+      "+2 greater resilient chain shirt",
+      "+2 greater striking dagger",
+      "formula book (contains formulas for all common alchemical items of 19th level or lower)",
+      "syringe filled with unstable mutagen (4)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

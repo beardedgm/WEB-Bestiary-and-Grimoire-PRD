@@ -1,0 +1,349 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec4:brughadatch",
+  "name": "Brughadatch",
+  "gameSystem": "pf2e",
+  "variant": "ec4",
+  "source": {
+    "code": "ec4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec4/brughadatch.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [
+      "amphibious"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "medium",
+      "amphibious",
+      "fey"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 3,
+    "con": 4,
+    "int": 0,
+    "wis": 4,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 19
+    },
+    {
+      "name": "Deception",
+      "mod": 22
+    },
+    {
+      "name": "Intimidation",
+      "mod": 22
+    },
+    {
+      "name": "Nature",
+      "mod": 22
+    },
+    {
+      "name": "Survival",
+      "mod": 20
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 210,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 16
+      },
+      {
+        "name": "will",
+        "mod": 20
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "swim": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          16,
+          11
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+9",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 19,
+        "map": [
+          19,
+          15,
+          11
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+5",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Deceitful Feast",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "illusion"
+      ],
+      "entries": [
+        "The brughadatch conjures a decadent, enticing feast void of nutritional substance. This conjuration takes 1 minute and lasts for 24 hours. For each item of illusory food a creature eats, it must attempt a DC 29 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature sees through the illusion and becomes immune to the effects of Deceitful Feast for 24 hours.",
+          "success": "The creature doesn't see through the illusion but is unaffected by the food.",
+          "failure": "The creature takes a –1 circumstance penalty to Will saves against any of the brughadatch's spells or abilities. The penalty increases with each failed save, to a maximum of –5.",
+          "criticalFailure": "As failure, plus for 1 hour, the creature's attitude becomes helpful to the brughadatch, and the creature can't use hostile actions against them."
+        }
+      }
+    },
+    {
+      "name": "Psychic Sip",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The brughadatch feasts on the souls of the creatures they've tricked. They target up to five creatures within 30 feet and feast on their ambient brainpower, dealing 4d10 mental damage (DC 26 basic Will save) to each creature. Unless a target succeeds at the Will save, this damage does not end the charm effect or the effect of Deceitful Feast as a hostile action normally would."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "requirements": "Targets must have critically failed a save against a brughadatch's Deceitful Feast or charm innate spell",
+      "save": {
+        "defense": "will",
+        "dc": 26,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 28,
+      "attackBonus": 22,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "Cantrips (4th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "produce flame",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "fear",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "faerie fire",
+              "uses": null
+            },
+            {
+              "name": "hideous laughter",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "enthrall",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "charm",
+              "uses": "at will"
+            },
+            {
+              "name": "confusion",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 27
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

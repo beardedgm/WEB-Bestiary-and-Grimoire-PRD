@@ -1,0 +1,336 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:galvo",
+  "name": "Galvo",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/galvo.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [
+      "amphibious"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "medium",
+      "aberration",
+      "amphibious"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 6,
+    "con": 3,
+    "int": -2,
+    "wis": 4,
+    "cha": -1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aquan (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 19
+    },
+    {
+      "name": "Athletics",
+      "mod": 19
+    },
+    {
+      "name": "Stealth",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": "{@ability all-around vision} abilities"
+    },
+    "hp": [
+      {
+        "value": 158,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "swarm mind"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "electricity",
+        "amount": 12,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 8,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 8,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Electrical Field",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "electricity",
+        "aura"
+      ],
+      "entries": [
+        "5 feet, 1d12 electricity damage (DC 26 basic Reflex)"
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 26,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 5,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "1d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ]
+    },
+    {
+      "name": "eel jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          17,
+          13
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+7",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "eel dart",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          17,
+          13
+        ],
+        "traits": [
+          "agile",
+          "thrown <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+7",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Squirming Embrace",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The galvo Strides, ending its movement sharing a space with another creature, and deals 3d6 piercing plus 2d12 electricity damage to the creature. The creature must attempt a DC 28 basic Reflex save."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 28,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ]
+    },
+    {
+      "name": "Swarm Shape",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate"
+      ],
+      "entries": [
+        "The galvo collapses into a shapeless swarm of eels. It drops all held, worn, and carried items. While discorporated, the galvo can't use attack actions, but it can move through areas small enough for its individual eels to fit without having to Squeeze. It can use Swarm Shape again to coalesce back into its normal form."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:mummy",
+  "name": "Mummy",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 338,
+    "path": "monsters/5e/a5e_monstrous_menagerie/mummy-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": -1,
+    "con": 3,
+    "int": 0,
+    "wis": 0,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 8,
+    "con": 16,
+    "int": 10,
+    "wis": 10,
+    "cha": 12
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "the languages it knew in life"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 11,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 67,
+        "note": null,
+        "formula": "9d8+27"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "wis",
+        "mod": 2
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "necrotic",
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "fatigue",
+        "frightened",
+        "paralyzed",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "damage from nonmagical weapons",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Flammable",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "After taking fire damage, the mummy catches fire and takes 5 (1d10) ongoing fire damage if it isnt already suffering ongoing fire damage. A creature can use an action to extinguish this fire."
+      ]
+    },
+    {
+      "name": "Curse: Mummy Rot",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A mummys touch inflicts a dreadful curse called mummy rot. A cursed creature can't regain hit points, and its hit point maximum decreases by an amount equal to the creatures total number of Hit Dice for every 24 hours that elapse. If this curse reduces the targets hit point maximum to 0, the target dies and crumbles to dust. Remove curse and similar magic ends the curse."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mummy uses Dreadful Glare and then attacks with its rotting fist."
+      ]
+    },
+    {
+      "name": "Dreadful Glare (Gaze)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mummy targets a creature within 60 feet. The target makes a DC 11 Wisdom saving throw. On a failure  it is magically frightened until the end of the mummys next turn. If the target fails the save by 5 or more  it is paralyzed for the same duration. A target that succeeds on the saving throw is immune to the Dreadful Glare of mummies (but not mummy lords) for 24 hours."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 11,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "paralyzed",
+        "duration": "24 hours",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Rotting Fist",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) bludgeoning damage plus 10 (3d6) necrotic damage. If the target is a creature  it makes a DC 13 Constitution saving throw. On a failure  it is cursed with Mummy Rot."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

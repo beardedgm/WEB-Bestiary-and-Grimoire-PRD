@@ -1,0 +1,298 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:chainedangel",
+  "name": "Chained Angel",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 18,
+    "path": "monsters/5e/tome_of_beasts_2023/chainedangel-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 8,
+    "xp": 3900,
+    "display": "8"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "celestial"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral Evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 3,
+    "con": 1,
+    "int": 1,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 16,
+    "con": 12,
+    "int": 12,
+    "wis": 18,
+    "cha": 20
+  },
+  "perception": {
+    "mod": 7,
+    "passive": 17
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 200,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Common",
+    "Infernal",
+    "telepathy 120 ft."
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 121,
+        "note": null,
+        "formula": "22d8+22"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 6
+      },
+      {
+        "name": "wis",
+        "mod": 7
+      },
+      {
+        "name": "cha",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire",
+        "radiant"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 60,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Immortal Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The chained angel doesn't require food, drink, or sleep."
+      ]
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The chained angel has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Redemption",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a creature casts the knock spell on the chained angel's chains, the chains release a blast of unholy flame. The spellcaster must make a DC 16 Dexterity saving throw, taking 16 (3d10) fire damage and 16 (3d10) radiant damage on a failed save, or half as much damage on a successful one. If the spellcaster survives, the chained angel must immediately make a DC 17 Wisdom saving throw. On a success, the angel's chains fall away. It is restored to its senses and the form it had before it was chained, typically a deva. On a failure, the chained angel remains chained for 7 days, and during that time, any further attempts to cast knock on the angel's chains fail."
+      ],
+      "damage": [
+        {
+          "formula": "3d10",
+          "average": 16,
+          "type": "fire"
+        },
+        {
+          "formula": "3d10",
+          "average": 16,
+          "type": "radiant"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The chained angel makes two Fiery Greatsword attacks."
+      ]
+    },
+    {
+      "name": "Fiery Greatsword",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) slashing damage plus 16 (3d10) fire damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": 11,
+          "type": "slashing"
+        },
+        {
+          "formula": "3d10",
+          "average": 16,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Fallen Glory",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Each creature the chained angel can see within 50 feet of it must make a DC 15 Strength saving throw. On a failure, a creature takes 19 (3d12) radiant damage and is knocked prone. On a success, a creature takes half the damage and isn't knocked prone."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "3d12",
+          "average": 19,
+          "type": "radiant"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Fiendish Cunning",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When a creature the chained angel can see within 60 feet of it casts a spell that appears on the cleric or paladin spell list, the chained angel can counter the spell with a successful ability check. This works like the counterspell spell with a +5 spellcasting ability check, except the chained angel must make the ability check no matter the level of the spell."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,281 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:bb:kobold-trapmaster",
+  "name": "Kobold Trapmaster",
+  "gameSystem": "pf2e",
+  "variant": "bb",
+  "source": {
+    "code": "bb",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/bb/kobold-trapmaster.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 2,
+    "xp": null,
+    "display": "Creature 2"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "kobold"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "le",
+      "small",
+      "humanoid",
+      "kobold"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 4,
+    "con": 1,
+    "int": 4,
+    "wis": 3,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 6,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 7
+    },
+    {
+      "name": "Crafting",
+      "mod": 8
+    },
+    {
+      "name": "Stealth",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 28,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 7
+      },
+      {
+        "name": "ref",
+        "mod": 10
+      },
+      {
+        "name": "will",
+        "mod": 5
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "shortsword",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 8,
+        "map": [
+          8,
+          4,
+          0
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "versatile <S>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "spear",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          5,
+          0
+        ],
+        "traits": [
+          "thrown <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Hurried Retreat",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "If the kobold is adjacent to at least one enemy, the kobold Strides up to 30 feet and gains a +2 circumstance bonus to AC against reactions triggered by this movement. The kobold must end this movement in a space that's not adjacent to an enemy."
+      ]
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The kobold trapmaster deals an extra 1d6 damage to creatures that have the flat-footed condition."
+      ]
+    },
+    {
+      "name": "Quick Trap",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The kobold trapmaster deploys one spike trap in an adjacent square."
+      ]
+    },
+    {
+      "name": "Spike Trap",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Once this trap is deployed, anyone who steps on the square it's in takes 2d8 piercing damage and must attempt a DC 17 basic Reflex saving throw."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 17,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 16
+      }
+    ],
+    "items": [
+      "leather armor",
+      "shortsword",
+      "spear (3)",
+      "spike trap (3)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

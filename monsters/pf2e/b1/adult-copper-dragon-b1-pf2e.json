@@ -1,0 +1,440 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:adult-copper-dragon",
+  "name": "Adult Copper Dragon",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/adult-copper-dragon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "earth"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "cg",
+      "lawChaos": "chaotic",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "cg",
+      "large",
+      "dragon",
+      "earth"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 3,
+    "con": 4,
+    "int": 4,
+    "wis": 3,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 23,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic",
+    "Elven",
+    "Gnomish"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 21
+    },
+    {
+      "name": "Athletics",
+      "mod": 24
+    },
+    {
+      "name": "Crafting",
+      "mod": 22
+    },
+    {
+      "name": "Deception",
+      "mod": 21
+    },
+    {
+      "name": "Performance",
+      "mod": 23
+    },
+    {
+      "name": "Society",
+      "mod": 22
+    },
+    {
+      "name": "Stealth",
+      "mod": 21
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 235,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 23
+      },
+      {
+        "name": "ref",
+        "mod": 22
+      },
+      {
+        "name": "will",
+        "mod": 22
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "acid"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "fly": 140
+    },
+    "special": [
+      "climb stone 40 feet"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "90 feet, DC 29"
+      ],
+      "aura": {
+        "range": 90,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Twisting Tail",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes a tail Strike at the creature with a –2 penalty. If it hits, the dragon disrupts the triggering action."
+      ],
+      "trigger": "A creature within reach of the copper dragon's tail uses a move action or leaves a square during a move action it's using."
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 26,
+        "map": [
+          26,
+          21,
+          16
+        ],
+        "traits": [
+          "acid",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+12",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 26,
+        "map": [
+          26,
+          22,
+          18
+        ],
+        "traits": [
+          "agile",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+12",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          19,
+          14
+        ],
+        "traits": [
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The copper dragon breathes in one of two ways. The dragon can't use Breath Weapon again for 1d4 rounds. - Acid (acid, arcane, evocation); The dragon breathes acid in a 80-foot line that deals 13d6 acid damage (DC 32 basic Fortitude save).",
+        "- Slowing Gas (arcane, transmutation); The dragon breathes a 80-foot line of slowing gas. Each creature in the area must succeed at a DC 32 Fortitude save or be slowed 1 for 1 round (or slowed 2 on a critical failure)."
+      ],
+      "area": {
+        "shape": "line",
+        "size": 80,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 32,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "13d6",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Climb Stone",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dragon's climb speed functions only when climbing stone surfaces."
+      ]
+    },
+    {
+      "name": "Draconic Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes two claw Strikes and one tail Strike in any order."
+      ]
+    },
+    {
+      "name": "Draconic Momentum",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the dragon scores a critical hit with a Strike, it recharges Breath Weapon."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 33,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "grease",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "hideous laughter",
+              "uses": "at will"
+            },
+            {
+              "name": "shape stone",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana",
+        "dc": 30
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

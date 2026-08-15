@@ -1,0 +1,251 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:dunemimic",
+  "name": "Dune Mimic",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 268,
+    "path": "monsters/5e/tome_of_beasts_2023/dunemimic-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 8,
+    "xp": 3900,
+    "display": "8"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": -1,
+    "con": 4,
+    "int": -1,
+    "wis": 1,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 20,
+    "dex": 8,
+    "con": 18,
+    "int": 9,
+    "wis": 13,
+    "cha": 10
+  },
+  "perception": {
+    "mod": 4,
+    "passive": 14
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "tremorsense",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 168,
+        "note": null,
+        "formula": "16d12+64"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "fire"
+      ],
+      "conditions": [
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Adhesive (Object or Terrain Form Only)",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dune mimic adheres to anything that touches it. A creature adhered to the dune mimic is also grappled by it (escape DC 15). Ability checks made to escape this grapple have disadvantage. The dune mimic can harden its outer surface, so only the creatures it chooses are affected by this trait."
+      ]
+    },
+    {
+      "name": "False Appearance (Object or Terrain Form Only)",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While the dune mimic remains motionless, it is indistinguishable from an ordinary sandy object or terrain feature."
+      ]
+    },
+    {
+      "name": "Grappler",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dune mimic has advantage on attack rolls against any creature grappled by it."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dune mimic makes three Pseudopod attacks. It can replace one attack with a use of Engulf."
+      ]
+    },
+    {
+      "name": "Pseudopod",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +8 to hit, reach 15 ft., one target. Hit: 18 (3d8 + 5) bludgeoning damage. If the dune mimic is in object or terrain form, the target is subjected to the mimic's Adhesive trait."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+5",
+          "average": 18,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Engulf",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dune mimic engulfs a Large or smaller creature grappled by it. The engulfed target is blinded, restrained, and unable to breathe, and it must succeed on a DC 15 Constitution saving throw at the start of each of the mimic's turns or take 10 (3d6) slashing damage, as the creature is lacerated by the mimic's sand-coated form. If the mimic moves, any engulfed creatures move with it. The mimic can have no more than two creatures engulfed at a time."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "blinded",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Change Shape",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dune mimic transforms into a Huge sand- or gravel-covered object, shapes itself into a sandy or rocky terrain feature no larger than a 20-foot cube or transforms back into its true, amorphous form. Its statistics are the same in each form. Any equipment it is wearing or carrying isn't transformed. It reverts to its true form if it dies."
+      ],
+      "area": {
+        "shape": "cube",
+        "size": 20,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

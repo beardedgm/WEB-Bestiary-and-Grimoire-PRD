@@ -1,0 +1,338 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sf1:blade-magi",
+  "name": "Blade Magi",
+  "gameSystem": "pf2e",
+  "variant": "sf1",
+  "source": {
+    "code": "sf1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sf1/blade-magi.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 11,
+    "xp": null,
+    "display": "Creature 11"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "le",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 2,
+    "con": 2,
+    "int": 4,
+    "wis": 3,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 18,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Draconic",
+    "Thassilonian"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 23
+    },
+    {
+      "name": "Athletics",
+      "mod": 22
+    },
+    {
+      "name": "Society",
+      "mod": 21
+    },
+    {
+      "name": "Survival",
+      "mod": 20
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 31,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 195,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 17
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 20
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Capture Magic",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The Blade magi enters their Arcane Cascade|SoM. If the Blade magi is already in Arcane Cascade|SoM, they gain a +2 status bonus to damage from Arcane Cascade|SoM until the end of their next turn."
+      ],
+      "trigger": "The Blade magi succeeds at a save against a foe's harmful spell, or a foe fails a spell attack roll against the Blade magi with a harmful spell"
+    },
+    {
+      "name": "halberd",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "magical",
+          "reach",
+          "versatile <S>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+11",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Arcane Cascade",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "stance"
+      ],
+      "entries": [
+        "When the Blade magi enters this stance and at the beginning of each of their turns while in it, the Blade magi gains 5 temporary Hit Points. While in this stance, the Blade magi's melee Strikes gain the arcane trait, deal an extra 2 force damage, and deal 4 splash force damage to foes adjacent to the target."
+      ],
+      "requirements": "The Blade magi can enter this stance if their most recent action was to Cast a Spell or make a Spellstrike|SoM, but the Blade magi can remain in the stance even if they no longer meet the requirements"
+    },
+    {
+      "name": "Spellstrike",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The Blade magi channels a spell into a melee Strike to deliver a magically charged attack. The Blade magi casts acid splash, ray of frost, or vampiric touch. The effects of the spell don't occur immediately but are imbued into the Blade magi's attack instead. The Blade magi makes a melee Strike, which gains the arcane trait. The spell is coupled with the attack, using the Blade magi's attack roll to determine the effects of both the Strike and the spell. This counts as two attacks for their multiple attack penalty, but the penalty isn't applied until after the magus has completed the Spellstrike|SoM. After using Spellstrike|SoM, the Blade magi can't do so again until they recharge this ability as a single action, which has the concentrate trait. The Blade magi also recharges their Spellstrike|SoM when they cast thunderous strike|SoM."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Prepared arcane Spells",
+      "type": "prepared",
+      "tradition": "arcane",
+      "dc": 30,
+      "attackBonus": 22,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Cantrips (6th)",
+          "spells": [
+            {
+              "name": "acid splash",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "prestidigitation",
+              "uses": null
+            },
+            {
+              "name": "ray of frost",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "haste",
+              "uses": null
+            },
+            {
+              "name": "true strike",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "vampiric touch",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "baleful polymorph",
+              "uses": null
+            },
+            {
+              "name": "chain lightning",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Magus Focus Spells",
+      "type": "focus",
+      "tradition": null,
+      "dc": 30,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "thunderous strike",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 30
+      }
+    ],
+    "items": [
+      "steel-colored bird feather token",
+      "+1 striking halberd",
+      "moderate healing potion",
+      "+1 scale mail",
+      "spellbook (contains all prepared spells)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,210 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:rust:severed-head",
+  "name": "Severed Head",
+  "gameSystem": "pf2e",
+  "variant": "rust",
+  "source": {
+    "code": "rust",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/rust/severed-head.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": -1,
+    "xp": null,
+    "display": "Creature -1"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "tiny",
+      "mindless",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 2,
+    "con": 0,
+    "int": -5,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 6,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 7,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 4
+      },
+      {
+        "name": "ref",
+        "mod": 6
+      },
+      {
+        "name": "will",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15,
+      "fly": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 6,
+        "map": [
+          6,
+          2,
+          -2
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+1",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Gnash",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The severed head makes a second jaws Strike as it violently shakes itself, trying to rip away a mouthful of flesh. On a success, the target takes an additional 1d4 slashing damage and 1 persistent bleed damage."
+      ],
+      "requirements": "The beheaded's previous action was a jaws Strike that dealt damage to its target",
+      "damage": [
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Rust Creep",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "These undead inflict rust creep with their jaws Strikes. A creature damaged by a jaws Strike or a Gnash from one of these severed heads must succeed at a DC 15 Fortitude save or contract rust creep|Rust."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 13
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

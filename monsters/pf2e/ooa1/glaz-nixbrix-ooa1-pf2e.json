@@ -1,0 +1,340 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ooa1:glaz-nixbrix",
+  "name": "Glaz Nixbrix",
+  "gameSystem": "pf2e",
+  "variant": "ooa1",
+  "source": {
+    "code": "ooa1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ooa1/glaz-nixbrix.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "goblin"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "cn",
+      "small",
+      "goblin",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 6,
+    "con": 4,
+    "int": 3,
+    "wis": 1,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 9,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Goblin"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 14
+    },
+    {
+      "name": "Athletics",
+      "mod": 11
+    },
+    {
+      "name": "Crafting",
+      "mod": 9
+    },
+    {
+      "name": "Intimidation",
+      "mod": 10
+    },
+    {
+      "name": "Stealth",
+      "mod": 14
+    },
+    {
+      "name": "Underworld Lore",
+      "mod": 9
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": "20 when custom armor is broken); abilities"
+    },
+    "hp": [
+      {
+        "value": 60,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 10
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 9
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 5,
+        "note": "except adamantine or orichalcum"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "electricity",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "climb": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Custom Armor",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Nixbrix's custom armor, which only he knows how to operate, grants him physical resistance. Once Nixbrix is reduced to fewer than half his Hit Points, or immediately upon being damaged by a critical hit, his custom armor breaks, causing the following effects: his"
+      ]
+    },
+    {
+      "name": "Armor",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Class is reduced to 20, he loses his physical resistance, he can't use his really big gun, and his buzzsaw knuckles no longer cause persistent bleed damage."
+      ]
+    },
+    {
+      "name": "Leap Away",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "move"
+      ],
+      "entries": [
+        "Nixbrix Leaps up to 10 feet vertically and 30 feet horizontally, and he gains a +2 circumstance bonus to AC against the triggering attack."
+      ],
+      "trigger": "Nixbrix is targeted with a ranged attack"
+    },
+    {
+      "name": "buzz-saw knuckles",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [
+          "finesse",
+          "free-hand"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+5",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "really big gun",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          7,
+          2
+        ],
+        "traits": [
+          "deadly <d12>",
+          "free-hand",
+          "range <60 feet>",
+          "reload special [see below]",
+          "volley <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Buzz-Saw Knuckles",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Nixbrix has custom-built knuckledusters called buzz-saw knuckles. Only he knows how to operate them."
+      ]
+    },
+    {
+      "name": "Escape Route",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Nixbrix flees the scene. He moves four times, each time using one of the following actions: Climb, Leap, Stand, Step, or Stride."
+      ]
+    },
+    {
+      "name": "Really Big Gun",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Nixbrix has a custom-built, extra-large firearm mounted to the shoulder of his custom armor. Only he knows how to fire the contraption, which is inscrutable in the hands of anyone else. Whenever Nixbrix fires his Really Big Gun, the armor automatically reloads the weapon, but it doesn't finish reloading until the end of his next turn. He can only fire it, at most, every other round. He can take 6 shots with this weapon before all the ammunition is spent."
+      ]
+    },
+    {
+      "name": "Knuckle Knock",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Nixbrix Strides, Climbs, or Leaps once, then Strikes with his buzz-saw knuckles. As long as this Strike is a success, he unleashes a devastating black powder explosion afterward that deals 1d6 fire damage to both him and the target of the Strike. He then Strides or Leaps once more, propelled by the blast."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 29
+      }
+    ],
+    "items": [
+      "moderate war blood mutagen (page 77)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

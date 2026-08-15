@@ -1,0 +1,282 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec5:death-drider",
+  "name": "Death Drider",
+  "gameSystem": "pf2e",
+  "variant": "ec5",
+  "source": {
+    "code": "ec5",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec5/death-drider.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "large",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 8,
+    "con": 4,
+    "int": -1,
+    "wis": 5,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 24,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Elven",
+    "Necril",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 30
+    },
+    {
+      "name": "Athletics",
+      "mod": 28
+    },
+    {
+      "name": "Intimidation",
+      "mod": 24
+    },
+    {
+      "name": "Stealth",
+      "mod": 30
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 34,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 235,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 24
+      },
+      {
+        "name": "ref",
+        "mod": 26
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "paralyze"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "climb": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Sack of Spiders",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The death drider explodes in a shower of spiders. Each adjacent creature must succeed at a DC 31 Reflex save or take 3d6 piercing damage and be exposed to death drider venom."
+      ],
+      "trigger": "The death drider is reduced to 0 Hit Points",
+      "save": {
+        "defense": "reflex",
+        "dc": 31,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "fangs",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "4d6+13",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "death drider venom",
+        "death drider venom"
+      ]
+    },
+    {
+      "name": "web",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "range increment <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [],
+      "entries": []
+    },
+    {
+      "name": "Death Drider Venom",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Hungering Web",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature hit by a death drider's web attack is immobilized and stuck to the nearest surface (Escape DC 31). Each round thereafter until it breaks free, the creature takes 3d6 piercing damage (DC 31 basic Reflex save) and, on a failed save, is exposed to death drider venom."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 31,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 33
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

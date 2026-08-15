@@ -1,0 +1,274 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:mal:undead-brain-collector",
+  "name": "Undead Brain Collector",
+  "gameSystem": "pf2e",
+  "variant": "mal",
+  "source": {
+    "code": "mal",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/mal/undead-brain-collector.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration",
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ce",
+      "large",
+      "aberration",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 3,
+    "con": 5,
+    "int": -1,
+    "wis": 4,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Aklo",
+    "Common",
+    "Draconic",
+    "Protean",
+    "Undercommon; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 16
+    },
+    {
+      "name": "Athletics",
+      "mod": 17
+    },
+    {
+      "name": "Occultism",
+      "mod": 12
+    },
+    {
+      "name": "Stealth",
+      "mod": 16
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 130,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Absorb Phantom Brain",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "necromancy"
+      ],
+      "entries": [
+        "The undead brain collector absorbs 1d4 of its phantom brains, gaining 1d8 temporary hit points for each brain it absorbed."
+      ],
+      "trigger": "The undead brain collector possesses at least 1 phantom brain after using Brainlash"
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          13,
+          8
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+8",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "mind-rotting toxin"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          14,
+          10
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+8",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Brainlash",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "mental",
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "The undead brain collector extrudes a writhing tangle of ectoplasm from its bursted brain blisters. These ectoplasmic strands lash out at all living targets within 30 feet. Targets in this area must attempt a DC 25 Will save. After the undead brain collector uses this ability, seven phantom brains glow and shimmer where its brain blisters once were. It can't use Brainlash again until all seven phantom brains are Absorbed."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Mind-Rotting Toxin",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism, Religion",
+        "dc": 33
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Brainlash)"
+    ],
+    "unmapped": []
+  }
+}

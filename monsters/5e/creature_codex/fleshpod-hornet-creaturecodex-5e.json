@@ -1,0 +1,238 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:fleshpod-hornet",
+  "name": "Fleshpod Hornet",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 161,
+    "path": "monsters/5e/creature_codex/fleshpod-hornet.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 4,
+    "con": 2,
+    "int": -4,
+    "wis": 1,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 14,
+    "dex": 18,
+    "con": 15,
+    "int": 3,
+    "wis": 12,
+    "cha": 6
+  },
+  "perception": {
+    "mod": 4,
+    "passive": 14
+  },
+  "senses": [],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 120,
+        "note": null,
+        "formula": "16d10+32"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 60,
+      "walk": 10
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Flying Charge",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the fleshpod hornet flies at least 20 feet straight toward a creature and then hits it with a slam attack on the same turn, that target must succeed on a DC 13 Strength saving throw or be knocked prone."
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The fleshpod hornet makes two attacks: one with its slam and one with its stinger."
+      ]
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 13 (2d8 + 4) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+4",
+          "average": 13,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Stinger",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 10 ft., one creature. Hit: 11 (2d6 + 4) piercing damage. The target must make a DC 13 Constitution saving throw, taking 21 (6d6) poison damage on a failed save, or half as much damage on a successful one. On a failed saving throw, the target is also infected with the eggs of the fleshpod hornet. <br><br>The injected eggs form a circular lotus pod tumor, roughly half a foot in diameter, on the target within 1 minute of injection. While carrying this tumor, the target has disadvantage on skill checks and saving throws. Exactly 24 hours after the lotus pod appears, a young fleshpod hornet (use giant wasp statistics) erupts from the tumor, dealing does 33 (6d10) slashing damage to the target. <br><br>The tumor can be excised with a DC 15 Wisdom (Medicine) check, causing 16 (3d10) slashing damage to the host. If it is cut out without the check, the patient must succeed on a DC 15 Constitution saving throw or take 22 (4d10) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": 11,
+          "type": "piercing"
+        },
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "poison"
+        },
+        {
+          "formula": "6d10",
+          "average": 33,
+          "type": "slashing"
+        },
+        {
+          "formula": "3d10",
+          "average": 16,
+          "type": "slashing"
+        },
+        {
+          "formula": "4d10",
+          "average": 22,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

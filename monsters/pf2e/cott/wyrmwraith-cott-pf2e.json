@@ -1,0 +1,451 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:cott:wyrmwraith",
+  "name": "Wyrmwraith",
+  "gameSystem": "pf2e",
+  "variant": "cott",
+  "source": {
+    "code": "cott",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/cott/wyrmwraith.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 17,
+    "xp": null,
+    "display": "Creature 17"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "dragon",
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal",
+      "unholy",
+      "wraith"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "rare",
+      "gargantuan",
+      "dragon",
+      "incorporeal",
+      "undead",
+      "unholy",
+      "wraith"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 9,
+    "con": 0,
+    "int": 7,
+    "wis": 7,
+    "cha": 9
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 29,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "lifesense",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 30
+    },
+    {
+      "name": "Arcana",
+      "mod": 30
+    },
+    {
+      "name": "Intimidation",
+      "mod": 33
+    },
+    {
+      "name": "Religion",
+      "mod": 33
+    },
+    {
+      "name": "Stealth",
+      "mod": 33
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 39,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 280,
+        "formula": null,
+        "note": "void healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 29
+      },
+      {
+        "name": "ref",
+        "mod": 32
+      },
+      {
+        "name": "will",
+        "mod": 32
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all",
+        "amount": 20,
+        "note": "except force, ghost touch, spirit, or vitality; double resistance vs. non-magical"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50,
+      "fly": 80
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Divine Dispelling",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "divine"
+      ],
+      "entries": [
+        "A wyrmwraith's claws rend divine magic. Whenever a wyrmwraith hits a creature with a spectral claw Strike|PC1, the wyrmwraith can attempt a Religion|PC1 check to counteract an ongoing divine|PC1 spell effect on the creature."
+      ]
+    },
+    {
+      "name": "Draconic Frenzy",
+      "category": "action",
+      "placement": "mid",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The wyrmwraith makes two spectral claw Strike|PC1|Strikes and one spectral jaws Strike|PC1 in any order."
+      ]
+    },
+    {
+      "name": "Drain Life",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "divine"
+      ],
+      "entries": [
+        "When a wyrmwraith deals damage to a living creature with a spectral jaws or spectral claw Strike|PC1, the wyrmwraith gains 18 temporary Hit Points for 1 minute, and the creature must succeed at a DC 38 Fortitude save or become drained|PC1|drained 2. Further damage dealt by the wyrmwraith's spectral jaws or spectral claw Strikes increase the value of the drained|PC1 condition by 2 on a failed save, to a maximum of drained|PC1|drained 4."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Ectoplasmic Form",
+      "category": "action",
+      "placement": "mid",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "divine"
+      ],
+      "entries": [
+        "A wyrmwraith can push through the ectoplasmic veil to temporarily assume a physical form made of ectoplasm. The wyrmwraith loses the incorporeal trait for 1d4 rounds, though they can return to their incorporeal form as a free action before then. Once this ability ends, the wyrmwraith can't use this ability again for 1d4 rounds. While in their ectoplasmic form, the wyrmwraith's AC increases to 43 and they gain 100 temporary Hit Points. They lose their immunity to precision damage and all of their resistances. Their melee Strike|PC1|Strikes deal slashing and piercing damage, respectively, instead of void damage."
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "spectral jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 34,
+        "map": [
+          34,
+          29,
+          24
+        ],
+        "traits": [
+          "reach 20 feet"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+17",
+          "average": null,
+          "type": "void"
+        }
+      ],
+      "entries": [
+        "drain life"
+      ]
+    },
+    {
+      "name": "spectral claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 34,
+        "map": [
+          34,
+          30,
+          26
+        ],
+        "traits": [
+          "agile",
+          "reach 15 feet"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+17",
+          "average": null,
+          "type": "void"
+        }
+      ],
+      "entries": [
+        "divine dispelling",
+        "drain life"
+      ]
+    },
+    {
+      "name": "Phase Lurch",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "As the Stride|PC1 action, but the wyrmwraith can pass through walls or material objects as though they were incorporeal. They must begin and end their movement outside of any physical obstacles, and passing through solid material is difficult terrain."
+      ],
+      "requirements": "The wyrmwraith is in their ectoplasmic form"
+    },
+    {
+      "name": "Void Breath",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine",
+        "void"
+      ],
+      "entries": [
+        "The wyrmwraith unleashes a burst of void energy that deals 18d6 void damage to all creatures in a 60-foot cone (DC 38 basic Reflex save). They can't use Void Breath again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 38,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "18d6",
+          "average": null,
+          "type": "void"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 35,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "bind undead",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "charm",
+              "uses": 3
+            },
+            {
+              "name": "darkness",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "vampiric exsanguination",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "divine wrath",
+              "uses": 3
+            },
+            {
+              "name": "execute",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "charm",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana, Religion",
+        "dc": 41
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,366 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:ur-otyugh",
+  "name": "Ur-Otyugh",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 354,
+    "path": "monsters/5e/a5e_monstrous_menagerie/ur-otyugh-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 10,
+    "xp": 5900,
+    "display": "10"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 0,
+    "con": 3,
+    "int": -2,
+    "wis": 2,
+    "cha": -3
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 10,
+    "con": 16,
+    "int": 6,
+    "wis": 14,
+    "cha": 5
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "telepathy 120 ft. (can transmit but not receive thoughts and images)"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 144,
+        "note": null,
+        "formula": "17d10+51"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 6
+      },
+      {
+        "name": "con",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50,
+      "swim": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Legendary Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the ur-otyugh fails a saving throw, it can choose to succeed instead. When it does so, it becomes more sluggish. Each time the ur-otyugh uses Legendary Resistance, its Speed and swim speed decrease by 10 and it loses one of its legendary actions on each of its turns."
+      ],
+      "uses": {
+        "count": 2,
+        "period": "day",
+        "display": "2/Day"
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The otyugh makes two tentacle attacks."
+      ]
+    },
+    {
+      "name": "Tentacle",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 10 ft., one target. Hit: 7 (1d8 + 3) bludgeoning damage plus 4 (1d8) piercing damage. If the target is a Medium or smaller creature  it is grappled (escape DC 14) and restrained until the grapple ends. The otyugh has two tentacles  each of which can grapple one target and can't attack a different target while doing so."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+3",
+          "average": 7,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "piercing"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Tentacle Slam",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The otyugh slams any creatures it is grappling into a hard surface or into each other. Each creature makes a DC 14 Strength saving throw. On a failure  the target takes 10 (2d6 + 3) bludgeoning damage  is stunned until the end of the otyughs next turn  and is pulled up to 5 feet towards the otyugh. On a success  the target takes half damage."
+      ],
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 12 (2d8 + 3) piercing damage. If the target is a creature, it makes a DC 14 Constitution saving throw. On a failure, the target contracts a disease. While diseased, the target is poisoned. The target repeats the saving throw every 24 hours, reducing its hit point maximum by 5 (1d10) on a failure (to a minimum of 1 hit point) and becoming cured on a success. The reduction in hit points lasts until the disease is cured."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "piercing"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {}
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Swallow",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "If the otyugh has no other creature in its stomach, the otyugh bites a Medium or smaller creature that is stunned. On a hit, the creature is swallowed. A swallowed creature has total cover from attacks from outside the otyugh, is blinded and restrained, and takes 10 (3d6) acid damage at the start of each of the otyugh's turns. If a swallowed creature deals 15 or more damage to the otyugh in a single turn, or if the otyugh dies, the otyugh vomits up the creature."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "acid"
+        }
+      ],
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Mad Dash",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ur-otyugh moves up to half its Speed."
+      ]
+    },
+    {
+      "name": "Tentacle",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ur-otyugh makes a tentacle attack. This attack has a range of 15 feet."
+      ]
+    },
+    {
+      "name": "Mental Fuzz (Costs 2 Actions",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 2,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ur-otyugh transmits a burst of psionic static. Each non-aberration within 30 feet makes a DC 14 Intelligence saving throw. On a failure, a creature takes 14 (4d6) psychic damage and is stunned until the end of the ur-otyughs next turn. On a success, the creature takes half damage."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "int",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "legendaryPreamble": "The ur-otyugh can take 2 legendary actions: Only one legendary action can be used at a time and only at the end of another creatures turn. It regains spent legendary actions at the start of its turn.",
+    "legendaryActionsPerRound": 2
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

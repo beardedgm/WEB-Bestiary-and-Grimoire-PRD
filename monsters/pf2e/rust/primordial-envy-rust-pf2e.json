@@ -1,0 +1,243 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:rust:primordial-envy",
+  "name": "Primordial Envy",
+  "gameSystem": "pf2e",
+  "variant": "rust",
+  "source": {
+    "code": "rust",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/rust/primordial-envy.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "large",
+      "ooze"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": -4,
+    "con": 5,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 6,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "magic sense",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "precise"
+    },
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 9
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 12,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 60,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 13
+      },
+      {
+        "name": "ref",
+        "mod": 3
+      },
+      {
+        "name": "will",
+        "mod": 8
+      }
+    ],
+    "saveNote": "-2 status vs. evocation and necromancy",
+    "immunities": {
+      "damage": [
+        "mental",
+        "precision"
+      ],
+      "conditions": [
+        "unconscious"
+      ],
+      "other": [
+        "critical hits",
+        "visual"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "piercing",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Confiscate Spell",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "abjuration",
+        "arcane"
+      ],
+      "entries": [
+        "; The primordial envy's surface shimmers with a kaleidoscope of color that shines out to illuminate the triggering creature. The primordial envy attempts to counter the spell, with a counteract modifier of +12. On a success, the spell is countered and the primordial envy gains 2d6 temporary Hit Points."
+      ],
+      "trigger": "A creature within 30 feet that the primordial envy can sense Casts a Spell"
+    },
+    {
+      "name": "pseudopod",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 9,
+        "map": [
+          9,
+          4,
+          -1
+        ],
+        "traits": [
+          "reach <10 feet>",
+          "magical"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10+4",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Spell Drain",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "abjuration",
+        "arcane"
+      ],
+      "entries": [
+        "The primordial envy attempts to drain magic from a spellcasting creature that it has grabbed or restrained. The spellcasting creature must attempt a DC 20 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected and is temporarily immune to Spell Drain for 24 hours.",
+          "success": "The creature takes 1d6 mental damage.",
+          "failure": "The creature takes 2d6 mental damage and becomes stupefied 1 for 1 hour.",
+          "criticalFailure": "As failure, but one of the creature's uncast spells or unused spell slots is lost, as if they had cast it. The spell or slot lost is one of the highest-level spells the creature can cast, determined randomly if multiple prepared spells are available. If a cantrip is drained, the spellcaster loses access to that cantrip for 10 minutes. The primordial envy becomes quickened 1 for 1 round, and can use the extra action to Stride or Strike."
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Ooze",
+        "skill": "Occultism",
+        "dc": 23
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

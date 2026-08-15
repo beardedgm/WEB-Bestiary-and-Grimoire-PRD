@@ -1,0 +1,483 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:loil:benthic-reaver",
+  "name": "Benthic Reaver",
+  "gameSystem": "pf2e",
+  "variant": "loil",
+  "source": {
+    "code": "loil",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/loil/benthic-reaver.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 21,
+    "xp": null,
+    "display": "Creature 21"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "cold"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ce",
+      "gargantuan",
+      "cold",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 8,
+    "con": 7,
+    "int": 6,
+    "wis": 8,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 41,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "true seeing",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 37
+    },
+    {
+      "name": "Athletics",
+      "mod": 43
+    },
+    {
+      "name": "Nature",
+      "mod": 37
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 46,
+      "note": "all-around vision notes"
+    },
+    "hp": [
+      {
+        "value": 500,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 38
+      },
+      {
+        "name": "ref",
+        "mod": 35
+      },
+      {
+        "name": "will",
+        "mod": 33
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "cold",
+        "negative",
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except adamantine"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "swim": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Intense Chill",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "aura",
+        "cold",
+        "evocation"
+      ],
+      "entries": [
+        "30 feet. 5d6 cold damage (DC 41 basic Reflex save). On a failure, the creature takes a −315-foot status penalty to its Speeds for 1 round."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 41,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "5d6",
+          "average": null,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "Tail Sweep",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The benthic reaver makes a tail Strike against the triggering creature and can use Improved Knockdown if the attack hits, even if it isn't the benthic reaver's turn. If the benthic reaver knocks the target prone, it disrupts the triggering move action."
+      ],
+      "trigger": "A creature moves from beyond the reach of the benthic reaver's tail to within the reach of the benthic reaver's tail"
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 39,
+        "map": [
+          39,
+          34,
+          29
+        ],
+        "traits": [
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d12+18",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "cold"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "fin",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 39,
+        "map": [
+          39,
+          35,
+          31
+        ],
+        "traits": [
+          "agile",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+18",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 39,
+        "map": [
+          39,
+          34,
+          29
+        ],
+        "traits": [
+          "reach <30 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+18",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": [
+        "Improved Knockdown"
+      ]
+    },
+    {
+      "name": "eye beam",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 37,
+        "map": [
+          37,
+          32,
+          27
+        ],
+        "traits": [
+          "range <150 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 150,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d12+8",
+          "average": null,
+          "type": "cold"
+        },
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": [
+        "numbing ice"
+      ]
+    },
+    {
+      "name": "Numbing Ice",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "cold"
+      ],
+      "entries": [
+        "A creature who takes damage from the benthic reaver's eye beam Strike must succeed at a DC 41 Fortitude save or become slowed 2 as cold stiffens its limbs. A flying creature who fails its save also descends safely to the ground below. This is forced movement."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 41,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Song of the Lost",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "arcane",
+        "auditory",
+        "emotion",
+        "enchantment",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "The benthic reaver unleashes a cry of mourning. All creatures within 60 feet must attempt a DC 41 Will save to resist. The benthic reaver can't use Song of the Lost for 1d4 rounds."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 41,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Tail Sweep",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The benthic reaver makes a tail Strike against each enemy within its reach. These attacks count toward the benthic reaver's multiple attack penalty, but the multiple attack penalty doesn't increase until after the benthic reaver makes all its attacks."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 41,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 9,
+          "rankLabel": "Constant (9th)",
+          "spells": [
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 52
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Song of the Lost)"
+    ],
+    "unmapped": []
+  }
+}

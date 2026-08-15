@@ -1,0 +1,242 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:seetangeist",
+  "name": "Seetangeist",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/seetangeist.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "swarm",
+      "undead"
+    ],
+    "subtypes": [
+      "aquatic",
+      "mindless"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "huge",
+      "aquatic",
+      "mindless",
+      "swarm",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 4,
+    "con": 7,
+    "int": -5,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "wavesense",
+      "range": 100,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 22
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 32,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 160,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 25
+      },
+      {
+        "name": "ref",
+        "mod": 22
+      },
+      {
+        "name": "will",
+        "mod": 19
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental",
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "prone",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "cold",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "swim": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Necrotic Runoff",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "poison"
+      ],
+      "entries": [
+        "60 feet. A seetangeist secretes foul fluids into the surrounding water, poisoning it. A creature that enters or starts its turn in the aura must succeed at a DC 29 Fortitude save or become sickened 2 (sickened 3 on a critical failure). Creatures that breathe water take a –2 circumstance penalty to this saving throw. As long as a creature remains in the aura, it can't reduce its sickened condition below 1. A creature that succeeds at its save is temporarily immune for 1 minute."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Putrid Assault",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Each enemy in the seetangeist's space takes 3d6 slashing and 3d6 poison damage (DC 32 basic Reflex save). A creature that fails this save also takes 1d12 persistent poison damage."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 32,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

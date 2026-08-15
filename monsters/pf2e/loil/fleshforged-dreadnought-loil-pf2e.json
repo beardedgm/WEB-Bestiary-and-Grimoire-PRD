@@ -1,0 +1,379 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:loil:fleshforged-dreadnought",
+  "name": "Fleshforged Dreadnought",
+  "gameSystem": "pf2e",
+  "variant": "loil",
+  "source": {
+    "code": "loil",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/loil/fleshforged-dreadnought.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "gargantuan",
+      "construct",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 6,
+    "con": 9,
+    "int": -5,
+    "wis": 5,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 29,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 38
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 42,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 300,
+        "formula": null,
+        "note": "regeneration 20 (deactivated by cold iron)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 35
+      },
+      {
+        "name": "ref",
+        "mod": 28
+      },
+      {
+        "name": "will",
+        "mod": 27
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy",
+        "nonlethal attacks"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Caustic Leak",
+      "category": "free",
+      "placement": "mid",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [
+        "acid",
+        "arcane",
+        "evocation"
+      ],
+      "entries": [
+        "Corrosive fluid sprays the attacker, dealing 8d6 acid damage (DC 40 basic Reflex save)."
+      ],
+      "trigger": "The fleshforged dreadnought is damaged by a non-reach piercing or slashing melee Strike",
+      "frequency": {
+        "number": 1,
+        "unit": "turn",
+        "text": null
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 40,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": null,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "battering ram",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "7d8+10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Improved Push 15 feet"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          31,
+          27
+        ],
+        "traits": [
+          "agile",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+18",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "ballista",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          28,
+          23
+        ],
+        "traits": [
+          "range increment <120 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 120,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d12+8",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Destructive Charge",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The fleshforged dreadnought Strides up to twice its speed and makes a battering ram Strike against a structure or unattended object. The Strike ignores 20 points of the target's Hardness."
+      ]
+    },
+    {
+      "name": "Drown in Ichor",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "acid",
+        "arcane",
+        "evocation"
+      ],
+      "entries": [
+        "The fleshforged dreadnought releases a wave of caustic fluid from vents in its sides. Creatures within a 20-foot emanation take 8d6 acid damage (DC 40 basic Reflex save). Creatures who fail their saves also take 3d6 persistent acid damage."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 40,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": null,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "Trample",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "Huge or smaller, battering ram, DC 44"
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 43
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

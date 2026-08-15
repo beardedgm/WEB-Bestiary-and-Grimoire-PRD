@@ -1,0 +1,310 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec3:cat-sith",
+  "name": "Cat Sith",
+  "gameSystem": "pf2e",
+  "variant": "ec3",
+  "source": {
+    "code": "ec3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec3/cat-sith.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "cn",
+      "tiny",
+      "fey"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 5,
+    "con": 2,
+    "int": 3,
+    "wis": 2,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Sylvan; Speak With Animals"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 15
+    },
+    {
+      "name": "Deception",
+      "mod": 15
+    },
+    {
+      "name": "Stealth",
+      "mod": 15
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 110,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 14
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 14
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "misfortune effects"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 35
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Ill Omen",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "curse",
+        "misfortune",
+        "occult"
+      ],
+      "entries": [
+        "60 feet. Any creature within the area that can see the cat sith must succeed at a DC 21 Will save or become struck by an ill omen. On a failure, the creature becomes immune to fortune effects as long as it remains in the aura and for 1 minute thereafter. On a critical failure, the creature takes a –1 penalty to attack rolls, skill checks, and saving throws while within the ill omen aura and becomes immune to fortune effects for 1 day."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          7,
+          2
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12+3",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15,
+          11,
+          7
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+5",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "cat sith's mark",
+        "cat sith's mark"
+      ]
+    },
+    {
+      "name": "Cat Sith's Mark",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "curse",
+        "misfortune"
+      ],
+      "entries": [
+        "A creature hit by a cat sith's claw must succeed at a DC 23 Will save or be cursed with misfortune. Whenever the cursed creature rolls a critical success on a skill check or saving throw, it gets a success instead. Each day, a cursed creature can attempt a DC 10 flat check to break the curse."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Steal Soul",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "The cat sith touches a dying creature or a creature that died within the past 3 days. If the target is a dying creature, it must attempt a DC 25 Fortitude save; on a failure, its dying value increases by 1 (or 2 on a critical failure). If the target is dead, it receives no save and its soul is imprisoned in the cat sith's body, becoming freed only if the cat sith is slain. While the soul is imprisoned, the creature can't be brought back to life by any means short of a wish or miracle. The cat sith can hold only one soul at a time and can release a soul as a free action."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 23,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "paranoia",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "humanoid form",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 24
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

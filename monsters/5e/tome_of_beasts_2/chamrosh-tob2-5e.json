@@ -1,0 +1,267 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:chamrosh",
+  "name": "Chamrosh",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 59,
+    "path": "monsters/5e/tome_of_beasts_2/chamrosh.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 1,
+    "xp": 200,
+    "display": "1"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "celestial"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral good",
+      "lawChaos": "neutral",
+      "goodEvil": "good"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 1,
+    "con": 2,
+    "int": -1,
+    "wis": 2,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 14,
+    "dex": 13,
+    "con": 15,
+    "int": 8,
+    "wis": 15,
+    "cha": 16
+  },
+  "perception": {
+    "mod": 6,
+    "passive": 16
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Common",
+    "telepathy 60 ft."
+  ],
+  "skills": [
+    {
+      "name": "Insight",
+      "mod": 4
+    },
+    {
+      "name": "Perception",
+      "mod": 6
+    },
+    {
+      "name": "Survival",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 39,
+        "note": null,
+        "formula": "6d8+12"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "wis",
+        "mod": 4
+      },
+      {
+        "name": "cha",
+        "mod": 5
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "frightened"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "fire",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "radiant",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 60,
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Angelic Awareness",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The chamrosh has advantage on Wisdom (Insight) checks to determine if a creature is lying or if a creature has an evil alignment."
+      ]
+    },
+    {
+      "name": "Flyby",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The chamrosh doesn't provoke opportunity attacks when it flies out of an enemy's reach."
+      ]
+    },
+    {
+      "name": "Keen Hearing and Smell",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The chamrosh has advantage on Wisdom (Perception) checks that rely on hearing or smell."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 7 (1d10 + 2) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10+2",
+          "average": 7,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Fearsome Bark",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The chamrosh lets out a highpitched bark at a creature it can see within 30 feet of it. If the target is of evil alignment, it must make a DC 13 Wisdom saving throw. On a failure, the target takes 10 (3d6) psychic damage and is frightened until the end of its next turn. On a success, the target takes half the damage and isn't frightened. The bark has no effect on neutral or good-aligned creatures."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Healing Lick",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The chamrosh licks another creature. The target magically regains 10 (2d8 + 1) hp and is cured of the charmed, frightened, and poisoned conditions."
+      ],
+      "uses": {
+        "count": 2,
+        "period": "day",
+        "display": "2/Day"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

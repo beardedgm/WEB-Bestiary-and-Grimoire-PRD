@@ -1,0 +1,339 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:slowstorm",
+  "name": "Slow Storm",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 333,
+    "path": "monsters/5e/tome_of_beasts_2023/slowstorm-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 15,
+    "xp": 13000,
+    "display": "15"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Chaotic Neutral",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 4,
+    "con": 6,
+    "int": 0,
+    "wis": 4,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 20,
+    "dex": 19,
+    "con": 22,
+    "int": 11,
+    "wis": 18,
+    "cha": 11
+  },
+  "perception": {
+    "mod": null,
+    "passive": 14
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Auran",
+    "Common"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 220,
+        "note": null,
+        "formula": "21d8+126"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 9
+      },
+      {
+        "name": "con",
+        "mod": 11
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "lightning"
+      ],
+      "conditions": [
+        "exhaustion",
+        "grappled",
+        "paralyzed",
+        "petrified",
+        "poisoned",
+        "prone",
+        "restrained",
+        "unconscious"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "fire; bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Elemental Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The slow storm doesn't require air, food, drink, or sleep."
+      ]
+    },
+    {
+      "name": "Eye of the Storm",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The slow storm is surrounded by a 15-foot-radius wind storm. The storm imposes disadvantage on ranged weapon attack rolls and Wisdom (Perception) checks based on sight or hearing within the area. The winds extinguish open flames and disperse fog. A flying creature in the storm must land at the end of its turn or fall. Each creature that starts its turn in the area must succeed on a DC 18 Dexterity saving throw or take 9 (2d8) lightning damage. The storm's area is difficult terrain for any creature other than the slow storm."
+      ],
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The slow storm makes three Slam attacks or four Lightning Bolt attacks. If two Slam attacks hit one creature, the target must succeed on a DC 18 Constitution saving throw or be wracked with pain for 1 minute. While the target is wracked with pain, minute bits of electricity dance within its body, and the target takes 4 (1d8) lightning damage for every 5 feet it moves. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "damage": [
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +10 to hit, reach 5 ft., one target. Hit: 21 (3d10 + 5) bludgeoning damage plus 9 (2d8) lightning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 10,
+        "map": [
+          10
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+5",
+          "average": 21,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "lightning"
+        }
+      ]
+    },
+    {
+      "name": "Lightning Bolt",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Spell Attack: +9 to hit, range 120 ft., one target. Hit: 22 (4d8 + 4) lightning damage."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "spell",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 120,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+4",
+          "average": 22,
+          "type": "lightning"
+        }
+      ]
+    },
+    {
+      "name": "Static Shock",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The slow storm releases built-up electricity in a 60-foot cone. Each creature in the area must make a DC 18 Constitution saving throw, taking 54 (12d8) lightning damage on a failed save, or half as much damage on a successful one. A creature that fails this saving throw by 5 or more is also stunned for 1 minute. A stunned creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "12d8",
+          "average": 54,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 60,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,289 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:dream-wraith",
+  "name": "Dream Wraith",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 135,
+    "path": "monsters/5e/creature_codex/dream-wraith.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 5,
+    "xp": 1800,
+    "display": "5"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -2,
+    "dex": 4,
+    "con": 3,
+    "int": 1,
+    "wis": 2,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 6,
+    "dex": 18,
+    "con": 17,
+    "int": 12,
+    "wis": 15,
+    "cha": 16
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 60,
+        "note": null,
+        "formula": "8d8+24"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "necrotic",
+        "poison"
+      ],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "lightning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "thunder; bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "psychic",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 60,
+      "walk": 0
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Create Wraith",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Any humanoid that dies at the hands of a dream wraith rises 1 hour later as a wraith under the dream wraith's control."
+      ]
+    },
+    {
+      "name": "Incorporeal Movement",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dream wraith can move through other creatures and objects as if they were difficult terrain. It takes 5 (1d10) force damage if it ends its turn inside an object."
+      ],
+      "damage": [
+        {
+          "formula": "1d10",
+          "average": 5,
+          "type": "force"
+        }
+      ]
+    },
+    {
+      "name": "Sunlight Sensitivity",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While in sunlight, the dream wraith has disadvantage on attack rolls, as well as on Wisdom (Perception) checks that rely on sight."
+      ]
+    },
+    {
+      "name": "Sleep Touch",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 11 (2d6 + 4) psychic damage, and the target must succeed on a DC 14 Charisma saving throw or fall unconscious."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": 11,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "cha",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Steal Dreams",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dream wraith targets an unconscious or sleeping creature within 5 feet of it. The creature must succeed on a DC 14 Constitution saving throw or be reduced to 0 hp. The dream wraith gains temporary hp for 1 hour equal to the amount of hp the creature lost."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Dreamer's Gaze",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When a creature the dream wraith can see starts its turn within 30 feet of the dream wraith, the dream wraith can create the illusion that it looks like that creature's most recently departed loved one. If the creature can see the dream wraith, it must succeed on a DC 14 Wisdom saving throw or be stunned until the end of its turn."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

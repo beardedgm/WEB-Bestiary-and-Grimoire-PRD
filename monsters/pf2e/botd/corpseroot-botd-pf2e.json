@@ -1,0 +1,355 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:corpseroot",
+  "name": "Corpseroot",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/corpseroot.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 11,
+    "xp": null,
+    "display": "Creature 11"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "huge",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 3,
+    "con": 5,
+    "int": -2,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 18,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 24
+    },
+    {
+      "name": "Stealth",
+      "mod": 18
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 225,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 24
+      },
+      {
+        "name": "ref",
+        "mod": 18
+      },
+      {
+        "name": "will",
+        "mod": 18
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "axe vulnerability",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Axe Vulnerability",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The corpseroot takes 10 additional damage from axes."
+      ]
+    },
+    {
+      "name": "Blight",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "necromancy",
+        "poison",
+        "primal"
+      ],
+      "entries": [
+        "30 feet. A plant entering or starting its turn in the corpseroot's aura begins to wither and must succeed at a DC 27 Fortitude save or become sickened 2 (sickened 4 on a critical failure). A plant that succeeds is temporarily immune for 1 minute. A plant that stays in the aura for 7 consecutive days must succeed at a DC 27 Fortitude save or die. If the plant was a creature or tree, it rises as a corpseroot. The newly risen corpseroot can't create more corpseroots but has all other corpseroot abilities. Plants that are neither magical nor creatures automatically fail saves against blight."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 27,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "branch",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          19,
+          14
+        ],
+        "traits": [
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "root",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          20,
+          16
+        ],
+        "traits": [
+          "agile",
+          "reach <20 feet>",
+          "trip"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+10",
+          "average": null,
+          "type": "bludgeoning plus"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "rotten fruit",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [
+          "range increment <20 feet>",
+          "splash"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d4+7",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "poison splash damage"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Grab",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Take Root",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "necromancy",
+        "primal"
+      ],
+      "entries": [
+        "The corpseroot buries its roots into the creature, dealing 1d6+11 piercing damage and draining the target's life force (DC 30 basic Fortitude save). On a failure, the creature is drained 1 (or increases the value by 1 if already drained), and the corpseroot regains 10 HP. If this would make a creature drained 5, the creature dies."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "requirements": "The corpseroot has a creature grabbed or restrained",
+      "save": {
+        "defense": "fortitude",
+        "dc": 30,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 28
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

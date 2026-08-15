@@ -1,0 +1,344 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot2:iiko-dragon",
+  "name": "I'iko Dragon",
+  "gameSystem": "pf2e",
+  "variant": "sot2",
+  "source": {
+    "code": "sot2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot2/iiko-dragon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "amphibious"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "cn",
+      "small",
+      "amphibious",
+      "dragon"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 5,
+    "con": 2,
+    "int": 0,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 13
+    },
+    {
+      "name": "Athletics",
+      "mod": 14
+    },
+    {
+      "name": "Intimidation",
+      "mod": 14
+    },
+    {
+      "name": "Stealth",
+      "mod": 15
+    },
+    {
+      "name": "Thievery",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 110,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 14
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 60,
+      "swim": 30,
+      "climb": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          11,
+          6
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          13,
+          9
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+6",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "arcane",
+        "evocation"
+      ],
+      "entries": [
+        "The i'iko dragon breathes a spray of jagged glass shards that deals 7d6 piercing damage in a 15-foot cone (DC 23 basic Reflex save). They can't use Breath Weapon again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 23,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "7d6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Cunning Capsize",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "The i'iko dragon attempts to capsize an aquatic vessel of Medium size or smaller that they're on or adjacent to. They must succeed at an Athletics check with a DC of 25 or the pilot's Sailing Lore DC, whichever is higher."
+      ]
+    },
+    {
+      "name": "Draconic Grandeur",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "The i'iko dragon spreads their wings, bares their teeth, and threatens their opponent in a terrifying display of draconic majesty. All creatures within 30 feet must attempt a DC 24 Will save. Regardless of the result of the saving throw, the creatures are temporarily immune."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "to Draconic",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Grandeur for 1 minute."
+      ],
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is frightened|CRB|frightened 1.",
+          "failure": "The creature is frightened|CRB|frightened 2.",
+          "criticalFailure": "The creature is frightened|CRB|frightened 4."
+        }
+      }
+    },
+    {
+      "name": "Tackle",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "move"
+      ],
+      "entries": [
+        "The i'iko dragon Flies up to their fly Speed, descending at least 10 feet, and then makes a jaws Strike. If the jaws Strike hits and the target is Medium or smaller, the target is knocked prone."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana",
+        "dc": 24
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

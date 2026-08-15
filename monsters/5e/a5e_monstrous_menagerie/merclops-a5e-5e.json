@@ -1,0 +1,271 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:merclops",
+  "name": "Merclops",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 58,
+    "path": "monsters/5e/a5e_monstrous_menagerie/merclops-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 7,
+    "xp": 2900,
+    "display": "7"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "giant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 0,
+    "con": 5,
+    "int": -1,
+    "wis": 0,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 20,
+    "dex": 10,
+    "con": 20,
+    "int": 8,
+    "wis": 10,
+    "cha": 10
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [],
+  "languages": [
+    "Giant"
+  ],
+  "skills": [
+    {
+      "name": "Animal",
+      "mod": 0
+    },
+    {
+      "name": "Survival",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 126,
+        "note": null,
+        "formula": "11d12+55"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "swim": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Panicked Rage",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While a merclops is frightened and the source of its fear is in sight, it makes attack rolls with advantage instead of disadvantage."
+      ],
+      "condition": {
+        "name": "frightened",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Poor Depth Perception",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The merclops makes all ranged attacks with disadvantage."
+      ]
+    },
+    {
+      "name": "Aquatic",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The merclops can breathe underwater."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The merclops makes two melee attacks."
+      ]
+    },
+    {
+      "name": "Club",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +8 to hit, reach 10 ft., one target. Hit: 18 (3d8 + 5) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+5",
+          "average": 18,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Harpoon",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee or Ranged Weapon Attack: +8 to hit, reach 10 ft. or range 90 ft. (see Poor Depth Perception)  one target. Hit: 27 (4d10 + 5) piercing damage. The target makes a DC 16 Strength saving throw. On a failure  the merclops pulls the target up to 30 feet toward the merclops."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": "(see Poor Depth Perception)  one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        },
+        "range_": {
+          "value": 90,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+5",
+          "average": 27,
+          "type": "piercing"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Thick Skulled",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The merclops can end one condition on itself that was imposed through a failed Wisdom saving throw."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      }
+    },
+    {
+      "name": "Big Windup",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When a creature hits the merclops with a melee attack, the merclops readies a powerful strike against its attacker. The merclops has advantage on the next club attack it makes against the attacker before the end of its next turn."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,356 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:av1:voidglutton",
+  "name": "Voidglutton",
+  "gameSystem": "pf2e",
+  "variant": "av1",
+  "source": {
+    "code": "av1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/av1/voidglutton.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [
+      "air"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "medium",
+      "aberration",
+      "air"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 6,
+    "con": 3,
+    "int": 6,
+    "wis": 4,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 18,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 18
+    },
+    {
+      "name": "Deception",
+      "mod": 15
+    },
+    {
+      "name": "Intimidation",
+      "mod": 15
+    },
+    {
+      "name": "Occultism",
+      "mod": 18
+    },
+    {
+      "name": "Stealth",
+      "mod": 18
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 90,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 13
+      },
+      {
+        "name": "ref",
+        "mod": 18
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "magic"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Glow",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "light"
+      ],
+      "entries": [
+        "30 feet. The tips of a voidglutton's fingers and its seven eyes glow, casting bright light in the area and making it visible if it was invisible."
+      ],
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Magic Immunity",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A voidglutton is immune to all spells except faerie fire, glitterdust, magic missile, maze, and spells with the light trait."
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          16,
+          12
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "force"
+        }
+      ],
+      "entries": [
+        "fearful strike",
+        "fearful strike"
+      ]
+    },
+    {
+      "name": "ectoplasmic web",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [
+          "range increment <10 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [],
+      "entries": []
+    },
+    {
+      "name": "Consume Light",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [
+        "darkness",
+        "evocation",
+        "occult"
+      ],
+      "entries": [
+        "The voidglutton extinguishes its Glow as part of Casting the Spell. It becomes invisible as long as it remains in the area of darkness. If the voidglutton uses a hostile action, its invisibility ends as soon as the hostile action is completed."
+      ],
+      "trigger": "The voidglutton casts darkness"
+    },
+    {
+      "name": "Ectoplasmic Web Trap",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "conjuration",
+        "occult"
+      ],
+      "entries": [
+        "A creature hit by the voidglutton's ectoplasmic web trap is immobilized and stuck to the nearest surface until it succeeds at a DC 26 check to Escape."
+      ]
+    },
+    {
+      "name": "Ectoplasmic Web",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Trap can immobilize incorporeal creatures."
+      ]
+    },
+    {
+      "name": "Fearful Strike",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "emotion",
+        "fear",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "When the voidglutton damages a creature with its claw Strike, the creature must succeed at a DC 26 Will save or become frightened|CRB|frightened 1 (frightened|CRB|frightened 2 on a critical failure)."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Feed on Fear",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate"
+      ],
+      "entries": [
+        "The voidglutton feeds on the creature's terror. It regains 3d4 Hit Points and its Glow reignites if it had been extinguished. It cannot use Consume Light again for 1d4 rounds, as it is too glutted on fear to suppress its Glow."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "requirements": "An enemy is affected by a fear effect or has the frightened or dying condition, and is within 25 feet of the voidglutton"
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 26,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 29
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

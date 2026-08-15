@@ -1,0 +1,299 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot4:soul-swarms",
+  "name": "Soul Swarms",
+  "gameSystem": "pf2e",
+  "variant": "sot4",
+  "source": {
+    "code": "sot4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot4/soul-swarms.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "ghost",
+      "spirit",
+      "troop",
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ne",
+      "gargantuan",
+      "ghost",
+      "incorporeal",
+      "spirit",
+      "troop",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 5,
+    "con": 3,
+    "int": 2,
+    "wis": 5,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 24,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Religion",
+      "mod": 26
+    },
+    {
+      "name": "Stealth",
+      "mod": 24
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 234,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 18
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "all damage",
+        "amount": 5,
+        "note": "except force, ghost touch, or positive; double resistance vs. non-magical"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "good",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": [
+      "air walk",
+      "troop movement"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "auditory",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "60 feet, DC 30"
+      ],
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 30,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Troop Defenses",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Cosmic Explosion",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The soul swarm unleashes a blast of burning sunlight or moonlight, dealing 4d8+6 fire damage to creatures in a 10-foot burst within 20 feet (DC 30 basic Reflex save). When the soul swarm is reduced to 8 or fewer squares, this decreases to a 5-foot burst."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 30,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      }
+    },
+    {
+      "name": "Form Up",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Soul Grasp",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The soul swarm reaches out and tries to tear at the spiritual energy of enemies within 5 feet (DC 32 basic Reflex save). The soul swarm can choose to deal slashing damage as it cuts away at a creature, fire damage as it burns other souls away, or negative damage as it attempts to unmake a soul. The damage depends on the number of actions. 1 2d6+1 damage 2 4d6+11 damage 3 6d6+11 damage"
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 32,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      }
+    },
+    {
+      "name": "Troop Movement",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the soul swarm Strides, the soul swarm first Forms Up as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares), then moves. This works just like a Gargantuan creature moving; for instance, if any square of the soul swarm enters terrain, the extra movement cost applies to the whole soul swarm."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 30,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "Constant (4th)",
+          "spells": [
+            {
+              "name": "air walk",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Spirit",
+        "skill": "Religion",
+        "dc": 36
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

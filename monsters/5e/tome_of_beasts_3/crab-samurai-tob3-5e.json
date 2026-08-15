@@ -1,0 +1,236 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob3:crab-samurai",
+  "name": "Crab, Samurai",
+  "gameSystem": "dnd5e",
+  "variant": "tob3",
+  "source": {
+    "code": "tome_of_beasts_3",
+    "name": "Tome of Beasts 3",
+    "page": 99,
+    "path": "monsters/5e/tome_of_beasts_3/crab-samurai.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "lawful neutral",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 0,
+    "con": 3,
+    "int": -2,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 10,
+    "con": 16,
+    "int": 6,
+    "wis": 14,
+    "cha": 10
+  },
+  "perception": {
+    "mod": 2,
+    "passive": 15
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Common but can't speak"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 2
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 105,
+        "note": null,
+        "formula": "14d8+42"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 7
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "charmed",
+        "frightened"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "nonmagic B/P/S attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Amphibious",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Can breathe air and water."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Three melee attacks. If grappling two creatures it can't make Crustaceous Sword attacks."
+      ]
+    },
+    {
+      "name": "Crustaceous Sword",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, 5 ft., one target, 13 (2d8+4) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+4",
+          "average": 13,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, 5 ft., one target, 11 (2d6+4) bludgeoning damage. If the target is Med or smaller it is grappled (escape DC 15) and the crab can't use this claw to attack another target. The crab has two claws each of which can grapple only one target."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": "If the target is Med or smaller it is grappled (escape DC 15) and the crab can't use this claw to attack another target"
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": 11,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Fighting Stance",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Adopts a fighting stance choosing from the options below. The stance lasts until the crab ends it (no action required) or uses this bonus action again.Banded Claw. Adopts a wide grappler's stance. While the samurai crab is in this stance each creature that starts its turn grappled by the crab takes 3 (1d6) bludgeoning damage.Hard Shell. Defensive stance increasing its AC by 2.Soft Shell. Adopts an offensive stance gaining advantage on the first Crustaceous Sword attack it makes each turn."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "bludgeoning"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

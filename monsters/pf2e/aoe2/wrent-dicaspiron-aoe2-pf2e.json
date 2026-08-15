@@ -1,0 +1,303 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe2:wrent-dicaspiron",
+  "name": "Wrent Dicaspiron",
+  "gameSystem": "pf2e",
+  "variant": "aoe2",
+  "source": {
+    "code": "aoe2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe2/wrent-dicaspiron.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ce",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 4,
+    "con": 4,
+    "int": -2,
+    "wis": 1,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 22,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Daemonic"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 20
+    },
+    {
+      "name": "Athletics",
+      "mod": 22
+    },
+    {
+      "name": "Religion",
+      "mod": 17
+    },
+    {
+      "name": "Thievery",
+      "mod": 16
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 180,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 17
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "cleaver",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          19,
+          14
+        ],
+        "traits": [
+          "forceful",
+          "sweep"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+8",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "spiked chain",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          17,
+          12
+        ],
+        "traits": [
+          "disarm",
+          "finesse",
+          "reach <15 feet>",
+          "trip"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Bloody Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Any creature taking persistent bleed damage is flat-footed against the Skinner's attacks. When attacking a flat-footed creature, the Skinner deals an additional 2d6 precision damage."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    },
+    {
+      "name": "Chain Expert",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The Skinner can effectively wield abnormally long spiked chains and can do so using only one hand."
+      ]
+    },
+    {
+      "name": "Chain Up",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "The Skinner attempts an Athletics check against the grabbed creature's Reflex save."
+      ],
+      "requirements": "The Skinner has an adjacent creature grabbed with her spiked chain"
+    },
+    {
+      "name": "DC.",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "On a success, the Skinner knots her chain around the grabbed creature, which becomes restrained (Escape DC = 10 + the result of the Skinner's Athletics check); on a critical success, the creature also falls prone. Regardless of whether the Skinner succeeds, she drops the chain."
+      ]
+    },
+    {
+      "name": "Flay Whenever the",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Skinner makes a successful cleaver Strike against a grabbed creature, she also deals 1d6 persistent bleed damage (or 2d6 on a critical hit)."
+      ]
+    },
+    {
+      "name": "Hook and Flay",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The Skinner pulls the creature into the nearest open adjacent square and makes a cleaver Strike against the creature."
+      ],
+      "requirements": "The Skinner has a creature grabbed with her spiked chain"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 37
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

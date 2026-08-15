@@ -1,0 +1,336 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ooa3:pyronite-ooze",
+  "name": "Pyronite Ooze",
+  "gameSystem": "pf2e",
+  "variant": "ooa3",
+  "source": {
+    "code": "ooa3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ooa3/pyronite-ooze.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "large",
+      "mindless",
+      "ooze"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": -5,
+    "con": 7,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "no vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "tremorsense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 22
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 350,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 24
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 19
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bludgeoning",
+        "fire",
+        "mental",
+        "precision"
+      ],
+      "conditions": [
+        "unconscious"
+      ],
+      "other": [
+        "critical hits",
+        "visual"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Constant Explosions",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "fire"
+      ],
+      "entries": [
+        "5 feet. 4d6 fire, DC 29 basic Reflex save. This aura can't cause other pyronite oozes to split."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 29,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 5,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Rejoin",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If two or more Medium pyronite oozes end their turn in adjacent spaces, they merge into a Large pyronite ooze, combining their current Hit Points."
+      ]
+    },
+    {
+      "name": "Split",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a Large pyronite ooze is hit by an attack that would deal bludgeoning or fire damage and it has 10 or more HP, it explodes, dealing 6d6 fire damage to creatures in a 10-foot radius (DC 29 basic Reflex save). This explosion can't cause other pyronite oozes to split. After exploding, the ooze splits into two Medium pyronite oozes, each with half the original's HP, which each fly through the air and land 15 feet from the original ooze in a random direction. If no space is unoccupied where the ooze would land, it automatically pushes creatures and objects out of the way to fill a space (the GM decides if an object or creature is too big or sturdy to push)."
+      ],
+      "area": {
+        "shape": "radius",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 29,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "pseudopod",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "blast",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          16,
+          11
+        ],
+        "traits": [
+          "fire",
+          "range increment <40 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 40,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+3",
+          "average": null,
+          "type": "fire; this can't cause other pyronite oozes to split"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Exploding Split",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The pyronite ooze explodes in a violent conflagration, dealing 3d6 fire and 3d6 bludgeoning damage to all creatures in a 30-foot radius (DC 29 basic Reflex save). This explosion can't cause other pyronite oozes to split. After exploding, the ooze splits into two Medium pyronite oozes (see above), but this splitting doesn't deal additional damage."
+      ],
+      "requirements": "The pyronite ooze is Large",
+      "area": {
+        "shape": "radius",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 29,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Ooze",
+        "skill": "Occultism",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

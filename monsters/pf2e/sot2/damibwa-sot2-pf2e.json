@@ -1,0 +1,224 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot2:damibwa",
+  "name": "Damibwa",
+  "gameSystem": "pf2e",
+  "variant": "sot2",
+  "source": {
+    "code": "sot2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot2/damibwa.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "animal"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "medium",
+      "animal"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 4,
+    "con": 3,
+    "int": -4,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "echolocation",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 10
+    },
+    {
+      "name": "Athletics",
+      "mod": 12
+    },
+    {
+      "name": "Stealth",
+      "mod": 10
+    },
+    {
+      "name": "Survival",
+      "mod": 10
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 21,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 62,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 11
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+4",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Fetch",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack",
+        "move"
+      ],
+      "entries": [
+        "The damibwa attempts an Athletics check against the creature's Fortitude DC."
+      ],
+      "requirements": "The damibwa has a Small or smaller creature grabbed in water",
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The damibwa moves up to its swim Speed, dragging the grabbed creature along with it.",
+          "success": "The damibwa moves up to half its swim Speed, dragging the grabbed creature along with it.",
+          "failure": "The damibwa doesn't move and the creature isn't dragged.",
+          "criticalFailure": "The damibwa no longer has the creature grabbed."
+        }
+      }
+    },
+    {
+      "name": "Predatory Dive",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "move"
+      ],
+      "entries": [
+        "The damibwa moves up to double its swim Speed, descending at least 10 feet, and then makes a jaws Strike. If it was undetected at the start of predatory dive, it remains undetected until after the attack."
+      ],
+      "requirements": "The damibwa is in or adjacent to water"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Animal",
+        "skill": "Nature",
+        "dc": 19
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,438 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:xiuh-couatl",
+  "name": "Xiuh Couatl",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/xiuh-couatl.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [
+      "couatl"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ng",
+      "lawChaos": "neutral",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "rare",
+      "ng",
+      "large",
+      "beast",
+      "couatl"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 3,
+    "con": 4,
+    "int": 5,
+    "wis": 5,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 23,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "thoughtsense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Common",
+    "Draconic; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 21
+    },
+    {
+      "name": "Arcana",
+      "mod": 23
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 26
+    },
+    {
+      "name": "Intimidation",
+      "mod": 26
+    },
+    {
+      "name": "Nature",
+      "mod": 23
+    },
+    {
+      "name": "Occultism",
+      "mod": 23
+    },
+    {
+      "name": "Society",
+      "mod": 21
+    },
+    {
+      "name": "Stealth",
+      "mod": 21
+    },
+    {
+      "name": "Survival",
+      "mod": 21
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 220,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 20
+      },
+      {
+        "name": "ref",
+        "mod": 19
+      },
+      {
+        "name": "will",
+        "mod": 25
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "electricity",
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 25,
+        "map": [
+          25,
+          20,
+          15
+        ],
+        "traits": [
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+10",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "fire, xiuh couatl venom,"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "xiuh couatl venom, Grab"
+      ]
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "arcane",
+        "evocation",
+        "fire"
+      ],
+      "entries": [
+        "The xiuh couatl breaths a gout of flame and lightning in an 80-foot line that deals 5d8 electricity damage and 5d8 fire damage (DC 32 basic Reflex save). The xiuh couatl can't use Breath Weapon again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "line",
+        "size": 80,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 32,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d8",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Greater Constrict",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "1d10+10 bludgeoning plus 1d8 electricity, DC 32 (page 305)"
+      ]
+    },
+    {
+      "name": "Instrument of Retribution",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "occult",
+        "polymorph",
+        "transmutation"
+      ],
+      "entries": [
+        "The xiuh couatl transforms into any simple or martial weapon. The weapon is always a +2 greater striking flaming shock weapon and can be of any size, chosen by the xiuh couatl when they transform. In weapon form, the xiuh couatl gains Hardness equal to that of the weapon into which they transform, and they retain their Hit Points, saving throws, senses, telepathy, and traits while in weapon form. The xiuh couatl can revert to their normal form by spending a single action, which has the concentrate trait."
+      ]
+    },
+    {
+      "name": "Wrap in Coils",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The mix couatl moves the creature into their coils, freeing their jaws to make attacks, then uses Constrict against the creature. The mix couatl can hold as many creatures in their coils as will fit in their space."
+      ],
+      "requirements": "The mix couatl has a Medium or smaller creature grabbed or restrained in their jaws"
+    },
+    {
+      "name": "Xiuh Couatl Venom",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 32,
+      "attackBonus": 24,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Cantrips (6th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            },
+            {
+              "name": "telekinetic projectile",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "charm",
+              "uses": null
+            },
+            {
+              "name": "clairaudience",
+              "uses": null
+            },
+            {
+              "name": "clairvoyance",
+              "uses": null
+            },
+            {
+              "name": "crushing despair",
+              "uses": null
+            },
+            {
+              "name": "detect alignment",
+              "uses": "at will"
+            },
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "dream message",
+              "uses": null
+            },
+            {
+              "name": "fear",
+              "uses": null
+            },
+            {
+              "name": "illusory scene",
+              "uses": null
+            },
+            {
+              "name": "mind reading",
+              "uses": "at will"
+            },
+            {
+              "name": "mindlink",
+              "uses": null
+            },
+            {
+              "name": "phantom pain",
+              "uses": null
+            },
+            {
+              "name": "see invisibility",
+              "uses": null
+            },
+            {
+              "name": "sending",
+              "uses": null
+            },
+            {
+              "name": "zone of truth",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "plane shift",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 35
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

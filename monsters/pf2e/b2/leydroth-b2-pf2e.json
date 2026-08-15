@@ -1,0 +1,411 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:leydroth",
+  "name": "Leydroth",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/leydroth.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 17,
+    "xp": null,
+    "display": "Creature 17"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "large",
+      "beast"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 7,
+    "con": 9,
+    "int": -3,
+    "wis": 5,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "magic sense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Aklo"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 32
+    },
+    {
+      "name": "Deception",
+      "mod": 28
+    },
+    {
+      "name": "Intimidation",
+      "mod": 28
+    },
+    {
+      "name": "Stealth",
+      "mod": 32
+    },
+    {
+      "name": "Survival",
+      "mod": 30
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 40,
+      "note": "or 36 vs. non-magical abilities"
+    },
+    "hp": [
+      {
+        "value": 315,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 32
+      },
+      {
+        "name": "ref",
+        "mod": 30
+      },
+      {
+        "name": "will",
+        "mod": 28
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "all",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Menace to Magic",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "abjuration",
+        "primal"
+      ],
+      "entries": [
+        "The leydroth attempts an Intimidation check to counteract the triggering spell."
+      ],
+      "trigger": "A creature within 60 feet Casts a Spell"
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          28,
+          23
+        ],
+        "traits": [
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+16",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d10",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          29,
+          25
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+16",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "horn sweep",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          28,
+          23
+        ],
+        "traits": [
+          "magical",
+          "reach <10 feet>",
+          "sweep",
+          "versatile <P>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+16",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Dispelling Roar",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "abjuration",
+        "auditory",
+        "emotion",
+        "fear",
+        "mental",
+        "primal"
+      ],
+      "entries": [
+        "The leydroth unleashes a bestial roar that reverberates within a 30-foot emanation. It rolls an Intimidation check and compares the result to the Will DC of each creature in the area, with the effects of Demoralize. It also uses this result to attempt to counteract each spell or magical effect in the area, plus one item or effect on each creature in the area, with the effects of dispel magic. The leydroth can't use Dispelling Roar again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "unit": "ft"
+      },
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Dispelling Strike",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [
+        "abjuration",
+        "primal"
+      ],
+      "entries": [
+        "The leydroth casts its innate dispel magic, targeting one effect on the creature struck."
+      ],
+      "trigger": "The leydroth hits a creature, object, or spell effect with a Strike",
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      }
+    },
+    {
+      "name": "Spell Feedback",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "primal"
+      ],
+      "entries": [
+        "Any time a leydroth counteracts a spell or item, the spell's caster or the creature holding the item takes 8d6 mental damage (DC 38 basic Will save)."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 38,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 38,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "dispel magic",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "disjunction",
+              "uses": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 38
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

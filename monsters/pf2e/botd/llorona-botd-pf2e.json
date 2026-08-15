@@ -1,0 +1,279 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:llorona",
+  "name": "Llorona",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/llorona.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "spirit",
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "medium",
+      "incorporeal",
+      "spirit",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 7,
+    "con": 1,
+    "int": 2,
+    "wis": 2,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 20,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 23
+    },
+    {
+      "name": "Deception",
+      "mod": 25
+    },
+    {
+      "name": "Intimidation",
+      "mod": 23
+    },
+    {
+      "name": "Stealth",
+      "mod": 23
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 32,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 165,
+        "formula": null,
+        "note": "negative healing, rejuvenation"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 19
+      },
+      {
+        "name": "ref",
+        "mod": 23
+      },
+      {
+        "name": "will",
+        "mod": 20
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all damage",
+        "amount": 10,
+        "note": "except force, ghost touch, or positive; double resistance vs. non-magical"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Rejuvenation",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "When a llorona is destroyed, they re-form after 1d6 days at the site of their death. Resolving the injustice that led to a llorona's death puts them to rest permanently. Alternatively, successfully performing a consecrate ritual at the site prevents them from re-forming."
+      ]
+    },
+    {
+      "name": "ghostly hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 25,
+        "map": [
+          25,
+          21,
+          17
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+11",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": [
+        "funereal touch",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Constrict",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "2d6+12 negative, DC 31"
+      ]
+    },
+    {
+      "name": "Funereal Touch",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature touched by a llorona must attempt a DC 29 Fortitude save. On a failure, the creature becomes drained 1 (drained 2 on a critical failure) or increases their drained value by 1 (2 on a critical failure), up to a maximum of drained 4. Every time a creature becomes drained in this way, the llorona gains 10 temporary Hit Points for 1 hour."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Ghostly Grasp",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A llorona can Grapple corporeal creatures despite being incorporeal. The llorona uses their Athletics check to Grapple as normal but can't use Athletics for other actions that require corporeal contact, like Force Open or Trip."
+      ]
+    },
+    {
+      "name": "Wail",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "auditory",
+        "concentrate",
+        "enchantment",
+        "incapacitation",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "The llorona unleashes a somber wail. Each living creature within 120 feet must attempt a DC 31 Will save. Regardless of its result, the creature is then temporarily immune for 24 hours."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 31,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Spirit",
+        "skill": "Religion",
+        "dc": 30
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Wail)"
+    ],
+    "unmapped": []
+  }
+}

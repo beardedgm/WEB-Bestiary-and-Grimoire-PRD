@@ -1,0 +1,325 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:pixie",
+  "name": "Pixie",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 202,
+    "path": "monsters/5e/a5e_monstrous_menagerie/pixie-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 1,
+    "xp": 200,
+    "display": "1"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -4,
+    "dex": 5,
+    "con": 0,
+    "int": 0,
+    "wis": 1,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 2,
+    "dex": 20,
+    "con": 10,
+    "int": 10,
+    "wis": 12,
+    "cha": 14
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [],
+  "languages": [
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    },
+    {
+      "name": "Stealth",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 2,
+        "note": null,
+        "formula": "1d4"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Faerie Light",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As a bonus action, the pixie can cast dim light for 30 feet, or extinguish its glow."
+      ]
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The pixie has advantage on saving throws against spells and magical effects."
+      ]
+    },
+    {
+      "name": "Thorn Dagger",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee or Ranged Weapon Attack: +7 to hit, reach 5 ft. or range 10/30 ft., one target. Hit: 1 piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        },
+        "range_": {
+          "value": 10,
+          "unit": "ft"
+        }
+      }
+    },
+    {
+      "name": "Faerie Blessing",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The pixie targets a willing creature within 30 feet. The target gains one of the following abilities for 1 hour:"
+      ],
+      "uses": {
+        "count": 3,
+        "period": "day",
+        "display": "3/Day"
+      }
+    },
+    {
+      "name": "The target gains truesight out to a range of 120 feet",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "The target gains the benefit of the pixies Magic Resistance trait",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "The target speaks Sylvan",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Faerie Curse",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The pixie targets a creature within 30 feet not already under a Faerie Curse. The target makes a DC 12 Wisdom saving throw. On a failure  the target is subjected to a special magical curse for 1 hour. The curse ends if the pixie dies or is incapacitated  the pixie or one of its allies deals damage to the target  or the pixie spends an action to end the curse. Spells such as remove curse  dispel magic  and lesser restoration also end the curse. If a creature makes its saving throw or the condition ends for it  it is immune to any Faerie Curse for the next 24 hours."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "incapacitated",
+        "duration": "1 hour",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "When the target fails its saving throw against this effect, the pixie chooses one of the following effects to impose on the target",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "The target is blinded",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "The target is charmed by the pixie",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "If the target is already charmed by the pixie, the target falls asleep",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "It wakes if it is shaken awake as an action or if it takes damage."
+      ]
+    },
+    {
+      "name": "The targets head takes on the appearance of a beasts head (donkey, wolf, etc)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The targets statistics dont change  but the target can no longer speak; it can only make animal noises."
+      ]
+    },
+    {
+      "name": "Invisibility",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The pixie and any equipment it wears or carries magically turns invisible until the pixie attacks, casts a spell, becomes incapacitated, or uses a bonus action to become visible."
+      ],
+      "condition": {
+        "name": "incapacitated",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

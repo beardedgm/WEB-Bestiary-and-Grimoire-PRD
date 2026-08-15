@@ -1,0 +1,337 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:lotxwg:ijhyeojin",
+  "name": "Ijhyeojin",
+  "gameSystem": "pf2e",
+  "variant": "lotxwg",
+  "source": {
+    "code": "lotxwg",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/lotxwg/ijhyeojin.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 14,
+    "xp": null,
+    "display": "Creature 14"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [
+      "sahkil",
+      "unholy|pc1"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "medium",
+      "fiend",
+      "sahkil",
+      "unholy|pc1"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 5,
+    "con": 4,
+    "int": 4,
+    "wis": 8,
+    "cha": 8
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 28,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability darkvision}",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability lifesense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Chthonian",
+    "Diabolic",
+    "Empyrean",
+    "Requian; Telepathy 100 Feet",
+    "Truespeech|Pc1"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 25
+    },
+    {
+      "name": "Boneyard Lore",
+      "mod": 28
+    },
+    {
+      "name": "Deception",
+      "mod": 28
+    },
+    {
+      "name": "Intimidation",
+      "mod": 28
+    },
+    {
+      "name": "Religion",
+      "mod": 28
+    },
+    {
+      "name": "Stealth",
+      "mod": 25
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 35,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 310,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 28
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "fear"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "holy",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Forgotten Presence",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The ijhyeojin redirects the triggering spell to a new target other than its caster. If the ijhyeojin is wearing that target's face, the new target takes a –2 circumstance penalty to this saving throw."
+      ],
+      "trigger": "The ijhyeojin critically succeeds at a saving throw against a spell"
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 28,
+        "map": [
+          28,
+          24,
+          20
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+14",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "swipe countenance",
+        "swipe countenance"
+      ]
+    },
+    {
+      "name": "Overwrite Memory",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "ijhyeojin alters the memories of a target within 30 feet, insinuating their faceless visage in the place of others. The target must attempt a DC 34 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 34,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target is frightened 1 and treats no one as an ally for as long as it's frightened.",
+          "failure": "The target is frightened 2 and is confused for as long as it's frightened.",
+          "criticalFailure": "The target is frightened 4 and confused for as long as it's frightened. If the target is a joseung saja|LOTXWG, they instead realize the fear of being forgotten and become an ijhyeojin."
+        }
+      }
+    },
+    {
+      "name": "Reap Souls",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "death"
+      ],
+      "entries": [
+        "The target must succeed at a DC 34 Will save or immediately die. A reaped creature can't be return to life or become undead except by a 9th-rank or higher ritual."
+      ],
+      "trigger": "The joseung saja brings a target to 0 Hit Points or successfully Strikes a target with the dying condition",
+      "save": {
+        "defense": "will",
+        "dc": 34,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Swipe Countenance",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "The ijhyeojin copies the countenance of the target, imprinting it perfectly onto their own blank face. While only their face changes, creatures must Seek them and succeed at a DC 34 Will save to distinguish them visually from the original creature. The sahkil keeps the same visage for 24 hours or until they steal another."
+      ],
+      "requirements": "The ijhyeojin's previous action was a successful claw Strike against the target",
+      "save": {
+        "defense": "will",
+        "dc": 34,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 34,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "truespeech",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "rewrite memory",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

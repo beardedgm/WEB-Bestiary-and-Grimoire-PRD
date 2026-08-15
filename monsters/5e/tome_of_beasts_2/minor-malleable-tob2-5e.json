@@ -1,0 +1,248 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:minor-malleable",
+  "name": "Minor Malleable",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 254,
+    "path": "monsters/5e/tome_of_beasts_2/minor-malleable.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 1,
+    "xp": 200,
+    "display": "1"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": -1,
+    "con": 2,
+    "int": 2,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 8,
+    "con": 14,
+    "int": 15,
+    "wis": 14,
+    "cha": 10
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "all",
+    "telepathy 60 ft."
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 11,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 32,
+        "note": null,
+        "formula": "5d8+10"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "int",
+        "mod": 4
+      },
+      {
+        "name": "wis",
+        "mod": 4
+      },
+      {
+        "name": "cha",
+        "mod": 2
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "psychic"
+      ],
+      "conditions": [
+        "blinded",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "climb": 30,
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Amorphous",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The malleable can move through a space as narrow as 1 inch wide without squeezing."
+      ]
+    },
+    {
+      "name": "Controlled Mutability",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Any spell or effect that would alter the malleable's form only alters it until the end of the malleable's next turn. Afterwards, the malleable returns to its amorphous form. In addition, the malleable can use its action to change itself into any shape, but it always looks like an inside-out fleshy creature no matter the shape it takes. If it changes into the shape of a creature, it doesn't gain any statistics or special abilities of that creature; it only takes on the creature's basic shape and general appearance."
+      ]
+    },
+    {
+      "name": "Psychic Absorption",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the malleable is subjected to psychic damage, it takes no damage and instead regains a number of hp equal to the psychic damage dealt."
+      ]
+    },
+    {
+      "name": "Spider Climb",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The malleable can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check."
+      ]
+    },
+    {
+      "name": "Flesh Tendril",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) bludgeoning damage. If the target is a Medium or smaller creature, it is grappled (escape DC 12)."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Psychic Drain",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "One creature grappled by the malleable must make a DC 12 Intelligence saving throw, taking 4 (1d8) psychic damage on a failed save, or half as much damage on a successful one. The target's hp maximum is reduced by an amount equal to the damage taken. This reduction lasts until the target finishes a long rest. The target dies and becomes a minor malleable if this effect reduces its hp maximum to 0."
+      ],
+      "damage": [
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "int",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Join Malleables",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "As long as the malleable is within 10 feet of at least three other minor malleables, each minor malleable in range can use this action option at the same time to join together and create a larger malleable. The new malleable's hp total is equal to the combined hp total of all the minor malleables. and it is affected by any conditions, spells, and other magical effects that affected any of the minor malleables. The new malleable acts on the same initiative count as the malleables that formed it and occupies any unoccupied space that previously contained at least one of the malleables that formed it. <br>* Four minor malleables can join to create one moderate malleable. <br>* Eight minor malleables can join to create one major malleable. <br>* Sixteen minor malleables can join to create one massive malleable."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

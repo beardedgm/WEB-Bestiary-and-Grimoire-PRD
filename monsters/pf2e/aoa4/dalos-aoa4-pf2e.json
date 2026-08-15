@@ -1,0 +1,424 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa4:dalos",
+  "name": "Dalos",
+  "gameSystem": "pf2e",
+  "variant": "aoa4",
+  "source": {
+    "code": "aoa4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa4/dalos.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [
+      "earth",
+      "fire"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "huge",
+      "earth",
+      "fey",
+      "fire"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 4,
+    "con": 6,
+    "int": 2,
+    "wis": 4,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 23,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Ignan",
+    "Sylvan",
+    "Terran"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 29
+    },
+    {
+      "name": "Nature",
+      "mod": 23
+    },
+    {
+      "name": "Survival",
+      "mod": 23
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 34,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 240,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 27
+      },
+      {
+        "name": "ref",
+        "mod": 19
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 15,
+        "note": "except bludgeoning"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "cold iron",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "burrow": 20,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Volcanic Heat",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "fire"
+      ],
+      "entries": [
+        "10 feet, 3d6 fire damage (DC 29 basic Reflex save)"
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 29,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 10,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Magma Splash",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "fire"
+      ],
+      "entries": [
+        "Whenever the dalos takes damage from a melee Strike, magma splashes from its open wound and sticks to nearby creatures. Each creature in a 10-foot emanation must attempt a DC 31 Reflex save. On a failure, the creature takes 3d6 persistent fire damage as the superheated rock sticks to them and cools. The DC to end this persistent damage decreases by 5 each turn after the first as the magma cools."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 31,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+11",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "rock",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 25,
+        "map": [
+          25,
+          20,
+          15
+        ],
+        "traits": [
+          "range increment <150 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 150,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+11",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Belch Smoke",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The dalos blasts smoke from its head, creating a 20-foot-radius cloud of smoke that drifts to a location within 120 feet. This has the effects of obscuring mist."
+      ]
+    },
+    {
+      "name": "Heat Rock",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "fire"
+      ],
+      "entries": [
+        "The dalos uses an Interact action to pluck a rock from its body or the nearby environment, then uses its internal fires to heat a rock it's holding until the rock is red hot. A heated rock that hits a target on a ranged Strike deals an additional 4d6 fire damage. Once the dalos heats a rock, that rock retains its heat for 2 rounds before cooling."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Lava Bomb",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "earth",
+        "fire"
+      ],
+      "entries": [
+        "The dalos causes a volcanic explosion to erupt from its head, lobbing a mass of molten rock up to 100 feet. This lava bomb deals 6d8 fire damage and 6d8 bludgeoning damage to each creature in a 20-foot radius of its impact point, with a DC 33 basic Reflex save. The dalos can't use Lava Bomb again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "radius",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 33,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d8",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Throw Rock",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": []
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 31,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "earthbind",
+              "uses": 3
+            },
+            {
+              "name": "slow",
+              "uses": null
+            },
+            {
+              "name": "stinking cloud",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 33
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

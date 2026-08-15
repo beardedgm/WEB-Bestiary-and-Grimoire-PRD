@@ -1,0 +1,326 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:iroran-mummy",
+  "name": "Iroran Mummy",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/iroran-mummy.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "mummy",
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "ln",
+      "medium",
+      "mummy",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 7,
+    "con": 4,
+    "int": 0,
+    "wis": 5,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 21,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 25
+    },
+    {
+      "name": "Athletics",
+      "mod": 21
+    },
+    {
+      "name": "Irori Lore",
+      "mod": 25
+    },
+    {
+      "name": "Religion",
+      "mod": 21
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 31,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 190,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 21
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aura of Peace",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "emotion",
+        "enchantment",
+        "incapacitation",
+        "mental"
+      ],
+      "entries": [
+        "30 feet. When a creature enters or starts its turn in the aura, it's affected by calm emotions for 1 minute, with a DC 27 Will save. A creature that succeeds at the save is temporarily immune for 24 hours. If the Iroran mummy takes a hostile action, the aura of peace is suppressed and its effects end for anyone already affected. The Iroran mummy must spend 10 minutes in meditation to restore the aura."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 27,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Robe Tangle",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "divine",
+        "move",
+        "transmutation"
+      ],
+      "entries": [
+        "The mummy swaps positions with the attacker, and the attacker becomes grabbed by the mummy's animated sash. The Escape DC is 29, the Force Open DC is 27, and a creature can sever the sash by hitting AC 27 and dealing at least 20 slashing damage. The mummy can't use this reaction again until they've Interacted to reclaim the sash."
+      ],
+      "trigger": "An adjacent creature misses the Iroran mummy with a melee Strike"
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "nonlethal",
+          "unarmed"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+11",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "shuriken",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile",
+          "thrown <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d4+11",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Monk Ki Spells",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "DC 29"
+      ],
+      "entries": []
+    },
+    {
+      "name": "5th",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "ki blast, ki rush, ki strike, wind jump"
+      ]
+    },
+    {
+      "name": "Stunning Flurry",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The Iroran mummy makes two unarmed Strikes. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses, and the target must succeed at a DC 29 Fortitude save or be stunned 1 (or stunned 3 on a critical failure); this save has the incapacitation trait."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 32
+      }
+    ],
+    "items": [
+      "+1 striking returning shuriken"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

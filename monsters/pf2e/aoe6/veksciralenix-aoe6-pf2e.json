@@ -1,0 +1,497 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe6:veksciralenix",
+  "name": "Veksciralenix",
+  "gameSystem": "pf2e",
+  "variant": "aoe6",
+  "source": {
+    "code": "aoe6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe6/veksciralenix.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 20,
+    "xp": null,
+    "display": "Creature 20"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "dragon",
+      "time"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "n",
+      "gargantuan",
+      "dragon",
+      "time"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 5,
+    "con": 7,
+    "int": 6,
+    "wis": 8,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 36,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Common",
+    "Draconic",
+    "Dwarven",
+    "Elven",
+    "Infernal",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 33
+    },
+    {
+      "name": "Arcana",
+      "mod": 35
+    },
+    {
+      "name": "Athletics",
+      "mod": 38
+    },
+    {
+      "name": "Deception",
+      "mod": 34
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 36
+    },
+    {
+      "name": "Occultism",
+      "mod": 38
+    },
+    {
+      "name": "Society",
+      "mod": 34
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 45,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 375,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 38
+      },
+      {
+        "name": "ref",
+        "mod": 33
+      },
+      {
+        "name": "will",
+        "mod": 35
+      }
+    ],
+    "saveNote": "1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "negative"
+      ],
+      "conditions": [
+        "paralyzed",
+        "slowed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 60,
+      "fly": 200
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Alien Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "mental"
+      ],
+      "entries": [
+        "90 feet. A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to the Veksciralenix's Alien Presence for 1 minute."
+      ],
+      "aura": {
+        "range": 90,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is slowed|CRB|slowed 1 for 1 round.",
+          "failure": "The creature is slowed|CRB|slowed 1 for 1d4 rounds.",
+          "criticalFailure": "The creature is slowed|CRB|slowed 1 for 1 minute."
+        }
+      }
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Jaws only."
+      ]
+    },
+    {
+      "name": "Second Chance",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The triggering creature rerolls the triggering check and takes the second result."
+      ],
+      "trigger": "Veksciralenix or a creature that Veksciralenix can see attempts a check and learns the results",
+      "frequency": {
+        "number": 3,
+        "unit": "day",
+        "text": null
+      }
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          33,
+          28
+        ],
+        "traits": [
+          "electricity",
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+18",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          34,
+          30
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+18",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 36,
+        "map": [
+          36,
+          31,
+          26
+        ],
+        "traits": [
+          "magical",
+          "reach <25 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 25,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d12+18",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "wing",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 36,
+        "map": [
+          36,
+          32,
+          28
+        ],
+        "traits": [
+          "agile",
+          "magical reach <20 feet>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d10+18",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The time dragon breathes in one of two ways. The dragon can't use Breath Weapon again for 1d4 rounds. -",
+        "-"
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Draconic Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Veksciralenix makes two claw Strikes and one wing Strike in any order."
+      ]
+    },
+    {
+      "name": "Draconic",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Momentum Veksciralenix recharges their Breath Weapon whenever they score a critical hit with a Strike."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 42,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 10,
+          "rankLabel": "Cantrips (10th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "locate",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "plane shift",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "teleport",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 10,
+          "rankLabel": "10th",
+          "spells": [
+            {
+              "name": "time stop",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana",
+        "dc": 50
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

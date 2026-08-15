@@ -1,0 +1,280 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:tio:scalliwing",
+  "name": "Scalliwing",
+  "gameSystem": "pf2e",
+  "variant": "tio",
+  "source": {
+    "code": "tio",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/tio/scalliwing.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [
+      "couatl"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "cg",
+      "lawChaos": "chaotic",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "cg",
+      "tiny",
+      "beast",
+      "couatl"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 4,
+    "con": 0,
+    "int": 0,
+    "wis": 3,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 10
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 9
+    },
+    {
+      "name": "Nature",
+      "mod": 9
+    },
+    {
+      "name": "Religion",
+      "mod": 9
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 45,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 8
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 11
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "fangs",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          6,
+          2
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+1",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "persistent poison"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Wing Flash",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "The scalliwing spreads their iridescent wings and flutters them in a hypnotizing pattern. Each creature within 30 feet that can see the scalliwing must attempt a DC 20 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is flat-footed until the start of its next turn.",
+          "failure": "The creature is flat-footed until the start of its next turn, and it must spend its first action on its next turn admiring the scalliwing.",
+          "criticalFailure": "The creature is flat-footed until the start of its next turn. For 1 minute, the creature must spend its first action each turn admiring the scalliwing. This effect ends if the scalliwing attacks or uses another hostile action against the affected creature."
+        }
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 20,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Cantrips (2nd)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "guidance",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "command",
+              "uses": null
+            },
+            {
+              "name": "heal",
+              "uses": null
+            },
+            {
+              "name": "sanctuary",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "heal",
+              "uses": 2
+            },
+            {
+              "name": "invisibility",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 20
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

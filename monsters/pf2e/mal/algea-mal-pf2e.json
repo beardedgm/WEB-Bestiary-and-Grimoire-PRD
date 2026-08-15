@@ -1,0 +1,346 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:mal:algea",
+  "name": "Algea",
+  "gameSystem": "pf2e",
+  "variant": "mal",
+  "source": {
+    "code": "mal",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/mal/algea.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 11,
+    "xp": null,
+    "display": "Creature 11"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "monitor",
+      "psychopomp",
+      "swarm"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "large",
+      "monitor",
+      "psychopomp",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": -1,
+    "dex": 7,
+    "con": 5,
+    "int": 2,
+    "wis": 5,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 22,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "lifesense [object Object] feet",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "see magic",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Aklo",
+    "Celestial",
+    "Infernal",
+    "Requian"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 22
+    },
+    {
+      "name": "Boneyard Lore",
+      "mod": 21
+    },
+    {
+      "name": "Occultism",
+      "mod": 21
+    },
+    {
+      "name": "Religion",
+      "mod": 20
+    },
+    {
+      "name": "Stealth",
+      "mod": 22
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 144,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 24
+      },
+      {
+        "name": "will",
+        "mod": 22
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "death effects",
+        "disease",
+        "swarm mind"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "negative",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "poison",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15,
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Grieving Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "emotion",
+        "enchantment",
+        "mental"
+      ],
+      "entries": [
+        "30 feet. A creature that begins its turn in the aura must attempt a DC 27 Will save. Undead take a –2 circumstance penalty to this saving throw. The creature is then temporarily immune to the grieving aura for 1 hour."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 27,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Drain Magic",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "abjuration",
+        "divine"
+      ],
+      "entries": [
+        "Whenever a creature fails its save against Frenzied Beaks, the algea attempts to counter a spell effect active on that creature (6th level, counteract check 1d20+22|+22). The algea can choose which effect to attempt to counteract for each creature."
+      ]
+    },
+    {
+      "name": "Frenzied Beaks",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Each foe in the swarm's space takes 5d6 piercing damage (DC 30 basic Reflex) and is exposed to drain magic. This damage affects incorporeal creatures as if it had the effects of a ghost touch property rune."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 30,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d6",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Soul Cage",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "incapacitation",
+        "necromancy"
+      ],
+      "entries": [
+        "An incorporeal undead damaged by Frenzied Beaks must attempt a DC 30 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 30,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 30,
+      "attackBonus": 22,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "confusion",
+              "uses": null
+            },
+            {
+              "name": "talking corpse",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "plane shift",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Monitor",
+        "skill": "Religion",
+        "dc": 28
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Grieving Aura)",
+      "degree-of-success labels present but empty in source (Soul Cage)"
+    ],
+    "unmapped": []
+  }
+}

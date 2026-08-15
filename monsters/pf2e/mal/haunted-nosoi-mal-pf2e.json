@@ -1,0 +1,227 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:mal:haunted-nosoi",
+  "name": "Haunted Nosoi",
+  "gameSystem": "pf2e",
+  "variant": "mal",
+  "source": {
+    "code": "mal",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/mal/haunted-nosoi.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 2,
+    "xp": null,
+    "display": "Creature 2"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "monitor",
+      "psychopomp",
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "n",
+      "tiny",
+      "monitor",
+      "psychopomp",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -1,
+    "dex": 3,
+    "con": 1,
+    "int": -3,
+    "wis": 2,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 8,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "lifesense [object Object] feet",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 8
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 28,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 6
+      },
+      {
+        "name": "ref",
+        "mod": 10
+      },
+      {
+        "name": "will",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "negative",
+        "amount": 3,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "slashing",
+        "amount": 3,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15,
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Vengeful Burst",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "The haunted nosoi dies as it explodes into a burst of positive energy. This heals all living creatures within 10 feet for 3d6 damage, and if triggered in area D5, the Vengeful Burst deals 2d12 negative damage to any corrupted psychopomps in that area (DC 18 basic Will save)."
+      ],
+      "trigger": "The haunted nosoi is destroyed or it enters a square adjacent to a corrupted psychopomp in area D5",
+      "save": {
+        "defense": "will",
+        "dc": 18,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "beak",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 8,
+        "map": [
+          8,
+          3,
+          -2
+        ],
+        "traits": [
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+1",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Monitor",
+        "skill": "Religion",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

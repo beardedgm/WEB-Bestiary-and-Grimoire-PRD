@@ -1,0 +1,248 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:magma-octopus",
+  "name": "Magma Octopus",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 251,
+    "path": "monsters/5e/tome_of_beasts_2/magma-octopus.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 8,
+    "xp": 3900,
+    "display": "8"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 3,
+    "con": 5,
+    "int": -3,
+    "wis": -1,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 21,
+    "dex": 17,
+    "con": 21,
+    "int": 5,
+    "wis": 8,
+    "cha": 7
+  },
+  "perception": {
+    "mod": null,
+    "passive": 9
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 8
+    },
+    {
+      "name": "Stealth",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 147,
+        "note": null,
+        "formula": "14d10+70"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Lava Bound",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The magma octopus can exist outside of lava for up to 1 hour each day. If it remains outside of lava for 1 minute or longer, its skin begins to dry and harden like rapidly-cooled magma. While its skin is hardened, it has a walking speed of 20 feet, an Armor Class of 18, and vulnerability to cold damage. If it remains outside of lava for 1 hour or longer, it becomes petrified, transforming into basalt. Its body returns to normal if it is submerged in lava for 1 round."
+      ],
+      "condition": {
+        "name": "petrified",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Lava Swimmer",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While in lava, the magma octopus has a swimming speed of 60 feet and can move through the lava as if it were water."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The magma octopus makes four attacks with its tentacles."
+      ]
+    },
+    {
+      "name": "Tentacle",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +8 to hit, reach 15 ft., one target. Hit: 8 (1d6 + 5) bludgeoning damage plus 2 (1d4) fire damage. If the target is a creature, it is grappled (escape DC 16). Until this grapple ends, the target is restrained, and it takes 2 (1d4) fire damage at the start of each of its turns. The magma octopus can grapple up to two targets at a time."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+5",
+          "average": 8,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d4",
+          "average": 2,
+          "type": "fire"
+        },
+        {
+          "formula": "1d4",
+          "average": 2,
+          "type": "fire"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Magma Blast",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The magma octopus sprays magma in a 30-foot cone. Each creature in that area must make a DC 16 Dexterity saving throw, taking 28 (8d6) fire damage on a failed save, or half as much damage on a successful one. If a creature fails the saving throw by 5 or more, it catches fire. Until someone takes an action to douse the fire, the creature takes 5 (1d10) fire damage at the start of each of its turns."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": 28,
+          "type": "fire"
+        },
+        {
+          "formula": "1d10",
+          "average": 5,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

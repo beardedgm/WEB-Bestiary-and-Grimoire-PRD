@@ -1,0 +1,390 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot2:grippli-jinxer",
+  "name": "Grippli Jinxer",
+  "gameSystem": "pf2e",
+  "variant": "sot2",
+  "source": {
+    "code": "sot2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot2/grippli-jinxer.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "grippli"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "small",
+      "grippli",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 4,
+    "con": 2,
+    "int": 0,
+    "wis": 4,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Grippli"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 14
+    },
+    {
+      "name": "Athletics",
+      "mod": 12
+    },
+    {
+      "name": "Intimidation",
+      "mod": 12
+    },
+    {
+      "name": "Nature",
+      "mod": 14
+    },
+    {
+      "name": "Occultism",
+      "mod": 10
+    },
+    {
+      "name": "Stealth",
+      "mod": 14
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 95,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 12
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "climb": 20
+    },
+    "special": [
+      "jungle stride"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Hypnotic Tattoos",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Tattoos on the jinxer's body swirl and shift in mesmerizing patterns. The creature must attempt a DC 22 Will save."
+      ],
+      "trigger": "A hostile creature targets the jinxer with a melee Strike",
+      "save": {
+        "defense": "will",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected and is temporarily immune for 1 hour.",
+          "success": "The creature is unaffected and is temporarily immune for 1 minute.",
+          "failure": "The creature treats the jinxer as concealed until the end of its turn.",
+          "criticalFailure": "The creature treats the jinxer as hidden until the end of its turn."
+        }
+      }
+    },
+    {
+      "name": "staff",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [
+          "two-hand <d8>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "baneback poison",
+        "baneback poison"
+      ]
+    },
+    {
+      "name": "dart",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          12,
+          8
+        ],
+        "traits": [
+          "agile",
+          "thrown <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "baneback poison",
+        "baneback poison"
+      ]
+    },
+    {
+      "name": "Baneback Poison",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Curse of Baneful Venom",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "The jinxer magically intensifies toxins in their foes. Creatures within 30 feet of the jinxer that are currently afflicted by a poison immediately attempt their next saving throw against the poison with a –2 status penalty, then are temporarily immune to Curse of Baleful Venom for 1 hour."
+      ]
+    },
+    {
+      "name": "Jungle Stride",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Gripplis ignore terrain in forests and jungles."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous occult Spells",
+      "type": "spontaneous",
+      "tradition": "occult",
+      "dc": 24,
+      "attackBonus": 16,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 3,
+          "rankLabel": "Cantrips (3rd)",
+          "spells": [
+            {
+              "name": "chill touch",
+              "uses": null
+            },
+            {
+              "name": "forbidding ward",
+              "uses": null
+            },
+            {
+              "name": "know direction",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            },
+            {
+              "name": "telekinetic projectile",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st (3 slots)",
+          "spells": [
+            {
+              "name": "bane",
+              "uses": null
+            },
+            {
+              "name": "ray of enfeeblement",
+              "uses": null
+            },
+            {
+              "name": "spider sting",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd (3 slots)",
+          "spells": [
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "summon animal",
+              "uses": null
+            },
+            {
+              "name": "vomit swarm",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd (3 slots)",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "fear",
+              "uses": null
+            },
+            {
+              "name": "paralyze",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 22
+      }
+    ],
+    "items": [
+      "dart (8)",
+      "staff"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

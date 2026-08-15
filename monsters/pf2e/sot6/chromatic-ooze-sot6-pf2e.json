@@ -1,0 +1,262 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot6:chromatic-ooze",
+  "name": "Chromatic Ooze",
+  "gameSystem": "pf2e",
+  "variant": "sot6",
+  "source": {
+    "code": "sot6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot6/chromatic-ooze.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "large",
+      "mindless",
+      "ooze"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": -5,
+    "con": 10,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "motion sense",
+      "range": 240,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "no vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 35
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 550,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 33
+      },
+      {
+        "name": "ref",
+        "mod": 16
+      },
+      {
+        "name": "will",
+        "mod": 20
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental",
+        "precision"
+      ],
+      "conditions": [
+        "unconscious"
+      ],
+      "other": [
+        "critical hits",
+        "visual"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "swim": 20,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Caustic Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "alchemical",
+        "aura",
+        "olfactory"
+      ],
+      "entries": [
+        "90 feet. The chromatic ooze emanates noxious chemicals into the environment. A creature that enters the aura or starts its turn within it is sickened 1 unless it succeeds at a DC 37 Fortitude save. Creatures with the scent ability or a particularly heightened sense of smell are sickened 2, or sickened 1 on a successful Fortitude save. Creatures in the aura can't recover from the sickened condition."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 37,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 90,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Chromatic Shift",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The chromatic ooze changes its color based on the triggering damage (to dark green, pale blue, dark blue, red, or light green, respectively) and gains resistance 20 to the triggering damage. If it already had resistance to another damage type from this ability, it loses the resistance to that damage type and gains weakness 20 to it. If it already had weakness to another damage type from this ability, it loses that weakness. After 1 minute, the chromatic ooze returns to its usual rippling, multicolored hue and loses the resistance and weakness from this ability."
+      ],
+      "trigger": "The chromatic ooze takes acid, cold, electricity, fire, or poison damage"
+    },
+    {
+      "name": "pseudopod",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+17",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "chromatic slam",
+        "Improved Grab"
+      ]
+    },
+    {
+      "name": "Chromatic Slam",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ooze's pseudopod Strikes deal an additional 2d10 damage of the same type it resists from its Chromatic Shift ability, if any."
+      ]
+    },
+    {
+      "name": "Greater Constrict",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "3d10+13 bludgeoning, DC 40"
+      ]
+    },
+    {
+      "name": "Pseudopod Eruption",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The chromatic ooze concentrates its mass into several pseudopods, increasing its reach to 30 feet until the end of its turn. It then Strikes at up to four different creatures within its reach. This counts as two attacks for the ooze's multiple attack penalty, but the penalty doesn't increase until after it makes all the attacks."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Ooze",
+        "skill": "Occultism",
+        "dc": 43
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

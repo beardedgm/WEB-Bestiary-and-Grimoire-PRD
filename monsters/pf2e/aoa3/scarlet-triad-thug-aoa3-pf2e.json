@@ -1,0 +1,281 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa3:scarlet-triad-thug",
+  "name": "Scarlet Triad Thug",
+  "gameSystem": "pf2e",
+  "variant": "aoa3",
+  "source": {
+    "code": "aoa3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa3/scarlet-triad-thug.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "dwarf"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "medium",
+      "dwarf",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 3,
+    "int": 0,
+    "wis": 2,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 13,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Dwarven"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 13
+    },
+    {
+      "name": "Athletics",
+      "mod": 17
+    },
+    {
+      "name": "Intimidation",
+      "mod": 16
+    },
+    {
+      "name": "Survival",
+      "mod": 13
+    },
+    {
+      "name": "Thievery",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 25,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 120,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": "+2 circumstance on saves vs. Shove, Trip, or being knocked prone",
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Rock Dwarf",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When forced to move 10 feet or more, the thug is moved only half the distance."
+      ]
+    },
+    {
+      "name": "Bully's Push",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The thug attempts to Shove the triggering creature at a –2 penalty. If the thug rolls a critical failure, it gets a failure instead."
+      ],
+      "trigger": "A creature within the thug's reach misses the thug with a melee Strike."
+    },
+    {
+      "name": "flail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          13,
+          8
+        ],
+        "traits": [
+          "disarm",
+          "sweep",
+          "trip"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "javelin",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15,
+          10,
+          5
+        ],
+        "traits": [
+          "thrown <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+10",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Efficient Capture",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "attack",
+        "manipulate"
+      ],
+      "entries": [
+        "The thug attempts to bind the creature's wrists or ankles with the manacles. The thug must succeed at an attack roll with a +18 modifier against the target's AC."
+      ],
+      "requirements": "The thug has manacles in hand and is next to a creature."
+    },
+    {
+      "name": "Pack Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The thug deals an extra 1d8 damage to any creature that's within reach of at least two of the thug's allies."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 25
+      }
+    ],
+    "items": [
+      "chain mail",
+      "+1 flail",
+      "keys to manacles",
+      "javelin (3)",
+      "average manacles (marked with the symbol of the Scarlet Triad)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

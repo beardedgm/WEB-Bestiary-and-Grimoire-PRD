@@ -1,0 +1,351 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe6:sordesdaemon",
+  "name": "Sordesdaemon",
+  "gameSystem": "pf2e",
+  "variant": "aoe6",
+  "source": {
+    "code": "aoe6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe6/sordesdaemon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "daemon",
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "large",
+      "daemon",
+      "fiend"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 3,
+    "con": 9,
+    "int": 6,
+    "wis": 5,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 26,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Daemonic; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 27
+    },
+    {
+      "name": "Crafting",
+      "mod": 29
+    },
+    {
+      "name": "Intimidation",
+      "mod": 28
+    },
+    {
+      "name": "Medicine",
+      "mod": 26
+    },
+    {
+      "name": "Religion",
+      "mod": 28
+    },
+    {
+      "name": "Stealth",
+      "mod": 24
+    },
+    {
+      "name": "Survival",
+      "mod": 28
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 37,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 300,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 30
+      },
+      {
+        "name": "ref",
+        "mod": 24
+      },
+      {
+        "name": "will",
+        "mod": 26
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Miasma of Pollution",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "disease"
+      ],
+      "entries": [
+        "30 feet. Creatures in the aura can't reduce the value of the sickened condition. A creature that enters the aura or begins its turn in it must succeed at a DC 34 Fortitude save or be sickened|CRB|sickened 2 (plus slowed|CRB|slowed 1 as long as it is sickened on a critical failure). A creature that succeeds at its save is temporarily immune for 1 minute. Creatures made of water (such as water elementals) and plant creatures use an outcome one degree of success worse than the result of their save."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 34,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          24,
+          19
+        ],
+        "traits": [
+          "evil",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+14",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": [
+        "pollution infusion",
+        "pollution infusion"
+      ]
+    },
+    {
+      "name": "Pollution Infusion",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "disease",
+        "virulent"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Retch of Foulness",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "acid",
+        "divine",
+        "evocation"
+      ],
+      "entries": [
+        "The sordesdaemon exhales a spray of sewage that deals 8d6 acid damage and 8d6 poison damage in a 30-foot cone (DC 40 basic Fortitude save). It can't use Retch of Foulness again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 40,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 38,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "detect alignment",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "cloudkill",
+              "uses": "at will"
+            },
+            {
+              "name": "dimension door",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "horrid wilting",
+              "uses": null
+            },
+            {
+              "name": "spiritual epidemic",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 36
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:crusher",
+  "name": "Crusher",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 53,
+    "path": "monsters/5e/a5e_monstrous_menagerie/crusher-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 10,
+    "xp": 5900,
+    "display": "10"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": -1,
+    "con": 5,
+    "int": -5,
+    "wis": -2,
+    "cha": -5
+  },
+  "abilityScores": {
+    "str": 20,
+    "dex": 8,
+    "con": 20,
+    "int": 1,
+    "wis": 6,
+    "cha": 1
+  },
+  "perception": {
+    "mod": 2,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond that range)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 2
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 20,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 115,
+        "note": null,
+        "formula": "11d10+55"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "psychic"
+      ],
+      "conditions": [
+        "blinded",
+        "charmed",
+        "deafened",
+        "exhaustion",
+        "frightened",
+        "paralyzed",
+        "petrified",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Clockwork Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A clockwork doesnt require air, nourishment, or rest, and is immune to disease."
+      ]
+    },
+    {
+      "name": "Immutable Form",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The clockwork is immune to any effect that would alter its form."
+      ]
+    },
+    {
+      "name": "Crush",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The crusher moves up to its Speed in a straight line. While doing so  it can attempt to enter Large or smaller creatures spaces. Whenever the crusher attempts to enter a creatures space  the creature makes a DC 17 Dexterity or Strength saving throw (the creatures choice). If the creature succeeds at a Strength saving throw  the crushers movement ends for the turn. If the creature succeeds at a Dexterity saving throw  the creature may use its reaction  if available  to move up to half its Speed without provoking opportunity attacks. The first time on the crushers turn that it enters a creatures space  the creature is knocked prone and takes 50 (10d8 + 5) bludgeoning damage. A creature is prone while in the crushers space."
+      ],
+      "damage": [
+        {
+          "formula": "10d8+5",
+          "average": 50,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Ram",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 23 (4d8 + 5) bludgeoning damage. If the crusher moves at least 20 feet straight towards the target before the attack  the attack deals an extra 18 (4d8) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+5",
+          "average": 23,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "4d8",
+          "average": 18,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Overclock",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The crusher takes the Dash action."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

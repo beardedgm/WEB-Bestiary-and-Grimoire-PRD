@@ -1,0 +1,293 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:lotxwg:shui-gui",
+  "name": "Shui Gui",
+  "gameSystem": "pf2e",
+  "variant": "lotxwg",
+  "source": {
+    "code": "lotxwg",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/lotxwg/shui-gui.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "ghost",
+      "spirit",
+      "undead"
+    ],
+    "subtypes": [
+      "aquatic",
+      "incorporeal",
+      "water"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "uncommon",
+      "medium",
+      "aquatic",
+      "ghost",
+      "incorporeal",
+      "spirit",
+      "undead",
+      "water"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 5,
+    "con": 0,
+    "int": 4,
+    "wis": 3,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability darkvision}",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Tien"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 13
+    },
+    {
+      "name": "Deception",
+      "mod": 13
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 11
+    },
+    {
+      "name": "Ghost Lore",
+      "mod": 15
+    },
+    {
+      "name": "Religion",
+      "mod": 12
+    },
+    {
+      "name": "Stealth",
+      "mod": 16
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 21,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 135,
+        "formula": null,
+        "note": "void healing|MC, rejuvenation (ghost)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 9
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all damage",
+        "amount": 5,
+        "note": "except fire, force, ghost touch, or vitality; double resistance vs. non-magical"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "swim": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Rejuvenation",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "divine"
+      ],
+      "entries": [
+        "When the shui gui is destroyed, it reforms after 2d4 days within the body of water it's bound to, fully healing. It can be permanently destroyed if the body of the shui gui who originally died in the water can be found and laid to rest."
+      ]
+    },
+    {
+      "name": "Ti Shōn",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "death",
+        "divine"
+      ],
+      "entries": [
+        "Ripping the spirit of its drowned victim out of the target's body, the shui gui enters the corpse to take the original owner's place. The shui gui then returns to life at the edge of its body of water as if it had been the target of a successful resurrect|PC1 ritual, except it has the appearance of the target rather than its original body. After a week, the spirit of the drowned creature becomes a shui gui. The new spirit can't be raised from the dead by normal magical means until they've been destroyed as a shui gui."
+      ],
+      "trigger": "A creature grabbed by the shui gui dies of suffocation|CRB|3|drowning and suffocating|0"
+    },
+    {
+      "name": "ghostly hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          13,
+          9
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": null,
+          "type": "void"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Drag Under",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The shui gui Swims at half Speed, along with any creature it has grabbed."
+      ]
+    },
+    {
+      "name": "Drown the Living",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The shui gui tightens its grip. The target must succeed at a DC 24 Fortitude save or immediately lose 1d4 actions worth of air (or twice that on a critical failure)."
+      ],
+      "requirements": "The target must be holding its breath|CRB|3|drowning and suffocating|0 and be grabbed by the shui gui",
+      "save": {
+        "defense": "fortitude",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Ghostly Grasp",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A shui gui can Grapple corporeal creatures despite being incorporeal. The shui gui uses its Athletics check to Grapple as normal but can't use Athletics for other actions that require corporeal contact, like Force Open or Trip."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Spirit",
+        "skill": "Religion",
+        "dc": 22
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

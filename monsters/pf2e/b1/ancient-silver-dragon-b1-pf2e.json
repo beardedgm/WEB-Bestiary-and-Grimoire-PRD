@@ -1,0 +1,484 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:ancient-silver-dragon",
+  "name": "Ancient Silver Dragon",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/ancient-silver-dragon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 19,
+    "xp": null,
+    "display": "Creature 19"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "cold"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "lg",
+      "lawChaos": "lawful",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "lg",
+      "gargantuan",
+      "cold",
+      "dragon"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 4,
+    "con": 5,
+    "int": 5,
+    "wis": 5,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 32,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "fog vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Auran",
+    "Common",
+    "Draconic",
+    "Dwarven",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 27
+    },
+    {
+      "name": "Athletics",
+      "mod": 38
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 34
+    },
+    {
+      "name": "Intimidation",
+      "mod": 37
+    },
+    {
+      "name": "Medicine",
+      "mod": 33
+    },
+    {
+      "name": "Religion",
+      "mod": 32
+    },
+    {
+      "name": "Society",
+      "mod": 30
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 45,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 410,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 34
+      },
+      {
+        "name": "ref",
+        "mod": 31
+      },
+      {
+        "name": "will",
+        "mod": 34
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "cold"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 60,
+      "fly": 180
+    },
+    "special": [
+      "cloud walk"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "90 feet, DC 40"
+      ],
+      "aura": {
+        "range": 90,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 40,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Cold Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "cold",
+        "aura"
+      ],
+      "entries": [
+        "15 feet, 3d6 cold damage. The silver dragon can turn this aura on or off as a single action, which has the concentrate trait, and can choose not to affect allies within the aura."
+      ],
+      "aura": {
+        "range": 15,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "Reflect Spell",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The spell is reflected back upon the caster, with the effect of spell turning."
+      ],
+      "trigger": "The silver dragon critically succeeds at a saving throw against a spell, or a caster trying to target the dragon critically fails their attack roll."
+    },
+    {
+      "name": "Wing Deflection",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The dragon raises its wing, gaining a +2 circumstance bonus to AC against the triggering attack. If the dragon is flying, it descends 10 feet after the attack is complete."
+      ],
+      "trigger": "The silver dragon is targeted with an attack."
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 37,
+        "map": [
+          37,
+          32,
+          27
+        ],
+        "traits": [
+          "cold",
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+17",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 37,
+        "map": [
+          37,
+          33,
+          29
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+17",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "magical",
+          "reach <25 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 25,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+15",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The silver dragon breathes in one of two ways. The dragon can't use Breath Weapon again for 1d4 rounds. - Frost (arcane, cold, evocation); The dragon breathes a cloud of frost in a 50-foot cone that deals 20d6 cold damage (DC 42 basic Reflex save).",
+        "- Paralyzing Gas (arcane, enchantment, incapacitation); The dragon breathes a blast of paralyzing gas. Each creature within a 50-foot cone must succeed at a DC 42 Fortitude save or be paralyzed for 1 round (or 3 rounds on a critical failure)."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 50,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 42,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "20d6",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Cloud Walk",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The silver dragon can tread on clouds or fog as though on solid ground."
+      ]
+    },
+    {
+      "name": "Draconic Frenzy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The silver dragon makes two claw Strikes and one tail Strike in any order."
+      ]
+    },
+    {
+      "name": "Draconic Momentum",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the silver dragon scores a critical hit with a Strike, it recharges its Breath Weapon."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 40,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "detect alignment",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana",
+        "dc": 41
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

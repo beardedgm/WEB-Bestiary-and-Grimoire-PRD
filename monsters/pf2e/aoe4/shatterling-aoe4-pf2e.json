@@ -1,0 +1,327 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe4:shatterling",
+  "name": "Shatterling",
+  "gameSystem": "pf2e",
+  "variant": "aoe4",
+  "source": {
+    "code": "aoe4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe4/shatterling.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 14,
+    "xp": null,
+    "display": "Creature 14"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "small",
+      "fey"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 8,
+    "con": 4,
+    "int": 0,
+    "wis": 4,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 26,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "mirror senses",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 28
+    },
+    {
+      "name": "Athletics",
+      "mod": 25
+    },
+    {
+      "name": "Intimidation",
+      "mod": 25
+    },
+    {
+      "name": "Society",
+      "mod": 20
+    },
+    {
+      "name": "Stealth",
+      "mod": 32
+    },
+    {
+      "name": "Thievery",
+      "mod": 30
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 36,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 305,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 24
+      },
+      {
+        "name": "ref",
+        "mod": 30
+      },
+      {
+        "name": "will",
+        "mod": 26
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "bludgeoning",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Extra Reaction",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A shatterling gains an additional reaction each turn, but can use this extra reaction only for Divert Strike."
+      ]
+    },
+    {
+      "name": "Divert Strike",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The nearest mirror to the shatterling at least 1 foot wide breaks, and the damage to the shatterling is reduced to 0."
+      ],
+      "trigger": "A shatterling takes non-bludgeoning damage and there's an unbroken mirror at least 1 foot wide within 100 feet of the shatterling"
+    },
+    {
+      "name": "mirror hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          23,
+          19
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d6+11",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "mirror dart",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "magical",
+          "range increment <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+11",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Blood-Fueled Titter",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the shatterling attempts an Intimidation check to Demoralize a target within 30 feet of a creature with persistent bleed damage, the shatterling has +4 circumstance bonus to the Intimidation check. In addition, the shatterling takes no penalty to the check for not speaking a language the target can hear, and the target isn't temporarily immune to the shatterling's attempts to Demoralize it unless the shatterling critically fails its Intimidation check."
+      ]
+    },
+    {
+      "name": "Mirror Jump",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "move"
+      ],
+      "entries": [
+        "During this Stride, the shatterling can move into any unbroken mirror at least 1 foot wide and out of another unbroken mirror at least 1 foot wide within 100 feet of the first mirror, treating the mirrors as connected. The shatterling can move through any number of pairs of foot-wide mirrors during its mirror jump, requiring each pair to be within 100 feet of each other while doing so."
+      ]
+    },
+    {
+      "name": "Vanish in Reflections",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The shatterling doesn't appear in reflective surfaces if it doesn't want to. When it's within 100 feet of an unbroken mirror at least 1 foot wide, a shatterling can Hide and Sneak even without cover or without being concealed."
+      ]
+    },
+    {
+      "name": "Wipe Away Cracks",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The shatterling touches a broken mirror, instantly repairing it."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 34
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

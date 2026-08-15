@@ -1,0 +1,259 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot2:mutated-sewer-ooze",
+  "name": "Mutated Sewer Ooze",
+  "gameSystem": "pf2e",
+  "variant": "sot2",
+  "source": {
+    "code": "sot2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot2/mutated-sewer-ooze.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [
+      "mindless",
+      "mutant"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "n",
+      "large",
+      "mindless",
+      "mutant",
+      "ooze"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": -2,
+    "con": 4,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "motion sense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "no vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 9
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 45,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 16
+      },
+      {
+        "name": "ref",
+        "mod": 8
+      },
+      {
+        "name": "will",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "mental",
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "critical hits"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Noxious Scent",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "olfactory"
+      ],
+      "entries": [
+        "30 feet. A creature that enters the area must attempt a DC 23 Fortitude save. On a failure, the creature is sickened|CRB|sickened 1 (sickened|CRB|sickened 2 on a critical failure). A creature taking persistent acid damage from the ooze's pseudopod can't recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "pseudopod",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          13,
+          9
+        ],
+        "traits": [
+          "agile",
+          "deadly <d10>",
+          "finesse",
+          "versatile <S>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+5",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "acid"
+        },
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "persistent acid"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Filth Wave",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The sewer ooze unleashes a wave of filth, covering all creatures within a 20-foot emanation. Each creature in the area must succeed at a DC 24 Reflex save or take 1d4 acid damage and a –10-foot penalty to its Speeds for 1 minute (on a critical failure, the creature also falls prone). A creature can spend an Interact action to clean someone off, decreasing."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "minute",
+        "text": null
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "the",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Speed penalty by 5 feet with each action."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Ooze",
+        "skill": "Occultism",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,289 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe6:slithering-rift",
+  "name": "Slithering Rift",
+  "gameSystem": "pf2e",
+  "variant": "aoe6",
+  "source": {
+    "code": "aoe6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe6/slithering-rift.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "huge",
+      "mindless",
+      "ooze"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": -2,
+    "con": 7,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "no vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 120,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 35
+    },
+    {
+      "name": "Stealth",
+      "mod": 38
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 31,
+      "note": "27 from inside the Dimensional Pit"
+    },
+    "hp": [
+      {
+        "value": 535,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 33
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 26
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "mental",
+        "piercing",
+        "precision"
+      ],
+      "conditions": [
+        "unconscious"
+      ],
+      "other": [
+        "critical hits",
+        "visual"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Breach Vulnerability",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Ingesting an extradimensional space like that found in a bag of holding deals 12d8 force damage to the slithering rift and its occupants. The slithering rift then immediately uses Out You Go."
+      ],
+      "damage": [
+        {
+          "formula": "12d8",
+          "average": null,
+          "type": "force"
+        }
+      ]
+    },
+    {
+      "name": "pseudopod",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+18",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Improved Grab",
+        "Improved Grab"
+      ]
+    },
+    {
+      "name": "Flurry of Pods",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The slithering rift makes a single pseudopod Strike against each target within range it hasn't already Grabbed. These attacks count toward the slithering rift's multiple attack penalty, but this penalty doesn't increase until after all of these attacks."
+      ]
+    },
+    {
+      "name": "Dimensional Pit",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "conjuration",
+        "extradimensional"
+      ],
+      "entries": [
+        "The slithering rift opens an extradimensional, 20-foot-deep pit that covers its own space and all adjacent squares unless they are walls or similarly blocking terrain. Any other creature occupying spaces in the pit must succeed at a DC 40 Reflex save or fall into the pit, taking damage from the fall (typically 10 bludgeoning damage). Any creature grabbed by the ooze is released from the Grab and falls in, even if it was outside the pit squares. While the pit is open, the slithering rift is immobilized and can't be forced to move. It can make pseudopod Strikes originating from the walls of the pit. A creature that starts its turn at the bottom of the pit takes 5d6 acid damage. Creatures can climb the walls with a DC 40 Athletics check. When the slithering rift dies, the pit closes and creatures inside are ejected, as Out you Go."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 40,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "5d6",
+          "average": null,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "Out You Go",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The slithering rift closes all pit spaces it created using Dimensional Pit, ejecting all its occupants onto the ground into random free spaces where the opening of the pit was. Each occupant takes 9d6 bludgeoning damage (DC 40 basic Reflex save)."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 40,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "9d6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Ooze",
+        "skill": "Occultism",
+        "dc": 43
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

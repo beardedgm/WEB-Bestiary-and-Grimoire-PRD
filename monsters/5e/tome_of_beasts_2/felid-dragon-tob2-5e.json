@@ -1,0 +1,373 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:felid-dragon",
+  "name": "Felid Dragon",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 143,
+    "path": "monsters/5e/tome_of_beasts_2/felid-dragon.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 19,
+    "xp": 22000,
+    "display": "19"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 8,
+    "con": 6,
+    "int": 3,
+    "wis": 3,
+    "cha": 4
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 26,
+    "con": 23,
+    "int": 16,
+    "wis": 17,
+    "cha": 19
+  },
+  "perception": {
+    "mod": 9,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 14
+    },
+    {
+      "name": "Perception",
+      "mod": 9
+    },
+    {
+      "name": "Stealth",
+      "mod": 16
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 275,
+        "note": null,
+        "formula": "22d12+132"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 10
+      },
+      {
+        "name": "con",
+        "mod": 12
+      },
+      {
+        "name": "wis",
+        "mod": 9
+      },
+      {
+        "name": "cha",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "poisoned",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "fly": 80
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Flyby",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The felid dragon doesn't provoke opportunity attacks when it flies out of an enemy's reach."
+      ]
+    },
+    {
+      "name": "Keen Smell",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The felid dragon has advantage on Wisdom (Perception) checks that rely on smell."
+      ]
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The felid dragon has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Pounce",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the felid dragon moves at least 20 feet straight toward a creature and then hits it with a claw attack on the same turn, that target must succeed on a DC 20 Strength saving throw or be knocked prone. If the target is prone, the felid dragon can make one bite attack against it as a bonus action."
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The felid dragon can use its Deafening Roar. It then makes three attacks: one with its bite and two with its claws."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +14 to hit, reach 5 ft., one target. Hit: 19 (2d10 + 8) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 14,
+        "map": [
+          14
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+8",
+          "average": 19,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +14 to hit, reach 5 ft., one target. Hit: 15 (2d6 + 8) slashing damage, and, if the target is a creature other than an undead or a construct, it must succeed on a DC 20 Constitution saving throw or take 2 (1d4) slashing damage at the start of each of its turns as a piece of the claw breaks off in the wound. Each time the dragon hits the target with this attack, the damage dealt by the wound each round increases by 3 (1d6). Any creature can take an action to remove the claw with a successful DC 16 Wisdom (Medicine) check. The claw pops out of the wound if the target receives magical healing."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 14,
+        "map": [
+          14
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+8",
+          "average": 15,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d4",
+          "average": 2,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Deafening Roar",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Each creature within 60 feet of the dragon and that can hear it must succeed on a DC 18 Constitution saving throw or be deafened for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the dragon's Deafening Roar for the next 24 hours."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "deafened",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Sickening Bile",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon coughs up partially digested food and slimy bile in a 90-foot cone. Each creature in that area must make a DC 20 Constitution saving throw. On a failure, a creature takes 70 (20d6) poison damage and is coated in bile. On a success, a creature takes half the damage and isn't coated in bile. While coated in bile, a creature is poisoned. A creature, including the target coated in bile, can use its action to remove the bile, ending the poisoned condition."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "20d6",
+          "average": 70,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 90,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

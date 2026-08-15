@@ -1,0 +1,261 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sli:angazhani-cultist",
+  "name": "Angazhani Cultist",
+  "gameSystem": "pf2e",
+  "variant": "sli",
+  "source": {
+    "code": "sli",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sli/angazhani-cultist.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 1,
+    "con": 1,
+    "int": 0,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 11,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Abyssal",
+    "Common",
+    "Mwangi"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 12
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 8
+    },
+    {
+      "name": "Intimidation",
+      "mod": 10
+    },
+    {
+      "name": "Religion",
+      "mod": 8
+    },
+    {
+      "name": "Survival",
+      "mod": 11
+    },
+    {
+      "name": "Demon Lore",
+      "mod": 8
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 21,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 60,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 13
+      },
+      {
+        "name": "ref",
+        "mod": 9
+      },
+      {
+        "name": "will",
+        "mod": 11
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Bloody Fanaticism",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The cultist takes 2d8 mental damage, and the saving throw is a success."
+      ],
+      "trigger": "The cultist rolls a failure (but not a critical failure) on a Will save against an effect with the mental or fear trait",
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    },
+    {
+      "name": "Shield Block",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "spear",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [
+          "fatal <d10>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "spear",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 11,
+        "map": [
+          11,
+          6,
+          1
+        ],
+        "traits": [
+          "fatal <d10>",
+          "thrown <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Demonic Strength",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Angazhani cultists inflict an extra 1d6 damage with their spears, and any spear gains the fatal <d10> trait while the cultist is using it (both the extra weapon damage die and the fatal trait have already been included in the cultist's spear Strikes above)."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 19
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:cackling-skeleton",
+  "name": "Cackling Skeleton",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 79,
+    "path": "monsters/5e/tome_of_beasts_2/cackling-skeleton.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.5,
+    "xp": 100,
+    "display": "1/2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": -1,
+    "con": 2,
+    "int": -1,
+    "wis": 0,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 12,
+    "dex": 9,
+    "con": 15,
+    "int": 8,
+    "wis": 10,
+    "cha": 14
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "the languages it knew in life"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 9,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 26,
+        "note": null,
+        "formula": "4d8+8"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "cha",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "exhaustion",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Cackle",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The skeleton emits a constant, demoralizing cackle. When a creature that isn't an undead or a construct starts its turn within 30 feet of the cackling skeleton and can hear the skeleton, it must make a DC 10 Wisdom saving throw or feel demoralized by the skeleton's cackling. A demoralized creature has disadvantage on attack rolls until the start of its next turn."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 10,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Turn Vulnerability",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The cackling skeleton has disadvantage on saving throws against any effect that turns undead."
+      ]
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +3 to hit, reach 5 ft., one target. Hit: 4 (1d6 + 1) bludgeoning damage. The cackling skeleton has advantage on this attack roll if the target is demoralized."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 3,
+        "map": [
+          3
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+1",
+          "average": 4,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Mock",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The cackling skeleton mocks the futile efforts of up to three creatures it can see within 30 feet of it that aren't undead or constructs. Each target must make a DC 12 Charisma saving throw, taking 5 (2d4) psychic damage on a failed save, or half as much damage on a successful one. A demoralized target has disadvantage on this saving throw."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "cha",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

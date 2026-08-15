@@ -1,0 +1,211 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:star-crow",
+  "name": "Star Crow",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/star_crow_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.25,
+    "xp": 50,
+    "display": "1/4"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -2,
+    "dex": 3,
+    "con": 1,
+    "int": -5,
+    "wis": 3,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 13,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "truesight",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 12,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "psychic",
+        "radiant",
+        "blinded",
+        "exhaustion",
+        "prone"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Aberrant Resilience",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "poison",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aberrant Resilience",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The star crow is resistant to the charmed, frightened, paralyzed, and stunned conditions, and it has advantage on saves against spells or effects that would alter its form."
+      ]
+    },
+    {
+      "name": "Illumination",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The star crow sheds bright light in a 20-foot radius and dim light for an additional 20 feet."
+      ],
+      "area": {
+        "shape": "sphere",
+        "size": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Radiant Touch",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +5 to hit, reach 5 ft., one target. _Hit:_ 5 (1d4+3) radiant damage, and the star crow attaches to the target. While attached, the star crow can use only the Thought Share action and Blinding Burst bonus action, and it moves with the target whenever the target moves, requiring none of the star crow's movement. The star crow can detach itself by spending 5 feet of its movement. A creature, including the target, can take its action to detach the star crow by succeeding on a DC 13 STR check."
+      ],
+      "damage": [
+        {
+          "formula": "1d4+3",
+          "average": 5,
+          "type": "radiant"
+        }
+      ]
+    },
+    {
+      "name": "Thought Share",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The star crow learns some of the attached target's memories, and the attached target experiences a rapid sequence of memories from other creatures the star crow has encountered. The target takes 5 (2d4) psychic damage and must succeed on a DC 13 CHA save or be stunned until the end of its next turn."
+      ],
+      "damage": [
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "psychic"
+        }
+      ],
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Blinding Burst",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The star crow dims then suddenly bursts with blinding light. Each creature within 30 feet of the star crow must succeed on a DC 13 CON save or be blinded until the end of its next turn."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "condition": {
+        "name": "blinded",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

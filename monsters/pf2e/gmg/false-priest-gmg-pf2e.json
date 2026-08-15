@@ -1,0 +1,290 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:gmg:false-priest",
+  "name": "False Priest",
+  "gameSystem": "pf2e",
+  "variant": "gmg",
+  "source": {
+    "code": "gmg",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/gmg/false-priest.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 4,
+    "con": 3,
+    "int": 0,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 10
+    },
+    {
+      "name": "Athletics",
+      "mod": 8
+    },
+    {
+      "name": "Deception",
+      "mod": 12
+    },
+    {
+      "name": "Performance",
+      "mod": 12
+    },
+    {
+      "name": "Religion",
+      "mod": 8
+    },
+    {
+      "name": "Society",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 21,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 51,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 11
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "rapier",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          7,
+          2
+        ],
+        "traits": [
+          "deadly <1d8>",
+          "disarm",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+8",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "hand crossbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          7,
+          2
+        ],
+        "traits": [
+          "range increment <60 feet>",
+          "reload <1>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Deceiver's Surprise",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "On the first round of combat, if the false priest rolls Deception or Performance for initiative, creatures that haven't acted yet are flat-footed to the false priest."
+      ]
+    },
+    {
+      "name": "Fickle Prophecy",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "emotion",
+        "mental"
+      ],
+      "entries": [
+        "The false priest convinces someone of their omnipotence by attempting a Deception check compared to the creature's Will DC. If successful, the target gains 1d8+4 temporary Hit Points that last for 1 hour or until the false priest removes them by rebuking the target, whichever occurs first."
+      ]
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The false priest deals an extra 1d6 precision damage to flat-footed creatures. This increases to 2d6 against creatures flat-footed due to the false priest's Feint or deceiver's surprise."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    },
+    {
+      "name": "The Jig Is Up",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The false priest Strides."
+      ],
+      "trigger": "The false priest critically fails a Deception or Performance check",
+      "frequency": {
+        "number": 1,
+        "unit": "hour",
+        "text": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 19
+      }
+    ],
+    "items": [
+      "alchemical tools (used as \"blessed items\" to fool marks)",
+      "backpack",
+      "cloak",
+      "hand crossbow (20 bolts)",
+      "collection of fake relics",
+      "wooden religious symbol",
+      "studded leather armor",
+      "rapier"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,320 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec2:bugaboo",
+  "name": "Bugaboo",
+  "gameSystem": "pf2e",
+  "variant": "ec2",
+  "source": {
+    "code": "ec2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec2/bugaboo.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "medium",
+      "fey"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 5,
+    "con": 3,
+    "int": -1,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 15
+    },
+    {
+      "name": "Deception",
+      "mod": 14
+    },
+    {
+      "name": "Intimidation",
+      "mod": 14
+    },
+    {
+      "name": "Stealth",
+      "mod": 15
+    },
+    {
+      "name": "Thievery",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 95,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 11
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 14
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "fear"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold iron",
+        "amount": 6,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": [
+      "mobility"
+    ]
+  },
+  "entries": [
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15,
+          11,
+          7
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+6",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "striking fear",
+        "striking fear"
+      ]
+    },
+    {
+      "name": "Devour Soul",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "The bogey consumes the creature's soul. The soul is utterly destroyed—nothing short of wish or a similar effect can restore it to life, and only after the bogey has been slain. The bogey regains Hit Points equal to double the level of the consumed creature. After devouring three souls within a year, the bogey transforms into a bugaboo."
+      ],
+      "requirements": "The bogey has killed a creature within the last round and is adjacent to the creature"
+    },
+    {
+      "name": "Mobility",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the bugaboo uses a Stride action to move half their Speed or less, that movement does not trigger reactions."
+      ]
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The bugaboo deals 1d6 extra precision damage to flat-footed creatures."
+      ]
+    },
+    {
+      "name": "Striking Fear",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "If a bugaboo scores a critical hit with a claw Strike, the target must attempt a DC 24 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target is frightened|CRB|frightened 1.",
+          "failure": "The target is frightened|CRB|frightened 2.",
+          "criticalFailure": "The target is frightened|CRB|frightened 3 and fleeing for 1 round."
+        }
+      }
+    },
+    {
+      "name": "Surprise Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "On the first round of combat, creatures that haven't acted yet are flat-footed to the bogey."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 22,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 3,
+          "rankLabel": "Cantrips (3rd)",
+          "spells": [
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": null
+            },
+            {
+              "name": "knock",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "fear",
+              "uses": null
+            },
+            {
+              "name": "paralyze",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 24
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

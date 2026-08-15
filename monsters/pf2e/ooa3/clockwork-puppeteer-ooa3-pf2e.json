@@ -1,0 +1,320 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ooa3:clockwork-puppeteer",
+  "name": "Clockwork Puppeteer",
+  "gameSystem": "pf2e",
+  "variant": "ooa3",
+  "source": {
+    "code": "ooa3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ooa3/clockwork-puppeteer.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "clockwork",
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "large",
+      "clockwork",
+      "construct",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 6,
+    "con": 2,
+    "int": -5,
+    "wis": 2,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 20,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 25
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 205,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 19
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy",
+        "nonlethal attacks",
+        "poisoned"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except adamantine or orichalcum"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "electricity",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "orichalcum",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "climb": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Clockwork Swarm",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura"
+      ],
+      "entries": [
+        "30 feet. A cloud of flying, spiderlike clockworks surrounds the clockwork puppeteer. A creature that ends its turn in the cloud takes 4d8 piercing damage (DC 29 basic Reflex save)."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 29,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          19,
+          14
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d10+9",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "string",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          19,
+          14
+        ],
+        "traits": [
+          "range <60 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+9",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "clockwork string"
+      ]
+    },
+    {
+      "name": "Clockwork String",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Any creature hit by the puppeteer's string is grabbed. The puppeteer can move while it has a creature grabbed with its string, but it automatically releases the creature if the puppeteer moves beyond the string's 60-foot length. The puppeteer can use up to six strings at a time. It can release any creature grabbed by a string as a free action. Each string has AC 30, and its Escape DC is 32. A string can be severed by a Strike that deals at least 20 slashing damage to it. This doesn't deal any damage to the clockwork puppeteer."
+      ]
+    },
+    {
+      "name": "Create Puppet",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "arcane"
+      ],
+      "entries": [
+        "The triggering creature's body becomes infested with tiny clockworks. This puppet is fully under the clockwork puppeteer's control and has statistics identical to a zombie of its size (Bestiary 340) with the following exceptions: It loses the undead trait, loses negative healing, loses its weakness to positive damage, and gains the construct trait."
+      ],
+      "trigger": "A creature grabbed by the puppeteer's clockwork string dies"
+    },
+    {
+      "name": "Pull String",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The puppeteer reins in a creature grabbed by its string. The puppeteer attempts an Athletics check against the creature's"
+      ]
+    },
+    {
+      "name": "Fortitude DC.",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "On a success, the puppeteer pulls the creature 15 feet closer to it (30 feet closer on a critical success)."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 35
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,781 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:wow2:avathrael-realmshaper",
+  "name": "Avathrael Realmshaper",
+  "gameSystem": "pf2e",
+  "variant": "wow2",
+  "source": {
+    "code": "wow2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/wow2/avathrael-realmshaper.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "dragon",
+      "plant"
+    ],
+    "subtypes": [
+      "shadow"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "unique",
+      "huge",
+      "dragon",
+      "plant",
+      "shadow"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 3,
+    "con": 5,
+    "int": 7,
+    "wis": 7,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    },
+    {
+      "name": "shadowsense",
+      "range": 250,
+      "unit": "ft",
+      "acuity": "vague"
+    }
+  ],
+  "languages": [
+    "Arboreal",
+    "Common",
+    "Draconic",
+    "Fey",
+    "Shadowtongue; Speak With Plants|Pc1",
+    "Truespeech|Pc1"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 19
+    },
+    {
+      "name": "Arcana",
+      "mod": 25
+    },
+    {
+      "name": "Architecture Lore",
+      "mod": 27
+    },
+    {
+      "name": "Art Lore",
+      "mod": 27
+    },
+    {
+      "name": "Athletics",
+      "mod": 21
+    },
+    {
+      "name": "Crafting",
+      "mod": 25
+    },
+    {
+      "name": "Intimidation",
+      "mod": 20
+    },
+    {
+      "name": "Nature",
+      "mod": 25
+    },
+    {
+      "name": "Netherworld Lore",
+      "mod": 27
+    },
+    {
+      "name": "Occultism",
+      "mod": 25
+    },
+    {
+      "name": "Survival",
+      "mod": 25
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 32,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 214,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 21
+      },
+      {
+        "name": "ref",
+        "mod": 19
+      },
+      {
+        "name": "will",
+        "mod": 25
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "poison",
+        "void"
+      ],
+      "conditions": [
+        "paralyzed",
+        "stunned"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "fly": 100
+    },
+    "special": [
+      "woodland stride"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Floral Defense",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "plant"
+      ],
+      "entries": [
+        "Avathrael raises their plant-covered wings to block the incoming blow. They gain a +2 circumstance bonus to AC against the triggering attack. If the attack misses, it's deflected by Avathrael's wing, causing some of the dangerous plants growing on the wing to burst and release a cloud of toxic pollen. The triggering creature takes 2d10 poison damage (DC 29 basic Fortitude save). On a critical failure, the triggering creature is also sickened 1."
+      ],
+      "trigger": "Avathrael is the target of a physical attack",
+      "save": {
+        "defense": "fortitude",
+        "dc": 29,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "90 feet, DC 29"
+      ],
+      "aura": {
+        "range": 90,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Light Blindness",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 26,
+        "map": [
+          26,
+          21,
+          16
+        ],
+        "traits": [
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+11",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d8",
+          "average": null,
+          "type": "poison"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "razor tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          19,
+          14
+        ],
+        "traits": [
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+11",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d8",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "shadow claws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 26,
+        "map": [
+          26,
+          22,
+          18
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+11",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d8",
+          "average": null,
+          "type": "void"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "seedpod",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          17,
+          12
+        ],
+        "traits": [
+          "range increment <60 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+11",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "poison"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Poison Breath",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "poison",
+        "primal"
+      ],
+      "entries": [
+        "Avathrael exhales a cloud of sweet-smelling poisonous gas that deals 13d6 poison damage in a 50-foot cone (DC 32 basic Fortitude save). A creature that critically fails is also sickened 2. Avathrael can't use Poison Breath again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 50,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 32,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "13d6",
+          "average": null,
+          "type": "poison"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Draconic Momentum",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Avathrael recharges their Poison Breath whenever they score a critical hit with a Strike."
+      ]
+    },
+    {
+      "name": "Shadow Step",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "healing",
+        "teleportation"
+      ],
+      "entries": [
+        "Avathrael teleports with the effects of a 4th-rank translocate|PC1 spell, but Avathrael must begin and end the teleportation effect in an area of dim light or darkness. If they use 2 actions to activate this ability, Avathrael also regains 8d10 Hit Points. Avathrael can't use Shadow Step again for 1d4 rounds."
+      ],
+      "frequency": {
+        "number": 2,
+        "unit": "day",
+        "text": null
+      },
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Shape Shadow Realm",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "arcane",
+        "concentrate",
+        "shadow"
+      ],
+      "entries": [
+        "Avathrael mentally reshapes their realm, reshaping terrain and creating obstacles to hinder their foes. All squares within a 50-foot burst become difficult terrain. Creatures in the area take 10d6 void damage (DC 32 basic Reflex save) from the shadows. On a failure, that creature is additionally grabbed by the malleable shadows (Escape DC 32). At the beginning of Avathrael's turn, each creature that's grabbed takes 4d6 void damage. Avathrael can't use Shape Shadow Realm again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 50,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 32,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "10d6",
+          "average": null,
+          "type": "void"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Snuff Light",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "Avathrael exhales, automatically extinguishing all non-magical lights within 100 feet. Avathrael attempts to counteract each light source within 100 feet (+22 counteract)."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      }
+    },
+    {
+      "name": "Woodland Stride",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Avathrael ignores difficult terrain and greater difficult terrain from non-magical foliage."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 32,
+      "attackBonus": 24,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Cantrips (6th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "figment",
+              "uses": null
+            },
+            {
+              "name": "prestidigitation",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            },
+            {
+              "name": "sigil",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "inscrutable mask",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "chilling darkness",
+              "uses": null
+            },
+            {
+              "name": "darkness",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "illusory scene",
+              "uses": null
+            },
+            {
+              "name": "umbral journey",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "shadow blast",
+              "uses": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 32,
+      "attackBonus": 24,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "truespeech",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "Constant (4th)",
+          "spells": [
+            {
+              "name": "speak with plants",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "Constant (1st)",
+          "spells": [
+            {
+              "name": "vanishing tracks",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "Cantrips (6th)",
+          "spells": [
+            {
+              "name": "tangle vine",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "shape wood",
+              "uses": "at will"
+            },
+            {
+              "name": "one with plants",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "nature's pathway",
+              "uses": null
+            },
+            {
+              "name": "wall of thorns",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "nature's reprisal",
+              "uses": null
+            },
+            {
+              "name": "tangling creepers",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana, Nature",
+        "dc": 40
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

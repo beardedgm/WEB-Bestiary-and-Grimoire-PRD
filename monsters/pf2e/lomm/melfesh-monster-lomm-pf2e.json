@@ -1,0 +1,400 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:lomm:melfesh-monster",
+  "name": "Melfesh Monster",
+  "gameSystem": "pf2e",
+  "variant": "lomm",
+  "source": {
+    "code": "lomm",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/lomm/melfesh-monster.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fungus"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ne",
+      "medium",
+      "fungus"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 3,
+    "con": 4,
+    "int": 1,
+    "wis": 2,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "sporesight",
+      "range": 100,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Sylvan; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 11
+    },
+    {
+      "name": "Athletics",
+      "mod": 13
+    },
+    {
+      "name": "Nature",
+      "mod": 13
+    },
+    {
+      "name": "Survival",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 78,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 16
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 12
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "fire",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "poison",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Terrorspores",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "inhaled",
+        "mental",
+        "poison"
+      ],
+      "entries": [
+        "60 feet. A creature that enters the emanation must attempt a DC 21 Will save. Regardless of outcome, the creature is temporarily immune to terrorspores for 1 minute."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is frightened 1 and inhales spores that remain in its body for 1 minute.",
+          "failure": "As success, but frightened 2 and the spores remain for 1 hour.",
+          "criticalFailure": "As success, but frightened 3, the spores remain for 1 hour, and the creature's frightened condition can't be reduced below 1 as long as spores remain in its body."
+        }
+      },
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Reactive Spores",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The Melfesh Monster shifts plant matter to blunt the attack. It gains resistance 5 against the triggering physical damage."
+      ],
+      "trigger": "The Melfesh Monster takes physical damage"
+    },
+    {
+      "name": "limb",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          11,
+          6
+        ],
+        "traits": [
+          "versatile <P or S>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12+4",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "fungal limb",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          12,
+          8
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+4",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "firelance",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15,
+          10,
+          5
+        ],
+        "traits": [
+          "range <30 feet>",
+          "magical",
+          "fire"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+2",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Envelop",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The Melfesh Monster attempts to Grapple a creature within reach. On a success, the creature is pulled into the Monster's body. The Melfesh Monster is slowed 1 while it envelops a creature, and this otherwise has the effects of Swallow Whole (the Melfesh Monster's size or smaller, 1d10 bludgeoning and 1d12 poison, Rupture 15)."
+      ]
+    },
+    {
+      "name": "Fulminate",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "fire"
+      ],
+      "entries": [
+        "; The Melfesh Monster targets the cloud with one of its abilities with the fire trait. The spore cloud explodes, dealing 4d10 fire damage and 4 persistent fire damage in a 40-foot burst originating from a single square within the cloud (DC 24 basic Reflex)."
+      ],
+      "requirements": "The Melfesh Monster has created a spore cloud, and the cloud is within range of one of the Melfesh Monster's fire abilities",
+      "area": {
+        "shape": "burst",
+        "size": 40,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 24,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Spore Cloud",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "inhaled",
+        "poison"
+      ],
+      "entries": [
+        "; The Melfesh Monster conjures a cloud of spores within 60 feet in a 20-foot burst. The cloud lasts 1 minute. Creatures that enter or begin their turn within the cloud must succeed at a DC 21 Fortitude save or take 3d8 poison damage, be sickened 2, and inhale spores that remain in their bodies for 1 minute (on a critical failure, sickened 3 and an additional 4 persistent poison damage)."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "minute",
+        "text": null
+      },
+      "requirements": "The Melfesh Monster has created a spore cloud, and the cloud is within range of one of the Melfesh Monster's fire abilities",
+      "area": {
+        "shape": "burst",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "3d8",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fungus",
+        "skill": "Nature",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

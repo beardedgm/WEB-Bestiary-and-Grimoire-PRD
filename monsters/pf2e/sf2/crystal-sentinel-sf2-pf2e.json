@@ -1,0 +1,268 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sf2:crystal-sentinel",
+  "name": "Crystal Sentinel",
+  "gameSystem": "pf2e",
+  "variant": "sf2",
+  "source": {
+    "code": "sf2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sf2/crystal-sentinel.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "golem",
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "large",
+      "construct",
+      "golem",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 4,
+    "con": 5,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 23
+    },
+    {
+      "name": "Athletics",
+      "mod": 27
+    },
+    {
+      "name": "Stealth",
+      "mod": 23
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 34,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 235,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 24
+      },
+      {
+        "name": "ref",
+        "mod": 22
+      },
+      {
+        "name": "will",
+        "mod": 18
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "magic (see Golem Antimagic below)",
+        "necromancy",
+        "nonlethal attacks"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 15,
+        "note": "except adamantine or bludgeoning"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Golem",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Antimagic harmed by sonic (6d10, 2d8 from areas or persistent damage); healed by fire (area 2d10 HP); slowed by cold"
+      ]
+    },
+    {
+      "name": "Vulnerable to Shatter",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A crystal sentinel is affected by the shatter spell as though it were an unattended object."
+      ]
+    },
+    {
+      "name": "Spell Reflection",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "abjuration",
+        "arcane"
+      ],
+      "entries": [
+        "As glass golem|B2."
+      ],
+      "trigger": "The crystal golem is targeted by a spell"
+    },
+    {
+      "name": "bladed limb",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          23,
+          19
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "versatile <P>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d6+14",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Dazzling Brilliance",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "evocation",
+        "light",
+        "visual"
+      ],
+      "entries": [
+        "The crystal sentinel creates waves of scintillating luminosity that cast bright light in a 120-foot emanation (and dim light for the next 120 feet). The light lasts until the start of the crystal sentinel's next turn, after which the crystal sentinel can't use Dazzling Brilliance for 1d4 rounds. A creature caught within the bright light or that enters the bright light must attempt a DC 33 Will save."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 120,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 33,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 36
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Dazzling Brilliance)"
+    ],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:frp3:yoh-souran",
+  "name": "Yoh Souran",
+  "gameSystem": "pf2e",
+  "variant": "frp3",
+  "source": {
+    "code": "frp3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/frp3/yoh-souran.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "cg",
+      "lawChaos": "chaotic",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "unique",
+      "cg",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 7,
+    "con": 3,
+    "int": 5,
+    "wis": 0,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Taldane",
+    "Tien"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 28
+    },
+    {
+      "name": "Athletics",
+      "mod": 24
+    },
+    {
+      "name": "Society",
+      "mod": 28
+    },
+    {
+      "name": "Piloting Lore",
+      "mod": 38
+    },
+    {
+      "name": "Ruby Phoenix Tournament Lore",
+      "mod": 38
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 38,
+      "note": "42 while piloting Solar Jian II"
+    },
+    "hp": [
+      {
+        "value": 265,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 26
+      },
+      {
+        "name": "ref",
+        "mod": 28
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": "+4 to all saves while piloting Solar Jian II",
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Shake 'Em!",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "Yoh attempts evasive maneuvers. All creatures aboard the vessel gain a +2 status bonus to their AC and saves against the triggering effect."
+      ],
+      "trigger": "One or more creatures aboard Yoh's vessel are the target of an attack or attempt a Reflex save and the attacker is not aboard the ship",
+      "requirements": "Yoh is piloting an airborne vessel"
+    },
+    {
+      "name": "heavy crossbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          25,
+          20
+        ],
+        "traits": [
+          "range increment <120 feet>",
+          "reload <2>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 120,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Deploy Countermeasures",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "While the Solar Jian II is not a combat vessel, it does have a magically renewing supply of fireworks for victory parades and the like. Yoh fires them at a 20-foot burst within 60 feet. Creatures in the area take 3d6 fire damage and 3d6 sonic damage with a Fortitude save."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "hour",
+        "text": null
+      },
+      "requirements": "Yoh is piloting the Solar Jian II",
+      "area": {
+        "shape": "burst",
+        "size": 20,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target takes half damage and is dazzled for 1 round.",
+          "failure": "The target takes full damage and is dazzled for 3 rounds.",
+          "criticalFailure": "The target takes double damage, takes 3d4 persistent fire damage, and is dazzled for 1 minute."
+        }
+      }
+    },
+    {
+      "name": "I'll Get You into Position!",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "Requirements Yoh is piloting an airborne vessel; Yoh pumps the brakes, banks quickly, or performs some other aerial maneuver to get the drop on an enemy. He attempts a Piloting Lore check against the enemy's Perception DC. If he succeeds, that enemy is flat-footed to the next attack from a creature onboard as long as it is made before Yoh's next turn. All enemies who witnessed the maneuver are then temporarily immune for 1 day."
+      ]
+    },
+    {
+      "name": "Punch It",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "Yoh pushes the ship, tripling its speed for 1 round. After this point, the ship stalls—though it Hovers in place, it can't move under its own power for 1 round."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "hour",
+        "text": null
+      },
+      "requirements": "Yoh is piloting an airborne vessel"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 44
+      }
+    ],
+    "items": [
+      "heavy crossbow"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

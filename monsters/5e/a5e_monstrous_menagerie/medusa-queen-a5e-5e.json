@@ -1,0 +1,339 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:medusa-queen",
+  "name": "Medusa Queen",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 323,
+    "path": "monsters/5e/a5e_monstrous_menagerie/medusa-queen-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 11,
+    "xp": 7200,
+    "display": "11"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 4,
+    "con": 3,
+    "int": 1,
+    "wis": 2,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 12,
+    "dex": 18,
+    "con": 16,
+    "int": 12,
+    "wis": 14,
+    "cha": 14
+  },
+  "perception": {
+    "mod": 5,
+    "passive": 15
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 5
+    },
+    {
+      "name": "Insight",
+      "mod": 5
+    },
+    {
+      "name": "Perception",
+      "mod": 5
+    },
+    {
+      "name": "Stealth",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 153,
+        "note": null,
+        "formula": "18d10+54"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Petrifying Gaze",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a creature starts its turn within 60 feet of the medusa and can see the medusas eyes, it can choose to shut its eyes until the beginning of its next turn unless it is surprised or incapacitated. Otherwise, the medusa uses its petrifying gaze on the creature. If the medusa sees its own reflection and doesnt shut its eyes, it is subject to its own gaze."
+      ]
+    },
+    {
+      "name": "A creature subject to the medusas petrifying gaze makes a DC 14 Constitution saving throw",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If it rolls a natural 1 on the save, it is petrified instantly. If it otherwise fails the save, it is restrained as it begins to be petrified. The creature repeats the saving throw at the end of its turn, ending the effect on itself on a success and becoming petrified on a failure. The petrification can be removed with greater restoration or similar powerful magic."
+      ],
+      "condition": {
+        "name": "petrified",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The medusa makes any combination of two attacks with its snake hair and longbow."
+      ]
+    },
+    {
+      "name": "Snake Hair",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 7 (1d6 + 4) piercing damage plus 7 (2d6) poison damage  plus an additional 3 (1d6) piercing damage if the target is a creature that is surprised or that can't see the medusa."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": 7,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "poison"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Longbow",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Weapon Attack: +7 to hit, range 150/600 ft., one target. Hit: 8 (1d8 + 4) piercing damage plus 7 (2d6) poison damage."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 150,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": 8,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "The medusa queen has one legendary action it can take at the end of another creatures turn",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The medusa queen regains the spent legendary action at the start of its turn."
+      ]
+    },
+    {
+      "name": "Hide",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The medusa moves up to half its Speed and hides."
+      ]
+    },
+    {
+      "name": "Snake Hair",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The medusa uses Snake Hair."
+      ]
+    },
+    {
+      "name": "Frenzy of Snakes (1/Day",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The medusa uses Snake Hair on each creature within 5 feet."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 5,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Imperious Command",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "A creature with averted or covered eyes within 60 feet that can hear the medusa makes a DC 13 Wisdom saving throw. On a failure, it looks at the medusa, making itself the target of Petrifying Gaze if it and the medusa can see each other. On a success, the creature is immune to Imperious Command for 24 hours. This is a charm effect."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 60,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

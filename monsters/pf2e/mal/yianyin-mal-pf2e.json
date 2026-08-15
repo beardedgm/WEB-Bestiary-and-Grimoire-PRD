@@ -1,0 +1,386 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:mal:yianyin",
+  "name": "Yianyin",
+  "gameSystem": "pf2e",
+  "variant": "mal",
+  "source": {
+    "code": "mal",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/mal/yianyin.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "monitor",
+      "psychopomp"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ne",
+      "medium",
+      "monitor",
+      "psychopomp"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 6,
+    "con": 5,
+    "int": 3,
+    "wis": 5,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "lifesense [object Object] feet",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Celestial",
+    "Infernal",
+    "Requian; Telepathy 120 Feet",
+    "Tongues"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 17
+    },
+    {
+      "name": "Boneyard Lore",
+      "mod": 16
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 17
+    },
+    {
+      "name": "Intimidation",
+      "mod": 17
+    },
+    {
+      "name": "Medicine",
+      "mod": 16
+    },
+    {
+      "name": "Occultism",
+      "mod": 14
+    },
+    {
+      "name": "Religion",
+      "mod": 16
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 25,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 115,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 14
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "negative",
+        "amount": 7,
+        "note": null
+      },
+      {
+        "name": "poison",
+        "amount": 7,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Unnerving Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "fear",
+        "emotion",
+        "enchantment",
+        "incapacitation"
+      ],
+      "entries": [
+        "30 feet. A creature that begins its turn within the aura must attempt a DC 22 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          14,
+          10
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+2",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "corrupted touch"
+      ]
+    },
+    {
+      "name": "Compel Condemned",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "divine",
+        "enchantment",
+        "incapacitation",
+        "mental"
+      ],
+      "entries": [
+        "The catrina telepathically compels a creature within 30 feet to approach and allow the catrina to kiss them, in preparation for using Kiss of Death. The target must attempt a DC 25 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {
+          "success": "The creature is unaffected and is temporarily immune to Compel Condemned for 24 hours.",
+          "failure": "The creature must spend each of its actions to move closer to the catrina as quickly as possible, while avoiding obvious dangers. If the compelled creature is adjacent to the catrina, it stays still and doesn't act. If the creature takes any damage, the effect ends and the creature is temporarily immune to Compel Condemned for 24 hours. This effect lasts for 1 round, but if the catrina uses this ability again on subsequent rounds, it extend the duration by 1 round for all affected creatures.",
+          "criticalFailure": "As failure, but damage does not end the effect."
+        }
+      }
+    },
+    {
+      "name": "Corrupted Touch",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Yianyin's Strikes deal 2d6 negative damage to living creatures. A creature critically hit by Yianyin's Strike must attempt a DC 18 Fortitude save or become drained 1 (drained 2 on a critical failure) as rot spreads throughout their flesh."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "Kiss of Death",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "death",
+        "divine",
+        "manipulate",
+        "necromancy"
+      ],
+      "entries": [
+        "The catrina gives a long, passionate kiss to an unconscious or willing creature, dealing 4d6 negative damage. Any creature damaged by the same catrina's Kiss of Death for 3 consecutive rounds becomes unconscious and is dying 1."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 25,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "Cantrips (4th)",
+          "spells": [
+            {
+              "name": "dancing lights",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "illusory disguise",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "confusion",
+              "uses": null
+            },
+            {
+              "name": "phantasmal killer",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Monitor",
+        "skill": "Religion",
+        "dc": 33
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Unnerving Presence)"
+    ],
+    "unmapped": []
+  }
+}

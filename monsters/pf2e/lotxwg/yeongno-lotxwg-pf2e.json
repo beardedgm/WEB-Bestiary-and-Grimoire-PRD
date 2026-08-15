@@ -1,0 +1,296 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:lotxwg:yeongno",
+  "name": "Yeongno",
+  "gameSystem": "pf2e",
+  "variant": "lotxwg",
+  "source": {
+    "code": "lotxwg",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/lotxwg/yeongno.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "celestial"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "large",
+      "celestial"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 2,
+    "con": 4,
+    "int": 2,
+    "wis": 6,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "goldsense",
+      "range": 120,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [
+    "Diabolic",
+    "Draconic",
+    "Empyrean",
+    "Tien; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 17
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 15
+    },
+    {
+      "name": "Religion",
+      "mod": 15
+    },
+    {
+      "name": "Society",
+      "mod": 15
+    },
+    {
+      "name": "Stealth",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 25,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 120,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 15
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 17
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d6+8",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "pipe",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 13,
+        "map": [
+          13,
+          8,
+          3
+        ],
+        "traits": [
+          "divine",
+          "sonic",
+          "range <60 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "sonic"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Fortune's Favor",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "curse",
+        "divine",
+        "incapacitation",
+        "polymorph"
+      ],
+      "entries": [
+        "A target creature within 30 feet must succeed at a DC 25 Will save or gain the effects of cursed metamorphosis|PC1, being polymorphed into a pig whose girth is determined by the target's wealth. After 24 hours, the target can end this effect using a Dismiss action, at which point the yeongno becomes aware that the effect has ended. A yeongno can use Fortune's Favor only if no targets are currently under its effects."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      },
+      "save": {
+        "defense": "will",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Money is Pain",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine",
+        "mental"
+      ],
+      "entries": [
+        "The yeongno crushes a creature it can see with the weight of their wealth. Apparitions of gold coins approximating the wealth of the target materialize and pummel the target from all sides. The target attempts a DC 25 Will save."
+      ],
+      "requirements": "The target is carrying at least 100 gp worth of precious metals",
+      "save": {
+        "defense": "will",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target is slowed 1 for 1 round.",
+          "failure": "The target takes 3d6 persistent mental damage and is slowed 1 as long as the damage continues. The effect immediately ends if they're carrying less than 100 gp worth of precious metals.",
+          "criticalFailure": "As failure, except any flat checks to remove the persistent damage automatically fail."
+        }
+      }
+    },
+    {
+      "name": "Swallow Whole",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "Medium, 3d6+6 bludgeoning, Rupture 20"
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Celestial",
+        "skill": "Religion",
+        "dc": 23
+      }
+    ],
+    "items": [
+      "wooden pipe"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

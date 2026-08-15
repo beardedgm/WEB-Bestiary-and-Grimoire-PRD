@@ -1,0 +1,313 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:voidling",
+  "name": "Voidling",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 390,
+    "path": "monsters/5e/tome_of_beasts_2023/voidling-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 11,
+    "xp": 7200,
+    "display": "11"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Chaotic Evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 5,
+    "con": 2,
+    "int": 2,
+    "wis": 3,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 15,
+    "dex": 21,
+    "con": 15,
+    "int": 14,
+    "wis": 16,
+    "cha": 10
+  },
+  "perception": {
+    "mod": null,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "truesight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Void Speech",
+    "telepathy 60 ft."
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 9
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 180,
+        "note": null,
+        "formula": "24d10+48"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 6
+      },
+      {
+        "name": "int",
+        "mod": 6
+      },
+      {
+        "name": "wis",
+        "mod": 7
+      },
+      {
+        "name": "cha",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "necrotic"
+      ],
+      "conditions": [
+        "exhaustion",
+        "petrified",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "radiant",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Darkness Regeneration",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While in an area of dim light or darkness, the voidling regains 5 hp at the start of its turn if it has at least 1 hp."
+      ]
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The voidling has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Void Traveler",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The voidling doesn't require air, food, drink, sleep, or ambient pressure."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The voidling makes four Shadow Tendril or Necrotic Bolt attacks. If two Necrotic Bolt attacks hit one creature, the target must succeed on a DC 17 Wisdom saving throw or be frightened until the end of its next turn."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 17,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Shadow Tendril",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 8 (1d6 + 5) bludgeoning damage plus 10 (3d6) necrotic damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+5",
+          "average": 8,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "necrotic"
+        }
+      ]
+    },
+    {
+      "name": "Necrotic Bolt",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Spell Attack: +7 to hit, range 120 ft., one target. Hit: 17 (4d6 + 3) necrotic damage."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "spell",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 120,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6+3",
+          "average": 17,
+          "type": "necrotic"
+        }
+      ]
+    },
+    {
+      "name": "Shadow's Grasp",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The voidling releases a wave of small, grasping tendrils of shadow. Each creature within 20 feet of it must make a DC 17 Dexterity saving throw. On a failure, a creature takes 49 (14d6) necrotic damage and is restrained by tendrils of shadow for 1 minute. On a success, a creature takes half the damage and isn't restrained. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "14d6",
+          "average": 49,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 17,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "restrained",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

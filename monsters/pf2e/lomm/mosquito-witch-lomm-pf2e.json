@@ -1,0 +1,370 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:lomm:mosquito-witch",
+  "name": "Mosquito Witch",
+  "gameSystem": "pf2e",
+  "variant": "lomm",
+  "source": {
+    "code": "lomm",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/lomm/mosquito-witch.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "cn",
+      "medium",
+      "fey"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 6,
+    "con": 3,
+    "int": 3,
+    "wis": 7,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 22,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "swarmsense",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Auran",
+    "Common",
+    "Sylvan; Speak With Animals"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 18
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 18
+    },
+    {
+      "name": "Intimidation",
+      "mod": 20
+    },
+    {
+      "name": "Medicine",
+      "mod": 19
+    },
+    {
+      "name": "Nature",
+      "mod": 21
+    },
+    {
+      "name": "Occultism",
+      "mod": 15
+    },
+    {
+      "name": "Stealth",
+      "mod": 22
+    },
+    {
+      "name": "Survival",
+      "mod": 21
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 180,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 17
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 25,
+      "climb": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Haunting Gaze",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "enchantment",
+        "fear",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "30 feet. When a creature ends its turn in the emanation, it must attempt a DC 29 Will save. If the creature fails, it becomes frightened 1. If it's already frightened, its frightened value instead increases by 1 (maximum frightened 3) and doesn't decrease by 1 at the end of the creature's next turn. If a creature's frightened value is 3 or higher before failing its save, the creature is also fleeing for 1 round."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "bite",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12+8",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d8",
+          "average": null,
+          "type": "persistent bleed damage"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "swarm strike",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "range increment <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "dipteric dread",
+        "dipteric dread"
+      ]
+    },
+    {
+      "name": "Dipteric Dread",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Terror from Within",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The Mosquito Witch's powers feed on fear. When taking bleed or piercing damage dealt by the Mosquito Witch's bleed and dipteric dread, a creature takes additional damage equal to twice the creature's frightened value."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 29,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Constant (2nd)",
+          "spells": [
+            {
+              "name": "speak with animals",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "Cantrips (5th)",
+          "spells": [
+            {
+              "name": "dancing lights",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "animal messenger",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "animal vision",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "pest form",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "tree stride",
+              "uses": null
+            },
+            {
+              "name": "vomit swarm",
+              "uses": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 37
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

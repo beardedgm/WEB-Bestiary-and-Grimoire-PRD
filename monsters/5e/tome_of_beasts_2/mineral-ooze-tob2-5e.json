@@ -1,0 +1,254 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:mineral-ooze",
+  "name": "Mineral Ooze",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 280,
+    "path": "monsters/5e/tome_of_beasts_2/mineral-ooze.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": -1,
+    "con": 4,
+    "int": -5,
+    "wis": -3,
+    "cha": -4
+  },
+  "abilityScores": {
+    "str": 14,
+    "dex": 8,
+    "con": 18,
+    "int": 1,
+    "wis": 5,
+    "cha": 3
+  },
+  "perception": {
+    "mod": null,
+    "passive": 7
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 9,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 76,
+        "note": null,
+        "formula": "8d10+32"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "blinded",
+        "charmed",
+        "deafened",
+        "exhaustion",
+        "frightened",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Amorphous",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ooze can move through a space as narrow as 1 inch wide without squeezing."
+      ]
+    },
+    {
+      "name": "False Appearance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While the ooze remains motionless, it is indistinguishable from an oily pool or wet rock."
+      ]
+    },
+    {
+      "name": "Mineralize",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As a bonus action when it has encased a creature, the ooze hardens the minerals in its body, turning the surface of its body into a stone-like material. While mineralized, the ooze has a walking speed of 5 feet, and it has resistance to bludgeoning, piercing, and slashing damage. The ooze remains mineralized until the creature it has encased dies, or until the ooze takes a bonus action to end it."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mineral ooze makes two slam attacks. If both attacks hit a Medium or smaller target, the target is grappled (escape DC 12), and the ooze uses its Encase on the target."
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Pseudopod",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 6 (1d8 + 2) bludgeoning damage plus 3 (1d6) acid damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+2",
+          "average": 6,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "Encase",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mineral ooze encases a Medium or smaller creature grappled by it. The encased target is blinded, restrained, and unable to breathe, and it must succeed on a DC 14 Constitution saving throw at the start of each of the ooze's turns or take 7 (2d6) acid damage. If the ooze moves, the encased target moves with it. The ooze can have only one creature encased at a time. An encased creature can try to escape by taking an action to make a DC 12 Strength check. The creature has disadvantage on this check if the ooze is mineralized. On a success, the creature escapes and enters a space of its choice within 5 feet of the ooze. Alternatively, a creature within 5 feet of the ooze can take an action to pull a creature out of the ooze. Doing so requires a successful DC 12 Strength check, and the creature making the attempt takes 7 (2d6) acid damage. The creature making the attempt has disadvantage on the check if the ooze is mineralized."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "acid"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "blinded",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

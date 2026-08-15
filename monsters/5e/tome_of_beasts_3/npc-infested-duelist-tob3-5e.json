@@ -1,0 +1,289 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob3:npc-infested-duelist",
+  "name": "Npc: Infested Duelist",
+  "gameSystem": "dnd5e",
+  "variant": "tob3",
+  "source": {
+    "code": "tome_of_beasts_3",
+    "name": "Tome of Beasts 3",
+    "page": 409,
+    "path": "monsters/5e/tome_of_beasts_3/npc-infested-duelist.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 9,
+    "xp": 5000,
+    "display": "9"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic neutral",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 5,
+    "con": 0,
+    "int": 0,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 11,
+    "dex": 20,
+    "con": 10,
+    "int": 10,
+    "wis": 16,
+    "cha": 15
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [],
+  "languages": [
+    "any one language (usually Common)"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 144,
+        "note": null,
+        "formula": "32d8"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 4
+      },
+      {
+        "name": "wis",
+        "mod": 7
+      },
+      {
+        "name": "cha",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "exhaustion",
+        "restrained",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "climb": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Evasion",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If subject to effect that allows Dex save for half damage takes no damage on success and only half if it fails."
+      ]
+    },
+    {
+      "name": "Parasite Sense",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Advantage on attacks vs. poisoned creatures."
+      ]
+    },
+    {
+      "name": "Plant-Powered Mobility",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Opportunity attacks made vs. duelist have disadvantage. If the duelist is prone at the start of its turn it can immediately stand with o costing movement."
+      ],
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "One Slam attack and two Shortsword attacks or it makes two Thorn Shot attacks."
+      ]
+    },
+    {
+      "name": "Shortsword",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +10 to hit, 5 ft., one target, 9 (1d6+6) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 10,
+        "map": [
+          10
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+6",
+          "average": 9,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +10 to hit, 5 ft., one target, 15 (2d8+6) bludgeoning damage and target: DC 15 Con save. On failure target takes 14 (4d6) poison and is poisoned 1 min. On success target takes half damage and isn't poisoned. Poisoned target can re-save at end of each of its turns success ends effect on itself."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 10,
+        "map": [
+          10
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+6",
+          "average": 15,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Thorn Shot",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +10 to hit 30/120' one target 10 (2d4+5) piercing damage + 7 (2d6) poison."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 10,
+        "map": [
+          10
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d4+5",
+          "average": 10,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Spore Cloud",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When it takes damage from a ranged attack emits a burst of thick yellow spores that surround infested duelist and heavily obscure area within 5 ft. of it. Spores dissipate at start of duelist's next turn."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

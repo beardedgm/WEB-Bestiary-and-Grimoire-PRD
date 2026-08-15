@@ -1,0 +1,363 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd52:ancient-blue-dragon",
+  "name": "Ancient Blue Dragon",
+  "gameSystem": "dnd5e",
+  "variant": "srd52",
+  "source": {
+    "code": "5.2_srd_(2025_mm)",
+    "name": null,
+    "page": null,
+    "path": "monsters/5e/5.2_srd_(2025_mm)/ancient_blue_dragon_mm_2024.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 23,
+    "xp": 50000,
+    "display": "23"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "chromatic"
+    ],
+    "rarity": null,
+    "alignment": {
+      "raw": "Lawful Evil",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 0,
+    "con": 8,
+    "int": 4,
+    "wis": 3,
+    "cha": 7
+  },
+  "abilityScores": {
+    "str": 29,
+    "dex": 10,
+    "con": 27,
+    "int": 18,
+    "wis": 17,
+    "cha": 25
+  },
+  "perception": {
+    "mod": 17,
+    "passive": 27
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 17
+    },
+    {
+      "name": "Stealth",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 22,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 481,
+        "note": null,
+        "formula": "26d20+208"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 9
+      },
+      {
+        "name": "dex",
+        "mod": 7
+      },
+      {
+        "name": "con",
+        "mod": 8
+      },
+      {
+        "name": "int",
+        "mod": 4
+      },
+      {
+        "name": "wis",
+        "mod": 10
+      },
+      {
+        "name": "cha",
+        "mod": 7
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "Lightning"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "burrow": 40,
+      "fly": 80
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Legendary Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the dragon fails a saving throw, it can choose to succeed instead."
+      ],
+      "uses": {
+        "count": 4,
+        "period": "day",
+        "display": "4/Day"
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes three Rend attacks. It can replace one attack with a use of Spellcasting to cast *Shatter* (level 3 version)."
+      ]
+    },
+    {
+      "name": "Rend",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee Attack Roll:* +16, reach 15 ft. 18 (2d8 + 9) Slashing damage plus 11 (2d10) Lightning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+9",
+          "average": 18,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d10",
+          "average": 11,
+          "type": "lightning"
+        }
+      ]
+    },
+    {
+      "name": "Lightning Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Dexterity Saving Throw*: DC 23, each creature in a 120-foot-long, 10-foot-wide Line. *Failure:*  88 (16d10) Lightning damage. *Success:*  Half damage."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "16d10",
+          "average": 88,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Spellcasting",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon casts one of the following spells, requiring no Material components and using Charisma as the spellcasting ability (spell save DC 22):",
+        "**At Will:** *Detect Magic*, *Invisibility*, *Mage Hand*, *Shatter*"
+      ]
+    },
+    {
+      "name": "1e/Day Each",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Scrying*, *Sending*"
+      ]
+    },
+    {
+      "name": "Cloaked Flight",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon uses Spellcasting to cast *Invisibility* on itself, and it can fly up to half its Fly Speed. The dragon can't take this action again until the start of its next turn."
+      ]
+    },
+    {
+      "name": "Sonic Boom",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon uses Spellcasting to cast *Shatter* (level 3 version). The dragon can't take this action again until the start of its next turn."
+      ]
+    },
+    {
+      "name": "Tail Swipe",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes one Rend attack."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spellcasting",
+      "type": "prepared",
+      "tradition": null,
+      "dc": 22,
+      "attackBonus": null,
+      "ability": "cha",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At Will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "Detect Magic",
+              "uses": null
+            },
+            {
+              "name": "Invisibility",
+              "uses": null
+            },
+            {
+              "name": "Mage Hand",
+              "uses": null
+            },
+            {
+              "name": "Shatter",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "initiative": 14
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

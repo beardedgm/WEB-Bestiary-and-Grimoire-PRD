@@ -1,0 +1,476 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:danava-titan",
+  "name": "Danava Titan",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/danava-titan.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 23,
+    "xp": null,
+    "display": "Creature 23"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "titan",
+      "water"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "ln",
+      "gargantuan",
+      "humanoid",
+      "titan",
+      "water"
+    ]
+  },
+  "abilityMods": {
+    "str": 11,
+    "dex": 8,
+    "con": 10,
+    "int": 10,
+    "wis": 8,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 41,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "true seeing",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "wavesense",
+      "range": 100,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Aquan",
+    "Celestial; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 39
+    },
+    {
+      "name": "Arcana",
+      "mod": 43
+    },
+    {
+      "name": "Athletics",
+      "mod": 46
+    },
+    {
+      "name": "Crafting",
+      "mod": 43
+    },
+    {
+      "name": "Nature",
+      "mod": 41
+    },
+    {
+      "name": "Occultism",
+      "mod": 43
+    },
+    {
+      "name": "Religion",
+      "mod": 41
+    },
+    {
+      "name": "Society",
+      "mod": 43
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 49,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 470,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 41
+      },
+      {
+        "name": "ref",
+        "mod": 37
+      },
+      {
+        "name": "will",
+        "mod": 37
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50,
+      "swim": 40
+    },
+    "special": [
+      "air walk",
+      "water walk"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Hadalic Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "divine",
+        "illusion",
+        "mental",
+        "water"
+      ],
+      "entries": [
+        "Creatures that fail their Will save against the titan's Impossible Stature aura also experience the crushing depths and darkness of the ocean floor. Such creatures see as if in an area of darkness (10th level), and the titan can use their wavesense to detect such creatures as a precise sense, even if neither are in water. On a critical failure, the creature is also immobilized."
+      ]
+    },
+    {
+      "name": "Impossible Stature",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "illusion",
+        "mental"
+      ],
+      "entries": [
+        "100 feet. Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a DC 46 Will save or its movement toward the titan is movement over terrain (terrain on a critical failure) for 1 round."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 46,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 100,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Relentless",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The titan is as ever-moving as ocean waves. They're permanently quickened 1, and the extra action can only be used to Stride, Strike, or Sustain a Spell, or as one of the actions necessary to Cast dispel magic."
+      ]
+    },
+    {
+      "name": "Roiling Rebuke",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The titan makes a benthic wave Strike against the triggering creature. If the Strike hits, the titan disrupts the triggering action."
+      ],
+      "trigger": "A creature within 200 feet targets the titan with or includes the titan in the area of an attack, spell, or other effect"
+    },
+    {
+      "name": "greatclub",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 43,
+        "map": [
+          43,
+          38,
+          33
+        ],
+        "traits": [
+          "backswing",
+          "magical",
+          "reach <40 feet>",
+          "shove"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 40,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+20",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "foot",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 40,
+        "map": [
+          40,
+          36,
+          32
+        ],
+        "traits": [
+          "agile",
+          "reach <30 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+20",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "benthic wave",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 40,
+        "map": [
+          40,
+          35,
+          30
+        ],
+        "traits": [
+          "brutal",
+          "magical",
+          "range <200 feet>",
+          "water"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 200,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6+20",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Trample",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Huge or smaller, foot, DC 46"
+      ]
+    },
+    {
+      "name": "Wide Cleave",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The titan makes a melee weapon Strike against each foe within their reach. This counts as three attacks for the titan's multiple attack penalty."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 46,
+      "attackBonus": 38,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 10,
+          "rankLabel": "Constant (10th)",
+          "spells": [
+            {
+              "name": "air walk",
+              "uses": null
+            },
+            {
+              "name": "true",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "control water",
+              "uses": "at will"
+            },
+            {
+              "name": "dispel magic",
+              "uses": "at will"
+            },
+            {
+              "name": "eclipse burst",
+              "uses": 3
+            },
+            {
+              "name": "heal",
+              "uses": 3
+            },
+            {
+              "name": "hydraulic push",
+              "uses": 3
+            },
+            {
+              "name": "hydraulic torrent",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 10,
+          "rankLabel": "10th",
+          "spells": [
+            {
+              "name": "implosion",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 51
+      }
+    ],
+    "items": [
+      "+3 major striking greatclub"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

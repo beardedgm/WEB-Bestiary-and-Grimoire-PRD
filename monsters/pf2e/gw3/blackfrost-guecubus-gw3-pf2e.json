@@ -1,0 +1,323 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:gw3:blackfrost-guecubus",
+  "name": "Blackfrost Guecubus",
+  "gameSystem": "pf2e",
+  "variant": "gw3",
+  "source": {
+    "code": "gw3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/gw3/blackfrost-guecubus.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "cold",
+      "earth"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "medium",
+      "cold",
+      "earth",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 4,
+    "con": 3,
+    "int": 4,
+    "wis": 3,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "tremorsense",
+      "range": null,
+      "unit": null,
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 16
+    },
+    {
+      "name": "Athletics",
+      "mod": 18
+    },
+    {
+      "name": "Intimidation",
+      "mod": 15
+    },
+    {
+      "name": "Stealth",
+      "mod": 16
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 110,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 17
+      },
+      {
+        "name": "ref",
+        "mod": 16
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "electricity",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except bludgeoning"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "burrow": 15
+    },
+    "special": [
+      "tundra glide"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Shattering Death",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "cold"
+      ],
+      "entries": [
+        "When the blackfrost guecubu is destroyed, it shatters and fills the air around it with a cloud of razor-sharp shards of ice. Creatures in a 10-foot emanation take 8d8 cold damage (DC 26 basic Reflex save). Creatures that critically fail this save also take 1d6 persistent bleed damage."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 26,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d8",
+          "average": null,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          16,
+          12
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+8",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "blackfrost",
+        "wrathful misfortune"
+      ]
+    },
+    {
+      "name": "Break Ground",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "As guecubu."
+      ]
+    },
+    {
+      "name": "Shove into Ice",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "earth",
+        "transmutation"
+      ],
+      "entries": [
+        "When the blackfrost guecubu successfully Shoves a creature into an ice or frozen earth barrier, the target must succeed at a DC 26 Reflex save or become merged with the barrier, with the effects of meld into stone until the target escapes (DC 26)."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Tundra Glide",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The blackfrost guecubu can Burrow through any frozen earth, ice, or snow, not including rock. When it does so, the blackfrost guecubu moves at its full burrow Speed, leaving no tunnels or signs of its passing."
+      ]
+    },
+    {
+      "name": "Wrathful Misfortune",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "curse",
+        "enchantment"
+      ],
+      "entries": [
+        "As guecubu."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 26,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "shape stone",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 29
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

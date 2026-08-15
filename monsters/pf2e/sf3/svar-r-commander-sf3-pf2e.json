@@ -1,0 +1,418 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sf3:svar-r-commander",
+  "name": "Svarýr Commander",
+  "gameSystem": "pf2e",
+  "variant": "sf3",
+  "source": {
+    "code": "sf3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sf3/svar-r-commander.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 19,
+    "xp": null,
+    "display": "Creature 19"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "monitor"
+    ],
+    "subtypes": [
+      "aesir"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "cn",
+      "medium",
+      "aesir",
+      "monitor"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 7,
+    "con": 7,
+    "int": 3,
+    "wis": 6,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 33,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Jotun; Ravenspeaker",
+    "Tongues"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 34
+    },
+    {
+      "name": "Athletics",
+      "mod": 38
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 34
+    },
+    {
+      "name": "Intimidation",
+      "mod": 34
+    },
+    {
+      "name": "Religion",
+      "mod": 33
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 44,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 330,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 34
+      },
+      {
+        "name": "ref",
+        "mod": 32
+      },
+      {
+        "name": "will",
+        "mod": 31
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "electricity",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Recall the Fallen",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "divine",
+        "healing",
+        "necromancy"
+      ],
+      "entries": [
+        "The commander restores 8d10 Hit Points to the target."
+      ],
+      "trigger": "An allied creature within 60 feet who isn't a construct or undead is reduced to 0 Hit Points and their dying value is 2 or less",
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      }
+    },
+    {
+      "name": "spear",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          33,
+          28
+        ],
+        "traits": [
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d6+17",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "spear",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 36,
+        "map": [
+          36,
+          31,
+          26
+        ],
+        "traits": [
+          "magical",
+          "thrown <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+17",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Storm of Battle",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine",
+        "electricity",
+        "evocation"
+      ],
+      "entries": [
+        "The commander hurls their spear into the air, creating a massive storm in a 100-foot burst. Spears of lightning rain down upon enemies in the area, dealing 5d12 electricity damage (DC 41 basic Reflex save)."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 100,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 41,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 38,
+      "attackBonus": 30,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 9,
+          "rankLabel": "Constant (9th)",
+          "spells": [
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "augury",
+              "uses": null
+            },
+            {
+              "name": "sanctified ground",
+              "uses": null
+            },
+            {
+              "name": "status",
+              "uses": null
+            },
+            {
+              "name": "wanderer's guide",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "disrupting weapons",
+              "uses": null
+            },
+            {
+              "name": "heal",
+              "uses": null
+            },
+            {
+              "name": "heroism",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "heal",
+              "uses": null
+            },
+            {
+              "name": "plane shift",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "heal",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "heal",
+              "uses": null
+            },
+            {
+              "name": "weapon of judgment",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Monitor",
+        "skill": "Religion",
+        "dc": 44
+      }
+    ],
+    "items": [
+      "+2 greater resilient breastplate",
+      "+2 greater striking returning spear"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

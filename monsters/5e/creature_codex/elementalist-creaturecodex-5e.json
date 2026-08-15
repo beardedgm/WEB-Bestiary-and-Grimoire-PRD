@@ -1,0 +1,229 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:elementalist",
+  "name": "Elementalist",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 121,
+    "path": "monsters/5e/creature_codex/elementalist.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 2,
+    "xp": 450,
+    "display": "2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "lawful neutral",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -1,
+    "dex": 3,
+    "con": 2,
+    "int": 1,
+    "wis": 0,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 8,
+    "dex": 16,
+    "con": 15,
+    "int": 12,
+    "wis": 10,
+    "cha": 17
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 3
+    },
+    {
+      "name": "Stealth",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "studded leather"
+    },
+    "hp": [
+      {
+        "value": 45,
+        "note": null,
+        "formula": "7d8+14"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "one of fire",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "lightning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "or poison (see Elemental Focus)",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Elemental Focus",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Each dragonborn elementalist permanently aligns with a particular element. This elemental focus grants the dragonborn resistance to a certain damage type and the ability to innately cast some spells. Its spellcasting ability is Charisma (spell save DC 13, +5 to hit with spell attacks).",
+        "Flame (Fire): The dragonborn has resistance to fire damage. It can cast the produce flame cantrip at will and can cast heat metal or scorching ray three times per day.",
+        "Storm (Air): The dragonborn has resistance to lightning damage. It can cast the shocking grasp cantrip at will and can cast blur or gust of wind three times per day.",
+        "Tide (Water): The dragonborn has resistance to cold damage. It can cast the ray of frost cantrip at will and can cast sleet storm or water breathing three times per day.",
+        "Cave (Earth): The dragonborn has resistance to poison damage. It can cast the blade ward cantrip at will and can cast meld into stone or shatter three times per day."
+      ]
+    },
+    {
+      "name": "War Mage",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When making an opportunity attack, the dragonborn can cast a spell with a casting time of 1 action instead of making a weapon attack. If this spell requires a ranged attack roll, the dragonborn doesn't have disadvantage on the attack roll from being within 5 feet of a hostile creature, though it may still have disadvantage from other sources. This spell must only target the creature that provoked the opportunity attack."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragonborn makes two scimitar attacks."
+      ]
+    },
+    {
+      "name": "Scimitar",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6 + 3) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+3",
+          "average": 6,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Fire Breath (Recharges after a Short or Long Rest)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragonborn breathes elemental energy in a 15-foot cone. Each creature in that area must make a DC 12 Dexterity saving throw, taking 10 (3d6) damage of the elementalist's elemental focus type on a failed save, or half as much damage on a successful one."
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

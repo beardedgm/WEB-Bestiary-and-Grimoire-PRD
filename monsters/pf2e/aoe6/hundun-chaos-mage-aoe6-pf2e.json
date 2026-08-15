@@ -1,0 +1,372 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe6:hundun-chaos-mage",
+  "name": "Hundun Chaos Mage",
+  "gameSystem": "pf2e",
+  "variant": "aoe6",
+  "source": {
+    "code": "aoe6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe6/hundun-chaos-mage.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "large",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 6,
+    "con": 7,
+    "int": 4,
+    "wis": 6,
+    "cha": 8
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "motion sense",
+      "range": 100,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "no vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Aklo",
+    "Protean (Can'T Speak Any Language); Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 35
+    },
+    {
+      "name": "Athletics",
+      "mod": 37
+    },
+    {
+      "name": "Intimidation",
+      "mod": 38
+    },
+    {
+      "name": "Occultism",
+      "mod": 34
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 41,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 300,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 27
+      },
+      {
+        "name": "ref",
+        "mod": 30
+      },
+      {
+        "name": "will",
+        "mod": 33
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold",
+        "mental",
+        "poison"
+      ],
+      "conditions": [],
+      "other": [
+        "auditory",
+        "visual"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "fire",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "lawful",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50
+    },
+    "special": [
+      "air walk"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Entropic Feedback",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The triggering creature is subject to the utter chaos of the hundun's mind and must attempt a Will save."
+      ],
+      "trigger": "A creature attempts to target the hundun with a mental effect",
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature takes 10d6 mental damage.",
+          "failure": "The creature takes 10d6 mental damage, is drained|CRB|drained 1, and is stupefied|CRB|stupefied 1 for 1 minute.",
+          "criticalFailure": "As failure, but the creature is drained|CRB|drained 2 and stupefied|CRB|stupefied 2."
+        }
+      }
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          29,
+          25
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+12",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Activate Attractor",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "enchantment",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "The hundun releases its staff-like attractor, which hovers in place. The hundun can use an action, which has the concentrate trait, to move the attractor up to 60 feet, to a maximum of 300 feet from the hundun. It can also use an action, which has the concentrate trait, to recall the attractor, which flies to the hundun and immediately deactivates. Creatures within 40 feet of the attractor must attempt a DC 40 Will save if they're within the area when the attractor is activated or as soon as they enter the area while it's active. Once a creature has attempted the save, it uses the same result for the rest of that activation of the attractor. Any restrictions on a creature's movement apply only if it voluntarily moves away from the attractor. For example, if the attractor moves closer to a creature, the creature doesn't then need to move away. Chaotic creatures are immune to the effects of the attractor. The attractor can't be harmed by physical attacks but is destroyed by disintegrate, disjunction, a rod of cancellation (Advancer Player's Guide 262), a sphere of annihilation (Gamemastery Guide 113), and other similarly powerful effects. The attractor has an AC of 40 and a counteract DC of 37. A hundun can rebuild a destroyed attractor after 1d8 hours of uninterrupted meditation. If the hundun is slain, its attractor disappears."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 40,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature's movement isn't restricted.",
+          "success": "The creature treats each square in the area as terrain when moving away from the attractor.",
+          "failure": "The creature can't move away from the attractor within the area."
+        }
+      }
+    },
+    {
+      "name": "Flurry of Blows",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "flourish"
+      ],
+      "entries": [
+        "The hundun makes two Strikes with its fist. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 40,
+      "attackBonus": 35,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "Constant (4th)",
+          "spells": [
+            {
+              "name": "air walk",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "detect alignment",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "plane shift",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "divine wrath",
+              "uses": null
+            },
+            {
+              "name": "harm",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "disintegrate",
+              "uses": null
+            },
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "harm",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 43
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,328 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot6:clockwork-clock-tower",
+  "name": "Clockwork Clock Tower",
+  "gameSystem": "pf2e",
+  "variant": "sot6",
+  "source": {
+    "code": "sot6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot6/clockwork-clock-tower.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 20,
+    "xp": null,
+    "display": "Creature 20"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "clockwork",
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "gargantuan",
+      "clockwork",
+      "construct",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 6,
+    "con": 7,
+    "int": -5,
+    "wis": 6,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 34,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 38
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 48,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 325,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 36
+      },
+      {
+        "name": "ref",
+        "mod": 33
+      },
+      {
+        "name": "will",
+        "mod": 31
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy",
+        "nonlethal attacks"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 20,
+        "note": "except adamantine or orichalcum"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "electricity",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "orichalcum",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Durable Exterior",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a clockwork clock tower is reduced to fewer than 200 HP or is damaged by a critical hit, its exterior shatters to reveal internal mechanisms, reducing its AC to 44 until it recovers enough HP to reach 200 HP or more."
+      ]
+    },
+    {
+      "name": "Doleful Tolling",
+      "category": "free",
+      "placement": "mid",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [
+        "arcane",
+        "auditory",
+        "incapacitation"
+      ],
+      "entries": [
+        "The clock tower chimes, and all non-clockwork creatures within 300 feet who can hear it must succeed at a DC 42 Will save or be slowed 1 for 1 round (slowed 2 on a critical failure)."
+      ],
+      "trigger": "The clockwork clock tower rolls initiative",
+      "save": {
+        "defense": "will",
+        "dc": 42,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 36,
+        "map": [
+          36,
+          31,
+          26
+        ],
+        "traits": [
+          "reach <30 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d12+18",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "stutter time"
+      ]
+    },
+    {
+      "name": "foot",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 36,
+        "map": [
+          36,
+          32,
+          28
+        ],
+        "traits": [
+          "agile",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+18",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Overclock",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The clockwork clock tower loses 1 day from its winding time and becomes quickened for 3 rounds. It can use this extra action to Step, Stride, or Strike. This quickened condition ends immediately if the clock tower is damaged by orichalcum."
+      ]
+    },
+    {
+      "name": "Stutter Time",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "incapacitation",
+        "transmutation"
+      ],
+      "entries": [
+        "A creature struck by a clockwork clock tower's fist must make a DC 40 Will save as time flows unevenly around it."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 40,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Trample",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "Huge or smaller, foot, DC 42"
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 45
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Stutter Time)"
+    ],
+    "unmapped": []
+  }
+}

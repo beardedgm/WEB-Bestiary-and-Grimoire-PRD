@@ -1,0 +1,286 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:silenal",
+  "name": "Silenal",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 328,
+    "path": "monsters/5e/tome_of_beasts_2/silenal.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 7,
+    "xp": 2900,
+    "display": "7"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic neutral",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 4,
+    "con": 3,
+    "int": 0,
+    "wis": 1,
+    "cha": 4
+  },
+  "abilityScores": {
+    "str": 10,
+    "dex": 18,
+    "con": 16,
+    "int": 10,
+    "wis": 13,
+    "cha": 19
+  },
+  "perception": {
+    "mod": 4,
+    "passive": 14
+  },
+  "senses": [],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 4
+    },
+    {
+      "name": "Persuasion",
+      "mod": 7
+    },
+    {
+      "name": "Stealth",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 117,
+        "note": null,
+        "formula": "18d6+54"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "cha",
+        "mod": 7
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "charmed",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Drinking Buddy",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that shares a drink with a silenal has advantage on saving throws against being charmed and poisoned for 1 hour. During this time, if the creature takes violent action against the silenal, the creature has disadvantage on these saving throws for the remainder of the duration."
+      ]
+    },
+    {
+      "name": "Drunken Clarity",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the silenal is within 5 feet of an alcoholic beverage, it has truesight out to a range of 90 feet. In addition, it notices secret doors hidden by magic within 30 feet of it."
+      ]
+    },
+    {
+      "name": "Hide in the Fray",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The silenal can take the Hide action as a bonus action if it is within 10 feet of two other creatures engaged in combat with each other."
+      ]
+    },
+    {
+      "name": "Liquid Courage",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As a bonus action, the silenal imbibes nearby alcohol to gain access to a hidden reservoir of audacity and grit. The silenal gains 10 (3d6) temporary hp for 1 minute."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 4,
+        "max": 6,
+        "display": "Recharge 4-6"
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The silenal makes three attacks."
+      ]
+    },
+    {
+      "name": "Tankard",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 7 (1d6 + 4) bludgeoning damage plus 7 (2d6) poison damage. The target must succeed on a DC 15 Constitution saving throw or be poisoned for 1 minute. The target can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": 7,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Darts",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Weapon Attack: +7 to hit, range 20/40 ft., one target. Hit: 14 (4d4 + 4) piercing damage."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d4+4",
+          "average": 14,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Cause Row",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The silenal magically stirs humanoids it can see within 60 feet of it into a frenzy. The frenzied patrons use the statistics of 4d4 commoners or 1 bar brawl. The frenzied patrons don't attack the silenal. The patrons remain frenzied for 10 minutes, until the silenal dies, or until the silenal calms and disperses the mass as a bonus action."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,318 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe3:tonla",
+  "name": "Tonla",
+  "gameSystem": "pf2e",
+  "variant": "aoe3",
+  "source": {
+    "code": "aoe3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe3/tonla.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 4,
+    "con": 3,
+    "int": 4,
+    "wis": 0,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 21,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Gnomish",
+    "Halfling"
+  ],
+  "skills": [
+    {
+      "name": "Crafting",
+      "mod": 21
+    },
+    {
+      "name": "Deception",
+      "mod": 16
+    },
+    {
+      "name": "Stealth",
+      "mod": 19
+    },
+    {
+      "name": "Alchemy Lore",
+      "mod": 21
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 155,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 20
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "sickle",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          16,
+          12
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "trip"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d4+8",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "moderate acid flask",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          17,
+          12
+        ],
+        "traits": [
+          "acid",
+          "alchemical",
+          "bomb",
+          "consumable",
+          "range increment <20 feet>",
+          "splash"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "persistent acid"
+        },
+        {
+          "formula": "2",
+          "average": null,
+          "type": "acid splash"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "moderate alchemist's fire",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          17,
+          12
+        ],
+        "traits": [
+          "alchemical",
+          "bomb",
+          "consumable",
+          "fire",
+          "range increment <20 feet>",
+          "splash"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "fire"
+        },
+        {
+          "formula": "2",
+          "average": null,
+          "type": "persistent fire"
+        },
+        {
+          "formula": "2",
+          "average": null,
+          "type": "fire splash"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Dirty Bomb",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The chemist adds a hasty mix of noxious substances to the bomb and makes a ranged Strike with it. If it hits and deals damage, the target must attempt a DC 27 Fortitude save or become stupefied|CRB|stupefied 2 for 1d6 rounds; if the result of the save is a critical failure, this increases to stupefied|CRB|stupefied 3. For the next 24 hours, the affected target takes a –2 circumstance penalty (–3 on a critical failure) to additional Fortitude saving throws against the same chemist's Crude Bombs."
+      ],
+      "requirements": "The chemist has at least one bomb in their possession",
+      "save": {
+        "defense": "fortitude",
+        "dc": 27,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Quick Brew",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The chemist creates a moderate acid flask or alchemist's fire that they must use before the end of their next turn or else it becomes inert."
+      ],
+      "requirements": "The chemist has their alchemist's tools, formula book, and a free hand"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 28
+      }
+    ],
+    "items": [
+      "moderate acid flasks (3)",
+      "moderate alchemist's fires (3)",
+      "alchemist's tools",
+      "formula book",
+      "+1 striking sickle",
+      "+1 studded leather"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

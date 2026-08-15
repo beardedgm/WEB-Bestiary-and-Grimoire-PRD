@@ -1,0 +1,314 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:rust:vlorian-cythnigot",
+  "name": "Vlorian Cythnigot",
+  "gameSystem": "pf2e",
+  "variant": "rust",
+  "source": {
+    "code": "rust",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/rust/vlorian-cythnigot.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [
+      "qlippoth"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "medium",
+      "fiend",
+      "qlippoth"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 3,
+    "con": 4,
+    "int": 2,
+    "wis": 2,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 9,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal; Telepathy (Touch Only)"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 9
+    },
+    {
+      "name": "Athletics",
+      "mod": 9
+    },
+    {
+      "name": "Occultism",
+      "mod": 9
+    },
+    {
+      "name": "Stealth",
+      "mod": 9
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 45,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 11
+      },
+      {
+        "name": "ref",
+        "mod": 7
+      },
+      {
+        "name": "will",
+        "mod": 9
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "controlled"
+      ],
+      "other": [
+        "fear"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "mental",
+        "amount": 3,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 3,
+        "note": "except cold iron"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "lawful",
+        "amount": 3,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "bite",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 11,
+        "map": [
+          11,
+          7,
+          3
+        ],
+        "traits": [
+          "agile",
+          "chaotic",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "chaotic"
+        }
+      ],
+      "entries": [
+        "rust creep|Rust",
+        "rust creep"
+      ]
+    },
+    {
+      "name": "Sickening Display",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "emotion",
+        "enchantment",
+        "fear",
+        "mental",
+        "occult",
+        "visual"
+      ],
+      "entries": [
+        "The vlorian cythnigot presents its awful appearance fully, and creatures in a 10-foot emanation must attempt a DC 20 Will save. Once a creature attempts this save, it's temporarily immune to further Sickening Displays for 1 minute."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is flat-footed until its next turn.",
+          "failure": "The creature is sickened 1, and is flat-footed for as long as it's sickened.",
+          "criticalFailure": "The creature is sickened 2 and is flat-footed for as long as it's sickened."
+        }
+      }
+    },
+    {
+      "name": "Rust Creep",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "disease"
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 20,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Cantrips (2nd)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "detect magic",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "phantom pain",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "detect alignment",
+              "uses": "at will"
+            },
+            {
+              "name": "paranoia",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "read omens",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 23
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

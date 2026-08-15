@@ -1,0 +1,453 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:nasurgeth",
+  "name": "Nasurgeth",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/nasurgeth.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 20,
+    "xp": null,
+    "display": "Creature 20"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "aquatic",
+      "darvakka",
+      "shadow"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "gargantuan",
+      "aquatic",
+      "darvakka",
+      "shadow",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 11,
+    "dex": 6,
+    "con": 7,
+    "int": 8,
+    "wis": 8,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 36,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "lifesense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 36
+    },
+    {
+      "name": "Athletics",
+      "mod": 39
+    },
+    {
+      "name": "Negative Energy Plane Lore",
+      "mod": 36
+    },
+    {
+      "name": "Religion",
+      "mod": 36
+    },
+    {
+      "name": "Shadow Plane Lore",
+      "mod": 36
+    },
+    {
+      "name": "Stealth",
+      "mod": 34
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 45,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 510,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 35
+      },
+      {
+        "name": "ref",
+        "mod": 32
+      },
+      {
+        "name": "will",
+        "mod": 36
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "silver",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 60,
+      "swim": 80
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Midnight Depths",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "cold",
+        "darkness",
+        "divine",
+        "necromancy",
+        "negative"
+      ],
+      "entries": [
+        "60 feet. A nasurgeth's entropy grows even stronger underwater. All water within the aura is completely dark (as 4th-level darkness). Magical light with a counteract level of 4th level or lower, along with magical light cantrips, are suppressed. A living creature entering or starting its turn in the aura takes 4d6 negative damage, and the creature also takes an additional 2d10 cold damage if it's in water (DC 39 basic Fortitude save). If it fails, it's also enfeebled 1 for 1 minute and pulled 10 feet toward the nasurgeth."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 39,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "Sunlight Powerlessness",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As vanyver."
+      ]
+    },
+    {
+      "name": "Spray Black Bile",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Darkness and negative energy spill out from the nasurgeth's wound, dealing 8d8 negative damage to creatures within 20 feet (DC 40 basic Fortitude)."
+      ],
+      "trigger": "The nasurgeth takes slashing or piercing damage from a critical hit, or a swallowed creature cuts itself free",
+      "save": {
+        "defense": "fortitude",
+        "dc": 40,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d8",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 39,
+        "map": [
+          39,
+          34,
+          29
+        ],
+        "traits": [
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+19",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d10",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": [
+        "Improved Grab"
+      ]
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 39,
+        "map": [
+          39,
+          35,
+          31
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+19",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d10",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Broken Barb",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The nasurgeth breaks a tooth off in the target, who takes 3d10 persistent bleed damage and is no longer grabbed or restrained. If the target is adjacent to a surface, the tooth also pins it in place, making it immobilized (Escape DC 45)."
+      ],
+      "requirements": "A creature is grabbed or restrained in the nasurgeth's jaws"
+    },
+    {
+      "name": "Ravenous Void",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The nasurgeth barrels forward with their mouth open, Swimming twice in a straight line and moving through the spaces of Huge or smaller creatures. The nasurgeth deals the damage of their jaws Strike to each creature whose space they enter (DC 45 basic Reflex save). Any creature that critically fails is automatically Swallowed Whole."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 45,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      }
+    },
+    {
+      "name": "Swallow Whole",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Huge, 2d10+9 bludgeoning, Rupture 40. A living creature that ends its turn swallowed whole by a nasurgeth becomes drained 1 or increases its drained condition by 1, and the nasurgeth gains 20 temporary Hit Points. A creature whose drained condition increases to 5 in this way dies."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 43,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 10,
+          "rankLabel": "Cantrips (10th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "plane shift",
+              "uses": null
+            },
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "eclipse burst",
+              "uses": 3
+            },
+            {
+              "name": "harm",
+              "uses": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 40
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

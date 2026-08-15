@@ -1,0 +1,262 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd52:air-elemental",
+  "name": "Air Elemental",
+  "gameSystem": "dnd5e",
+  "variant": "srd52",
+  "source": {
+    "code": "5.2_srd_(2025_mm)",
+    "name": null,
+    "page": null,
+    "path": "monsters/5e/5.2_srd_(2025_mm)/air_elemental_mm_2024.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 5,
+    "xp": 1800,
+    "display": "5"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 5,
+    "con": 2,
+    "int": -2,
+    "wis": 0,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 14,
+    "dex": 20,
+    "con": 14,
+    "int": 6,
+    "wis": 10,
+    "cha": 6
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Primordial (Auran)"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 90,
+        "note": null,
+        "formula": "12d10+24"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 2
+      },
+      {
+        "name": "dex",
+        "mod": 5
+      },
+      {
+        "name": "con",
+        "mod": 2
+      },
+      {
+        "name": "int",
+        "mod": -2
+      },
+      {
+        "name": "wis",
+        "mod": 0
+      },
+      {
+        "name": "cha",
+        "mod": -2
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "Poison",
+        "Thunder"
+      ],
+      "conditions": [
+        "Exhaustion",
+        "Grappled",
+        "Paralyzed",
+        "Petrified",
+        "Poisoned",
+        "Prone",
+        "Restrained",
+        "Unconscious"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "Lightning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "Piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "Slashing",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "fly": 90
+    },
+    "special": [
+      "hover"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Air Form",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The elemental can enter a creature's space and stop there. It can move through a space as narrow as 1 inch without expending extra movement to do so."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The elemental makes two Thunderous Slam attacks."
+      ]
+    },
+    {
+      "name": "Thunderous Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee Attack Roll:* +8, reach 10 ft. 14 (2d8 + 5) Thunder damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+5",
+          "average": 14,
+          "type": "thunder"
+        }
+      ]
+    },
+    {
+      "name": "Whirlwind",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Strength Saving Throw*: DC 13, one Medium or smaller creature in the elemental's space. *Failure:*  24 (4d10 + 2) Thunder damage, and the target is pushed up to 20 feet straight away from the elemental and has the Prone condition. *Success:*  Half damage only."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 4,
+        "max": 6,
+        "display": "Recharge 4-6"
+      },
+      "damage": [
+        {
+          "formula": "4d10+2",
+          "average": 24,
+          "type": "thunder"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "initiative": 5
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

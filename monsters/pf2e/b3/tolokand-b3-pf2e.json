@@ -1,0 +1,393 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:tolokand",
+  "name": "Tolokand",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/tolokand.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ne",
+      "large",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 6,
+    "con": 7,
+    "int": 5,
+    "wis": 6,
+    "cha": -3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 27,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "smoke vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Tongues",
+    "No Voice"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 25
+    },
+    {
+      "name": "Athletics",
+      "mod": 29
+    },
+    {
+      "name": "Intimidation",
+      "mod": 22
+    },
+    {
+      "name": "Survival",
+      "mod": 31
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 36,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 245,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 30
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 25
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "immobilized"
+      ],
+      "other": [
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "negative",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 120
+    },
+    "special": [
+      "air walk"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Heartless Furnace",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "conjuration",
+        "occult"
+      ],
+      "entries": [
+        "50 feet, 2d6 poison damage (DC 34 basic Fortitude save). The poisonous smoke that bellows from a tolokand makes all creatures inside it concealed, and all creatures outside the smoke are concealed to creatures within it."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 34,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 50,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Inexorable",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The tolokand recovers from the paralyzed, slowed, and stunned conditions at the end of its turn. It's also immune to penalties to its Speeds and ignores terrain and terrain."
+      ]
+    },
+    {
+      "name": "Toxic Blood",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a creature scores a critical hit against the tolokand with a piercing or slashing Strike, the tolokand's poisonous, oily blood sprays forth. Any creature within 5 feet of the tolokand takes 3d6 poison damage (DC 34 basic Reflex save) Any non-creature plants the blood spills on die."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 34,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 31,
+        "map": [
+          31,
+          26,
+          21
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12+16",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "persistent poison"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Blighted Footfalls",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the tolokand ends a move action during which it moved 30 feet or farther, it automatically casts one of its innate spells as a free action."
+      ]
+    },
+    {
+      "name": "Sudden Destruction",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The tolokand casts one of its spontaneous spells, using up the spell slot normally. The tolokand can't cast any further spontaneous spells this turn and can't use this ability again for 1d4 rounds."
+      ],
+      "requirements": "The tolokand hasn't cast any of its spontaneous spells this turn",
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous occult Spells",
+      "type": "spontaneous",
+      "tradition": "occult",
+      "dc": 37,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 8,
+          "rankLabel": "8th (3 slots)",
+          "spells": [
+            {
+              "name": "cloudkill",
+              "uses": null
+            },
+            {
+              "name": "earthquake",
+              "uses": null
+            },
+            {
+              "name": "horrid wilting",
+              "uses": null
+            },
+            {
+              "name": "volcanic eruption",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 37,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "air walk",
+              "uses": null
+            },
+            {
+              "name": "endure",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "sudden blight",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "earthbind",
+              "uses": "at will"
+            },
+            {
+              "name": "haste",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 39
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,256 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:wow1:besieged-logging-crew",
+  "name": "Besieged Logging Crew",
+  "gameSystem": "pf2e",
+  "variant": "wow1",
+  "source": {
+    "code": "wow1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/wow1/besieged-logging-crew.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "humanoid",
+      "troop"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "gargantuan",
+      "human",
+      "humanoid",
+      "troop"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 2,
+    "con": 2,
+    "int": 1,
+    "wis": 2,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 7,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Fey"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 9
+    },
+    {
+      "name": "Athletics",
+      "mod": 12
+    },
+    {
+      "name": "Lumber Lore",
+      "mod": 10
+    },
+    {
+      "name": "Nature",
+      "mod": 8
+    },
+    {
+      "name": "Survival",
+      "mod": 10
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 60,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 12
+      },
+      {
+        "name": "ref",
+        "mod": 9
+      },
+      {
+        "name": "will",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": [
+      "troop movement"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Troop Defenses",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Form Up",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Hurl Axes",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The loggers draw their hatchets, then launch a ranged attack in the form of a volley. This volley is a 10-foot burst within 120 feet that deals 3d6 slashing damage (DC 18 basic Reflex save). When the crew is reduced to 8 or fewer squares, this area decreases to a 5-foot burst."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 18,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Tandem Chop",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The loggers engage in a coordinated axe attack against each enemy within 10 feet, with a DC 19 basic Reflex save. The damage depends on the number of actions expended. - 1 1d10 slashing damage",
+        "- 2 3d6+7 slashing damage",
+        "- 3 3d6+10 slashing damage"
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 19,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Troop Movement",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the loggers Stride, they first Form Up as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares), then move up to their Speed. This works just like a Gargantuan creature moving; for instance, if any square of the logging crew enters difficult terrain, the extra movement cost applies to all the loggers."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 19
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

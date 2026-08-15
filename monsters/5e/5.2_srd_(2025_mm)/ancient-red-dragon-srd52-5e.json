@@ -1,0 +1,364 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd52:ancient-red-dragon",
+  "name": "Ancient Red Dragon",
+  "gameSystem": "dnd5e",
+  "variant": "srd52",
+  "source": {
+    "code": "5.2_srd_(2025_mm)",
+    "name": null,
+    "page": null,
+    "path": "monsters/5e/5.2_srd_(2025_mm)/ancient_red_dragon_mm_2024.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 24,
+    "xp": 62000,
+    "display": "24"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "chromatic"
+    ],
+    "rarity": null,
+    "alignment": {
+      "raw": "Chaotic Evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 0,
+    "con": 9,
+    "int": 4,
+    "wis": 2,
+    "cha": 8
+  },
+  "abilityScores": {
+    "str": 30,
+    "dex": 10,
+    "con": 29,
+    "int": 18,
+    "wis": 15,
+    "cha": 27
+  },
+  "perception": {
+    "mod": 16,
+    "passive": 26
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 16
+    },
+    {
+      "name": "Stealth",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 22,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 507,
+        "note": null,
+        "formula": "26d20+234"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 10
+      },
+      {
+        "name": "dex",
+        "mod": 7
+      },
+      {
+        "name": "con",
+        "mod": 9
+      },
+      {
+        "name": "int",
+        "mod": 4
+      },
+      {
+        "name": "wis",
+        "mod": 9
+      },
+      {
+        "name": "cha",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "Fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "climb": 40,
+      "fly": 80
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Legendary Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the dragon fails a saving throw, it can choose to succeed instead."
+      ],
+      "uses": {
+        "count": 4,
+        "period": "day",
+        "display": "4/Day"
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon makes three Rend attacks. It can replace one attack with a use of Spellcasting to cast *Scorching Ray* (level 3 version)."
+      ]
+    },
+    {
+      "name": "Rend",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee Attack Roll:* +17, reach 15 ft. 19 (2d8 + 10) Slashing damage plus 10 (3d6) Fire damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+10",
+          "average": 19,
+          "type": "slashing"
+        },
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Fire Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Dexterity Saving Throw*: DC 24, each creature in a 90-foot Cone. *Failure:*  91 (26d6) Fire damage. *Success:*  Half damage."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "26d6",
+          "average": 91,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 90,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Spellcasting",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon casts one of the following spells, requiring no Material components and using Charisma as the spellcasting ability (spell save DC 23, +15 to hit with spell attacks):",
+        "**At Will:** *Command*, *Detect Magic*, *Scorching Ray*"
+      ]
+    },
+    {
+      "name": "1e/Day Each",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Fireball*, *Scrying*"
+      ]
+    },
+    {
+      "name": "Commanding Presence",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon uses Spellcasting to cast *Command* (level 2 version). The dragon can't take this action again until the start of its next turn."
+      ]
+    },
+    {
+      "name": "Fiery Rays",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon uses Spellcasting to cast *Scorching Ray* (level 3 version). The dragon can't take this action again until the start of its next turn."
+      ]
+    },
+    {
+      "name": "Pounce",
+      "category": "legendary",
+      "placement": "legendary",
+      "activity": {
+        "unit": "legendary",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The dragon moves up to half its Speed, and it makes one Rend attack."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spellcasting",
+      "type": "prepared",
+      "tradition": null,
+      "dc": 23,
+      "attackBonus": 15,
+      "ability": "cha",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At Will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "Command",
+              "uses": null
+            },
+            {
+              "name": "Detect Magic",
+              "uses": null
+            },
+            {
+              "name": "Scorching Ray",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "initiative": 14
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,306 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:melody-on-the-wind",
+  "name": "Melody on the Wind",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/melody-on-the-wind.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [
+      "air"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "huge",
+      "air",
+      "elemental"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 6,
+    "con": 2,
+    "int": 2,
+    "wis": 5,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 21,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Auran"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 22
+    },
+    {
+      "name": "Performance",
+      "mod": 22
+    },
+    {
+      "name": "Stealth",
+      "mod": 22
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 170,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 16
+      },
+      {
+        "name": "ref",
+        "mod": 22
+      },
+      {
+        "name": "will",
+        "mod": 19
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 100
+    },
+    "special": [
+      "swiftness"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Hostile Duet",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The melody on the wind recreates the auditory effect, gaining the bonuses for itself and its allies as long as the original effect persists."
+      ],
+      "trigger": "A hostile creature within 30 feet creates an effect with the auditory trait that provides bonuses to itself or its allies"
+    },
+    {
+      "name": "Retune",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The melody on the wind attempts to counteract the spell. If it succeeds, the spell effect is caught in a blast of wind that sweeps it back to its origin, affecting the caster. Targets of the triggering effect other than the melody on the wind are still affected normally."
+      ],
+      "trigger": "The melody on the wind is targeted by a spell with the auditory trait"
+    },
+    {
+      "name": "wind gust",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Push",
+        "Push"
+      ]
+    },
+    {
+      "name": "solid refrain",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "range increment <70 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 70,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+10",
+          "average": null,
+          "type": "sonic"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Mesmerizing Melody",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "auditory",
+        "concentrate",
+        "enchantment",
+        "mental",
+        "primal"
+      ],
+      "entries": [
+        "The melody on the wind sings in a sonorous chorus. Any creature in a 30-foot emanation must attempt a DC 30 Will save to resist becoming fascinated by the melody on the wind. A creature that succeeds at its save is temporarily immune for 24 hours."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 30,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is fascinated for 1 round.",
+          "failure": "The creature is fascinated for 1d4 rounds."
+        }
+      }
+    },
+    {
+      "name": "Swiftness",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The melody on the wind's movement doesn't trigger reactions."
+      ]
+    },
+    {
+      "name": "Elemental, Earth",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Certain earth elementals manifest as specific types of material, be they boulders, sand, or crystals."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Elemental",
+        "skill": "Arcana, Nature",
+        "dc": 27
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

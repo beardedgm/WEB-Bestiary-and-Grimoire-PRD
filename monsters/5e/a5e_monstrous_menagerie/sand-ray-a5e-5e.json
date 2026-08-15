@@ -1,0 +1,308 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:sand-ray",
+  "name": "Sand Ray",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 50,
+    "path": "monsters/5e/a5e_monstrous_menagerie/sand-ray-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 8,
+    "xp": 3900,
+    "display": "8"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 3,
+    "con": 2,
+    "int": 1,
+    "wis": 1,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 16,
+    "con": 14,
+    "int": 12,
+    "wis": 12,
+    "cha": 12
+  },
+  "perception": {
+    "mod": null,
+    "passive": 11
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Deep Speech",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 97,
+        "note": null,
+        "formula": "13d10+26"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "wis",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "charmed",
+        "frightened"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "fly": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "False Appearance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When motionless, the ray is indistinguishable from a patch of sand."
+      ]
+    },
+    {
+      "name": "Light Sensitivity",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The cloaker has disadvantage on attack rolls and Perception checks while in bright light."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one creature. Hit: 11 (2d6 + 4) piercing damage  and the target is grappled (escape DC 15). If the cloaker has advantage against the target  the cloaker attaches to the targets head  and the target is blinded and suffocating. Until this grapple ends  the cloaker automatically hits the grappled creature with this attack. When the cloaker is dealt damage while grappling  it takes half the damage (rounded down) and the other half is dealt to the grappled target. The cloaker can have only one creature grappled at once."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+4",
+          "average": 11,
+          "type": "piercing"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Tail",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 10 ft., one creature. Hit: 7 (1d6 + 4) slashing damage plus 3 (1d6) poison damage  and the creature makes a DC 13 Constitution saving throw. On a failure  it is poisoned until the end of the cloakers next turn."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": 7,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {}
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Moan",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Each non-aberration creature within 60 feet that can hear its moan makes a DC 13 Wisdom saving throw. On a failure  it is frightened until the end of the cloakers next turn. When a creature succeeds on this saving throw  it becomes immune to the cloakers moan for 24 hours."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {}
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": "24 hours",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Phantasms",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The cloaker magically creates flickering illusions of itself in its space. Attacks on it have disadvantage. This effect ends after 1 minute  when the cloaker enters an area of bright light  or when it successfully grapples a creature."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      }
+    },
+    {
+      "name": "Reactive Tail",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When hit or missed with a melee attack, the cloaker makes a tail attack against the attacker."
+      ]
+    },
+    {
+      "name": "Angry Moan",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When the cloaker takes damage, it uses Moan."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

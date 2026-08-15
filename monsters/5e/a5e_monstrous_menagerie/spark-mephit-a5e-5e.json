@@ -1,0 +1,232 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:spark-mephit",
+  "name": "Spark Mephit",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 327,
+    "path": "monsters/5e/a5e_monstrous_menagerie/spark-mephit-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.5,
+    "xp": 100,
+    "display": "1/2"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -1,
+    "dex": 2,
+    "con": 0,
+    "int": -1,
+    "wis": 0,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 8,
+    "dex": 14,
+    "con": 10,
+    "int": 8,
+    "wis": 10,
+    "cha": 12
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Auran",
+    "Ignan"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 12,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 17,
+        "note": null,
+        "formula": "5d6"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "lightning",
+        "poison"
+      ],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Death Burst",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the mephit dies, its Spark Form recharges, and the mephit uses it before it dies."
+      ]
+    },
+    {
+      "name": "Elemental Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A mephit doesnt require air, sustenance, or sleep."
+      ]
+    },
+    {
+      "name": "Claws",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 4 (1d4 + 2) slashing damage plus 2 (1d4) lightning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+2",
+          "average": 4,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d4",
+          "average": 2,
+          "type": "lightning"
+        }
+      ]
+    },
+    {
+      "name": "Spark Form",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mephit transforms into an arc of lightning and flies up to 20 feet without provoking opportunity attacks. During this movement  the mephit can pass through other creatures spaces. Whenever it moves through another creatures space for the first time during this movement  that creature makes a DC 12 Dexterity saving throw  taking 5 (2d4) lightning damage on a failed save or half damage on a success. The mephit then reverts to its original form."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "damage": [
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 12,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Faerie Flame",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Each creature within 10 feet of the mephit makes a DC 11 Dexterity saving throw. On a failure  the creature is magically outlined in blue light for 1 minute. While outlined  the creature gains no benefit from being invisible and attack rolls against it are made with advantage."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "save": {
+        "defense": "dex",
+        "dc": 11,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

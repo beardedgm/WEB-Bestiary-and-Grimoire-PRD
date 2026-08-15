@@ -1,0 +1,359 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:gmg:cult-leader",
+  "name": "Cult Leader",
+  "gameSystem": "pf2e",
+  "variant": "gmg",
+  "source": {
+    "code": "gmg",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/gmg/cult-leader.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 4,
+    "con": 1,
+    "int": 4,
+    "wis": 3,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 13
+    },
+    {
+      "name": "Deception",
+      "mod": 16
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 14
+    },
+    {
+      "name": "Intimidation",
+      "mod": 16
+    },
+    {
+      "name": "Occultism",
+      "mod": 17
+    },
+    {
+      "name": "Society",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 95,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 12
+      },
+      {
+        "name": "ref",
+        "mod": 15
+      },
+      {
+        "name": "will",
+        "mod": 18
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Protect the Master!",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "auditory",
+        "concentrate",
+        "emotion",
+        "linguistic",
+        "mental",
+        "move"
+      ],
+      "entries": [
+        "The cult leader orders their cultist to leap in front of the attack. The cultist and cult leader swap places, and the cultist becomes the target of the attack. If the cultist has Fanatical Frenzy or a similar ability, they can activate it as a reaction if they take damage from the triggering attack."
+      ],
+      "trigger": "The cult leader is targeted with an attack, and a lower-ranking cultist is adjacent to them"
+    },
+    {
+      "name": "staff",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 13,
+        "map": [
+          13,
+          8,
+          3
+        ],
+        "traits": [
+          "magical",
+          "two-hand <d8>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Gather Converts",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "auditory",
+        "concentrate",
+        "emotion",
+        "linguistic",
+        "mental"
+      ],
+      "entries": [
+        "With a short emotional phrase, the cult leader tries to sway the public to do their bidding. The cult leader tries to convince up to four bystanders in a crowd to either cause a commotion, turn against a person or group, leave the area, protect the cult leader, or calm down. The cult leader attempts a single Deception check against the highest Perception DC among the targets."
+      ],
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The targets believe the lie and act as directed for 1 minute. Additionally, one bystander remains by the cult leader's side, influenced enough to join their sect. All other targets become wise to the cult leader after 1 minute, at which point their attitude toward the leader worsens by one step.",
+          "success": "As a critical success, but no bystander joins the sect permanently.",
+          "criticalFailure": "The crowd is unmoved and unamused, and their attitude toward the cult leader worsens by one step."
+        }
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous occult Spells",
+      "type": "spontaneous",
+      "tradition": "occult",
+      "dc": 26,
+      "attackBonus": 18,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "Cantrips (4th)",
+          "spells": [
+            {
+              "name": "chill touch",
+              "uses": null
+            },
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "guidance",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st (4 slots)",
+          "spells": [
+            {
+              "name": "bless",
+              "uses": null
+            },
+            {
+              "name": "illusory disguise",
+              "uses": null
+            },
+            {
+              "name": "lock",
+              "uses": null
+            },
+            {
+              "name": "unseen servant",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd (4 slots)",
+          "spells": [
+            {
+              "name": "augury",
+              "uses": null
+            },
+            {
+              "name": "calm emotions",
+              "uses": null
+            },
+            {
+              "name": "hideous laughter",
+              "uses": null
+            },
+            {
+              "name": "touch of idiocy",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd (4 slots)",
+          "spells": [
+            {
+              "name": "enthrall",
+              "uses": null
+            },
+            {
+              "name": "grim tendrils",
+              "uses": null
+            },
+            {
+              "name": "haste",
+              "uses": null
+            },
+            {
+              "name": "mind reading",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th (3 slots)",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            },
+            {
+              "name": "glibness",
+              "uses": null
+            },
+            {
+              "name": "outcast's curse",
+              "uses": null
+            },
+            {
+              "name": "suggestion",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 23
+      }
+    ],
+    "items": [
+      "indecipherable book of sigils",
+      "ceremonial robes",
+      "+1 staff"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

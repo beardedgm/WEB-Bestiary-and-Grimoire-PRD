@@ -1,0 +1,545 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/ttrpg-spell-0.1.schema.json",
+  "title": "TTRPG Spell (cross-system)",
+  "description": "One schema for both D&D 5e and Pathfinder 2e spells. System differences are expressed as VALUES (nulls, vocabularies, discriminated unions), never as different keys. Standalone: every $ref is internal, so this file travels on its own.",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "name",
+    "gameSystem",
+    "source",
+    "level",
+    "identity",
+    "activity",
+    "components",
+    "range",
+    "targets",
+    "area",
+    "duration",
+    "save",
+    "attack",
+    "damage",
+    "heightening",
+    "entries",
+    "systemExtras",
+    "parse"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "ttrpg-spell/0.1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+:[a-z0-9._()-]+:[a-z0-9-]+$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "gameSystem": {
+      "enum": [
+        "dnd5e",
+        "pf2e"
+      ]
+    },
+    "variant": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "code",
+        "path"
+      ],
+      "properties": {
+        "code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "page": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    },
+    "level": {
+      "type": "object",
+      "required": [
+        "kind",
+        "value",
+        "display"
+      ],
+      "description": "kind discriminates a D&D spell level from a Pathfinder rank from a Pathfinder FOCUS spell (617 of them — focus points, not slots). Never coerce one into another.",
+      "properties": {
+        "kind": {
+          "enum": [
+            "level",
+            "rank",
+            "focus"
+          ]
+        },
+        "value": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 10
+        },
+        "display": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Source's own words: '7th', 'Cantrip', 'Spell 1', 'Focus 3'."
+        }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "required": [
+        "traits",
+        "school",
+        "traditions",
+        "classes",
+        "cantrip",
+        "ritual"
+      ],
+      "properties": {
+        "rarity": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "PF2e only: common/uncommon/rare/unique."
+        },
+        "traits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "PF2e trait line, verbatim and lowercased. Empty for 5e."
+        },
+        "school": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "5e only, title-cased. Source casing is inconsistent (Transmutation/transmutation) and is normalised."
+        },
+        "traditions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "PF2e only: arcane/divine/occult/primal. Empty for 5e."
+        },
+        "classes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "5e only. Empty for PF2e, and legitimately empty on 82 5e spells whose source leaves the field blank."
+        },
+        "cantrip": {
+          "type": "boolean",
+          "description": "5e: Level reads 'Cantrip'. PF2e: the 'cantrip' trait, which can co-occur with a Focus level."
+        },
+        "ritual": {
+          "type": "boolean"
+        }
+      }
+    },
+    "activity": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "unit",
+        "number"
+      ],
+      "description": "Casting time. number is null when the source omits it (56 spells read bare 'minute'/'hour').",
+      "properties": {
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "action",
+            "bonus",
+            "reaction",
+            "free",
+            "round",
+            "turn",
+            "minute",
+            "hour",
+            "day",
+            "week",
+            "month",
+            "year",
+            "varies",
+            null
+          ]
+        },
+        "number": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "symbol": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "PF2e action glyphs: ◆ ◆◆ ◆◆◆ ◈ ◇"
+        },
+        "numberMax": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Variable-action PF2e spells ('Cast: 1 to 3'): the caster chooses between number and numberMax actions, and the effect scales."
+        }
+      }
+    },
+    "trigger": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Reaction spells. 5e buries this in Casting Time ('1 reaction, which you take when...'); it is split out here."
+    },
+    "components": {
+      "type": "object",
+      "required": [
+        "list"
+      ],
+      "description": "Normalised to one shared vocabulary: verbal/somatic/material/focus. 5e V,S,M and PF2e (somatic, verbal) both map onto it.",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "verbal",
+              "somatic",
+              "material",
+              "focus"
+            ]
+          }
+        },
+        "material": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cost": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "currency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "consumed": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "range": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "targets": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "area": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "shape": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "size": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "duration": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "concentration": {
+          "type": "boolean",
+          "description": "5e."
+        },
+        "sustained": {
+          "type": "boolean",
+          "description": "PF2e equivalent."
+        }
+      }
+    },
+    "save": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "dc is ALWAYS null: a spell has no DC of its own, the caster supplies it.",
+      "properties": {
+        "defense": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "dc": {
+          "type": "null"
+        },
+        "basic": {
+          "type": "boolean"
+        },
+        "outcomes": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Keyed by degree of success. PF2e basic saves get the canonical none/half/full/double; PF2e spells that PRINT their ladder get the source's own text; 5e gets success/failure derived from prose.",
+          "properties": {
+            "criticalSuccess": {
+              "type": "string"
+            },
+            "success": {
+              "type": "string"
+            },
+            "failure": {
+              "type": "string"
+            },
+            "criticalFailure": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "attack": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Set instead of `save` for spell attack rolls. 23 PF2e spells list 'AC' in the Saving Throw field — those are attacks, not saves.",
+      "properties": {
+        "kind": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "spell",
+            "ranged",
+            "melee",
+            null
+          ]
+        },
+        "vs": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "damage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "formula"
+        ],
+        "properties": {
+          "formula": {
+            "type": "string"
+          },
+          "average": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "type": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "heightening": {
+      "type": "array",
+      "description": "Discriminated on kind. increment = PF2e 'Heightened (+N)', fixed = PF2e 'Heightened (Nth)', slot = 5e 'Using a Higher-Level Spell Slot' (prose only, nothing machine-readable to extract).",
+      "items": {
+        "type": "object",
+        "required": [
+          "kind",
+          "text"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "increment",
+              "fixed",
+              "slot"
+            ]
+          },
+          "step": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "increment only: ranks per step."
+          },
+          "atRank": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "fixed only: the rank it applies at."
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Body prose, paragraph per item. Empty on 2 spells whose source has metadata but no description."
+    },
+    "systemExtras": {
+      "type": "object",
+      "description": "The ONLY place system-specific keys are allowed."
+    },
+    "parse": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "ok",
+            "partial",
+            "failed"
+          ]
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unmapped": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

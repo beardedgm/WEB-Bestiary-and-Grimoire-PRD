@@ -1,0 +1,365 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa5:xotanispawn",
+  "name": "Xotanispawn",
+  "gameSystem": "pf2e",
+  "variant": "aoa5",
+  "source": {
+    "code": "aoa5",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa5/xotanispawn.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 17,
+    "xp": null,
+    "display": "Creature 17"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "animal"
+    ],
+    "subtypes": [
+      "fire"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "large",
+      "animal",
+      "fire"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 6,
+    "con": 8,
+    "int": -5,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 29,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 34
+    },
+    {
+      "name": "Stealth",
+      "mod": 31
+    },
+    {
+      "name": "Survival",
+      "mod": 29
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 40,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 340,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 31
+      },
+      {
+        "name": "ref",
+        "mod": 29
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "chaotic",
+        "evil",
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "burrow": 40,
+      "climb": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Explosion",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "fire"
+      ],
+      "entries": [
+        "When a Xotanispawn dies, it explodes, dealing 15d8 fire damage to creatures in a 30-foot emanation (DC 39 basic Reflex save)."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 39,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "15d8",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Light Blindness",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Internal Furnace",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "fire"
+      ],
+      "entries": [
+        "The triggering creature takes 5d8 persistent fire damage (DC 37 Reflex save to negate)."
+      ],
+      "trigger": "A creature adjacent to the Xotanispawn touches it or hits it with a physical attack",
+      "save": {
+        "defense": "reflex",
+        "dc": 37,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          25,
+          20
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+9",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "persistent fire"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          26,
+          22
+        ],
+        "traits": [
+          "agile",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6+9",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "persistent fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "arcane",
+        "evocation",
+        "fire"
+      ],
+      "entries": [
+        "The Xotanispawn sprays a 60-foot cone of magma that deals 10d10 fire damage and 2d6 persistent fire damage to all creatures in the area (DC 39 basic Reflex save). The Xotanispawn can't use its Breath Weapon again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 39,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "10d10",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Heat Surge",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the Xotanispawn critically hits, its body surges with heat, increasing the damage of its Internal Furnace to 10d8 until the start of its next turn."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Animal",
+        "skill": "Nature",
+        "dc": 41
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

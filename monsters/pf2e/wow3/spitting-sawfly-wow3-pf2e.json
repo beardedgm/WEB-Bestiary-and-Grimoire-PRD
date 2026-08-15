@@ -1,0 +1,366 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:wow3:spitting-sawfly",
+  "name": "Spitting Sawfly",
+  "gameSystem": "pf2e",
+  "variant": "wow3",
+  "source": {
+    "code": "wow3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/wow3/spitting-sawfly.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [
+      "mutant",
+      "wood"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "rare",
+      "medium",
+      "beast",
+      "mutant",
+      "wood"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 6,
+    "con": 5,
+    "int": -5,
+    "wis": 3,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "wood scent",
+      "range": null,
+      "unit": null,
+      "acuity": "precise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 22
+    },
+    {
+      "name": "Athletics",
+      "mod": 20
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 30,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 175,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 19
+      },
+      {
+        "name": "ref",
+        "mod": 22
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "poison",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "fly": 40,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "mandibles",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          17,
+          12
+        ],
+        "traits": [
+          "finesse",
+          "poison"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12+10",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "seizing venom"
+      ]
+    },
+    {
+      "name": "acid spit",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          17,
+          12
+        ],
+        "traits": [
+          "poison",
+          "range increment <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "entries": [
+        "seizing venom"
+      ]
+    },
+    {
+      "name": "Consume Essence",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "healing",
+        "manipulate",
+        "primal"
+      ],
+      "entries": [
+        "The sawfly feasts upon the targeted creature or the coiled conifer|WoW3|coiled conifer's sap, regaining 5d6 Hit Points. A targeted creature must attempt a DC 29 Fortitude save or become drained 1 (drained 2 on a critical failure)."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      },
+      "requirements": "The spitting sawfly is adjacent to any creature with the wood trait or to a coiled conifer|WoW3",
+      "save": {
+        "defense": "fortitude",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Creeping Sprout",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "disease"
+      ],
+      "entries": [
+        "A creature afflicted with creeping sprout is treated by the spitting sawfly as if it has the wood trait **Saving Throw** DC 29 Fortitude"
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Stage 1",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "carrier with no ill effect ({@dice 1d4} days)"
+      ]
+    },
+    {
+      "name": "Stage 2",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "drained 1 ({@dice 1d4} days)"
+      ]
+    },
+    {
+      "name": "Stage 3",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "12d6 acid damage, creeping cone swarm|WoW3 emerges (disease ends)"
+      ],
+      "damage": [
+        {
+          "formula": "12d6",
+          "average": null,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "Plant Spores",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The spitting sawfly plants spores in an adjacent creature that's paralyzed or unconscious, exposing it to creeping sprout disease. **Seizing Venom**",
+        "(incapacitation, poison); **Saving Throw** DC 29 Fortitude"
+      ]
+    },
+    {
+      "name": "Maximum Duration",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "6 rounds"
+      ]
+    },
+    {
+      "name": "Stage 1",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "off-guard|PC1 and slowed 1 (1 round)"
+      ]
+    },
+    {
+      "name": "Stage 2",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "off-guard|PC1 and slowed 2 (1 round)"
+      ]
+    },
+    {
+      "name": "Stage 3",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "paralyzed (1 round)"
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

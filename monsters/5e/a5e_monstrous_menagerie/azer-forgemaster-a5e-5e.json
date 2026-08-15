@@ -1,0 +1,229 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:azer-forgemaster",
+  "name": "Azer Forgemaster",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 28,
+    "path": "monsters/5e/a5e_monstrous_menagerie/azer-forgemaster-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 2,
+    "int": 1,
+    "wis": 3,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 14,
+    "con": 14,
+    "int": 12,
+    "wis": 16,
+    "cha": 16
+  },
+  "perception": {
+    "mod": null,
+    "passive": 13
+  },
+  "senses": [],
+  "languages": [
+    "Common",
+    "Ignan"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 78,
+        "note": null,
+        "formula": "12d8+24"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire",
+        "poison"
+      ],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Fiery Aura",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that ends its turn within 5 feet of one or more azers takes 5 (1d10) fire damage. The azer sheds bright light in a 10-foot radius and dim light for an additional 10 feet."
+      ],
+      "damage": [
+        {
+          "formula": "1d10",
+          "average": 5,
+          "type": "fire"
+        }
+      ],
+      "area": {
+        "shape": "sphere",
+        "size": 10,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The azer attacks with its returning hammer and uses Bonfire if available."
+      ]
+    },
+    {
+      "name": "Returning Hammer",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee or Ranged Weapon Attack: +6 to hit, reach 5 ft. or range 20/60 feet  one target. Hit: 8 (1d8 + 4) bludgeoning damage plus 7 (2d6) fire damage. The azers hammer returns to its hand after its thrown."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": "or range 20/60 feet  one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        },
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": 8,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Bonfire",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "A 5-foot-square space within 60 feet catches fire. A creature takes 10 (3d6) fire damage when it enters this area for the first time on a turn or starts its turn there. A creature can use an action to extinguish this fire."
+      ],
+      "uses": {
+        "count": 3,
+        "period": "day",
+        "display": "3/Day"
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Fire Step",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "While standing in fire, the azer can magically teleport up to 90 feet to a space within fire."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

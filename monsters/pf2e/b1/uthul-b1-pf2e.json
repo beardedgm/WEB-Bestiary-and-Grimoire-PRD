@@ -1,0 +1,322 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:uthul",
+  "name": "Uthul",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/uthul.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 14,
+    "xp": null,
+    "display": "Creature 14"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "elemental"
+    ],
+    "subtypes": [
+      "air"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "huge",
+      "air",
+      "elemental"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 7,
+    "con": 4,
+    "int": -1,
+    "wis": -2,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 20,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Auran"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 29
+    },
+    {
+      "name": "Athletics",
+      "mod": 27
+    },
+    {
+      "name": "Intimidation",
+      "mod": 23
+    },
+    {
+      "name": "Stealth",
+      "mod": 25
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 36,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 250,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 28
+      },
+      {
+        "name": "ref",
+        "mod": 29
+      },
+      {
+        "name": "will",
+        "mod": 22
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "electricity",
+        "poison"
+      ],
+      "conditions": [],
+      "other": [
+        "paralyze",
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 100
+    },
+    "special": [
+      "swiftness"
+    ]
+  },
+  "entries": [
+    {
+      "name": "High Winds",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "air",
+        "aura"
+      ],
+      "entries": [
+        "40 feet. Air in the aura is terrain for Flying creatures without the air trait."
+      ],
+      "aura": {
+        "range": 40,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          25,
+          21
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d12+11",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "debris",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          24,
+          19
+        ],
+        "traits": [
+          "range increment <60 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d8+15",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Lightning Crash",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "electricity",
+        "incapacitation",
+        "sonic"
+      ],
+      "entries": [
+        "The uthul unleashes a powerful bolt of lightning and a stunning thunderclap. The bolt deals 6d12 electricity damage to all creatures in a 30-foot line, with a DC 34 basic Reflex save, and every creature in a 20-foot emanation must attempt a DC 34 Fortitude save. The uthul can't use Lightning Crash again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "line",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 34,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is stunned 1.",
+          "failure": "The creature is stunned for 1 round.",
+          "criticalFailure": "The creature is stunned for 1d4 rounds."
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d12",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Swiftness",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "An uthul's movement doesn't trigger reactions."
+      ]
+    },
+    {
+      "name": "Whirlwind Form",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "concentrate"
+      ],
+      "entries": [
+        "The uthul transforms itself into a swirling vortex of storm and fury 10 feet wide and up to 40 feet tall. It stays in this form for 3 rounds or until it Dismisses the effect. While in this form, the uthul gains resistance 10 to physical damage and can move through other creatures. Its aura remains active, but it can't make debris Strikes nor use Lightning Crash. Instead, any creature the uthul moves through takes 4d6 bludgeoning damage and 2d12 electricity damage. A creature can take this damage only once per round. A Large or smaller creature must also succeed at a DC 32 Reflex save or be picked up and held suspended within the vortex. Suspended creatures move with the uthul. A creature can attempt to escape by spending an action to attempt a DC 32 Reflex save (or a DC 32 Acrobatics check to maneuver in flight if it has a fly Speed). Upon escaping, or when the uthul transforms back into its storm cloud form, a suspended creature is hurled 1d4 × 10 feet in a random direction, then falls unless it can fly or otherwise remain aloft. After returning to its normal form, the uthul must wait 1 minute before it can use Whirlwind Form again."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 32,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Elemental",
+        "skill": "Arcana, Nature",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

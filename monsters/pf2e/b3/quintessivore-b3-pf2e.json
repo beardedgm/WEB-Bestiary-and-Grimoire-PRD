@@ -1,0 +1,379 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:quintessivore",
+  "name": "Quintessivore",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/quintessivore.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ne",
+      "medium",
+      "beast"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 6,
+    "con": 6,
+    "int": 7,
+    "wis": 3,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Aklo",
+    "Common",
+    "Infernal",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 25
+    },
+    {
+      "name": "Athletics",
+      "mod": 17
+    },
+    {
+      "name": "Intimidation",
+      "mod": 19
+    },
+    {
+      "name": "Stealth",
+      "mod": 20
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 180,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 21
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Instant Suspension",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The quintessivore uses Suspend Soul, targeting the creature."
+      ],
+      "trigger": "The quintessivore reduces a creature within 15 feet of it to 0 Hit Points"
+    },
+    {
+      "name": "blade-leg",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 22,
+        "map": [
+          22,
+          17,
+          12
+        ],
+        "traits": [
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d10+9",
+          "average": null,
+          "type": "slashing damage"
+        },
+        {
+          "formula": "1d10",
+          "average": null,
+          "type": "negative damage"
+        }
+      ],
+      "entries": [
+        "tattered soul",
+        "tattered soul"
+      ]
+    },
+    {
+      "name": "Feed on Quintessence",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "exploration",
+        "manipulate",
+        "necromancy"
+      ],
+      "entries": [
+        "Over the course of 1 hour, the quintessivore removes and deconstructs the soul of a creature. The creature must either be captive or have been dead for no more than 2 hours before the start of the process. At the end of the hour, the quintessivore consumes the quintessence of the creature's soul. For the next month, it gains a +1 status bonus to its spell DC and spell attack roll, and it adds 6th-level feeblemind and vampiric exsanguination to its arcane prepared spells. Deconstructing a soul maps the unique properties of the creature's soul into the quintessivore's blade-legs. The soul can be reconstructed by binding it to quintessence. A dead quintessivore's soul flees its body as pure quintessence suitable for this purpose."
+      ]
+    },
+    {
+      "name": "Suspend Soul",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "arcane",
+        "necromancy"
+      ],
+      "entries": [
+        "The quintessivore suspends the life processes of a dying creature within 15 feet of it. The creature can't decrease or increase its HP or dying value for 10 minutes. The creature can attempt a DC 29 Will save to avoid this effect. If the creature receives magical healing, it can attempt a new save, ending the effect and being healed normally on a success. The effect ends if the quintessivore uses Suspend Soul again."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Tattered Soul",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature hit by the quintessivore's blade-leg Strike must succeed at a DC 29 Fortitude save or become drained 1 (drained 2 on a critical failure). If the creature is already drained, it's immune to this effect."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Prepared arcane Spells",
+      "type": "prepared",
+      "tradition": "arcane",
+      "dc": 29,
+      "attackBonus": 21,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Cantrips (5th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "ray of frost",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "feather fall",
+              "uses": null
+            },
+            {
+              "name": "fleet step",
+              "uses": null
+            },
+            {
+              "name": "ray of enfeeblement",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "comprehend language",
+              "uses": null
+            },
+            {
+              "name": "see invisibility",
+              "uses": null
+            },
+            {
+              "name": "web",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "slow",
+              "uses": null
+            },
+            {
+              "name": "vampiric touch",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "clairvoyance",
+              "uses": null
+            },
+            {
+              "name": "enervation",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "black tentacles",
+              "uses": null
+            },
+            {
+              "name": "grim tendrils",
+              "uses": null
+            },
+            {
+              "name": "passwall",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 32
+      }
+    ],
+    "items": [
+      "scroll of dimensional anchor",
+      "scroll of fly"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

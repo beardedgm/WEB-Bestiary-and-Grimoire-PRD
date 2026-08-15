@@ -1,0 +1,334 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:kobold-dragon-mage",
+  "name": "Kobold Dragon Mage",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/kobold-dragon-mage.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 2,
+    "xp": null,
+    "display": "Creature 2"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "kobold"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "le",
+      "small",
+      "humanoid",
+      "kobold"
+    ]
+  },
+  "abilityMods": {
+    "str": -1,
+    "dex": 3,
+    "con": 0,
+    "int": 2,
+    "wis": 1,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 5,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 6
+    },
+    {
+      "name": "Deception",
+      "mod": 8
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 8
+    },
+    {
+      "name": "Intimidation",
+      "mod": 8
+    },
+    {
+      "name": "Stealth",
+      "mod": 7
+    },
+    {
+      "name": "Dragon Lore",
+      "mod": 10
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 25,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 4
+      },
+      {
+        "name": "ref",
+        "mod": 7
+      },
+      {
+        "name": "will",
+        "mod": 7
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "poison",
+        "amount": 5,
+        "note": "see dragonscaled"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Dragonscaled",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A kobold dragon mage's resistance depends on the color of its scales: Black acid 5, Blue electricity 5, Green poison 5, Red fire 5, White cold 5."
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 7,
+        "map": [
+          7,
+          3,
+          -1
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6-1",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "staff",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 3,
+        "map": [
+          3,
+          -2,
+          -7
+        ],
+        "traits": [
+          "two-hand <d8>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4-1",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Illusory Retreat",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "arcane",
+        "illusion",
+        "manipulate",
+        "move"
+      ],
+      "entries": [
+        "The dragon mage creates an illusion of itself in its square and then becomes invisible (with the effects of a 2nd-level invisibility spell) for 1d4 rounds. The dragon mage can move up to half its Speed, but it must end its movement in a space that's not adjacent to any enemies. This is a 1st-level spell that requires a somatic component."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "hour",
+        "text": null
+      },
+      "requirements": "The kobold dragon mage is adjacent to at least one enemy."
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dragon mage deals an extra 1d6 precision damage to flat-footed creatures."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous arcane Spells",
+      "type": "spontaneous",
+      "tradition": "arcane",
+      "dc": 20,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "Cantrips (1st)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "electric arc",
+              "uses": null
+            },
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "tanglefoot",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st (4 slots)",
+          "spells": [
+            {
+              "name": "fear",
+              "uses": null
+            },
+            {
+              "name": "illusory object",
+              "uses": null
+            },
+            {
+              "name": "magic missile",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 16
+      }
+    ],
+    "items": [
+      "staff"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

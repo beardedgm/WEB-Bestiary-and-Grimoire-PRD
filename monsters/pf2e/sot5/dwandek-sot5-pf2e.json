@@ -1,0 +1,501 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot5:dwandek",
+  "name": "Dwandek",
+  "gameSystem": "pf2e",
+  "variant": "sot5",
+  "source": {
+    "code": "sot5",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot5/dwandek.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 17,
+    "xp": null,
+    "display": "Creature 17"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ne",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 5,
+    "con": 6,
+    "int": 8,
+    "wis": 4,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 31,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 33
+    },
+    {
+      "name": "Crafting",
+      "mod": 31
+    },
+    {
+      "name": "Deception",
+      "mod": 27
+    },
+    {
+      "name": "Intimidation",
+      "mod": 29
+    },
+    {
+      "name": "Occultism",
+      "mod": 33
+    },
+    {
+      "name": "Religion",
+      "mod": 29
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 40,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 270,
+        "formula": null,
+        "note": "negative healing, rejuvenation"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 31
+      },
+      {
+        "name": "ref",
+        "mod": 27
+      },
+      {
+        "name": "will",
+        "mod": 30
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "arcane spell damage",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "cold",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 15,
+        "note": "except magic bludgeoning"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "fly": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Counterspell",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "As lich."
+      ],
+      "trigger": "A creature casts a spell Dwandek has prepared"
+    },
+    {
+      "name": "Resist Arcane Magic",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Dwandek automatically succeeds at his save against the triggering spell."
+      ],
+      "trigger": "Dwandek attempts a save against an arcane spell but hasn't rolled yet",
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      }
+    },
+    {
+      "name": "hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          27,
+          22
+        ],
+        "traits": [
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "5d8",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": [
+        "paralyzing touch"
+      ]
+    },
+    {
+      "name": "Drain Soul Cage",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "Dwandek taps into his soul cage's power to cast any arcane spell up to 9th level, even if the spell being cast is not one of his prepared spells. The lich's soul cage doesn't need to be present for the lich to use this ability."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      }
+    },
+    {
+      "name": "Paralyzing Touch",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "curse",
+        "incapacitation",
+        "necromancy"
+      ],
+      "entries": [
+        "As lich, but DC 38."
+      ]
+    },
+    {
+      "name": "Unflinching Spellcasting",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If a reaction would disrupt Dwandek's spellcasting action, Dwandek attempts a DC 12 flat check. On a success, the action isn't disrupted."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Prepared arcane Spells",
+      "type": "prepared",
+      "tradition": "arcane",
+      "dc": 39,
+      "attackBonus": 29,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 9,
+          "rankLabel": "Cantrips (9th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            },
+            {
+              "name": "ray of frost",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "magic missile",
+              "uses": null
+            },
+            {
+              "name": "ray of enfeeblement",
+              "uses": 2
+            },
+            {
+              "name": "true strike",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "false life",
+              "uses": null
+            },
+            {
+              "name": "mirror image",
+              "uses": null
+            },
+            {
+              "name": "resist energy",
+              "uses": null
+            },
+            {
+              "name": "see invisibility",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "locate",
+              "uses": null
+            },
+            {
+              "name": "magic missile",
+              "uses": null
+            },
+            {
+              "name": "vampiric touch",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "fly",
+              "uses": null
+            },
+            {
+              "name": "phantasmal killer",
+              "uses": null
+            },
+            {
+              "name": "vampiric maiden",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "cloudkill",
+              "uses": null
+            },
+            {
+              "name": "cone of cold",
+              "uses": 2
+            },
+            {
+              "name": "wall of ice",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "chain lightning",
+              "uses": null
+            },
+            {
+              "name": "dominate",
+              "uses": null
+            },
+            {
+              "name": "vampiric exsanguination",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "duplicate foe",
+              "uses": null
+            },
+            {
+              "name": "eclipse burst",
+              "uses": 2
+            },
+            {
+              "name": "mask of terror",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "horrid wilting",
+              "uses": 2
+            },
+            {
+              "name": "maze",
+              "uses": null
+            },
+            {
+              "name": "prismatic wall",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "massacre",
+              "uses": null
+            },
+            {
+              "name": "power word kill",
+              "uses": null
+            },
+            {
+              "name": "telepathic demand",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 46
+      }
+    ],
+    "items": [
+      "diadem of intellect",
+      "wand of inexhaustible cynicism|som"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

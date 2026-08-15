@@ -1,0 +1,307 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:tophet",
+  "name": "Tophet",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 364,
+    "path": "monsters/5e/tome_of_beasts_2023/tophet-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 8,
+    "xp": 3900,
+    "display": "8"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Neutral Evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 0,
+    "con": 5,
+    "int": -2,
+    "wis": 0,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 21,
+    "dex": 10,
+    "con": 20,
+    "int": 6,
+    "wis": 10,
+    "cha": 10
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands the languages of its creator but can’t speak"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 161,
+        "note": null,
+        "formula": "14d12+70"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 8
+      },
+      {
+        "name": "dex",
+        "mod": 3
+      },
+      {
+        "name": "con",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire",
+        "poison",
+        "psychic"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "frightened",
+        "paralyzed",
+        "petrified",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Burning Heart",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The tophet sheds bright light in a 30-foot radius and dim light for an additional 30 feet. Each creature in the bright light has resistance to cold damage. At the start of each of its turns, the tophet chooses whether this light is active."
+      ],
+      "area": {
+        "shape": "sphere",
+        "size": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Construct Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The tophet doesn't require air, food, drink, or sleep."
+      ]
+    },
+    {
+      "name": "Heated Body",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that touches the tophet or hits it with a melee attack while within 5 feet of it takes 3 (1d6) fire damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The tophet makes two Slam attacks. It can replace one Slam attack with a use of Burning Belly."
+      ]
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +8 to hit, reach 5 ft., one target. Hit: 16 (2d10 + 5) bludgeoning damage plus 7 (2d6) fire damage, and the target is grappled (escape DC 16) if it is a Large or smaller creature."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+5",
+          "average": 16,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "fire"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Burning Belly",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The tophet makes one Slam attack against a target it is grappling as it shoves the creature into its open, flame-filled belly. If the attack hits, the target is forced into the tophet's burning belly, and the grapple ends. While inside the belly, the target is restrained, has three-quarters cover against attacks and other effects outside the belly, and it takes 14 (4d6) fire damage at the start of each of its turns. A creature, including the target, can take its action to pull the target free from the belly by succeeding on a DC 16 Strength check. The creature making the attempt takes 7 (2d6) fire damage."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "fire"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "fire"
+        }
+      ],
+      "condition": {
+        "name": "restrained",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Gout of Flame",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Flames erupt on a point the tophet can see within 100 feet of it. Each creature within 10 feet of that point must make a DC 16 Dexterity saving throw, taking 35 (10d6) fire damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "10d6",
+          "average": 35,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

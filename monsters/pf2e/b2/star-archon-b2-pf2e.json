@@ -1,0 +1,473 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:star-archon",
+  "name": "Star Archon",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/star-archon.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 19,
+    "xp": null,
+    "display": "Creature 19"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "archon",
+      "celestial"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "lg",
+      "lawChaos": "lawful",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "lg",
+      "medium",
+      "archon",
+      "celestial"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 9,
+    "con": 6,
+    "int": 9,
+    "wis": 9,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 35,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "true seeing",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Draconic",
+    "Infernal; Tongues"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 31
+    },
+    {
+      "name": "Arcana",
+      "mod": 33
+    },
+    {
+      "name": "Athletics",
+      "mod": 37
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 33
+    },
+    {
+      "name": "Intimidation",
+      "mod": 33
+    },
+    {
+      "name": "Occultism",
+      "mod": 33
+    },
+    {
+      "name": "Religion",
+      "mod": 37
+    },
+    {
+      "name": "Society",
+      "mod": 33
+    },
+    {
+      "name": "Warfare Lore",
+      "mod": 39
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 43,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 400,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 31
+      },
+      {
+        "name": "ref",
+        "mod": 34
+      },
+      {
+        "name": "will",
+        "mod": 34
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "evil",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 35,
+      "fly": 75
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Blinding Soul",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "divine",
+        "evocation",
+        "light",
+        "visual"
+      ],
+      "entries": [
+        "Whenever the star archon takes slashing damage, bright light pours from their wounds. Non-archons within 10 feet must attempt a DC 38 Fortitude save. On a failure, a creature is dazzled for 1 round. On a critical failure, the creature is blinded for 1d4 rounds instead. The creature is then temporarily immune for 1 round."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Explosive Rebirth",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "death",
+        "divine",
+        "evocation",
+        "fire",
+        "good"
+      ],
+      "entries": [
+        "When killed, the star archon explodes in a blinding flash of holy energy that deals 12d6 fire damage and 12d6 good damage to anything in a 100-foot emanation, with a DC 40 basic Reflex save. A non-archon creature that sees the explosion and critically fails its save is permanently blinded as well. The slain star archon reincarnates 1d4 rounds later as a shield archon (Bestiary 29)."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 100,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 40,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "12d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Retributive Strike",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "A star archon can also make a Retributive Strike by throwing its starknife, and the enemy and ally can be within 60 feet instead of 15 feet."
+      ]
+    },
+    {
+      "name": "returning starknife",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          34,
+          30
+        ],
+        "traits": [
+          "agile",
+          "deadly <1d8>",
+          "finesse",
+          "good",
+          "magical",
+          "reach <10 feet>",
+          "versatile <S>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d4+16",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "good"
+        },
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "starknife",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          34,
+          30
+        ],
+        "traits": [
+          "agile",
+          "deadly <1d8>",
+          "good",
+          "magical",
+          "thrown <60 feet>",
+          "versatile <S>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d4+16",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "good"
+        },
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Archon's Door",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Once per day, if an archon sees another creature cast dimension door, the archon can use dimension door (heightened to 5th level) within 1 round to attempt to follow that creature to the maximum distance of the archon's dimension door. If the archon's dimension door has enough distance, the archon appears the same distance and direction from the creature as before either creature used dimension door."
+      ]
+    },
+    {
+      "name": "Prudent Asterism",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The star archon calculates a celestial constellation and sends their starknife flying along that path from one foe to the next. It makes a starknife Strike against a target within 60 feet. If the Strike hits, it can make another Strike at a different target within 60 feet of the first target, and so on, until it misses with a Strike or runs out of targets it hasn't attacked within range of the most recent target. The star archon can attack a given target only once per use of this ability. These attacks don't apply any range increment penalty, and the star archon resolves all the attacks before increasing the multiple attack penalty."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 43,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Constant (6th)",
+          "spells": [
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "sending",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "heal",
+              "uses": null
+            },
+            {
+              "name": "prismatic spray",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "implosion",
+              "uses": null
+            },
+            {
+              "name": "sunburst",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Celestial",
+        "skill": "Religion",
+        "dc": 39
+      }
+    ],
+    "items": [
+      "+2 greater resilient full plate",
+      "+2 greater striking returning starknife"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

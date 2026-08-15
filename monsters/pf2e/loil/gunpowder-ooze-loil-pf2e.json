@@ -1,0 +1,291 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:loil:gunpowder-ooze",
+  "name": "Gunpowder Ooze",
+  "gameSystem": "pf2e",
+  "variant": "loil",
+  "source": {
+    "code": "loil",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/loil/gunpowder-ooze.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 14,
+    "xp": null,
+    "display": "Creature 14"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "large",
+      "mindless",
+      "ooze"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 3,
+    "con": 6,
+    "int": -5,
+    "wis": 2,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 22,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "motion sense",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "no vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 28
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 29,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 400,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 28
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 24
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental",
+        "piercing",
+        "precision",
+        "slashing"
+      ],
+      "conditions": [
+        "unconscious"
+      ],
+      "other": [
+        "critical hits",
+        "visual"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Combust",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Due to the volatile nature of its composition, the gunpowder ooze reacts explosively when exposed to open flame. Any time the gunpowder ooze takes fire damage from a source other than a gunpowder ooze's combust or gunpowder residue, it explodes, dealing 15d6 fire damage to creatures in a 15- foot emanation including itself (DC 34 basic Reflex save). When the gunpowder ooze combusts, it automatically splits as long as it has 10 or more HP."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 34,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "15d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Split",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a gunpowder ooze that has 10 or more HP is hit by an attack that would deal slashing or piercing damage, it splits into two identical oozes, each with half the original's HP. One ooze is in the same space as the original, and the other is in an adjacent, unoccupied space. If no adjacent space is unoccupied, it automatically pushes creatures and objects out of the way to fill a space (the GM decides if an object or creature is too big or heavy to push)."
+      ]
+    },
+    {
+      "name": "pseudopod",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          24,
+          19
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+14",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "gunpowder residue"
+      ]
+    },
+    {
+      "name": "blast",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 26,
+        "map": [
+          26,
+          21,
+          16
+        ],
+        "traits": [
+          "propulsive",
+          "range increment <60 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+10",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": [
+        "gunpowder residue"
+      ]
+    },
+    {
+      "name": "Gunpowder Residue",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "fire"
+      ],
+      "entries": [
+        "A creature hit by the gunpowder ooze's pseudopod or blast is coated in explosive material unless it succeeds at a DC 34 Reflex save. If a creature makes an attack with a firearm, takes fire damage, or uses an action, activity, or item with the fire trait while coated with the residue, the residue explodes, dealing 7d6 damage to the creature and all adjacent creatures (DC 34 basic Reflex save). The residue remains active for 24 hours, until it's ignited, or until it's scrubbed off (an activity that takes at least 10 minutes and requires soap and water). A creature can only be coated with one layer of gunpowder residue at a time."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 34,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Ooze",
+        "skill": "Occultism",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

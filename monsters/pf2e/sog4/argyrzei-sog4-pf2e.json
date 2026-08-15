@@ -1,0 +1,359 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sog4:argyrzei",
+  "name": "Argyrzei",
+  "gameSystem": "pf2e",
+  "variant": "sog4",
+  "source": {
+    "code": "sog4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sog4/argyrzei.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [
+      "nindoru"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "medium",
+      "fiend",
+      "nindoru"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 5,
+    "con": 6,
+    "int": 6,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 23,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "cursesense",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability darkvision}",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 27
+    },
+    {
+      "name": "Crafting",
+      "mod": 26
+    },
+    {
+      "name": "Deception",
+      "mod": 24
+    },
+    {
+      "name": "Occultism",
+      "mod": 25
+    },
+    {
+      "name": "Stealth",
+      "mod": 24
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 34,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 240,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 23
+      },
+      {
+        "name": "ref",
+        "mod": 24
+      },
+      {
+        "name": "will",
+        "mod": 21
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "death effects"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "negative",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "silver",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Headless",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "An argyrzei is headless but can still hear, speak, see, and smell as if it had a head. The argyrzei is immune to decapitation effects, such as those caused by vorpal weapons."
+      ]
+    },
+    {
+      "name": "Soul Shred",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Creatures killed by an argyrzei are difficult to bring back to life or animate as undead. The argyrzei automatically attempts to counteract|CRB|3|counteracting|0 any attempt to resurrect or animate any creature that it has killed (counteract modifier +23, counteract level 7th). If the argyrzei who slew the creature is itself slain, the creature can be brought back from death or become undead normally."
+      ]
+    },
+    {
+      "name": "silver blade",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 28,
+        "map": [
+          28,
+          23,
+          18
+        ],
+        "traits": [
+          "magical",
+          "silver",
+          "two-hand <d12>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+11",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent bleed"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Infect Silver",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "concentrate",
+        "curse",
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "The argyrzei concentrates on an adjacent silver object that's no larger than Bulk 2. That object becomes infected silver|SoG4|cursed; if the object is being carried, the object's carrier can resist the object becoming cursed with a DC 33 Will save. The argyrzei can maintain up to five curses simultaneously; if it infects a sixth silver item, the oldest cursed item becomes uncursed."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      },
+      "save": {
+        "defense": "will",
+        "dc": 33,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Manifest Silver Blade",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "conjuration",
+        "occult"
+      ],
+      "entries": [
+        "The argyrzei pulls one of the broken silver weapons from the stump of its neck, transforming it into a +1 striking wounding silver bastard sword. This weapon crumbles into sand if it leaves the argyrzei's possession."
+      ],
+      "requirements": "The argyrzei isn't carrying a silver blade"
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 33,
+      "attackBonus": 25,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 7,
+          "rankLabel": "Cantrips (7th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "telekinetic projectile",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "illusory disguise",
+              "uses": "at will"
+            },
+            {
+              "name": "item facade",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "subconscious suggestion",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "dominate",
+              "uses": null
+            },
+            {
+              "name": "illusory scene",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "phantom pain",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 36
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

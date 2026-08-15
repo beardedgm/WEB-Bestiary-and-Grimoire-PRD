@@ -1,0 +1,311 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:draxie",
+  "name": "Draxie",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/draxie.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [
+      "sprite"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "cg",
+      "lawChaos": "chaotic",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "cg",
+      "tiny",
+      "fey",
+      "sprite"
+    ]
+  },
+  "abilityMods": {
+    "str": -1,
+    "dex": 4,
+    "con": 1,
+    "int": 3,
+    "wis": 1,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 8,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Sylvan; Telepathy (Touch, Page 306)"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 9
+    },
+    {
+      "name": "Deception",
+      "mod": 10
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 8
+    },
+    {
+      "name": "Nature",
+      "mod": 6
+    },
+    {
+      "name": "Stealth",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 45,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 6
+      },
+      {
+        "name": "ref",
+        "mod": 11
+      },
+      {
+        "name": "will",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15,
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 11,
+        "map": [
+          11,
+          7,
+          3
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+3",
+          "average": null,
+          "type": "bludgeoning damage"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "euphoric spark",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 7,
+        "map": [
+          7,
+          2,
+          -3
+        ],
+        "traits": [
+          "enchantment",
+          "magical",
+          "range <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d4+3",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "emotion",
+        "enchantment",
+        "incapacitation",
+        "mental",
+        "primal"
+      ],
+      "entries": [
+        "The draxie breathes pixie dust in a 15-foot cone, with a random effect determined each time they use their Breath Weapon. Each creature in the area must succeed at a DC 17 Will save or be affected. Roll 1d4 to determine the effect. The draxie can't use Breath Weapon again for 1d4 rounds. 1 The target takes the effects of the charm spell. 2 The target loses its last 5 minutes of memory. 3 The target takes the effects of a sleep spell. 4 The target becomes stupefied 2 and slowed 1 from euphoria."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 17,
+        "basic": false,
+        "outcomes": {}
+      },
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 20,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "Cantrips (1st)",
+          "spells": [
+            {
+              "name": "dancing lights",
+              "uses": null
+            },
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "prestidigitation",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "illusory disguise",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "faerie fire",
+              "uses": null
+            },
+            {
+              "name": "invisibility",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 18
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

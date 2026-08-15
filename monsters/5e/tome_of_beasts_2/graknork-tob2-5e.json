@@ -1,0 +1,317 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:graknork",
+  "name": "Graknork",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 182,
+    "path": "monsters/5e/tome_of_beasts_2/graknork.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 14,
+    "xp": 11500,
+    "display": "14"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 4,
+    "con": 5,
+    "int": -3,
+    "wis": 1,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 25,
+    "dex": 18,
+    "con": 21,
+    "int": 5,
+    "wis": 13,
+    "cha": 7
+  },
+  "perception": {
+    "mod": 6,
+    "passive": 16
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 90,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 20,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 201,
+        "note": null,
+        "formula": "13d20+65"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "swim": 30,
+      "walk": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Keen Sight",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The graknork has advantage on Wisdom (Perception) checks that rely on sight."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The graknork makes three attacks: one with its bite and two with its claws. Alternatively, it can use its Eye Ray twice. If both claw attacks hit a Large or smaller creature, the creature must succeed on a DC 18 Strength saving throw or take an additional 9 (2d8) slashing damage and be knocked prone."
+      ],
+      "damage": [
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "slashing"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +12 to hit, reach 15 ft., one target. Hit: 23 (3d10 + 7) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 12,
+        "map": [
+          12
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+7",
+          "average": 23,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +12 to hit, reach 10 ft., one target. Hit: 20 (3d8 + 7) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 12,
+        "map": [
+          12
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+7",
+          "average": 20,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Eye Ray",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Weapon Attack: +9 to hit, range 30/120 ft., one target. Hit: 17 (5d6) cold damage."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d6",
+          "average": 17,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "Freezing Eye",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The graknork's blue eye flares open and releases a beam of icy energy in a line that is 120-feet long and 10 feet wide. Each creature in that line must make a DC 18 Dexterity saving throw. On a failure, a creature takes 35 (10d6) cold damage and is restrained for 1 minute as its limbs freeze. On a success, a creature takes half the damage and isn't restrained. A restrained creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. Alternatively, the restrained creature can be freed if it takes at least 10 fire damage."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "10d6",
+          "average": 35,
+          "type": "cold"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "restrained",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

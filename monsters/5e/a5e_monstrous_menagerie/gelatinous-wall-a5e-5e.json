@@ -1,0 +1,253 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:gelatinous-wall",
+  "name": "Gelatinous Wall",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 351,
+    "path": "monsters/5e/a5e_monstrous_menagerie/gelatinous-wall-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 7,
+    "xp": 2900,
+    "display": "7"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": -4,
+    "con": 4,
+    "int": -5,
+    "wis": -2,
+    "cha": -5
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 2,
+    "con": 18,
+    "int": 1,
+    "wis": 6,
+    "cha": 1
+  },
+  "perception": {
+    "mod": null,
+    "passive": 8
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 6,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 136,
+        "note": null,
+        "formula": "13d12+52"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "blinded",
+        "charmed",
+        "deafened",
+        "fatigue",
+        "frightened",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "swim": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Engulfing Body",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that enters the cubes space is subjected to the saving throw and consequences of its Engulf attack."
+      ]
+    },
+    {
+      "name": "Sunlight Sensitivity",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While in sunlight, the cube has disadvantage on attack rolls."
+      ]
+    },
+    {
+      "name": "Transparent",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While the cube is motionless, creatures unaware of its presence must succeed on a DC 15 Perception check to spot it."
+      ]
+    },
+    {
+      "name": "Ooze Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "An ooze doesnt require air or sleep."
+      ]
+    },
+    {
+      "name": "Pseudopod",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 10 (3d6) acid damage plus 9 (2d6 + 2) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "acid"
+        },
+        {
+          "formula": "2d6+2",
+          "average": 9,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Engulf",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The cube moves up to its Speed. While doing so  it can enter Large or smaller creatures spaces. Whenever the cube enters a creatures space  the creature makes a DC 13 Dexterity saving throw. If the creature is unaware of the cubes presence  it makes its saving throw against Engulf with disadvantage. On a success  the creature may use its reaction  if available  to move up to half its Speed without provoking opportunity attacks. If the creature doesnt move  it is engulfed by the cube."
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "A creature engulfed by the cube takes 10 (3d6) acid damage plus 9 (2d6 + 2) bludgeoning damage, can't breathe, is restrained, and takes 10 (3d6) acid damage plus 9 (2d6 + 2) bludgeoning damage at the start of each of the cubes turns",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "It can be seen but has total cover. It moves with the cube. The cube can hold as many creatures as fit in its space without squeezing."
+      ]
+    },
+    {
+      "name": "An engulfed creature can escape by using an action to make a DC 13 Strength check",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "On a success  the creature moves to a space within 5 feet of the cube. A creature within 5 feet can take the same action to free an engulfed creature  but takes 10 (3d6) acid damage plus 9 (2d6 + 2) bludgeoning damage in the process."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "acid"
+        },
+        {
+          "formula": "2d6+2",
+          "average": 9,
+          "type": "bludgeoning"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

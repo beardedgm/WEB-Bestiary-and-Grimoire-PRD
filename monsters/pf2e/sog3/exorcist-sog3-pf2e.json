@@ -1,0 +1,377 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sog3:exorcist",
+  "name": "Exorcist",
+  "gameSystem": "pf2e",
+  "variant": "sog3",
+  "source": {
+    "code": "sog3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sog3/exorcist.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "ln",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 2,
+    "con": 3,
+    "int": 1,
+    "wis": 4,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Diplomacy",
+      "mod": 14
+    },
+    {
+      "name": "Intimidation",
+      "mod": 16
+    },
+    {
+      "name": "Medicine",
+      "mod": 16
+    },
+    {
+      "name": "Occultism",
+      "mod": 15
+    },
+    {
+      "name": "Religion",
+      "mod": 18
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 135,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 15
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 18
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "spear",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "magical",
+          "reach"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+5",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "torch",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          12,
+          8
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "shove"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+5",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Purifying Flame",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine",
+        "fire",
+        "evocation"
+      ],
+      "entries": [
+        "The exorcist attempts to Strike a creature with their torch, attacking with great precision and causing the torch's fires to flare up. This Strike gains a +2 status bonus to its attack roll and inflicts an additional 2d6 fire damage on a hit instead of just 1d6 fire damage. An undead, spirit, or transmigrate|SoG3|transmigrated creature hit by this attack must also attempt a DC 26 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected by this additional effect, and some of the fire flares back onto the exorcist, inflicting 2d6 fire damage to the exorcist (DC 26 basic Reflex save).",
+          "success": "The creature is unaffected by this additional effect.",
+          "failure": "The purifying flames cause the creature to become clumsy 1 and stupefied 1 until the end of its next turn.",
+          "criticalFailure": "As failure, but clumsy 2 and stupefied 2 for 1 minute."
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Torch Wielder",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The exorcist treats a torch as a light mace that deals an additional 1d6 fire damage on a hit."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "prepared divine Spells",
+      "type": "prepared",
+      "tradition": "divine",
+      "dc": 26,
+      "attackBonus": 18,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "Cantrips (4th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "divine lance",
+              "uses": null
+            },
+            {
+              "name": "produce flame",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            },
+            {
+              "name": "sigil",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "bane",
+              "uses": null
+            },
+            {
+              "name": "command",
+              "uses": null
+            },
+            {
+              "name": "sanctuary",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "gentle repose",
+              "uses": null
+            },
+            {
+              "name": "heal",
+              "uses": null
+            },
+            {
+              "name": "spiritual weapon",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "heal",
+              "uses": null
+            },
+            {
+              "name": "searing light",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "divine wrath",
+              "uses": null
+            },
+            {
+              "name": "talking corpse",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 29
+      }
+    ],
+    "items": [
+      "hide armor",
+      "key (opens all gates except Earth gate)",
+      "torch"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

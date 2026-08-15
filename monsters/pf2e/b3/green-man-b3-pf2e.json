@@ -1,0 +1,480 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:green-man",
+  "name": "Green Man",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/green-man.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 24,
+    "xp": null,
+    "display": "Creature 24"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [
+      "leshy"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "medium",
+      "leshy",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 12,
+    "dex": 9,
+    "con": 11,
+    "int": 7,
+    "wis": 10,
+    "cha": 8
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 42,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "plantsense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Arboreal",
+    "Druidic",
+    "Sylvan; Green Tongue"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 39
+    },
+    {
+      "name": "Athletics",
+      "mod": 42
+    },
+    {
+      "name": "Deception",
+      "mod": 40
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 40
+    },
+    {
+      "name": "Intimidation",
+      "mod": 40
+    },
+    {
+      "name": "Nature",
+      "mod": 48
+    },
+    {
+      "name": "Stealth",
+      "mod": 41
+    },
+    {
+      "name": "Survival",
+      "mod": 44
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 51,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 525,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 43
+      },
+      {
+        "name": "ref",
+        "mod": 39
+      },
+      {
+        "name": "will",
+        "mod": 42
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "axe vulnerability",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "climb": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Axe Vulnerability",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A green man takes 20 additional damage from axes."
+      ]
+    },
+    {
+      "name": "Green Caress",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "incapacitation",
+        "plant",
+        "primal",
+        "transmutation"
+      ],
+      "entries": [
+        "60 feet. Living creatures in the area other than plants slowly transform into non-creature plants. The green man can exclude creatures from this effect, but they must be aware of a creature's presence and location to do so. A non-plant creature in the area must attempt a DC 45 Fortitude save immediately before the start of its turn."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 45,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected, or if it is slowed by green caress, it reduces its slowed value by 2.",
+          "success": "The creature is unaffected, or if it is slowed by green caress, it reduces its slowed value by 1.",
+          "failure": "The creature becomes slowed 1, or if it was already slowed by green caress, increases the slowed value by 1, as their body transforms more and more into a non-creature plant. If the creature ever becomes slowed to the point they have no actions left for their turn, they become an inanimate plant, a condition that can only be reversed by primal phenomenon or similarly powerful magic.",
+          "criticalFailure": "As failure, except the creature becomes slowed 2 (or increases the condition value by 2)."
+        }
+      },
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Root In Place",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The green man lashes out to hold the foe in place. The green man makes a vine Strike against the triggering creature. If the attack hits, the green man disrupts the action. If the creature was Flying when its action was disrupted, it falls."
+      ],
+      "trigger": "A creature within the green man's reach uses a move action or leaves a square during a move action it's using"
+    },
+    {
+      "name": "vine",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 46,
+        "map": [
+          46,
+          41,
+          36
+        ],
+        "traits": [
+          "deadly <3d12>",
+          "versatile <P>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "4d10+27",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "absorb magic",
+        "Improved Grab",
+        "absorb magic, Improved Grab"
+      ]
+    },
+    {
+      "name": "thorn",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 43,
+        "map": [
+          43,
+          38,
+          33
+        ],
+        "traits": [
+          "fatal <d12>",
+          "range increment <120 feet>",
+          "reload <0>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 120,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+27",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "embed",
+        "embed"
+      ]
+    },
+    {
+      "name": "Absorb Magic",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The green man's vines leach away magic and transform it into life essence for the green man. On a successful vine Strike, the green man attempts to counteract one spell active on the target (typically one vexing the green man, or determined randomly if they aren't aware of specific effects), with a counteract level of 10 and a modifier of 1d20+38|+38. If the effect is counteracted, the green man gains 30 temporary Hit Points that last for 10 minutes."
+      ]
+    },
+    {
+      "name": "Embed",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The green man's thorns embed themselves into any creature they damage, taking root into the ground. A target damaged by a thorn has its Speeds halved, and it can't Step, Fly, air walk, or otherwise leave the ground until the thorn is removed. Removing a thorn requires 3 Interact actions, which don't have to be consecutive. If the creature performing the final action doesn't succeed at a DC 45 Medicine check as part of that action, the target takes 10d6 damage upon the thorn's removal."
+      ]
+    },
+    {
+      "name": "Focus Vines",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The green man focuses all their vines against a single vexing foe, making a single vine Strike. On a success, the target takes 5d10 additional damage and is affected by Absorb Magic three times. Even on a failure, the target takes the normal effects of a hit with a vine Strike, but on a critical failure, the vines miss completely."
+      ],
+      "damage": [
+        {
+          "formula": "5d10",
+          "average": null,
+          "type": "additional"
+        }
+      ]
+    },
+    {
+      "name": "Green Grab",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A green man can use their Improved Grab action against a creature of any size."
+      ]
+    },
+    {
+      "name": "Green Rituals",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A green man can perform all their rituals without secondary casters, relying on their own primal ties to the vital essence in spirits of nature. A green man's awaken animal and primal call rituals work on plants instead of their usual range of choices. Most green men also know the ritual to create various types of leshys and possibly even magic allowing the creation of arboreals or more powerful plant creatures."
+      ]
+    },
+    {
+      "name": "Vine Forest",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The green man lashes out with all six vines to attack many opponents. They make up to six vine Strikes, each against a different target; this counts as one attack for their multiple attack penalty, increasing only after all the attacks are made."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 48,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 10,
+          "rankLabel": "Cantrips (10th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "air walk",
+              "uses": null
+            },
+            {
+              "name": "freedom of movement",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "energy aegis",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 10,
+          "rankLabel": "10th",
+          "spells": [
+            {
+              "name": "heal",
+              "uses": 3
+            },
+            {
+              "name": "regenerate",
+              "uses": 3
+            },
+            {
+              "name": "tree stride",
+              "uses": "at will"
+            },
+            {
+              "name": "true seeing",
+              "uses": null
+            },
+            {
+              "name": "primal phenomenon",
+              "uses": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Plant",
+        "skill": "Nature",
+        "dc": 53
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

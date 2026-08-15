@@ -1,0 +1,324 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:gallowdead",
+  "name": "Gallowdead",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/gallowdead.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 4,
+    "con": 5,
+    "int": 2,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 27,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 27
+    },
+    {
+      "name": "Athletics",
+      "mod": 29
+    },
+    {
+      "name": "Intimidation",
+      "mod": 26
+    },
+    {
+      "name": "Stealth",
+      "mod": 27
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 37,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 280,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 28
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 27
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aura of Whispers",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "auditory",
+        "aura",
+        "divine",
+        "enchantment",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "30 feet. A gallowdead is surrounded by an aura of blasphemous whispers. A creature who hears them understands them to be mutterings of its most closely guarded secrets and private failings laid bare. A creature that first enters the area must attempt a DC 34 Will save. Regardless of the result of the saving throw, the creature is temporarily immune to aura of whispers for 1 minute. The frightened condition from this aura can't be reduced while in the aura."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 34,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Chains of the Dead",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The spiked chain of a gallowdead is wrapped around and through their body, imbuing it with foul necromantic powers. The spiked chain can't be disarmed, deals an additional weapon die of damage, and has a greater reach while wielded by the gallowdead."
+      ]
+    },
+    {
+      "name": "Gallow Curse",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "curse",
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "Those who destroy gallowdead are subject to a powerful death curse. When a creature reduces a gallowdead to 0 HP, the creature must attempt a DC 34 Will save. A creature that fails this saving throw is doomed 1 and can't remove the condition until the curse has been lifted."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 34,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "[one-action]spiked chain",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 31,
+        "map": [
+          31,
+          26,
+          21
+        ],
+        "traits": [
+          "disarm",
+          "reach <20 feet>",
+          "trip"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+14",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 29,
+        "map": [
+          29,
+          25,
+          21
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d12+14",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Chain Capture",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The gallowdead attempts an Athletics check to Grapple the target. On a success, the gallowdead can also pull the target adjacent toward them to the distance the gallowdead chooses. Most often, a gallowdead chooses to pull a creature close enough that it's in their reach and out of defensive position, but so the creature still can't reach the gallowdead's body. At the start of the gallowdead's next turn, if the target hasn't Escaped, the target takes the damage of a spiked chain Strike, and the chain releases the creature."
+      ],
+      "trigger": "The gallowdead critically hits a target with their spiked chain"
+    },
+    {
+      "name": "Charge Chain[free-action]",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "necromancy",
+        "negative"
+      ],
+      "entries": [
+        "The gallowdead imbues their chain with necromantic power. The gallowdead chooses to make their next Strike with the chain this turn either deal an additional 4d6 negative damage or have 120-foot reach."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 34
+      }
+    ],
+    "items": [
+      "+2 resilient full plate",
+      "+2 striking spiked chain"
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Aura of Whispers)"
+    ],
+    "unmapped": []
+  }
+}

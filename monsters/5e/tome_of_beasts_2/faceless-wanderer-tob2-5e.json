@@ -1,0 +1,238 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:faceless-wanderer",
+  "name": "Faceless Wanderer",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 139,
+    "path": "monsters/5e/tome_of_beasts_2/faceless-wanderer.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 3,
+    "con": 2,
+    "int": 3,
+    "wis": 1,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 12,
+    "dex": 17,
+    "con": 14,
+    "int": 16,
+    "wis": 12,
+    "cha": 10
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "all",
+    "telepathy 60 ft."
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 58,
+        "note": null,
+        "formula": "9d8+18"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "wis",
+        "mod": 3
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "psychic"
+      ],
+      "conditions": [
+        "blinded",
+        "exhaustion",
+        "poisoned",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 30,
+      "walk": 0
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Memory Loss",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that sees or interacts with a faceless wanderer must make a DC 11 Wisdom saving throw 1 minute after the faceless wanderer leaves. On a failure, the details of the faceless wanderer and the events surrounding its appearance rapidly fade away from the creature's mind, including the presence of the faceless wanderer."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 11,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Regeneration",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The faceless wanderer regains 5 hp at the start of its turn. If a creature hasn't failed the saving throw of the faceless wanderer's Memory Drain within the last 1 minute, this trait doesn't function until a creature fails it. If a faceless wanderer is reduced to 0 hp while it is still capable of regenerating, its body dissipates into vapor and reforms 1d10 days later somewhere in the Void. Otherwise, it is permanently destroyed."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The faceless wanderer makes two attacks, but it can use its Memory Drain only once."
+      ]
+    },
+    {
+      "name": "Claws",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6 + 3) slashing damage plus 7 (2d6) psychic damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+3",
+          "average": 6,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "psychic"
+        }
+      ]
+    },
+    {
+      "name": "Memory Drain",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The faceless wanderer drains memories from an adult creature within 30 feet of it. The target must make a DC 13 Intelligence saving throw. On a failure, the target takes 14 (4d6) psychic damage and its Intelligence score is reduced by 1d4. The target dies if this reduces its Intelligence to 0. A humanoid slain in this way rises 1d4 hours later as a new faceless wanderer. Otherwise, the reduction lasts until the target finishes a short or long rest. On a success, the target takes half the damage and its Intelligence score isn't reduced."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "int",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

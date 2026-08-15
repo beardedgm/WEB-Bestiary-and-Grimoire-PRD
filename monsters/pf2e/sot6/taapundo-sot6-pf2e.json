@@ -1,0 +1,269 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot6:taapundo",
+  "name": "Ta'apundo",
+  "gameSystem": "pf2e",
+  "variant": "sot6",
+  "source": {
+    "code": "sot6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot6/taapundo.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 19,
+    "xp": null,
+    "display": "Creature 19"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "fey",
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "cn",
+      "huge",
+      "fey",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 10,
+    "con": 5,
+    "int": 0,
+    "wis": 10,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 35,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "greensight",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 35
+    },
+    {
+      "name": "Nature",
+      "mod": 33
+    },
+    {
+      "name": "Stealth",
+      "mod": 35
+    },
+    {
+      "name": "Survival",
+      "mod": 37
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 45,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 440,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 30
+      },
+      {
+        "name": "ref",
+        "mod": 35
+      },
+      {
+        "name": "will",
+        "mod": 33
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "wood",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "cold iron",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": [
+      "woodland stride"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Wood Resistance",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "abjuration",
+        "primal"
+      ],
+      "entries": [
+        "A ta'apundo has resistance 20 against wooden objects and unarmed attacks from creatures made mostly of wood (such as arboreals)."
+      ]
+    },
+    {
+      "name": "Lignification",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "primal",
+        "transmutation"
+      ],
+      "entries": [
+        "The ta'apundo emits a jolt of magic into the object, transforming it into wood with an unlimited duration. A thrown weapon, ammunition, or other unattended item automatically transforms; the wielder of an attended object can resist this effect with a successful DC 41 Fortitude save. Dispel magic can end the effect. While a weapon is wood, the ta'apundo's resistance applies. Once transformed, a formerly metal item's Hardness and HP change to those of wood. This typically inflicts a –2 circumstance penalty to attack rolls made with metal weapons and a –2 circumstance penalty to AC for those wearing metal armor; the GM might determine a different penalty for a specific weapon or armor."
+      ],
+      "trigger": "a non–cold iron metal object damages the ta'apundo",
+      "save": {
+        "defense": "fortitude",
+        "dc": 41,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "branch",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          20,
+          16
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+12",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Branch Whip",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The ta'apundo makes four branch Strikes against different targets, increasing its reach to 20 feet for these Strikes. These attacks count toward its multiple attack penalty, but this penalty doesn't increase until after all four attacks."
+      ]
+    },
+    {
+      "name": "Woodland Stride",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ta'apundo ignores difficult and terrain from foliage."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 44
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,387 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:owb-prophet",
+  "name": "Owb Prophet",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/owb-prophet.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [],
+    "subtypes": [
+      "shadow"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ne",
+      "large",
+      "shadow"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 6,
+    "con": 8,
+    "int": 4,
+    "wis": 5,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 24,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Caligni",
+    "Common",
+    "Undercommon (Can'T Speak Any Languages); Telepathy"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 25
+    },
+    {
+      "name": "Deception",
+      "mod": 26
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 24
+    },
+    {
+      "name": "Occultism",
+      "mod": 23
+    },
+    {
+      "name": "Religion",
+      "mod": 25
+    },
+    {
+      "name": "Stealth",
+      "mod": 25
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 34,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 225,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 25
+      },
+      {
+        "name": "ref",
+        "mod": 23
+      },
+      {
+        "name": "will",
+        "mod": 24
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "mental",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 5,
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          23,
+          19
+        ],
+        "traits": [
+          "agile",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+11",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "burning cold",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 25,
+        "map": [
+          25,
+          20,
+          15
+        ],
+        "traits": [
+          "magical",
+          "range <120 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 120,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": null,
+          "type": "cold"
+        },
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "persistent cold"
+        }
+      ],
+      "entries": [
+        "clutching cold",
+        "clutching cold"
+      ]
+    },
+    {
+      "name": "Burning Cold Fusillade",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The owb prophet makes three burning cold Strikes."
+      ]
+    },
+    {
+      "name": "Clutching Cold",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature hit by the prophet's burning cold Strike becomes immobilized in a cluster of binding ice crystals (Escape DC 31)."
+      ]
+    },
+    {
+      "name": "Curse of Darkness",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "curse",
+        "darkness",
+        "evocation",
+        "occult"
+      ],
+      "entries": [
+        "The owb inflicts a curse on one creature taking persistent cold damage from their burning cold Strike, stealing the victim's vibrancy. The creature must attempt a DC 32 Fortitude save. On a failure, the creature gains light blindness and its coloration turns to washed out shades of gray, along with all equipment it carries, wields, or wears. These effects have an unlimited duration. Regardless of the result of its save, the creature is temporarily immune for 1 minute. If the owb uses this ability on a caligni, the curse can't be removed short of wish or similar powerful magic."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 32,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Shadow's Swiftness",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "An owb prophet can Cast shadow walk as a 3-action activity instead of 1 minute. If they do so, they target only themself."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 33,
+      "attackBonus": 25,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 7,
+          "rankLabel": "Cantrips (7th)",
+          "spells": [
+            {
+              "name": "chill touch",
+              "uses": null
+            },
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "mind reading",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "shadow walk",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": "at will"
+            },
+            {
+              "name": "dominate",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "plane shift",
+              "uses": 3
+            },
+            {
+              "name": "shadow blast",
+              "uses": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

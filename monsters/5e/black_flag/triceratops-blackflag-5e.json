@@ -1,0 +1,200 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:triceratops",
+  "name": "Triceratops",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/triceratops_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 5,
+    "xp": 1800,
+    "display": "5"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": -1,
+    "con": 3,
+    "int": -4,
+    "wis": 0,
+    "cha": -3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "-",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 126,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Hardy",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Any critical hit against the dinosaur becomes a normal hit."
+      ]
+    },
+    {
+      "name": "Trampling Charge",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the triceratops moves at least 20 feet straight toward a creature and then hits it with a Gore attack on the same turn, that target must succeed on a DC 14 STR save or be knocked prone. If the target is prone, the triceratops can make one Stomp attack against it as a bonus action."
+      ],
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The triceratops makes two Gore attacks."
+      ]
+    },
+    {
+      "name": "Gore",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +9 to hit, reach 5 ft., one target. _Hit:_ 19 (3d8+6) piercing damage."
+      ],
+      "damage": [
+        {
+          "formula": "3d8+6",
+          "average": 19,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Stomp",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +9 to hit, reach 5 ft., one prone creature. _Hit:_ 17 (2d10+6) bludgeoning damage."
+      ],
+      "damage": [
+        {
+          "formula": "2d10+6",
+          "average": 17,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Warning Bugle",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The triceratops emits a piercing call in a 30-foot cone, signaling its impending attack. Each creature in the area must succeed on a DC 14 WIS save or be frightened until the end of its next turn. If the triceratops uses this bonus action before moving the requisite 20 feet for Trampling Charge, the target of its charge has disadvantage on this save, and the triceratops can make a Stomp attack against the prone target without needing to use a bonus action, provided the target fails the STR save from the charge."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

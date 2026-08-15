@@ -1,0 +1,249 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ooa2:trapjaw-tangle",
+  "name": "Trapjaw Tangle",
+  "gameSystem": "pf2e",
+  "variant": "ooa2",
+  "source": {
+    "code": "ooa2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ooa2/trapjaw-tangle.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "construct",
+      "swarm"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "large",
+      "construct",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": -1,
+    "dex": 5,
+    "con": 4,
+    "int": -4,
+    "wis": 2,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 11,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 12
+    },
+    {
+      "name": "Athletics",
+      "mod": 6
+    },
+    {
+      "name": "Stealth",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 22,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 58,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 11
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 9
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "mental",
+        "precision"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy",
+        "nonlethal attacks",
+        "poisoned",
+        "swarm mind"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 4,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 8,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 8,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 4,
+        "note": null
+      },
+      {
+        "name": "electricity",
+        "amount": 8,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 4,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Cling",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The swarm takes 1d6 damage as individual traps cling to the creature and continue chewing, dealing 2d10 persistent slashing damage. High winds or electricity damage reduces the DC of the flat check to end this persistent damage by 5. Any area damage dealt to the creature destroys these clinging trapjaws."
+      ],
+      "trigger": "A creature leaves the trapjaw tangle's space"
+    },
+    {
+      "name": "Snapping Jaws",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Each enemy in the swarm's space takes 2d10 slashing damage (DC 22 basic Reflex save). Creatures that fail this save become sickened 1 from the numerous painful wounds caused by the swarm."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 22,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10",
+          "average": null,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Trip and Tangle",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The trapjaw tangle attempts an Athletics check with a +10 modifier against the creature's Fortitude DC. On a success, the creature is flat-footed until the start of the trapjaw tangle's next turn. On a critical success, the creature also falls prone."
+      ],
+      "requirements": "A creature in the trapjaw tangle's space took damage from the swarm during this round"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 25
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:wow1:arboreal-sapstriker",
+  "name": "Arboreal Sapstriker",
+  "gameSystem": "pf2e",
+  "variant": "wow1",
+  "source": {
+    "code": "wow1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/wow1/arboreal-sapstriker.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "large",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 3,
+    "con": 5,
+    "int": 2,
+    "wis": 4,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": null,
+      "unit": null,
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Arboreal",
+    "Common",
+    "Fey"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 13
+    },
+    {
+      "name": "Nature",
+      "mod": 11
+    },
+    {
+      "name": "Stealth",
+      "mod": 11
+    },
+    {
+      "name": "Survival",
+      "mod": 15
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 115,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 17
+      },
+      {
+        "name": "ref",
+        "mod": 11
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "axe vulnerability",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Axe Vulnerability",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "An arboreal sapstriker takes 5 additional damage from axes."
+      ]
+    },
+    {
+      "name": "Primal Sink",
+      "category": "free",
+      "placement": "mid",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "The sapstriker gains a +1 status bonus to attack rolls, saving throws, skill checks, and sap saving throw DC for 1d4 rounds."
+      ],
+      "trigger": "An arboreal sapstriker succeeds or critically succeeds at a saving throw against a primal effect"
+    },
+    {
+      "name": "branch",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "sap"
+      ]
+    },
+    {
+      "name": "sap",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          13,
+          9
+        ],
+        "traits": [
+          "agile",
+          "range increment <30 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "sap"
+      ]
+    },
+    {
+      "name": "Amber Tomb",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The arboreal sapstriker attempts to Disarm the triggering foe's weapon, using its Fortitude modifier in place of its Athletics modifier. If it critically succeeds, the weapon is lodged into the sapstriker rather than falling to the ground. A creature can retrieve a lodged weapon by Disarming the sapstriker as if it were wielding the weapon."
+      ],
+      "trigger": "A foe critically succeeds at a Strike against the arboreal sapstriker with a weapon that deals piercing or slashing damage, or a foe deals damage to an arboreal sapstriker with an axe"
+    },
+    {
+      "name": "Sap",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that takes damage from an arboreal sapstriker's branch or sap Strike must succeed at a DC 23 Reflex save or take 1d8 persistent acid damage. While taking the persistent damage, a creature takes a –10-foot status penalty to its Speeds."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Plant",
+        "skill": "Nature",
+        "dc": 22
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

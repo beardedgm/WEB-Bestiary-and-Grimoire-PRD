@@ -1,0 +1,361 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:av3:dulac",
+  "name": "Dulac",
+  "gameSystem": "pf2e",
+  "variant": "av3",
+  "source": {
+    "code": "av3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/av3/dulac.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "caligni"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "n",
+      "medium",
+      "caligni",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 3,
+    "con": 0,
+    "int": 1,
+    "wis": 3,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 18,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Caligni",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 18
+    },
+    {
+      "name": "Athletics",
+      "mod": 19
+    },
+    {
+      "name": "Intimidation",
+      "mod": 18
+    },
+    {
+      "name": "Occultism",
+      "mod": 16
+    },
+    {
+      "name": "Religion",
+      "mod": 18
+    },
+    {
+      "name": "Stealth",
+      "mod": 18
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 155,
+        "formula": null,
+        "note": "death shadows"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 15
+      },
+      {
+        "name": "ref",
+        "mod": 18
+      },
+      {
+        "name": "will",
+        "mod": 20
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Death Shadows",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "cold",
+        "darkness"
+      ],
+      "entries": [
+        "When Dulac dies, her body is destroyed in a burst of chilling shadows. All creatures in a 20-foot burst take 8d8 cold damage (DC 28 basic Reflex save). Dulac's gear and treasure are unaffected by the shadows and are left in a pile where she died."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 28,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d8",
+          "average": null,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "Opportune Step",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Dulac Steps."
+      ],
+      "trigger": "A dazzled or blinded creature, or a creature with light blindness, ends its move adjacent to Dulac"
+    },
+    {
+      "name": "Warding Shove",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The ally gains a +2 circumstance bonus to AC against the triggering attack, and the ally can Step after the attack."
+      ],
+      "trigger": "An ally within Dulac's reach is targeted with a ranged or melee attack by an attacker she can see"
+    },
+    {
+      "name": "war flail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          16,
+          11
+        ],
+        "traits": [
+          "disarm",
+          "sweep",
+          "trip"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+8",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Sneak",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Attack Dulac deals an additional 1d6 precision damage to flat-footed creatures."
+      ],
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 28,
+      "attackBonus": 20,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Cantrips (5th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            },
+            {
+              "name": "telekinetic projectile",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": "at will"
+            },
+            {
+              "name": "ghoulish craving",
+              "uses": null
+            },
+            {
+              "name": "obscuring mist",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "haste",
+              "uses": null
+            },
+            {
+              "name": "paralyze",
+              "uses": null
+            },
+            {
+              "name": "vampiric touch",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": null
+            },
+            {
+              "name": "read omens",
+              "uses": null
+            },
+            {
+              "name": "suggestion",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 36
+      }
+    ],
+    "items": [
+      "chain shirt",
+      "+1 striking war flail"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

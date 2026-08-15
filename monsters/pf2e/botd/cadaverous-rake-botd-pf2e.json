@@ -1,0 +1,262 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:cadaverous-rake",
+  "name": "Cadaverous Rake",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/cadaverous-rake.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 6,
+    "con": 4,
+    "int": 3,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 18
+    },
+    {
+      "name": "Athletics",
+      "mod": 19
+    },
+    {
+      "name": "Deception",
+      "mod": 16
+    },
+    {
+      "name": "Intimidation",
+      "mod": 18
+    },
+    {
+      "name": "Thievery",
+      "mod": 16
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": "9 with Parry Dance);"
+    },
+    "hp": [
+      {
+        "value": 125,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 16
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 12
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Repartee Riposte",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "emotion",
+        "mental"
+      ],
+      "entries": [
+        "The cadaverous rake attempts a Strike against the creature, firing back a witty retort. If this Strike succeeds, the creature is frightened 1, or frightened 2 on a critical success."
+      ],
+      "trigger": "A creature within the cadaverous rake's reach critically fails at a melee Strike against the rake"
+    },
+    {
+      "name": "rapier",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          15,
+          10
+        ],
+        "traits": [
+          "deadly <d8>",
+          "disarm",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+8",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d8",
+          "average": null,
+          "type": "precision"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Parry Dance",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The cadaverous rake makes a melee Strike, then Steps, positioning their blade defensively. They gain a +2 circumstance bonus to AC until the end of their next turn."
+      ]
+    },
+    {
+      "name": "Shadow Rapier",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "necromancy",
+        "negative",
+        "magical"
+      ],
+      "entries": [
+        "The rake shrouds their sword in negative energy, changing the damage type to negative. This shadow-shrouded rapier has a reach of 30 feet. The effect lasts until the end of the rake's turn."
+      ]
+    },
+    {
+      "name": "The Upper Hand",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The cadaverous rake Disarms the creature they hit, as a critical success on a Disarm attempt. The weapon falls to the ground in a space adjacent to the creature (rake's choice)."
+      ],
+      "requirements": "The cadaverous rake's last action was a melee Strike that critically succeeded"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 26
+      }
+    ],
+    "items": [
+      "+1 striking rapier"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

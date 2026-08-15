@@ -1,0 +1,454 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sf2:vincuvicar",
+  "name": "Vincuvicar",
+  "gameSystem": "pf2e",
+  "variant": "sf2",
+  "source": {
+    "code": "sf2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sf2/vincuvicar.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fiend",
+      "velstrac"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "le",
+      "medium",
+      "fiend",
+      "velstrac"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 6,
+    "con": 6,
+    "int": 5,
+    "wis": 6,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 32,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "painsight",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "true seeing",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Infernal",
+    "Shadowtongue; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 31
+    },
+    {
+      "name": "Athletics",
+      "mod": 35
+    },
+    {
+      "name": "Crafting",
+      "mod": 29
+    },
+    {
+      "name": "Deception",
+      "mod": 32
+    },
+    {
+      "name": "Intimidation",
+      "mod": 34
+    },
+    {
+      "name": "Medicine",
+      "mod": 32
+    },
+    {
+      "name": "Religion",
+      "mod": 30
+    },
+    {
+      "name": "Stealth",
+      "mod": 31
+    },
+    {
+      "name": "Survival",
+      "mod": 30
+    },
+    {
+      "name": "Torture Lore",
+      "mod": 31
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 42,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 333,
+        "formula": null,
+        "note": "regeneration 25 (deactivated by good or silver)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 32
+      },
+      {
+        "name": "ref",
+        "mod": 28
+      },
+      {
+        "name": "will",
+        "mod": 30
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "cold"
+      ],
+      "conditions": [],
+      "other": [
+        "fear"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "silver",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Alone and Forgotten",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "enchantment",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "30 feet. When a creature ends its turn in the aura, it feels imprisoned and must succeed at a DC 37 Will save or become enfeebled 1 and slowed 1 for 1 round."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 37,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Institutionalized",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A vincuvicar forms a bond with an institution that holds prisoners. This takes 1 day and ends any previous bond the vincuvicar had. While within the area of the prison, the vincuvicar gains a +2 status bonus to skill checks and Perception checks."
+      ]
+    },
+    {
+      "name": "war flail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "disarm",
+          "sweep",
+          "trip"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d10+17",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "animated manacles",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          27,
+          22
+        ],
+        "traits": [
+          "magic",
+          "range increment <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+8",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Focus Gaze",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "divine",
+        "enchantment",
+        "fear",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "The vincuvicar stares at a creature they can see within 30 feet. The creature must attempt a Will save against the alone and forgotten aura. If the creature was already enfeebled and slowed, on a failed save, its hopelessness causes it to be enfeebled 2 and unable to take the Escape action as long as they remain enfeebled. After attempting this save, the creature is then temporarily immune until the start of the vincuvicar's next turn."
+      ]
+    },
+    {
+      "name": "Shackle",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The creature must attempt a DC 40 Reflex save."
+      ],
+      "trigger": "A creature within 60 feet is damaged by the vincuvicar's animated manacles Strike",
+      "save": {
+        "defense": "reflex",
+        "dc": 40,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 40,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 9,
+          "rankLabel": "Constant (9th)",
+          "spells": [
+            {
+              "name": "discern lies",
+              "uses": null
+            },
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "Cantrips (9th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "sigil",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "command",
+              "uses": null
+            },
+            {
+              "name": "mind blank",
+              "uses": null
+            },
+            {
+              "name": "mind probe",
+              "uses": null
+            },
+            {
+              "name": "teleport",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": "at will"
+            },
+            {
+              "name": "divine wrath",
+              "uses": null
+            },
+            {
+              "name": "prying eye",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 40
+      }
+    ],
+    "items": [
+      "+2 greater striking war flail",
+      "+2 greater resilient full plate",
+      "6 manacles"
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Shackle)"
+    ],
+    "unmapped": []
+  }
+}

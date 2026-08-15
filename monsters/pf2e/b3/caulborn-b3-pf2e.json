@@ -1,0 +1,353 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:caulborn",
+  "name": "Caulborn",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/caulborn.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "astral"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "n",
+      "medium",
+      "astral"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 4,
+    "con": 3,
+    "int": 6,
+    "wis": 5,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 18,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "no vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "thoughtsense",
+      "range": 120,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Aklo",
+    "Celestial",
+    "Common",
+    "Daemonic",
+    "Draconic",
+    "Infernal",
+    "Protean",
+    "Requian",
+    "Utopian; Telepathy"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 17
+    },
+    {
+      "name": "Deception",
+      "mod": 15
+    },
+    {
+      "name": "Intimidation",
+      "mod": 15
+    },
+    {
+      "name": "Nature",
+      "mod": 16
+    },
+    {
+      "name": "Occultism",
+      "mod": 19
+    },
+    {
+      "name": "Religion",
+      "mod": 14
+    },
+    {
+      "name": "Society",
+      "mod": 17
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 105,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 12
+      },
+      {
+        "name": "ref",
+        "mod": 15
+      },
+      {
+        "name": "will",
+        "mod": 18
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "visual"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          13,
+          9
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+5",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "finesse",
+          "mental"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Consume Thoughts",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "mental"
+      ],
+      "entries": [
+        "The caulborn steals some of the psychic energy from the creature it hit. The target must attempt a DC 25 Will save; regardless of the outcome, the creature is temporarily immune to Consume Thoughts for 1 minute."
+      ],
+      "requirements": "The caulborn's last action was a successful hand Strike",
+      "save": {
+        "defense": "will",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {
+          "success": "The target is unaffected.",
+          "failure": "The target becomes stupefied 2 for 1 minute, and the caulborn regains 1d12 Hit Points.",
+          "criticalFailure": "As failure, but the target is stupefied 3 for 1 minute and the caulborn regains 2d12 Hit Points. If the target was already stupefied when the caulborn used this ability, the target is also confused for 1 round."
+        }
+      }
+    },
+    {
+      "name": "Cooperative Scrying",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divination",
+        "occult",
+        "scrying"
+      ],
+      "entries": [
+        "Three or more caulborn adjacent to each other can collectively cast scrying once per day (DC 25), with no limit to the duration so long as at least three caulborn remain adjacent and use no actions other than to Sustain the Spell. The daily limit applies to all caulborn who participated, meaning none of them can participate in another scrying that day."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 25,
+      "attackBonus": 17,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "Cantrips (4th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "hypnotic pattern",
+              "uses": null
+            },
+            {
+              "name": "mind reading",
+              "uses": 3
+            },
+            {
+              "name": "paralyze",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "charm",
+              "uses": null
+            },
+            {
+              "name": "vampiric touch",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "plane shift",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Astral",
+        "skill": "Occultism",
+        "dc": 25
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

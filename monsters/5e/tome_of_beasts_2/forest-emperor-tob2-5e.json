@@ -1,0 +1,315 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:forest-emperor",
+  "name": "Forest Emperor",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 155,
+    "path": "monsters/5e/tome_of_beasts_2/forest-emperor.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 15,
+    "xp": 13000,
+    "display": "15"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 1,
+    "con": 5,
+    "int": 1,
+    "wis": 5,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 23,
+    "dex": 12,
+    "con": 21,
+    "int": 12,
+    "wis": 20,
+    "cha": 8
+  },
+  "perception": {
+    "mod": 10,
+    "passive": 20
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Giant"
+  ],
+  "skills": [
+    {
+      "name": "Nature",
+      "mod": 6
+    },
+    {
+      "name": "Perception",
+      "mod": 10
+    },
+    {
+      "name": "Stealth",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 161,
+        "note": null,
+        "formula": "14d12+70"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 10
+      },
+      {
+        "name": "wis",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "cold; bludgeoning from nonmagical attacks"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "climb": 30,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Forest Camouflage",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The forest emperor has advantage on Dexterity (Stealth) checks made to hide in forest terrain."
+      ]
+    },
+    {
+      "name": "Keen Smell",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The forest emperor has advantage on Wisdom (Perception) checks that rely on smell."
+      ]
+    },
+    {
+      "name": "Rattle",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The forest emperor constantly rattles its tail when in combat. Each creature that starts its turn within 60 feet of the forest emperor and that can hear it must succeed on a DC 18 Wisdom saving throw or become frightened until the start of its next turn. A creature that succeeds on two saving throws is unaffected by the forest emperor's rattle for the next 24 hours."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The forest emperor makes two claw attacks and one tail attack. If both claws hit the same target, the target must succeed on a DC 18 Constitution saving throw or its hp maximum is reduced by 7 (2d6) and the forest emperor regains hp equal to this amount. This reduction lasts until the target finishes a long rest. The target dies if this effect reduces its hp maximum to 0."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Acidic Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +11 to hit, reach 5 ft., one target. Hit: 16 (3d6 + 6) slashing damage plus 7 (2d6) acid damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 11,
+        "map": [
+          11
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+6",
+          "average": 16,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "Tail",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +11 to hit, reach 15 ft., one target. Hit: 17 (2d10 + 6) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 11,
+        "map": [
+          11
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+6",
+          "average": 17,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Toxic Nectar Spray",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The forest emperor sprays a 60-foot cone of acid from its flower-ringed eye pits. Creatures in the path of this cone must make a DC 18 Dexterity saving throw, taking 42 (12d6) acid damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "12d6",
+          "average": 42,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 60,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

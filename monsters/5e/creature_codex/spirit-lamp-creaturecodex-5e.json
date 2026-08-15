@@ -1,0 +1,296 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:spirit-lamp",
+  "name": "Spirit Lamp",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 349,
+    "path": "monsters/5e/creature_codex/spirit-lamp.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 7,
+    "xp": 2900,
+    "display": "7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 4,
+    "con": 3,
+    "int": 1,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": {
+    "str": 12,
+    "dex": 19,
+    "con": 16,
+    "int": 13,
+    "wis": 14,
+    "cha": 19
+  },
+  "perception": {
+    "mod": 5,
+    "passive": 15
+  },
+  "senses": [],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 82,
+        "note": null,
+        "formula": "11d8+33"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 7
+      },
+      {
+        "name": "con",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "necrotic",
+        "poison",
+        "psychic"
+      ],
+      "conditions": [
+        "charmed",
+        "frightened",
+        "poisoned",
+        "unconscious"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Jumpy",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The spirit lamp can't be surprised and can use a bonus action to take the Disengage action."
+      ]
+    },
+    {
+      "name": "Lantern's Light",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As a bonus action, the spirit lamp can open or close its lantern. When open, the lantern sheds bright light in a 30-foot radius and dim light for an additional 30 feet. The spirit lamp can only see objects within the lantern's light and is blind while the lantern is closed. The lantern's light pierces magical and nonmagical darkness and can't be dispelled by magical darkness. If a creature dies in the lantern's light, its spirit is trapped in the lantern."
+      ],
+      "area": {
+        "shape": "sphere",
+        "size": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Lantern Spirits",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Spirits of creatures that died within the lantern's light haunt it. While the lantern is open, these spirits surround the spirit lamp, slowing and attacking all creatures within the lantern's light. A creature that starts its turn within 30 feet of the spirit lamp has its speed halved and must make a DC 15 Wisdom saving throw, taking 10 (3d6) necrotic damage on a failed save, or half as much damage on a successful one. If the spirit lamp dies and the lantern is open, the lantern's spirits continue to harm creatures within 30 feet of it until the lantern is destroyed or closed."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Spirit Lantern",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The spirit lamp's lantern is immune to damage and can't be the target of spells or effects as long as the spirit lamp lives. When the spirit lamp dies, the lantern floats gently to the ground and opens, if it was closed. The lantern has AC 17, 50 hp, and is immune to piercing, poison, and psychic damage. A creature that touches the lantern must succeed on a DC 15 Charisma saving throw or be cursed. A cursed creature is frightened of darkness, can't see anything outside of the lantern's light, and is unable to drop the lantern. The cursed creature will risk its own life to protect the lantern. A creature can repeat the saving throw each day at dawn, lifting the curse and ending the effects on itself on a success. If this occurs, the lantern disintegrates. After three failed saving throws, remove curse or similar magic is required to end the curse.",
+        "If the creature remains cursed after 30 days, it is irreversibly changed by the curse, and it becomes the lantern's new spirit lamp. Voluntarily opening the lantern counts as a failed saving throw. If the lantern is destroyed, all captured spirits are put to rest and the cursed bearer, if it has not yet changed into a spirit lamp, is freed of the curse."
+      ],
+      "save": {
+        "defense": "cha",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The spirit lamp makes three attacks."
+      ]
+    },
+    {
+      "name": "Spirit Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 7 (1d6 + 4) necrotic damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": 7,
+          "type": "necrotic"
+        }
+      ]
+    },
+    {
+      "name": "Lantern Beam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Spell Attack: +7 to hit, range 60 ft., one target. Hit: 11 (2d10) fire damage."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "spell",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10",
+          "average": 11,
+          "type": "fire"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

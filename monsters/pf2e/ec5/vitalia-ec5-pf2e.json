@@ -1,0 +1,352 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec5:vitalia",
+  "name": "Vitalia",
+  "gameSystem": "pf2e",
+  "variant": "ec5",
+  "source": {
+    "code": "ec5",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec5/vitalia.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [
+      "aquatic",
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "large",
+      "aberration",
+      "aquatic",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 5,
+    "con": 9,
+    "int": -5,
+    "wis": 0,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "bloodsense",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "precise"
+    },
+    {
+      "name": "no vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 33
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 39,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 425,
+        "formula": null,
+        "note": "fast healing 20"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 35
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 24
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "mental"
+      ],
+      "conditions": [],
+      "other": [
+        "sleep"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "piercing",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Blood Eruption",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The vitalia sprays blood at the triggering creature. The creature must succeed at a DC 39 Reflex save or become dazzled for 1 round (or blinded for 1 round on a critical failure)."
+      ],
+      "trigger": "A creature lands a critical hit with a melee Strike against the vitalia",
+      "save": {
+        "defense": "reflex",
+        "dc": 39,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "vein",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          28,
+          23
+        ],
+        "traits": [
+          "magical",
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+15",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "blood squirt",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 33,
+        "map": [
+          33,
+          28,
+          23
+        ],
+        "traits": [
+          "acid",
+          "magical",
+          "range increment <40 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 40,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "3d10",
+          "average": null,
+          "type": "acid"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Constrict",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "4d8+10 bludgeoning, DC 37"
+      ]
+    },
+    {
+      "name": "Forced Transfusion",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The vitalia inserts some of its veins into the grabbed creature and pumps violently, rapidly exchanging the victim's blood with its own. Any diseases or poisons affecting the vitalia can be transmitted to the target creature, which must make a saving throw as though it had just been targeted with the original affliction. The inverse is true as well; the vitalia must successfully save against any diseases or poisons affecting the target or contract the affliction."
+      ],
+      "requirements": "The vitalia is grabbing a creature"
+    },
+    {
+      "name": "Sanguine Rain",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "The vitalia pumps copious amounts of blood into the air, creating a cascading rain of vital fluids in a 15-foot emanation. All creatures in the area are concealed from one another. A creature that benefits from consuming blood (such as bloodseekers or vampires) gains fast healing 10 while in the area. While in the area, a creature taking persistent bleed damage cannot end that condition, even if it spends actions to attempt a flat check to do so. The rain lasts for 1 minute."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      },
+      "area": {
+        "shape": "emanation",
+        "size": 15,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 36,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "status",
+              "uses": "at will"
+            },
+            {
+              "name": "vampiric touch",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "vampiric exsanguination",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 43
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

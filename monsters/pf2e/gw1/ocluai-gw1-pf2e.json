@@ -1,0 +1,252 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:gw1:ocluai",
+  "name": "Ocluai",
+  "gameSystem": "pf2e",
+  "variant": "gw1",
+  "source": {
+    "code": "gw1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/gw1/ocluai.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "medium",
+      "fey"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 4,
+    "con": 0,
+    "int": 2,
+    "wis": 4,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 10
+    },
+    {
+      "name": "Deception",
+      "mod": 8
+    },
+    {
+      "name": "Intimidation",
+      "mod": 10
+    },
+    {
+      "name": "Nature",
+      "mod": 8
+    },
+    {
+      "name": "Stealth",
+      "mod": 10
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 55,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 6
+      },
+      {
+        "name": "ref",
+        "mod": 12
+      },
+      {
+        "name": "will",
+        "mod": 12
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold iron",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Lost in the Dark",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "darkness",
+        "enchantment",
+        "mental"
+      ],
+      "entries": [
+        "60 feet. An ocluai's presence distorts nearby creatures' senses of direction. Nonmagical bright light within the aura becomes dim light, and nonmagical dim light with the aura becomes darkness. Any non-gorga within range of the ocluai's aura that attempts to move must declare where they intend to move. Before moving, however, the creature must attempt a secret DC 20 Will saving throw. An ocluai can exempt specific creatures from this effect. Magical light anywhere within the ocluai's aura increases the light level as normal and reduces the Will save DC by 5."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "talon",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          5,
+          0
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d4+3",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Corner of the Eye",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "illusion",
+        "mental",
+        "primal",
+        "visual"
+      ],
+      "entries": [
+        "The ocluai creates a wave of disturbing illusory images in a 10-foot burst centered on a point within 60 feet. Any creature caught in this burst takes 3d6 mental damage (DC 20 basic Will save) as their peripheral vision churns with terrifying visions of worm-eaten corpses and monsters ready to pounce."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 20,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 20
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Lost in the Dark)"
+    ],
+    "unmapped": []
+  }
+}

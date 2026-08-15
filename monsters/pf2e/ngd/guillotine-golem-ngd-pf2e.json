@@ -1,0 +1,352 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ngd:guillotine-golem",
+  "name": "Guillotine Golem",
+  "gameSystem": "pf2e",
+  "variant": "ngd",
+  "source": {
+    "code": "ngd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ngd/guillotine-golem.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "golem",
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "medium",
+      "construct",
+      "golem",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 0,
+    "con": 6,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 28,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 38
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 42,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 270,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 33
+      },
+      {
+        "name": "ref",
+        "mod": 28
+      },
+      {
+        "name": "will",
+        "mod": 29
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "fire",
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "magic (see below)",
+        "necromancy",
+        "nonlethal attacks"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 20,
+        "note": "except adamantine"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Golem",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Antimagic harmed by acid (9d10, 3d8 from areas and persistent damage); healed by electricity (area 3d8 HP); slowed by fire"
+      ]
+    },
+    {
+      "name": "Vulnerable to Neutralize Poison",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Casting neutralize poison on the golem deactivates its Breath Weapon for 1 minute."
+      ]
+    },
+    {
+      "name": "Vulnerable to Rust",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Magical rusting effects, like a rust monster's antennae, affect the guillotine golem normally."
+      ]
+    },
+    {
+      "name": "blade",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 36,
+        "map": [
+          36,
+          31,
+          26
+        ],
+        "traits": [
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+15",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "decapitation"
+      ]
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "necromancy",
+        "occult",
+        "poison"
+      ],
+      "entries": [
+        "The guillotine golem emits poisonous gas in a 10-foot radius centered on the corner of one of the golem's squares. The gas persists for 1 round. Any creature in the area (or that later enters the area) is exposed to the golem's poison. The golem can't use its Breath Weapon again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "radius",
+        "size": 10,
+        "unit": "ft"
+      },
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Decapitation",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the guillotine golem critically hits a creature with its blade Strike, the creature must succeed at a DC 40 Fortitude save or be decapitated, dying instantly unless it can survive without a head."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 40,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Guillotine Golem Poison",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": [
+        "Any drained value from this poison is reduced by 1 every hour. **Saving Throw** DC 40 Fortitude"
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 40,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Maximum Duration",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "4 rounds"
+      ]
+    },
+    {
+      "name": "Stage 1",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "3d6 poison and drained 1 (1 round)"
+      ]
+    },
+    {
+      "name": "Stage 2",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "5d6 poison and drained 2 (1 round)"
+      ]
+    },
+    {
+      "name": "Stage 3",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "10d6 poison and drained 3 (1 round)"
+      ]
+    },
+    {
+      "name": "Inexorable March",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The guillotine golem Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can attempt to bar the way by succeeding at a"
+      ]
+    },
+    {
+      "name": "{@dc 44}",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Fortitude save. On a critical success, the resisting creature takes no damage; otherwise, it is damaged as if hit by the golem's blade Strike."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 43
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

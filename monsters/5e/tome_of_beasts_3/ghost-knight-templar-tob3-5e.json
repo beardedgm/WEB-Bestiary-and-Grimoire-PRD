@@ -1,0 +1,261 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob3:ghost-knight-templar",
+  "name": "Ghost Knight Templar",
+  "gameSystem": "dnd5e",
+  "variant": "tob3",
+  "source": {
+    "code": "tome_of_beasts_3",
+    "name": "Tome of Beasts 3",
+    "page": 196,
+    "path": "monsters/5e/tome_of_beasts_3/ghost-knight-templar.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 10,
+    "xp": 5900,
+    "display": "10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "lawful evil",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 4,
+    "con": 3,
+    "int": 1,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 20,
+    "dex": 19,
+    "con": 16,
+    "int": 13,
+    "wis": 16,
+    "cha": 15
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 17
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": "plate"
+    },
+    "hp": [
+      {
+        "value": 127,
+        "note": null,
+        "formula": "17d8+51"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "wis",
+        "mod": 7
+      },
+      {
+        "name": "cha",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "necrotic; nonmagic B/P/S attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Charge",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If mounted and it moves 20'+ straight to foe and hits with shadow blade on same turn target takes an extra 10 (3d6) slashing damage."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Incorporeal Movement",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Move through others/objects as difficult terrain. Takes 5 (1d10) force if it ends turn in object."
+      ]
+    },
+    {
+      "name": "Turning Defiance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "It and all ghouls within 30' of it: advantage on saves vs. turn undead."
+      ]
+    },
+    {
+      "name": "Undead Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Doesn't require air food drink or sleep."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Three Shadow Blade attacks."
+      ]
+    },
+    {
+      "name": "Shadow Blade",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, 5 ft., one target, 9 (1d8+5) slashing damage + 10 (3d6) necrotic."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+5",
+          "average": 9,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Stride of Damnation",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Moves up to its speed through its enemies. This move doesn't provoke opportunity attacks. Each creature through which templar passes: 35 (10d6) cold (DC 16 Dex half damage). It can't use this while mounted."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      }
+    },
+    {
+      "name": "Ghostly Mount",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Can summon or dismiss a ghostly mount mounting or dismounting it as part of this bonus action with o spending movement. Mount uses the stats of a warhorse skeleton except it has the Incorporeal Movement trait a flying speed of 60 feet 40 hp and resistance to cold and necrotic and B/P/S damage from nonmagical attacks. If mount is slain it disappears leaving behind no physical form and templar must wait 1 hr before summoning it again."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

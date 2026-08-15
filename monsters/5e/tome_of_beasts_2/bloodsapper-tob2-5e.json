@@ -1,0 +1,243 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:bloodsapper",
+  "name": "Bloodsapper",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 44,
+    "path": "monsters/5e/tome_of_beasts_2/bloodsapper.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 2,
+    "con": 3,
+    "int": -3,
+    "wis": 1,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 14,
+    "con": 16,
+    "int": 5,
+    "wis": 12,
+    "cha": 7
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Common but can’t speak"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    },
+    {
+      "name": "Stealth",
+      "mod": 4
+    },
+    {
+      "name": "Survival",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 90,
+        "note": null,
+        "formula": "12d8+36"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 5
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Blood Scent",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A bloodsapper can smell blood within 240 feet of it. It can determine whether the blood is fresh or old and what type of creature shed the blood. In addition, the bloodsapper has advantage on Wisdom (Perception) and Wisdom (Survival) checks to find or track a creature that doesn't have all its hp."
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 6 (1d6 + 3) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+3",
+          "average": 6,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Draining Tongue",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 15 ft., one target. Hit: 12 (2d8 + 3) piercing damage, and the bloodsapper attaches to the target. While attached, the bloodsapper doesn't attack. Instead, at the start of each of the bloodsapper's turns, the target loses 12 (2d8 + 3) hp due to blood loss. The bloodsapper can detach itself from a target by spending 5 feet of its movement, which it does once it has drained 25 hp from the target or the target dies. A creature, including the target, can take its action to detach the bloodsapper's tongue by succeeding on a DC 14 Strength check. Alternatively, the bloodsapper's tongue can be attacked and severed (AC 12; hp 20). The bloodsapper regrows a severed tongue when it completes a long rest or when it reduces a creature to 0 hp."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Bloody Breath (Recharge Special)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The bloodsapper can expel a 15-foot cone of acrid gas and blood from its bladder. Each creature in the area must make a DC 13 Constitution saving throw. On a failure, a creature takes 14 (4d6) acid damage and is poisoned for 1 minute. On a success, a creature takes half the damage and isn't poisoned. A poisoned creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success. Once a bloodsapper uses its Bloody Breath, it can't use Bloody Breath again until it has drained at least 25 hp of blood from a creature."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,413 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:bythos",
+  "name": "Bythos",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/bythos.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 16,
+    "xp": null,
+    "display": "Creature 16"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aeon",
+      "monitor"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ln",
+      "large",
+      "aeon",
+      "monitor"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 4,
+    "con": 5,
+    "int": 7,
+    "wis": 8,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 30,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Envisioning"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 29
+    },
+    {
+      "name": "Athletics",
+      "mod": 32
+    },
+    {
+      "name": "Deception",
+      "mod": 25
+    },
+    {
+      "name": "Nature",
+      "mod": 30
+    },
+    {
+      "name": "Occultism",
+      "mod": 29
+    },
+    {
+      "name": "Religion",
+      "mod": 30
+    },
+    {
+      "name": "Stealth",
+      "mod": 26
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 39,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 245,
+        "formula": null,
+        "note": "regeneration 15 (deactivated by chaotic)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 25
+      },
+      {
+        "name": "ref",
+        "mod": 26
+      },
+      {
+        "name": "will",
+        "mod": 30
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "chaotic",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 35
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Confusing Gaze",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "enchantment",
+        "emotion",
+        "incapacitation",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "30 feet. A creature that ends its turn in the aura must attempt a DC 34 Will save. If it fails, it's confused for 1 round (or 1d4 rounds on a critical failure)."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 34,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Temporal Reversion",
+      "category": "free",
+      "placement": "mid",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [
+        "fortune"
+      ],
+      "entries": [
+        "The bythos rerolls the triggering check and takes the better result."
+      ],
+      "trigger": "The bythos fails or critically fails a check",
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      }
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 32,
+        "map": [
+          32,
+          27,
+          22
+        ],
+        "traits": [
+          "lawful",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+16",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "cold"
+        },
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "lawful"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Aging Strikes",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "The bythos make two fist Strikes against a single target. If both Strikes hit, the target attempts a DC 37 Fortitude save. Creatures that don't get weaker with age or don't age are immune (GM's discretion). If a creature becomes clumsy 4, drained 4, and enfeebled 4 due to Aging Strikes, it dies of old age."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 37,
+        "basic": false,
+        "outcomes": {
+          "success": "The creature is unaffected.",
+          "failure": "The creature becomes clumsy 1, drained 1, and enfeebled 1, or increases each of these conditions by 1. This effect is cumulative with other aging strikes from bythoses, to a maximum of clumsy 4, drained 4, and enfeebled 4.",
+          "criticalFailure": "As failure, but the creature becomes clumsy 2, drained 2, and enfeebled 2, or increases these conditions by 2."
+        }
+      }
+    },
+    {
+      "name": "Focused Gaze",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate"
+      ],
+      "entries": [
+        "The bythos focuses its gaze on a creature it can see within 30 feet. The target must attempt a save against the bythos's confusing gaze. A bythos can't use this ability against the same creature more than once per turn."
+      ]
+    },
+    {
+      "name": "Temporal Flurry",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The bythos makes four fist Strikes. Its multiple attack penalty increases normally with each attack."
+      ]
+    },
+    {
+      "name": "Temporal Strike",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine",
+        "conjuration",
+        "incapacitation",
+        "teleportation"
+      ],
+      "entries": [
+        "The bythos touches a creature or object to displace it from time. The target attempts a DC 37 Fortitude save."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 37,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "Time flows around the target; the target is slowed 1 for 1 round.",
+          "failure": "The target disappears from the present moment and reappears in the same location 1d4 rounds later as if no time had passed for it. If a creature or object occupies that space when the target returns, the target appears in the closest available space to its original location.",
+          "criticalFailure": "As failure, but the target is slowed 1 for an extra 1d4 rounds after it returns."
+        }
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 37,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimensional anchor",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "slow",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "dimensional anchor",
+              "uses": null
+            },
+            {
+              "name": "dimensional lock",
+              "uses": null
+            },
+            {
+              "name": "haste",
+              "uses": null
+            },
+            {
+              "name": "plane shift",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "augury",
+              "uses": "at will"
+            },
+            {
+              "name": "teleport",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Monitor",
+        "skill": "Religion",
+        "dc": 37
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

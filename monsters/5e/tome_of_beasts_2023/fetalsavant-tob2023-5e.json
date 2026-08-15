@@ -1,0 +1,267 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2023:fetalsavant",
+  "name": "Fetal Savant",
+  "gameSystem": "dnd5e",
+  "variant": "tob2023",
+  "source": {
+    "code": "tome_of_beasts_2023",
+    "name": "Tome of Beasts 2023",
+    "page": 88,
+    "path": "monsters/5e/tome_of_beasts_2023/fetalsavant-tob1-2023.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Chaotic Evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -3,
+    "dex": 1,
+    "con": 0,
+    "int": -1,
+    "wis": 1,
+    "cha": 5
+  },
+  "abilityScores": {
+    "str": 5,
+    "dex": 12,
+    "con": 10,
+    "int": 8,
+    "wis": 12,
+    "cha": 20
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Dwarvish",
+    "telepathy 60 ft."
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 11,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 32,
+        "note": null,
+        "formula": "13d4"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "wis",
+        "mod": 3
+      },
+      {
+        "name": "cha",
+        "mod": 7
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "psychic"
+      ],
+      "conditions": [
+        "charmed",
+        "frightened"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Enchanted Cage",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The savant is immune to damage and can't be the target of spells or effects as long as its cage exists. The cage has a flying speed of 30 feet while the savant is inside of it, moving at the mental command of the savant. When the cage is destroyed, the savant floats gently to the ground. The cage has AC 19, 75 hp, and is immune to piercing, poison, and psychic damage. A non-derro that touches the cage or hits it with a melee weapon attack while within 5 feet of it must succeed on a DC 15 Wisdom saving throw or take 7 (2d6) psychic damage and be frightened until the end of its next turn. The cage disintegrates if exposed to sunlight for 1 hour."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": "1 hour",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Maddening Babble",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The savant constantly babbles eldritch nonsense while it can see any non-derro creatures and isn't incapacitated. Each non-derro creature that starts its turn within 20 feet of the savant and can hear the babbling must succeed on a DC 15 Wisdom saving throw or be incapacitated until the start of its next turn."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "incapacitated",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Sunlight Hypersensitivity",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The savant takes 20 radiant damage when it starts its turn outside the cage and in sunlight."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The fetal savant makes two Psychic Burst attacks."
+      ]
+    },
+    {
+      "name": "Psychic Burst",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee or Ranged Spell Attack: +7 to hit, reach 5 ft. or range 60 ft., one target. Hit: 14 (2d8 + 5) psychic damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "spell",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        },
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+5",
+          "average": 14,
+          "type": "psychic"
+        }
+      ]
+    },
+    {
+      "name": "Soul Exchange",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The savant exchanges its soul with one Humanoid it can see within 20 feet of it. Its body becomes paralyzed, the target's soul inhabits the savant's paralyzed body, and the savant inhabits the target's body, taking full control of it. The savant retains its alignment, its Intelligence, Wisdom, and Charisma scores, its Psychic Burst action, and its immunity to being charmed and frightened. It otherwise uses the target's statistics, but doesn't gain access to the target's knowledge, class features, or proficiencies."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 6,
+        "max": 6,
+        "display": "Recharge 6"
+      },
+      "condition": {
+        "name": "paralyzed",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

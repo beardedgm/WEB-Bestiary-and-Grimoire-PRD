@@ -1,0 +1,253 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sot1:umbo",
+  "name": "Umbo",
+  "gameSystem": "pf2e",
+  "variant": "sot1",
+  "source": {
+    "code": "sot1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sot1/umbo.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fungus"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ne",
+      "medium",
+      "fungus"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 3,
+    "con": 4,
+    "int": -1,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 8,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Undercommon; Telepathy 100 Feet (Myceloids)"
+  ],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 9
+    },
+    {
+      "name": "Survival",
+      "mod": 8
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 50,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 12
+      },
+      {
+        "name": "ref",
+        "mod": 7
+      },
+      {
+        "name": "will",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "slashing",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Spore Pop",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If Umbo is reduced to 0 HP by a critical hit, he pops, forcing him to immediately Emit Spores, even if he has already used the ability that day."
+      ]
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 11,
+        "map": [
+          11,
+          6,
+          1
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+3",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "purple pox",
+        "purple pox"
+      ]
+    },
+    {
+      "name": "Emit Spores",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Umbo expels spores in a 10-foot burst centered on a corner of his own space. This cloud lasts until the start of the myceloid's next turn. Each creature that is in the cloud or enters it is exposed to purple pox."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      },
+      "area": {
+        "shape": "burst",
+        "size": 10,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Purple Pox",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "disease"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Spore Domination",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "emotion",
+        "enchantment",
+        "incapacitation",
+        "mental",
+        "primal"
+      ],
+      "entries": [
+        "Umbo targets one creature affected by purple pox within 30 feet. That creature must attempt a DC 18 Will save. It is then temporarily immune to spore domination for 10 minutes."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "Until the end of its next turn, the target is helpful to myceloids and can't take hostile actions against them. If attacked by Umbo, the target is freed from this effect at the end of Umbo's turn.",
+          "failure": "As success, but for 1 minute.",
+          "criticalFailure": "As success, but until the purple pox is cured."
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fungus",
+        "skill": "Nature",
+        "dc": 23
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

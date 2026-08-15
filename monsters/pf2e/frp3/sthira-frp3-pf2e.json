@@ -1,0 +1,397 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:frp3:sthira",
+  "name": "Sthira",
+  "gameSystem": "pf2e",
+  "variant": "frp3",
+  "source": {
+    "code": "frp3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/frp3/sthira.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 20,
+    "xp": null,
+    "display": "Creature 20"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "cold"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "large",
+      "cold",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 2,
+    "con": 10,
+    "int": -5,
+    "wis": 0,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 33,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 39
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 45,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 475,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 39
+      },
+      {
+        "name": "ref",
+        "mod": 27
+      },
+      {
+        "name": "will",
+        "mod": 33
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold"
+      ],
+      "conditions": [],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Freezing Death",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "cold",
+        "evocation",
+        "primal"
+      ],
+      "entries": [
+        "20 feet. A creature that starts its turn in the aura takes 6d6 cold damage (DC 42 basic Fortitude). If the creature is grabbed or restrained by the sthira, it takes one degree of success worse than it rolled."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 42,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Frozen to the Touch",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "cold"
+      ],
+      "entries": [
+        "A creature that damages the sthira with an unarmed attack, tries to Grapple it, or otherwise touches it takes 6d6 cold damage (DC 42 basic Fortitude)."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 42,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "cold"
+        }
+      ]
+    },
+    {
+      "name": "greatsword",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          33,
+          28
+        ],
+        "traits": [
+          "magical",
+          "versatile <P>",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12+15",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": [
+        "frostbite",
+        "frostbite"
+      ]
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          33,
+          28
+        ],
+        "traits": [
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+15",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "cold, frostbite,"
+        }
+      ],
+      "entries": [
+        "Improved Grab",
+        "frostbite, Improved Grab"
+      ]
+    },
+    {
+      "name": "Frostbite",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that takes cold damage from a sthira's Strikes or aura must attempt a DC 42 Fortitude save. A creature that already has persistent cold damage from frostbite ignores this effect."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 42,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected, and is temporarily immune to this ability for 1 hour.",
+          "success": "The creature is unaffected.",
+          "failure": "The creature takes 3d6 persistent cold damage.",
+          "criticalFailure": "As failure, but the creature is also drained|CRB|drained 1."
+        }
+      }
+    },
+    {
+      "name": "Create",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Sthira (primal, necromancy) When a creature dies while it has persistent cold damage from the sthira's frostbite, the creature rises as a sthira in 24 hours. If the creature is grappled by the sthira when it dies, the dying creature becomes permanently fused with the sthira instead. In this case, the sthira immediately recovers a number of Hit Points equal to the half the dead creature's maximum Hit Points."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 39,
+      "attackBonus": 31,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 10,
+          "rankLabel": "Cantrips (10th)",
+          "spells": [
+            {
+              "name": "ray of frost",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "polar ray",
+              "uses": 2
+            },
+            {
+              "name": "storm of vengeance",
+              "uses": null
+            },
+            {
+              "name": "wall of ice",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 10,
+          "rankLabel": "10th",
+          "spells": [
+            {
+              "name": "massacre",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 42
+      }
+    ],
+    "items": [
+      "+3 greater striking greatsword"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

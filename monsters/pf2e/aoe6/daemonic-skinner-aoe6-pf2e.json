@@ -1,0 +1,434 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe6:daemonic-skinner",
+  "name": "Daemonic Skinner",
+  "gameSystem": "pf2e",
+  "variant": "aoe6",
+  "source": {
+    "code": "aoe6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe6/daemonic-skinner.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 20,
+    "xp": null,
+    "display": "Creature 20"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "daemon",
+      "fiend",
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ce",
+      "large",
+      "daemon",
+      "fiend",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 6,
+    "con": 9,
+    "int": 3,
+    "wis": 6,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 36,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Daemonic"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 34
+    },
+    {
+      "name": "Athletics",
+      "mod": 40
+    },
+    {
+      "name": "Intimidation",
+      "mod": 34
+    },
+    {
+      "name": "Religion",
+      "mod": 34
+    },
+    {
+      "name": "Stealth",
+      "mod": 34
+    },
+    {
+      "name": "Thievery",
+      "mod": 32
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 43,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 450,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 39
+      },
+      {
+        "name": "ref",
+        "mod": 34
+      },
+      {
+        "name": "will",
+        "mod": 32
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "negative",
+        "poison"
+      ],
+      "conditions": [],
+      "other": [
+        "bleeding",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "precision",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Bloody Chain Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine"
+      ],
+      "entries": [
+        "20 feet. Chains of blood bind a bleeding creature to the Daemonic Skinner. Creatures in range that are taking persistent bleed damage can't move out of the aura."
+      ],
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Transfusion Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "healing"
+      ],
+      "entries": [
+        "30 feet. Any time a creature in the aura takes persistent bleed damage the Daemonic Skinner regains the same number of Hit Points as the damage dealt. The Skinner can have only one aura active at a time. She can switch her active aura as an Interact action."
+      ],
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Spell Choke",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The Skinner wills the triggering creature's blood to gush from their mouth and constrict their throat. The target's spell is disrupted. The target must succeed at a DC 47 Fortitude save or become sickened|CRB|sickened 2."
+      ],
+      "trigger": "A creature taking persistent bleed damage within 30 feet of the Daemonic Skinner Casts a Spell with a verbal component or speaks",
+      "save": {
+        "defense": "fortitude",
+        "dc": 47,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "cleaver",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          33,
+          28
+        ],
+        "traits": [
+          "evil",
+          "forceful",
+          "magical",
+          "necromancy",
+          "reach <10 feet>",
+          "sweep"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+20",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "evil"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "blood chain",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 36,
+        "map": [
+          36,
+          31,
+          26
+        ],
+        "traits": [
+          "disarm",
+          "evil",
+          "finesse",
+          "magical",
+          "reach <20 feet>",
+          "trip"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+20",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Bloody Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Any creature taking persistent bleed damage is flat-footed against the Daemonic Skinner's attacks. When attacking a flat-footed creature, the Skinner deals an additional 2d6 precision damage."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    },
+    {
+      "name": "Hook and Flay",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The Skinner pulls the creature into the nearest open adjacent square and makes a cleaver Strike against the creature."
+      ],
+      "requirements": "The Daemonic Skinner has a creature grabbed with her blood chain or a creature is affected by her bloody chain aura"
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 38,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Constant (6th)",
+          "spells": [
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "vampiric exsanguination",
+              "uses": null
+            },
+            {
+              "name": "weapon storm",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion, Society",
+        "dc": 50
+      }
+    ],
+    "items": [
+      "Large +3 wounding greater striking cleaver (functions as orc neck-splitter without the orc trait)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

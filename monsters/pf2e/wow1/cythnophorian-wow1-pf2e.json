@@ -1,0 +1,259 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:wow1:cythnophorian",
+  "name": "Cythnophorian",
+  "gameSystem": "pf2e",
+  "variant": "wow1",
+  "source": {
+    "code": "wow1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/wow1/cythnophorian.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "fungus",
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "unique",
+      "tiny",
+      "fungus",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 3,
+    "con": 6,
+    "int": -2,
+    "wis": 2,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "lifesense",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Stealth",
+      "mod": 15
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 161,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 12
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Horrifying Display",
+      "category": "free",
+      "placement": "mid",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [
+        "emotion",
+        "fear",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "All creatures in a 10- foot emanation must attempt a DC 26 Will save or become sickened 1, or sickened 2 on a critical failure. Affected creatures are off-guard for as long as they're sickened. Once a creature attempts this save, it's temporarily immune for 1 minute."
+      ],
+      "trigger": "The cythnophorian uses Fungal Possession",
+      "save": {
+        "defense": "will",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "tendril",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          13,
+          8
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+10",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "creeping death",
+        "Fungal Possession"
+      ]
+    },
+    {
+      "name": "Creeping Death",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "contact",
+        "poison"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Fungal Possession",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "concentrate",
+        "manipulate",
+        "move",
+        "possession"
+      ],
+      "entries": [
+        "The cythnophorian rips itself out of its current host and burrows its way into the corpse of its latest victim, regaining 3d4 Hit Points and taking control of the corpse as its new host. The cythnophorian enters the space of its new host, and its former host's corpse falls to the ground in its previous space. Moving to a new host doesn't change the cythnophorian's abilities or movement Speeds."
+      ],
+      "requirements": "The cythnophorian's last action was a Strike that killed a target of size Medium or smaller"
+    },
+    {
+      "name": "Spore Cloud",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "incapacitation",
+        "poison"
+      ],
+      "entries": [
+        "The cythnophorian emits a cloud of toxic spores, exposing all creatures within a 15-foot emanation to creeping death. The cythnophorian can't use Spore Cloud again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 15,
+        "unit": "ft"
+      },
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fungus",
+        "skill": "Nature",
+        "dc": 34
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

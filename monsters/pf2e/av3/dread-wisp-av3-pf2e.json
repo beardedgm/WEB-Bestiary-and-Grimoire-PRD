@@ -1,0 +1,311 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:av3:dread-wisp",
+  "name": "Dread Wisp",
+  "gameSystem": "pf2e",
+  "variant": "av3",
+  "source": {
+    "code": "av3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/av3/dread-wisp.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "small",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 6,
+    "con": 0,
+    "int": 2,
+    "wis": 4,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 20,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 23
+    },
+    {
+      "name": "Deception",
+      "mod": 16
+    },
+    {
+      "name": "Intimidation",
+      "mod": 16
+    },
+    {
+      "name": "Stealth",
+      "mod": 23
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 31,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 90,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 14
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 18
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "magic"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "positive",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Dread Flickering",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "light"
+      ],
+      "entries": [
+        "20 feet. A dread wisp, though naturally invisible, glows with a grayish illumination, casting dim light in the aura and making them visible. Living creatures that end their turn in the aura must succeed at a DC 25 Will saving throw or become frightened|CRB|frightened 1 (or frightened|CRB|frightened 2 on a critical failure) Those that critically succeed are temporarily immune for 10 minutes."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Magic Immunity",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A dread wisp is immune to all spells except faerie fire, magic missile, maze, searing light, and spells with the positive trait."
+      ]
+    },
+    {
+      "name": "draining touch",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "magical",
+          "negative"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+8",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": [
+        "wearying touch",
+        "wearying touch"
+      ]
+    },
+    {
+      "name": "Feed on Despair",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "necromancy",
+        "negative",
+        "occult"
+      ],
+      "entries": [
+        "The dread wisp feeds on the creature's despair. The dread wisp regains 2d8 Hit Points and deals 3d8 negative damage to the creature (DC 25 basic Fortitude save), and if the dread wisp has Gone Dark, their Dread Flickering reignites."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "requirements": "An enemy within 15 feet of the dread wisp is under a fear effect, drained, or dying",
+      "save": {
+        "defense": "fortitude",
+        "dc": 25,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8",
+          "average": null,
+          "type": "negative"
+        }
+      ]
+    },
+    {
+      "name": "Go Dark",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate"
+      ],
+      "entries": [
+        "The dread wisp extinguishes their Dread Flickering, becoming invisible. They can end this effect with another use of this action. If the dread wisp uses their draining touch Strike while invisible, the arc of pale energy lets any observer determine their location, making them hidden to all observers only until the dread wisp moves."
+      ]
+    },
+    {
+      "name": "Shadow Flitter",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "conjuration",
+        "occult",
+        "teleportation"
+      ],
+      "entries": [
+        "The dread wisp teleports to a square they can see within 30 feet that isn't in an area of bright light. The dread wisp can't use Shadow Flitter again for 1d4 rounds."
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Wearying Touch",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the dread wisp critically hits with their draining touch Strike, the target is drained|CRB|drained 1."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 28
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

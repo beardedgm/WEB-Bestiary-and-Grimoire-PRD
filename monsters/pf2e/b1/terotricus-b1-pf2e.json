@@ -1,0 +1,355 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:terotricus",
+  "name": "Terotricus",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/terotricus.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 19,
+    "xp": null,
+    "display": "Creature 19"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "fungus"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ce",
+      "gargantuan",
+      "fungus"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 5,
+    "con": 9,
+    "int": -1,
+    "wis": 6,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 31,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 120,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Elven",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 37
+    },
+    {
+      "name": "Deception",
+      "mod": 32
+    },
+    {
+      "name": "Intimidation",
+      "mod": 35
+    },
+    {
+      "name": "Nature",
+      "mod": 31
+    },
+    {
+      "name": "Survival",
+      "mod": 31
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 42,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 370,
+        "formula": null,
+        "note": "regeneration 25 (deactivated by cold)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 34
+      },
+      {
+        "name": "ref",
+        "mod": 28
+      },
+      {
+        "name": "will",
+        "mod": 33
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "controlled",
+        "paralyzed"
+      ],
+      "other": [
+        "disease",
+        "sleep"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "cold iron",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "good",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 35,
+      "burrow": 25,
+      "climb": 25,
+      "swim": 35
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Spore Cloud",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "disease"
+      ],
+      "entries": [
+        "30 feet. A creature entering the aura or starting its turn there is exposed to spore blight."
+      ],
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "tentacle",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 37,
+        "map": [
+          37,
+          32,
+          27
+        ],
+        "traits": [
+          "chaotic",
+          "evil",
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+16",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "chaotic, 2d6 evil,"
+        }
+      ],
+      "entries": [
+        "Improved Grab or Improved Push 20 feet (40 feet on a critical hit)"
+      ]
+    },
+    {
+      "name": "spores",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 37,
+        "map": [
+          37,
+          32,
+          27
+        ],
+        "traits": [
+          "chaotic",
+          "evil",
+          "magical",
+          "range increment <80 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 80,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+6",
+          "average": null,
+          "type": "poison"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "chaotic, 2d6 evil, spore blight,"
+        }
+      ],
+      "entries": [
+        "sticky spores",
+        "spore blight, sticky spores"
+      ]
+    },
+    {
+      "name": "Infest Environs",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "healing",
+        "necromancy",
+        "primal"
+      ],
+      "entries": [
+        "The terotricus drains nutrients from nearby trees and undergrowth while simultaneously infesting them with fungal growth. All non-magical plant life (though not plant creatures) within a 60-foot emanation withers and sprouts foul mold and slimy mushrooms, removing any cover and concealment provided by trees and undergrowth. The terotricus is healed 200 Hit Points."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      },
+      "requirements": "The terotricus is in a swamp or forested area.",
+      "area": {
+        "shape": "emanation",
+        "size": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Spore Blight",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "disease"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Sticky Spores",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature hit by a terotricus's spores must succeed at a DC 40 Reflex save or take a –10-foot status penalty to all its Speeds for 1 minute. On a critical failure, the creature is immobilized until it Escapes (DC 40)."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 40,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fungus",
+        "skill": "Nature",
+        "dc": 44
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

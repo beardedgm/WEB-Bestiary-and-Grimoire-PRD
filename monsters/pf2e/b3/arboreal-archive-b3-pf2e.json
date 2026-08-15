@@ -1,0 +1,340 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:arboreal-archive",
+  "name": "Arboreal Archive",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/arboreal-archive.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ng",
+      "lawChaos": "neutral",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "ng",
+      "huge",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": -1,
+    "con": 5,
+    "int": 4,
+    "wis": 7,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Arboreal",
+    "Common",
+    "Sylvan; Speak With Plants"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 23
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 22
+    },
+    {
+      "name": "Nature",
+      "mod": 25
+    },
+    {
+      "name": "Stealth",
+      "mod": 19
+    },
+    {
+      "name": "Forest Lore",
+      "mod": 28
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 230,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 23
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 27
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "axe vulnerability",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Axe Vulnerability",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "An arboreal archive takes 10 additional damage from axes."
+      ]
+    },
+    {
+      "name": "Abeyance Rift",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If an arboreal archive dies unexpectedly before passing on their knowledge in a succession ritual, the amassed lore within their roots and boughs explodes out in a shock wave that deals 8d10 mental damage to creatures within 30 feet (DC 32 basic Will save) before dissipating; those who fail also fall prone."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 32,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d10",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    },
+    {
+      "name": "branch",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 25,
+        "map": [
+          25,
+          20,
+          15
+        ],
+        "traits": [
+          "reach <15 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Improved Knockdown (page 305)",
+        "Improved Knockdown"
+      ]
+    },
+    {
+      "name": "Memory Maelstrom",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "concentrate",
+        "incapacitation",
+        "mental",
+        "nonlethal",
+        "primal"
+      ],
+      "entries": [
+        "The arboreal archive tries to overwhelm foes with a surge of information it has absorbed over its long life. This surge deals 5d6 mental damage to each enemy within 40 feet, who must attempt a DC 32 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 32,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature maintains its composure, takes no damage, and is temporarily immune to Memory Maelstrom for 1 minute.",
+          "success": "The creature is stunned 1 and takes half damage.",
+          "failure": "The creature takes full damage and is stunned 3.",
+          "criticalFailure": "The creature takes double damage, is confused for 2d4 rounds, and is stunned 3."
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 32,
+      "attackBonus": 24,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "Constant (4th)",
+          "spells": [
+            {
+              "name": "speak with plants",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "entangle",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "earthbind",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "tangling creepers",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Plant",
+        "skill": "Nature",
+        "dc": 30
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

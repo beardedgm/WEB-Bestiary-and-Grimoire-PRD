@@ -1,0 +1,267 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:ichor-slinger",
+  "name": "Ichor Slinger",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/ichor-slinger.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 1,
+    "con": 4,
+    "int": 3,
+    "wis": 2,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 11
+    },
+    {
+      "name": "Crafting",
+      "mod": 13
+    },
+    {
+      "name": "Deception",
+      "mod": 13
+    },
+    {
+      "name": "Performance",
+      "mod": 11
+    },
+    {
+      "name": "Stealth",
+      "mod": 9
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 20,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 65,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 12
+      },
+      {
+        "name": "ref",
+        "mod": 11
+      },
+      {
+        "name": "will",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "poisoned"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Mystery Ingredients",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "auditory",
+        "aura",
+        "occult"
+      ],
+      "entries": [
+        "60 feet. Creatures in the aura take a –2 status penalty to checks to Identify Alchemy, Recall Knowledge about alchemical subjects, or examine snake oil effects. When a creature first enters the area, if it hears the ichor slinger talking, it must attempt a secret Will save against the slinger's Deception DC. On a failure, it treats its next failed check to Identify Alchemy or Recall Knowledge about alchemical subjects in the next 24 hours as though it were a critical failure instead. This is an auditory misfortune effect."
+      ],
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 13,
+        "map": [
+          13,
+          9,
+          5
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Grab"
+      ]
+    },
+    {
+      "name": "Brew Tomb Juice",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The ichor slinger creates a vial of tomb juice, an alchemical tonic that has the infused trait and becomes inert after 24 hours. Tomb juice has the effects of snake oil, and maybe more depending on the results of the ichor slinger's DC 20 Crafting check."
+      ],
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Exhume",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The ichor slinger harvests portions of the corpse to gain 1 dose of infused reagents, or 2 infused reagents if the creature was undead."
+      ],
+      "requirements": "The ichor slinger is adjacent to a dead creature that hasn't already been affected by Exhume"
+    },
+    {
+      "name": "Force Feed",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The ichor slinger forces the target to consume the alchemical item."
+      ],
+      "requirements": "The ichor slinger has a creature grabbed or restrained and is holding tomb juice, an alchemical elixir, or an alchemical poison"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 21
+      }
+    ],
+    "items": [
+      "alchemist's tools",
+      "disguise kit",
+      "infused reagents (7)",
+      "snake oil (6)"
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Brew Tomb Juice)"
+    ],
+    "unmapped": []
+  }
+}

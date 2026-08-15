@@ -1,0 +1,390 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:boggard-swampseer",
+  "name": "Boggard Swampseer",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/boggard-swampseer.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "amphibious",
+      "boggard"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "medium",
+      "amphibious",
+      "boggard",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 0,
+    "con": 2,
+    "int": 0,
+    "wis": 4,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 11,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Boggard",
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 8
+    },
+    {
+      "name": "Intimidation",
+      "mod": 8
+    },
+    {
+      "name": "Medicine",
+      "mod": 9
+    },
+    {
+      "name": "Nature",
+      "mod": 11
+    },
+    {
+      "name": "Performance",
+      "mod": 8
+    },
+    {
+      "name": "Religion",
+      "mod": 9
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 40,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 9
+      },
+      {
+        "name": "ref",
+        "mod": 7
+      },
+      {
+        "name": "will",
+        "mod": 11
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "swim": 25
+    },
+    "special": [
+      "swamp stride"
+    ]
+  },
+  "entries": [
+    {
+      "name": "staff",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          5,
+          0
+        ],
+        "traits": [
+          "two-hand <d8>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tongue",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 10,
+        "map": [
+          10,
+          5,
+          0
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [],
+      "entries": []
+    },
+    {
+      "name": "Destructive Croak",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "sonic"
+      ],
+      "entries": [
+        "The swampseer utters a powerful croak that deals 4d6 sonic damage to any non-boggard within a 15-foot emanation (DC 19 basic Fortitude save); any creature with the frightened condition takes additional sonic damage equal to twice the value of their frightened condition. The boggard can't use Destructive Croak again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 15,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 19,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "sonic"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Drowning Drone",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "auditory",
+        "mental"
+      ],
+      "entries": [
+        "The swampseer releases a croak that drowns out other sound. It rolls a Performance check. It and boggard allies in the area can use the higher result of the swampseer's Performance check or their saves to resolve the effects against the auditory or sonic effect."
+      ],
+      "trigger": "The boggard swampseer or one of its allies within 60 feet attempts a saving throw against an auditory or sonic effect."
+    },
+    {
+      "name": "Swamp Stride",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A boggard scout ignores terrain caused by swamp terrain features."
+      ]
+    },
+    {
+      "name": "Terrifying Croak",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "auditory",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "As boggard scout, except DC 19."
+      ]
+    },
+    {
+      "name": "Tongue Grab",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As boggard scout, except AC 15 and 4 HP."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Prepared primal Spells",
+      "type": "prepared",
+      "tradition": "primal",
+      "dc": 21,
+      "attackBonus": 11,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Cantrips (2nd)",
+          "spells": [
+            {
+              "name": "acid splash",
+              "uses": null
+            },
+            {
+              "name": "dancing lights",
+              "uses": null
+            },
+            {
+              "name": "ray of frost",
+              "uses": null
+            },
+            {
+              "name": "tanglefoot",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "fear",
+              "uses": null
+            },
+            {
+              "name": "jump",
+              "uses": null
+            },
+            {
+              "name": "shillelagh",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "acid arrow",
+              "uses": null
+            },
+            {
+              "name": "obscuring mist",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 18
+      }
+    ],
+    "items": [
+      "staff"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

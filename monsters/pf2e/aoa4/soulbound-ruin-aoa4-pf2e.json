@@ -1,0 +1,280 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa4:soulbound-ruin",
+  "name": "Soulbound Ruin",
+  "gameSystem": "pf2e",
+  "variant": "aoa4",
+  "source": {
+    "code": "aoa4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa4/soulbound-ruin.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "construct",
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "gargantuan",
+      "construct",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 0,
+    "con": 6,
+    "int": 4,
+    "wis": 4,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common; Other Languages Typical To The Region"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 30
+    },
+    {
+      "name": "Deception",
+      "mod": 26
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 37,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 310,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 29
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 27
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "nonlethal",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except adamantine"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "positive",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {},
+    "special": [
+      "can't move"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Vulnerability to Exorcism",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a soulbound ruin fails a saving throw against a spell that would banish tormented spirits or manipulate souls, such as banishment or bind soul, instead of experiencing the listed effects, it takes 10 damage per spell level."
+      ]
+    },
+    {
+      "name": "Impede",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The soulbound ruin reacts violently to stop the creature's movement, shooting spikes, throwing bricks, or otherwise impeding the target. The target must succeed at a DC 35 Reflex save or fall prone."
+      ],
+      "trigger": "A creature within the soulbound ruin uses an action with the move trait.",
+      "frequency": {
+        "number": 1,
+        "unit": "turn",
+        "text": null
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 35,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "edifice",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          25,
+          20
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "4d10+9",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Collapse Ceiling",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The ruin collapses up to three 10-footby- 10-foot sections of its ceiling. The ruin takes 10 damage per section it collapses, and it can't collapse the same section until it has been repaired. Each creature in one of these areas takes 8d10 bludgeoning damage with a DC 35 basic Reflex save. On a failed save, the creature is also restrained under the rubble until it Escapes (DC 33)"
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 35,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Self-Repair",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ruin can spend 10 minutes repairing itself to regain up to 30 Hit Points. If the ruin is interrupted during this time, it loses its focus and the repair fails. This ability functions even if the ruin is reduced to 0 HP, unless a consecrate ritual has been performed to purify the building, in which case the soulbound ruin is destroyed. This ritual must be dedicated to a good deity or a deity with a strong opposition to undead, such as Pharasma."
+      ]
+    },
+    {
+      "name": "Pervasive Attacks",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A soulbound ruin's edifice Strikes can target any creature inside the ruin."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting, Religion",
+        "dc": 34
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

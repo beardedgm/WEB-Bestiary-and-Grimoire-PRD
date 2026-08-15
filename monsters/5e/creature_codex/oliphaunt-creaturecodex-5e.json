@@ -1,0 +1,308 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:oliphaunt",
+  "name": "Oliphaunt",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 280,
+    "path": "monsters/5e/creature_codex/oliphaunt.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 8,
+    "xp": 3900,
+    "display": "8"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": -1,
+    "con": 6,
+    "int": -4,
+    "wis": 0,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 27,
+    "dex": 9,
+    "con": 23,
+    "int": 3,
+    "wis": 11,
+    "cha": 6
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 148,
+        "note": null,
+        "formula": "9d20+54"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 2
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Trampling Charge",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the oliphaunt moves at least 20 feet straight toward a creature and then hits it with a gore attack on the same turn, that target must succeed on a DC 16 Strength saving throw or be knocked prone. If the target is prone, the oliphaunt can make one stomp attack against it as a bonus action."
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Trunk Slam",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the oliphaunt starts its turn with a target grappled, it can slam the target into the ground as a bonus action. The creature must make a DC 17 Constitution saving throw, taking 11 (2d10) bludgeoning damage on a failed save, or half as much damage on a successful one. This doesn't end the grappled condition on the target."
+      ],
+      "damage": [
+        {
+          "formula": "2d10",
+          "average": 11,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 17,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The oliphaunt uses its trunk, then it makes one gore or stomp attack."
+      ]
+    },
+    {
+      "name": "Gore",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 30 (5d8 + 8) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 11,
+        "map": [
+          11
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d8+8",
+          "average": 30,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Stomp",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +11 to hit, reach 5 ft., one target. Hit: 35 (5d10 + 8) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 11,
+        "map": [
+          11
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d10+8",
+          "average": 35,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Trunk",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +11 to hit, reach 15 ft., one creature. Hit: The target is grappled (escape DC 17) if it is a Large or smaller creature. Until the grapple ends, the target is restrained and the oliphaunt can't use its trunk on another target."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 11,
+        "map": [
+          11
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 15,
+          "unit": "ft"
+        }
+      },
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Tusk Sweep",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The oliphaunt sweeps its tusks in a wide arc. Each creature in a 20-foot cube must make a DC 17 Dexterity saving throw, taking 35 (10d6) bludgeoning damage on a failed save, or half as much damage on a successful one."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "10d6",
+          "average": 35,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 17,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cube",
+        "size": 20,
+        "unit": "ft"
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

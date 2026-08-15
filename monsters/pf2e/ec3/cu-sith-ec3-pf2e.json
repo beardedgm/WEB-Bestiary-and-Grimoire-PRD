@@ -1,0 +1,230 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec3:cu-sith",
+  "name": "Cu Sith",
+  "gameSystem": "pf2e",
+  "variant": "ec3",
+  "source": {
+    "code": "ec3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec3/cu-sith.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "n",
+      "large",
+      "fey"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 4,
+    "con": 4,
+    "int": -3,
+    "wis": 3,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Sylvan (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 15
+    },
+    {
+      "name": "Athletics",
+      "mod": 17
+    },
+    {
+      "name": "Stealth",
+      "mod": 17
+    },
+    {
+      "name": "Survival",
+      "mod": 16
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 140,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 15
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "fear"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+9",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Grab",
+        "Grab"
+      ]
+    },
+    {
+      "name": "Dooming Bark",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "auditory",
+        "concentrate",
+        "fear",
+        "mental",
+        "necromancy",
+        "primal"
+      ],
+      "entries": [
+        "Any creature within 200 feet of the cu sith that hears its Dooming Bark must attempt a DC 24 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected and immune to Dooming Bark for 24 hours.",
+          "success": "The creature is frightened|CRB|frightened 1.",
+          "failure": "The creature is frightened|CRB|frightened 2.",
+          "criticalFailure": "The creature is frightened|CRB|frightened 3 and fleeing. If a creature is already frightened when it fails a save against Dooming Bark, its frightened value increases by 1 and it becomes doomed|CRB|doomed 1. A creature in an area that the cu sith can't easily reach—such as a hidden burrow or enclosed building—increases the degree of success of its saving throw against Dooming Bark by one step."
+        }
+      }
+    },
+    {
+      "name": "Worry Prey",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "Requirements The cu sith has a Large or smaller creature grabbed in its jaws; The cu sith viciously shakes its prey. The cu sith makes a jaws Strike against the grabbed creature with a +2 circumstance bonus to the attack roll. If the cu sith hits, it deals jaws damage, maintains its Grab, and attempts an Athletics check to Disarm its target of anything it is holding. On a miss, the cu sith releases the creature."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 25
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

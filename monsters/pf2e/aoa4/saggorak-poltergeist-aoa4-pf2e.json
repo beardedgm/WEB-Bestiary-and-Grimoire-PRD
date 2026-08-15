@@ -1,0 +1,318 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa4:saggorak-poltergeist",
+  "name": "Saggorak Poltergeist",
+  "gameSystem": "pf2e",
+  "variant": "aoa4",
+  "source": {
+    "code": "aoa4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa4/saggorak-poltergeist.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "spirit",
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "le",
+      "medium",
+      "incorporeal",
+      "spirit",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 7,
+    "con": 2,
+    "int": -1,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 20,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Dwarven",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 25
+    },
+    {
+      "name": "Intimidation",
+      "mod": 24
+    },
+    {
+      "name": "Stealth",
+      "mod": 25
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 180,
+        "formula": null,
+        "note": "rejuvenation"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 22
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all damage",
+        "amount": 10,
+        "note": "except force, ghost touch, or positive; double resistance against non-magical"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Natural Invisibility",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A poltergeist is naturally invisible. It becomes visible only when it uses Frighten."
+      ]
+    },
+    {
+      "name": "Rejuvenation",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "When a poltergeist is destroyed, it re-forms, fully healed, where it was destroyed after 2d4 days. These Saggorak poltergeists no longer rejuvenate once King Harral no longer exists as an undead ruler of Saggorak."
+      ]
+    },
+    {
+      "name": "Telekinetic Defense",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The poltergeist makes a telekinetic object Strike against the triggering creature."
+      ],
+      "trigger": "A creature approaches within 10 feet of the poltergeist."
+    },
+    {
+      "name": "telekinetic object",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "evocation",
+          "magical",
+          "occult",
+          "range increment <60 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d12",
+          "average": null,
+          "type": "bludgeoning, piercing, or slashing (depending on object)"
+        }
+      ],
+      "entries": [
+        "piercing, or slashing (depending on object)"
+      ]
+    },
+    {
+      "name": "Frighten",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "emotion",
+        "fear",
+        "incapacitation",
+        "mental"
+      ],
+      "entries": [
+        "The poltergeist becomes visible, appearing as a skeletal, ghostlike humanoid. Each creature within 30 feet must attempt a DC 33 Will save, becoming frightened|CRB|frightened 2 on a failure. On a critical failure, it's also fleeing for as long as it's frightened. On a success, the creature is temporarily immune for 1 minute. At the start of its next turn, the poltergeist becomes invisible again."
+      ],
+      "requirements": "The poltergeist must be invisible.",
+      "save": {
+        "defense": "will",
+        "dc": 33,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Telekinetic Storm",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "concentrate",
+        "evocation",
+        "occult"
+      ],
+      "entries": [
+        "The poltergeist telekinetically throws numerous small and jagged chunks of stone rubble, either spreading them out among multiple foes or directing them at one target. - When this effect is spread out among multiple foes, the poltergeist makes a telekinetic object Strike at a –2 penalty against each creature within 30 feet. These count as one attack for the poltergeist's multiple attack penalty, and the penalty doesn't increase until after all the attacks.",
+        "- When this effect has only one target, the poltergeist makes a telekinetic object Strike against the target, and the damage increases to 6d12. It deals 2d12 damage on a failure, and no damage on a critical failure."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 33,
+      "attackBonus": 27,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Cantrips (6th)",
+          "spells": [
+            {
+              "name": "mage hand",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "telekinetic haul",
+              "uses": "at will"
+            },
+            {
+              "name": "telekinetic maneuver",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Spirit",
+        "skill": "Religion",
+        "dc": 35
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

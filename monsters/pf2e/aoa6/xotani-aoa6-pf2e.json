@@ -1,0 +1,489 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa6:xotani",
+  "name": "Xotani",
+  "gameSystem": "pf2e",
+  "variant": "aoa6",
+  "source": {
+    "code": "aoa6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa6/xotani.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 20,
+    "xp": null,
+    "display": "Creature 20"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [
+      "fire"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ce",
+      "gargantuan",
+      "beast",
+      "fire"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 8,
+    "con": 9,
+    "int": -4,
+    "wis": 7,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 39,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 120,
+      "unit": "ft",
+      "acuity": "precise"
+    },
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 41
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 48,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 385,
+        "formula": null,
+        "note": "regeneration 25"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 36
+      },
+      {
+        "name": "ref",
+        "mod": 33
+      },
+      {
+        "name": "will",
+        "mod": 30
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire",
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "clumsy",
+        "drained",
+        "enfeebled",
+        "paralyzed",
+        "petrified",
+        "stupefied"
+      ],
+      "other": [
+        "disease",
+        "polymorph"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "electricity",
+        "amount": 22,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 22,
+        "note": null
+      },
+      {
+        "name": "sonic",
+        "amount": 22,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": 22,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 60,
+      "burrow": 40,
+      "climb": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "300 feet, DC 39"
+      ],
+      "aura": {
+        "range": 300,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 39,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Light Blindness",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Xotani's light blindness is caused by only sunlight. Reactive Xotani gains 3 reactions each round. It can still use only one reaction per trigger."
+      ]
+    },
+    {
+      "name": "Reactive",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Xotani gains 3 reactions each round. It can still use only one reaction per trigger."
+      ]
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Firebleed",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "fire"
+      ],
+      "entries": [
+        "Xotani's wound erupts with magma in a 30-foot cone, dealing 6d8 fire damage and 6d8 persistent fire damage (DC 42 basic Reflex save)."
+      ],
+      "trigger": "Xotani is damaged",
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 42,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d8",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          33,
+          28
+        ],
+        "traits": [
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d10+8",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "2d10",
+          "average": null,
+          "type": "persistent fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          34,
+          30
+        ],
+        "traits": [
+          "agile",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d8+8",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d8",
+          "average": null,
+          "type": "persistent fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "lava bomb",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          33,
+          28
+        ],
+        "traits": [
+          "range increment <80 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 80,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+8",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d10",
+          "average": null,
+          "type": "persistent fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Bomb Barrage",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Xotani makes three lava bomb Strikes. These Strikes can be made against the same creature or different creatures, as long as all targets are within 40 feet of each other."
+      ]
+    },
+    {
+      "name": "Breath Weapon",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "arcane",
+        "evocation",
+        "fire"
+      ],
+      "entries": [
+        "Xotani breathes a blast of flame that deals 18d6 fire damage plus 4d6 persistent fire damage to all creatures in a 70-foot cone (DC 42 basic Reflex save). It can't use Breath Weapon again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 70,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 42,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "18d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Swallow Whole",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "Huge, 8d6+8 bludgeoning plus 12d6 fire, Rupture 35"
+      ]
+    },
+    {
+      "name": "Trample",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Huge or smaller, claw, DC 42. When Xotani Tramples, it can Stride up to triple its Speed."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 50
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

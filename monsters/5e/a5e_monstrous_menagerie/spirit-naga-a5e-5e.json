@@ -1,0 +1,412 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:spirit-naga",
+  "name": "Spirit Naga",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 343,
+    "path": "monsters/5e/a5e_monstrous_menagerie/spirit-naga-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 3,
+    "con": 3,
+    "int": 3,
+    "wis": 2,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 16,
+    "con": 16,
+    "int": 16,
+    "wis": 14,
+    "cha": 16
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Celestial",
+    "Common"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 85,
+        "note": null,
+        "formula": "10d10+30"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 6
+      },
+      {
+        "name": "con",
+        "mod": 6
+      },
+      {
+        "name": "wis",
+        "mod": 5
+      },
+      {
+        "name": "cha",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "swim": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Amphibious",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The naga can breathe air and water."
+      ]
+    },
+    {
+      "name": "Rejuvenation",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If it dies, the naga gains a new body in 1d6 days, regaining all its hit points. This trait can be removed with a wish spell."
+      ]
+    },
+    {
+      "name": "Spellcasting",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The naga is a 9th level spellcaster. Its spellcasting ability is Intelligence (spell save DC 14). The naga has the following wizard spells prepared",
+        "which it can cast with only vocalized components:",
+        "Cantrips (at will): mage hand",
+        "minor illusion",
+        "1st-level (4 slots): charm person",
+        "shield",
+        "2nd-level (3 slots): detect thoughts",
+        "levitate",
+        "3rd-level (3 slots) hypnotic pattern",
+        "lightning bolt",
+        "4th-level (3 slots): arcane eye",
+        "blight",
+        "5th-level (1 slots): dominate person"
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) piercing damage. The target makes a DC 15 Constitution saving throw  taking 28 (8d6) poison damage on a failure or half damage on a success."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "piercing"
+        },
+        {
+          "formula": "8d6",
+          "average": 28,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Hypnotic Pattern (3rd-Level; V, Concentration)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "A swirling pattern of light appears at a point within 120 feet of the naga. Each creature within 10 feet of the pattern that can see it makes a DC 14 Wisdom saving throw. On a failure  the creature is charmed for 1 minute. While charmed  the creature is incapacitated and its Speed is 0. The effect ends on a creature if it takes damage or if another creature uses an action to shake it out of its daze."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "charmed",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Lightning Bolt (3rd-Level; V)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "A bolt of lightning 5 feet wide and 100 feet long arcs from the naga. Each creature in the area makes a DC 14 Dexterity saving throw  taking 28 (8d6) lightning damage on a failure or half damage on a success."
+      ],
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": 28,
+          "type": "lightning"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Blight (4th-Level; V, Concentration)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The naga targets a living creature or plant within 30 feet  draining moisture and vitality from it. The target makes a DC 14 Constitution saving throw  taking 36 (8d8) necrotic damage on a failure or half damage on a success. Plant creatures have disadvantage on their saving throw and take maximum damage. A nonmagical plant dies."
+      ],
+      "damage": [
+        {
+          "formula": "8d8",
+          "average": 36,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Shield (1st-Level; V)",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When the naga is hit by an attack or targeted by magic missile, it gains a +5 bonus to AC (including against the triggering attack) and immunity to magic missile. These benefits last until the beginning of its next turn."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spellcasting",
+      "type": "prepared",
+      "tradition": null,
+      "dc": 14,
+      "attackBonus": null,
+      "ability": "int",
+      "levels": [
+        {
+          "rank": 0,
+          "rankLabel": "Cantrips (at will)",
+          "spells": [
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "minor illusion",
+              "uses": null
+            }
+          ],
+          "uses": "at will"
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st-level (4 slots)",
+          "spells": [
+            {
+              "name": "charm person",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ],
+          "slots": 4
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd-level (3 slots)",
+          "spells": [
+            {
+              "name": "detect thoughts",
+              "uses": null
+            },
+            {
+              "name": "levitate",
+              "uses": null
+            },
+            {
+              "name": "3rd-level (3 slots) hypnotic pattern",
+              "uses": null
+            },
+            {
+              "name": "lightning bolt",
+              "uses": null
+            }
+          ],
+          "slots": 3
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th-level (3 slots)",
+          "spells": [
+            {
+              "name": "arcane eye",
+              "uses": null
+            },
+            {
+              "name": "blight",
+              "uses": null
+            }
+          ],
+          "slots": 3
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th-level (1 slots)",
+          "spells": [
+            {
+              "name": "dominate person",
+              "uses": null
+            }
+          ],
+          "slots": 1
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

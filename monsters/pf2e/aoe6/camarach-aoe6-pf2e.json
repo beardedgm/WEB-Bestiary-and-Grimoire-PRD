@@ -1,0 +1,349 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe6:camarach",
+  "name": "Camarach",
+  "gameSystem": "pf2e",
+  "variant": "aoe6",
+  "source": {
+    "code": "aoe6",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe6/camarach.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 17,
+    "xp": null,
+    "display": "Creature 17"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "monitor"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "cn",
+      "gargantuan",
+      "monitor"
+    ]
+  },
+  "abilityMods": {
+    "str": 10,
+    "dex": 5,
+    "con": 6,
+    "int": 6,
+    "wis": 6,
+    "cha": 9
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 27,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "thoughtsense",
+      "range": 120,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Celestial",
+    "Infernal",
+    "Protean; Telepathy 100 Feet",
+    "Tongues"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 33
+    },
+    {
+      "name": "Deception",
+      "mod": 36
+    },
+    {
+      "name": "Intimidation",
+      "mod": 30
+    },
+    {
+      "name": "Religion",
+      "mod": 31
+    },
+    {
+      "name": "Stealth",
+      "mod": 28
+    },
+    {
+      "name": "Survival",
+      "mod": 31
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 40,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 320,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 31
+      },
+      {
+        "name": "ref",
+        "mod": 26
+      },
+      {
+        "name": "will",
+        "mod": 29
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "physical",
+        "amount": 15,
+        "note": "except bludgeoning"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "lawful",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 60,
+      "swim": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          30,
+          25
+        ],
+        "traits": [
+          "magical",
+          "reach <20 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+18",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Improved Grab",
+        "Improved Grab"
+      ]
+    },
+    {
+      "name": "Disgorge Portal",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "evocation",
+        "light",
+        "occult"
+      ],
+      "entries": [
+        "The camarach vomits a spray of coruscating light. This has the effect of a DC 42 prismatic spray, except that each creature is affected by one violet beam and one other beam (roll 1d6 instead of 1d8 to determine which other beam). The camarach can't Disgorge a Portal again for 1d4 rounds."
+      ]
+    },
+    {
+      "name": "Exile",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "conjuration",
+        "occult",
+        "teleportation"
+      ],
+      "entries": [
+        "The camarach shunts one creature within its body through an inner portal to send it away. The target must attempt a DC 38 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is teleported to an open space it chooses within 30 feet of the camarach.",
+          "success": "The creature isn't teleported.",
+          "failure": "The creature is teleported to a random open space 1 mile from the camarach.",
+          "criticalFailure": "The creature is teleported to a random other plane, as plane shift."
+        }
+      }
+    },
+    {
+      "name": "Fast Swallow",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The camarach uses Swallow Whole."
+      ],
+      "trigger": "The camarach Grabs a creature"
+    },
+    {
+      "name": "Project False Image",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the camarach casts project image, its illusory image can be another creature of its size or a structure of its size that features a large portal (such as a freestanding archway or a large hut with an open doorway)."
+      ]
+    },
+    {
+      "name": "Swallow Whole",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Huge, 3d10+9 bludgeoning, Rupture 34."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 43,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 7,
+          "rankLabel": "Constant (7th)",
+          "spells": [
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "mind probe",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "hallucination",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "project image",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Monitor",
+        "skill": "Religion",
+        "dc": 38
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

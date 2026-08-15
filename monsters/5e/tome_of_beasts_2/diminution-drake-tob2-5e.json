@@ -1,0 +1,323 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:diminution-drake",
+  "name": "Diminution Drake",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 121,
+    "path": "monsters/5e/tome_of_beasts_2/diminution-drake.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 5,
+    "xp": 1800,
+    "display": "5"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 4,
+    "con": 1,
+    "int": -2,
+    "wis": 1,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 14,
+    "dex": 18,
+    "con": 12,
+    "int": 6,
+    "wis": 13,
+    "cha": 10
+  },
+  "perception": {
+    "mod": 4,
+    "passive": 17
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 30,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands Common and Draconic but can’t speak"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 4
+    },
+    {
+      "name": "Stealth",
+      "mod": 4
+    },
+    {
+      "name": "Survival",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 71,
+        "note": null,
+        "formula": "13d8+13"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 7
+      },
+      {
+        "name": "con",
+        "mod": 4
+      },
+      {
+        "name": "wis",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "blinded",
+        "deafened",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 60,
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Change Scale",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As a bonus action, the drake can change its size to Tiny or Small for 1 minute. While its size is reduced, it can't use In One Bite, and it has advantage on stinger attacks made against creatures larger than it. It can end this effect early as a bonus action."
+      ]
+    },
+    {
+      "name": "Keen Smell",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The diminution drake has advantage on Wisdom (Perception) checks that rely on smell."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The drake makes two claw attacks and one stinger attack."
+      ]
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 10 (2d6 + 3) slashing damage"
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6+3",
+          "average": 10,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "In One Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 10 ft., one Tiny target. Hit: The target must succeed on a DC 15 Dexterity saving throw or be swallowed by the drake. While swallowed, the target's hit points are reduced to 0, and it is stable. If a creature remains swallowed for 1 minute, it dies.<br><br>While it has a creature swallowed, the diminution drake can't reduce its size below Medium. If the diminution drake dies, a swallowed creature's hit points return to the amount it had before it was swallowed, and the creature falls prone in an unoccupied space within 5 feet of the drake."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one Tiny target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "save": {
+        "defense": "dex",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Stinger",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 6 (1d4 + 4) piercing damage, and the target must succeed on a DC 15 Constitution saving throw or have its size reduced by one category until it completes a short or long rest. This attack can reduce a creature's size to no smaller than Tiny."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+4",
+          "average": 6,
+          "type": "piercing"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Shrinking Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The drake exhales poison in a 15-foot-line that is 5 feet wide. Each creature in that line must make a DC 15 Dexterity saving throw. On a failure, a creature takes 17 (5d6) poison damage and its size is reduced by one category until it completes a short or long rest. On a success, it takes half the damage and isn't reduced in size. This breath can reduce a creature's size to no smaller than Tiny."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "5d6",
+          "average": 17,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

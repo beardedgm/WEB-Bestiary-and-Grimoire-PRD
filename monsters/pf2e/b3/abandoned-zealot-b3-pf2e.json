@@ -1,0 +1,310 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:abandoned-zealot",
+  "name": "Abandoned Zealot",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/abandoned-zealot.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "spirit",
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "medium",
+      "incorporeal",
+      "spirit",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 4,
+    "con": 0,
+    "int": 2,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "sense apostate",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability lifesense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 14
+    },
+    {
+      "name": "Intimidation",
+      "mod": 14
+    },
+    {
+      "name": "Religion",
+      "mod": 12
+    },
+    {
+      "name": "Stealth",
+      "mod": 16
+    },
+    {
+      "name": "Boneyard Lore",
+      "mod": 12
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 22,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 75,
+        "formula": null,
+        "note": "negative healing|b2"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 10
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all damage",
+        "amount": 5,
+        "note": "except force, ghost touch, or positive; double resistance against non-magical"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Anathematic Aversion",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "If they encounter a priest of their former faith, an abandoned zealot must attempt a Will save against the highest spell DC among those priests, or the highest Will DC if none of them can cast spells. The zealot attempts this saving throw only once per minute, even if more priests arrive later."
+      ],
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The abandoned zealot spends their reaction to Stride directly toward a priest of their former faith. For 1 minute, the abandoned zealot's hand of despair deals one additional damage die against priests of the creature's former faith.",
+          "success": "The abandoned zealot spends their reaction to Stride directly toward a priest of their former faith.",
+          "failure": "The abandoned zealot becomes frightened 1 and gains the fleeing condition until the end of their next turn.",
+          "criticalFailure": "As failure, but frightened 2."
+        }
+      }
+    },
+    {
+      "name": "Elegy of the Faithless",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "abjuration",
+        "divine",
+        "mental"
+      ],
+      "entries": [
+        "The abandoned zealot howls an elegy of regret, forcing the spellcaster to attempt a DC 22 Will save, or DC 24 if the caster is a member of the zealot's former faith. On a failure, the elegy disrupts the spell."
+      ],
+      "trigger": "A divine spell is cast within 30 feet of the abandoned zealot",
+      "save": {
+        "defense": "will",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "hand of despair",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 16,
+        "map": [
+          16,
+          11,
+          6
+        ],
+        "traits": [
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+4",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": [
+        "rend faith",
+        "rend faith"
+      ]
+    },
+    {
+      "name": "Rend Faith",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When hit by an abandoned zealot's hand of despair, a creature capable of divine spellcasting or with divinely granted abilities must succeed at a DC 24 Will save or be unable to use those spells or abilities until the end of its next turn."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 24,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "crisis of faith",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "zealous conviction",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Spirit",
+        "skill": "Religion",
+        "dc": 22
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

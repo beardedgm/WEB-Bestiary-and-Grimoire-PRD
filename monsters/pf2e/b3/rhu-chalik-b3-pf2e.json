@@ -1,0 +1,309 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:rhu-chalik",
+  "name": "Rhu-chalik",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/rhu-chalik.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 6,
+    "xp": null,
+    "display": "Creature 6"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "small",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 3,
+    "con": 4,
+    "int": 2,
+    "wis": 5,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 13
+    },
+    {
+      "name": "Deception",
+      "mod": 13
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 13
+    },
+    {
+      "name": "Intimidation",
+      "mod": 13
+    },
+    {
+      "name": "Stealth",
+      "mod": 15
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 23,
+      "note": "{@ability all-around vision} abilities"
+    },
+    "hp": [
+      {
+        "value": 95,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 14
+      },
+      {
+        "name": "ref",
+        "mod": 11
+      },
+      {
+        "name": "will",
+        "mod": 17
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 5,
+      "fly": 35
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "No Breath",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A rhu-chalik doesn't breathe and is immune to effects that require breathing (such as inhaled poisons)."
+      ]
+    },
+    {
+      "name": "tendril",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 15,
+        "map": [
+          15,
+          11,
+          7
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d4+6",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": [
+        "excruciating enzyme",
+        "excruciating enzyme"
+      ]
+    },
+    {
+      "name": "Excruciating Enzyme",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "occult",
+        "poison"
+      ],
+      "entries": [
+        "A rhu-chalik's tendrils secrete an enzyme that causes intense pain. A living creature hit by a tendril Strike must succeed at a DC 24 Fortitude save or become sickened 1 from the pain."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Project Terror",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "emotion",
+        "enchantment",
+        "fear",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "The rhu-chalik creates nightmarish visions in the target's mind. The target must attempt a DC 24 Will save."
+      ],
+      "requirements": "The rhu-chalik has successfully affected the target with mind probe, mind reading, or Project Terror in the last minute",
+      "save": {
+        "defense": "will",
+        "dc": 24,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target creature is unaffected and temporarily immune to Project Terror for 1 minute.",
+          "success": "The target is unaffected.",
+          "failure": "The target becomes frightened 2. Failing additional saves against this effect increases the frightened condition value by 2; if this would increase the target's frightened value beyond frightened 4, the target is fleeing for 1 round and frightened 4.",
+          "criticalFailure": "As failure, but the target becomes unconscious for 30 minutes instead of fleeing."
+        }
+      }
+    },
+    {
+      "name": "Void Transmission",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "concentrate",
+        "enchantment",
+        "exploration",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "The rhu-chalik spends 10 minutes copying the creature's entire consciousness and mentally sends this copied consciousness through the void of space to their waiting masters. The target creature is deeply disoriented by this procedure, becoming stupefied 2 for 1 day afterward. If the creature is revived or moved away from the rhu-chalik during the process, Void Transmission fails and the target is unaffected."
+      ],
+      "requirements": "The rhu-chalik is adjacent to an unconscious creature"
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 23,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": "at will"
+            },
+            {
+              "name": "mind reading",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "modify memory",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "mind probe",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 24
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

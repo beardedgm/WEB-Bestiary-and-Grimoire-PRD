@@ -1,0 +1,433 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sf2:usilket",
+  "name": "Usilket",
+  "gameSystem": "pf2e",
+  "variant": "sf2",
+  "source": {
+    "code": "sf2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sf2/usilket.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "lg",
+      "lawChaos": "lawful",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "unique",
+      "lg",
+      "medium",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 5,
+    "con": 1,
+    "int": 3,
+    "wis": 5,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 24,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Draconic",
+    "Gnoll",
+    "Kelish",
+    "Mwangi",
+    "Osiriani",
+    "Vudrani; Tongues"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 24
+    },
+    {
+      "name": "Athletics",
+      "mod": 22
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 25
+    },
+    {
+      "name": "Katapesh Lore",
+      "mod": 26
+    },
+    {
+      "name": "Medicine",
+      "mod": 24
+    },
+    {
+      "name": "Mercantile Lore",
+      "mod": 24
+    },
+    {
+      "name": "Performance",
+      "mod": 23
+    },
+    {
+      "name": "Society",
+      "mod": 26
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 34,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 238,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 20
+      },
+      {
+        "name": "ref",
+        "mod": 24
+      },
+      {
+        "name": "will",
+        "mod": 24
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "force",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Absorb Force",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "arcane",
+        "evocation",
+        "force"
+      ],
+      "entries": [
+        "Usilket \"catches\" the missile, absorbing it and causing that hand to glow while it holds this energy. A hand that's holding energy can only be used for Force Bolt. The energy lasts for 6 rounds or until it is released."
+      ],
+      "trigger": "A magic missile is fired at Usilket, and they are aware of it and have a free hand",
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      }
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 25,
+        "map": [
+          25,
+          21,
+          17
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "nonlethal",
+          "unarmed"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d10+9",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Grab"
+      ]
+    },
+    {
+      "name": "Flurry of Blows",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "flourish"
+      ],
+      "entries": [
+        "Usilket makes two Strikes with their fist or with a monk weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses."
+      ]
+    },
+    {
+      "name": "Force Bolt",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "evocation",
+        "force"
+      ],
+      "entries": [
+        "Usilket fires two magic missiles per action spent, dealing 1d4+1 force damage each. They can't spend more actions on this ability than they have free hands. If they use a hand that has Absorbed Force, that hand hurls three missiles instead of two, expending the held energy."
+      ]
+    },
+    {
+      "name": "Meditative Therapy",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "healing",
+        "necromancy"
+      ],
+      "entries": [
+        "One of Usilket's most unusual abilities is a technique they learned during a long visit to Jalmeray. Usilket enters a trancelike state for 10 minutes, during which they can attempt to remove a disease or one of the following conditions: clumsy, drained, enfeebled, or stupefied. To remove the disease or condition, Usilket must counteract the disease or condition with a Medicine check. Usilket can attempt to counteract a disease or condition present in another creature, as long as that creature remains adjacent to the witchwyrd during the entire meditation."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      }
+    },
+    {
+      "name": "Powerful",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Fists Usilket's fist Strikes are treated as cold iron and silver and don't take penalties when making lethal attacks."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 33,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 7,
+          "rankLabel": "Constant (7th)",
+          "spells": [
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "Cantrips (7th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "floating disk",
+              "uses": "at will"
+            },
+            {
+              "name": "unseen servant",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            },
+            {
+              "name": "mirror image",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "resilient sphere",
+              "uses": null
+            },
+            {
+              "name": "suggestion",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "dispel magic",
+              "uses": null
+            },
+            {
+              "name": "resist energy",
+              "uses": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Monk Focus Spells",
+      "type": "focus",
+      "tradition": null,
+      "dc": 32,
+      "attackBonus": 25,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "abundant step",
+              "uses": null
+            },
+            {
+              "name": "ki blast",
+              "uses": null
+            },
+            {
+              "name": "ki rush",
+              "uses": null
+            },
+            {
+              "name": "ki strike",
+              "uses": null
+            },
+            {
+              "name": "wholeness of body",
+              "uses": null
+            },
+            {
+              "name": "wind jump",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 41
+      }
+    ],
+    "items": [
+      "+1 striking handwraps of mighty blows",
+      "guardian aluum charm|SF2",
+      "greater hat of disguise"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

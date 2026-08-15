@@ -1,0 +1,417 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa3:precentor",
+  "name": "Precentor",
+  "gameSystem": "pf2e",
+  "variant": "aoa3",
+  "source": {
+    "code": "aoa3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa3/precentor.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 16,
+    "xp": null,
+    "display": "Creature 16"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fiend",
+      "velstrac"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "le",
+      "medium",
+      "fiend",
+      "velstrac"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 7,
+    "con": 3,
+    "int": 6,
+    "wis": 6,
+    "cha": 8
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 32,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "detect magic",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "painsight",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "true seeing",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Infernal",
+    "Shadowtongue"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 27
+    },
+    {
+      "name": "Athletics",
+      "mod": 28
+    },
+    {
+      "name": "Deception",
+      "mod": 32
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 34
+    },
+    {
+      "name": "Performance",
+      "mod": 34
+    },
+    {
+      "name": "Religion",
+      "mod": 30
+    },
+    {
+      "name": "Stealth",
+      "mod": 29
+    },
+    {
+      "name": "Torture Lore",
+      "mod": 26
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 39,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 295,
+        "formula": null,
+        "note": "regeneration 25 (deactivated by good or silver)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 25
+      },
+      {
+        "name": "ref",
+        "mod": 29
+      },
+      {
+        "name": "will",
+        "mod": 30
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "cold"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "silver",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Unnerving Gaze",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "enchantment",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "30 feet. When a creature ends its turn in the aura, it must succeed at a DC 38 Will save or become doomed|CRB|doomed 1."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 31,
+        "map": [
+          31,
+          27,
+          23
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+6",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Assemble Choir",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The precentor adds a creature that is affected by its Tormenting Touch and is within 100 feet to its choir of screams. A precentor can have any number of creatures in its choir, although a creature no longer affected by Tormenting Touch leaves the choir immediately. Creatures in a precentor's choir of screams are fascinated by each other and the precentor, and they can't use hostile actions toward each other or the precentor. When the precentor casts an innate divine spell, it can cause the effect to originate from any member of its choir instead of itself, using the precentor's saving throw DC and attack bonus."
+      ]
+    },
+    {
+      "name": "Focus Gaze",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "divine",
+        "enchantment",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "The precentor stares at a creature they can see within 30 feet. The target must immediately attempt a Will save against feel the blades. After attempting this save, the creature is then temporarily immune until the start of the precentor's next turn. In addition, if the creature was already doomed, on a failed save it sees the skin of its own body peel back, making it confused for as long as it remains doomed."
+      ]
+    },
+    {
+      "name": "Tormenting Touch",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "divine",
+        "emotion",
+        "enchantment",
+        "mental"
+      ],
+      "entries": [
+        "The precentor touches a creature within 10 feet, causing it to constantly scream in agony. The target must attempt a DC 38 Will save. While the target is stupefied by this effect, its continual screams cause it to automatically fail Stealth checks."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target is stupefied|CRB|stupefied 1.",
+          "failure": "The target is stupefied|CRB|stupefied 3.",
+          "criticalFailure": "The target is stupefied|CRB|stupefied 4. The target can attempt a new Will save at the start of each of its turns, reducing the stupefied condition by 1 on each successful save. If the target reduces its stupefied condition to 0 in this way, the target is no longer affected."
+        }
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 38,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 8,
+          "rankLabel": "Constant (8th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "mind blank",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "Constant (6th)",
+          "spells": [
+            {
+              "name": "fly",
+              "uses": null
+            },
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "Cantrips (8th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "sigil",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "sound burst",
+              "uses": "at will"
+            },
+            {
+              "name": "synesthesia",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "harm",
+              "uses": null
+            },
+            {
+              "name": "plane shift",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "wail of the banshee",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 37
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

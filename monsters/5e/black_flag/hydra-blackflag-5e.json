@@ -1,0 +1,222 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:hydra",
+  "name": "Hydra",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/hydra_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 8,
+    "xp": 3900,
+    "display": "8"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 1,
+    "con": 5,
+    "int": -4,
+    "wis": 0,
+    "cha": -2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 16,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 166,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Multiple Heads",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "swim": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Hold Breath",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The hydra can hold its breath for 1 hour."
+      ]
+    },
+    {
+      "name": "Multiple Heads",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The hydra has five heads and is resistant to the blinded, charmed, deafened, frightened, stunned, and unconscious conditions.<br>Whenever the hydra takes 25 or more damage in a single turn, one of its heads dies. If all its heads die, the hydra dies. At the end of its turn, it grows two heads for each of its heads that died since its last turn, unless it has taken fire damage since its last turn. The hydra regains 10 HP for each head regrown in this way."
+      ]
+    },
+    {
+      "name": "Reactive Heads",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "For each head the hydra has beyond one, it gets an extra reaction that can be used only for opportunity attacks."
+      ]
+    },
+    {
+      "name": "Wakeful",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While the hydra sleeps, at least one of its heads is awake."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The hydra makes as many Bite attacks as it has heads."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +8 to hit, reach 10 ft., one target. _Hit:_ 10 (1d10+5) piercing damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d10+5",
+          "average": 10,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Noxious Breath (Recharge Special)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The hydra exhales poisonous gas in a 30-foot cone. Each creature in that area must make a DC 16 CON save, taking 40 (9d8) poison damage on a failed save, or half as much damage on a successful one. While the hydra has five or more heads, this action has a recharge of 6. The recharge range increases for each head the hydra has below five. For example, a hydra that starts its turn with two heads can recharge this feature on a 3, 4, 5, or 6."
+      ],
+      "damage": [
+        {
+          "formula": "9d8",
+          "average": 40,
+          "type": "poison"
+        }
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Bloody Burst (Has Fewer Than Five Heads)",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The hydra squeezes the stumps of its severed heads, spraying blood and gore. Each creature within 5 feet of the hydra must succeed on a DC 16 CON save or be incapacitated until the end of its next turn and poisoned for 1 minute. A poisoned creature can repeat the save at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "condition": {
+        "name": "incapacitated",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

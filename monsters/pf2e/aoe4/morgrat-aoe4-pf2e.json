@@ -1,0 +1,438 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe4:morgrat",
+  "name": "Morgrat",
+  "gameSystem": "pf2e",
+  "variant": "aoe4",
+  "source": {
+    "code": "aoe4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe4/morgrat.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ce",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 4,
+    "con": 1,
+    "int": 0,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 17
+    },
+    {
+      "name": "Arcana",
+      "mod": 16
+    },
+    {
+      "name": "Deception",
+      "mod": 20
+    },
+    {
+      "name": "Thievery",
+      "mod": 17
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 155,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 16
+      },
+      {
+        "name": "ref",
+        "mod": 19
+      },
+      {
+        "name": "will",
+        "mod": 17
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "poison",
+        "amount": 12,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Venom Explosion",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "poison"
+      ],
+      "entries": [
+        "The venom mage explodes into a cloud of poison within a 20-foot burst. The venom mage then reforms at a point they choose within the burst, avoids being knocked out, and remains at 1 Hit Point. The venom mage's wounded value increases by 1 when they use this ability, and they can't use this ability when they're wounded|CRB|wounded 3 or more. Creatures other than the venom mage within the burst must attempt a Fortitude save."
+      ],
+      "trigger": "The venom mage is reduced to 0 Hit Points",
+      "area": {
+        "shape": "burst",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "No effect.",
+          "success": "The creature is sickened|CRB|sickened 1.",
+          "failure": "The creature is sickened|CRB|sickened 2 and cannot recover from the sickened condition while within 20 feet of the venom mage.",
+          "criticalFailure": "As failure, but sickened|CRB|sickened 4."
+        }
+      }
+    },
+    {
+      "name": "dagger",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          13,
+          9
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "versatile <S>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d4+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "poisoner's staff",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "magical",
+          "two-handed d8"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+4",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "dagger",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 19,
+        "map": [
+          19,
+          15,
+          11
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "thrown <10 feet>",
+          "versatile <S>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 10,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+6",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Steady Spellcasting",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If another creature's reaction would disrupt the venom mage's spellcasting action, the venom mage attempts a DC 15 flat check. If the venom mage succeeds, their action isn't disrupted."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous primal Spells",
+      "type": "spontaneous",
+      "tradition": "primal",
+      "dc": 28,
+      "attackBonus": 17,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Cantrips (5th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "guidance",
+              "uses": null
+            },
+            {
+              "name": "light",
+              "uses": null
+            },
+            {
+              "name": "ray of frost",
+              "uses": null
+            },
+            {
+              "name": "read aura",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st (4 slots)",
+          "spells": [
+            {
+              "name": "fleet step",
+              "uses": null
+            },
+            {
+              "name": "gust of wind",
+              "uses": null
+            },
+            {
+              "name": "spider sting",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd (4 slots)",
+          "spells": [
+            {
+              "name": "animal messenger",
+              "uses": null
+            },
+            {
+              "name": "faerie fire",
+              "uses": null
+            },
+            {
+              "name": "imp sting",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd (4 slots)",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "earth bind",
+              "uses": null
+            },
+            {
+              "name": "stinking cloud",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th (3 slots)",
+          "spells": [
+            {
+              "name": "heal",
+              "uses": null
+            },
+            {
+              "name": "summon animal",
+              "uses": null
+            },
+            {
+              "name": "swarming wasp stings",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th (2 slots)",
+          "spells": [
+            {
+              "name": "cloudkill",
+              "uses": null
+            },
+            {
+              "name": "wyvern sting",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 28,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "detect poison",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 36
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

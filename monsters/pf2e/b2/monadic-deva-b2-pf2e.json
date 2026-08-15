@@ -1,0 +1,392 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:monadic-deva",
+  "name": "Monadic Deva",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/monadic-deva.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "angel",
+      "celestial"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ng",
+      "lawChaos": "neutral",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "ng",
+      "medium",
+      "angel",
+      "celestial"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 4,
+    "con": 5,
+    "int": 4,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Draconic",
+    "Infernal; Tongues"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 25
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 24
+    },
+    {
+      "name": "Intimidation",
+      "mod": 22
+    },
+    {
+      "name": "Occultism",
+      "mod": 20
+    },
+    {
+      "name": "Religion",
+      "mod": 25
+    },
+    {
+      "name": "Survival",
+      "mod": 22
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 245,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 24
+      },
+      {
+        "name": "ref",
+        "mod": 21
+      },
+      {
+        "name": "will",
+        "mod": 20
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "death effects"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "evil",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Spiritual Warden",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "abjuration",
+        "aura",
+        "divine"
+      ],
+      "entries": [
+        "20 feet. Allies in the aura gain a +2 status bonus to saving throws against death effects and effects that target or manipulate their souls."
+      ],
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "holy mace",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 28,
+        "map": [
+          28,
+          23,
+          18
+        ],
+        "traits": [
+          "good",
+          "magical",
+          "shove"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+15",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "force"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "good"
+        }
+      ],
+      "entries": [
+        "solid blow",
+        "solid blow"
+      ]
+    },
+    {
+      "name": "Holy Armaments",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "evocation"
+      ],
+      "entries": [
+        "Any weapon gains the effect of a holy property rune while a monadic deva wields it."
+      ]
+    },
+    {
+      "name": "Rebuke Soul",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "auditory",
+        "divine",
+        "enchantment",
+        "good",
+        "incapacitation"
+      ],
+      "entries": [
+        "The monadic deva speaks a word to cause a creature's soul to recoil at its sins or an undead creature to recoil at its lack of a soul. One non-good living or undead target within 40 feet takes 5d10 good damage and must attempt a DC 32 Fortitude save. Regardless of the outcome, the target is then temporarily immune for 10 minutes."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 32,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target takes half damage and is stunned 1.",
+          "failure": "The target takes full damage and is stunned 2.",
+          "criticalFailure": "The target takes double damage and is stunned 4."
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d10",
+          "average": null,
+          "type": "good"
+        }
+      ]
+    },
+    {
+      "name": "Solid Blow",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "evocation",
+        "force"
+      ],
+      "entries": [
+        "When a monadic deva hits a target for the second time during its turn with its mace, it deals an additional 2d12 force damage as its weapon shimmers with ripples of power."
+      ],
+      "damage": [
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "force"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 31,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "tongues",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "detect alignment",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "charm",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "creation",
+              "uses": null
+            },
+            {
+              "name": "remove fear",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "divine wrath",
+              "uses": null
+            },
+            {
+              "name": "heal",
+              "uses": null
+            },
+            {
+              "name": "paralyze",
+              "uses": null
+            },
+            {
+              "name": "remove curse",
+              "uses": null
+            },
+            {
+              "name": "remove disease",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Celestial",
+        "skill": "Religion",
+        "dc": 30
+      }
+    ],
+    "items": [
+      "+1 striking mace"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

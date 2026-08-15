@@ -1,0 +1,322 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:tec:sand-wolf",
+  "name": "Sand Wolf",
+  "gameSystem": "pf2e",
+  "variant": "tec",
+  "source": {
+    "code": "tec",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/tec/sand-wolf.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [
+      "air",
+      "earth"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "n",
+      "large",
+      "air",
+      "beast",
+      "earth"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 4,
+    "con": 2,
+    "int": -2,
+    "wis": 2,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "tremorsense",
+      "range": null,
+      "unit": null,
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Auran",
+    "Terran"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 12
+    },
+    {
+      "name": "Performance",
+      "mod": 13
+    },
+    {
+      "name": "Stealth",
+      "mod": 11
+    },
+    {
+      "name": "Survival",
+      "mod": 12
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 21,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 92,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 12
+      },
+      {
+        "name": "ref",
+        "mod": 15
+      },
+      {
+        "name": "will",
+        "mod": 9
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "electricity",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 20,
+      "burrow": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Water Vulnerability",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Sand wolves take 5 additional damage from attacks and effects with the water trait."
+      ]
+    },
+    {
+      "name": "Collapse Into Sand",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The sand wolf's body falls apart into a cloud of sand. It takes no damage from the triggering attack, and its resistances increase to 8. The sand wolf must spend one action to reform its body before it can move or attack."
+      ],
+      "trigger": "The sand wolf is hit by an attack"
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          9,
+          4
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+5",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "Grab"
+      ]
+    },
+    {
+      "name": "sand blast",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 12,
+        "map": [
+          12,
+          7,
+          2
+        ],
+        "traits": [
+          "range 30 feet"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 30,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Choking Sands",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "air",
+        "earth",
+        "primal"
+      ],
+      "entries": [
+        "The sand wolf discorporates into a cloud of whirling sand. It can Stride, moving freely through occupied spaces. Any creatures within those spaces take 2d10 damage and must attempt a DC 19 Reflex save."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Susurrating Song",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "air",
+        "earth",
+        "primal",
+        "sonic"
+      ],
+      "entries": [
+        "The sand wolf sings a short, enchanting song. Any creature other than a sand wolf within 30 feet must attempt a DC 19 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 19,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Beast",
+        "skill": "Arcana, Nature",
+        "dc": 22
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Choking Sands)",
+      "degree-of-success labels present but empty in source (Susurrating Song)"
+    ],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:rust:clockwork-serpent-spy",
+  "name": "Clockwork Serpent Spy",
+  "gameSystem": "pf2e",
+  "variant": "rust",
+  "source": {
+    "code": "rust",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/rust/clockwork-serpent-spy.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 1,
+    "xp": null,
+    "display": "Creature 1"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [
+      "clockwork",
+      "mindless"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "tiny",
+      "clockwork",
+      "construct",
+      "mindless"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 4,
+    "con": 0,
+    "int": -5,
+    "wis": 3,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 10,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 15,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 3
+      },
+      {
+        "name": "ref",
+        "mod": 9
+      },
+      {
+        "name": "will",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental",
+        "nonlethal",
+        "poison",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "electricity",
+        "amount": 3,
+        "note": null
+      },
+      {
+        "name": "orichalcum",
+        "amount": 3,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Self-Destruct",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "; A clockwork serpent spy must use this reaction unless specifically programmed otherwise by its creator; The spy thrashes around and emits a tinny scream followed by a steady ticking sound. At the beginning of what would have been its next turn, the clockwork serpent spy explodes, dealing 1d12 piercing damage in a 5-foot radius (DC 17 basic Reflex save). Its gemstone is destroyed, along with any information contained inside it. An adjacent creature can cancel the self-destruct sequence by succeeding at a DC 17 Thievery check to Disable a Device."
+      ],
+      "trigger": "The clockwork serpent spy is reduced to 0 Hit Points",
+      "area": {
+        "shape": "radius",
+        "size": 5,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 17,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d12",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "sharpened gear",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 7,
+        "map": [
+          7,
+          2,
+          -3
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6-1",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "bleeding gash"
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 20
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

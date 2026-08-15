@@ -1,0 +1,441 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:demilich",
+  "name": "Demilich",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/demilich.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ne",
+      "tiny",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -3,
+    "dex": 4,
+    "con": 0,
+    "int": 7,
+    "wis": -2,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "true seeing",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Aklo",
+    "Common",
+    "Draconic",
+    "Elf",
+    "Infernal",
+    "Necril",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 25
+    },
+    {
+      "name": "Arcana",
+      "mod": 32
+    },
+    {
+      "name": "Deception",
+      "mod": 26
+    },
+    {
+      "name": "Occultism",
+      "mod": 30
+    },
+    {
+      "name": "Religion",
+      "mod": 21
+    },
+    {
+      "name": "Stealth",
+      "mod": 25
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 38,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 220,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 23
+      },
+      {
+        "name": "ref",
+        "mod": 27
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. positive",
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "disease",
+        "polymorph"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "electricity",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 5,
+        "note": "except bludgeoning"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Telekinetic Whirlwind",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "aura",
+        "evocation"
+      ],
+      "entries": [
+        "20 feet. Telekinetic whirlwind activates when the demilich ends torpor. Loose debris in the area whip up into a whirling storm. This obscures vision, making any creature in the area concealed, and causes creatures in its area (except the demilich) to treat all creatures as concealed. Any creature other than the demilich that enters or begins its turn in the aura takes 2d12 bludgeoning damage."
+      ],
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "2d12",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Contingency",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The demilich ends torpor, rolls initiative, and gains the effect of its contingency's companion spell. The contingency resets after 24 hours."
+      ],
+      "trigger": "While the lich is in torpor, a creature disturbs the demilich's remains, touches its treasure, or casts a spell that would affect the demilich."
+    },
+    {
+      "name": "Countermeasures",
+      "category": "free",
+      "placement": "mid",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "The demilich casts blink, fly, spell turning, or true seeing on itself. It usually chooses spell turning unless it already has that spell in effect."
+      ],
+      "trigger": "The demilich's turn begins."
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "reach <0 feet>",
+          "finesse",
+          "magical"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 0,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4-3",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Demilich Eye Gems",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "arcane"
+      ],
+      "entries": [
+        "A demilich has gemstone eyes that glow when the demilich is active. Each eye contains an 8th-level spell that targets one creature (usually one eye has maze and the other polar ray). The demilich can Activate an eye. This uses the number of spellcasting actions the spell requires, and also requires command and envision components. When the demilich casts a spell from a gemstone eye, that eye stops glowing for 1d4 rounds, during which time that eye's spell can't be used. Occasionally, one or both of the two demilich eye gem|B1|demilich eye gems can be harvested from a destroyed demilich as magic items."
+      ]
+    },
+    {
+      "name": "Devour Soul",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "arcane",
+        "necromancy",
+        "negative"
+      ],
+      "entries": [
+        "The demilich consumes the soul. The soul is utterly destroyed, and the demilich regains HP equal to double the creature's level."
+      ],
+      "requirements": "A soul has been trapped in one of the demilich's blight quartz gems (see Trap Soul) for 24 hours."
+    },
+    {
+      "name": "Mental Magic",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A demilich can replace all material and somatic components for casting spells with verbal components, and can replace all Interact components for activating magic items with envision components."
+      ]
+    },
+    {
+      "name": "Staff Gems",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A demilich long ago absorbed the spells from a staff into gemstone nodules embedded in its skull, with larger nodules representing higher-level spells. It can cast any of the spells as though it were Activating the staff, and regains 1 charge per 4 hours spent in torpor, to a maximum of 8 charges. A typical demilich has the spells from a greater staff of necromancy, but it could have spells from another staff of 8th level or lower instead."
+      ]
+    },
+    {
+      "name": "Trap Soul",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Ten blight quartz gemstones on the demilich's skull can trap the souls of the living. The Activated gem casts bind soul. This bind soul can target and affect a dying creature instead of a corpse. The dying creature can attempt a DC 38 Fortitude save; if it succeeds, it doesn't die and its soul is not trapped but it's enervated 2 (or is unaffected entirely on a critical success). When the soul of a creature gets trapped, the creature's body swiftly turns to dust. The gemstones work like the black sapphires used in bind soul, except that they can hold creatures of up to 17th level and have a value of 200 gp apiece. The demilich can Devour a Soul it has trapped."
+      ],
+      "frequency": {
+        "number": null,
+        "unit": null,
+        "text": "once per day per gem"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate arcane Spells",
+      "type": "innate",
+      "tradition": "arcane",
+      "dc": 40,
+      "attackBonus": 30,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Constant (6th)",
+          "spells": [
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "Cantrips (8th)",
+          "spells": [
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "telekinetic projectile",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "blink",
+              "uses": "at will"
+            },
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            },
+            {
+              "name": "telekinetic maneuver",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "spell turning",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "wail of the banshee",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 39
+      }
+    ],
+    "items": [
+      "demilich eye gem|B1 (2)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

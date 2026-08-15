@@ -1,0 +1,273 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:butatsch",
+  "name": "Butatsch",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 54,
+    "path": "monsters/5e/tome_of_beasts_2/butatsch.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 14,
+    "xp": 11500,
+    "display": "14"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic neutral",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 2,
+    "con": 5,
+    "int": 3,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 23,
+    "dex": 14,
+    "con": 21,
+    "int": 16,
+    "wis": 17,
+    "cha": 14
+  },
+  "perception": {
+    "mod": 13,
+    "passive": 23
+  },
+  "senses": [
+    {
+      "name": "truesight",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Deep Speech"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 248,
+        "note": null,
+        "formula": "16d20+80"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 11
+      },
+      {
+        "name": "wis",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "fire"
+      ],
+      "conditions": [
+        "grappled",
+        "paralyzed",
+        "prone",
+        "restrained"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "swim": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Thousands of Eyes",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The butatsch has advantage on Wisdom (Perception) checks that rely on sight and on saving throws against being blinded. In addition, if the butatsch isn't blinded, creatures attacking it can't benefit from traits and features that rely on a creature's allies distracting or surrounding the butatsch, such as the Pack Tactics or Sneak Attack traits."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The butatsch can use its Immolating Gaze. It then makes two slam attacks. If both attacks hit a Large or smaller target, the target is grappled (escape DC 17), and the butatsch uses its Ingest on the target."
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Immolating Gaze",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The butatsch chooses up to three creatures it can see within 60 feet of it. Each target must make a DC 18 Dexterity saving throw. On a failure, a creature takes 10 (3d6) fire damage and is immolated. On a success, a creature takes half the damage and isn't immolated. Until a creature takes an action to smother the fire, the immolated target takes 7 (2d6) fire damage at the start of each of its turns. Water doesn't douse fires set by the butatsch's Immolating Gaze."
+      ],
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "fire"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +11 to hit, reach 10 ft., one target. Hit: 10 (1d8 + 6) bludgeoning damage plus 7 (2d6) fire damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 11,
+        "map": [
+          11
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+6",
+          "average": 10,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Ingest",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The butatsch ingests a Large or smaller creature grappled by it, ending the grapple. While ingested, the target is blinded and restrained, it has total cover against attacks and other effects outside the butatsch, and it takes 17 (5d6) acid damage at the start of each of the butatsch's turns. A butatsch can have up to four Medium or smaller targets or up to two Large targets ingested at a time. If the butatsch takes 30 damage or more on a single turn from an ingested creature, the butatsch must succeed on a DC 21 Constitution saving throw at the end of that turn or regurgitate all ingested creatures, which fall prone in a space within 10 feet of the butatsch. If the butatsch dies, an ingested creature is no longer restrained by it and can escape from the corpse by using 20 feet of movement, exiting prone."
+      ],
+      "damage": [
+        {
+          "formula": "5d6",
+          "average": 17,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "blinded",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

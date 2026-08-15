@@ -1,0 +1,299 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:srd52:guardian-naga",
+  "name": "Guardian Naga",
+  "gameSystem": "dnd5e",
+  "variant": "srd52",
+  "source": {
+    "code": "5.2_srd_(2025_mm)",
+    "name": null,
+    "page": null,
+    "path": "monsters/5e/5.2_srd_(2025_mm)/guardian_naga_mm_2024.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 10,
+    "xp": 5900,
+    "display": "10"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "celestial"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "Lawful Good",
+      "lawChaos": "lawful",
+      "goodEvil": "good"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 4,
+    "con": 3,
+    "int": 3,
+    "wis": 4,
+    "cha": 4
+  },
+  "abilityScores": {
+    "str": 19,
+    "dex": 18,
+    "con": 16,
+    "int": 16,
+    "wis": 19,
+    "cha": 18
+  },
+  "perception": {
+    "mod": null,
+    "passive": 14
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 11
+    },
+    {
+      "name": "History",
+      "mod": 11
+    },
+    {
+      "name": "Religion",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 136,
+        "note": null,
+        "formula": "16d10+48"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 4
+      },
+      {
+        "name": "dex",
+        "mod": 8
+      },
+      {
+        "name": "con",
+        "mod": 7
+      },
+      {
+        "name": "int",
+        "mod": 7
+      },
+      {
+        "name": "wis",
+        "mod": 8
+      },
+      {
+        "name": "cha",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "Poison"
+      ],
+      "conditions": [
+        "Charmed",
+        "Paralyzed",
+        "Poisoned",
+        "Restrained"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40,
+      "climb": 40,
+      "swim": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Celestial Restoration",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the naga dies, it returns to life in 1d6 days and regains all its Hit Points unless *Dispel Evil and Good* is cast on its remains."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The naga makes two Bite attacks. It can replace any attack with a use of Poisonous Spittle."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Melee Attack Roll:* +8, reach 10 ft. 17 (2d12 + 4) Piercing damage plus 22 (4d10) Poison damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12+4",
+          "average": 17,
+          "type": "piercing"
+        },
+        {
+          "formula": "4d10",
+          "average": 22,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Poisonous Spittle",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Constitution Saving Throw*: DC 16, one creature the naga can see within 60 feet. *Failure:*  31 (7d8) Poison damage, and the target has the Blinded condition until the start of the naga's next turn. *Success:*  Half damage only."
+      ],
+      "damage": [
+        {
+          "formula": "7d8",
+          "average": 31,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Spellcasting",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The naga casts one of the following spells, requiring no Somatic or Material components and using Wisdom as the spellcasting ability (spell save DC 16):",
+        "**At Will:** *Thaumaturgy*"
+      ]
+    },
+    {
+      "name": "1e/Day Each",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "*Clairvoyance*, *Cure Wounds*, *Flame Strike*, *Geas*, *True Seeing*"
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spellcasting",
+      "type": "prepared",
+      "tradition": null,
+      "dc": 16,
+      "attackBonus": null,
+      "ability": "wis",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At Will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "Thaumaturgy",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "initiative": 4
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

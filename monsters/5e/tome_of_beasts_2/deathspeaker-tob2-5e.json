@@ -1,0 +1,244 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:deathspeaker",
+  "name": "Deathspeaker",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 82,
+    "path": "monsters/5e/tome_of_beasts_2/deathspeaker.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "lawful evil",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 3,
+    "con": 3,
+    "int": 4,
+    "wis": 1,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 12,
+    "dex": 16,
+    "con": 17,
+    "int": 18,
+    "wis": 12,
+    "cha": 15
+  },
+  "perception": {
+    "mod": null,
+    "passive": 11
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "any languages it knew in life"
+  ],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 8
+    },
+    {
+      "name": "Persuasion",
+      "mod": 8
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 97,
+        "note": null,
+        "formula": "13d8+39"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "exhaustion",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Deathspeak",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the deathspeaker engages at least one creature in conversation for at least 1 minute, it can perform a prophetic display, reading cards, throwing bones, speaking to a crystal ball, or similar. Each creature that can see or hear the prophetic display must succeed on a DC 15 Intelligence saving throw or be cursed with the belief it will soon die. While cursed, the creature has disadvantage on attack rolls and ability checks. The curse lasts until it is lifted by a remove curse spell or similar magic, or until the deathspeaker dies. The deathspeaker can use this trait only on creatures that share at least one language with it."
+      ],
+      "save": {
+        "defense": "int",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The deathspeaker makes two rake attacks. Alternatively, it can use Necrotic Ray twice."
+      ]
+    },
+    {
+      "name": "Rake",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one creature. Hit: 12 (2d8 + 3) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": 12,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Necrotic Ray",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Spell Attack: +7 to hit, range 60 ft., one target. Hit: 10 (3d6) necrotic damage."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "spell",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "necrotic"
+        }
+      ]
+    },
+    {
+      "name": "Pronounce Death",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The deathspeaker chooses a creature it can see within 30 feet of it that has been reduced to 0 hp. The target must succeed on a DC 13 Constitution saving throw or immediately die. Creatures cursed by the Deathspeak trait have disadvantage on this saving throw."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

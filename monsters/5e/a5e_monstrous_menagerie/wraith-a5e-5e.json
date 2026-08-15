@@ -1,0 +1,269 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:wraith",
+  "name": "Wraith",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 427,
+    "path": "monsters/5e/a5e_monstrous_menagerie/wraith-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 5,
+    "xp": 1800,
+    "display": "5"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -1,
+    "dex": 3,
+    "con": 3,
+    "int": 1,
+    "wis": 3,
+    "cha": 2
+  },
+  "abilityScores": {
+    "str": 8,
+    "dex": 16,
+    "con": 16,
+    "int": 12,
+    "wis": 16,
+    "cha": 14
+  },
+  "perception": {
+    "mod": null,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "the languages it knew in life"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 67,
+        "note": null,
+        "formula": "9d8+27"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "necrotic",
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "fatigue",
+        "grappled",
+        "paralyzed",
+        "petrified",
+        "poisoned",
+        "prone",
+        "restrained",
+        "unconscious"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "acid",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "lightning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "thunder; damage from nonmagical",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "non-silvered weapons",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 0,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aura of Fear",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that starts its turn within 10 feet of a wraith makes a DC 13 Wisdom saving throw. On a failure, it is frightened until the start of its next turn. If a creatures saving throw is successful or the effect ends for it, it is immune to any wraiths Aura of Fear for 24 hours."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": "24 hours",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Evil",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The wraith radiates an Evil aura."
+      ]
+    },
+    {
+      "name": "Incorporeal",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The wraith can move through creatures and objects. It takes 5 (1d10) force damage if it ends its turn inside an object. If it takes radiant damage, it loses this trait until the end of its next turn."
+      ],
+      "damage": [
+        {
+          "formula": "1d10",
+          "average": 5,
+          "type": "force"
+        }
+      ]
+    },
+    {
+      "name": "Light Sensitivity",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While in sunlight or bright light cast by a fire, the wraith has disadvantage on attack rolls, as well as on Perception checks that rely on sight."
+      ]
+    },
+    {
+      "name": "Undead Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A wraith doesnt require air, food, drink, or sleep."
+      ]
+    },
+    {
+      "name": "Life Drain",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The wraith targets a creature within 5 feet  forcing it to make a DC 14 Constitution saving throw. On a failure  the creature takes 14 (4d6) necrotic damage  or 21 (6d6) necrotic damage if it is frightened or surprised  and its hit point maximum is reduced by an amount equal to the damage taken. This reduction lasts until the creature finishes a long rest. It dies if its hit point maximum is reduced to 0."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "necrotic"
+        },
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "necrotic"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Create Specter",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The wraith touches a humanoid corpse it killed less than 1 day ago. The creatures spirit rises as a specter under the wraiths control."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

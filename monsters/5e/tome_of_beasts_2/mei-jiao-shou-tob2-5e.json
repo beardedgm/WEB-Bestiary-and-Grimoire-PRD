@@ -1,0 +1,235 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:mei-jiao-shou",
+  "name": "Mei Jiao Shou",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 259,
+    "path": "monsters/5e/tome_of_beasts_2/mei-jiao-shou.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 7,
+    "xp": 2900,
+    "display": "7"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": -2,
+    "con": 5,
+    "int": -4,
+    "wis": -1,
+    "cha": -2
+  },
+  "abilityScores": {
+    "str": 23,
+    "dex": 7,
+    "con": 21,
+    "int": 3,
+    "wis": 9,
+    "cha": 6
+  },
+  "perception": {
+    "mod": null,
+    "passive": 9
+  },
+  "senses": [],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 139,
+        "note": null,
+        "formula": "9d20+45"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 1
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Trampling Charge",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the mei jiao shou moves at least 20 feet straight toward a creature and then hits it with a head bash attack on the same turn, that target must succeed on a DC 16 Strength saving throw or be knocked prone. If the target is prone, the mei jiao shou can make one stomp attack against it as a bonus action."
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Head Bash",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, reach 10 ft., one target. Hit: 19 (3d8 + 6) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8+6",
+          "average": 19,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Stomp",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, reach 5 ft., one prone creature. Hit: 28 (4d10 + 6) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+6",
+          "average": 28,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Earth-Shaking Thump",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The mei jiao shou rears up and lands heavily, kicking up a shower of debris and rattling and cracking the ground. Each creature in contact with the ground within 30 feet of the mei jiao shou must make a DC 16 Dexterity saving throw. On a failure, a creature takes 22 (4d10) bludgeoning damage and is knocked prone. On a success, a creature takes half the damage and isn't knocked prone. The area then becomes difficult terrain."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "4d10",
+          "average": 22,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

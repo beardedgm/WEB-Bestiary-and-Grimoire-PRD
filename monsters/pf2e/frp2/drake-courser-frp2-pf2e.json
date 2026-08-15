@@ -1,0 +1,344 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:frp2:drake-courser",
+  "name": "Drake Courser",
+  "gameSystem": "pf2e",
+  "variant": "frp2",
+  "source": {
+    "code": "frp2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/frp2/drake-courser.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "dragon"
+    ],
+    "subtypes": [
+      "cold"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "cn",
+      "large",
+      "cold",
+      "dragon"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 7,
+    "con": 5,
+    "int": -1,
+    "wis": 4,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 22,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    },
+    {
+      "name": "snow vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Draconic",
+    "Tien"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 27
+    },
+    {
+      "name": "Athletics",
+      "mod": 23
+    },
+    {
+      "name": "Intimidation",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 32,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 230,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 23
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 18
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "cold"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 35,
+      "fly": 65,
+      "swim": 35
+    },
+    "special": [
+      "ice climb 35 feet"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Tail only. On a critical hit, the target is knocked prone; if the target was using a move action, its movement ends."
+      ]
+    },
+    {
+      "name": "fangs",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 25,
+        "map": [
+          25,
+          20,
+          15
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d12+11",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "tail",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 25,
+        "map": [
+          25,
+          20,
+          15
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+11",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": [
+        "Knockdown",
+        "Knockdown"
+      ]
+    },
+    {
+      "name": "Battle Dance",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The drake courser makes two fangs Strikes and one tail Strike in any order. It can replace any of these Strikes with Demoralize or Step."
+      ]
+    },
+    {
+      "name": "Buffeting Surge",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "move"
+      ],
+      "entries": [
+        "The drake courser moves up to twice its Speed. It can attempt to Trip with its tail once at any point during its movement."
+      ],
+      "frequency": {
+        "number": 3,
+        "unit": "day",
+        "text": null
+      }
+    },
+    {
+      "name": "Freezing Mist Breath",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The drake spits a ball of liquid up to 60 feet that explodes into a 20-foot burst of freezing mist. Those in the burst take 13d6 cold damage (DC 31 basic Reflex save). The mist cakes all surfaces in the area with a sheet of slippery ice that turns the area into terrain for 2d4 rounds. It can't use Freezing Mist Breath again for 1d6 rounds."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 31,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "13d6",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d6",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Ice Climb",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A drake courser can climb on ice as though it had the listed climb Speed. It ignores terrain and terrain from ice and snow and doesn't risk falling when crossing ice."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Dragon",
+        "skill": "Arcana",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

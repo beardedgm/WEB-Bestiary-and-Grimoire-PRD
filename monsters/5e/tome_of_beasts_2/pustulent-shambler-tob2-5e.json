@@ -1,0 +1,277 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:pustulent-shambler",
+  "name": "Pustulent Shambler",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 299,
+    "path": "monsters/5e/tome_of_beasts_2/pustulent-shambler.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 13,
+    "xp": 10000,
+    "display": "13"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": -3,
+    "con": 5,
+    "int": -4,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": {
+    "str": 19,
+    "dex": 5,
+    "con": 20,
+    "int": 3,
+    "wis": 10,
+    "cha": 1
+  },
+  "perception": {
+    "mod": null,
+    "passive": 10
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 10,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 232,
+        "note": null,
+        "formula": "15d20+75"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "fire",
+        "necrotic"
+      ],
+      "conditions": [
+        "blinded",
+        "charmed",
+        "deafened",
+        "exhaustion",
+        "frightened",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "climb": 30,
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Amorphous",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The pustulent shambler can move through a space as narrow as 1 inch wide without squeezing."
+      ]
+    },
+    {
+      "name": "Bonerot",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that fails its saving throw against the pustulent shambler's pseudopod attack becomes infected with the bonerot disease. An infected creature develops the first symptoms of general weakness and lethargy within 1 hour as its bones start to rot from the inside. At the end of each long rest, the diseased creature must succeed on a DC 18 Constitution saving throw or its Strength and Dexterity scores are each reduced by 1d4 and its walking speed is reduced by 5 feet. The reductions last until the target finishes a long rest after the disease is cured. If the disease reduces the creature's Strength or Dexterity to 0, the creature dies. A creature that succeeds on two saving throws against the disease recovers from it. Alternatively, the disease can be removed by the lesser restoration spell or similar magic."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Bonerot Sense",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The pustulent shambler can pinpoint the location of creatures infected with bonerot within 60 feet of it and can sense the general direction of such creatures within 1 mile of it."
+      ]
+    },
+    {
+      "name": "Corrosive to Bone",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature with exposed bones (such as a skeleton) that touches the shambler or hits it with a melee attack while within 5 feet of it takes 5 (1d10) acid damage. Any nonmagical weapon made of bone that hits the shambler corrodes. After dealing damage, the weapon takes a permanent and cumulative -1 penalty to damage rolls. If its penalty drops to -5, the weapon is destroyed. Nonmagical ammunition made of bone that hits the shambler is destroyed after dealing damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d10",
+          "average": 5,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "Stench",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Any creature that starts its turn within 10 feet of the pustulent shambler must succeed on a DC 18 Constitution saving throw or be poisoned until the start of its next turn. On a successful saving throw, the creature is immune to the shambler's Stench for 24 hours."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "24 hours",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The pustulent shambler makes three pseudopod attacks."
+      ]
+    },
+    {
+      "name": "Pseudopod",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, reach 10 ft., one creature. Hit: 15 (2d10 + 4) bludgeoning damage plus 11 (2d10) acid damage, and the target must succeed on a DC 18 Constitution saving throw or contract the bonerot disease (see the Bonerot trait)."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+4",
+          "average": 15,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d10",
+          "average": 11,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Absorb Flesh",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The pustulent shambler feeds on a corpse within 5 feet of it. It regains 1d8 hp per size category of the creature it consumes. For example, the shambler regains 1d8 hp when consuming a Tiny creature's corpse or 4d8 hp when consuming a Large creature's corpse. The shambler can't use Absorb Flesh on a corpse if it or another pustulent shambler has already used Absorb Flesh on the corpse. If the corpse has intact bones, the shambler loses its Amorphous trait for 1 minute."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

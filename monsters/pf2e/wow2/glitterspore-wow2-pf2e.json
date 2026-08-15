@@ -1,0 +1,317 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:wow2:glitterspore",
+  "name": "Glitterspore",
+  "gameSystem": "pf2e",
+  "variant": "wow2",
+  "source": {
+    "code": "wow2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/wow2/glitterspore.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "fungus",
+      "swarm"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "uncommon",
+      "large",
+      "fungus",
+      "mindless",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 4,
+    "con": 5,
+    "int": -5,
+    "wis": 3,
+    "cha": -3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "no vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "tremorsense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "precise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 18
+    },
+    {
+      "name": "Stealth",
+      "mod": 18
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 105,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 19
+      },
+      {
+        "name": "ref",
+        "mod": 16
+      },
+      {
+        "name": "will",
+        "mod": 13
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "bleed",
+        "mental",
+        "poison"
+      ],
+      "conditions": [
+        "unconscious"
+      ],
+      "other": [
+        "fatigue",
+        "sleep",
+        "visual"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 6,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 11,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 11,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "fly": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Fascinating Mimicry",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "30 feet. While a glitterspore mimics a plant, its glittering spores and vibrant colors make it unnaturally beautiful. A creature that starts its turn in the aura must succeed at a DC 23 Will save or become fascinated by the glitterspore for 1 round. This aura activates automatically when a glitterspore uses Plant Mimicry, and it deactivates when the glitterspore reverts to its natural form."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 23,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Burrowing Spores",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Each enemy in the glitterspore's space takes 4d8 piercing damage (DC 26 basic Reflex save) and is exposed to spore rot."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 26,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Invade",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The glitterspore enters the ears, mouth, and nostrils of a living non-fungus or non-plant creature, then bursts out through their flesh. One enemy in the glitterspore's space takes 7d8 piercing damage (DC 26 basic Reflex save). On a failed save, the target also takes 1d8 persistent bleed damage and is drained 1."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 26,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "7d8",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Plant Mimicry",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The glitterspore reconfigures its component spores to assume the shape and appearance of another plant, such as a flower bed, shrubbery, tree, or topiary. This doesn't change the glitterspore's texture or overall size but does alter its coloration and appearance. The glitterspore has an automatic result of 29 (33 in gardens, forests, or swamps) on Deception checks and DCs to pass as a non-creature plant. The glitterspore stays in this shape until it takes an action."
+      ]
+    },
+    {
+      "name": "Spore Cloud",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "poison"
+      ],
+      "entries": [
+        "A glitterspore unleashes a cloud of sparkling, hypnotic spores in a 60-foot-radius burst. Each creature in the area is exposed to spore rot and must succeed at a DC 26 Will save or be fascinated for 1d4 rounds."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Spore Rot",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fungus",
+        "skill": "Nature",
+        "dc": 26
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

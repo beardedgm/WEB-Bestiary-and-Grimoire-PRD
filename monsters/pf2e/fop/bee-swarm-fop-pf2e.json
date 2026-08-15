@@ -1,0 +1,192 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:fop:bee-swarm",
+  "name": "Bee Swarm",
+  "gameSystem": "pf2e",
+  "variant": "fop",
+  "source": {
+    "code": "fop",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/fop/bee-swarm.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 1,
+    "xp": null,
+    "display": "Creature 1"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "animal",
+      "swarm"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "large",
+      "animal",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": -1,
+    "dex": 4,
+    "con": 1,
+    "int": -5,
+    "wis": 1,
+    "cha": -4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 5,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 9
+    },
+    {
+      "name": "Stealth",
+      "mod": 7
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 18,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 4
+      },
+      {
+        "name": "ref",
+        "mod": 9
+      },
+      {
+        "name": "will",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "swarm mind"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Swarming Stings",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Each enemy in the swarm's space takes 1d4 piercing damage (DC 16 basic Reflex save). The first time each round a creature fails the save and takes piercing damage, it also suffers the effect of beestings. Whenever the bee swarm uses this ability, the swarm takes 1 damage."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 16,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Beestings",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "poison"
+      ],
+      "entries": [
+        "The creature must attempt a DC 16 Fortitude save. Those who fail take 1d4 poison damage and are clumsy|CRB|clumsy 1 for 1 minute."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "1d4",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Animal",
+        "skill": "Nature",
+        "dc": 15
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

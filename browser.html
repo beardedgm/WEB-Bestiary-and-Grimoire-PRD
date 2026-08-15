@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bestiary &amp; Grimoire</title>
+<style>
+:root{
+  --bg:#12100e; --panel:#1b1815; --panel2:#221e1a; --line:#3a332c;
+  --ink:#ece5da; --dim:#a2988a; --faint:#6f6558;
+  --accent:#c9a227; --accent2:#8fb03e;
+  --pf:#7b9e4a; --dnd:#b4622c; --danger:#c05646;
+  --radius:8px; --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+}
+@media (prefers-color-scheme: light){
+  :root{ --bg:#f5f1e8; --panel:#fffdf8; --panel2:#f0ebe0; --line:#d9d0be;
+         --ink:#241f19; --dim:#5f574a; --faint:#8b8172; --accent:#8a6d10; }
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  display:flex; flex-direction:column; overflow:hidden;
+}
+header{
+  display:flex; align-items:center; gap:12px; padding:10px 14px;
+  border-bottom:1px solid var(--line); background:var(--panel); flex:none;
+}
+header h1{
+  font:600 15px/1 var(--serif); margin:0; letter-spacing:.04em;
+  color:var(--accent); white-space:nowrap;
+}
+#q{
+  flex:1; min-width:120px; padding:8px 12px; border-radius:var(--radius);
+  border:1px solid var(--line); background:var(--bg); color:var(--ink); font-size:14px;
+}
+#q:focus{outline:2px solid var(--accent); outline-offset:-1px}
+#count{color:var(--dim); font-size:12px; white-space:nowrap; font-variant-numeric:tabular-nums}
+main{flex:1; display:flex; min-height:0}
+#side{
+  width:340px; flex:none; border-right:1px solid var(--line);
+  display:flex; flex-direction:column; background:var(--panel); min-height:0;
+}
+#filters{padding:10px 12px; border-bottom:1px solid var(--line); font-size:12px}
+.frow{display:flex; flex-wrap:wrap; gap:5px; margin-bottom:7px}
+.frow:last-child{margin-bottom:0}
+.chip{
+  padding:3px 9px; border-radius:999px; border:1px solid var(--line);
+  background:transparent; color:var(--dim); cursor:pointer; font-size:11.5px;
+  user-select:none; white-space:nowrap;
+}
+.chip:hover{border-color:var(--accent); color:var(--ink)}
+.chip.on{background:var(--accent); border-color:var(--accent); color:#1b1508; font-weight:600}
+.chip.on.pf{background:var(--pf); border-color:var(--pf); color:#0f1405}
+.chip.on.dnd{background:var(--dnd); border-color:var(--dnd); color:#1b0d05}
+label.tog{display:flex; align-items:center; gap:5px; color:var(--dim); cursor:pointer}
+#list{flex:1; overflow-y:auto; min-height:0}
+.item{
+  padding:7px 12px; border-bottom:1px solid var(--line); cursor:pointer;
+  display:flex; align-items:baseline; gap:8px;
+}
+.item:hover{background:var(--panel2)}
+.item.sel{background:var(--panel2); box-shadow:inset 3px 0 0 var(--accent)}
+.item .nm{flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.item .lv{font:10.5px/1 var(--mono); color:var(--faint); white-space:nowrap; flex:none}
+.sysdot{width:7px;height:7px;border-radius:50%;flex:none}
+.sysdot.pf2e{background:var(--pf)} .sysdot.dnd5e{background:var(--dnd)}
+#pane{flex:1; overflow-y:auto; padding:22px 26px; min-height:0}
+#pane.empty{display:flex; align-items:center; justify-content:center; color:var(--faint)}
+
+/* ---- stat block ---- */
+.sb{max-width:760px; margin:0 auto}
+.sb h2{
+  font:600 26px/1.15 var(--serif); margin:0; color:var(--accent);
+  display:flex; justify-content:space-between; align-items:baseline; gap:14px;
+}
+.sb h2 .rank{font:600 15px/1 var(--mono); color:var(--dim); white-space:nowrap}
+.rule{height:2px; background:linear-gradient(90deg,var(--accent),transparent); margin:8px 0 12px}
+.traits{display:flex; flex-wrap:wrap; gap:5px; margin:0 0 12px}
+.trait{
+  font:11px/1 var(--mono); text-transform:uppercase; letter-spacing:.05em;
+  padding:4px 8px; border:1px solid var(--line); background:var(--panel2);
+  color:var(--dim); border-radius:3px;
+}
+.trait.rarity{border-color:var(--accent); color:var(--accent)}
+.kv{margin:3px 0}
+.kv b{color:var(--ink); font-weight:600}
+.kv span{color:var(--dim)}
+.sec{margin:16px 0 6px; font:600 12px/1 var(--mono); text-transform:uppercase;
+     letter-spacing:.09em; color:var(--faint); border-bottom:1px solid var(--line);
+     padding-bottom:5px}
+.body p{margin:9px 0; color:var(--ink)}
+.deg{margin:4px 0 4px 2px; padding-left:11px; border-left:2px solid var(--line)}
+.deg b{color:var(--accent2); font-weight:600}
+.ht{margin:7px 0; padding-left:11px; border-left:2px solid var(--accent)}
+.ht b{font:600 12px/1.4 var(--mono); color:var(--accent)}
+.ent{margin:11px 0}
+.ent .en{font-weight:600; color:var(--ink)}
+.act{font-family:var(--mono); color:var(--accent2); font-size:13px}
+.meta{margin-top:20px; padding-top:10px; border-top:1px solid var(--line);
+      font:11px/1.6 var(--mono); color:var(--faint)}
+.warn{margin-top:10px; padding:8px 10px; border-radius:4px;
+      border:1px solid var(--danger); color:var(--danger); font-size:12px}
+.grid6{display:grid; grid-template-columns:repeat(6,1fr); gap:6px; margin:10px 0}
+.ab{background:var(--panel2); border:1px solid var(--line); border-radius:4px;
+    padding:6px 2px; text-align:center}
+.ab .k{font:10px/1 var(--mono); color:var(--faint); text-transform:uppercase}
+.ab .v{font:600 15px/1.3 var(--mono)}
+.ab .s{font:10px/1 var(--mono); color:var(--dim)}
+
+/* ---- loader ---- */
+#load{position:fixed; inset:0; background:var(--bg); display:flex;
+      align-items:center; justify-content:center; z-index:50; padding:24px}
+#load .card{max-width:560px; text-align:center}
+#load h2{font:600 20px/1.3 var(--serif); color:var(--accent); margin:0 0 10px}
+#load p{color:var(--dim); margin:8px 0}
+#drop{margin-top:16px; padding:26px; border:2px dashed var(--line);
+      border-radius:var(--radius); color:var(--dim); cursor:pointer}
+#drop.hot{border-color:var(--accent); color:var(--ink)}
+#load .st{font:12px/1.7 var(--mono); color:var(--faint); text-align:left;
+          margin-top:14px; white-space:pre}
+kbd{font:11px/1 var(--mono); border:1px solid var(--line); border-radius:3px;
+    padding:2px 5px; background:var(--panel2); color:var(--dim)}
+</style>
+</head>
+<body>
+
+<div id="load"><div class="card">
+  <h2>Bestiary &amp; Grimoire</h2>
+  <p id="lmsg">Loading data files…</p>
+  <div id="drop" hidden>
+    <b>Drop the four JSON files here</b><br>
+    <span style="font-size:12px">monsters-5e · monsters-pf2e · spells-5e · spells-pf2e<br>
+    (or click to browse)</span>
+    <input id="fin" type="file" multiple accept=".json" hidden>
+  </div>
+  <div class="st" id="lst"></div>
+</div></div>
+
+<header>
+  <h1>BESTIARY &amp; GRIMOIRE</h1>
+  <input id="q" type="search" placeholder="Search by name…  ( / to focus )" autocomplete="off">
+  <span id="count"></span>
+</header>
+
+<main>
+  <div id="side">
+    <div id="filters">
+      <div class="frow" id="f-kind"></div>
+      <div class="frow" id="f-sys"></div>
+      <div class="frow" id="f-extra"></div>
+      <div class="frow">
+        <label class="tog"><input type="checkbox" id="deep"> also search description text</label>
+      </div>
+    </div>
+    <div id="list"></div>
+  </div>
+  <div id="pane" class="empty">Select an entry</div>
+</main>
+
+<script>
+"use strict";
+const FILES = ["spells-5e.json","spells-pf2e.json","monsters-5e.json","monsters-pf2e.json"];
+let DATA = [], view = [], sel = -1;
+const $ = s => document.querySelector(s);
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------------- loading ---------------- */
+function ingest(name, arr){
+  const kind = arr.length && arr[0].schema && arr[0].schema.startsWith("ttrpg-spell") ? "spell" : "monster";
+  for (const r of arr){
+    r._kind = kind;
+    r._search = r.name.toLowerCase();
+    r._deep = null;                       // built lazily on first deep search
+    DATA.push(r);
+  }
+  return kind;
+}
+function logline(t){ $("#lst").textContent += t + "\n"; }
+
+async function tryFetch(){
+  let ok = 0;
+  for (const f of FILES){
+    try{
+      const res = await fetch(f, {cache:"no-store"});
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const arr = await res.json();
+      ingest(f, arr); ok++;
+      logline("✓ " + f + "  (" + arr.length.toLocaleString() + " records)");
+    }catch(e){ logline("✗ " + f + "  — " + e.message); }
+  }
+  return ok;
+}
+
+function handleFiles(files){
+  let pending = 0, done = 0;
+  for (const file of files){
+    if (!file.name.endsWith(".json")) continue;
+    pending++;
+    const fr = new FileReader();
+    fr.onload = () => {
+      try{
+        const arr = JSON.parse(fr.result);
+        if (!Array.isArray(arr)) throw new Error("not a JSON array");
+        ingest(file.name, arr);
+        logline("✓ " + file.name + "  (" + arr.length.toLocaleString() + " records)");
+      }catch(e){ logline("✗ " + file.name + " — " + e.message); }
+      if (++done === pending) start();
+    };
+    fr.readAsText(file);
+  }
+  if (!pending) logline("no .json files in that drop");
+}
+
+async function boot(){
+  const n = await tryFetch();
+  if (n) { start(); return; }
+  $("#lmsg").innerHTML = "Couldn't read the files automatically.<br>" +
+    "<span style='font-size:13px'>Browsers block local file access from <code>file://</code> pages. " +
+    "Drop the files below, or serve the folder with <code>python -m http.server</code> and reload.</span>";
+  $("#drop").hidden = false;
+}
+$("#drop").onclick = () => $("#fin").click();
+$("#fin").onchange = e => handleFiles(e.target.files);
+["dragenter","dragover"].forEach(ev => $("#drop").addEventListener(ev, e => {
+  e.preventDefault(); $("#drop").classList.add("hot"); }));
+["dragleave","drop"].forEach(ev => $("#drop").addEventListener(ev, e => {
+  e.preventDefault(); $("#drop").classList.remove("hot"); }));
+$("#drop").addEventListener("drop", e => handleFiles(e.dataTransfer.files));
+
+function start(){
+  if (!DATA.length){ logline("\nNothing loaded."); return; }
+  DATA.sort((a,b) => a.name.localeCompare(b.name));
+  buildFilters();
+  $("#load").remove();
+  refresh();
+  $("#q").focus();
+}
+
+/* ---------------- filters ---------------- */
+const F = { kind:new Set(), sys:new Set(), extra:new Set() };
+function chip(row, label, set, val, cls){
+  const b = document.createElement("button");
+  b.className = "chip" + (cls ? " " + cls : "");
+  b.textContent = label;
+  b.onclick = () => { set.has(val) ? set.delete(val) : set.add(val);
+                      b.classList.toggle("on"); refresh(); };
+  $(row).appendChild(b);
+}
+function buildFilters(){
+  const kinds = [...new Set(DATA.map(r=>r._kind))];
+  if (kinds.length > 1){ chip("#f-kind","Spells",F.kind,"spell"); chip("#f-kind","Monsters",F.kind,"monster"); }
+  const syss = [...new Set(DATA.map(r=>r.gameSystem))];
+  if (syss.includes("dnd5e")) chip("#f-sys","D&D 5e",F.sys,"dnd5e","dnd");
+  if (syss.includes("pf2e"))  chip("#f-sys","Pathfinder 2e",F.sys,"pf2e","pf");
+  if (DATA.some(r=>r._kind==="spell")){
+    chip("#f-extra","Cantrips",F.extra,"cantrip");
+    chip("#f-extra","Focus",F.extra,"focus");
+    chip("#f-extra","Rituals",F.extra,"ritual");
+    chip("#f-extra","Has save",F.extra,"save");
+    chip("#f-extra","Heightened",F.extra,"height");
+  }
+}
+function passExtra(r){
+  if (!F.extra.size) return true;
+  for (const f of F.extra){
+    if (f==="cantrip" && r._kind==="spell" && r.identity.cantrip) return true;
+    if (f==="focus"   && r._kind==="spell" && r.level.kind==="focus") return true;
+    if (f==="ritual"  && r._kind==="spell" && r.identity.ritual) return true;
+    if (f==="save"    && r._kind==="spell" && r.save) return true;
+    if (f==="height"  && r._kind==="spell" && r.heightening.length) return true;
+  }
+  return false;
+}
+function deepText(r){
+  if (r._deep === null){
+    let t = r.name + " " + (r.entries||[]).join(" ");
+    if (r._kind === "spell"){
+      t += " " + (r.identity.traits||[]).join(" ") + " " + (r.identity.school||"");
+      t += " " + (r.identity.classes||[]).join(" ") + " " + (r.identity.traditions||[]).join(" ");
+      if (r.save) t += " " + Object.values(r.save.outcomes||{}).join(" ");
+      t += " " + (r.heightening||[]).map(h=>h.text).join(" ");
+    } else {
+      t += " " + (r.entries||[]).map(e => e.name + " " + (e.entries||[]).join(" ")).join(" ");
+    }
+    r._deep = t.toLowerCase();
+  }
+  return r._deep;
+}
+
+/* ---------------- search ---------------- */
+function refresh(){
+  const q = $("#q").value.trim().toLowerCase();
+  const deep = $("#deep").checked;
+  view = DATA.filter(r => {
+    if (F.kind.size && !F.kind.has(r._kind)) return false;
+    if (F.sys.size && !F.sys.has(r.gameSystem)) return false;
+    if (!passExtra(r)) return false;
+    if (!q) return true;
+    return deep ? deepText(r).includes(q) : r._search.includes(q);
+  });
+  // exact-prefix matches first
+  if (q) view.sort((a,b) => (a._search.startsWith(q)?0:1) - (b._search.startsWith(q)?0:1)
+                            || a.name.localeCompare(b.name));
+  $("#count").textContent = view.length.toLocaleString() + " of " + DATA.length.toLocaleString();
+  renderList();
+}
+const CAP = 400;
+function renderList(){
+  const L = $("#list");
+  const shown = view.slice(0, CAP);
+  L.innerHTML = shown.map((r,i) =>
+    `<div class="item" data-i="${i}">
+       <span class="sysdot ${r.gameSystem}"></span>
+       <span class="nm">${esc(r.name)}</span>
+       <span class="lv">${esc(r.variant||"")} · ${esc(tag(r))}</span>
+     </div>`).join("") +
+    (view.length > CAP ? `<div class="item" style="color:var(--faint);cursor:default">
+       …${(view.length-CAP).toLocaleString()} more — narrow your search</div>` : "");
+  L.querySelectorAll(".item[data-i]").forEach(el =>
+    el.onclick = () => pick(+el.dataset.i));
+  sel = -1;
+}
+function tag(r){
+  if (r._kind === "spell"){
+    const l = r.level;
+    if (r.identity.cantrip) return "cantrip";
+    if (l.kind === "focus") return "focus " + (l.value ?? "?");
+    return (l.kind === "rank" ? "rank " : "lvl ") + (l.value ?? "?");
+  }
+  const c = r.challenge;
+  return (c.kind === "cr" ? "CR " : "lvl ") + (c.display ?? "?");
+}
+function pick(i){
+  sel = i;
+  $("#list").querySelectorAll(".item").forEach((el,k) => el.classList.toggle("sel", k===i));
+  const r = view[i]; if (!r) return;
+  $("#pane").className = "";
+  $("#pane").innerHTML = r._kind === "spell" ? spellHTML(r) : monsterHTML(r);
+  $("#pane").scrollTop = 0;
+  location.hash = encodeURIComponent(r.id);
+}
+
+/* ---------------- renderers ---------------- */
+function glyph(a){
+  if (!a) return "";
+  if (a.symbol) return a.symbol;
+  const n = a.number, u = a.unit;
+  if (!u) return "—";
+  if (u === "action" || u === "bonus" || u === "reaction" || u === "free")
+    return (n ?? "") + " " + u + (n > 1 ? "s" : "");
+  return (n != null ? n + " " : "") + u + (n > 1 ? "s" : "");
+}
+function kv(label, val){ return val ? `<div class="kv"><b>${label}</b> <span>${esc(val)}</span></div>` : ""; }
+
+const DEGLABEL = {criticalSuccess:"Critical Success", success:"Success",
+                  failure:"Failure", criticalFailure:"Critical Failure"};
+
+function spellHTML(r){
+  const id = r.identity, lv = r.level;
+  let h = `<div class="sb"><h2><span>${esc(r.name)}</span>
+      <span class="rank">${esc(lv.display || "")}</span></h2><div class="rule"></div>`;
+
+  const traits = [];
+  if (id.rarity && id.rarity !== "common") traits.push([id.rarity, "rarity"]);
+  (id.traits||[]).forEach(t => { if (t !== id.rarity) traits.push([t, ""]); });
+  if (id.school) traits.push([id.school, ""]);
+  if (id.cantrip && !(id.traits||[]).includes("cantrip")) traits.push(["cantrip",""]);
+  if (id.ritual) traits.push(["ritual",""]);
+  if (traits.length)
+    h += `<div class="traits">${traits.map(([t,c]) =>
+          `<span class="trait ${c}">${esc(t)}</span>`).join("")}</div>`;
+
+  if (id.traditions && id.traditions.length) h += kv("Traditions", id.traditions.join(", "));
+  if (id.classes && id.classes.length) h += kv("Classes", id.classes.join(", "));
+
+  const cast = glyph(r.activity) +
+    (r.activity && r.activity.numberMax ? ` (up to ${r.activity.numberMax} actions)` : "") +
+    (r.components.list.length ? ` (${r.components.list.join(", ")})` : "");
+  if (cast.trim()) h += `<div class="kv"><b>Cast</b> <span class="act">${esc(cast)}</span></div>`;
+  if (r.trigger) h += kv("Trigger", r.trigger);
+  if (r.components.material){
+    let m = r.components.material;
+    if (r.components.cost) m += ` — ${r.components.cost} ${r.components.currency||""}`;
+    if (r.components.consumed) m += " (consumed)";
+    h += kv("Material", m);
+  }
+  if (r.range && r.range.text) h += kv("Range", r.range.text);
+  if (r.area && r.area.text) h += kv("Area", r.area.text);
+  if (r.targets) h += kv("Targets", r.targets);
+  if (r.duration && r.duration.text) h += kv("Duration", r.duration.text);
+
+  if (r.save){
+    let s = (r.save.basic ? "basic " : "") + (r.save.defense || "—");
+    h += `<div class="kv"><b>Saving Throw</b> <span>${esc(s)}</span></div>`;
+  }
+  if (r.attack) h += kv("Attack", (r.attack.vs === "ac" ? "spell attack roll vs AC"
+                                                        : (r.attack.vs||"") + " spell attack"));
+  if (r.damage && r.damage.length)
+    h += kv("Damage", r.damage.map(d => d.formula + (d.type ? " " + d.type : "")).join(", "));
+
+  if (r.entries.length){
+    h += `<div class="sec">Description</div><div class="body">` +
+         r.entries.map(p => `<p>${esc(p)}</p>`).join("") + `</div>`;
+  }
+
+  const oc = r.save && r.save.outcomes;
+  if (oc && Object.keys(oc).length){
+    h += `<div class="sec">Degrees of Success</div>`;
+    for (const k of ["criticalSuccess","success","failure","criticalFailure"])
+      if (oc[k]) h += `<div class="deg"><b>${DEGLABEL[k]}</b> ${esc(oc[k])}</div>`;
+  }
+  if (r.heightening.length){
+    h += `<div class="sec">Heightening</div>`;
+    for (const ht of r.heightening){
+      const lbl = ht.kind === "increment" ? `Heightened (+${ht.step})`
+                : ht.kind === "fixed"     ? `Heightened (${ht.atRank})`
+                : "Using a Higher-Level Spell Slot";
+      h += `<div class="ht"><b>${esc(lbl)}</b><br>${esc(ht.text)}</div>`;
+    }
+  }
+  h += metaHTML(r);
+  return h + `</div>`;
+}
+
+function monsterHTML(r){
+  const d = r.defenses, id = r.identity;
+  let h = `<div class="sb"><h2><span>${esc(r.name)}</span>
+      <span class="rank">${esc(r.challenge.kind === "cr" ? "CR " + r.challenge.display
+                                                         : "Creature " + r.challenge.display)}</span>
+      </h2><div class="rule"></div>`;
+  const tr = [];
+  if (id.rarity && id.rarity !== "common") tr.push([id.rarity,"rarity"]);
+  if (id.alignment && id.alignment.raw) tr.push([id.alignment.raw,""]);
+  if (id.size) tr.push([id.size,""]);
+  (id.types||[]).concat(id.subtypes||[]).forEach(t => tr.push([t,""]));
+  if (tr.length) h += `<div class="traits">${tr.map(([t,c]) =>
+        `<span class="trait ${c}">${esc(t)}</span>`).join("")}</div>`;
+
+  if (r.perception && r.perception.mod != null){
+    let p = (r.perception.mod >= 0 ? "+" : "") + r.perception.mod;
+    if (r.perception.passive != null) p += ` (passive ${r.perception.passive})`;
+    if (r.senses.length) p += "; " + r.senses.map(s =>
+      s.name + (s.range ? " " + s.range + " " + (s.unit||"ft") : "") +
+      (s.acuity ? " (" + s.acuity + ")" : "")).join(", ");
+    h += kv("Perception", p);
+  }
+  if (r.languages.length) h += kv("Languages", r.languages.join(", "));
+  if (r.skills.length) h += kv("Skills", r.skills.map(s =>
+      s.name + " " + (s.mod>=0?"+":"") + s.mod).join(", "));
+
+  if (r.abilityMods){
+    h += `<div class="grid6">` + ["str","dex","con","int","wis","cha"].map(k => {
+      const m = r.abilityMods[k], sc = r.abilityScores ? r.abilityScores[k] : null;
+      return `<div class="ab"><div class="k">${k}</div>
+              <div class="v">${m>=0?"+":""}${m}</div>
+              ${sc!=null?`<div class="s">${sc}</div>`:""}</div>`;
+    }).join("") + `</div>`;
+  }
+
+  h += `<div class="sec">Defense</div>`;
+  h += kv("AC", (d.ac.value ?? "—") + (d.ac.note ? " (" + d.ac.note + ")" : ""));
+  if (d.savingThrows.length) h += kv("Saves", d.savingThrows.map(s =>
+      s.name + " " + (s.mod>=0?"+":"") + s.mod).join(", ") +
+      (d.saveNote ? "; " + d.saveNote : ""));
+  h += kv("HP", d.hp.map(x => (x.value ?? "—") +
+      (x.formula ? " (" + x.formula + ")" : "") + (x.note ? "; " + x.note : "")).join(" / "));
+  const im = d.immunities, imAll = [].concat(im.damage, im.conditions, im.other);
+  if (imAll.length) h += kv("Immunities", imAll.join(", "));
+  if (d.resistances.length) h += kv("Resistances", d.resistances.map(x =>
+      x.name + (x.amount!=null ? " " + x.amount : "") + (x.note ? " ("+x.note+")" : "")).join(", "));
+  if (d.weaknesses.length) h += kv("Weaknesses", d.weaknesses.map(x =>
+      x.name + (x.amount!=null ? " " + x.amount : "")).join(", "));
+
+  const sp = Object.entries(r.speeds.modes||{}).map(([k,v]) => k + " " + v + " ft");
+  if (r.speeds.special && r.speeds.special.length) sp.push(...r.speeds.special);
+  if (sp.length){ h += `<div class="sec">Offense</div>` + kv("Speed", sp.join(", ")); }
+
+  const order = ["traits","mid","actions","bot","bonusActions","reactions","legendary","mythic","lair"];
+  const groups = {};
+  for (const e of r.entries) (groups[e.placement] = groups[e.placement] || []).push(e);
+  const keys = Object.keys(groups).sort((a,b) => {
+    const ia = order.indexOf(a), ib = order.indexOf(b);
+    return (ia<0?99:ia) - (ib<0?99:ib);
+  });
+  for (const k of keys){
+    h += `<div class="sec">${esc(k.replace(/([A-Z])/g," $1"))}</div>`;
+    for (const e of groups[k]) h += entryHTML(e);
+  }
+  if (r.spellcasting.length){
+    h += `<div class="sec">Spellcasting</div>`;
+    for (const b of r.spellcasting){
+      let head = b.name || (b.type + " spells");
+      const bits = [];
+      if (b.dc != null) bits.push("DC " + b.dc);
+      if (b.attackBonus != null) bits.push("attack " + (b.attackBonus>=0?"+":"") + b.attackBonus);
+      h += `<div class="ent"><span class="en">${esc(head)}</span>` +
+           (bits.length ? ` <span style="color:var(--dim)">(${esc(bits.join(", "))})</span>` : "") + `</div>`;
+      for (const l of b.levels||[]){
+        const lbl = l.rankLabel || (l.rank===0 ? "Cantrips" : l.rank!=null ? "Rank "+l.rank : (l.uses||""));
+        const extra = l.slots ? ` (${l.slots} slots)` : (l.uses && !l.rankLabel ? ` (${l.uses})` : "");
+        h += `<div class="deg"><b>${esc(lbl)}${esc(extra)}</b> ${esc((l.spells||[]).map(s =>
+              s.name + (s.uses ? ` (${s.uses})` : "")).join(", "))}</div>`;
+      }
+    }
+  }
+  h += metaHTML(r);
+  return h + `</div>`;
+}
+
+function entryHTML(e){
+  let h = `<div class="ent"><span class="en">${esc(e.name)}</span>`;
+  if (e.activity) h += ` <span class="act">${esc(glyph(e.activity))}</span>`;
+  if (e.traits && e.traits.length)
+    h += ` <span style="color:var(--dim);font-size:12px">(${esc(e.traits.join(", "))})</span>`;
+  if (e.attack){
+    const a = e.attack;
+    h += ` <span class="act">${a.map ? a.map.map(x => (x>=0?"+":"")+x).join("/") : ""}</span>`;
+    if (a.reach) h += ` <span style="color:var(--dim);font-size:12px">reach ${a.reach.value} ft</span>`;
+    if (a.range_) h += ` <span style="color:var(--dim);font-size:12px">range ${a.range_.value} ft</span>`;
+  }
+  if (e.damage && e.damage.length)
+    h += `<br><span style="color:var(--dim)">Damage</span> ${esc(e.damage.map(x =>
+          x.formula + (x.type ? " " + x.type : "")).join(" plus "))}`;
+  if (e.trigger) h += `<br><span style="color:var(--dim)"><b>Trigger</b> ${esc(e.trigger)}</span>`;
+  if (e.requirements) h += `<br><span style="color:var(--dim)"><b>Requirements</b> ${esc(e.requirements)}</span>`;
+  if (e.frequency){
+    const f = e.frequency;
+    const ft = f.number != null ? `${f.number} per ${f.unit}` : (f.text || "");
+    if (ft) h += `<br><span style="color:var(--dim)"><b>Frequency</b> ${esc(ft)}</span>`;
+  }
+  for (const p of (e.entries||[])) h += `<div style="margin-top:4px">${esc(p)}</div>`;
+  const oc = e.save && e.save.outcomes;
+  if (e.save){
+    const s = (e.save.basic ? "basic " : "") + (e.save.defense||"") +
+              (e.save.dc != null ? " DC " + e.save.dc : "");
+    if (s.trim()) h += `<div style="margin-top:4px;color:var(--dim)"><b>Save</b> ${esc(s)}</div>`;
+  }
+  if (oc) for (const k of ["criticalSuccess","success","failure","criticalFailure"])
+    if (oc[k] && oc[k].length > 8) h += `<div class="deg"><b>${DEGLABEL[k]}</b> ${esc(oc[k])}</div>`;
+  return h + `</div>`;
+}
+
+function metaHTML(r){
+  let m = `<div class="meta">${esc(r.id)}`;
+  if (r.source){
+    let s = r.source.name || r.source.code || "";
+    if (r.source.page && !/\bp\.?\s*\d/i.test(s)) s += " p." + r.source.page;
+    if (s) m += `  ·  ${esc(s)}`;
+  }
+  m += `</div>`;
+  if (r.parse && r.parse.warnings && r.parse.warnings.length)
+    m += `<div class="warn"><b>Parse notes (${r.parse.status})</b><br>` +
+         r.parse.warnings.map(esc).join("<br>") + `</div>`;
+  return m;
+}
+
+/* ---------------- events ---------------- */
+$("#q").addEventListener("input", refresh);
+$("#deep").addEventListener("change", refresh);
+document.addEventListener("keydown", e => {
+  if (e.key === "/" && document.activeElement !== $("#q")){ e.preventDefault(); $("#q").focus(); return; }
+  if (e.key === "Escape"){ $("#q").value=""; refresh(); $("#q").focus(); return; }
+  if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+    if (!view.length) return;
+    e.preventDefault();
+    const n = Math.min(view.length, CAP);
+    pick(((sel + (e.key==="ArrowDown"?1:-1)) % n + n) % n);
+    const el = $("#list").querySelector(".item.sel"); if (el) el.scrollIntoView({block:"nearest"});
+  }
+});
+boot();
+</script>
+</body>
+</html>

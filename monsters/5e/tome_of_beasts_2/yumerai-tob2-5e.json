@@ -1,0 +1,295 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:yumerai",
+  "name": "Yumerai",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 381,
+    "path": "monsters/5e/tome_of_beasts_2/yumerai.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 2,
+    "xp": 450,
+    "display": "2"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 3,
+    "con": 2,
+    "int": 1,
+    "wis": 2,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 13,
+    "dex": 17,
+    "con": 14,
+    "int": 13,
+    "wis": 14,
+    "cha": 16
+  },
+  "perception": {
+    "mod": 4,
+    "passive": 14
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "all",
+    "telepathy 60 ft."
+  ],
+  "skills": [
+    {
+      "name": "Insight",
+      "mod": 4
+    },
+    {
+      "name": "Perception",
+      "mod": 4
+    },
+    {
+      "name": "Stealth",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 65,
+        "note": null,
+        "formula": "10d8+20"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "unconscious"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "psychic",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Dream Leap",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Once on its turn, the yumerai can use half its movement to step magically into the dreams of a sleeping creature within 5 feet of it. It emerges from the dreams of another sleeping creature within 1 mile of the first sleeper, appearing in an unoccupied space within 5 feet of the second sleeper. If there is no other sleeping creature within range when it uses this trait, the yumerai is stunned until the end of its next turn."
+      ],
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Innate Spellcasting",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The yumerai's innate spellcasting ability is Charisma (spell save DC 13). It can innately cast the following spells, requiring no material components:",
+        "At will: dancing lights, message, minor illusion",
+        "3/day each: detect thoughts, silent image, sleep",
+        "1/day each: confusion, major image"
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The yumerai makes two psychic lash attacks."
+      ]
+    },
+    {
+      "name": "Psychic Lash",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Spell Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (2d6) psychic damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "spell",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "psychic"
+        }
+      ]
+    },
+    {
+      "name": "Somnambulism",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The yumerai targets one sleeping creature it can see within 30 feet of it. The yumerai can issue simple commands to the creature, such as “Attack that creature,” “Run over there,” or “Fetch that object.” If the creature takes damage, receives a suicidal command, is told to move into damaging terrain, such as lava or a pit, or is grappled while carrying out the order, it can make a DC 13 Wisdom saving throw, awakening and ending the yumerai's control on a success. The yumerai can control only one sleeping creature at a time. If it takes control of another, the effect on the previous target ends."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate Spellcasting",
+      "type": "innate",
+      "tradition": null,
+      "dc": 13,
+      "attackBonus": null,
+      "ability": "cha",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "dancing lights",
+              "uses": null
+            },
+            {
+              "name": "message",
+              "uses": null
+            },
+            {
+              "name": "minor illusion",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "3/day each",
+          "uses": 3,
+          "spells": [
+            {
+              "name": "detect thoughts",
+              "uses": null
+            },
+            {
+              "name": "silent image",
+              "uses": null
+            },
+            {
+              "name": "sleep",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "1/day each",
+          "uses": 1,
+          "spells": [
+            {
+              "name": "confusion",
+              "uses": null
+            },
+            {
+              "name": "major image",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

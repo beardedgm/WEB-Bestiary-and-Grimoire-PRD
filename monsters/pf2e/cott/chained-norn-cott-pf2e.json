@@ -1,0 +1,397 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:cott:chained-norn",
+  "name": "Chained Norn",
+  "gameSystem": "pf2e",
+  "variant": "cott",
+  "source": {
+    "code": "cott",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/cott/chained-norn.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 20,
+    "xp": null,
+    "display": "Creature 20"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "unique",
+      "large",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 6,
+    "con": 6,
+    "int": 6,
+    "wis": 10,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 41,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "detect magic",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "lifesense",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "truesight",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Fey",
+    "Jotun; Truespeech"
+  ],
+  "skills": [
+    {
+      "name": "Crafting",
+      "mod": 36
+    },
+    {
+      "name": "Deception",
+      "mod": 35
+    },
+    {
+      "name": "Intimidation",
+      "mod": 37
+    },
+    {
+      "name": "Lore",
+      "mod": 28
+    },
+    {
+      "name": "Medicine",
+      "mod": 38
+    },
+    {
+      "name": "Occultism",
+      "mod": 34
+    },
+    {
+      "name": "Performance",
+      "mod": 31
+    },
+    {
+      "name": "Religion",
+      "mod": 34
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 46,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 375,
+        "formula": null,
+        "note": "regeneration 20 (deactivated by cold iron), void healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 34
+      },
+      {
+        "name": "ref",
+        "mod": 30
+      },
+      {
+        "name": "will",
+        "mod": 38
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "bleed",
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "off-guard"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold iron",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 35,
+      "fly": 35
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Broken Fates Aura",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "mental",
+        "misfortune",
+        "occult"
+      ],
+      "entries": [
+        "60 feet. Creatures other than norns in the aura must attempt a DC 42 Will save. On a successful save, the creature is temporarily immune to the broken fates aura for 24 hours. On a failure, the creature can't benefit from effects with the fortune trait for 24 hours."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 42,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Rewind Fate",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "misfortune",
+        "occult"
+      ],
+      "entries": [
+        "The creature must attempt the attack or skill check again, rolling twice and taking the worse result."
+      ],
+      "trigger": "A creature within 120 feet would succeed on an attack or skill check"
+    },
+    {
+      "name": "hand of fate",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 38,
+        "map": [
+          38,
+          34,
+          30
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d10+15",
+          "average": null,
+          "type": "void"
+        }
+      ],
+      "entries": [
+        "sever fate"
+      ]
+    },
+    {
+      "name": "Fated",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a creature is subject to a misfortune effect from a norn and a fortune effect from any source other than a norn (or vice versa), the norn's effect automatically counteracts the other effect and then takes place normally, rather than the two effects canceling each other out. If both the fortune and misfortune effect are from a norn, then the two cancel each other out as normal. At the GM's discretion, powerful entities related to fate or luck, like Desna|PC1, Magdh|LODM, or Pharasma|PC1, can't have their effects negated by this ability."
+      ]
+    },
+    {
+      "name": "Sever Fate",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "occult"
+      ],
+      "entries": [
+        "When a norn deals void damage with a Strike|PC1, she regains 10 Hit Points. The target must succeed at a DC 39 Fortitude save or become drained|PC1|drained 1 (drained|PC1|drained 2 on a critical failure). Further void damage dealt by the norn increases the drained|PC1 condition value by 1 on a failed save (or by 2 on a critical failure), to a maximum of drained|PC1|drained 4."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 39,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 42,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 10,
+          "rankLabel": "Constant (10th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "hidden mind",
+              "uses": null
+            },
+            {
+              "name": "truesight",
+              "uses": null
+            },
+            {
+              "name": "truespeech",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "dispel magic",
+              "uses": "at will"
+            },
+            {
+              "name": "read omens",
+              "uses": "at will"
+            },
+            {
+              "name": "spellwrack",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "migration",
+              "uses": null
+            },
+            {
+              "name": "quandary",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "execute",
+              "uses": null
+            },
+            {
+              "name": "phantasmagoria",
+              "uses": null
+            },
+            {
+              "name": "retrocognition",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 10,
+          "rankLabel": "10th",
+          "spells": [
+            {
+              "name": "freeze time",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 50
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe4:gloaming-will-o-wisp",
+  "name": "Gloaming Will-o'-wisp",
+  "gameSystem": "pf2e",
+  "variant": "aoe4",
+  "source": {
+    "code": "aoe4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe4/gloaming-will-o-wisp.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [
+      "air"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "small",
+      "aberration",
+      "air"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 8,
+    "con": 2,
+    "int": 2,
+    "wis": 6,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "greater darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 29
+    },
+    {
+      "name": "Deception",
+      "mod": 23
+    },
+    {
+      "name": "Intimidation",
+      "mod": 23
+    },
+    {
+      "name": "Stealth",
+      "mod": 27
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 37,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 110,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 19
+      },
+      {
+        "name": "ref",
+        "mod": 27
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "magic"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Hypnotic Glow",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "light",
+        "mental"
+      ],
+      "entries": [
+        "30 feet. Similar to other will-o'-wisps, a gloaming will-o'-wisp is naturally invisible, but glows with a faint colored light. They cast dim light in the aura, which makes them visible. In addition, any non-aberration creature that ends their turn in the aura and can see the gloaming will-o'-wisp is distracted by the gloaming will-o'-wisp's glow and must attempt a DC 31 Will save. On a failure, the creature is stupefied|CRB|stupefied 1 for 1 round and takes 3d6 mental damage."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 31,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    },
+    {
+      "name": "Magic Immunity",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A will-o'-wisp is immune to all spells except faerie fire, glitterdust, magic missile, and maze."
+      ]
+    },
+    {
+      "name": "shock",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "electricity",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "4d8+13",
+          "average": null,
+          "type": "electricity"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Feed on Fear",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate"
+      ],
+      "entries": [
+        "The will-o'-wisp feeds on the creature's terror. They regains 4d8 Hit Points, and if they've Gone Dark, their glow reignites. A will-o'-wisp can take this action only once per round."
+      ],
+      "requirements": "An enemy is under a fear effect or dying within 15 feet of the will-o'-wisp"
+    },
+    {
+      "name": "Go Dark",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate"
+      ],
+      "entries": [
+        "The gloaming will-o'-wisp extinguishes their hypnotic glow, becoming invisible. They can end this effect with another use of this action. If they use their shock attack while invisible, the arc of electricity lets any observer determine their location, making the will-o'-wisp only hidden to observers until they move."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 33
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

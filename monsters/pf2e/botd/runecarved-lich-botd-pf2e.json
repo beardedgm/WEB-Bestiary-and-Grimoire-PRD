@@ -1,0 +1,563 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:runecarved-lich",
+  "name": "Runecarved Lich",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/runecarved-lich.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 19,
+    "xp": null,
+    "display": "Creature 19"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ne",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 6,
+    "con": 4,
+    "int": 7,
+    "wis": 7,
+    "cha": 10
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 32,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Aklo",
+    "Celestial",
+    "Common",
+    "Draconic",
+    "Infernal",
+    "Necril",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Arcana",
+      "mod": 34
+    },
+    {
+      "name": "Crafting",
+      "mod": 38
+    },
+    {
+      "name": "Deception",
+      "mod": 35
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 35
+    },
+    {
+      "name": "Intimidation",
+      "mod": 37
+    },
+    {
+      "name": "Occultism",
+      "mod": 36
+    },
+    {
+      "name": "Religion",
+      "mod": 34
+    },
+    {
+      "name": "Stealth",
+      "mod": 33
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 42,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 330,
+        "formula": null,
+        "note": "negative healing, rejuvenation (as horde lich)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 27
+      },
+      {
+        "name": "ref",
+        "mod": 33
+      },
+      {
+        "name": "will",
+        "mod": 36
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. positive",
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except magic bludgeoning"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "60 feet, DC 38"
+      ],
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 38,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Spellstealing Counter",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "abjuration",
+        "occult"
+      ],
+      "entries": [
+        "The lich expends a spell slot of the same level as the spell being cast to counter the triggering creature's casting. The runecarved lich loses their spell slot as if they'd cast the triggering spell. The lich then attempts to counteract the triggering spell (counteract modifier +35). If successful, the spell is countered and added to the runecarved lich's spell tome."
+      ],
+      "trigger": "A creature the lich can see Casts a Spell",
+      "requirements": "The runecarved lich has fewer than three spells stored in its spell tome"
+    },
+    {
+      "name": "battle axe",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 34,
+        "map": [
+          34,
+          29,
+          24
+        ],
+        "traits": [
+          "magical",
+          "sweep"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+13",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "3d8",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 31,
+        "map": [
+          31,
+          26,
+          21
+        ],
+        "traits": [
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "6d8",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Consult the Text",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "The runecarved lich causes the pages of their spell tome to flip open, revealing an occult spell of 9th level or lower of their choice. For the remainder of the day, the lich can cast that spell as if it were one of their spells known for every level from its base level up to 9th."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "day",
+        "text": null
+      }
+    },
+    {
+      "name": "Drain Spell Tome",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "The lich draws upon the magic stored in their spell tome to cast one of the spells they've countered. This spell is the same level as the one countered, but it uses the runecarved lich's spell DC and spell attack. Casting a spell in this way removes it from the spell tome."
+      ]
+    },
+    {
+      "name": "Steady Spellcasting",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If a reaction would disrupt the runecarved lich's spellcasting action, the lich attempts a DC 15 flat check. On a success, the action isn't disrupted."
+      ]
+    },
+    {
+      "name": "Summon Weapon",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "The runecarved lich summons its stored weapon into that arm's hand."
+      ],
+      "requirements": "The lich has a stored weapon in its arm and has that hand free"
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous occult Spells",
+      "type": "spontaneous",
+      "tradition": "occult",
+      "dc": 45,
+      "attackBonus": 37,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 9,
+          "rankLabel": "Cantrips (9th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "prestidigitation",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st (3 slots)",
+          "spells": [
+            {
+              "name": "alarm",
+              "uses": null
+            },
+            {
+              "name": "illusory disguise",
+              "uses": null
+            },
+            {
+              "name": "unseen servant",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd (3 slots)",
+          "spells": [
+            {
+              "name": "death knell",
+              "uses": null
+            },
+            {
+              "name": "mirror image",
+              "uses": null
+            },
+            {
+              "name": "see invisibility",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd (3 slots)",
+          "spells": [
+            {
+              "name": "hypercognition",
+              "uses": null
+            },
+            {
+              "name": "mind reading",
+              "uses": null
+            },
+            {
+              "name": "slow",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th (3 slots)",
+          "spells": [
+            {
+              "name": "confusion",
+              "uses": null
+            },
+            {
+              "name": "dimension door",
+              "uses": null
+            },
+            {
+              "name": "fly",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th (3 slots)",
+          "spells": [
+            {
+              "name": "black tentacles",
+              "uses": null
+            },
+            {
+              "name": "false vision",
+              "uses": null
+            },
+            {
+              "name": "prying eye",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th (3 slots)",
+          "spells": [
+            {
+              "name": "spellwrack",
+              "uses": null
+            },
+            {
+              "name": "spirit blast",
+              "uses": null
+            },
+            {
+              "name": "teleport",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th (3 slots)",
+          "spells": [
+            {
+              "name": "duplicate foe",
+              "uses": null
+            },
+            {
+              "name": "energy aegis",
+              "uses": null
+            },
+            {
+              "name": "paralyze",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th (3 slots)",
+          "spells": [
+            {
+              "name": "disappearance",
+              "uses": null
+            },
+            {
+              "name": "maze",
+              "uses": null
+            },
+            {
+              "name": "mind blank",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th (3 slots)",
+          "spells": [
+            {
+              "name": "overwhelming presence",
+              "uses": null
+            },
+            {
+              "name": "telepathic demand",
+              "uses": null
+            },
+            {
+              "name": "wail of the banshee",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 44
+      }
+    ],
+    "items": [
+      "+2 greater striking grievous battle axe",
+      "wand of manifold missiles (7th)",
+      "wand of wall of force"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

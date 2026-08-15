@@ -1,0 +1,311 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sog4:imprecasia",
+  "name": "Imprecasia",
+  "gameSystem": "pf2e",
+  "variant": "sog4",
+  "source": {
+    "code": "sog4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sog4/imprecasia.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 11,
+    "xp": null,
+    "display": "Creature 11"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "cn",
+      "medium",
+      "fey"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 6,
+    "con": 5,
+    "int": 3,
+    "wis": 6,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 23,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability darkvision}",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent curse",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 17
+    },
+    {
+      "name": "Nature",
+      "mod": 17
+    },
+    {
+      "name": "Survival",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 31,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 180,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 18
+      },
+      {
+        "name": "ref",
+        "mod": 23
+      },
+      {
+        "name": "will",
+        "mod": 21
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "cursed"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "negative",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "cold iron",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "fly": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Drink Death",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "necromancy",
+        "primal"
+      ],
+      "entries": [
+        "The imprecasia inhales, drawing a thin blue streak of vapor out of the dying creature's body into their mouth. The dying creature's dying condition is reduced by 1, and the imprecasia regains 2d10+9 Hit Points."
+      ],
+      "trigger": "A creature within 30 feet of the imprecasia is dying"
+    },
+    {
+      "name": "claws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12+9",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "homeland's hostility",
+        "Homeland's Hostility"
+      ]
+    },
+    {
+      "name": "Devour Curse",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "abjuration",
+        "primal"
+      ],
+      "entries": [
+        "The imprecasia casts remove curse against a curse afflicting a creature, but with a cast of two actions rather than 10 minutes. If they succeed in removing the curse, they also drain vitality from the creature, causing it to become drained 1 unless it succeeds at a DC 30 Fortitude save (drained 2 on a critical failure). If the curse is removed, the imprecasia doesn't expend that use of remove curse as a primal innate spell."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 30,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Homeland's Hostility",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "curse",
+        "enchantment",
+        "primal"
+      ],
+      "entries": [
+        "A creature that takes damage from the imprecasia's claws must attempt a DC 30 Will save. On a failure, it treats all terrain within 60 feet of an imprecasia as 0."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 30,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 32,
+      "attackBonus": 22,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Cantrips (5th)",
+          "spells": [
+            {
+              "name": "tanglefoot",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "earthbind",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "deafness",
+              "uses": null
+            },
+            {
+              "name": "hallucinatory terrain",
+              "uses": null
+            },
+            {
+              "name": "remove curse",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 30
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,250 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:ink-guardian",
+  "name": "Ink Guardian",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 285,
+    "path": "monsters/5e/creature_codex/ink-guardian.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": -2,
+    "con": 3,
+    "int": -2,
+    "wis": -2,
+    "cha": -5
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 7,
+    "con": 16,
+    "int": 6,
+    "wis": 6,
+    "cha": 1
+  },
+  "perception": {
+    "mod": null,
+    "passive": 8
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 8,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 102,
+        "note": null,
+        "formula": "12d10+36"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid"
+      ],
+      "conditions": [
+        "blinded",
+        "charmed",
+        "deafened",
+        "exhaustion",
+        "frightened",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "fire",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "thunder",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Amorphous",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ink guardian can move through a space as narrow as 1 inch wide without squeezing."
+      ]
+    },
+    {
+      "name": "Bottled Rejuvenation",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When activated, the creature launches from its bottle, landing within 20 feet of the bottle. It starts as Tiny, and at the start of each of its turns, it increases in size by one step to a maximum of Large.",
+        "When the ink guardian is defeated, the bottle becomes inactive for 3d8 hours. After that time, the ink guardian regains all its hp and is active again. The bottle has AC of 20, 10 hp, and is immune to damage that isn't bludgeoning. If the bottle is destroyed, the ink guardian dies and can't rejuvenate."
+      ]
+    },
+    {
+      "name": "Selectively Caustic",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature that touches the ink guardian or hits it with a melee attack while within 5 feet of it takes 4 (1d8) acid damage. The ink guardian can eat through flesh quickly, but it doesn't harm metal, wood, or paper."
+      ],
+      "damage": [
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "Volatile",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the ink guardian is subjected to thunder damage, it takes no damage and instead splashes onto creatures within 5 feet of it. Each creature in the area takes 4 (1d8) acid damage. When the ink guardian is reduced to 0 hp, it explodes. Each creature within 15 feet of it must make a DC 13 Dexterity saving throw, taking 9 (2d8) acid damage on a failed save, or half as much damage on a successful one."
+      ],
+      "damage": [
+        {
+          "formula": "1d8",
+          "average": 4,
+          "type": "acid"
+        },
+        {
+          "formula": "2d8",
+          "average": 9,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "As a Medium or Large creature, the ink guardian makes two pseudopod attacks"
+      ]
+    },
+    {
+      "name": "Pseudopod",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 7 (1d8 + 3) bludgeoning damage plus 7 (2d6) acid damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d8+3",
+          "average": 7,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "acid"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,267 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:irid",
+  "name": "Irid",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 217,
+    "path": "monsters/5e/tome_of_beasts_2/irid.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 1,
+    "xp": 200,
+    "display": "1"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "celestial"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic neutral",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -3,
+    "dex": 3,
+    "con": 0,
+    "int": 1,
+    "wis": 0,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 4,
+    "dex": 17,
+    "con": 10,
+    "int": 12,
+    "wis": 10,
+    "cha": 16
+  },
+  "perception": {
+    "mod": 2,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Celestial",
+    "Common",
+    "telepathy 60 ft."
+  ],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 7
+    },
+    {
+      "name": "Perception",
+      "mod": 2
+    },
+    {
+      "name": "Persuasion",
+      "mod": 7
+    },
+    {
+      "name": "Stealth",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 20,
+        "note": null,
+        "formula": "8d4"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "wis",
+        "mod": 2
+      },
+      {
+        "name": "cha",
+        "mod": 5
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "frightened",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "radiant",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 40,
+      "walk": 10
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Iridescence",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The irid sheds bright light in a 10-foot radius and dim light for an additional 10 feet. The light can be any color the irid desires. The irid can create or suppress the light as a bonus action."
+      ],
+      "area": {
+        "shape": "sphere",
+        "size": 10,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The irid has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Photographic Memory",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The irid can perfectly recall anything it has seen or heard in the last month."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The irid uses its Gossip. It then uses its Iridescent Blast once."
+      ]
+    },
+    {
+      "name": "Iridescent Blast",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Spell Attack: +5 to hit, range 60 ft., one target. Hit: 7 (2d6) radiant damage."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "spell",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "radiant"
+        }
+      ]
+    },
+    {
+      "name": "Gossip",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The irid spouts gossip and exaggerated truths about a target it can see within 30 feet. If the target is hostile, it must succeed on a DC 13 Charisma saving throw or have disadvantage on its next attack roll. If the target is friendly, it has advantage on its next attack roll."
+      ],
+      "save": {
+        "defense": "cha",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Invisibility",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The irid magically turns invisible until it attacks or uses Gossip, or until its concentration ends (as if concentrating on a spell). Any equipment the irid wears or carries is invisible with it."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

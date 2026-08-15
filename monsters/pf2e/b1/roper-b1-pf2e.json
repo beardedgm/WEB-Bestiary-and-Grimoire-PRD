@@ -1,0 +1,283 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:roper",
+  "name": "Roper",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/roper.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ce",
+      "large",
+      "aberration"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 1,
+    "con": 6,
+    "int": 1,
+    "wis": 3,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 21,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 22
+    },
+    {
+      "name": "Nature",
+      "mod": 17
+    },
+    {
+      "name": "Religion",
+      "mod": 19
+    },
+    {
+      "name": "Stealth",
+      "mod": 17
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 29,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 215,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 20
+      },
+      {
+        "name": "ref",
+        "mod": 15
+      },
+      {
+        "name": "will",
+        "mod": 21
+      }
+    ],
+    "saveNote": "+2 status to all saves vs. magic",
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "electricity",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "climb": 10
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Reactive Lash",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The roper makes a strand Strike against the triggering creature."
+      ],
+      "trigger": "A creature within reach of the roper's strand leaves a square during a move action it's using."
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          16,
+          11
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d12+12",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "strand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "reach <50 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 50,
+          "unit": "ft"
+        }
+      },
+      "damage": [],
+      "entries": []
+    },
+    {
+      "name": "Extend Strands",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The roper extends or retracts six thin, sticky tendrils from its body. While the strands are extended, the roper takes a –4 circumstance penalty to Stealth checks, and while they're retracted, it can't use its strand Strikes."
+      ]
+    },
+    {
+      "name": "Flurry of Strands",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The roper makes a strand Strike with each of its strands (except those that are immobilizing creatures). Each attack must be against a different target. These attacks count toward the roper's multiple attack penalty, but its multiple attack penalty doesn't increase until after all the attacks."
+      ]
+    },
+    {
+      "name": "Pull the Strands",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The roper pulls every creature grabbed by its strands toward itself. The roper rolls a single Athletics check and compares the result to each immobilized creature's Fortitude DC. The roper pulls each creature it succeeds against up to 25 feet closer and each creature it critically succeeds against up to 50 feet closer."
+      ]
+    },
+    {
+      "name": "Sticky Strand",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Any creature hit by a roper's strand is enfeebled 1 and grabbed. Each additional hit from a strand increases the enfeebled condition value by 1 (to a maximum of enfeebled 4). This enfeebled value decreases by 1 every 8 hours. The roper can move while it has a creature grabbed with a strand, but it automatically releases the creature if it moves beyond the strand's reach. The roper can release an grabbed creature as a free action. A creature can sever a strand with a target attack that hits AC 27 and deals at least 18 slashing damage. This doesn't deal any damage to the roper itself, though it can no longer attack with a severed strand."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 29
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

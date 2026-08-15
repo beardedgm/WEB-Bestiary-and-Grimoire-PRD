@@ -1,0 +1,241 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:cott:undead-murder",
+  "name": "Undead Murder",
+  "gameSystem": "pf2e",
+  "variant": "cott",
+  "source": {
+    "code": "cott",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/cott/undead-murder.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "skeleton",
+      "swarm",
+      "undead"
+    ],
+    "subtypes": [
+      "unholy"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "uncommon",
+      "large",
+      "skeleton",
+      "swarm",
+      "undead",
+      "unholy"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 3,
+    "con": 0,
+    "int": -4,
+    "wis": 4,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 12,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "scent",
+      "range": null,
+      "unit": null,
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 10
+    },
+    {
+      "name": "Stealth",
+      "mod": 7
+    },
+    {
+      "name": "Thievery",
+      "mod": 10
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 32,
+        "formula": null,
+        "note": "void healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 7
+      },
+      {
+        "name": "ref",
+        "mod": 13
+      },
+      {
+        "name": "will",
+        "mod": 8
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "poisoned",
+        "swarm mind"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": 3,
+        "note": null
+      },
+      {
+        "name": "electricity",
+        "amount": 3,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 3,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 3,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 3,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 5,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 5,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 5,
+      "fly": 35
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Mindless Grudge",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The murder begrudges the triggering creature. The murder's swarming hunger deals 3 extra damage to that creature. The effect ends if the murder begrudges a different creature."
+      ],
+      "trigger": "A creature deals damage to the murder"
+    },
+    {
+      "name": "Swarming Hunger",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The murder's beaks and talons deal 2d6 piercing damage to each enemy in the swarm's space (DC 20 basic Reflex save). A creature that critically fails its save is blinded|PC1 for 1d4 rounds as the murder focuses its attacks on clawing out the creature's eyes."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 20,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 20
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

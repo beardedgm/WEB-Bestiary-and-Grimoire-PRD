@@ -1,0 +1,294 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:wow3:blighted-speaker-in-spores",
+  "name": "Blighted Speaker in Spores",
+  "gameSystem": "pf2e",
+  "variant": "wow3",
+  "source": {
+    "code": "wow3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/wow3/blighted-speaker-in-spores.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "fungus"
+    ],
+    "subtypes": [
+      "mutant"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "rare",
+      "large",
+      "fungus",
+      "mutant"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 3,
+    "con": 4,
+    "int": -2,
+    "wis": 8,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "sporesight",
+      "range": null,
+      "unit": null,
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Muan",
+    "Wildsong; Shaped Tongue",
+    "Spore Matrix"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 22
+    },
+    {
+      "name": "Athletics",
+      "mod": 24
+    },
+    {
+      "name": "Intimidation",
+      "mod": 21
+    },
+    {
+      "name": "Nature",
+      "mod": 27
+    },
+    {
+      "name": "Survival",
+      "mod": 27
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 32,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 250,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 23
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 27
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": [
+      "fly"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Blight Walker",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The speaker in spores recovers from the paralyzed, slowed, and stunned conditions at the end of their turn. They're also immune to penalties to their Speeds and ignore cover, concealment, difficult terrain, and greater difficult terrain resulting from plants or fungi."
+      ]
+    },
+    {
+      "name": "Toxic Spores",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "disease",
+        "poison",
+        "primal"
+      ],
+      "entries": [
+        "The blighted speaker in spores releases a burst of toxic spores. Any creature within 10 feet of the speaker in spores takes 3d6 poison damage (DC 31 basic Fortitude save). Creatures that fail their saving throw are exposed to Ayrzul's Blight|WoW3."
+      ],
+      "trigger": "A creature critically hits the speaker or the speaker dies",
+      "save": {
+        "defense": "fortitude",
+        "dc": 31,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "tendril",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 28,
+        "map": [
+          28,
+          23,
+          18
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+13",
+          "average": null,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "persistent poison"
+        }
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 33,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 5,
+          "rankLabel": "Constant (5th)",
+          "spells": [
+            {
+              "name": "environmental endurance",
+              "uses": null
+            },
+            {
+              "name": "fly",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fungus",
+        "skill": "Nature",
+        "dc": 36
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

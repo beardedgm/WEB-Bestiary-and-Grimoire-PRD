@@ -1,0 +1,350 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoe2:dreadsong-dancer",
+  "name": "Dreadsong Dancer",
+  "gameSystem": "pf2e",
+  "variant": "aoe2",
+  "source": {
+    "code": "aoe2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoe2/dreadsong-dancer.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 8,
+    "xp": null,
+    "display": "Creature 8"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "le",
+      "medium",
+      "fiend"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 6,
+    "con": 3,
+    "int": 4,
+    "wis": 3,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 13,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Infernal (Can'T Speak Any Language)"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 18
+    },
+    {
+      "name": "Athletics",
+      "mod": 16
+    },
+    {
+      "name": "Deception",
+      "mod": 18
+    },
+    {
+      "name": "Occultism",
+      "mod": 14
+    },
+    {
+      "name": "Performance",
+      "mod": 18
+    },
+    {
+      "name": "Stealth",
+      "mod": 18
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 160,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 13
+      },
+      {
+        "name": "ref",
+        "mod": 19
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": "+2 status to all saves vs. composition spells",
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [],
+      "other": [
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Performance Anxiety",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A dreadsong dancer is stunned|CRB|stunned 1 if they see or hear a creature critically succeed at a Performance check or at a saving throw against their Dreadsong. The dreadsong dancer is quickened|CRB|quickened 1 for 1 round if they see or hear a creature critically fail at a Performance check or a saving throw against their Dreadsong. They can use the extra action only to Stride or Strike."
+      ]
+    },
+    {
+      "name": "Jealous Musician",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The dreadsong dancer Strides up to 20 feet and makes a songblade Strike against the triggering creature. If the Strike hits, the spell is disrupted."
+      ],
+      "trigger": "A creature plays an instrument while Casting a Spell or casts a composition spell within 20 feet of the dreadsong dancer"
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          14,
+          10
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+6",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "songblade",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 20,
+        "map": [
+          20,
+          16,
+          12
+        ],
+        "traits": [
+          "agile",
+          "deadly <d10>",
+          "finesse",
+          "magical",
+          "trip"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+8",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Dreadsong",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "auditory",
+        "concentrate",
+        "fear",
+        "illusion",
+        "mental"
+      ],
+      "entries": [
+        "The dreadsong dancer whirls their howling songblades and cloaks themself in illusion magic. Each non-fiend creature in a 30-foot emanation from the dreadsong dancer must attempt a DC 29 Will save."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 29,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "No effect, and the creature is temporarily immune for 24 hours. The dreadsong dancer is affected by their performance anxiety.",
+          "success": "The creature is frightened|CRB|frightened 1.",
+          "failure": "The creature is frightened|CRB|frightened 2, and the dreadsong dancer is undetected by the creature for 1 minute. The creature can't use Seek to find the dreadsong dancer.",
+          "criticalFailure": "As failure, but the creature can't reduce its frightened condition below 2 for 1 minute. In addition, the dreadsong dancer is affected by its performance anxiety."
+        }
+      }
+    },
+    {
+      "name": "Rend",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "songblade"
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate occult Spells",
+      "type": "innate",
+      "tradition": "occult",
+      "dc": 23,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "true strike",
+              "uses": 3
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": null
+            },
+            {
+              "name": "silence",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 29
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

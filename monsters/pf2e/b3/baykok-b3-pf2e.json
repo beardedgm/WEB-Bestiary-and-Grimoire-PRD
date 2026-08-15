@@ -1,0 +1,340 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:baykok",
+  "name": "Baykok",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/baykok.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 4,
+    "con": 5,
+    "int": 0,
+    "wis": 4,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 17
+    },
+    {
+      "name": "Athletics",
+      "mod": 19
+    },
+    {
+      "name": "Stealth",
+      "mod": 17
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 200,
+        "formula": null,
+        "note": "negative healing|b2"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 20
+      },
+      {
+        "name": "ref",
+        "mod": 19
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "air",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "bludgeoning",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "earth",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Frightful Presence",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "entries": [
+        "120 feet, DC 25"
+      ],
+      "aura": {
+        "range": 120,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "greatclub",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          16,
+          11
+        ],
+        "traits": [
+          "backswing",
+          "magical",
+          "shove"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+9",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "longbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          16,
+          11
+        ],
+        "traits": [
+          "deadly <d10>",
+          "magical",
+          "volley <30 feet>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+6",
+          "average": null,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d8",
+          "average": null,
+          "type": "mental"
+        }
+      ],
+      "entries": [
+        "arrow of despair",
+        "arrow of despair"
+      ]
+    },
+    {
+      "name": "Arrow of Despair",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "emotion",
+        "enchantment",
+        "fear",
+        "incapacitation",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "A baykok creates an invisible arrow of bone as it draws its bow. A frightened creature hit by the arrow is stricken with loneliness and despair and must attempt a DC 26 Will save; if the Strike was a critical hit, the target uses the outcome one degree of success worse than the result of its save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is slowed 1 for 1 round.",
+          "failure": "The creature's frightened value increases by 1 (to a maximum of 4), and it is slowed 1 until its frightened condition ends.",
+          "criticalFailure": "As failure, but the creature is paralyzed until its frightened condition ends. At the start of each of its turns, it can end the paralyzed condition early with a successful DC 26 Will save."
+        }
+      }
+    },
+    {
+      "name": "Devour Life",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "curse",
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "The baykok touches the target and devours part of its life force. The target must succeed at a DC 26 Fortitude save or be afflicted with the baykok's wasting curse. If the target fails and wasn't already affected by the wasting curse, the baykok gains 20 temporary Hit Points that last for 1 hour."
+      ],
+      "requirements": "The baykok is adjacent to a paralyzed, restrained, or unconscious living humanoid",
+      "save": {
+        "defense": "fortitude",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Wasting Curse",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "curse",
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "The baykok steals life from its victim and leaves listless dread in its place. If a target fails its save against Devour Life, it becomes drained 1. Each time the target gets a full night's rest, it must succeed at a DC 26 Fortitude save or its drained value increases rather than decreasing. The curse ends if the creature recovers from the drained condition, but if the creature would reach drained 5 from this effect, it dies."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 26
+      }
+    ],
+    "items": [
+      "+1 striking greatclub",
+      "+1 longbow"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

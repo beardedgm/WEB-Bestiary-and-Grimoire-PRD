@@ -1,0 +1,399 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:japalisura",
+  "name": "Japalisura",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/japalisura.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 12,
+    "xp": null,
+    "display": "Creature 12"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [
+      "asura"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "le",
+      "medium",
+      "asura",
+      "fiend"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 7,
+    "con": 4,
+    "int": 2,
+    "wis": 4,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 22,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "see invisibility",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Infernal; Telepathy 80 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 25
+    },
+    {
+      "name": "Athletics",
+      "mod": 23
+    },
+    {
+      "name": "Deception",
+      "mod": 25
+    },
+    {
+      "name": "Religion",
+      "mod": 22
+    },
+    {
+      "name": "Stealth",
+      "mod": 21
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 235,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 20
+      },
+      {
+        "name": "ref",
+        "mod": 25
+      },
+      {
+        "name": "will",
+        "mod": 20
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": [
+        "curses"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Disorienting Faces",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "30 feet. The japalisura's faces constantly shift and morph, each visage more grotesque than the last. When a creature enters or starts its turn in the aura, it must attempt a DC 32 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 32,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected and is temporarily immune to Disorienting Faces for 1 minute.",
+          "success": "The creature is unaffected.",
+          "failure": "The creature is disoriented by the horrible faces, taking a –2 circumstance penalty to checks and DCs against the japalisura while it remains in the aura.",
+          "criticalFailure": "As failure, except the circumstance penalty is –3."
+        }
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Return Arrow",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The japalisura attempts to snatch the oncoming arrow from the air, gaining a +4 circumstance bonus to AC against the attack. If the attack misses, the japalisura snatches the arrow and makes a ranged bow Strike to fire the arrow from their own bow."
+      ],
+      "trigger": "The japalisura is targeted by a ranged attack from a bow",
+      "requirements": "The japalisura has at least one hand free and is wielding a bow"
+    },
+    {
+      "name": "hatchet",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          19,
+          15
+        ],
+        "traits": [
+          "agile",
+          "sweep"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+8",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "mental"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "composite shortbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 26,
+        "map": [
+          26,
+          21,
+          16
+        ],
+        "traits": [
+          "deadly <d10>",
+          "magical",
+          "range <60 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "mental"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": [
+        "2d6+5",
+        "2d6+5"
+      ]
+    },
+    {
+      "name": "False Foe",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "divine",
+        "enchantment",
+        "incapacitation",
+        "mental"
+      ],
+      "entries": [
+        "The japalisura whispers misleading words and falsehoods to one adjacent creature, attempting a Deception check against the target's Perception DC."
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "For 1 minute, the target believes that one creature of the japalisura's choice is its mortal foe, spending all its actions to reach and attack that creature. At the end of each of its turns, the target can attempt a DC 32 Will save to end the effect early.",
+          "success": "As critical success except the effect ends at the end of the creature's first turn, without the need for a Will save.",
+          "failure": "The target sees through the japalisura's attempts at misdirection and is temporarily immune to False Foe for 1 day."
+        }
+      }
+    },
+    {
+      "name": "Veil of Lies",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Japalisuras can produce infinite arrows, as if from an invisible quiver. Each arrow carries a veil of lies that tears at the target's psyche, dealing 4d6 mental damage while simultaneously imparting an almost addictively sweet sensation. A japalisura's hatchets are also soaked in the same veil of lies. This damage s already reflected in the Strikes above."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "mental"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 32,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Constant (6th)",
+          "spells": [
+            {
+              "name": "magic aura",
+              "uses": null
+            },
+            {
+              "name": "nondetection",
+              "uses": null
+            },
+            {
+              "name": "see invisibility",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "illusory disguise",
+              "uses": null
+            },
+            {
+              "name": "read omens",
+              "uses": "at will"
+            },
+            {
+              "name": "augury",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 30
+      }
+    ],
+    "items": [
+      "hatchet (2)",
+      "+1 striking composite shortbow (2)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

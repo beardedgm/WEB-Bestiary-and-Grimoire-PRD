@@ -1,0 +1,287 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:grappling-spirit",
+  "name": "Grappling Spirit",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/grappling-spirit.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "spirit",
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ln",
+      "medium",
+      "incorporeal",
+      "spirit",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 6,
+    "con": 4,
+    "int": 0,
+    "wis": 2,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 17,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 19
+    },
+    {
+      "name": "Athletics",
+      "mod": 21
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 18
+    },
+    {
+      "name": "Gladiatorial Lore",
+      "mod": 15
+    },
+    {
+      "name": "Intimidation",
+      "mod": 20
+    },
+    {
+      "name": "Performance",
+      "mod": 20
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 125,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 19
+      },
+      {
+        "name": "ref",
+        "mod": 19
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "sleep"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all damage",
+        "amount": 10,
+        "note": "except force, ghost touch, or positive; double resistance vs. non-magical"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Warrior's Mask",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A grappling spirit wears a mask that allows them to abandon their original form and become a warrior focused solely on combat. This mask is quasi-corporeal, allowing it to be manipulated by both corporeal and incorporeal creatures. A creature who has the grappling spirit grabbed or restrained can remove the mask as an Interact action by succeeding at an Athletics check against the grappling spirit's Fortitude DC. Removing a grappling spirit's mask causes the spirit to fly into a frenzy. The grappling spirit becomes quickened and can use their extra action to Fly, Grapple, or Strike. They also gain a +4 status bonus to damage rolls, and they take a –4 status penalty to AC and Reflex saving throws. If the mask is put back on, the grappling spirit ends their frenzy."
+      ]
+    },
+    {
+      "name": "ghostly hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          17,
+          13
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "magical",
+          "nonlethal"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+12",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": [
+        "Improved Grab"
+      ]
+    },
+    {
+      "name": "Ghostly Grasp",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A grappling spirit can Grapple corporeal creatures despite being incorporeal. The grappling spirit uses their Athletics check to Grapple as normal but can't use Athletics for other actions that require corporeal contact, like Force Open or Trip."
+      ]
+    },
+    {
+      "name": "Submission Lock",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "nonlethal"
+      ],
+      "entries": [
+        "The spirit saps their opponent's strength with a supernatural grip. The grappling spirit attempts an Athletics check to Grapple a creature they have grabbed or restrained, also adding 4d10+12 negative damage, depending on the result."
+      ],
+      "requirements": "The grappling spirit has a creature grabbed or restrained",
+      "save": {
+        "defense": null,
+        "dc": null,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Teleporting Clothesline",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "conjuration",
+        "occult",
+        "teleportation"
+      ],
+      "entries": [
+        "The grappling spirit pushes the creature 15 feet in a straight line. The spirit immediately teleports 20 feet to intercept. They make a ghostly hand Strike against the creature. On a hit, the creature is knocked prone, and on a critical hit, it also takes an additional 2d6 bludgeoning damage as it's driven to the ground."
+      ],
+      "requirements": "The grappling spirit has a creature grabbed or restrained",
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    },
+    {
+      "name": "Victory Celebration",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If a spirit knocks a creature unconscious, each creature within 60 feet that witnesses the victory is targeted with a DC 26 roaring applause|SoM spell (Secrets of Magic 126). The spirit must spend all their actions until the end of the turn celebrating, and a new medal or belt appears on the spirit."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Spirit",
+        "skill": "Religion",
+        "dc": 28
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Submission Lock)"
+    ],
+    "unmapped": []
+  }
+}

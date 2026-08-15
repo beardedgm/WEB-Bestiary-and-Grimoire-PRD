@@ -1,0 +1,495 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b1:balor",
+  "name": "Balor",
+  "gameSystem": "pf2e",
+  "variant": "b1",
+  "source": {
+    "code": "b1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b1/balor.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 20,
+    "xp": null,
+    "display": "Creature 20"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "demon",
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ce",
+      "large",
+      "demon",
+      "fiend"
+    ]
+  },
+  "abilityMods": {
+    "str": 9,
+    "dex": 7,
+    "con": 9,
+    "int": 6,
+    "wis": 6,
+    "cha": 8
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 36,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "true seeing",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Celestial",
+    "Draconic; Telepathy 100 Feet"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 35
+    },
+    {
+      "name": "Athletics",
+      "mod": 37
+    },
+    {
+      "name": "Deception",
+      "mod": 36
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 32
+    },
+    {
+      "name": "Intimidation",
+      "mod": 38
+    },
+    {
+      "name": "Religion",
+      "mod": 32
+    },
+    {
+      "name": "Society",
+      "mod": 32
+    },
+    {
+      "name": "Stealth",
+      "mod": 33
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 45,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 480,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 39
+      },
+      {
+        "name": "ref",
+        "mod": 35
+      },
+      {
+        "name": "will",
+        "mod": 34
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "fire"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "cold iron",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "good",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 35,
+      "fly": 70
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aura of Flame",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "evocation",
+        "fire"
+      ],
+      "entries": [
+        "20 feet. A foe that starts its turn in the aura takes 3d6+10 fire damage, or 6d6+20 fire damage if the balor has grabbed or restrained it. A creature that hits a balor with an unarmed Strike takes 3d6+10 fire damage, and weapons that hit a balor take 3d6+10 fire damage."
+      ],
+      "aura": {
+        "range": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The balor can use Attack of Opportunity when a creature within their reach uses a concentrate action, in addition to its normal trigger. They can disrupt triggering concentrate actions, and they disrupt actions on any hit, not just a critical hit."
+      ]
+    },
+    {
+      "name": "Death Throes",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "death",
+        "divine",
+        "evocation",
+        "fire"
+      ],
+      "entries": [
+        "When a balor dies, their body explodes in a 100-foot aura of intense demonic flame. All creatures and objects in range take 16d10 fire damage (DC 45 basic Reflex save). Because the flame is infused with Abyssal energy, creatures in the area apply only half their usual fire resistance. Creatures with immunity to fire use an outcome one degree of success better than what they rolled, instead of gaining the usual benefit of immunity. The bodies of creatures reduced to 0 Hit Points by a balor's death throes are completely incinerated into fine ash."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 45,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "16d10",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "vorpal cold iron silver longsword",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 40,
+        "map": [
+          40,
+          35,
+          30
+        ],
+        "traits": [
+          "evil",
+          "magical",
+          "reach <10 feet>",
+          "versatile <P>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d8+17",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "cold iron silver flame whip",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 40,
+        "map": [
+          40,
+          35,
+          30
+        ],
+        "traits": [
+          "disarm",
+          "evil",
+          "fire",
+          "magical",
+          "reach <20 feet>",
+          "trip"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6+17",
+          "average": null,
+          "type": "fire"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "evil, Improved Grab,"
+        }
+      ],
+      "entries": [
+        "whip reposition",
+        "Improved Grab, whip reposition"
+      ]
+    },
+    {
+      "name": "Dimensional Dervish",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A balor can cast their 5th-level innate dimension door with only a single action."
+      ]
+    },
+    {
+      "name": "Dispelling Strike",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "The balor casts an innate dispel magic on the target of the triggering Strike."
+      ],
+      "trigger": "The balor hits a creature, object, or spell effect with a weapon Strike.",
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      }
+    },
+    {
+      "name": "Infuse Weapons",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "evocation"
+      ],
+      "entries": [
+        "Any weapon a balor wields becomes a +3 major striking vorpal weapon made of cold iron and silver while the demon holds it. A weapon that isn't eligible for the vorpal rune doesn't gain its effects. The balor can change its evil damage to chaotic whenever it attacks. The demon can conjure a whip made of flames with an Interact action. This whip gains the same benefits as other weapons the balor wields."
+      ]
+    },
+    {
+      "name": "Lifedrinker",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [
+        "divine",
+        "healing",
+        "necromancy"
+      ],
+      "entries": [
+        "The balor drinks the triggering creature's life force and regains 10d8+80 Hit Points."
+      ],
+      "trigger": "The balor kills a living creature that is at least 15th level."
+    },
+    {
+      "name": "Whip Reposition",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a balor grabs a creature with a whip Strike, they can move the creature to any space in the whip's reach. The balor can move without ending the grab as long as the creature remains within the whip's reach, and the balor can move the creature to any other space in the whip's reach with an Interact action."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 44,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 6,
+          "rankLabel": "Constant (6th)",
+          "spells": [
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 10,
+          "rankLabel": "Cantrips (10th)",
+          "spells": [
+            {
+              "name": "telekinetic projectile",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "dominate",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "dispel magic",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 10,
+          "rankLabel": "10th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            },
+            {
+              "name": "divine decree",
+              "uses": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 40
+      }
+    ],
+    "items": [
+      "longsword"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

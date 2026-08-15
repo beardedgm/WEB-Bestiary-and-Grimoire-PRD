@@ -1,0 +1,528 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:botd:horde-lich",
+  "name": "Horde Lich",
+  "gameSystem": "pf2e",
+  "variant": "botd",
+  "source": {
+    "code": "botd",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/botd/horde-lich.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 15,
+    "xp": null,
+    "display": "Creature 15"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ne",
+      "medium",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 6,
+    "con": 0,
+    "int": 8,
+    "wis": 4,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 25,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal",
+    "Aklo",
+    "Common",
+    "Draconic",
+    "Dwarven",
+    "Infernal",
+    "Jotun",
+    "Necril",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 27
+    },
+    {
+      "name": "Arcana",
+      "mod": 31
+    },
+    {
+      "name": "Crafting",
+      "mod": 29
+    },
+    {
+      "name": "Deception",
+      "mod": 27
+    },
+    {
+      "name": "Intimidation",
+      "mod": 27
+    },
+    {
+      "name": "Religion",
+      "mod": 25
+    },
+    {
+      "name": "Stealth",
+      "mod": 27
+    },
+    {
+      "name": "Thievery",
+      "mod": 27
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 35,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 250,
+        "formula": null,
+        "note": "negative healing, rejuvenation"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 21
+      },
+      {
+        "name": "ref",
+        "mod": 27
+      },
+      {
+        "name": "will",
+        "mod": 27
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. positive",
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "physical",
+        "amount": 10,
+        "note": "except magic bludgeoning"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Rejuvenation",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "arcane",
+        "necromancy"
+      ],
+      "entries": [
+        "When a lich is destroyed, their soul immediately transfers to their soul cage. A lich can be permanently destroyed only if their soul cage is found and destroyed."
+      ]
+    },
+    {
+      "name": "Shatter Block",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The critical hit is a normal hit instead. One of the horde lich's servitors detaches from them and is placed in an open, adjacent space, prone. The servitor takes the damage from the triggering attack."
+      ],
+      "trigger": "A creature scores a critical hit on the horde lich",
+      "requirements": "The horde lich has at least one servitor attached (see Servitor Assembly)"
+    },
+    {
+      "name": "hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 27,
+        "map": [
+          27,
+          22,
+          17
+        ],
+        "traits": [
+          "finesse",
+          "magical"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "5d8",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Servitor Assembly",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "A horde lich has three servitor bodies folded up and attached to themself, usually in the ribcage, on the arms, and around the legs. The lich detaches one of these servitors and places it in any open, adjacent space. The lich can alternatively take this action to reattach an adjacent servitor. The lich and their servitors share actions and Hit Points, and the servitors use the same statistics as the lich. Spells and effects that target the lich or their servitors affect all of them equally, but they're still treated as just one creature when targeted by spells and attacks. The horde lich attempts only one save against such effects, but they take a –2 circumstance penalty to defend against effects that target both the lich and one or more detached servitors. Whenever the horde lich Casts a Spell, they can choose to have the spell originate from themself or from any one of their detached servitors. If the horde lich is destroyed, all attached servitors are destroyed as well. If a servitor is dealt a critical hit, it's destroyed (and the horde lich takes the damage as normal)."
+      ]
+    },
+    {
+      "name": "Servitor Attack",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "concentrate"
+      ],
+      "entries": [
+        "Each of the horde lich's detached servitors Strike, with a –2 circumstance penalty on the attack roll. Each of these Strikes counts toward the lich's multiple attack penalty, but the penalty doesn't increase until after all the attacks."
+      ]
+    },
+    {
+      "name": "Servitor Lunge",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "One of the lich's attached servitors detaches adjacent to the target, and the target is grabbed by that servitor."
+      ],
+      "requirements": "The horde lich's last action was a critical hit with a melee Strike, and the horde lich has at least one servitor attached"
+    },
+    {
+      "name": "Servitor Realignment",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate"
+      ],
+      "entries": [
+        "Each of the horde lich's detached servitors can either Interact or take a basic action with the move trait. The lich chooses which action each of them takes."
+      ]
+    },
+    {
+      "name": "Steady Spellcasting",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If a reaction would disrupt the horde lich's spellcasting action, the lich attempts a DC 15 flat check. On a success, the action isn't disrupted."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Prepared arcane Spells",
+      "type": "prepared",
+      "tradition": "arcane",
+      "dc": 39,
+      "attackBonus": 31,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 8,
+          "rankLabel": "Cantrips (8th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "electric arc",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            },
+            {
+              "name": "shield",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "alarm",
+              "uses": null
+            },
+            {
+              "name": "command",
+              "uses": null
+            },
+            {
+              "name": "illusory disguise",
+              "uses": null
+            },
+            {
+              "name": "unseen servant",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "hideous laughter",
+              "uses": null
+            },
+            {
+              "name": "invisibility",
+              "uses": null
+            },
+            {
+              "name": "mirror image",
+              "uses": 2
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "haste",
+              "uses": null
+            },
+            {
+              "name": "paralyze",
+              "uses": null
+            },
+            {
+              "name": "slow",
+              "uses": null
+            },
+            {
+              "name": "stinking cloud",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "confusion",
+              "uses": null
+            },
+            {
+              "name": "fly",
+              "uses": null
+            },
+            {
+              "name": "freedom of movement",
+              "uses": null
+            },
+            {
+              "name": "veil",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 5,
+          "rankLabel": "5th",
+          "spells": [
+            {
+              "name": "command",
+              "uses": null
+            },
+            {
+              "name": "cone of cold",
+              "uses": null
+            },
+            {
+              "name": "crushing despair",
+              "uses": null
+            },
+            {
+              "name": "hallucination",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 6,
+          "rankLabel": "6th",
+          "spells": [
+            {
+              "name": "disintegrate",
+              "uses": null
+            },
+            {
+              "name": "feeblemind",
+              "uses": null
+            },
+            {
+              "name": "repulsion",
+              "uses": null
+            },
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "power word blind",
+              "uses": null
+            },
+            {
+              "name": "project image",
+              "uses": null
+            },
+            {
+              "name": "spell turning",
+              "uses": null
+            },
+            {
+              "name": "true target",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "horrid wilting",
+              "uses": null
+            },
+            {
+              "name": "power word stun",
+              "uses": null
+            },
+            {
+              "name": "uncontrollable dance",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 39
+      }
+    ],
+    "items": [
+      "scroll of teleport",
+      "wand of dispel magic (6th)"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,310 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:frp3:dancing-night-parade",
+  "name": "Dancing Night Parade",
+  "gameSystem": "pf2e",
+  "variant": "frp3",
+  "source": {
+    "code": "frp3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/frp3/dancing-night-parade.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 19,
+    "xp": null,
+    "display": "Creature 19"
+  },
+  "identity": {
+    "size": "Gargantuan",
+    "types": [
+      "spirit",
+      "troop"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "cn",
+      "gargantuan",
+      "spirit",
+      "troop"
+    ]
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 7,
+    "con": 5,
+    "int": 5,
+    "wis": 5,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 28,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Senzar"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 34
+    },
+    {
+      "name": "Athletics",
+      "mod": 33
+    },
+    {
+      "name": "Deception",
+      "mod": 37
+    },
+    {
+      "name": "Performance",
+      "mod": 37
+    },
+    {
+      "name": "Society",
+      "mod": 32
+    },
+    {
+      "name": "Dancing Lore",
+      "mod": 34
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 40,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 450,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 32
+      },
+      {
+        "name": "ref",
+        "mod": 26
+      },
+      {
+        "name": "will",
+        "mod": 34
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "bludgeoning",
+        "amount": 15,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": [
+      "troop movement"
+    ]
+  },
+  "entries": [
+    {
+      "name": "Riotous Parade",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "auditory",
+        "aura",
+        "emotion",
+        "enchantment",
+        "mental"
+      ],
+      "entries": [
+        "60 feet. The night parade sweeps up those nearby in a riotous celebration. All creatures in the aura must attempt a DC 39 Will save. The target is then temporarily immune for 10 minutes."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 39,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unafflicted.",
+          "success": "The target laughs and dances. It can't use reactions as long as it stays in the area, and if it attempts to use a concentrate action, it must succeed at a DC 5 flat check; on a failure, the action is lost.",
+          "failure": "As success, except the target is also slowed|CRB|slowed 1 while in the area.",
+          "criticalFailure": "As success, except the target is also slowed|CRB|slowed 1 while in the area and the flat check DC is 10."
+        }
+      },
+      "aura": {
+        "range": 60,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Attack of Opportunity",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Bestiary 3 304."
+      ]
+    },
+    {
+      "name": "Troop Defenses",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Seiya! Soiya!",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "emotion",
+        "mental",
+        "sonic"
+      ],
+      "entries": [
+        "The night parade shouts a series of energetic call-and-responses, dealing 3d10 sonic damage and 4d6 mental damage to all creatures in a 10-foot burst within 20 feet (DC 41 basic Will save). If the troop is reduced to 8 or fewer squares, this area decreases to a 5-foot burst."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 41,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10",
+          "average": null,
+          "type": "sonic"
+        }
+      ]
+    },
+    {
+      "name": "Form Up",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": []
+    },
+    {
+      "name": "Troop Movement",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever a troop Strides, it first Forms Up as a free action to condense into a 20-foot-by-20-foot area (minus any missing squares), then moves up to its Speed. This works just like a Gargantuan creature moving; for instance, if any square enters terrain, the extra movement cost applies to the whole troop."
+      ]
+    },
+    {
+      "name": "Wasshoi! Wasshoi!",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The night parade dances with wild abandon, unintentionally striking nearby creatures. It deals damage to each adjacent creature (DC 41 basic Reflex save), and any creature that fails its save is pushed 10 feet in any direction as the night parade bounces it overhead. The damage depends on the number of actions. 1 1d10+7 bludgeoning damage 2 4d10+14 bludgeoning damage 3 6d10+14 bludgeoning damage"
+      ],
+      "frequency": {
+        "number": 1,
+        "unit": "round",
+        "text": null
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 41,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Spirit",
+        "skill": "Religion",
+        "dc": 49
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

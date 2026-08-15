@@ -1,0 +1,309 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:ammut",
+  "name": "Ammut",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 15,
+    "path": "monsters/5e/creature_codex/ammut.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 9,
+    "xp": 5000,
+    "display": "9"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "celestial"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 1,
+    "con": 6,
+    "int": -2,
+    "wis": 3,
+    "cha": 1
+  },
+  "abilityScores": {
+    "str": 20,
+    "dex": 12,
+    "con": 23,
+    "int": 6,
+    "wis": 16,
+    "cha": 12
+  },
+  "perception": {
+    "mod": 11,
+    "passive": 21
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 17,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 172,
+        "note": null,
+        "formula": "15d10+90"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "str",
+        "mod": 9
+      },
+      {
+        "name": "con",
+        "mod": 10
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "necrotic"
+      ],
+      "conditions": [
+        "frightened"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "cold",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "radiant",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Judging Aura",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "An undead creature that starts its turn within 10 feet of the ammut must succeed on a DC 16 Charisma saving throw or be stunned until the end of its next turn. If a creature's saving throw is successful or the effect ends for it, the creature is immune to the ammut's Judging Aura for the next 24 hours."
+      ],
+      "save": {
+        "defense": "cha",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ammut has advantage on saving throws against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Prison Belly",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The large belly of the ammut magically sustains the life of those trapped inside it. A creature caught in its belly doesn't need food, water, or air. The ammut can maintain one Medium or smaller creature this way as long as the ammut remains alive."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +9 to hit, reach 5 ft., one target. Hit: 32 (5d10 + 5) piercing damage plus 10 (3d6) radiant damage. If the target is Large or smaller, it is grappled (escape DC 17). Until this grapple ends, the target is restrained and the ammut can't bite another target."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 9,
+        "map": [
+          9
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "5d10+5",
+          "average": 32,
+          "type": "piercing"
+        },
+        {
+          "formula": "3d6",
+          "average": 10,
+          "type": "radiant"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Swallow",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ammut makes one bite attack against a Large or smaller target it is grappling. If the attack hits, the target is also swallowed, and the grapple ends. While swallowed, the target is blinded and restrained and it has total cover against attacks and other effects outside the ammut. An ammut can only have one Medium or smaller creature swallowed at a time.<br><br>If the ammut takes 30 damage or more on a single turn from the swallowed creature, the ammut must succeed on a DC 14 Constitution saving throw at the end of that turn or regurgitate the creature, which falls prone in a space within 10 feet of the ammut. If the ammut dies, a swallowed creature is no longer restrained by it and can escape from the corpse by using 10 feet of movement, exiting prone."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "blinded",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Ghost Breath",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ammut inhales the tortured spirits of undead within 30 feet. Each undead creature of CR 1 and lower in the area is automatically destroyed. All other undead must succeed on a DC 17 Wisdom saving throw or be incapacitated for 1 minute. A creature can repeat the saving throw at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "save": {
+        "defense": "wis",
+        "dc": 17,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "incapacitated",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Absorb Spirit",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ammut attempts to absorb the spirit of a dead or undead creature in its belly. The creature must succeed on a DC 16 Wisdom saving throw or be absorbed by the ammut. A creature absorbed this way is destroyed and can't be reanimated, though it can be restored to life by powerful magic, such as a resurrection spell. The ammut regains hp equal to the absorbed creature's hp maximum."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "save": {
+        "defense": "wis",
+        "dc": 16,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:carrier-mosquito",
+  "name": "Carrier Mosquito",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 389,
+    "path": "monsters/5e/tome_of_beasts_2/carrier-mosquito.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 3,
+    "xp": 700,
+    "display": "3"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "beast"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 1,
+    "con": 2,
+    "int": -4,
+    "wis": -1,
+    "cha": -3
+  },
+  "abilityScores": {
+    "str": 16,
+    "dex": 13,
+    "con": 15,
+    "int": 2,
+    "wis": 8,
+    "cha": 4
+  },
+  "perception": {
+    "mod": null,
+    "passive": 9
+  },
+  "senses": [
+    {
+      "name": "blindsight",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 75,
+        "note": null,
+        "formula": "10d10+20"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "fly": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Charge",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If the carrier mosquito moves at least 20 feet straight toward a target and then hits it with an impaling proboscis attack on the same turn, the target takes an extra 5 (1d10) piercing damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d10",
+          "average": 5,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Disruptive Droning",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While a carrier mosquito is in flight, it produces a constant, loud droning, forcing those nearby to shout in order to be heard. A spellcaster within 30 feet of the mosquito must succeed on a DC 10 spellcasting ability check to cast a spell with a verbal component. In addition, a creature that is concentrating on a spell and that starts its turn within 30 feet of the mosquito must succeed on a DC 10 Constitution saving throw or lose concentration on the spell."
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 10,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Impaling Proboscis",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one creature. Hit: 14 (2d10 + 3) piercing damage. If the target is a Medium or smaller creature, it is grappled (escape DC 13). Until the grapple ends, the target is restrained, the mosquito can automatically hit the target with its impaling proboscis, and the mosquito can't make impaling proboscis attacks against other targets."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+3",
+          "average": 14,
+          "type": "piercing"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

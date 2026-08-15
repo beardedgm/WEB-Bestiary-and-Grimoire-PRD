@@ -1,0 +1,302 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:frp1:nai-yan-fei",
+  "name": "Nai Yan Fei",
+  "gameSystem": "pf2e",
+  "variant": "frp1",
+  "source": {
+    "code": "frp1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/frp1/nai-yan-fei.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 20,
+    "xp": null,
+    "display": "Creature 20"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ln",
+      "lawChaos": "lawful",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "ln",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 4,
+    "con": 2,
+    "int": 7,
+    "wis": 3,
+    "cha": 5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 36,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Celestial",
+    "Elven",
+    "Orc",
+    "Sylvan",
+    "Taldane",
+    "Tengu",
+    "Tien"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 37
+    },
+    {
+      "name": "Arcana",
+      "mod": 36
+    },
+    {
+      "name": "Deception",
+      "mod": 36
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 38
+    },
+    {
+      "name": "Intimidation",
+      "mod": 36
+    },
+    {
+      "name": "Occultism",
+      "mod": 38
+    },
+    {
+      "name": "Performance",
+      "mod": 36
+    },
+    {
+      "name": "Religion",
+      "mod": 32
+    },
+    {
+      "name": "Society",
+      "mod": 38
+    },
+    {
+      "name": "Stealth",
+      "mod": 35
+    },
+    {
+      "name": "Thievery",
+      "mod": 35
+    },
+    {
+      "name": "Goka Lore",
+      "mod": 38
+    },
+    {
+      "name": "Legal Lore",
+      "mod": 38
+    },
+    {
+      "name": "Underworld Lore",
+      "mod": 36
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 44,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 375,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 32
+      },
+      {
+        "name": "ref",
+        "mod": 34
+      },
+      {
+        "name": "will",
+        "mod": 33
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "butterfly sword",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 35,
+        "map": [
+          35,
+          31,
+          27
+        ],
+        "traits": [
+          "agile",
+          "disarm",
+          "finesse",
+          "magical",
+          "parry",
+          "twin"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "4d4+13",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Debilitating Strike",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [],
+      "entries": [
+        "Nai Yan Fei applies one of the following debilitations, which lasts until the end of her next turn. - Debilitation The target takes a –10-foot status penalty to its Speeds.",
+        "- Debilitation The target becomes enfeebled|CRB|enfeebled 1.",
+        "- Debilitation The target can't flank other creatures, and it can't provide flanking for its allies.",
+        "- Debilitation The target doesn't gain a circumstance bonus to AC from Raising a Shield, lesser cover, or standard cover; it gains only a +2 circumstance bonus to AC from greater cover or Taking Cover."
+      ],
+      "trigger": "Nai Yan Fei hits a flat-footed creature and deals damage"
+    },
+    {
+      "name": "Master Strike",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "incapacitation"
+      ],
+      "entries": [
+        "The target attempts a DC 39 Fortitude save. It then becomes immune to Nai Yan Fei's Master Strike for 1 day."
+      ],
+      "trigger": "Nai Yan Fei hits a flat-footed creature and deals damage",
+      "save": {
+        "defense": "fortitude",
+        "dc": 39,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "The target is enfeebled|CRB|enfeebled 2 until the end of Nai Yan Fei's next turn.",
+          "failure": "The target is paralyzed for 4 rounds.",
+          "criticalFailure": "The target is paralyzed for 4 rounds, knocked unconscious for 2 hours, or killed (Nai Yan Fei's choice)."
+        }
+      }
+    },
+    {
+      "name": "Quick Change",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Nai Yan Fei adopts a mundane disguise, appearing as a nondescript human with a neutral alignment and a mundane occupation such as common laborer, farmer, or peasant. She can return to her typical persona as empress at any time by using Quick Change again."
+      ]
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Nai Yan Fei's Strikes deal an additional 4d6 precision damage to flat-footed creatures."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 50
+      }
+    ],
+    "items": [
+      "+3 major striking butterfly sword",
+      "greater hat of disguise",
+      "+2 greater resilient aristocrat's clothing"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

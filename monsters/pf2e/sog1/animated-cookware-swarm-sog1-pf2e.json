@@ -1,0 +1,222 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sog1:animated-cookware-swarm",
+  "name": "Animated Cookware Swarm",
+  "gameSystem": "pf2e",
+  "variant": "sog1",
+  "source": {
+    "code": "sog1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sog1/animated-cookware-swarm.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 1,
+    "xp": null,
+    "display": "Creature 1"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "construct",
+      "swarm"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "large",
+      "construct",
+      "mindless",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 3,
+    "con": 4,
+    "int": -5,
+    "wis": 0,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 5,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 8
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": "12 when broken, construct armor abilities"
+    },
+    "hp": [
+      {
+        "value": 14,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 9
+      },
+      {
+        "name": "ref",
+        "mod": 8
+      },
+      {
+        "name": "will",
+        "mod": 3
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "mental",
+        "precision",
+        "poison"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy",
+        "nonlethal attacks"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 3,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 3,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Construct Armor",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Like normal objects, an animated cookware swarm has Hardness. This Hardness reduces any damage the swarm takes by an amount equal to the Hardness. Once an animated cookware swarm is reduced to fewer than half its Hit Points, or immediately upon being damaged by a critical hit, its construct armor breaks, removing the Hardness and reducing its Armor Class to 12."
+      ]
+    },
+    {
+      "name": "Slice and Pound",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "magical"
+      ],
+      "entries": [
+        "Each enemy in the animated cookware swarm's space takes 1d6 points of bludgeoning or slashing damage (DC 17 basic Reflex save)."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 17,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      }
+    },
+    {
+      "name": "Stick a Fork in It",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "magical"
+      ],
+      "entries": [
+        "The animated cookware swarm attempts to pin a single creature. The target must attempt a DC 17 Reflex save."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 17,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The target is unaffected.",
+          "success": "Cookware pins portions of the target's clothing and gear. The target takes a –10-foot circumstance penalty to its Speeds as long as it remains in the swarm's space.",
+          "failure": "As success, and the target also can't Step until it leaves the swarm's space.",
+          "criticalFailure": "The target is thoroughly pinned by the cookware, becoming immobilized until it Escapes (DC 17) or uses 2 Interact actions to remove all of the cookware pinning them down."
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 15
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

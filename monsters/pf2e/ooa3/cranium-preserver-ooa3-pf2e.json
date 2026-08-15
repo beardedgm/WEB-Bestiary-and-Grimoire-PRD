@@ -1,0 +1,287 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ooa3:cranium-preserver",
+  "name": "Cranium Preserver",
+  "gameSystem": "pf2e",
+  "variant": "ooa3",
+  "source": {
+    "code": "ooa3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ooa3/cranium-preserver.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "rare",
+      "ne",
+      "large",
+      "construct"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 0,
+    "con": 3,
+    "int": 5,
+    "wis": 0,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common"
+  ],
+  "skills": [
+    {
+      "name": "Lore",
+      "mod": 19
+    },
+    {
+      "name": "Occultism",
+      "mod": 22
+    },
+    {
+      "name": "Religion",
+      "mod": 22
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 28,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 220,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 16
+      },
+      {
+        "name": "will",
+        "mod": 19
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "negative"
+      ],
+      "conditions": [
+        "doomed",
+        "drained",
+        "fatigued",
+        "paralyzed",
+        "sickened",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease",
+        "healing",
+        "necromancy",
+        "nonlethal attacks",
+        "poisoned"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "electricity",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "positive",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "cranium remover",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "deadly <d12>",
+          "sweep"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+9",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "embalming fluid",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          16,
+          11
+        ],
+        "traits": [
+          "range <120 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 120,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+3",
+          "average": null,
+          "type": "mental"
+        },
+        {
+          "formula": "2d8+3",
+          "average": null,
+          "type": "negative"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Jettison Cranium",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "incapacitation",
+        "mental",
+        "negative"
+      ],
+      "entries": [
+        "The cranium preserver ejects one of its preserved-head jars at a point within 100 feet. The jar explodes, and all creatures in a 10-foot burst must attempt a DC 28 Will save."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "will",
+        "dc": 28,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Slosh",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the cranium preserver ends a Stride, the movement causes necrotic embalming fluid and preserved body parts to slosh about and spill from its central vat. Each creature adjacent to the cranium preserver when it finishes its Stride must attempt a DC 26 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Construct",
+        "skill": "Arcana, Crafting",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Jettison Cranium)",
+      "degree-of-success labels present but empty in source (Slosh)"
+    ],
+    "unmapped": []
+  }
+}

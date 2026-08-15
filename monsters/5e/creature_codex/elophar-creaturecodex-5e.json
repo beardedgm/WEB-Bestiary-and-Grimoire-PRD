@@ -1,0 +1,268 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:elophar",
+  "name": "Elophar",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 149,
+    "path": "monsters/5e/creature_codex/elophar.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": -2,
+    "con": 5,
+    "int": 3,
+    "wis": -4,
+    "cha": 0
+  },
+  "abilityScores": {
+    "str": 19,
+    "dex": 6,
+    "con": 20,
+    "int": 16,
+    "wis": 3,
+    "cha": 10
+  },
+  "perception": {
+    "mod": null,
+    "passive": 6
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Giant",
+    "Infernal"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 8,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 126,
+        "note": null,
+        "formula": "12d10+60"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 7
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Ectoplasmic Spray",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the elophar takes damage other than acid damage, corrosive ectoplasm bursts from its distended stomach. The elophar takes 7 (2d6) acid damage and all creatures within 10 feet of it must make a DC 13 Dexterity saving throw, taking 7 (2d6) acid damage on a failed save, or half as much damage on a successful one."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "acid"
+        },
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "acid"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Possessed by Ancestors",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The chaos of combat causes an elophar to swap between personalities at the start of each of its turns. To determine which spirit is in control, roll on the table below (it is possible for one spirit to remain in control for multiple rounds if it is rolled multiple rounds in a row):",
+        "| 1d6 | Spirit |",
+        "|-----|--------|",
+        "| 1 | Cautious: creates space between itself and its enemies and casts spells. |",
+        "| 2 | Fickle: attacks a creature it didn't last round. |",
+        "| 3 | Terrified: uses the Disengage action to run as far away from enemies as possible. |",
+        "| 4 | Bloodthirsty: attacks the nearest creature. |",
+        "| 5 | Hateful: only attacks the last creature it damaged. |",
+        "| 6 | Courageous: makes melee attacks against the most threatening enemy. |"
+      ]
+    },
+    {
+      "name": "Runic Spellcasting",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The runes etched on the elophar's rotting skin allow it to cast spells. The elophar's runic spellcasting ability is Intelligence (spell save DC 13, +5 to hit with spell attacks). The elophar can innately cast the following spells, requiring no material components:",
+        "At will: acid splash, chill touch, poison spray",
+        "3/day: grease, thunderwave",
+        "1/day: enlarge/reduce"
+      ]
+    },
+    {
+      "name": "Slam",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 13 (2d8 + 4) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+4",
+          "average": 13,
+          "type": "bludgeoning"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Runic Spellcasting",
+      "type": "innate",
+      "tradition": null,
+      "dc": 13,
+      "attackBonus": 5,
+      "ability": "int",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "acid splash",
+              "uses": null
+            },
+            {
+              "name": "chill touch",
+              "uses": null
+            },
+            {
+              "name": "poison spray",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "3/day",
+          "uses": 3,
+          "spells": [
+            {
+              "name": "grease",
+              "uses": null
+            },
+            {
+              "name": "thunderwave",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "1/day",
+          "uses": 1,
+          "spells": [
+            {
+              "name": "enlarge/reduce",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

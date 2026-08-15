@@ -1,0 +1,262 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:creaturecodex:bookkeeper",
+  "name": "Bookkeeper",
+  "gameSystem": "dnd5e",
+  "variant": "creaturecodex",
+  "source": {
+    "code": "creature_codex",
+    "name": "Creature Codex",
+    "page": 55,
+    "path": "monsters/5e/creature_codex/bookkeeper.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.125,
+    "xp": 25,
+    "display": "1/8"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "construct"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -1,
+    "dex": 2,
+    "con": 0,
+    "int": -2,
+    "wis": -1,
+    "cha": -4
+  },
+  "abilityScores": {
+    "str": 8,
+    "dex": 14,
+    "con": 10,
+    "int": 6,
+    "wis": 8,
+    "cha": 3
+  },
+  "perception": {
+    "mod": 1,
+    "passive": 11
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "understands the languages of its creator but can't speak"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 1
+    },
+    {
+      "name": "Stealth",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 12,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 5,
+        "note": null,
+        "formula": "2d4"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "either cold or fire (designated at the time of the bookkeeper's creation)",
+        "poison",
+        "psychic"
+      ],
+      "conditions": [
+        "charmed",
+        "exhaustion",
+        "frightened",
+        "paralyzed",
+        "petrified",
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "and slashing from nonmagical attacks",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 30,
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Between the Lines",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As a bonus action while within 30 feet of its book, the bookkeeper can hop inside its book. While inside its book, the bookkeeper has a flying speed of 30 feet and is indistinguishable from ink on a page."
+      ]
+    },
+    {
+      "name": "Book Bound",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A bookkeeper makes all attacks, saving throws, and skill checks with advantage when its creator is within 60 feet of its book. The bookkeeper's hp maximum is reduced by 1 for every minute it is further than 60 feet from its book. When its hp maximum reaches 0, it dies. If its creator dies, the bookkeeper can be convinced to pass ownership of the book to a new creature if the creature succeeds on a DC 13 Charisma check. The new owner becomes the bookkeeper's new “creator” and inherits the bookkeeper along with the book."
+      ]
+    },
+    {
+      "name": "Disintegrate",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the bookkeeper dies, the book it is bound to is also destroyed."
+      ]
+    },
+    {
+      "name": "Ink Splash",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Ranged Weapon Attack: +4 to hit, range 20 ft., one target. Hit: 3 (1d6) poison damage and the target must succeed on a DC 13 Dexterity saving throw or be blinded until the end of its next turn."
+      ],
+      "attack": {
+        "range": "ranged",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "range_": {
+          "value": 20,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "blinded",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +4 to hit, reach 5 ft., one target. Hit: 1 piercing damage plus 1 poison damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 4,
+        "map": [
+          4
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      }
+    },
+    {
+      "name": "Elusive Pages",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "While inside its book, the bookkeeper magically turns its book invisible until it attacks, or until its concentration ends (as if concentrating on a spell). The bookkeeper is also invisible while inside the invisible book"
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

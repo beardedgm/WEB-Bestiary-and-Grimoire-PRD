@@ -1,0 +1,376 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:aoa4:falrok",
+  "name": "Falrok",
+  "gameSystem": "pf2e",
+  "variant": "aoa4",
+  "source": {
+    "code": "aoa4",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/aoa4/falrok.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 14,
+    "xp": null,
+    "display": "Creature 14"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "ghoul"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ce",
+      "medium",
+      "ghoul",
+      "undead"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 8,
+    "con": 5,
+    "int": 3,
+    "wis": 2,
+    "cha": 6
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 28,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Draconic",
+    "Dwarven",
+    "Necril",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 29
+    },
+    {
+      "name": "Crafting",
+      "mod": 24
+    },
+    {
+      "name": "Deception",
+      "mod": 27
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 27
+    },
+    {
+      "name": "Society",
+      "mod": 24
+    },
+    {
+      "name": "Stealth",
+      "mod": 29
+    },
+    {
+      "name": "Saggorak Lore",
+      "mod": 24
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 37,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 250,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 26
+      },
+      {
+        "name": "ref",
+        "mod": 29
+      },
+      {
+        "name": "will",
+        "mod": 23
+      }
+    ],
+    "saveNote": "+3 status to all saves vs. positive",
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "positive",
+        "amount": 15,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "burrow": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Stench",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "olfactory"
+      ],
+      "entries": [
+        "10 feet. A creature entering the aura or starting its turn there must succeed at a DC 34 Fortitude save or become sickened 1 (plus slowed 1 as long as it's sickened on a critical failure). While within the aura, the creature takes a –2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 34,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 10,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Opportune Backstab",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "When Falrok's enemy is hit by one of his allies, he capitalizes upon the distraction, making a Strike against the triggering creature."
+      ],
+      "trigger": "A creature within Falrok's melee reach is hit by a melee attack from one of his allies."
+    },
+    {
+      "name": "jaws",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          25,
+          20
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+12",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": [
+        "ghast fever",
+        "paralysis",
+        "ghast fever, paralysis"
+      ]
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 30,
+        "map": [
+          30,
+          26,
+          22
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d6+12",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": [
+        "paralysis",
+        "paralysis"
+      ]
+    },
+    {
+      "name": "Consume Flesh",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "manipulate"
+      ],
+      "entries": [
+        "Falrok devours a chunk of the corpse and regains 8d6 hit points. He can regain Hit Points from any given corpse only once."
+      ],
+      "requirements": "Falrok is adjacent to the corpse of a creature that died within the last hour."
+    },
+    {
+      "name": "Ghast Fever",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "disease",
+        "virulent"
+      ],
+      "entries": []
+    },
+    {
+      "name": "Paralysis",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "incapacitation",
+        "occult",
+        "necromancy"
+      ],
+      "entries": [
+        "Any living creature hit by Falrok's attack must succeed at a DC 34 Fortitude save or become paralyzed. It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each such save."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 34,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "4d6 precision damage."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    },
+    {
+      "name": "Swift Leap",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "move"
+      ],
+      "entries": [
+        "Falrok jumps up to half his Speed. This movement doesn't trigger reactions."
+      ]
+    },
+    {
+      "name": "Scoundrel",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When Falrok successfully Feints, the target is flat-footed against melee attacks he attempts against it until the end of his next turn. On a critical success, the target is flat-footed against all melee attacks until the end of their next turn, not just Falrok's."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 42
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:dretch",
+  "name": "Dretch",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/dretch_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 0.25,
+    "xp": 50,
+    "display": "1/4"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 2,
+    "dex": 0,
+    "con": 1,
+    "int": -3,
+    "wis": -1,
+    "cha": -4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 9,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Abyssal"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 11,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 13,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "Demonic Resilience"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Demonic Resilience",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Abyssal Rejuvenation",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Unlike other outsiders, a dretch that dies in its home plane of the Abyss is restored in a new body in 1d10 days, regaining all its HP and becoming active again. The new body appears in a random location in the Abyss. Only sprinkling holy water on the dretch's remains can prevent this trait from functioning."
+      ]
+    },
+    {
+      "name": "Demonic Resilience",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The dretch is resistant to cold, fire, and lightning damage. In addition, it is immune to poison damage and to the poisoned condition."
+      ]
+    },
+    {
+      "name": "Claws",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +4 to hit, reach 5 ft., one target. _Hit:_ 5 (1d6+2) slashing damage plus 2 (1d4) poison damage."
+      ],
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": 5,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d4",
+          "average": 2,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Fetid Cloud",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "A 10-foot radius cloud of disgusting green gas extends out from the dretch, moves with it, and spreads around corners. The cloud's area is lightly obscured and lasts 1 minute or until a strong wind disperses it. A creature that starts its turn in the cloud must succeed on a DC 11 CON save or be poisoned until the start of its next turn. While poisoned in this way, a creature can take either an action or a bonus action on its turn, not both, and can't take reactions."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "area": {
+        "shape": "sphere",
+        "size": 10,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

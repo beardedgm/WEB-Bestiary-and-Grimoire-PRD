@@ -1,0 +1,407 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:av1:volluk-azrinae",
+  "name": "Volluk Azrinae",
+  "gameSystem": "pf2e",
+  "variant": "av1",
+  "source": {
+    "code": "av1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/av1/volluk-azrinae.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration",
+      "swarm"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "ce",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "ce",
+      "medium",
+      "aberration",
+      "swarm"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 6,
+    "con": 2,
+    "int": 6,
+    "wis": 4,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "{@ability tremorsense}",
+      "range": 30,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Elven",
+    "Undercommon"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 17
+    },
+    {
+      "name": "Crafting",
+      "mod": 15
+    },
+    {
+      "name": "Deception",
+      "mod": 15
+    },
+    {
+      "name": "Intimidation",
+      "mod": 17
+    },
+    {
+      "name": "Occultism",
+      "mod": 17
+    },
+    {
+      "name": "Stealth",
+      "mod": 15
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 25,
+      "note": "all-around vision abilities"
+    },
+    "hp": [
+      {
+        "value": 85,
+        "formula": null,
+        "note": "fast healing 7"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 13
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 15
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [
+        "paralyzed"
+      ],
+      "other": [
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "physical damage",
+        "amount": 7,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 7,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 7,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10,
+      "swim": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Discorporate",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As Worm That Walks Cultist|B2|worm that walks, but slow-moving leeches give the heroes 2 rounds, rather than 1 round, to dispatch the fleeing vermin before they escape."
+      ]
+    },
+    {
+      "name": "Hateful Memories",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "enchantment",
+        "emotion",
+        "mental",
+        "occult",
+        "visual"
+      ],
+      "entries": [
+        "If Volluk can see an accurate depiction of his former appearance as a living drow at the start of his turn, he must attempt a DC 28 Will save or become filled with self-loathing and become slowed|CRB|slowed 1 for 1 round."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 28,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "tendril",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 18,
+        "map": [
+          18,
+          13,
+          8
+        ],
+        "traits": [
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d8+8",
+          "average": null,
+          "type": "persistent piercing damage"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Squirming Embrace",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Volluk Strides, ending his movement sharing a space with a creature, and deals 3d8 piercing damage to the creature. The creature can attempt a DC 23 basic Reflex save."
+      ],
+      "save": {
+        "defense": "reflex",
+        "dc": 23,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d8",
+          "average": null,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Swarm Shape",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate"
+      ],
+      "entries": [
+        "Volluk collapses into a shapeless swarm of leeches. He drops all held, worn, and carried items. While discorporated, he can't use attack actions and can't cast spells, but he can move through areas small enough for his individual leeches to fit without having to Squeeze. He can use the same action to coalesce back into his normal form."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous occult Spells",
+      "type": "spontaneous",
+      "tradition": "occult",
+      "dc": 25,
+      "attackBonus": 17,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "2nd (4 slots)",
+          "spells": [
+            {
+              "name": "comprehend language",
+              "uses": null
+            },
+            {
+              "name": "illusory disguise",
+              "uses": null
+            },
+            {
+              "name": "mirror image",
+              "uses": null
+            },
+            {
+              "name": "vomit swarm",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd (4 slots)",
+          "spells": [
+            {
+              "name": "bind undead",
+              "uses": null
+            },
+            {
+              "name": "mind reading",
+              "uses": null
+            },
+            {
+              "name": "paralyze",
+              "uses": null
+            },
+            {
+              "name": "phantom pain",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th (3 slots)",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            },
+            {
+              "name": "suggestion",
+              "uses": null
+            },
+            {
+              "name": "worm's repast",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 25,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 4,
+          "rankLabel": "Cantrips (4th)",
+          "spells": [
+            {
+              "name": "dancing lights",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "darkness",
+              "uses": "at will"
+            },
+            {
+              "name": "faerie fire",
+              "uses": "at will"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism",
+        "dc": 33
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

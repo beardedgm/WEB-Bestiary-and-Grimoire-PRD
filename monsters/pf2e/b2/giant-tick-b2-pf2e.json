@@ -1,0 +1,197 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:giant-tick",
+  "name": "Giant Tick",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/giant-tick.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 1,
+    "xp": null,
+    "display": "Creature 1"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "animal"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "small",
+      "animal"
+    ]
+  },
+  "abilityMods": {
+    "str": 1,
+    "dex": 3,
+    "con": 4,
+    "int": -5,
+    "wis": 1,
+    "cha": -5
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 6,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 6
+    },
+    {
+      "name": "Stealth",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 20,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 9
+      },
+      {
+        "name": "ref",
+        "mod": 6
+      },
+      {
+        "name": "will",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15,
+      "climb": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "hypostome",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 8,
+        "map": [
+          8,
+          3,
+          -2
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [],
+      "entries": [
+        "1d6+1",
+        "attach",
+        "tick fever",
+        "1d6+1, attach, tick fever"
+      ]
+    },
+    {
+      "name": "Attach",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the giant tick Strikes a creature larger than itself, its barbed hypostome attaches it to that creature. This is similar to Grabbing the creature, but the giant tick moves with that creature rather than holding it in place. The giant tick is flat-footed while attached. If the giant tick is killed or pushed away while attached to a creature on which it has used Blood Drain, that creature takes 1 persistent bleed damage. Escaping the attachment or removing the giant tick in other ways doesn't cause bleed damage."
+      ]
+    },
+    {
+      "name": "Blood Drain",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "The giant tick uses its hypostome to drain blood from the creature it's attached to. This deals 1d4 damage, and the giant tick gains temporary Hit Points equal to the damage dealt. A creature that has its blood drained by a giant tick is drained 1 until it receives healing (of any kind or amount)."
+      ],
+      "requirements": "The giant tick is attached to a creature"
+    },
+    {
+      "name": "Tick Fever",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "disease"
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Animal",
+        "skill": "Nature",
+        "dc": 15
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,364 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b2:lurker-in-light",
+  "name": "Lurker in Light",
+  "gameSystem": "pf2e",
+  "variant": "b2",
+  "source": {
+    "code": "b2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b2/lurker-in-light.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 5,
+    "xp": null,
+    "display": "Creature 5"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "fey"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "ne",
+      "small",
+      "fey"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 5,
+    "con": 2,
+    "int": 2,
+    "wis": 4,
+    "cha": 2
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 13,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 14
+    },
+    {
+      "name": "Nature",
+      "mod": 11
+    },
+    {
+      "name": "Occultism",
+      "mod": 11
+    },
+    {
+      "name": "Stealth",
+      "mod": 14
+    },
+    {
+      "name": "Survival",
+      "mod": 13
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 22,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 72,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 9
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 13
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "blinded"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "fly": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          10,
+          6
+        ],
+        "traits": [
+          "agile",
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+2",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "mote of light",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 14,
+        "map": [
+          14,
+          10,
+          6
+        ],
+        "traits": [
+          "agile",
+          "magical",
+          "range increment <10 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d4+2",
+          "average": null,
+          "type": "force"
+        }
+      ],
+      "entries": [
+        "lurker's glow",
+        "lurker's glow"
+      ]
+    },
+    {
+      "name": "Lurker's Glow",
+      "category": "reaction",
+      "placement": "bot",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "The lurker in light becomes invisible until it enters an area of dim light or darkness, or until it uses a hostile action."
+      ],
+      "trigger": "The lurker in light uses a move action",
+      "requirements": "The lurker in light is in an area of bright light"
+    },
+    {
+      "name": "Lurker's Glow",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "evocation",
+        "light",
+        "primal"
+      ],
+      "entries": [
+        "A creature that takes damage from a lurker in light's mote of light must attempt a DC 22 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {
+          "success": "The creature is unaffected and is temporarily immune to lurker's glow for 24 hours.",
+          "failure": "The creature is lined in golden light for 1 minute and can't be concealed during this time. If the creature becomes invisible, it is concealed rather than being undetected.",
+          "criticalFailure": "As failure, but the creature sheds bright light in a 20-foot emanation for the duration of the effect. In addition, the creature is dazzled on its first turn after failing this save."
+        }
+      }
+    },
+    {
+      "name": "Ritual Gate",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "conjuration",
+        "primal"
+      ],
+      "entries": [
+        "The lurker in light casts summon fey with only a verbal component, using the act of slaughter to replace the normal material and somatic components for the spell. If the fey creature summoned has the same alignment as the lurker in light, the lurker in light can sustain the summon fey spell for up to 1 hour instead of 1 minute."
+      ],
+      "requirements": "The lurker in light has reduced a living creature to 0 Hit Points on this turn or its previous turn and has a summon fey innate spell available"
+    },
+    {
+      "name": "Sneak Attack",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A lurker in light's Strikes deal an additional 2d6 precision damage to flat-footed creatures."
+      ],
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "precision"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 22,
+      "attackBonus": 14,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 3,
+          "rankLabel": "Cantrips (3rd)",
+          "spells": [
+            {
+              "name": "dancing lights",
+              "uses": null
+            },
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "light",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 3,
+          "rankLabel": "3rd",
+          "spells": [
+            {
+              "name": "blindness",
+              "uses": null
+            },
+            {
+              "name": "searing light",
+              "uses": null
+            },
+            {
+              "name": "summon fey",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "dimension door",
+              "uses": null
+            },
+            {
+              "name": "summon fey",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fey",
+        "skill": "Nature",
+        "dc": 20
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

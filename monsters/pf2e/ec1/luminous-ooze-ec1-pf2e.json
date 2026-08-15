@@ -1,0 +1,238 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec1:luminous-ooze",
+  "name": "Luminous Ooze",
+  "gameSystem": "pf2e",
+  "variant": "ec1",
+  "source": {
+    "code": "ec1",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec1/luminous-ooze.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 4,
+    "xp": null,
+    "display": "Creature 4"
+  },
+  "identity": {
+    "size": "Small",
+    "types": [
+      "ooze"
+    ],
+    "subtypes": [
+      "mindless"
+    ],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "small",
+      "mindless",
+      "ooze"
+    ]
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": -5,
+    "con": 3,
+    "int": -5,
+    "wis": 0,
+    "cha": 1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 6,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "motion sense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    },
+    {
+      "name": "no vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 11
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 11,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 80,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 11
+      },
+      {
+        "name": "ref",
+        "mod": 3
+      },
+      {
+        "name": "will",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "electricity",
+        "mental",
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "critical hits"
+      ]
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "climb": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Bedazzling",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "light",
+        "visual"
+      ],
+      "entries": [
+        "5 feet. A luminous ooze constantly sheds distracting multicolored light. A creature that ends its turn within the aura must attempt a DC 21 Fortitude save or become dazzled until the end of its next turn. On a critical failure, it instead becomes blinded until the end of its next turn."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 5,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Lightning Catcher",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the luminous ooze's electricity immunity prevents it from taking damage, it gains 8 temporary HP. Until the end of its next turn, the luminous ooze's pseudopod Strike deals an additional 1d6 points of electricity damage."
+      ]
+    },
+    {
+      "name": "pseudopod",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 13,
+        "map": [
+          13,
+          8,
+          3
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+5",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Light Up",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "light",
+        "visual"
+      ],
+      "entries": [
+        "The ooze glows with blinding brightness. All creatures within a 30-foot emanation must attempt a DC 21 Fortitude save."
+      ],
+      "area": {
+        "shape": "emanation",
+        "size": 30,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "fortitude",
+        "dc": 21,
+        "basic": false,
+        "outcomes": {
+          "criticalSuccess": "The creature is unaffected.",
+          "success": "The creature is dazzled until the end of its next turn.",
+          "failure": "The creature is blinded until the end of its next turn."
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Ooze",
+        "skill": "Occultism",
+        "dc": 19
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

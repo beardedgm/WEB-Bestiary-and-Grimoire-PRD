@@ -1,0 +1,287 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob3:npc-field-commander",
+  "name": "Npc: Field Commander",
+  "gameSystem": "dnd5e",
+  "variant": "tob3",
+  "source": {
+    "code": "tome_of_beasts_3",
+    "name": "Tome of Beasts 3",
+    "page": 406,
+    "path": "monsters/5e/tome_of_beasts_3/npc-field-commander.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 10,
+    "xp": 5900,
+    "display": "10"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "any alignment",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 4,
+    "int": 1,
+    "wis": 1,
+    "cha": 4
+  },
+  "abilityScores": {
+    "str": 19,
+    "dex": 14,
+    "con": 18,
+    "int": 12,
+    "wis": 13,
+    "cha": 18
+  },
+  "perception": {
+    "mod": 1,
+    "passive": 15
+  },
+  "senses": [],
+  "languages": [
+    "Common and one other language"
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 1
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": "breastplate, shield"
+    },
+    "hp": [
+      {
+        "value": 170,
+        "note": null,
+        "formula": "20d8+80"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 5
+      },
+      {
+        "name": "cha",
+        "mod": 7
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "frightened"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aura of Courage and Protection",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If conscious friendly creatures within 10 ft. of it immune to frightened and advantage on all saves."
+      ]
+    },
+    {
+      "name": "Divine Weapons",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Its weapon attacks are magical. When commander hits with any weapon weapon deals extra 3d8 necrotic or radiant (included below) commander's choice."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Uses Battle Cry if available. Then three Longswords or two Longswords and uses Spellcasting. If commander hits one creature with two Longswords target: DC 16 Con save or be stunned until end of its next turn."
+      ],
+      "condition": {
+        "name": "stunned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Longsword",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +8 to hit, 5 ft., one target, 8 (1d8+4) slashing damage or 9 (1d10+4) slashing damage if used with 2 hands + 13 (3d8) necrotic or radiant (commander's choice)."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 8,
+        "map": [
+          8
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d8+4",
+          "average": 8,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d10+4",
+          "average": 9,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Battle Cry",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Commander shouts a frightful and rallying battle cry. Each hostile creature within 30 of it that can hear the cry: DC 16 Wis save or be frightened for 1 min. A frightened creature can re-save at end of each of its turns success ends effect on itself. Each friendly creature within 30' of the commander and that can hear the cry has advantage on the next attack roll it makes before start of commander's next turn."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": "1 min",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Spellcasting",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Cha (DC 16): At will: command protection from evil and good3/day ea: cure wounds (level 3) find steed (as an action)1/day: revivify"
+      ]
+    },
+    {
+      "name": "Bolster Soldier",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When a friendly creature the field commander can see is hit with weapon attack the commander calls out encouragement and creature gains 5 (1d10) temp hp."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spellcasting",
+      "type": "prepared",
+      "tradition": null,
+      "dc": 16,
+      "attackBonus": null,
+      "ability": "cha",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "command protection from evil and good",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "3/day ea",
+          "uses": 3,
+          "spells": [
+            {
+              "name": "cure wounds (level 3) find steed (as an action)",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "1/day",
+          "uses": 1,
+          "spells": [
+            {
+              "name": "revivify",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "compact spell list; spell separators absent in source"
+    ],
+    "unmapped": []
+  }
+}

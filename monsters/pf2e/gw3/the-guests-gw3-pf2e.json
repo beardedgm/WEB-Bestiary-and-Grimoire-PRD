@@ -1,0 +1,291 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:gw3:the-guests",
+  "name": "The Guests",
+  "gameSystem": "pf2e",
+  "variant": "gw3",
+  "source": {
+    "code": "gw3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/gw3/the-guests.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 7,
+    "xp": null,
+    "display": "Creature 7"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "aberration",
+      "humanoid"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "cn",
+      "lawChaos": "chaotic",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "unique",
+      "cn",
+      "medium",
+      "aberration",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 3,
+    "con": 4,
+    "int": -4,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 15,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 14
+    },
+    {
+      "name": "Athletics",
+      "mod": 17
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 24,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 130,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 17
+      },
+      {
+        "name": "ref",
+        "mod": 14
+      },
+      {
+        "name": "will",
+        "mod": 13
+      }
+    ],
+    "saveNote": "+1 circumstance vs. diseases and poisons",
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "cold",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "slashing",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Fall Apart",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "necromancy",
+        "occult"
+      ],
+      "entries": [
+        "When one of the Guests dies, its body falls apart into a tangle of meat, gristle, fur, bone, and gore. All creatures within a 10-foot aura (other than other Guests) must make a DC 22 Will save to avoid becoming sickened 2 (sickened 4 on a critical failure) at the sight and smell of this fate."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 17,
+        "map": [
+          17,
+          12,
+          7
+        ],
+        "traits": [
+          "versatile <B>"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+10",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Frozen Wind",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The guest exhales a blast of freezing wind from its body in a 20-foot cone. All creatures in this area take 8d6 cold damage (DC 25 basic Reflex save). The Guest can't use Frozen Wind again for 1d4 rounds."
+      ],
+      "area": {
+        "shape": "cone",
+        "size": 20,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 25,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "8d6",
+          "average": null,
+          "type": "cold"
+        }
+      ],
+      "recharge": {
+        "kind": "dice",
+        "formula": "1d4",
+        "unit": "rounds"
+      }
+    },
+    {
+      "name": "Stunning Critical",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If a Guest critically hits a creature with a claw Strike, the target must make a DC 25 Fortitude save or be stunned 1."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Trigger Memory",
+      "category": "free",
+      "placement": "bot",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [
+        "emotion",
+        "enchantment",
+        "fear",
+        "mental",
+        "occult"
+      ],
+      "entries": [
+        "The first time a gatewalker (including any PC) attempts to Strike a Guest or target it with a spell, a repressed memory from their Missing Moment surfaces. For a brief instant, the character recalls facing down a much larger and fully formed saumen kar, one with four horns and glowing runes on its fur. This memory of the character's first encounter with Ainamuuren evokes waves of fear and shame. The character must make a successful DC 25 Will save or become frightened 1 (frightened 2 on a critical failure), after which the character is immune to Trigger Memory."
+      ],
+      "trigger": "A gatewalker attempts to Strike a Guest or target a Guest with a spell",
+      "save": {
+        "defense": "will",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Aberration",
+        "skill": "Occultism, Society",
+        "dc": 33
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

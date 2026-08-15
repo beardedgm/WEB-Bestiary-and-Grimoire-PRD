@@ -1,0 +1,186 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:ophio-fungus",
+  "name": "Ophio Fungus",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 283,
+    "path": "monsters/5e/tome_of_beasts_2/ophio-fungus.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 7,
+    "xp": 2900,
+    "display": "7"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "unaligned",
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": -2,
+    "con": 2,
+    "int": 5,
+    "wis": 3,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 10,
+    "dex": 6,
+    "con": 14,
+    "int": 20,
+    "wis": 17,
+    "cha": 17
+  },
+  "perception": {
+    "mod": null,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond this radius)",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Void Speech",
+    "telepathy 120 ft."
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 119,
+        "note": null,
+        "formula": "14d12+28"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison",
+        "psychic"
+      ],
+      "conditions": [
+        "blinded",
+        "charmed",
+        "deafened",
+        "frightened",
+        "poisoned",
+        "prone"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "fire",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 10
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Hypnotic Secretion",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When a creature starts its turn within 30 feet of the fungus, it must make a DC 15 Charisma saving throw. On a failure, the creature is charmed for 1 hour and regards the fungus as a friendly acquaintance. If the fungus or one of its allies harms the charmed creature, this effect ends. If a creature stays charmed for the full hour, it becomes infected with ophio spores. If the creature's saving throw is successful or the effect ends for it, the creature is immune to the ophio fungus' Hypnotic Secretion for the next 24 hours. A creature that doesn't need to breathe is immune to the fungus' Hypnotic Secretion. A creature that does need to breathe can still be affected, even if it holds its breath."
+      ],
+      "save": {
+        "defense": "cha",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "charmed",
+        "duration": "1 hour",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Release Spores",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ophio fungus focuses its spores on up to three creatures it can see within 30 feet of it. Each creature must make a DC 15 Constitution saving throw. On a failure, a creature takes 14 (4d6) poison damage and, if it is a humanoid, it becomes infected with ophio spores. On a success, a creature takes half the damage and isn't infected with spores. A creature that doesn't need to breathe automatically succeeds on this saving throw. A creature that does need to breathe can still be affected, even if it holds its breath."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "poison"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      }
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

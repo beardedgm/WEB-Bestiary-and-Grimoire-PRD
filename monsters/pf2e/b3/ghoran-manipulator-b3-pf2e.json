@@ -1,0 +1,434 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:b3:ghoran-manipulator",
+  "name": "Ghoran Manipulator",
+  "gameSystem": "pf2e",
+  "variant": "b3",
+  "source": {
+    "code": "b3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/b3/ghoran-manipulator.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 3,
+    "xp": null,
+    "display": "Creature 3"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid",
+      "plant"
+    ],
+    "subtypes": [
+      "ghoran"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "rare",
+      "n",
+      "medium",
+      "ghoran",
+      "humanoid",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 0,
+    "dex": 1,
+    "con": 3,
+    "int": 0,
+    "wis": 2,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 9,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "low-light vision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 11
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 9
+    },
+    {
+      "name": "Nature",
+      "mod": 9
+    },
+    {
+      "name": "Performance",
+      "mod": 11
+    },
+    {
+      "name": "Stealth",
+      "mod": 6
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 18,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 45,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 8
+      },
+      {
+        "name": "ref",
+        "mod": 8
+      },
+      {
+        "name": "will",
+        "mod": 11
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Appetizing Aroma",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "olfactory"
+      ],
+      "entries": [
+        "10 feet. A creature entering or starting its turn in the aura must attempt a DC 17 Will save. Creatures that don't eat are immune to Appetizing Aroma."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 17,
+        "basic": false,
+        "outcomes": {
+          "success": "The creature is unaffected and is temporarily immune for 1 hour.",
+          "failure": "The creature is distracted by a desire to consume the ghoran. For 1 round it becomes flat-footed and fascinated by the ghoran manipulator."
+        }
+      },
+      "aura": {
+        "range": 10,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Delicious",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Ghorans were originally created to be scrumptious food. A ghoran manipulator takes 5 additional damage from jaws Strikes, fangs Strikes, or other similar Strikes with a creature's mouth. When a ghoran manipulator is grabbed or restrained by a creature's jaws, fangs, or mouth, the DC to Escape is increased by 2."
+      ]
+    },
+    {
+      "name": "Anguished Cry",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [
+        "emotion",
+        "enchantment",
+        "mental"
+      ],
+      "entries": [
+        "The ghoran manipulator rearranges its facial petals and wails, mimicking humanoid anguish to engender sympathy. The triggering creature must attempt a DC 20 Will save."
+      ],
+      "trigger": "A humanoid enemy damages the ghoran manipulator with a melee attack",
+      "save": {
+        "defense": "will",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {
+          "success": "The target is unaffected and is temporarily immune for 1 hour.",
+          "failure": "The target takes a –2 circumstance penalty on attack rolls against the ghoran manipulator until the start of its next turn.",
+          "criticalFailure": "As failure, and the target is stupefied 2 until the start of its next turn."
+        }
+      }
+    },
+    {
+      "name": "spear",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 7,
+        "map": [
+          7,
+          2,
+          -3
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "spear",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 8,
+        "map": [
+          8,
+          3,
+          -2
+        ],
+        "traits": [
+          "thrown <20 feet>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 20,
+          "unit": "ft",
+          "thrown": true
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "shortbow",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "ranged",
+        "subtype": null,
+        "bonus": 8,
+        "map": [
+          8,
+          3,
+          -2
+        ],
+        "traits": [
+          "deadly <d10>",
+          "range increment <60 feet>",
+          "reload <0>"
+        ],
+        "targets": null,
+        "range_": {
+          "value": 60,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d6+2",
+          "average": null,
+          "type": "piercing"
+        }
+      ],
+      "entries": []
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Spontaneous occult Spells",
+      "type": "spontaneous",
+      "tradition": "occult",
+      "dc": 20,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 2,
+          "rankLabel": "Cantrips (2nd)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "forbidding ward",
+              "uses": null
+            },
+            {
+              "name": "ghost sound",
+              "uses": null
+            },
+            {
+              "name": "light",
+              "uses": null
+            },
+            {
+              "name": "mage hand",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "rankLabel": "1st (3 slots)",
+          "spells": [
+            {
+              "name": "charm",
+              "uses": null
+            },
+            {
+              "name": "sanctuary",
+              "uses": null
+            },
+            {
+              "name": "sleep",
+              "uses": null
+            },
+            {
+              "name": "soothe",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd (2 slots)",
+          "spells": [
+            {
+              "name": "illusory disguise",
+              "uses": null
+            },
+            {
+              "name": "phantom pain",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Innate primal Spells",
+      "type": "innate",
+      "tradition": "primal",
+      "dc": 20,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 1,
+          "rankLabel": "1st",
+          "spells": [
+            {
+              "name": "goodberry",
+              "uses": null
+            },
+            {
+              "name": "purify food and drink",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 2,
+          "rankLabel": "2nd",
+          "spells": [
+            {
+              "name": "detect poison",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society, Nature",
+        "dc": 23
+      }
+    ],
+    "items": [
+      "shortbow (20 arrows)",
+      "spear"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

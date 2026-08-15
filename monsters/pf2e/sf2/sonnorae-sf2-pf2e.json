@@ -1,0 +1,459 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:sf2:sonnorae",
+  "name": "Sonnorae",
+  "gameSystem": "pf2e",
+  "variant": "sf2",
+  "source": {
+    "code": "sf2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/sf2/sonnorae.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 18,
+    "xp": null,
+    "display": "Creature 18"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "fiend",
+      "velstrac"
+    ],
+    "subtypes": [],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "le",
+      "lawChaos": "lawful",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "unique",
+      "le",
+      "medium",
+      "fiend",
+      "velstrac"
+    ]
+  },
+  "abilityMods": {
+    "str": 7,
+    "dex": 8,
+    "con": 5,
+    "int": 6,
+    "wis": 7,
+    "cha": 8
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 31,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "detect magic",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "painsight",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "true",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "seeing",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Aklo",
+    "Common",
+    "Draconic",
+    "Goblin",
+    "Infernal",
+    "Jotun",
+    "Shadowtongue",
+    "Sylvan"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 32
+    },
+    {
+      "name": "Athletics",
+      "mod": 31
+    },
+    {
+      "name": "Deception",
+      "mod": 36
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 34
+    },
+    {
+      "name": "Intimidation",
+      "mod": 36
+    },
+    {
+      "name": "Performance",
+      "mod": 34
+    },
+    {
+      "name": "Religion",
+      "mod": 31
+    },
+    {
+      "name": "Stealth",
+      "mod": 34
+    },
+    {
+      "name": "Torture Lore",
+      "mod": 32
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 42,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 335,
+        "formula": null,
+        "note": "regeneration 25 (deactivated by good or silver)"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 27
+      },
+      {
+        "name": "ref",
+        "mod": 32
+      },
+      {
+        "name": "will",
+        "mod": 31
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. magic",
+    "immunities": {
+      "damage": [
+        "cold"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "good",
+        "amount": 20,
+        "note": null
+      },
+      {
+        "name": "silver",
+        "amount": 20,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Final Spite",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "Sonnorae casts wail of the banshee, if it's available, before dying. Otherwise, she makes one Strike."
+      ],
+      "trigger": "Sonnorae is reduced to 0 Hit Points"
+    },
+    {
+      "name": "Unnerving Gaze",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "divine",
+        "enchantment",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "30 feet. When a creature ends its turn in the aura, it must succeed at a DC 37 Will save or become doomed 1."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 37,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "claw",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 34,
+        "map": [
+          34,
+          30,
+          26
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "reach <10 feet>"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d6+15",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d6",
+          "average": null,
+          "type": "persistent bleed"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Assemble Choir",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "Sonnorae adds a creature that is affected by her Spirit-Flensing Touch and is within 100 feet to her choir of screams. Sonnorae can have any number of creatures in her choir, although a creature no longer affected by Spirit-Flensing Touch leaves the choir immediately. Creatures in Sonnorae's choir of screams are fascinated by each other and Sonnorae, and they can't use hostile actions toward each other or Sonnorae. If Sonnorae uses a hostile action toward a creature in her choir, it immediately leaves the choir. When Sonnorae casts an innate divine spell, she can cause the effect to originate from any member of her choir instead of herself, using her saving throw DC and attack bonus."
+      ]
+    },
+    {
+      "name": "Focus Gaze",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "concentrate",
+        "divine",
+        "enchantment",
+        "mental",
+        "visual"
+      ],
+      "entries": [
+        "Sonnorae stares at a creature she can see within 30 feet. The target must attempt a Will save against Sonnorae's unnerving gaze. In addition, if the creature was already doomed, on a failed save, it sees the skin of its body peel back, making it confused for as long as it remains doomed. After attempting this save, the creature is then temporarily immune until the start of Sonnorae's next turn."
+      ]
+    },
+    {
+      "name": "Spirit-Flensing Touch",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "divine",
+        "mental",
+        "necromancy"
+      ],
+      "entries": [
+        "Sonnorae touches a creature within 10 feet. The target's spirit tears through its organs and flesh and must attempt a DC 40 Will save."
+      ],
+      "save": {
+        "defense": "will",
+        "dc": 40,
+        "basic": false,
+        "outcomes": {}
+      }
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate divine Spells",
+      "type": "innate",
+      "tradition": "divine",
+      "dc": 40,
+      "attackBonus": 32,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 8,
+          "rankLabel": "Constant (8th)",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "fly",
+              "uses": null
+            },
+            {
+              "name": "true seeing",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "Cantrips (9th)",
+          "spells": [
+            {
+              "name": "daze",
+              "uses": null
+            },
+            {
+              "name": "sigil",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 4,
+          "rankLabel": "4th",
+          "spells": [
+            {
+              "name": "invisibility",
+              "uses": "at will"
+            }
+          ]
+        },
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "command",
+              "uses": null
+            },
+            {
+              "name": "crushing despair",
+              "uses": null
+            },
+            {
+              "name": "sound burst",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 8,
+          "rankLabel": "8th",
+          "spells": [
+            {
+              "name": "mind blank",
+              "uses": null
+            },
+            {
+              "name": "plane shift",
+              "uses": "at will"
+            },
+            {
+              "name": "spiritual epidemic",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": 9,
+          "rankLabel": "9th",
+          "spells": [
+            {
+              "name": "synesthesia",
+              "uses": null
+            },
+            {
+              "name": "wail of the banshee",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Fiend",
+        "skill": "Religion",
+        "dc": 48
+      }
+    ],
+    "items": [
+      "Lens of the Outreaching Eye",
+      "The Tyrant|SF2"
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Spirit-Flensing Touch)"
+    ],
+    "unmapped": []
+  }
+}

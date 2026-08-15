@@ -1,0 +1,245 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ooa3:smog-wraith",
+  "name": "Smog Wraith",
+  "gameSystem": "pf2e",
+  "variant": "ooa3",
+  "source": {
+    "code": "ooa3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ooa3/smog-wraith.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 9,
+    "xp": null,
+    "display": "Creature 9"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [
+      "incorporeal",
+      "wraith"
+    ],
+    "rarity": "uncommon",
+    "alignment": {
+      "raw": "ne",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": [
+      "uncommon",
+      "ne",
+      "medium",
+      "incorporeal",
+      "undead",
+      "wraith"
+    ]
+  },
+  "abilityMods": {
+    "str": -5,
+    "dex": 4,
+    "con": 6,
+    "int": 3,
+    "wis": 6,
+    "cha": 4
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 19,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "lifesense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Necril"
+  ],
+  "skills": [
+    {
+      "name": "Deception",
+      "mod": 20
+    },
+    {
+      "name": "Nature",
+      "mod": 19
+    },
+    {
+      "name": "Stealth",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 27,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 110,
+        "formula": null,
+        "note": "negative healing"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 17
+      },
+      {
+        "name": "ref",
+        "mod": 17
+      },
+      {
+        "name": "will",
+        "mod": 21
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. positive",
+    "immunities": {
+      "damage": [
+        "poison",
+        "precision"
+      ],
+      "conditions": [
+        "paralyzed",
+        "unconscious"
+      ],
+      "other": [
+        "death effects",
+        "disease"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "all",
+        "amount": 10,
+        "note": "except force, ghost touch, or positive; double resistance vs. non-magical"
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Noxious Smog",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "conjuration",
+        "poison"
+      ],
+      "entries": [
+        "30 feet. Creatures within the aura are concealed, and creatures outside the aura are concealed to creatures within it. A creature that ends its turn within the aura must attempt a DC 25 Fortitude save."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 25,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Sunlight Powerlessness",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A smog wraith caught in sunlight is stunned 2 and clumsy 2."
+      ]
+    },
+    {
+      "name": "noxious hand",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          16,
+          11
+        ],
+        "traits": [
+          "finesse"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d6+9",
+          "average": null,
+          "type": "poison"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Smog Wraith Spawn",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "divine",
+        "necromancy"
+      ],
+      "entries": [
+        "A living humanoid slain by a smog wraith's noxious hand Strike rises as a smog wraith spawn after 1d4 rounds. This spawn is under the command of the smog wraith that killed it. It doesn't have noxious smog or smog wraith spawn and becomes clumsy 2 for as long as it's a smog wraith spawn. If the creator of the spawn dies, the spawn becomes a full-fledged, autonomous smog wraith; it regains its free will, gains smog wraith spawn and noxious smog, and is no longer clumsy."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Undead",
+        "skill": "Religion",
+        "dc": 28
+      }
+    ]
+  },
+  "parse": {
+    "status": "partial",
+    "warnings": [
+      "degree-of-success labels present but empty in source (Noxious Smog)"
+    ],
+    "unmapped": []
+  }
+}

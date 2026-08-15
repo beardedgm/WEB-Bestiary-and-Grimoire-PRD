@@ -1,0 +1,512 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:pit-fiend-general",
+  "name": "Pit Fiend General",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 88,
+    "path": "monsters/5e/a5e_monstrous_menagerie/pit-fiend-general-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 20,
+    "xp": 25000,
+    "display": "20"
+  },
+  "identity": {
+    "size": "Huge",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 3,
+    "con": 7,
+    "int": 6,
+    "wis": 4,
+    "cha": 7
+  },
+  "abilityScores": {
+    "str": 26,
+    "dex": 16,
+    "con": 24,
+    "int": 22,
+    "wis": 18,
+    "cha": 24
+  },
+  "perception": {
+    "mod": 10,
+    "passive": 21
+  },
+  "senses": [
+    {
+      "name": "truesight",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Infernal",
+    "telepathy 120 ft."
+  ],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 14
+    },
+    {
+      "name": "Insight",
+      "mod": 10
+    },
+    {
+      "name": "Perception",
+      "mod": 10
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 600,
+        "note": null,
+        "formula": "48d10+336"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 9
+      },
+      {
+        "name": "con",
+        "mod": 13
+      },
+      {
+        "name": "int",
+        "mod": 12
+      },
+      {
+        "name": "wis",
+        "mod": 10
+      },
+      {
+        "name": "cha",
+        "mod": 13
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "fire",
+        "poison"
+      ],
+      "conditions": [
+        "poisoned"
+      ],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "cold; damage from nonmagical",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "non-silvered weapons",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Fear Aura",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A creature hostile to the pit fiend that starts its turn within 20 feet of it makes a DC 18 Wisdom saving throw. On a failure, it is frightened until the start of its next turn. On a success, it is immune to this pit fiends Fear Aura for 24 hours."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {}
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": "24 hours",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Innate Spellcasting",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The pit fiends spellcasting ability is Wisdom (spell save DC 18). It can innately cast the following spells, requiring no material components: At will: detect magic, fireball, 3/day each: hold monster, sending"
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The pit fiend attacks with its bite and mace."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +14 to hit, reach 5 ft., one target. Hit: 22 (4d6 + 8) piercing damage. If the target is a creature  it makes a DC 20 Constitution saving throw. On a failure  it is poisoned for 1 minute. While poisoned in this way  the target can't regain hit points and takes 21 (6d6) ongoing poison damage at the start of each of its turns. The target can repeat this saving throw at the end of each of its turns  ending the effect on a success."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 14,
+        "map": [
+          14
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6+8",
+          "average": 22,
+          "type": "piercing"
+        }
+      ],
+      "save": {
+        "defense": "con",
+        "dc": 20,
+        "basic": false,
+        "outcomes": {}
+      },
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Mace",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +14 to hit, reach 10 ft., one target. Hit: 22 (4d6 + 8) bludgeoning damage plus 21 (6d6) fire damage. If the target is a Medium or smaller creature  it makes a DC 22 Strength saving throw. On a failure  it is pushed 15 feet away from the pit fiend and knocked prone."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 14,
+        "map": [
+          14
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "4d6+8",
+          "average": 22,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 22,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      }
+    },
+    {
+      "name": "Circle of Fire",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "A 15-foot-tall  1-foot-thick  20-foot-diameter ring of fire appears around the pit fiend  with the pit fiend at the center. The fire is opaque to every creature except the pit fiend. When the ring of fire appears  each creature it intersects makes a DC 18 Dexterity saving throw  taking 22 (5d8) fire damage on a failed save or half damage on a successful one. A creature takes 22 (5d8) damage the first time each turn it enters the area or when it ends its turn there. The fire lasts 1 minute or until the pit fiend dismisses it  becomes incapacitated  or leaves its area."
+      ],
+      "uses": {
+        "count": 1,
+        "period": "day",
+        "display": "1/Day"
+      },
+      "damage": [
+        {
+          "formula": "5d8",
+          "average": 22,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "incapacitated",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Fireball (3rd-Level; V, S)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Fire streaks from the pit fiend to a point within 120 feet and explodes in a 20-foot radius  spreading around corners. Each creature in the area makes a DC 18 Dexterity saving throw  taking 21 (6d6) fire damage on a failed save or half damage on a success."
+      ],
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": 21,
+          "type": "fire"
+        }
+      ],
+      "save": {
+        "defense": "dex",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "sphere",
+        "size": 20,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Hold Monster (5th-Level; V, S, Concentration)",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "A creature within 60 feet that the pit fiend can see makes a DC 18 Wisdom saving throw. On a failure  it is paralyzed for 1 minute. The creature repeats the save at the end of each of its turns  ending the effect on a success."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 18,
+        "basic": false,
+        "outcomes": {}
+      },
+      "condition": {
+        "name": "paralyzed",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Claw",
+      "category": "strike",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +14 to hit, reach 10 ft., one creature. Hit: 19 (2d10 + 8) slashing damage, and the target is grappled (escape DC 22). While the target is grappled, the pit fiend can't use its claw against a different creature."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 14,
+        "map": [
+          14
+        ],
+        "traits": [],
+        "targets": "one creature",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d10+8",
+          "average": 19,
+          "type": "slashing"
+        }
+      ],
+      "condition": {
+        "name": "grappled",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Tail",
+      "category": "strike",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +14 to hit, reach 10 ft., one target. Hit: 24 (3d10 + 8) bludgeoning damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 14,
+        "map": [
+          14
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+8",
+          "average": 24,
+          "type": "bludgeoning"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Innate Spellcasting",
+      "type": "innate",
+      "tradition": null,
+      "dc": 18,
+      "attackBonus": null,
+      "ability": "wis",
+      "levels": [
+        {
+          "rank": null,
+          "rankLabel": "At will",
+          "uses": "at will",
+          "spells": [
+            {
+              "name": "detect magic",
+              "uses": null
+            },
+            {
+              "name": "fireball",
+              "uses": null
+            }
+          ]
+        },
+        {
+          "rank": null,
+          "rankLabel": "3/day each",
+          "uses": 3,
+          "spells": [
+            {
+              "name": "hold monster",
+              "uses": null
+            },
+            {
+              "name": "sending",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:pit-fiend",
+  "name": "Pit Fiend",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/pit_fiend_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 20,
+    "xp": 25000,
+    "display": "20"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "fiend"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 8,
+    "dex": 8,
+    "con": 13,
+    "int": 6,
+    "wis": 10,
+    "cha": 7
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 20,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "truesight",
+      "range": 120,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Infernal",
+    "telepathy 120 ft."
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 19,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 323,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "charmed",
+        "frightened",
+        "Devilish Resilience"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Devilish Resilience",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 60
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Aura of the Devil Lord",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Each hostile creature that starts its turn within 20 feet of the pit fiend must succeed on a DC 21 WIS save or be frightened until the start of its next turn. Each friendly devil within 20 feet of the pit fiend is immune to the charmed and frightened conditions and has advantage on the first attack roll it makes on each of its turns."
+      ],
+      "condition": {
+        "name": "frightened",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Devilish Resilience",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The devil is resistant to cold damage and to bludgeoning, piercing, and slashing damage from nonmagical attacks. In addition, it is immune to fire damage and poison damage and to the poisoned condition."
+      ]
+    },
+    {
+      "name": "Flaming Weapons",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The pit fiend's weapon attacks are magical. When the fiend hits with any weapon, the weapon deals an extra 4d6 fire damage (included in the attack)."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Magic Resistance",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The pit fiend has advantage on saves against spells and other magical effects."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The pit fiend makes one Bite attack, one Gore attack, one Mace attack, and one Tail attack, or it makes four Hurl Flame attacks. If two Hurl Flame attacks hit one creature, each creature within 10 feet of the target must make a DC 21 DEX save as the fire bursts outward from the target, taking 14 (4d6) fire damage on a failed save, or half as much damage on a successful one."
+      ],
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +14 to hit, reach 5 ft., one target. _Hit:_ 22 (4d6+8) piercing damage plus 14 (4d6) fire damage and 13 (3d8) poison damage. The target must succeed on a DC 21 CON save or be poisoned. While poisoned in this way, the target can't regain HP. The target can repeat the save at the end of each of its turns, ending the effect on itself on a success."
+      ],
+      "damage": [
+        {
+          "formula": "4d6+8",
+          "average": 22,
+          "type": "piercing"
+        },
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "fire"
+        },
+        {
+          "formula": "3d8",
+          "average": 13,
+          "type": "poison"
+        }
+      ],
+      "condition": {
+        "name": "poisoned",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Gore",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +14 to hit, reach 10 ft., one target. _Hit:_ 17 (2d8+8) piercing damage plus 14 (4d6) fire damage."
+      ],
+      "damage": [
+        {
+          "formula": "2d8+8",
+          "average": 17,
+          "type": "piercing"
+        },
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Mace",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +14 to hit, reach 10 ft., one target. _Hit:_ 15 (2d6+8) bludgeoning damage plus 14 (4d6) fire damage."
+      ],
+      "damage": [
+        {
+          "formula": "2d6+8",
+          "average": 15,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "fire"
+        }
+      ]
+    },
+    {
+      "name": "Tail",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +14 to hit, reach 10 ft., one target. _Hit:_ 24 (3d10+8) bludgeoning damage plus 14 (4d6) fire damage, and the target must succeed on a DC 21 STR save or be knocked prone."
+      ],
+      "damage": [
+        {
+          "formula": "3d10+8",
+          "average": 24,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "4d6",
+          "average": 14,
+          "type": "fire"
+        }
+      ],
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Hurl Flame",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Ranged Spell Attack:_ +10 to hit, range 120 ft., one target. _Hit:_ 25 (6d6+4) fire damage."
+      ],
+      "damage": [
+        {
+          "formula": "6d6+4",
+          "average": 25,
+          "type": "fire"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

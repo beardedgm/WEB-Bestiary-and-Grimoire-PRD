@@ -1,0 +1,247 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:manggus",
+  "name": "Manggus",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 256,
+    "path": "monsters/5e/tome_of_beasts_2/manggus.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 5,
+    "xp": 1800,
+    "display": "5"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "giant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "chaotic evil",
+      "lawChaos": "chaotic",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 3,
+    "int": -1,
+    "wis": -2,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 14,
+    "con": 16,
+    "int": 8,
+    "wis": 7,
+    "cha": 9
+  },
+  "perception": {
+    "mod": null,
+    "passive": 8
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Common",
+    "Giant"
+  ],
+  "skills": [
+    {
+      "name": "Intimidation",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 14,
+      "note": "hide armor"
+    },
+    "hp": [
+      {
+        "value": 127,
+        "note": null,
+        "formula": "15d10+45"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "con",
+        "mod": 6
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "frightened"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Roaring Transformation",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When the manggus changes from its true form into its hydra form, it unleashes a mighty roar. Each creature within 30 feet of it and that can hear the roar must succeed on a DC 15 Wisdom saving throw or be frightened until the end of its next turn. If the target fails the saving throw by 5 or more, it is also paralyzed until the end of its next turn. If a creature's saving throw is successful, it is immune to the Roaring Transformation of all manggus for the next 24 hours."
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 15,
+        "basic": false,
+        "outcomes": {
+          "success": "none",
+          "failure": "full"
+        }
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Shapechanger",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The manggus can use its action to polymorph into a Large, three-headed hydra, or back into its true form. Its statistics, other than its size, are the same in each form. Any equipment it is wearing or carrying isn't transformed. The manggus reverts to its true form if it dies."
+      ]
+    },
+    {
+      "name": "Three-Headed (Hydra Form Only)",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The manggus has three heads. While it has more than one head, the manggus has advantage on saving throws against being blinded, charmed, deafened, frightened, stunned, and knocked unconscious.",
+        "Whenever the manggus takes 15 or more damage in a single turn, one of its heads dies. If all its heads die and the manggus still lives, the manggus immediately reverts to its true form and can't change into its hydra form again until it finishes a long rest.",
+        "At the end of its turn, the manggus regrows two heads for each of its heads that died since its last turn, unless it has taken fire damage since its last turn. The manggus regains 5 hp for each head regrown in this way."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "In hydra form, the manggus makes as many bite attacks as it has heads. In giant form, it makes two greataxe attacks."
+      ]
+    },
+    {
+      "name": "Bite (Hydra Form Only)",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 10 ft., one target. Hit: 9 (1d10 + 4) piercing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d10+4",
+          "average": 9,
+          "type": "piercing"
+        }
+      ]
+    },
+    {
+      "name": "Greataxe (Giant Form Only)",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +7 to hit, reach 5 ft., one target. Hit: 17 (2d12 + 4) slashing damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 7,
+        "map": [
+          7
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d12+4",
+          "average": 17,
+          "type": "slashing"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

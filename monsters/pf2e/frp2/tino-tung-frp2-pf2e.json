@@ -1,0 +1,316 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:frp2:tino-tung",
+  "name": "Tino Tung",
+  "gameSystem": "pf2e",
+  "variant": "frp2",
+  "source": {
+    "code": "frp2",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/frp2/tino-tung.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 13,
+    "xp": null,
+    "display": "Creature 13"
+  },
+  "identity": {
+    "size": "Medium",
+    "types": [
+      "humanoid"
+    ],
+    "subtypes": [
+      "human"
+    ],
+    "rarity": "unique",
+    "alignment": {
+      "raw": "lg",
+      "lawChaos": "lawful",
+      "goodEvil": "good"
+    },
+    "nativeTraits": [
+      "unique",
+      "lg",
+      "medium",
+      "human",
+      "humanoid"
+    ]
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 5,
+    "con": 4,
+    "int": 0,
+    "wis": 1,
+    "cha": 3
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 23,
+    "passive": null
+  },
+  "senses": [],
+  "languages": [
+    "Nagaji",
+    "Tengu",
+    "Taldane",
+    "Tien"
+  ],
+  "skills": [
+    {
+      "name": "Acrobatics",
+      "mod": 26
+    },
+    {
+      "name": "Athletics",
+      "mod": 25
+    },
+    {
+      "name": "Diplomacy",
+      "mod": 22
+    },
+    {
+      "name": "Medicine",
+      "mod": 20
+    },
+    {
+      "name": "Irori Lore",
+      "mod": 19
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 33,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 240,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 23
+      },
+      {
+        "name": "ref",
+        "mod": 26
+      },
+      {
+        "name": "will",
+        "mod": 20
+      }
+    ],
+    "saveNote": "+1 status to all saves vs. disease",
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 45
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Retributive Strike",
+      "category": "reaction",
+      "placement": "mid",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": "◈"
+      },
+      "traits": [],
+      "entries": [
+        "If Tino's Retributive Strike against the triggering creature doesn't critically miss, that creature meets the requirements for Tino to use Defiant Shove until the end of his next turn."
+      ]
+    },
+    {
+      "name": "fist",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 26,
+        "map": [
+          26,
+          22,
+          18
+        ],
+        "traits": [
+          "agile",
+          "finesse",
+          "nonlethal",
+          "unarmed"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "3d8+10",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "temple sword",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 24,
+        "map": [
+          24,
+          19,
+          14
+        ],
+        "traits": [
+          "trip"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d8+10",
+          "average": null,
+          "type": "slashing"
+        },
+        {
+          "formula": "1d6",
+          "average": null,
+          "type": "fire"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Defiant Shove",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Tino throws his whole body into a powerful push. He moves the target 5 feet in any direction and can then attempt to Trip that creature. This is forced movement."
+      ],
+      "requirements": "Tino used Retributive Strike on a creature since the start of his previous turn, attempted the Strike it permitted, and didn't critically miss"
+    },
+    {
+      "name": "Divine Smite",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "If Tino hits with his Retributive Strike, the target takes 3 persistent good damage."
+      ]
+    },
+    {
+      "name": "Flurry of Blows",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [
+        "flourish"
+      ],
+      "entries": [
+        "Tino makes two Strikes with his fist or with a monk weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses."
+      ]
+    },
+    {
+      "name": "Powerful Fists",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Tino's fist Strikes don't take penalties when making lethal attacks."
+      ]
+    }
+  ],
+  "spellcasting": [
+    {
+      "name": "Focus Spells",
+      "type": "focus",
+      "tradition": null,
+      "dc": 30,
+      "attackBonus": null,
+      "ability": null,
+      "levels": [
+        {
+          "rank": 7,
+          "rankLabel": "7th",
+          "spells": [
+            {
+              "name": "ki blast",
+              "uses": null
+            },
+            {
+              "name": "ki strike",
+              "uses": null
+            },
+            {
+              "name": "lay on hands",
+              "uses": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Humanoid",
+        "skill": "Society",
+        "dc": 41
+      }
+    ],
+    "items": [
+      "+1 resilient explorer's clothing",
+      "+2 greater striking handwraps of mighty blows",
+      "+1 striking flaming temple sword"
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

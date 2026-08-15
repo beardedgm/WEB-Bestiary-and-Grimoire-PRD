@@ -1,0 +1,244 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob3:scarab-ruin",
+  "name": "Scarab, Ruin",
+  "gameSystem": "dnd5e",
+  "variant": "tob3",
+  "source": {
+    "code": "tome_of_beasts_3",
+    "name": "Tome of Beasts 3",
+    "page": 337,
+    "path": "monsters/5e/tome_of_beasts_3/scarab-ruin.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 6,
+    "xp": 2300,
+    "display": "6"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "undead"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 3,
+    "dex": 2,
+    "con": 3,
+    "int": -4,
+    "wis": 2,
+    "cha": -3
+  },
+  "abilityScores": {
+    "str": 17,
+    "dex": 14,
+    "con": 16,
+    "int": 3,
+    "wis": 14,
+    "cha": 4
+  },
+  "perception": {
+    "mod": 2,
+    "passive": 12
+  },
+  "senses": [
+    {
+      "name": "blindsight (blind beyond)",
+      "range": 90,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 2
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 15,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 136,
+        "note": null,
+        "formula": "16d10+48"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [
+        "charmed",
+        "frightened",
+        "poisoned",
+        "restrained"
+      ],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 15,
+      "climb": 15,
+      "fly": 15
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Flesh-Eating Aura",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When creature that doesn't have all of its hp starts its turn within 10 ft. of scarab creature takes 2 (1d4) necrotic. Also magical healing within 10 ft. of it is halved."
+      ]
+    },
+    {
+      "name": "Silent Steps",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "No sound emanates from it whether moving attacking or ripping into a corpse. Has advantage on Dex (Stealth) checks and each creature within 5 ft. of it is deafened."
+      ],
+      "condition": {
+        "name": "deafened",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Undead Nature",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Doesn't require air food drink or sleep."
+      ]
+    },
+    {
+      "name": "Unstoppable",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Moving through difficult terrain doesn't cost it extra movement and its speed can't be reduced."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Two Bites. Can replace one attack with Gut Rip."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, 5 ft., one creature,. 14 (2d10+3) slashing damage + 5 (2d4) necrotic and knocked prone or pushed 5 ft. away the scarab's choice (DC 14 Str negates prone/push)."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d10+3",
+          "average": 14,
+          "type": "slashing"
+        }
+      ]
+    },
+    {
+      "name": "Gut Rip",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ruin scarab tears into one prone creature within 5 ft. of it. The target takes 11 (2d10) slashing damage and 5 (2d4) necrotic and is incapacitated for 1 min (DC 15 Con half damage and isn't incapacitated). An incapacitated creature can re-save at end of each of its turns success ends effect on itself."
+      ],
+      "damage": [
+        {
+          "formula": "2d10",
+          "average": 11,
+          "type": "slashing"
+        }
+      ],
+      "condition": {
+        "name": "incapacitated",
+        "duration": "1 min",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Relentless Pursuit",
+      "category": "reaction",
+      "placement": "reactions",
+      "activity": {
+        "unit": "reaction",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "When a creature within 10 ft. of the scarab moves away from it scarab can move up to half its speed toward that creature."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

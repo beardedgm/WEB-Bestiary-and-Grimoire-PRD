@@ -1,0 +1,235 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:blackflag:ettin",
+  "name": "Ettin",
+  "gameSystem": "dnd5e",
+  "variant": "blackflag",
+  "source": {
+    "code": "black_flag",
+    "name": "Black Flag",
+    "page": null,
+    "path": "monsters/5e/black_flag/ettin_bf.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "giant"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": -1,
+    "con": 3,
+    "int": -2,
+    "wis": 0,
+    "cha": -1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 14,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Giant",
+    "Orc"
+  ],
+  "skills": [],
+  "defenses": {
+    "ac": {
+      "value": 12,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 95,
+        "note": null,
+        "formula": null
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [
+      {
+        "name": "Giant Attributes",
+        "amount": null,
+        "note": null
+      },
+      {
+        "name": "Multiple Heads",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "Giant Attributes",
+        "amount": null,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 40
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Giant Attributes",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ettin is resistant to the stunned condition, and it is vulnerable to the prone condition."
+      ]
+    },
+    {
+      "name": "Multiple Heads",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ettin has two heads and is resistant to the blinded, charmed, deafened, frightened, stunned, and unconscious conditions."
+      ]
+    },
+    {
+      "name": "Obstinate",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "The ettin has advantage on WIS and CHA saves."
+      ]
+    },
+    {
+      "name": "Wakeful",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "When one of the ettin's heads is asleep, its other head is awake."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The ettin makes one Knobbed Club attack and one Spiked Club attack."
+      ]
+    },
+    {
+      "name": "Knobbed Club",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +7 to hit, reach 5 ft., one target. _Hit:_ 18 (3d8+5) bludgeoning damage, and the target must succeed on a DC 15 STR save or be incapacitated until the end of its next turn, as the blow knocks the wind out of the target. This weapon is wielded by the right head."
+      ],
+      "damage": [
+        {
+          "formula": "3d8+5",
+          "average": 18,
+          "type": "bludgeoning"
+        }
+      ],
+      "condition": {
+        "name": "incapacitated",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Spiked Club",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "_Melee Weapon Attack:_ +7 to hit, reach 5 ft., one target. _Hit:_ 18 (3d8+5) piercing damage, and the target must succeed on a DC 15 CON save or be poisoned for 1 minute, as bits of rotten meat clinging to the club's spikes coat the target's wound. The target can repeat the save at the end of each of its turns, ending the effect on itself on a success. This weapon is wielded by the left head."
+      ],
+      "damage": [
+        {
+          "formula": "3d8+5",
+          "average": 18,
+          "type": "piercing"
+        }
+      ],
+      "condition": {
+        "name": "poisoned",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "That One!",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "One of the ettin's heads picks a creature the ettin can see within 30 feet of it, gaining advantage on its next attack against that creature. The other head doesn't like being told what to do and has disadvantage on its next attack against that creature. Each weapon attack notes which head controls that weapon."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:ec3:counteflora",
+  "name": "Counteflora",
+  "gameSystem": "pf2e",
+  "variant": "ec3",
+  "source": {
+    "code": "ec3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/ec3/counteflora.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "plant"
+    ],
+    "subtypes": [],
+    "rarity": "common",
+    "alignment": {
+      "raw": "n",
+      "lawChaos": "neutral",
+      "goodEvil": "neutral"
+    },
+    "nativeTraits": [
+      "n",
+      "large",
+      "plant"
+    ]
+  },
+  "abilityMods": {
+    "str": 5,
+    "dex": 6,
+    "con": 6,
+    "int": -4,
+    "wis": 2,
+    "cha": 0
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 18,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "{@ability tremorsense}",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 23
+    },
+    {
+      "name": "Stealth",
+      "mod": 20
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 29,
+      "note": "31 with tightened bracts"
+    },
+    "hp": [
+      {
+        "value": 220,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 20
+      },
+      {
+        "name": "will",
+        "mod": 14
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "poison"
+      ],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [
+      {
+        "name": "cold",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 10,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Frost Susceptibility",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "Whenever the counteflora takes cold damage, it takes a –10-foot circumstance penalty to Speed for 1 round."
+      ]
+    },
+    {
+      "name": "Tighten Bracts",
+      "category": "action",
+      "placement": "mid",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The counteflora stiffens the specialized leaves around its flower head, protecting its sensitive seedpods. While its bracts are tightened, a counteflora gains a +2 circumstance bonus to AC and can use its head Strike and Furious Swing abilities, but it cannot use its Black Seed Cloud ability and it loses its sense of sight (so it must rely on its imprecise tremorsense when targeting other creatures). The counteflora can't use its head Strike of Furious Swing ability unless its bracts are tightened. The counteflora can loosen its bracts as a free action (this action has the concentrate trait)."
+      ]
+    },
+    {
+      "name": "vines",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 21,
+        "map": [
+          21,
+          17,
+          13
+        ],
+        "traits": [
+          "agile"
+        ],
+        "targets": null
+      },
+      "damage": [
+        {
+          "formula": "2d6+9",
+          "average": null,
+          "type": "slashing"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "head",
+      "category": "strike",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "attack": {
+        "range": "melee",
+        "subtype": null,
+        "bonus": 23,
+        "map": [
+          23,
+          18,
+          13
+        ],
+        "traits": [
+          "reach <10 feet>",
+          "sweep"
+        ],
+        "targets": null,
+        "reach": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d10+9",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ],
+      "entries": []
+    },
+    {
+      "name": "Black Seed Cloud",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [],
+      "entries": [
+        "The counteflora releases a cloud of black seedpods in a 15-foot-radius emanation. Non-counteflora creatures in the area must succeed at a Fortitude save or breathe in the toxic seeds. (Against plants and fungi, the seeds burrow into the creatures' flesh rather than infiltrate their lungs.)"
+      ]
+    },
+    {
+      "name": "Counteflora Toxin",
+      "category": "passive",
+      "placement": "bot",
+      "activity": null,
+      "traits": [
+        "contact or inhaled",
+        "poison"
+      ],
+      "entries": [
+        "Saving Throw DC 30 Fortitude (DC 32 for plants and fungi); Maximum Duration 6 rounds; Stage 1 4d6 poison damage and enfeebled|CRB|enfeebled 1 (1 round); Stage 2 6d6 poison damage, enfeebled|CRB|enfeebled 1, and fascinated (1 round)"
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 30,
+        "basic": false,
+        "outcomes": {}
+      },
+      "damage": [
+        {
+          "formula": "4d6",
+          "average": null,
+          "type": "poison"
+        }
+      ]
+    },
+    {
+      "name": "Furious Swing",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 3,
+        "symbol": "◆◆◆"
+      },
+      "traits": [
+        "attack"
+      ],
+      "entries": [
+        "The counteflora makes up to four headbutt Strikes (see Flower Headbutt), each against a different creature within reach."
+      ],
+      "requirements": "The counteflora's bracts are tightened"
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Plant",
+        "skill": "Nature",
+        "dc": 27
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

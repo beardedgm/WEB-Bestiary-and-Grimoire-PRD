@@ -1,0 +1,277 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:a5e:phase-monster",
+  "name": "Phase Monster",
+  "gameSystem": "dnd5e",
+  "variant": "a5e",
+  "source": {
+    "code": "a5e_monstrous_menagerie",
+    "name": "A5e Monstrous Menagerie",
+    "page": 361,
+    "path": "monsters/5e/a5e_monstrous_menagerie/phase-monster-a5e.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 4,
+    "xp": 1100,
+    "display": "4"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "monstrosity"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": 4,
+    "dex": 2,
+    "con": 3,
+    "int": -3,
+    "wis": 2,
+    "cha": -1
+  },
+  "abilityScores": {
+    "str": 18,
+    "dex": 14,
+    "con": 16,
+    "int": 4,
+    "wis": 14,
+    "cha": 8
+  },
+  "perception": {
+    "mod": 4,
+    "passive": 14
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 4
+    },
+    {
+      "name": "Stealth",
+      "mod": 4
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 13,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 85,
+        "note": null,
+        "formula": "10d10+30"
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "dex",
+        "mod": 4
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 30,
+      "fly": 50
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Mirror Image",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "A magical illusion cloaks the phase monster, creating a reflection of the monster nearby and concealing its precise location. While the monster is not incapacitated, attack rolls against it have disadvantage. When a creature hits the phase monster with an attack, this trait stops working until the end of the phase monsters next turn."
+      ]
+    },
+    {
+      "name": "Multiattack",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The phase monster attacks with its horns and its claws."
+      ]
+    },
+    {
+      "name": "Horns",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 8 (2d4 + 3) bludgeoning damage. If the target is a creature and the phase monster moves at least 20 feet straight towards the target before the attack  the target takes an additional 5 (2d4) bludgeoning damage and makes a DC 14 Strength saving throw  falling prone on a failure."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d4+3",
+          "average": 8,
+          "type": "bludgeoning"
+        },
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "bludgeoning"
+        }
+      ],
+      "save": {
+        "defense": "str",
+        "dc": 14,
+        "basic": false,
+        "outcomes": {}
+      }
+    },
+    {
+      "name": "Claws (True Form Only)",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +6 to hit, reach 5 ft., one target. Hit: 8 (2d4 + 3) slashing damage  plus an additional 5 (2d4) slashing damage if the target is prone."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 6,
+        "map": [
+          6
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "2d4+3",
+          "average": 8,
+          "type": "slashing"
+        },
+        {
+          "formula": "2d4",
+          "average": 5,
+          "type": "slashing"
+        }
+      ],
+      "condition": {
+        "name": "prone",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Blood-Curdling Scream",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The phase monster unleashes a horrific screech. Each creature within 60 feet that can hear it makes a DC 13 Wisdom saving throw. On a failure  it is frightened for 1 minute. While frightened by Blood-Curdling Scream  a creature must take the Dash action and move away from the phase monster by the safest available route on each of its turns  unless there is nowhere to move. If the creature ends its turn in a location where it doesnt have line of sight to the phase monster  the creature makes a Wisdom saving throw. On a successful save  it is no longer frightened."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "save": {
+        "defense": "wis",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {}
+      },
+      "condition": {
+        "name": "frightened",
+        "duration": "1 minute",
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Shapeshift",
+      "category": "action",
+      "placement": "bonusActions",
+      "activity": {
+        "unit": "bonus",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The phase monster magically changes its form to that of a Small goat or into its true form. While in goat form, it loses its fly speed and Mirror Image trait. Its statistics, other than its size and speed, are unchanged in each form."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

@@ -1,0 +1,308 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "pf2e:wow3:creeping-cone-swarm",
+  "name": "Creeping Cone Swarm",
+  "gameSystem": "pf2e",
+  "variant": "wow3",
+  "source": {
+    "code": "wow3",
+    "name": null,
+    "page": null,
+    "path": "monsters/pf2e/wow3/creeping-cone-swarm.md"
+  },
+  "challenge": {
+    "kind": "level",
+    "value": 10,
+    "xp": null,
+    "display": "Creature 10"
+  },
+  "identity": {
+    "size": "Large",
+    "types": [
+      "elemental",
+      "plant",
+      "swarm"
+    ],
+    "subtypes": [
+      "mutant",
+      "wood"
+    ],
+    "rarity": "rare",
+    "alignment": {
+      "raw": null,
+      "lawChaos": null,
+      "goodEvil": null
+    },
+    "nativeTraits": [
+      "rare",
+      "large",
+      "elemental",
+      "mutant",
+      "plant",
+      "swarm",
+      "wood"
+    ]
+  },
+  "abilityMods": {
+    "str": 6,
+    "dex": 5,
+    "con": 6,
+    "int": -4,
+    "wis": 2,
+    "cha": -1
+  },
+  "abilityScores": null,
+  "perception": {
+    "mod": 18,
+    "passive": null
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": null,
+      "unit": null,
+      "acuity": null
+    },
+    {
+      "name": "tremorsense",
+      "range": 60,
+      "unit": "ft",
+      "acuity": "imprecise"
+    }
+  ],
+  "languages": [],
+  "skills": [
+    {
+      "name": "Athletics",
+      "mod": 22
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 29,
+      "note": null
+    },
+    "hp": [
+      {
+        "value": 135,
+        "formula": null,
+        "note": null
+      }
+    ],
+    "savingThrows": [
+      {
+        "name": "fort",
+        "mod": 22
+      },
+      {
+        "name": "ref",
+        "mod": 19
+      },
+      {
+        "name": "will",
+        "mod": 16
+      }
+    ],
+    "saveNote": null,
+    "immunities": {
+      "damage": [
+        "acid",
+        "poison",
+        "precision"
+      ],
+      "conditions": [],
+      "other": [
+        "swarm mind"
+      ]
+    },
+    "resistances": [
+      {
+        "name": "bludgeoning",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "piercing",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "slashing",
+        "amount": 7,
+        "note": "except axes"
+      }
+    ],
+    "weaknesses": [
+      {
+        "name": "area damage",
+        "amount": 7,
+        "note": null
+      },
+      {
+        "name": "axes",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "fire",
+        "amount": 10,
+        "note": null
+      },
+      {
+        "name": "splash damage",
+        "amount": 7,
+        "note": null
+      }
+    ],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 25,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Blight Burst",
+      "category": "free",
+      "placement": "mid",
+      "activity": {
+        "unit": "free",
+        "number": 1,
+        "symbol": "◇"
+      },
+      "traits": [
+        "acid",
+        "primal"
+      ],
+      "entries": [
+        "A 15-foot-radius emanation of acid explodes from the creeping cone swarm. Creatures in the area take 3d12 acid damage (DC 25 basic Reflex save). Non-blight bonded creatures damaged by this effect are exposed to Ayrzul's Blight|WoW3."
+      ],
+      "trigger": "The creeping cone swarm is reduced to fewer than half its Hit Points or is reduced to 0 Hit Points",
+      "save": {
+        "defense": "reflex",
+        "dc": 25,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "3d12",
+          "average": null,
+          "type": "acid"
+        }
+      ]
+    },
+    {
+      "name": "Putrid Spores",
+      "category": "passive",
+      "placement": "mid",
+      "activity": null,
+      "traits": [
+        "aura",
+        "poison",
+        "primal"
+      ],
+      "entries": [
+        "30 feet. A creature entering the aura must succeed at a DC 26 Fortitude save or become sickened 1 until the end of its turn (sickened 2 on a critical failure). While within the aura, an affected creature takes a –2 circumstance penalty to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 26,
+        "basic": false,
+        "outcomes": {}
+      },
+      "aura": {
+        "range": 30,
+        "unit": "ft"
+      }
+    },
+    {
+      "name": "Jagged Scales",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 2,
+        "symbol": "◆◆"
+      },
+      "traits": [
+        "primal"
+      ],
+      "entries": [
+        "The creeping cones shake off a barrage of jagged, stony scales. Each creature in a 10-foot burst within 30 feet of the swarm takes 2d12+7 slashing damage (DC 29 basic Reflex save)."
+      ],
+      "area": {
+        "shape": "burst",
+        "size": 10,
+        "unit": "ft"
+      },
+      "save": {
+        "defense": "reflex",
+        "dc": 29,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      }
+    },
+    {
+      "name": "Pummeling Lurches",
+      "category": "action",
+      "placement": "bot",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": "◆"
+      },
+      "traits": [],
+      "entries": [
+        "Each enemy in the swarm's space takes 6d6 bludgeoning damage (DC 29 basic Fortitude save). A creature that fails its save falls prone."
+      ],
+      "save": {
+        "defense": "fortitude",
+        "dc": 29,
+        "basic": true,
+        "outcomes": {
+          "criticalSuccess": "none",
+          "success": "half",
+          "failure": "full",
+          "criticalFailure": "double"
+        }
+      },
+      "damage": [
+        {
+          "formula": "6d6",
+          "average": null,
+          "type": "bludgeoning"
+        }
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {
+    "recallKnowledge": [
+      {
+        "category": "Elemental",
+        "skill": "Arcana, Nature",
+        "dc": 32
+      }
+    ]
+  },
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}

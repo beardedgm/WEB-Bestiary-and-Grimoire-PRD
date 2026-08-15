@@ -1,0 +1,237 @@
+{
+  "schema": "ttrpg-monster/0.2",
+  "id": "dnd5e:tob2:heggarna",
+  "name": "Heggarna",
+  "gameSystem": "dnd5e",
+  "variant": "tob2",
+  "source": {
+    "code": "tome_of_beasts_2",
+    "name": "Tome of Beasts 2",
+    "page": 196,
+    "path": "monsters/5e/tome_of_beasts_2/heggarna.md"
+  },
+  "challenge": {
+    "kind": "cr",
+    "value": 1,
+    "xp": 200,
+    "display": "1"
+  },
+  "identity": {
+    "size": "Tiny",
+    "types": [
+      "aberration"
+    ],
+    "subtypes": [],
+    "rarity": null,
+    "alignment": {
+      "raw": "neutral evil",
+      "lawChaos": "neutral",
+      "goodEvil": "evil"
+    },
+    "nativeTraits": []
+  },
+  "abilityMods": {
+    "str": -2,
+    "dex": 3,
+    "con": 2,
+    "int": 1,
+    "wis": 1,
+    "cha": 3
+  },
+  "abilityScores": {
+    "str": 7,
+    "dex": 16,
+    "con": 14,
+    "int": 12,
+    "wis": 13,
+    "cha": 16
+  },
+  "perception": {
+    "mod": 3,
+    "passive": 13
+  },
+  "senses": [
+    {
+      "name": "darkvision",
+      "range": 60,
+      "unit": "ft",
+      "acuity": null
+    }
+  ],
+  "languages": [
+    "Deep Speech",
+    "telepathy 30 ft."
+  ],
+  "skills": [
+    {
+      "name": "Perception",
+      "mod": 3
+    },
+    {
+      "name": "Stealth",
+      "mod": 5
+    }
+  ],
+  "defenses": {
+    "ac": {
+      "value": 16,
+      "note": "natural armor"
+    },
+    "hp": [
+      {
+        "value": 40,
+        "note": null,
+        "formula": "9d4+18"
+      }
+    ],
+    "savingThrows": [],
+    "saveNote": null,
+    "immunities": {
+      "damage": [],
+      "conditions": [],
+      "other": []
+    },
+    "resistances": [],
+    "weaknesses": [],
+    "hardness": null
+  },
+  "speeds": {
+    "unit": "ft",
+    "modes": {
+      "walk": 20,
+      "climb": 20
+    },
+    "special": []
+  },
+  "entries": [
+    {
+      "name": "Cat Sneak",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "While in dim light or darkness, the heggarna has advantage on Dexterity (Stealth) checks made to hide. It can use this trait only while it is disguised as a cat."
+      ]
+    },
+    {
+      "name": "Dream Eating",
+      "category": "passive",
+      "placement": "traits",
+      "activity": null,
+      "traits": [],
+      "entries": [
+        "As a bonus action, the heggarna can attach its lamprey-like maw to a sleeping creature. The target's Charisma score is reduced by 1d4 when the heggarna first attaches to it. The target's Charisma score is then reduced by 1 for each hour the heggarna stays attached. The target dies if this reduces its Charisma to 0. Otherwise, the reduction lasts until the target finishes a long rest at least 24 hours after the heggarna reduced its Charisma.",
+        "While attached, the heggarna fills the target's dreams with nightmares. The target must succeed on a DC 13 Wisdom saving throw or it doesn't gain any benefit from its current rest. If the target succeeds on the saving throw by 5 or more, it immediately awakens.",
+        "The heggarna can detach itself by spending 5 feet of its movement. It does so after it reduces the target's Charisma by 8 or if the target dies."
+      ]
+    },
+    {
+      "name": "Bite",
+      "category": "strike",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "Melee Weapon Attack: +5 to hit, reach 5 ft., one target. Hit: 5 (1d4 + 3) piercing damage plus 3 (1d6) psychic damage."
+      ],
+      "attack": {
+        "range": "melee",
+        "subtype": "weapon",
+        "bonus": 5,
+        "map": [
+          5
+        ],
+        "traits": [],
+        "targets": ", one target",
+        "reach": {
+          "value": 5,
+          "unit": "ft"
+        }
+      },
+      "damage": [
+        {
+          "formula": "1d4+3",
+          "average": 5,
+          "type": "piercing"
+        },
+        {
+          "formula": "1d6",
+          "average": 3,
+          "type": "psychic"
+        }
+      ]
+    },
+    {
+      "name": "Dream Rift",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The heggarna unleashes a barrage of psychic energy in a 15-foot cone. Each creature in that area must make a DC 13 Wisdom saving throw. On a failure, a creature takes 7 (2d6) psychic damage and is incapacitated until the end of its next turn as it is bombarded with nightmarish images. On a success, a creature takes half the damage and isn't incapacitated."
+      ],
+      "recharge": {
+        "kind": "d6-range",
+        "min": 5,
+        "max": 6,
+        "display": "Recharge 5-6"
+      },
+      "damage": [
+        {
+          "formula": "2d6",
+          "average": 7,
+          "type": "psychic"
+        }
+      ],
+      "save": {
+        "defense": "wis",
+        "dc": 13,
+        "basic": false,
+        "outcomes": {
+          "success": "half",
+          "failure": "full"
+        }
+      },
+      "area": {
+        "shape": "cone",
+        "size": 15,
+        "unit": "ft"
+      },
+      "condition": {
+        "name": "incapacitated",
+        "duration": null,
+        "repeatSave": null
+      }
+    },
+    {
+      "name": "Illusory Appearance",
+      "category": "action",
+      "placement": "actions",
+      "activity": {
+        "unit": "action",
+        "number": 1,
+        "symbol": null
+      },
+      "traits": [],
+      "entries": [
+        "The heggarna covers itself with a magical illusion that makes it look like a Tiny cat. The illusion ends if the heggarna takes a bonus action to end it or if the heggarna dies. The illusion ends immediately if the heggarna attacks or takes damage, but it doesn't end when the heggarna uses Dream Eating.<br><br>The changes wrought by this effect fail to hold up to physical inspection. For example, the heggarna could appear to have fur, but someone touching it would feel its slippery flesh. Otherwise, a creature must take an action to visually inspect the illusion and succeed on a DC 15 Intelligence (Investigation) check to discern the heggarna is disguised."
+      ]
+    }
+  ],
+  "spellcasting": [],
+  "systemExtras": {},
+  "parse": {
+    "status": "ok",
+    "warnings": [],
+    "unmapped": []
+  }
+}
