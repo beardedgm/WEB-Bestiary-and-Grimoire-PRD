@@ -82,6 +82,12 @@ Both are the same file. The four bundles are served alongside it, so
 `https://beardedgm.github.io/TTRPG-Creature-and-Spell-Data/monsters-5e.json` and its three
 siblings can be fetched directly without cloning the repo.
 
+The browser filters by content type, game system, spell properties, and power
+tier. Tier filtering respects the fact that the two games do not share a scale:
+D&D CR and Pathfinder creature level get separate controls, and each only
+filters its own system's records. There is deliberately no CR-to-level
+conversion — see §13.
+
 ### Coverage at a glance
 
 ```
