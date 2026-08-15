@@ -516,7 +516,13 @@ Add immediately after it:
 .rng .to{flex:none; color:var(--faint); font:10px/1 var(--mono)}
 ```
 
-Note `.rng[hidden]{display:none}` is required: `.rng .row` uses flex, and a `display` rule in the stylesheet would otherwise override the `hidden` attribute's default styling.
+`.rng[hidden]{display:none}` is **load-bearing, not decorative** — keep it. Any
+author-origin `display` declaration on `.rng` beats the user-agent
+`[hidden]{display:none}` rule regardless of source order, because author origin
+outranks user-agent origin in the cascade. Without this line, adding so much as
+`.rng{display:flex}` would silently defeat the whole Task 3 visibility
+mechanism: `box.hidden = true` would be set, and the control would stay on
+screen anyway.
 
 - [ ] **Step 2: Rebuild and check it looks right**
 
