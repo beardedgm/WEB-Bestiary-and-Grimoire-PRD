@@ -1186,6 +1186,42 @@ def out_name(system, folder, stem):
     return "%s-%s-%s.json" % (kebab(stem), kebab(variant), system)
 
 
+# --- markdown emphasis -------------------------------------------------------
+# Source prose carries *italic* and **bold** runs that are formatting, not
+# content, and they were reaching display text as literal asterisks
+# ("*Melee Attack Roll:*"). Underscore emphasis ("_mage armor_") is the same
+# artifact with a different marker.
+#
+# This runs on the FINISHED record, never on the source text: the field regexes,
+# the section splitters and the "**" line tests all key on these markers to find
+# labels, so stripping earlier would blind the parsers.
+#
+# The \S guards mean a marker has to hug its text, which leaves markdown list
+# bullets ("* Cantrips (at will): ...") and lone footnote markers alone.
+EMPH_STAR = re.compile(r'\*{1,3}(?=\S)(.+?)(?<=\S)\*{1,3}')
+EMPH_UNDER = re.compile(r'(?<![A-Za-z0-9_])_(?=\S)([^_\n]+?)(?<=\S)_(?![A-Za-z0-9_])')
+VERBATIM_KEYS = {'path', 'id', 'schema'}
+
+
+def strip_emphasis(s):
+    if '*' in s:
+        s = EMPH_STAR.sub(r'\1', s)
+    if '_' in s:
+        s = EMPH_UNDER.sub(r'\1', s)
+    return s
+
+
+def clean_record(node, key=None):
+    """Walk a built record, dropping emphasis markers from every display string."""
+    if isinstance(node, str):
+        return node if key in VERBATIM_KEYS else strip_emphasis(node)
+    if isinstance(node, list):
+        return [clean_record(v, key) for v in node]
+    if isinstance(node, dict):
+        return {k: clean_record(v, k) for k, v in node.items()}
+    return node
+
+
 def convert_file(path, system, folder, stem, rel):
     rec = blank_record()
     warn = []
@@ -1224,7 +1260,7 @@ def convert_file(path, system, folder, stem, rel):
     if rec['parse']['status'] != 'failed':
         rec['parse']['status'] = 'partial' if warn else 'ok'
     rec['parse']['warnings'] = warn
-    return rec
+    return clean_record(rec)
 
 
 def main():

@@ -851,6 +851,13 @@ source of truth, and every record points back to its origin:
 
 Nothing in the pipeline ever modifies or deletes markdown.
 
+Markdown emphasis (`*italic*`, `**bold**`, `_underscore_`) is formatting rather than
+content, so the converters strip the markers from display text. That pass runs on the
+finished record, never on the source: the field regexes and section splitters key on
+`**` to find labels, so stripping earlier would blind them. The markers have to hug
+their text to count, which leaves list bullets (`* Cantrips (at will): …`) and lone
+footnote markers intact.
+
 ```
 monsters/**/*.md  ──convert_monsters.py──▶  sidecar .json  ──┐
 spells/**/*.md    ──convert_spells.py────▶  sidecar .json  ──┤
