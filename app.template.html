@@ -295,6 +295,7 @@ kbd{
       <div class="frow" id="f-kind"></div>
       <div class="frow" id="f-sys"></div>
       <div class="frow" id="f-extra"></div>
+      <div id="f-range"></div>
       <div class="frow">
         <label class="tog"><input type="checkbox" id="deep"> also search description text</label>
       </div>
@@ -443,6 +444,50 @@ function buildFilters(){
     chip("#f-extra","Rituals",F.extra,"ritual");
     chip("#f-extra","Has save",F.extra,"save");
     chip("#f-extra","Heightened",F.extra,"height");
+  }
+  buildRangeControls();
+}
+/* Options come from the loaded records, not hardcoded bounds, so a future book
+   that adds CR 31 extends the control on its own. */
+function buildRangeControls(){
+  const host = $("#f-range");
+  for (const s of SCALES){
+    const seen = new Map();                  // value -> label
+    for (const r of DATA)
+      if (s.applies(r)){
+        const v = s.valueOf(r);
+        if (v != null && !seen.has(v)) seen.set(v, s.labelOf(r));
+      }
+    if (seen.size < 2) continue;             // nothing to range over
+    const vals = [...seen.keys()].sort((a,b) => a - b);
+
+    F.range[s.key] = { from: vals[0], to: vals[vals.length - 1] };
+
+    const box = document.createElement("div");
+    box.className = "rng";
+    box.dataset.scale = s.key;
+    const opts = vals.map(v => `<option value="${v}">${esc(seen.get(v))}</option>`).join("");
+    box.innerHTML =
+      `<span class="lbl">${esc(s.label)}</span>` +
+      `<div class="row">` +
+        `<select data-end="from" aria-label="${esc(s.label)} from">${opts}</select>` +
+        `<span class="to">to</span>` +
+        `<select data-end="to" aria-label="${esc(s.label)} to">${opts}</select>` +
+      `</div>`;
+    host.appendChild(box);
+
+    const [selFrom, selTo] = box.querySelectorAll("select");
+    selTo.value = String(vals[vals.length - 1]);
+    selFrom.onchange = selTo.onchange = e => {
+      const g = F.range[s.key];
+      g[e.target.dataset.end] = Number(e.target.value);
+      // an empty range cannot be created by accident: push the other end along
+      if (g.from > g.to){
+        if (e.target.dataset.end === "from"){ g.to = g.from; selTo.value = String(g.to); }
+        else { g.from = g.to; selFrom.value = String(g.from); }
+      }
+      refresh();
+    };
   }
 }
 function passExtra(r){
