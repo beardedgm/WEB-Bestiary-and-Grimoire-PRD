@@ -271,7 +271,8 @@ kbd{
   header{flex-wrap:wrap}
   header h1{width:100%}
   main{flex-direction:column}
-  #side{width:100%; border-right:none; border-bottom:1px solid var(--hair); max-height:46vh}
+  #side{width:100%; border-right:none; border-bottom:1px solid var(--hair); max-height:46vh; overflow-y:auto}
+  #list{min-height:150px}          /* a floor so the results list can't be squeezed to 0 */
   #pane{padding:16px 12px 40px}
   .sb{padding:22px 18px 20px}
   .sb h2{font-size:25px; flex-wrap:wrap; gap:8px}
@@ -437,22 +438,31 @@ const F = { kind:new Set(), sys:new Set(), extra:new Set(), range:{} };
 const SCALES = [
   { key:"cr5e",   label:"D&D 5e · CR",
     applies: r => r._kind === "monster" && r.gameSystem === "dnd5e",
-    valueOf: r => r.challenge.value,
+    valueOf: r => r.challenge?.value,
     labelOf: r => r.challenge.display },
   { key:"lvlPf",  label:"Pathfinder 2e · Creature level",
     applies: r => r._kind === "monster" && r.gameSystem === "pf2e",
-    valueOf: r => r.challenge.value,
+    valueOf: r => r.challenge?.value,
     labelOf: r => String(r.challenge.value) },
   { key:"spl5e",  label:"D&D 5e · Spell level",
     applies: r => r._kind === "spell" && r.gameSystem === "dnd5e",
-    valueOf: r => r.level.value,
+    valueOf: r => r.level?.value,
     labelOf: r => String(r.level.value) },
   { key:"rankPf", label:"Pathfinder 2e · Rank",
     applies: r => r._kind === "spell" && r.gameSystem === "pf2e",
-    valueOf: r => r.level.value,
+    valueOf: r => r.level?.value,
     labelOf: r => String(r.level.value) },
 ];
 
+// scaleFor is first-match-wins: it returns the first SCALES entry whose
+// applies() matches, not every entry that matches. buildRangeControls() and
+// updateRangeVisibility() test s.applies(r) directly for each entry, so they
+// silently assume the same "exactly one entry matches" invariant scaleFor
+// relies on. Keep SCALES entries mutually exclusive (today's four predicates
+// partition the corpus perfectly). If a new scale is ever added that overlaps
+// an existing one (e.g. carving Pathfinder focus spells out of rankPf),
+// insert it BEFORE the broader entry it overlaps, so scaleFor keeps agreeing
+// with the other two call sites about which single scale governs a record.
 function scaleFor(r){
   for (const s of SCALES) if (s.applies(r)) return s;
   return null;
