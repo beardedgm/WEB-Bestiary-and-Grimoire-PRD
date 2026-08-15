@@ -70,6 +70,10 @@ Alongside the bundles, every source markdown file also has a **sidecar** `.json`
 it (one record per file, pretty-printed). Same data, different packaging — use the
 bundles for loading, the sidecars for browsing and diffing.
 
+To read the data rather than query it, open **`index.html`** — a browser for all 9,339
+records with the data baked in, so it works offline from a `file://` URL with nothing
+installed and nothing to serve.
+
 ### Coverage at a glance
 
 ```
@@ -844,7 +848,7 @@ monsters/**/*.md  ──convert_monsters.py──▶  sidecar .json  ──┐
 spells/**/*.md    ──convert_spells.py────▶  sidecar .json  ──┤
                                                              ├─build_bundles.py─▶  monsters-{5e,pf2e}.json
                                                              │                     spells-{5e,pf2e}.json
-                                                             └────────────────────▶  browser-standalone.html
+                                                             └────────────────────▶  index.html
 ```
 
 To regenerate:
@@ -852,13 +856,22 @@ To regenerate:
 ```bash
 python convert_monsters.py      # rewrites every monster sidecar in place
 python convert_spells.py        # rewrites every spell sidecar in place
-python build_bundles.py         # sidecars -> the four bundles + the standalone browser
+python build_bundles.py         # sidecars -> the four bundles + index.html
 ```
 
 `build_bundles.py` collects the sidecars per system, sorts by `id`, minifies, and rebuilds
-`browser-standalone.html` by inlining the four bundles into `browser.html` as gzipped
-base64. It refuses to build on a duplicate `id` or a record whose `gameSystem` doesn't
-match its directory, and it only writes files whose contents actually changed.
+`index.html` by inlining the four bundles into `app.template.html` as gzipped base64. It
+refuses to build on a duplicate `id` or a record whose `gameSystem` doesn't match its
+directory, and it only writes files whose contents actually changed.
+
+**Edit `app.template.html`, never `index.html`.** The template is the ~30 KB source —
+markup, CSS and JS with no data in it — and the build overwrites `index.html` from it
+every time. To work on the interface without rebuilding 5.4 MB on each change, serve the
+folder and open the template directly; it falls back to fetching the four bundles:
+
+```bash
+python -m http.server 8000    # then open http://localhost:8000/app.template.html
+```
 
 To find out whether the committed artifacts are current without touching anything:
 
@@ -872,8 +885,8 @@ That exits non-zero and names the stale files. It's the check to run before comm
 goes stale silently. Pick one as your working copy and regenerate the other.
 
 Records are sorted by `id`, so regenerating produces a byte-identical file when the input
-hasn't changed — which keeps `git diff` meaningful. The standalone is byte-reproducible
-too: its gzip payloads are written with `mtime=0` for exactly that reason.
+hasn't changed — which keeps `git diff` meaningful. `index.html` is byte-reproducible too:
+its gzip payloads are written with `mtime=0` for exactly that reason.
 
 Directories under `monsters/<system>/` and `spells/<system>/` whose name begins with `_`
 are scratch space. Both the converters and the bundle build skip them.

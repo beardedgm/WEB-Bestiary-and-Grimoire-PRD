@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rebuild the four JSON bundles and browser-standalone.html from the sidecars.
+"""Rebuild the four JSON bundles and index.html from the sidecars.
 
 The sidecar .json files next to each markdown source are the input; everything
 this script writes is a build artifact:
@@ -7,8 +7,10 @@ this script writes is a build artifact:
     monsters/**/*.json ─┐
     spells/**/*.json  ──┴─▶ monsters-{5e,pf2e}.json, spells-{5e,pf2e}.json
                                         │
-                                        └─▶ browser-standalone.html
-                                            (browser.html + gzipped bundles)
+                                        └─▶ index.html
+                                            (app.template.html + gzipped bundles)
+
+Edit app.template.html, never index.html — the latter is overwritten on build.
 
 Run the converters first if the markdown changed:
 
@@ -19,7 +21,7 @@ Run the converters first if the markdown changed:
 Usage:
     python build_bundles.py            rebuild everything
     python build_bundles.py --check    verify only; exit 1 if anything is stale
-    python build_bundles.py --no-standalone
+    python build_bundles.py --no-page  bundles only
 """
 
 import argparse
@@ -42,10 +44,12 @@ BUNDLES = [
 
 SYSTEM_ID = {"5e": "dnd5e", "pf2e": "pf2e"}
 
-TEMPLATE = "browser.html"
-STANDALONE = "browser-standalone.html"
+# app.template.html holds the markup, CSS and JS with no data in it — that's the
+# file you edit. index.html is it with the four bundles baked in: open that one.
+TEMPLATE = "app.template.html"
+PAGE = "index.html"
 
-# Order the standalone embeds bundles in — matches FILES in browser.html so the
+# Order the page embeds bundles in — matches FILES in the template so the
 # in-page log reads the same either way.
 EMBED_ORDER = ["spells-5e.json", "spells-pf2e.json",
                "monsters-5e.json", "monsters-pf2e.json"]
@@ -54,7 +58,7 @@ EM = "—"
 ELLIPSIS = "…"
 
 # Loader injected into the standalone: unpack the inline gzip payloads instead of
-# fetching. Falls through to browser.html's fetch path if the browser is too old.
+# fetching. Falls through to the template's fetch path if the browser is too old.
 LOADER_JS = r"""async function gunzipB64(b64){
   const bin = Uint8Array.from(atob(b64), c => c.charCodeAt(0));
   const stream = new Blob([bin]).stream().pipeThrough(new DecompressionStream("gzip"));
@@ -141,15 +145,11 @@ def _sub_once(text, old, new, label):
     return text.replace(old, new)
 
 
-def build_standalone(bundle_bytes, total_records):
-    """browser.html + inline gzipped bundles = a single self-contained file."""
+def build_page(bundle_bytes, total_records):
+    """template + inline gzipped bundles = one self-contained page."""
     with open(os.path.join(ROOT, TEMPLATE), encoding="utf-8", newline="") as fh:
         html = fh.read()
 
-    html = _sub_once(html,
-                     "<title>Bestiary &amp; Grimoire</title>",
-                     "<title>Bestiary &amp; Grimoire %s standalone</title>" % EM,
-                     "title")
     html = _sub_once(html,
                      '<p id="lmsg">Loading data files%s</p>' % ELLIPSIS,
                      '<p id="lmsg">Unpacking {:,} records{}</p>'.format(
@@ -177,12 +177,11 @@ def build_standalone(bundle_bytes, total_records):
     return html
 
 
-def split_standalone(html):
-    """Split a standalone file into (skeleton, {bundle name: decoded records}).
+def split_page(html):
+    """Split the built page into (skeleton, {bundle name: decoded records}).
 
-    Compares by content rather than bytes: gzip output is only reproducible for
-    identical input, so a rebuild from unchanged data must match here even
-    though the committed file predates mtime=0.
+    Compares by content rather than bytes, so a rebuild from unchanged data
+    still matches even if the committed file was gzipped with a real mtime.
     """
     payloads = {}
     for m in BUNDLE_TAG_RE.finditer(html):
@@ -198,8 +197,8 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--check", action="store_true",
                     help="verify the committed artifacts are current; write nothing")
-    ap.add_argument("--no-standalone", action="store_true",
-                    help="skip browser-standalone.html")
+    ap.add_argument("--no-page", action="store_true",
+                    help="rebuild the bundles only; leave index.html alone")
     args = ap.parse_args()
 
     stale = []
@@ -226,25 +225,25 @@ def main():
         print("%-22s %5d records  %7.1f MB  %s"
               % (name, len(records), len(blob) / 1e6, state))
 
-    if not args.no_standalone:
-        html = build_standalone(bundle_bytes, total)
-        dst = os.path.join(ROOT, STANDALONE)
+    if not args.no_page:
+        html = build_page(bundle_bytes, total)
+        dst = os.path.join(ROOT, PAGE)
         state = "written"
         if os.path.exists(dst):
             with open(dst, encoding="utf-8", newline="") as fh:
                 current = fh.read()
-            new_skel, new_data = split_standalone(html)
-            old_skel, old_data = split_standalone(current)
+            new_skel, new_data = split_page(html)
+            old_skel, old_data = split_page(current)
             if (new_skel, new_data) == (old_skel, old_data):
                 state = "ok" if args.check else "unchanged"
             elif args.check:
                 state = "STALE"
-                stale.append(STANDALONE)
+                stale.append(PAGE)
         if not args.check and state != "unchanged":
             with open(dst, "w", encoding="utf-8", newline="") as fh:
                 fh.write(html)
         print("%-22s %5d records  %7.1f MB  %s"
-              % (STANDALONE, total, len(html.encode("utf-8")) / 1e6, state))
+              % (PAGE, total, len(html.encode("utf-8")) / 1e6, state))
 
     if args.check and stale:
         print("\nstale: %s\nrun: python build_bundles.py" % ", ".join(stale),
