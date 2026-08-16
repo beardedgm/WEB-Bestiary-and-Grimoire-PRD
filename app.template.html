@@ -81,7 +81,7 @@ main{flex:1; display:flex; min-height:0}
 #filters[open] > summary{margin-bottom:9px}
 #fcount{
   padding:2px 6px; border-radius:2px; letter-spacing:.06em;
-  background:var(--gilt); color:#FBF6EA;
+  background:var(--ink); color:var(--stone-3);
 }
 .frow{display:flex; flex-wrap:wrap; gap:5px; margin-bottom:7px}
 .frow:last-child{margin-bottom:0}
@@ -93,7 +93,9 @@ main{flex:1; display:flex; min-height:0}
   user-select:none; white-space:nowrap;
 }
 .chip:hover{border-color:var(--gilt); color:var(--ink)}
-.chip.on{background:var(--gilt); border-color:var(--gilt); color:#FBF6EA}
+/* selected chips fill with ink, not gilt: light text on gilt measures 3.66:1
+   and no in-palette text passes on it — gilt stays a border/focus colour */
+.chip.on{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
 .chip.on.dnd{background:var(--brick); border-color:var(--brick); color:#FBF6EA}
 .chip.on.pf{background:var(--olive); border-color:var(--olive); color:#FBF6EA}
 label.tog{
@@ -415,7 +417,7 @@ body:not(.trk) .item .add{display:none}
 .cbt-hp{flex:none; min-width:44px; font:11px/1 var(--mono); color:var(--dim);
         font-variant-numeric:tabular-nums}
 .cbt-amt{
-  width:46px; padding:3px 4px; border-radius:2px; border:1px solid var(--hair);
+  width:46px; height:24px; padding:3px 4px; border-radius:2px; border:1px solid var(--hair);
   background:var(--paper); color:var(--ink); font:12px/1.2 var(--mono); text-align:right;
 }
 .cbt-amt:focus{outline:none; border-color:var(--gilt); box-shadow:0 0 0 2px rgba(156,124,28,.18)}
@@ -434,7 +436,7 @@ body:not(.trk) .item .add{display:none}
 }
 
 /* combat state */
-#trkbar .go{background:var(--gilt); border-color:var(--gilt); color:#FBF6EA}
+#trkbar .go{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
 #trkbar .chip:disabled{opacity:.45; cursor:default; pointer-events:none}
 #trkname{cursor:pointer}
 #trkname:hover{text-decoration:underline; text-decoration-color:var(--gilt)}
@@ -442,10 +444,10 @@ body:not(.trk) .item .add{display:none}
   flex:1; min-width:0; padding:2px 5px; border-radius:2px; border:1px solid var(--gilt);
   background:var(--paper); color:var(--ink); font:600 13px/1.2 var(--sans);
 }
-.cbt.on{background:var(--stone-3)}
-.cbt.on .cbt-init{color:var(--gilt)}
+.cbt.on{background:var(--stone-3); box-shadow:inset 0 0 0 2px var(--gilt)}
+.cbt.on .cbt-init{color:var(--ink)}
 .cbt.drag{opacity:.5}
-button.cbt-init{border:none; background:none; padding:0; cursor:pointer}
+button.cbt-init{border:none; background:none; padding:0; cursor:pointer; min-height:24px}
 button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gilt)}
 .cbt-init-edit{
   flex:none; width:44px; padding:2px 3px; border-radius:2px; border:1px solid var(--gilt);
@@ -485,7 +487,7 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 }
 #dice[open] > summary::before{transform:rotate(90deg)}
 #dlast{padding:2px 6px; border-radius:2px; letter-spacing:.06em;
-       background:var(--gilt); color:#FBF6EA}
+       background:var(--ink); color:var(--stone-3)}
 .dbody{padding:0 12px 10px}
 .drow2{display:flex; flex-wrap:wrap; align-items:center; gap:5px; margin-top:7px}
 #dcount,#dmod{
@@ -563,7 +565,7 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 .dlg .row2 label{flex:1}
 .dlg .btns{display:flex; gap:6px; justify-content:flex-end; margin-top:14px}
 .dlg .warn{margin:0 0 10px}
-.dlg .chip.yes{background:var(--gilt); border-color:var(--gilt); color:#FBF6EA}
+.dlg .chip.yes{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
 
 /* player display layer + the #pd fallback page mode */
 #pdisp{position:fixed; inset:0; z-index:60}
@@ -1523,7 +1525,7 @@ const TRK = (() => {
 .pdroot .pdbadge{flex:none;align-self:center;font-family:${mono};font-size:.34em;
   font-weight:700;text-transform:uppercase;letter-spacing:.1em;
   padding:.45em .8em;border-radius:.25em}
-.pdroot .pdbadge.hurt{background:${gilt};color:#241E0C}
+.pdroot .pdbadge.hurt{background:none;border:1px solid ${gilt};color:${st3}}
 .pdroot .pdbadge.bloody{background:${brick};color:#FBF6EA}
 .pdroot .pdbadge.unconscious{background:none;border:1px solid ${faint};color:${st3}}
 .pdroot .pdwait{flex:1;display:flex;flex-direction:column;align-items:center;

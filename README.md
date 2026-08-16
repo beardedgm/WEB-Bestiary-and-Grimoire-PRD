@@ -88,6 +88,15 @@ D&D CR and Pathfinder creature level get separate controls, and each only
 filters its own system's records. There is deliberately no CR-to-level
 conversion — see §13.
 
+The page also carries an **initiative tracker** (the Tracker toggle in the
+header). Add monsters straight from the results list — AC, HP and the
+initiative modifier come from the record, using each game's own rule (DEX for
+D&D, Perception for Pathfinder, the printed modifier for 2025-SRD monsters) —
+run initiative, rounds, damage and healing, roll dice by clicking any attack
+bonus or damage formula in a stat block, keep a party and saved encounters,
+and put a hit-point-free initiative board on a second screen for the table.
+Everything persists in the browser (localStorage); nothing leaves the machine.
+
 ### Coverage at a glance
 
 ```
