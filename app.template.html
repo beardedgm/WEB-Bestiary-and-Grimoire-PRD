@@ -455,6 +455,47 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 .sinit[aria-invalid="true"]{border-color:var(--danger)}
 .sre{min-width:24px}
 
+/* dice — docked disclosure, same voice as the filter panel */
+#dice{flex:none; border-top:1px solid var(--hair); background:var(--stone-3)}
+#dice > summary{
+  display:flex; align-items:center; gap:7px; min-height:24px; cursor:pointer;
+  padding:9px 12px; list-style:none; color:var(--dim);
+  font:600 10px/1 var(--mono); text-transform:uppercase; letter-spacing:.1em;
+}
+#dice > summary::-webkit-details-marker{display:none}
+#dice > summary::before{
+  content:"▸"; color:var(--faint); font-size:11px; line-height:1;
+  transition:transform .12s ease-out;
+}
+#dice[open] > summary::before{transform:rotate(90deg)}
+#dlast{padding:2px 6px; border-radius:2px; letter-spacing:.06em;
+       background:var(--gilt); color:#FBF6EA}
+.dbody{padding:0 12px 10px}
+.drow2{display:flex; flex-wrap:wrap; align-items:center; gap:5px; margin-top:7px}
+#dcount,#dmod{
+  padding:4px 6px; border-radius:2px; border:1px solid var(--hair);
+  background:var(--stone); color:var(--ink); font:11.5px/1.3 var(--mono);
+}
+#dmod{width:52px; text-align:right}
+#dcount:focus,#dmod:focus{outline:none; border-color:var(--gilt);
+  box-shadow:0 0 0 2px rgba(156,124,28,.18)}
+#dcount:disabled{opacity:.45}
+.dres{margin:8px 0 0; min-height:18px; color:var(--ink);
+      font:600 12.5px/1.5 var(--mono); overflow-wrap:anywhere}
+.dres s,.dhist s{color:var(--faint)}
+.dres .nat20{color:var(--gilt)} .dres .nat1{color:var(--danger)}
+.dhist{margin-top:6px; max-height:150px; overflow-y:auto;
+       scrollbar-color:var(--hair) transparent; scrollbar-width:thin}
+.dhist .drow{
+  display:flex; align-items:center; gap:6px; padding:3px 0;
+  border-top:1px solid var(--hair-soft); color:var(--dim); font:11px/1.4 var(--mono);
+}
+.dhist .drow .lbl{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.dhist .drow b{color:var(--ink); font-variant-numeric:tabular-nums}
+.dhist .nat20{color:var(--gilt)} .dhist .nat1{color:var(--danger)}
+.dre{min-width:24px; min-height:24px}
+#d-clear{margin-top:5px}
+
 /* inline confirm — replaces the triggering control, never window.confirm */
 .cfm{display:inline-flex; align-items:center; gap:5px; font:11px/1.2 var(--sans); color:var(--dim)}
 .cfm .chip.yes{border-color:var(--danger); color:var(--danger)}
@@ -558,7 +599,32 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
     <div id="trklist" role="list" aria-label="Combatants"></div>
     <div id="trkempty">No combatants yet — add monsters from the results list, or your party from the toolbar.</div>
     <span id="trklive" class="vh" role="status" aria-live="polite"></span>
-    <details id="dice" hidden></details>
+    <details id="dice">
+      <summary>Dice<span id="dlast" hidden></span></summary>
+      <div class="dbody">
+        <div class="frow" id="dpick" role="group" aria-label="Die">
+          <button type="button" class="chip" data-d="4">d4</button>
+          <button type="button" class="chip" data-d="6">d6</button>
+          <button type="button" class="chip" data-d="8">d8</button>
+          <button type="button" class="chip" data-d="10">d10</button>
+          <button type="button" class="chip" data-d="12">d12</button>
+          <button type="button" class="chip" data-d="20">d20</button>
+          <button type="button" class="chip" data-d="100">d100</button>
+        </div>
+        <div class="drow2">
+          <select id="dcount" aria-label="Number of dice"></select>
+          <input id="dmod" type="number" min="-99" max="99" value="0" aria-label="Modifier">
+          <span class="frow" role="group" aria-label="Roll mode">
+            <button type="button" class="chip" data-adv="normal">Normal</button>
+            <button type="button" class="chip" data-adv="advantage">Adv</button>
+            <button type="button" class="chip" data-adv="disadvantage">Dis</button>
+          </span>
+          <button type="button" class="chip go" id="d-roll">Roll</button>
+        </div>
+        <div class="dres" id="dres" role="status" aria-live="polite"></div>
+        <div class="dhist" id="dhist"></div>
+      </div>
+    </details>
   </section>
   <div id="pane" class="empty">Select an entry</div>
   <div id="trkovl" hidden></div>
@@ -1232,12 +1298,31 @@ const TRK = (() => {
     }
     return out;
   }
+  const DIES = [4, 6, 8, 10, 12, 20, 100];
+  function vDiceEntry(h){
+    if (!h || typeof h !== "object" || typeof h.label !== "string") return null;
+    const s = h.spec || {};
+    if (!DIES.includes(+s.d)) return null;
+    const rolls = Array.isArray(h.rolls) ? h.rolls.map(v => int(v, 0)).filter(v => v >= 1) : [];
+    if (!rolls.length) return null;
+    return {
+      label: h.label.slice(0, 40),
+      total: int(h.total, 0),
+      nat: h.nat === "nat20" || h.nat === "nat1" ? h.nat : null,
+      rolls,
+      kept: Array.isArray(h.kept) ? h.kept.map(v => int(v, 0)).filter(i => i >= 0 && i < rolls.length) : rolls.map((_, i) => i),
+      spec: { d: +s.d, n: Math.min(20, Math.max(1, int(s.n, 1))),
+              mod: Math.min(99, Math.max(-99, int(s.mod, 0))),
+              adv: s.adv === "advantage" || s.adv === "disadvantage" ? s.adv : "normal" },
+    };
+  }
   function vDice(raw){
     const d = { history:[], ui:{ die:20, count:1, mod:0, adv:"normal" } };
     if (!raw || typeof raw !== "object") return d;
-    if (Array.isArray(raw.history)) d.history = raw.history.slice(0, 12);
+    if (Array.isArray(raw.history))
+      d.history = raw.history.map(vDiceEntry).filter(Boolean).slice(0, 12);
     const u = raw.ui || {};
-    if ([4,6,8,10,12,20,100].includes(+u.die)) d.ui.die = +u.die;
+    if (DIES.includes(+u.die)) d.ui.die = +u.die;
     d.ui.count = Math.min(20, Math.max(1, int(u.count, 1)));
     d.ui.mod = Math.min(99, Math.max(-99, int(u.mod, 0)));
     if (u.adv === "advantage" || u.adv === "disadvantage") d.ui.adv = u.adv;
@@ -1256,11 +1341,14 @@ const TRK = (() => {
     return out;
   }
   function vUi(raw){
-    const u = { mode:"browse", qty:1, diceOpen:true };
+    // dice panel defaults collapsed on narrow viewports, where it competes
+    // with the combatant list for the same height budget
+    const u = { mode:"browse", qty:1,
+                diceOpen: !matchMedia("(max-width:760px)").matches };
     if (!raw || typeof raw !== "object") return u;
     if (raw.mode === "track") u.mode = "track";
     u.qty = Math.min(10, Math.max(1, int(raw.qty, 1)));
-    u.diceOpen = raw.diceOpen !== false;
+    if (typeof raw.diceOpen === "boolean") u.diceOpen = raw.diceOpen;
     return u;
   }
 
@@ -1740,6 +1828,71 @@ const TRK = (() => {
     };
   }
 
+  /* ---------------- dice ---------------- */
+  /* Advantage forces exactly two dice and keeps the high one (low for
+     disadvantage); the unused die is kept in the entry so the display can
+     strike it through. Nat 20/1 only means something on a single kept d20. */
+  function rollDice(spec){
+    const d = DIES.includes(+spec.d) ? +spec.d : 20;
+    const adv = spec.adv === "advantage" || spec.adv === "disadvantage" ? spec.adv : "normal";
+    const n = adv !== "normal" ? 2 : Math.min(20, Math.max(1, int(spec.n, 1)));
+    const mod = Math.min(99, Math.max(-99, int(spec.mod, 0)));
+    const rolls = Array.from({length: n}, () => 1 + Math.floor(Math.random() * d));
+    let kept = rolls.map((_, i) => i);
+    if (adv !== "normal"){
+      const pick = adv === "advantage" ? Math.max(...rolls) : Math.min(...rolls);
+      kept = [rolls.indexOf(pick)];
+    }
+    const total = kept.reduce((a, i) => a + rolls[i], 0) + mod;
+    const nat = d === 20 && kept.length === 1
+      ? (rolls[kept[0]] === 20 ? "nat20" : rolls[kept[0]] === 1 ? "nat1" : null) : null;
+    const label = (adv !== "normal" ? "d" + d + (adv === "advantage" ? " Adv" : " Dis") : n + "d" + d)
+                + (mod ? (mod > 0 ? "+" + mod : String(mod)) : "");
+    return { label, total, nat, rolls, kept, spec: { d, n: int(spec.n, 1), mod, adv } };
+  }
+  function doRoll(spec){
+    const entry = rollDice(spec);
+    state.dice.history.unshift(entry);
+    if (state.dice.history.length > 12) state.dice.history.length = 12;
+    save(LS.dice, state.dice);
+    renderDice();
+    return entry;
+  }
+  function breakdownHTML(h){
+    const dice = h.rolls.map((v, i) =>
+      h.kept.includes(i) ? esc(v) : "<s>" + esc(v) + "</s>").join(", ");
+    const m = h.spec.mod ? " " + (h.spec.mod > 0 ? "+" : "−") + Math.abs(h.spec.mod) : "";
+    const natTx = h.nat === "nat20" ? ' <span class="nat20">nat 20</span>'
+                : h.nat === "nat1" ? ' <span class="nat1">nat 1</span>' : "";
+    return `${esc(h.label)} → ${dice}${m} = <b>${esc(h.total)}</b>${natTx}`;
+  }
+  function renderDice(){
+    const u = state.dice.ui;
+    $("#dpick").querySelectorAll(".chip").forEach(b => {
+      const on = +b.dataset.d === u.die;
+      b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on));
+    });
+    document.querySelectorAll("#dice [data-adv]").forEach(b => {
+      const on = b.dataset.adv === u.adv;
+      b.classList.toggle("on", on); b.setAttribute("aria-pressed", String(on));
+    });
+    $("#dcount").value = String(u.count);
+    $("#dcount").disabled = u.adv !== "normal";   // advantage is exactly two dice
+    $("#dmod").value = String(u.mod);
+    const h = state.dice.history;
+    $("#dres").innerHTML = h.length ? breakdownHTML(h[0]) : "";
+    $("#dlast").hidden = !h.length;
+    $("#dlast").textContent = h.length ? h[0].total : "";
+    $("#dhist").innerHTML = h.map((x, i) =>
+      `<div class="drow">
+         <button type="button" class="chip dre" data-i="${i}" aria-label="Reroll ${esc(x.label)}">↻</button>
+         <span class="lbl">${esc(x.label)}</span>
+         ${x.nat ? `<span class="${x.nat}">${x.nat === "nat20" ? "nat 20" : "nat 1"}</span>` : ""}
+         <b>${esc(x.total)}</b>
+       </div>`).join("") +
+      (h.length ? `<button type="button" class="chip" id="d-clear">Clear history</button>` : "");
+  }
+
   /* ---------------- keyboard ---------------- */
   function key(e){
     const o = $("#trkovl");
@@ -1783,7 +1936,7 @@ const TRK = (() => {
     $("#m-browse").setAttribute("aria-pressed", String(!track));
     $("#m-track").classList.toggle("on", track);
     $("#m-track").setAttribute("aria-pressed", String(track));
-    if (track) renderTrk();
+    if (track){ $("#dice").open = state.ui.diceOpen; renderTrk(); renderDice(); }
   }
 
   function renderTrk(){
@@ -1919,11 +2072,48 @@ const TRK = (() => {
     save(LS.ui, state.ui);
   };
 
+  // dice
+  $("#dcount").innerHTML = Array.from({length: 20}, (_, i) => `<option>${i + 1}</option>`).join("");
+  $("#dpick").addEventListener("click", e => {
+    const b = e.target.closest("[data-d]"); if (!b) return;
+    state.dice.ui.die = +b.dataset.d;
+    save(LS.dice, state.dice); renderDice();
+  });
+  document.querySelectorAll("#dice [data-adv]").forEach(b => b.onclick = () => {
+    state.dice.ui.adv = b.dataset.adv;
+    save(LS.dice, state.dice); renderDice();
+  });
+  $("#dcount").onchange = e => {
+    state.dice.ui.count = Math.min(20, Math.max(1, int(e.target.value, 1)));
+    save(LS.dice, state.dice);
+  };
+  $("#dmod").onchange = e => {
+    state.dice.ui.mod = Math.min(99, Math.max(-99, int(e.target.value, 0)));
+    save(LS.dice, state.dice); renderDice();
+  };
+  $("#d-roll").onclick = () => {
+    const u = state.dice.ui;
+    doRoll({ d: u.die, n: u.count, mod: u.mod, adv: u.adv });
+  };
+  $("#dhist").addEventListener("click", e => {
+    const re = e.target.closest(".dre");
+    if (re){ const h = state.dice.history[+re.dataset.i]; if (h) doRoll(h.spec); return; }
+    if (e.target.closest("#d-clear")){
+      state.dice.history = [];
+      save(LS.dice, state.dice); renderDice();
+    }
+  });
+  $("#dice").addEventListener("toggle", () => {
+    state.ui.diceOpen = $("#dice").open;
+    save(LS.ui, state.ui);
+  });
+
   return { state, setMode, onDataReady, renderTrk, key,
            mutate, undo, redo, addMany, addFromView, removeCombatant, applyHP,
            startCombat, endCombat, nextTurn, prevTurn, canPrev,
            setInitiative, reorderTo, moveBy, resetEnc, clearAll,
            initModOf, acOf, hpOf, openAddForm, openStartModal, closeOvl,
+           rollDice, doRoll,
            _test: { vEnc, vParty, vPresets, vDice, vUi, autoName, hpClass, midInit } };
 })();
 /* const bindings don't become window properties; the start()/keydown hooks in
