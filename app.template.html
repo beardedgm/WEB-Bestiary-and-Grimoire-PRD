@@ -512,6 +512,27 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 .dre{min-width:24px; min-height:24px}
 #d-clear{margin-top:5px}
 
+/* party + preset lists */
+.plist,.slist{max-height:45vh; overflow-y:auto; margin:4px 0;
+              scrollbar-color:var(--hair) transparent; scrollbar-width:thin}
+.prow{display:flex; align-items:center; gap:6px; padding:6px 0;
+      border-bottom:1px solid var(--hair-soft)}
+.prow:last-child{border-bottom:none}
+.pnm{flex:none; max-width:38%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+     font-weight:600; color:var(--ink); font-size:13px}
+.pmeta{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+       color:var(--faint); font:10.5px/1.3 var(--mono)}
+.prow .chip{flex:none}
+#snew{display:flex; gap:6px; margin-bottom:4px}
+#snew input{
+  flex:1; min-width:0; padding:6px 9px; border-radius:2px;
+  border:1px solid var(--hair); background:var(--stone-3); color:var(--ink);
+  font:13px/1.3 var(--sans);
+}
+#snew input:focus{outline:none; border-color:var(--gilt);
+  box-shadow:0 0 0 2px rgba(156,124,28,.18)}
+.pempty{padding:14px 0; color:var(--faint); font:italic 13px/1.4 var(--serif); text-align:center}
+
 /* inline confirm — replaces the triggering control, never window.confirm */
 .cfm{display:inline-flex; align-items:center; gap:5px; font:11px/1.2 var(--sans); color:var(--dim)}
 .cfm .chip.yes{border-color:var(--danger); color:var(--danger)}
@@ -606,6 +627,8 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
         <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
         <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
       </select></span>
+      <button type="button" class="chip" id="t-party">Party</button>
+      <button type="button" class="chip" id="t-presets">Saved</button>
       <span class="sp"></span>
       <button type="button" class="chip" id="t-undo" disabled>Undo</button>
       <button type="button" class="chip" id="t-redo" disabled>Redo</button>
@@ -1858,6 +1881,178 @@ const TRK = (() => {
     };
   }
 
+  /* ---------------- party library ---------------- */
+  function partyRowsHTML(){
+    if (!state.party.length)
+      return `<div class="pempty">No saved party members yet.</div>`;
+    return state.party.map(p => {
+      const meta = [p.type, p.hpMax != null ? p.hpMax + " HP" : "HP ?",
+                    p.ac != null ? "AC " + p.ac : null,
+                    (p.mod >= 0 ? "+" : "") + p.mod].filter(Boolean).join(" · ");
+      return `<div class="prow" data-id="${esc(p.id)}">
+        <span class="pnm">${esc(p.name)}</span>
+        <span class="pmeta">${esc(meta)}</span>
+        <button type="button" class="chip" data-padd>Add</button>
+        <button type="button" class="chip" data-pedit aria-label="Edit ${esc(p.name)}">Edit</button>
+        <button type="button" class="chip" data-pdel aria-label="Delete ${esc(p.name)}">✕</button>
+      </div>`;
+    }).join("");
+  }
+  function openPartyOvl(editId){
+    const editing = editId ? state.party.find(p => p.id === editId) : null;
+    openOvl(`<h3>Party</h3>
+      <div class="warn" id="pf-warn" hidden></div>
+      <div class="plist" ${editing ? "hidden" : ""}>${partyRowsHTML()}</div>
+      <form id="pform" novalidate ${editing ? "" : "hidden"}>
+        <label>Name <input name="name" maxlength="80" value="${esc(editing?.name ?? "")}"></label>
+        <label>Type <select name="type">
+          <option value="player"${!editing || editing.type === "player" ? " selected" : ""}>Player</option>
+          <option value="npc"${editing?.type === "npc" ? " selected" : ""}>NPC</option>
+        </select></label>
+        <div class="row2">
+          <label>Max HP <input name="hp" type="number" min="1" max="99999" value="${editing?.hpMax ?? ""}"></label>
+          <label>AC <input name="ac" type="number" min="0" max="99" value="${editing?.ac ?? ""}"></label>
+        </div>
+        <label>Initiative modifier <input name="mod" type="number" min="-10" max="50" value="${esc(editing?.mod ?? 0)}"></label>
+        <div class="btns">
+          <button type="button" class="chip" data-cancel>Back</button>
+          <button type="submit" class="chip yes">${editing ? "Save" : "Add member"}</button>
+        </div>
+      </form>
+      <div class="btns" id="pfoot" ${editing ? "hidden" : ""}>
+        <button type="button" class="chip" data-new>New member</button>
+        <button type="button" class="chip" data-close>Close</button>
+      </div>`);
+    const o = $("#trkovl");
+    o.querySelector("[data-close]")?.addEventListener("click", closeOvl);
+    o.querySelector("[data-new]")?.addEventListener("click", () => openPartyOvl("__new__"));
+    o.querySelector("[data-cancel]")?.addEventListener("click", () => openPartyOvl());
+    o.querySelector(".plist")?.addEventListener("click", e => {
+      const row = e.target.closest(".prow"); if (!row) return;
+      const p = state.party.find(x => x.id === row.dataset.id); if (!p) return;
+      if (e.target.closest("[data-padd]")){
+        if (p.hpMax == null){ openAddForm({ name: p.name, type: p.type, ac: p.ac, mod: p.mod }); return; }
+        // a player is one person; NPCs multiply with the quantity control
+        addMany({ name: p.name, type: p.type, hpMax: p.hpMax, ac: p.ac, mod: p.mod,
+                  ref: null, sys: null }, p.type === "player" ? 1 : state.ui.qty);
+      } else if (e.target.closest("[data-pedit]")){
+        openPartyOvl(p.id);
+      } else if (e.target.closest("[data-pdel]")){
+        confirmSwap(e.target.closest("[data-pdel]"), "Delete " + p.name + "?", () => {
+          state.party = state.party.filter(x => x.id !== p.id);
+          save(LS.party, state.party);
+          openPartyOvl();
+        });
+      }
+    });
+    const form = o.querySelector("#pform");
+    if (form) form.onsubmit = ev => {
+      ev.preventDefault();
+      const fd = new FormData(form);
+      const name = String(fd.get("name") || "").trim();
+      const hp = int(fd.get("hp"), 0);
+      const w = $("#pf-warn");
+      if (!name || hp < 1){
+        w.hidden = false;
+        w.textContent = "Enter " + [!name && "a name", hp < 1 && "max HP"].filter(Boolean).join(" and ") + ".";
+        return;
+      }
+      if (!editing && state.party.length >= 100){
+        w.hidden = false; w.textContent = "Party is full (100)."; return;
+      }
+      const acRaw = String(fd.get("ac") ?? "").trim();
+      const m = { id: editing ? editing.id : "p" + Date.now().toString(36),
+                  name, type: String(fd.get("type")) === "npc" ? "npc" : "player",
+                  hpMax: hp, ac: acRaw === "" ? null : int(acRaw, null),
+                  mod: Math.min(50, Math.max(-10, int(fd.get("mod"), 0))) };
+      if (editing) state.party = state.party.map(x => x.id === editing.id ? m : x);
+      else state.party.push(m);
+      save(LS.party, state.party);
+      openPartyOvl();
+    };
+  }
+
+  /* ---------------- encounter presets ---------------- */
+  function presetRowsHTML(){
+    if (!state.presets.length)
+      return `<div class="pempty">Nothing saved yet — name the current encounter above and save it.</div>`;
+    return state.presets.map(p => {
+      const meta = p.enc.combatants.length + " combatants · " +
+                   (p.savedAt ? new Date(p.savedAt).toLocaleDateString() : "");
+      return `<div class="prow" data-id="${esc(p.id)}">
+        <span class="pnm">${esc(p.name)}</span>
+        <span class="pmeta">${esc(meta)}</span>
+        <button type="button" class="chip" data-sload>Load</button>
+        <button type="button" class="chip" data-sdel aria-label="Delete ${esc(p.name)}">✕</button>
+      </div>`;
+    }).join("");
+  }
+  function savePreset(name){
+    const existing = state.presets.find(p => p.name.toLowerCase() === name.toLowerCase());
+    const snap = { id: existing ? existing.id : "s" + Date.now().toString(36),
+                   name, savedAt: Date.now(),
+                   enc: JSON.parse(JSON.stringify(state.enc)),
+                   dice: JSON.parse(JSON.stringify(state.dice)) };
+    if (existing) state.presets = state.presets.map(p => p.id === existing.id ? snap : p);
+    else state.presets.push(snap);
+    save(LS.presets, state.presets);
+    return !existing;
+  }
+  function loadPreset(id){
+    const p = state.presets.find(x => x.id === id);
+    if (!p) return;
+    mutate(e => { Object.assign(e, vEnc(p.enc)); });   // undoable, like everything
+    state.dice = vDice(p.dice);
+    save(LS.dice, state.dice);
+    renderDice();
+    announce("Loaded " + p.name);
+  }
+  function openPresetsOvl(){
+    openOvl(`<h3>Saved encounters</h3>
+      <div class="warn" id="sf2-warn" hidden></div>
+      <form id="snew" novalidate>
+        <input name="name" maxlength="80" placeholder="Save current as…"
+               value="${esc(state.enc.name)}" aria-label="Preset name">
+        <button type="submit" class="chip yes">Save</button>
+      </form>
+      <div class="slist">${presetRowsHTML()}</div>
+      <div class="btns"><button type="button" class="chip" data-close>Close</button></div>`);
+    const o = $("#trkovl");
+    o.querySelector("[data-close]").onclick = closeOvl;
+    const form = o.querySelector("#snew");
+    form.onsubmit = ev => {
+      ev.preventDefault();
+      const name = String(new FormData(form).get("name") || "").trim();
+      const w = $("#sf2-warn");
+      if (!name){ w.hidden = false; w.textContent = "Name the encounter first."; return; }
+      if (state.presets.length >= 50 && !state.presets.some(p => p.name.toLowerCase() === name.toLowerCase())){
+        w.hidden = false; w.textContent = "Preset list is full (50)."; return;
+      }
+      const submit = form.querySelector("[type=submit]");
+      if (state.presets.some(p => p.name.toLowerCase() === name.toLowerCase())){
+        confirmSwap(submit, "Overwrite " + name + "?", () => { savePreset(name); openPresetsOvl(); });
+        return;
+      }
+      savePreset(name);
+      openPresetsOvl();
+    };
+    o.querySelector(".slist").addEventListener("click", e => {
+      const row = e.target.closest(".prow"); if (!row) return;
+      const id = row.dataset.id;
+      const p = state.presets.find(x => x.id === id); if (!p) return;
+      if (e.target.closest("[data-sload]")){
+        confirmSwap(e.target.closest("[data-sload]"),
+          "Replace the current encounter?", () => { loadPreset(id); closeOvl(); });
+      } else if (e.target.closest("[data-sdel]")){
+        confirmSwap(e.target.closest("[data-sdel]"), "Delete " + p.name + "?", () => {
+          state.presets = state.presets.filter(x => x.id !== id);
+          save(LS.presets, state.presets);
+          openPresetsOvl();
+        });
+      }
+    });
+  }
+
   /* ---------------- dice ---------------- */
   /* Advantage forces exactly two dice and keeps the high one (low for
      disadvantage); the unused die is kept in the entry so the display can
@@ -2096,6 +2291,8 @@ const TRK = (() => {
     if (e.key === "Enter"){ e.preventDefault(); editName(); }
   });
   $("#t-add").onclick = () => openAddForm();
+  $("#t-party").onclick = () => openPartyOvl();
+  $("#t-presets").onclick = () => openPresetsOvl();
   $("#t-undo").onclick = undo;
   $("#t-redo").onclick = redo;
   $("#qty").onchange = e => {
@@ -2175,7 +2372,7 @@ const TRK = (() => {
            startCombat, endCombat, nextTurn, prevTurn, canPrev,
            setInitiative, reorderTo, moveBy, resetEnc, clearAll,
            initModOf, acOf, hpOf, openAddForm, openStartModal, closeOvl,
-           rollDice, doRoll,
+           rollDice, doRoll, savePreset, loadPreset, openPartyOvl, openPresetsOvl,
            _test: { vEnc, vParty, vPresets, vDice, vUi, autoName, hpClass, midInit } };
 })();
 /* const bindings don't become window properties; the start()/keydown hooks in
