@@ -66,6 +66,23 @@ main{flex:1; display:flex; min-height:0}
   display:flex; flex-direction:column; background:var(--stone); min-height:0;
 }
 #filters{padding:11px 12px; border-bottom:1px solid var(--hair); background:var(--stone-3)}
+/* native disclosure: keyboard and ARIA come free, and it still works with no JS */
+#filters > summary{
+  display:flex; align-items:center; gap:7px; min-height:24px; cursor:pointer;
+  list-style:none; color:var(--dim);
+  font:600 10px/1 var(--mono); text-transform:uppercase; letter-spacing:.1em;
+}
+#filters > summary::-webkit-details-marker{display:none}
+#filters > summary::before{
+  content:"▸"; color:var(--faint); font-size:11px; line-height:1;
+  transition:transform .12s ease-out;
+}
+#filters[open] > summary::before{transform:rotate(90deg)}
+#filters[open] > summary{margin-bottom:9px}
+#fcount{
+  padding:2px 6px; border-radius:2px; letter-spacing:.06em;
+  background:var(--gilt); color:#FBF6EA;
+}
 .frow{display:flex; flex-wrap:wrap; gap:5px; margin-bottom:7px}
 .frow:last-child{margin-bottom:0}
 /* filters are traits — so they are set as trait tags */
@@ -316,7 +333,8 @@ kbd{
 
 <main>
   <div id="side">
-    <div id="filters">
+    <details id="filters" open>
+      <summary>Filters<span id="fcount" hidden></span></summary>
       <div class="frow" id="f-kind"></div>
       <div class="frow" id="f-sys"></div>
       <div class="frow" id="f-extra"></div>
@@ -324,7 +342,7 @@ kbd{
       <div class="frow">
         <label class="tog"><input type="checkbox" id="deep"> also search description text</label>
       </div>
-    </div>
+    </details>
     <div id="list" role="listbox" aria-label="Search results" tabindex="0"></div>
     <div id="more" hidden></div>
   </div>
@@ -432,6 +450,9 @@ function start(){
   if (!DATA.length){ logline("\nNothing loaded."); return; }
   DATA.sort((a,b) => a.name.localeCompare(b.name));
   buildFilters();
+  // the narrow layout caps the sidebar height, where the panel and the results
+  // compete for the same budget — start collapsed there, expanded on desktop
+  if (matchMedia("(max-width:760px)").matches) $("#filters").open = false;
   $("#load").remove();
   refresh();
   $("#q").focus();
@@ -527,7 +548,10 @@ function buildRangeControls(){
     if (seen.size < 2) continue;             // nothing to range over
     const vals = [...seen.keys()].sort((a,b) => a - b);
 
-    F.range[s.key] = { from: vals[0], to: vals[vals.length - 1] };
+    // min/max record the scale's full extent, so "is this range active?" is
+    // answerable without rescanning the corpus. passRange ignores them.
+    F.range[s.key] = { from: vals[0], to: vals[vals.length - 1],
+                       min: vals[0], max: vals[vals.length - 1] };
 
     const box = document.createElement("div");
     box.className = "rng";
@@ -559,6 +583,25 @@ function buildRangeControls(){
 /* Driven by the chip filters only — not by the query and not by the ranges
    themselves. A range matching nothing must keep its control on screen, or
    there is no way to widen it again. */
+/* A collapsed panel that hides active filters is a trap, so the summary carries
+   the count and the panel refuses to look empty when it isn't. */
+function activeFilterCount(){
+  let n = F.kind.size + F.sys.size + F.extra.size;
+  for (const s of SCALES){
+    const g = F.range[s.key];
+    if (g && (g.from !== g.min || g.to !== g.max)) n++;
+  }
+  if ($("#deep").checked) n++;
+  return n;
+}
+function updateFilterCount(){
+  const n = activeFilterCount(), el = $("#fcount");
+  el.hidden = n === 0;
+  el.textContent = n;
+  $("#filters > summary").setAttribute("aria-label",
+    n ? `Filters, ${n} active` : "Filters");
+}
+
 function updateRangeVisibility(chipped){
   for (const s of SCALES){
     const box = document.querySelector(`.rng[data-scale="${s.key}"]`);
@@ -606,6 +649,7 @@ function refresh(){
     return passExtra(r);
   });
   updateRangeVisibility(chipped);
+  updateFilterCount();
   view = chipped.filter(r => {
     if (!passRange(r)) return false;
     if (!q) return true;
