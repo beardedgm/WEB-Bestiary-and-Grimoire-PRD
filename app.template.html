@@ -344,7 +344,23 @@ body.trk #trk{
 #trklist:empty{flex:none}
 #trklist:empty + #trkempty{display:block}
 /* load-bearing: an author display rule on these would defeat the hidden attribute */
-#trkbar[hidden], #dice[hidden], #trkovl[hidden], #pdisp[hidden]{display:none}
+#trkbar[hidden], #dice[hidden], #trkovl[hidden], #pdisp[hidden], #dpop[hidden]{display:none}
+
+/* clickable dice in stat blocks — inherit the stock's ink and font */
+.droll{
+  display:inline; padding:0 1px; border:none; background:none; cursor:pointer;
+  font:inherit; color:var(--sysink, var(--ink));
+  text-decoration:underline dotted; text-underline-offset:2px;
+}
+.droll:hover{text-decoration-style:solid}
+#dpop{
+  position:fixed; z-index:45; max-width:280px; padding:8px 11px;
+  background:var(--paper); border:1px solid var(--paper-edge); border-radius:2px;
+  box-shadow:0 2px 10px rgba(36,33,28,.22);
+  font:600 12.5px/1.5 var(--mono); color:var(--ink); overflow-wrap:anywhere;
+}
+#dpop s{color:var(--faint)}
+#dpop .nat20{color:var(--gilt)} #dpop .nat1{color:var(--danger)}
 
 /* toolbar */
 #trkbar{
@@ -629,6 +645,7 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
   <div id="pane" class="empty">Select an entry</div>
   <div id="trkovl" hidden></div>
   <div id="pdisp" hidden></div>
+  <div id="dpop" hidden></div>
 </main>
 
 <script>
@@ -976,6 +993,15 @@ function glyph(a){
   return (n != null ? n + " " : "") + u + (n > 1 ? "s" : "");
 }
 function kv(label, val){ return val ? `<div class="kv"><b>${label}</b> <span>${esc(val)}</span></div>` : ""; }
+/* click-to-roll: the data is structured, so dice buttons come straight from
+   attack.map and damage[].formula — no text parsing. Rolling is wired up by
+   the tracker script; without it the buttons are inert text. */
+function drollBtn(rollSpec, label){
+  return `<button type="button" class="droll" data-roll="${esc(rollSpec)}">${esc(label)}</button>`;
+}
+function droll(formula){
+  return /^\d+d\d+([+-]\d+)?$/.test(formula) ? drollBtn(formula, formula) : esc(formula);
+}
 /* a labelled row whose value is a single number worth picking out of the block */
 function chipKV(label, value, qual){
   return `<div class="kv"><b>${esc(label)}</b><span class="chips">` +
@@ -1027,7 +1053,8 @@ function spellHTML(r){
   if (r.attack) h += kv("Attack", (r.attack.vs === "ac" ? "spell attack roll vs AC"
                                                         : (r.attack.vs||"") + " spell attack"));
   if (r.damage && r.damage.length)
-    h += kv("Damage", r.damage.map(d => d.formula + (d.type ? " " + d.type : "")).join(", "));
+    h += `<div class="kv"><b>Damage</b> <span>${r.damage.map(d =>
+          droll(d.formula) + (d.type ? " " + esc(d.type) : "")).join(", ")}</span></div>`;
 
   if (r.entries.length){
     h += `<div class="sec">Description</div><div class="body">` +
@@ -1137,9 +1164,11 @@ function monsterHTML(r){
       let head = b.name || (b.type + " spells");
       const bits = [];
       if (b.dc != null) bits.push("DC " + b.dc);
-      if (b.attackBonus != null) bits.push("attack " + (b.attackBonus>=0?"+":"") + b.attackBonus);
+      if (b.attackBonus != null)
+        bits.push("attack " + drollBtn("1d20" + (b.attackBonus>=0?"+":"") + b.attackBonus,
+                                       (b.attackBonus>=0?"+":"") + b.attackBonus));
       h += `<div class="ent"><span class="en">${esc(head)}</span>` +
-           (bits.length ? ` <span style="color:var(--dim)">(${esc(bits.join(", "))})</span>` : "") + `</div>`;
+           (bits.length ? ` <span style="color:var(--dim)">(${bits.join(", ")})</span>` : "") + `</div>`;
       for (const l of b.levels||[]){
         const lbl = l.rankLabel || (l.rank===0 ? "Cantrips" : l.rank!=null ? "Rank "+l.rank : (l.uses||""));
         const extra = l.slots ? ` (${l.slots} slots)` : (l.uses && !l.rankLabel ? ` (${l.uses})` : "");
@@ -1169,13 +1198,14 @@ function entryHTML(e){
     h += ` <span class="qual">(${esc(e.traits.join(", "))})</span>`;
   if (e.attack){
     const a = e.attack;
-    h += ` <span class="act">${a.map ? a.map.map(x => (x>=0?"+":"")+x).join("/") : ""}</span>`;
+    // each attack-map value rolls d20+bonus — Pathfinder's chain gives three
+    h += ` <span class="act">${a.map ? a.map.map(x => drollBtn("1d20" + (x>=0?"+":"") + x, (x>=0?"+":"")+x)).join("/") : ""}</span>`;
     if (a.reach) h += ` <span class="qual">reach ${a.reach.value} ft</span>`;
     if (a.range_) h += ` <span class="qual">range ${a.range_.value} ft</span>`;
   }
   if (e.damage && e.damage.length)
-    h += `<br><span style="color:var(--dim)">Damage</span> ${esc(e.damage.map(x =>
-          x.formula + (x.type ? " " + x.type : "")).join(" plus "))}`;
+    h += `<br><span style="color:var(--dim)">Damage</span> ${e.damage.map(x =>
+          droll(x.formula) + (x.type ? " " + esc(x.type) : "")).join(" plus ")}`;
   if (e.trigger) h += `<br><span style="color:var(--dim)"><b>Trigger</b> ${esc(e.trigger)}</span>`;
   if (e.requirements) h += `<br><span style="color:var(--dim)"><b>Requirements</b> ${esc(e.requirements)}</span>`;
   if (e.frequency){
@@ -1895,6 +1925,7 @@ const TRK = (() => {
 
   /* ---------------- keyboard ---------------- */
   function key(e){
+    if (e.key === "Escape" && !$("#dpop").hidden){ hideDpop(); return true; }
     const o = $("#trkovl");
     if (!o.hidden){                           // dialog is modal to shortcuts
       if (e.key === "Escape"){ closeOvl(); return true; }
@@ -2106,6 +2137,37 @@ const TRK = (() => {
   $("#dice").addEventListener("toggle", () => {
     state.ui.diceOpen = $("#dice").open;
     save(LS.ui, state.ui);
+  });
+
+  // clickable dice in stat blocks: one delegated listener on the reading pane;
+  // rolls land in the dice history and a small popover shows the breakdown
+  let dpopTimer = null;
+  function showDpop(anchor, entry){
+    const p = $("#dpop");
+    p.innerHTML = breakdownHTML(entry);
+    p.hidden = false;
+    const r = anchor.getBoundingClientRect();
+    const x = Math.min(Math.max(8, r.left), innerWidth - p.offsetWidth - 8);
+    let y = r.top - p.offsetHeight - 6;
+    if (y < 8) y = r.bottom + 6;
+    p.style.left = x + "px"; p.style.top = y + "px";
+    clearTimeout(dpopTimer);
+    dpopTimer = setTimeout(hideDpop, 4000);
+  }
+  function hideDpop(){
+    clearTimeout(dpopTimer);
+    $("#dpop").hidden = true;
+  }
+  $("#pane").addEventListener("click", e => {
+    const b = e.target.closest(".droll");
+    if (!b) return;
+    const m = /^(\d+)d(\d+)([+-]\d+)?$/.exec(b.dataset.roll || "");
+    if (!m) return;
+    showDpop(b, doRoll({ d: +m[2], n: +m[1], mod: m[3] ? +m[3] : 0, adv: "normal" }));
+  });
+  document.addEventListener("click", e => {
+    if (!$("#dpop").hidden && !e.target.closest("#dpop") && !e.target.closest(".droll"))
+      hideDpop();
   });
 
   return { state, setMode, onDataReady, renderTrk, key,
