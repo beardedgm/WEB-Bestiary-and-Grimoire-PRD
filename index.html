@@ -417,6 +417,44 @@ body:not(.trk) .item .add{display:none}
   color:var(--faint); font:600 9px/1 var(--mono); text-transform:uppercase; letter-spacing:.07em;
 }
 
+/* combat state */
+#trkbar .go{background:var(--gilt); border-color:var(--gilt); color:#FBF6EA}
+#trkbar .chip:disabled{opacity:.45; cursor:default; pointer-events:none}
+#trkname{cursor:pointer}
+#trkname:hover{text-decoration:underline; text-decoration-color:var(--gilt)}
+.trkname-edit{
+  flex:1; min-width:0; padding:2px 5px; border-radius:2px; border:1px solid var(--gilt);
+  background:var(--paper); color:var(--ink); font:600 13px/1.2 var(--sans);
+}
+.cbt.on{background:var(--stone-3)}
+.cbt.on .cbt-init{color:var(--gilt)}
+.cbt.drag{opacity:.5}
+button.cbt-init{border:none; background:none; padding:0; cursor:pointer}
+button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gilt)}
+.cbt-init-edit{
+  flex:none; width:44px; padding:2px 3px; border-radius:2px; border:1px solid var(--gilt);
+  background:var(--paper); color:var(--ink); text-align:right;
+  font:700 13px/1.2 var(--mono);
+}
+
+/* start-combat rows */
+.srows{max-height:50vh; overflow-y:auto; margin:4px 0}
+.srow{display:flex; align-items:center; gap:8px; padding:6px 0;
+      border-bottom:1px solid var(--hair-soft)}
+.srow:last-child{border-bottom:none}
+.srnm{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+      font-weight:600; color:var(--ink); font-size:13px}
+.sbreak{flex:none; font:10.5px/1 var(--mono); color:var(--faint)}
+.stot{flex:none; min-width:24px; text-align:right;
+      font:700 14px/1 var(--mono); font-variant-numeric:tabular-nums; color:var(--ink)}
+.sinit{
+  flex:none; width:64px; padding:4px 6px; border-radius:2px; border:1px solid var(--hair);
+  background:var(--stone-3); color:var(--ink); font:13px/1.2 var(--mono); text-align:right;
+}
+.sinit:focus{outline:none; border-color:var(--gilt); box-shadow:0 0 0 2px rgba(156,124,28,.18)}
+.sinit[aria-invalid="true"]{border-color:var(--danger)}
+.sre{min-width:24px}
+
 /* inline confirm — replaces the triggering control, never window.confirm */
 .cfm{display:inline-flex; align-items:center; gap:5px; font:11px/1.2 var(--sans); color:var(--dim)}
 .cfm .chip.yes{border-color:var(--danger); color:var(--danger)}
@@ -497,10 +535,15 @@ body:not(.trk) .item .add{display:none}
   </div>
   <section id="trk" aria-label="Initiative tracker">
     <div id="trkhead">
-      <span id="trkname">Encounter</span>
+      <span id="trkname" role="button" tabindex="0"
+            aria-label="Encounter name — press Enter to rename" title="Rename">Encounter</span>
       <span id="trkround">Setup</span>
     </div>
     <div id="trkbar">
+      <button type="button" class="chip go" id="t-start" disabled>Start combat</button>
+      <button type="button" class="chip" id="t-prev" hidden aria-label="Previous turn">◀</button>
+      <button type="button" class="chip go" id="t-next" hidden>Next ▶</button>
+      <button type="button" class="chip" id="t-end" hidden>End</button>
       <button type="button" class="chip" id="t-add">Add</button>
       <span id="qtywrap"><label for="qty" aria-hidden="true">×</label><select id="qty" aria-label="How many to add">
         <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
@@ -509,6 +552,8 @@ body:not(.trk) .item .add{display:none}
       <span class="sp"></span>
       <button type="button" class="chip" id="t-undo" disabled>Undo</button>
       <button type="button" class="chip" id="t-redo" disabled>Redo</button>
+      <button type="button" class="chip" id="t-reset">Reset</button>
+      <button type="button" class="chip" id="t-clear">Clear</button>
     </div>
     <div id="trklist" role="list" aria-label="Combatants"></div>
     <div id="trkempty">No combatants yet — add monsters from the results list, or your party from the toolbar.</div>
@@ -1372,6 +1417,227 @@ const TRK = (() => {
     return true;
   }
 
+  /* ---------------- combat flow ---------------- */
+  function startCombat(map){                  // map: combatant id -> initiative
+    mutate(e => {
+      for (const c of e.combatants) if (map.has(c.id)) c.initiative = map.get(c.id);
+      sortEnc(e);
+      e.round = 1;
+      e.activeId = e.combatants[0]?.id ?? null;
+    });
+  }
+  function endCombat(){                        // back to setup; combatants and HP kept
+    mutate(e => { e.round = 0; e.activeId = null; });
+    announce("Combat ended");
+  }
+  function canPrev(){
+    const e = state.enc;
+    if (e.round < 1 || !e.combatants.length) return false;
+    const i = e.combatants.findIndex(c => c.id === e.activeId);
+    return !(i <= 0 && e.round === 1);        // can't step before combat start
+  }
+  function nextTurn(){
+    const e = state.enc;
+    if (e.round < 1 || !e.combatants.length) return;
+    mutate(x => {
+      const i = x.combatants.findIndex(c => c.id === x.activeId);
+      const n = i + 1;
+      if (n >= x.combatants.length){ x.activeId = x.combatants[0].id; x.round++; }
+      else x.activeId = x.combatants[n].id;
+    });
+    afterTurn();
+  }
+  function prevTurn(){
+    if (!canPrev()) return;                   // checked BEFORE mutate: no-ops don't pollute undo
+    mutate(x => {
+      const i = x.combatants.findIndex(c => c.id === x.activeId);
+      if (i <= 0){ x.round--; x.activeId = x.combatants[x.combatants.length - 1].id; }
+      else x.activeId = x.combatants[i - 1].id;
+    });
+    afterTurn();
+  }
+  function afterTurn(){
+    const c = byId(state.enc.activeId);
+    if (c) announce("Round " + state.enc.round + " — " + c.name + "'s turn");
+    scrollActive();
+  }
+  function scrollActive(){
+    const el = $("#trklist").querySelector(".cbt.on");
+    if (el) el.scrollIntoView({ block: "nearest" });
+  }
+  function resetEnc(){                         // keep players, drop the rest
+    mutate(e => {
+      e.combatants = e.combatants.filter(c => c.type === "player");
+      e.combatants.forEach(c => { c.initiative = 0; });
+      e.round = 0; e.activeId = null;
+    });
+    announce("Encounter reset — players kept");
+  }
+  function clearAll(){
+    mutate(e => { e.combatants = []; e.round = 0; e.activeId = null; });
+    announce("Encounter cleared");
+  }
+
+  /* ---------------- initiative editing & reorder ---------------- */
+  function setInitiative(id, v){
+    mutate(e => {
+      const c = e.combatants.find(x => x.id === id);
+      if (c) c.initiative = v;
+      sortEnc(e);                              // stable: manual tie arrangement survives
+    });
+  }
+  /* integer midpoint: the dragged combatant takes floor-ish middle ground;
+     at the edges it goes one above the top or one below the bottom */
+  function midInit(arr, i){
+    const above = i > 0 ? arr[i - 1].initiative : null;
+    const below = i < arr.length - 1 ? arr[i + 1].initiative : null;
+    if (above == null && below == null) return arr[i].initiative;
+    if (above == null) return below + 1;
+    if (below == null) return above - 1;
+    return Math.round((above + below) / 2);
+  }
+  function reorderTo(id, beforeId){            // drop ON a card = take its slot
+    if (id === beforeId) return;
+    mutate(e => {
+      const from = e.combatants.findIndex(c => c.id === id);
+      if (from < 0) return;
+      const [c] = e.combatants.splice(from, 1);
+      let to = beforeId ? e.combatants.findIndex(x => x.id === beforeId) : e.combatants.length;
+      if (to < 0) to = e.combatants.length;
+      e.combatants.splice(to, 0, c);
+      c.initiative = midInit(e.combatants, to);
+    });
+  }
+  function canMove(id, delta){
+    const e = state.enc;
+    const i = e.combatants.findIndex(c => c.id === id);
+    const j = i + delta;
+    return i >= 0 && j >= 0 && j < e.combatants.length;
+  }
+  function moveBy(id, delta){
+    if (!canMove(id, delta)) return;
+    mutate(e => {
+      const i = e.combatants.findIndex(c => c.id === id);
+      const [c] = e.combatants.splice(i, 1);
+      e.combatants.splice(i + delta, 0, c);
+      c.initiative = midInit(e.combatants, i + delta);
+    });
+  }
+  function editInit(span){
+    const card = span.closest(".cbt");
+    const c = byId(card.dataset.id);
+    if (!c || state.enc.round < 1) return;
+    const inp = document.createElement("input");
+    inp.type = "number"; inp.className = "cbt-init-edit";
+    inp.value = c.initiative;
+    inp.setAttribute("aria-label", "Initiative for " + c.name);
+    span.replaceWith(inp); inp.focus(); inp.select();
+    let done = false;
+    const commit = ok => {
+      if (done) return; done = true;
+      const v = inp.value.trim();
+      if (ok && v !== "" && Number.isFinite(+v) && Math.round(+v) !== c.initiative)
+        setInitiative(c.id, Math.round(+v));
+      else renderTrk();                        // restore without polluting undo
+    };
+    inp.onblur = () => commit(true);
+    inp.onkeydown = e => {
+      if (e.key === "Enter"){ e.preventDefault(); commit(true); }
+      else if (e.key === "Escape"){ e.stopPropagation(); commit(false); }
+    };
+  }
+  function editName(){
+    const span = $("#trkname");
+    const inp = document.createElement("input");
+    inp.className = "trkname-edit"; inp.maxLength = 80;
+    inp.value = state.enc.name;
+    inp.setAttribute("aria-label", "Encounter name");
+    span.replaceWith(inp); inp.focus(); inp.select();
+    let done = false;
+    const commit = ok => {
+      if (done) return; done = true;
+      const v = inp.value.trim();
+      inp.replaceWith(span);                  // restore BEFORE render so #trkname resolves
+      if (ok && v && v !== state.enc.name) mutate(e => { e.name = v; });
+      span.focus();
+    };
+    inp.onblur = () => commit(true);
+    inp.onkeydown = e => {
+      if (e.key === "Enter"){ e.preventDefault(); commit(true); }
+      else if (e.key === "Escape"){ e.stopPropagation(); commit(false); }
+    };
+  }
+
+  /* ---------------- start-combat modal ---------------- */
+  function openStartModal(){
+    const e = state.enc;
+    if (!e.combatants.length) return;
+    const rows = e.combatants.map(c => {
+      if (c.type === "player")
+        return `<div class="srow" data-id="${c.id}">
+          <span class="srnm">${esc(c.name)}</span>
+          <input type="number" class="sinit" min="-5" max="45" aria-label="Initiative for ${esc(c.name)}">
+        </div>`;
+      const r = d20();
+      return `<div class="srow" data-id="${c.id}" data-roll="${r}">
+        <span class="srnm">${esc(c.name)}</span>
+        <span class="sbreak">d20 ${r} ${c.initiativeModifier >= 0 ? "+" : "−"} ${Math.abs(c.initiativeModifier)}</span>
+        <span class="stot">${r + c.initiativeModifier}</span>
+        <button type="button" class="chip sre" aria-label="Reroll for ${esc(c.name)}">↻</button>
+      </div>`;
+    }).join("");
+    openOvl(`<form id="startform" novalidate>
+      <h3>Roll initiative</h3>
+      <div class="warn" id="sf-warn" hidden></div>
+      <div class="srows">${rows}</div>
+      <div class="btns">
+        <button type="button" class="chip" data-close>Cancel</button>
+        <button type="submit" class="chip yes">Begin combat</button>
+      </div>
+    </form>`);
+    const form = $("#startform");
+    form.querySelector("[data-close]").onclick = closeOvl;
+    form.addEventListener("click", ev => {
+      const b = ev.target.closest(".sre"); if (!b) return;
+      const row = b.closest(".srow");
+      const c = byId(row.dataset.id);
+      const r = d20();
+      row.dataset.roll = r;
+      row.querySelector(".sbreak").textContent =
+        `d20 ${r} ${c.initiativeModifier >= 0 ? "+" : "−"} ${Math.abs(c.initiativeModifier)}`;
+      row.querySelector(".stot").textContent = r + c.initiativeModifier;
+    });
+    form.onsubmit = ev => {
+      ev.preventDefault();
+      const map = new Map(); const missing = [];
+      form.querySelectorAll(".srow").forEach(row => {
+        const c = byId(row.dataset.id); if (!c) return;
+        const inp = row.querySelector(".sinit");
+        if (inp){
+          const v = inp.value.trim();
+          if (v === "" || !Number.isFinite(+v)){
+            missing.push(c.name); inp.setAttribute("aria-invalid", "true");
+          } else {
+            inp.setAttribute("aria-invalid", "false");
+            map.set(c.id, Math.round(+v));
+          }
+        } else map.set(c.id, +row.dataset.roll + c.initiativeModifier);
+      });
+      const w = $("#sf-warn");
+      if (missing.length){                     // visible, never silent
+        w.hidden = false;
+        w.textContent = "Enter initiative for: " + missing.join(", ");
+        form.querySelector('.sinit[aria-invalid="true"]').focus();
+        return;
+      }
+      startCombat(map);
+      closeOvl();
+      const first = byId(state.enc.activeId);
+      announce("Combat started — " + (first ? first.name + " acts first" : ""));
+      scrollActive();
+    };
+  }
+
   /* ---------------- cards ---------------- */
   function hpClass(c){
     if (c.hp.current === 0) return "";
@@ -1381,9 +1647,17 @@ const TRK = (() => {
   function cardHTML(c){
     const spine = c.type === "player" ? "pc" : (c.sys || "");
     const pct = Math.round(100 * c.hp.current / c.hp.max);
-    return `<div class="cbt ${spine}${c.status === "unconscious" ? " ko" : ""}" role="listitem" data-id="${c.id}">
+    const combat = state.enc.round >= 1;
+    const active = combat && c.id === state.enc.activeId;
+    const init = combat
+      ? `<button type="button" class="cbt-init" data-act="init"
+           aria-label="Initiative ${esc(c.initiative)} for ${esc(c.name)} — press Enter to edit">${esc(c.initiative)}</button>`
+      : `<span class="cbt-init">—</span>`;
+    return `<div class="cbt ${spine}${c.status === "unconscious" ? " ko" : ""}${active ? " on" : ""}"
+      role="listitem" tabindex="0" data-id="${c.id}" draggable="${combat}"
+      ${active ? 'aria-current="true"' : ""}>
       <div class="cbt-r1">
-        <span class="cbt-init">${state.enc.round === 0 ? "—" : esc(c.initiative)}</span>
+        ${init}
         <span class="cbt-nm">${esc(c.name)}</span>
         ${c.status === "unconscious" ? '<span class="kochip">unconscious</span>' : ""}
         <span class="cbt-ac">${c.ac == null ? "AC —" : "AC " + esc(c.ac)}</span>
@@ -1514,6 +1788,15 @@ const TRK = (() => {
     const k = e.key.toLowerCase();
     if (mod && k === "z" && !e.shiftKey){ e.preventDefault(); undo(); return true; }
     if (mod && (k === "y" || (k === "z" && e.shiftKey))){ e.preventDefault(); redo(); return true; }
+    if (e.key === " "){
+      // native activation wins when a control is focused
+      if (t && t.closest && t.closest("button,summary,a,[role=button]")) return false;
+      if (state.enc.round >= 1){ e.preventDefault(); nextTurn(); return true; }
+      return false;
+    }
+    // arrows inside the tracker column must not drive the picker
+    if ((e.key === "ArrowUp" || e.key === "ArrowDown") && t && t.closest && t.closest("#trk"))
+      return true;                             // Alt+Arrow reorder already ran at the element
     return false;
   }
 
@@ -1531,12 +1814,18 @@ const TRK = (() => {
   }
 
   function renderTrk(){
-    $("#trkname").textContent = state.enc.name;
-    $("#trkround").textContent = state.enc.round > 0 ? "Round " + state.enc.round : "Setup";
+    const e = state.enc, combat = e.round >= 1;
+    const nameEl = $("#trkname");
+    if (nameEl) nameEl.textContent = e.name;
+    $("#trkround").textContent = combat ? "Round " + e.round : "Setup";
     $("#qty").value = String(state.ui.qty);
     $("#t-undo").disabled = !hist.past.length;
     $("#t-redo").disabled = !hist.future.length;
-    $("#trklist").innerHTML = state.enc.combatants.map(cardHTML).join("");
+    $("#t-start").hidden = combat;
+    $("#t-start").disabled = !e.combatants.length;
+    $("#t-prev").hidden = $("#t-next").hidden = $("#t-end").hidden = !combat;
+    $("#t-prev").disabled = !canPrev();
+    $("#trklist").innerHTML = e.combatants.map(cardHTML).join("");
   }
 
   function onDataReady(){
@@ -1580,6 +1869,8 @@ const TRK = (() => {
     if (btn.dataset.act === "x"){
       const c = byId(id);
       confirmSwap(btn, "Remove " + (c ? c.name : "") + "?", () => removeCombatant(id));
+    } else if (btn.dataset.act === "init"){
+      editInit(btn);
     } else {
       const amt = card.querySelector(".cbt-amt");
       if (applyHP(id, amt.value, btn.dataset.act)) refocusAmt(id);
@@ -1587,16 +1878,66 @@ const TRK = (() => {
     }
   });
   $("#trklist").addEventListener("keydown", e => {
-    if (e.key !== "Enter" || !e.target.classList.contains("cbt-amt")) return;
-    e.preventDefault();
-    const id = e.target.closest(".cbt").dataset.id;
-    const kind = e.shiftKey
-      ? (state.enc.last.kind === "dmg" ? "heal" : "dmg")   // Shift+Enter = opposite
-      : state.enc.last.kind;                               // Enter = repeat last
-    if (applyHP(id, e.target.value, kind)) refocusAmt(id);
-    else flashErr(e.target);
+    if (e.altKey && (e.key === "ArrowUp" || e.key === "ArrowDown")){
+      const card = e.target.closest(".cbt");
+      if (!card || state.enc.round < 1) return;
+      e.preventDefault();
+      const id = card.dataset.id;
+      moveBy(id, e.key === "ArrowUp" ? -1 : 1);
+      const el = $("#trklist").querySelector(`.cbt[data-id="${id}"]`);
+      if (el) el.focus();
+      return;
+    }
+    if (e.key !== "Enter") return;
+    if (e.target.classList.contains("cbt-amt")){
+      e.preventDefault();
+      const id = e.target.closest(".cbt").dataset.id;
+      const kind = e.shiftKey
+        ? (state.enc.last.kind === "dmg" ? "heal" : "dmg") // Shift+Enter = opposite
+        : state.enc.last.kind;                             // Enter = repeat last
+      if (applyHP(id, e.target.value, kind)) refocusAmt(id);
+      else flashErr(e.target);
+    } else if (e.target.classList.contains("cbt") && state.enc.round >= 1){
+      e.preventDefault();
+      const b = e.target.querySelector(".cbt-init");
+      if (b) editInit(b);
+    }
   });
 
+  // drag reorder (combat only; keyboard parity is Alt+Arrow above)
+  let dragId = null;
+  $("#trklist").addEventListener("dragstart", e => {
+    const card = e.target.closest(".cbt");
+    if (!card || state.enc.round < 1){ e.preventDefault(); return; }
+    dragId = card.dataset.id;
+    e.dataTransfer.effectAllowed = "move";
+    card.classList.add("drag");
+  });
+  $("#trklist").addEventListener("dragover", e => {
+    if (dragId){ e.preventDefault(); e.dataTransfer.dropEffect = "move"; }
+  });
+  $("#trklist").addEventListener("drop", e => {
+    if (!dragId) return;
+    e.preventDefault();
+    const over = e.target.closest(".cbt");
+    reorderTo(dragId, over ? over.dataset.id : null);
+    dragId = null;
+  });
+  $("#trklist").addEventListener("dragend", () => { dragId = null; renderTrk(); });
+
+  $("#t-start").onclick = openStartModal;
+  $("#t-next").onclick = nextTurn;
+  $("#t-prev").onclick = prevTurn;
+  $("#t-end").onclick = () =>
+    confirmSwap($("#t-end"), "End combat?", endCombat);
+  $("#t-reset").onclick = () =>
+    confirmSwap($("#t-reset"), "Remove all monsters and NPCs?", resetEnc);
+  $("#t-clear").onclick = () =>
+    confirmSwap($("#t-clear"), "Remove everyone?", clearAll);
+  $("#trkname").onclick = editName;
+  $("#trkname").addEventListener("keydown", e => {
+    if (e.key === "Enter"){ e.preventDefault(); editName(); }
+  });
   $("#t-add").onclick = () => openAddForm();
   $("#t-undo").onclick = undo;
   $("#t-redo").onclick = redo;
@@ -1607,8 +1948,10 @@ const TRK = (() => {
 
   return { state, setMode, onDataReady, renderTrk, key,
            mutate, undo, redo, addMany, addFromView, removeCombatant, applyHP,
-           initModOf, acOf, hpOf, openAddForm, closeOvl,
-           _test: { vEnc, vParty, vPresets, vDice, vUi, autoName, hpClass } };
+           startCombat, endCombat, nextTurn, prevTurn, canPrev,
+           setInitiative, reorderTo, moveBy, resetEnc, clearAll,
+           initModOf, acOf, hpOf, openAddForm, openStartModal, closeOvl,
+           _test: { vEnc, vParty, vPresets, vDice, vUi, autoName, hpClass, midInit } };
 })();
 /* const bindings don't become window properties; the start()/keydown hooks in
    the first script test window.TRK so they stay no-ops if this block is absent */
