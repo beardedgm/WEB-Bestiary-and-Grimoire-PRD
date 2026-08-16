@@ -4,7 +4,7 @@ A queryable dataset of **9,339 monsters and spells** drawn from Dungeons & Drago
 Edition and Pathfinder 2nd Edition, normalised into two JSON schemas that are shared
 across both game systems.
 
-**[Browse all 9,339 records →](https://beardedgm.github.io/TTRPG-Creature-and-Spell-Data/)**
+**[Browse all 9,339 records →](https://beardedgm.github.io/WEB-Bestiary-and-Grimoire-PRD/)**
 
 This is meant to be used as a **database** — the information source you build tools on
 top of. Encounter builders, spell lookups, random generators, VTT importers, statistical
