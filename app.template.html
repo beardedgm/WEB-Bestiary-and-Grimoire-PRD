@@ -346,6 +346,109 @@ body.trk #trk{
 /* load-bearing: an author display rule on these would defeat the hidden attribute */
 #trkbar[hidden], #dice[hidden], #trkovl[hidden], #pdisp[hidden]{display:none}
 
+/* toolbar */
+#trkbar{
+  display:flex; flex-wrap:wrap; align-items:center; gap:5px;
+  padding:9px 12px; border-bottom:1px solid var(--hair); background:var(--stone-3);
+}
+#trkbar .sp{flex:1}
+#qtywrap{display:flex; align-items:center; gap:4px; min-height:24px;
+         color:var(--dim); font:600 10px/1 var(--mono)}
+#qty{
+  padding:4px 6px; border-radius:2px; border:1px solid var(--hair);
+  background:var(--stone); color:var(--ink); font:11.5px/1.3 var(--mono);
+}
+#qty:focus{outline:none; border-color:var(--gilt); box-shadow:0 0 0 2px rgba(156,124,28,.18)}
+
+/* add-to-encounter button on result rows (tracker mode only) */
+.item .add{
+  flex:none; width:24px; height:24px; margin:-4px -6px -4px 0;
+  border:1px solid var(--hair); border-radius:2px; background:var(--stone-3);
+  color:var(--dim); font:700 14px/1 var(--mono); cursor:pointer;
+}
+.item .add:hover{border-color:var(--gilt); color:var(--ink)}
+body:not(.trk) .item .add{display:none}
+
+/* combatant cards — the spine metaphor from the results list */
+.cbt{
+  padding:8px 12px 9px 9px; border-bottom:1px solid var(--hair-soft);
+  border-left:3px solid var(--hair);
+}
+.cbt.dnd5e{border-left-color:var(--brick)}
+.cbt.pf2e{border-left-color:var(--olive)}
+.cbt.pc{border-left-color:var(--gilt)}
+.cbt-r1{display:flex; align-items:baseline; gap:8px}
+.cbt-init{
+  flex:none; min-width:26px; text-align:right; color:var(--ink);
+  font:700 15px/1.2 var(--mono); font-variant-numeric:tabular-nums;
+}
+.cbt-nm{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis;
+        white-space:nowrap; font-weight:600; color:var(--ink)}
+.cbt-ac{flex:none; font:600 10.5px/1 var(--mono); color:var(--dim);
+        font-variant-numeric:tabular-nums}
+.cbt-x{
+  flex:none; width:24px; height:24px; border:none; background:none; border-radius:2px;
+  color:var(--faint); font:14px/1 var(--mono); cursor:pointer; align-self:center;
+}
+.cbt-x:hover{color:var(--danger); background:var(--stone-2)}
+.cbt-r2{display:flex; align-items:center; gap:7px; margin:6px 0 0 34px}
+.hpbar{flex:1; height:4px; border-radius:2px; background:var(--stone-2);
+       border:1px solid var(--hair-soft); overflow:hidden}
+.hpbar i{display:block; height:100%}
+.hp-hi{background:var(--olive)} .hp-mid{background:var(--gilt)} .hp-lo{background:var(--brick)}
+.cbt-hp{flex:none; min-width:44px; font:11px/1 var(--mono); color:var(--dim);
+        font-variant-numeric:tabular-nums}
+.cbt-amt{
+  width:46px; padding:3px 4px; border-radius:2px; border:1px solid var(--hair);
+  background:var(--paper); color:var(--ink); font:12px/1.2 var(--mono); text-align:right;
+}
+.cbt-amt:focus{outline:none; border-color:var(--gilt); box-shadow:0 0 0 2px rgba(156,124,28,.18)}
+.cbt-amt.err{border-color:var(--danger); box-shadow:0 0 0 2px rgba(156,48,32,.15)}
+.cbt .dmg,.cbt .heal{
+  width:24px; height:24px; border-radius:2px; border:1px solid var(--hair);
+  background:var(--stone-3); color:var(--ink); font:700 13px/1 var(--mono); cursor:pointer;
+}
+.cbt .dmg:hover{border-color:var(--danger); color:var(--danger)}
+.cbt .heal:hover{border-color:var(--olive); color:var(--olive)}
+.cbt.ko{opacity:.75}
+.cbt.ko .cbt-nm{color:var(--dim)}
+.kochip{
+  flex:none; padding:2px 5px; border:1px solid var(--hair); border-radius:2px;
+  color:var(--faint); font:600 9px/1 var(--mono); text-transform:uppercase; letter-spacing:.07em;
+}
+
+/* inline confirm — replaces the triggering control, never window.confirm */
+.cfm{display:inline-flex; align-items:center; gap:5px; font:11px/1.2 var(--sans); color:var(--dim)}
+.cfm .chip.yes{border-color:var(--danger); color:var(--danger)}
+.cfm .chip.yes:hover{background:var(--danger); color:var(--paper)}
+
+/* overlay + dialog — a sheet laid on the table */
+#trkovl{
+  position:fixed; inset:0; z-index:40; background:rgba(36,33,28,.35);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.dlg{
+  width:min(360px, 100%); max-height:85vh; overflow-y:auto;
+  background:var(--paper); border:1px solid var(--paper-edge); border-radius:2px;
+  padding:20px 22px;
+  box-shadow:0 1px 2px rgba(36,33,28,.07), 0 14px 30px -12px rgba(36,33,28,.3);
+}
+.dlg h3{margin:0 0 12px; color:var(--ink);
+        font:600 18px/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em}
+.dlg label{display:block; margin:9px 0; color:var(--dim); font-size:12px}
+.dlg label input,.dlg label select{
+  display:block; width:100%; margin-top:3px; padding:7px 9px; border-radius:2px;
+  border:1px solid var(--hair); background:var(--stone-3); color:var(--ink);
+  font:13.5px/1.3 var(--sans);
+}
+.dlg label input:focus,.dlg label select:focus{
+  outline:none; border-color:var(--gilt); box-shadow:0 0 0 2px rgba(156,124,28,.18)}
+.dlg .row2{display:flex; gap:10px}
+.dlg .row2 label{flex:1}
+.dlg .btns{display:flex; gap:6px; justify-content:flex-end; margin-top:14px}
+.dlg .warn{margin:0 0 10px}
+.dlg .chip.yes{background:var(--gilt); border-color:var(--gilt); color:#FBF6EA}
+
 @media (max-width:760px){
   body.trk #trk{width:100%; order:-1; border-right:none; border-bottom:1px solid var(--hair)}
   body.trk #trklist{max-height:60vh}
@@ -397,7 +500,16 @@ body.trk #trk{
       <span id="trkname">Encounter</span>
       <span id="trkround">Setup</span>
     </div>
-    <div id="trkbar" hidden></div>
+    <div id="trkbar">
+      <button type="button" class="chip" id="t-add">Add</button>
+      <span id="qtywrap"><label for="qty" aria-hidden="true">×</label><select id="qty" aria-label="How many to add">
+        <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
+        <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
+      </select></span>
+      <span class="sp"></span>
+      <button type="button" class="chip" id="t-undo" disabled>Undo</button>
+      <button type="button" class="chip" id="t-redo" disabled>Redo</button>
+    </div>
     <div id="trklist" role="list" aria-label="Combatants"></div>
     <div id="trkempty">No combatants yet — add monsters from the results list, or your party from the toolbar.</div>
     <span id="trklive" class="vh" role="status" aria-live="polite"></span>
@@ -701,7 +813,10 @@ function renderList(){
   L.innerHTML = shown.map((r,i) =>
     `<div class="item ${r.gameSystem}" role="option" id="opt-${i}" aria-selected="false" data-i="${i}">
        <span class="nm">${esc(r.name)}</span>
-       <span class="lv">${esc(r.variant||"")} · ${esc(tag(r))}</span>
+       <span class="lv">${esc(r.variant||"")} · ${esc(tag(r))}</span>${
+       // mouse affordance for the tracker; hidden from AT because a focusable
+       // child would break the option role — keyboard adds via Enter on the listbox
+       r._kind === "monster" ? '<button class="add" type="button" tabindex="-1" aria-hidden="true" title="Add to encounter">+</button>' : ""}
      </div>`).join("");
   L.querySelectorAll(".item[data-i]").forEach(el =>
     el.onclick = () => pick(+el.dataset.i));
@@ -987,6 +1102,7 @@ function metaHTML(r){
 $("#q").addEventListener("input", refresh);
 $("#deep").addEventListener("change", refresh);
 document.addEventListener("keydown", e => {
+  if (window.TRK && TRK.key(e)) return;      // tracker gets first refusal
   if (e.key === "/" && document.activeElement !== $("#q")){ e.preventDefault(); $("#q").focus(); return; }
   if (e.key === "Escape"){ $("#q").value=""; refresh(); $("#q").focus(); return; }
   if (e.key === "ArrowDown" || e.key === "ArrowUp"){
@@ -1112,6 +1228,268 @@ const TRK = (() => {
     ui:      vUi(load(LS.ui, null)),
   };
 
+  /* ---------------- shared helpers ---------------- */
+  const announce = m => { const el = $("#trklive"); el.textContent = ""; el.textContent = m; };
+  const byId = id => state.enc.combatants.find(c => c.id === id);
+  const d20 = () => 1 + Math.floor(Math.random() * 20);
+
+  /* Combatant stats from a record. The per-system initiative rule lives here:
+     PF2e rolls initiative on Perception; 5e on DEX, except the 2025 SRD which
+     prints an explicit modifier (systemExtras.initiative). */
+  function initModOf(r){
+    if (r.gameSystem === "pf2e") return r.perception?.mod ?? 0;
+    return r.systemExtras?.initiative ?? r.abilityMods?.dex ?? 0;
+  }
+  const acOf = r => r.defenses?.ac?.value ?? null;
+  const hpOf = r => r.defenses?.hp?.[0]?.value ?? null;
+
+  /* ---------------- undo ring ---------------- */
+  /* mutate() is the single choke point: every encounter change passes through
+     it, so undo coverage is structural — reset and preset-load included. */
+  const hist = { past: [], future: [] };
+  function mutate(fn){
+    hist.past.push(JSON.stringify(state.enc));
+    if (hist.past.length > 50) hist.past.shift();
+    hist.future.length = 0;
+    fn(state.enc);
+    state.enc = vEnc(state.enc);             // self-heal after every mutation
+    save(LS.enc, state.enc);
+    renderTrk(); pdPush();
+  }
+  function undo(){
+    if (!hist.past.length) return;
+    hist.future.push(JSON.stringify(state.enc));
+    state.enc = vEnc(JSON.parse(hist.past.pop()));
+    save(LS.enc, state.enc); renderTrk(); pdPush(); announce("Undone");
+  }
+  function redo(){
+    if (!hist.future.length) return;
+    hist.past.push(JSON.stringify(state.enc));
+    state.enc = vEnc(JSON.parse(hist.future.pop()));
+    save(LS.enc, state.enc); renderTrk(); pdPush(); announce("Redone");
+  }
+  function pdPush(){ /* player display — phase F */ }
+
+  /* ---------------- naming ---------------- */
+  /* "Goblin", then another goblin: the first retroactively becomes "Goblin 1"
+     and numbering continues from the highest existing number. */
+  function autoName(e, base, want){
+    const rx = new RegExp("^" + base.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "( (\\d+))?$");
+    let plain = null; const nums = [];
+    for (const c of e.combatants){
+      const m = c.name.match(rx);
+      if (!m) continue;
+      if (m[2] == null) plain = c; else nums.push(+m[2]);
+    }
+    if (!plain && !nums.length && want === 1) return [base];
+    if (plain){ plain.name = base + " 1"; nums.push(1); }
+    let n = nums.length ? Math.max(...nums) : 0;
+    return Array.from({length: want}, () => base + " " + (++n));
+  }
+
+  /* ---------------- actions ---------------- */
+  const sortEnc = e => e.combatants.sort((a,b) => b.initiative - a.initiative); // stable: ties keep order
+  function addMany(spec, count){
+    const n = Math.min(10, Math.max(1, int(count, 1)));
+    mutate(e => {
+      const names = autoName(e, spec.name, n);
+      for (const nm of names){
+        const mid = e.round >= 1 && spec.type !== "player";   // mid-combat adds roll in
+        e.combatants.push({
+          id: "c" + (++e.seq), name: nm, type: spec.type,
+          initiative: mid ? d20() + spec.mod : 0,
+          initiativeModifier: spec.mod,
+          ac: spec.ac, hp: { current: spec.hpMax, max: spec.hpMax },
+          status: "normal", ref: spec.ref ?? null, sys: spec.sys ?? null,
+        });
+      }
+      if (e.round >= 1) sortEnc(e);
+    });
+    announce(n === 1 ? spec.name + " added" : spec.name + " ×" + n + " added");
+  }
+  function addFromView(i){
+    const r = view[i];
+    if (!r || r._kind !== "monster") return;
+    const hp = hpOf(r);
+    if (hp == null){                 // ~95 PF2e hazard-like records: never fabricate HP
+      openAddForm({ name: r.name, type: "monster", mod: initModOf(r),
+                    ac: acOf(r), ref: r.id, sys: r.gameSystem });
+      return;
+    }
+    addMany({ name: r.name, type: "monster", hpMax: hp, ac: acOf(r),
+              mod: initModOf(r), ref: r.id, sys: r.gameSystem }, state.ui.qty);
+  }
+  function removeCombatant(id){
+    mutate(e => {
+      const i = e.combatants.findIndex(c => c.id === id);
+      if (i < 0) return;
+      const wasActive = e.activeId === id;
+      const nm = e.combatants[i].name;
+      e.combatants.splice(i, 1);
+      if (wasActive)                             // positional repair, not a turn
+        e.activeId = e.combatants.length
+          ? e.combatants[Math.min(i, e.combatants.length - 1)].id : null;
+      announce(nm + " removed");
+    });
+  }
+  function applyHP(id, amount, kind){
+    const amt = Math.abs(int(amount, 0));
+    if (!amt) return false;
+    mutate(e => {
+      const c = e.combatants.find(x => x.id === id);
+      if (!c) return;
+      c.hp.current = Math.min(c.hp.max, Math.max(0, c.hp.current + (kind === "heal" ? amt : -amt)));
+      e.last = { kind: kind === "heal" ? "heal" : "dmg" };
+      announce(c.name + (kind === "heal" ? " healed to " : " damaged to ") + c.hp.current + " HP");
+    });
+    return true;
+  }
+
+  /* ---------------- cards ---------------- */
+  function hpClass(c){
+    if (c.hp.current === 0) return "";
+    const p = c.hp.current / c.hp.max;
+    return p > .5 ? "hp-hi" : p > .25 ? "hp-mid" : "hp-lo";
+  }
+  function cardHTML(c){
+    const spine = c.type === "player" ? "pc" : (c.sys || "");
+    const pct = Math.round(100 * c.hp.current / c.hp.max);
+    return `<div class="cbt ${spine}${c.status === "unconscious" ? " ko" : ""}" role="listitem" data-id="${c.id}">
+      <div class="cbt-r1">
+        <span class="cbt-init">${state.enc.round === 0 ? "—" : esc(c.initiative)}</span>
+        <span class="cbt-nm">${esc(c.name)}</span>
+        ${c.status === "unconscious" ? '<span class="kochip">unconscious</span>' : ""}
+        <span class="cbt-ac">${c.ac == null ? "AC —" : "AC " + esc(c.ac)}</span>
+        <button type="button" class="cbt-x" data-act="x" aria-label="Remove ${esc(c.name)}">✕</button>
+      </div>
+      <div class="cbt-r2">
+        <span class="hpbar"><i class="${hpClass(c)}" style="width:${pct}%"></i></span>
+        <span class="cbt-hp">${c.hp.current}/${c.hp.max}</span>
+        <input class="cbt-amt" type="number" min="0" inputmode="numeric"
+               aria-label="Hit point amount for ${esc(c.name)}">
+        <button type="button" class="dmg" data-act="dmg" aria-label="Damage ${esc(c.name)}">−</button>
+        <button type="button" class="heal" data-act="heal" aria-label="Heal ${esc(c.name)}">+</button>
+      </div>
+    </div>`;
+  }
+
+  /* ---------------- inline confirm (never window.confirm) ---------------- */
+  function confirmSwap(btn, label, onYes){
+    const host = document.createElement("span");
+    host.className = "cfm";
+    host.innerHTML = `<span>${esc(label)}</span>` +
+      `<button type="button" class="chip yes">Yes</button>` +
+      `<button type="button" class="chip">No</button>`;
+    const [yes, no] = host.querySelectorAll("button");
+    const t = setTimeout(revert, 5000);
+    function revert(){ clearTimeout(t); host.replaceWith(btn); btn.focus(); }
+    yes.onclick = () => { clearTimeout(t); onYes(); };
+    no.onclick = revert;
+    host.addEventListener("keydown", e => {
+      if (e.key === "Escape"){ e.stopPropagation(); revert(); } });
+    btn.replaceWith(host);
+    yes.focus();
+  }
+
+  /* ---------------- overlay ---------------- */
+  let ovlReturn = null;
+  function openOvl(html){
+    ovlReturn = document.activeElement;
+    const o = $("#trkovl");
+    o.innerHTML = `<div class="dlg" role="dialog" aria-modal="true">${html}</div>`;
+    o.hidden = false;
+    o.onclick = e => { if (e.target === o) closeOvl(); };
+    const f = o.querySelector("input,select,textarea,button");
+    if (f) f.focus();
+  }
+  function closeOvl(){
+    const o = $("#trkovl");
+    if (o.hidden) return;
+    o.hidden = true; o.innerHTML = ""; o.onclick = null;
+    if (ovlReturn && ovlReturn.isConnected) ovlReturn.focus();
+    ovlReturn = null;
+  }
+
+  /* ---------------- add form ---------------- */
+  function openAddForm(pre = {}){
+    const opts = n => Array.from({length: 10}, (_, i) =>
+      `<option${i + 1 === n ? " selected" : ""}>${i + 1}</option>`).join("");
+    openOvl(`<form id="addform" novalidate>
+      <h3>Add combatant</h3>
+      <div class="warn" id="af-warn" hidden></div>
+      <label>Name <input name="name" maxlength="80" value="${esc(pre.name ?? "")}"></label>
+      <label>Type <select name="type">
+        <option value="player"${!pre.type || pre.type === "player" ? " selected" : ""}>Player</option>
+        <option value="npc"${pre.type === "npc" ? " selected" : ""}>NPC</option>
+        <option value="monster"${pre.type === "monster" ? " selected" : ""}>Monster</option>
+      </select></label>
+      <div class="row2">
+        <label>Max HP <input name="hp" type="number" min="1" max="99999" value="${pre.hpMax ?? ""}"></label>
+        <label>AC <input name="ac" type="number" min="0" max="99" value="${pre.ac ?? ""}"></label>
+      </div>
+      <div class="row2">
+        <label>Initiative modifier <input name="mod" type="number" min="-10" max="50" value="${esc(pre.mod ?? 0)}"></label>
+        <label>Count <select name="count">${opts(pre.ref ? 1 : state.ui.qty)}</select></label>
+      </div>
+      <div class="btns">
+        <button type="button" class="chip" data-close>Cancel</button>
+        <button type="submit" class="chip yes">Add</button>
+      </div>
+    </form>`);
+    const form = $("#addform");
+    form.dataset.ref = pre.ref ?? ""; form.dataset.sys = pre.sys ?? "";
+    form.querySelector("[data-close]").onclick = closeOvl;
+    form.onsubmit = ev => {
+      ev.preventDefault();
+      const fd = new FormData(form);
+      const name = String(fd.get("name") || "").trim();
+      const hp = int(fd.get("hp"), 0);
+      const errs = [];
+      if (!name) errs.push("a name");
+      if (hp < 1) errs.push("max HP");
+      form.querySelector("[name=name]").setAttribute("aria-invalid", String(!name));
+      form.querySelector("[name=hp]").setAttribute("aria-invalid", String(hp < 1));
+      const w = $("#af-warn");
+      if (errs.length){                        // visible validation, never silent
+        w.hidden = false;
+        w.textContent = "Enter " + errs.join(" and ") + ".";
+        form.querySelector(errs[0] === "a name" ? "[name=name]" : "[name=hp]").focus();
+        return;
+      }
+      const acRaw = String(fd.get("ac") ?? "").trim();
+      addMany({ name, type: String(fd.get("type")), hpMax: hp,
+                ac: acRaw === "" ? null : int(acRaw, null),
+                mod: Math.min(50, Math.max(-10, int(fd.get("mod"), 0))),
+                ref: form.dataset.ref || null, sys: form.dataset.sys || null },
+              int(fd.get("count"), 1));
+      closeOvl();
+    };
+  }
+
+  /* ---------------- keyboard ---------------- */
+  function key(e){
+    const o = $("#trkovl");
+    if (!o.hidden){                           // dialog is modal to shortcuts
+      if (e.key === "Escape"){ closeOvl(); return true; }
+      if (e.key === "Tab"){
+        const f = [...o.querySelectorAll("input,select,textarea,button")].filter(x => !x.disabled);
+        if (f.length){
+          if (!e.shiftKey && document.activeElement === f[f.length - 1]){ e.preventDefault(); f[0].focus(); }
+          else if (e.shiftKey && document.activeElement === f[0]){ e.preventDefault(); f[f.length - 1].focus(); }
+        }
+      }
+      return true;                            // native typing unaffected; app shortcuts swallowed
+    }
+    const t = e.target;
+    if (t && t.closest && (t.closest("input,textarea,select") || t.isContentEditable)) return false;
+    if (state.ui.mode !== "track") return false;
+    const mod = e.ctrlKey || e.metaKey;
+    const k = e.key.toLowerCase();
+    if (mod && k === "z" && !e.shiftKey){ e.preventDefault(); undo(); return true; }
+    if (mod && (k === "y" || (k === "z" && e.shiftKey))){ e.preventDefault(); redo(); return true; }
+    return false;
+  }
+
   /* ---------------- mode ---------------- */
   function setMode(m){
     state.ui.mode = m === "track" ? "track" : "browse";
@@ -1128,7 +1506,10 @@ const TRK = (() => {
   function renderTrk(){
     $("#trkname").textContent = state.enc.name;
     $("#trkround").textContent = state.enc.round > 0 ? "Round " + state.enc.round : "Setup";
-    /* combatant cards arrive in Phase A */
+    $("#qty").value = String(state.ui.qty);
+    $("#t-undo").disabled = !hist.past.length;
+    $("#t-redo").disabled = !hist.future.length;
+    $("#trklist").innerHTML = state.enc.combatants.map(cardHTML).join("");
   }
 
   function onDataReady(){
@@ -1139,8 +1520,68 @@ const TRK = (() => {
   $("#m-browse").onclick = () => setMode("browse");
   $("#m-track").onclick = () => setMode("track");
 
-  return { state, setMode, onDataReady, renderTrk,
-           _test: { vEnc, vParty, vPresets, vDice, vUi } };
+  // picker: capture phase so the row's own click (pick) never fires for +
+  $("#list").addEventListener("click", e => {
+    const b = e.target.closest(".add");
+    if (!b || !document.body.classList.contains("trk")) return;
+    e.stopPropagation();
+    addFromView(+b.closest(".item").dataset.i);
+  }, true);
+  // keyboard path: Enter on the listbox adds the active option
+  $("#list").addEventListener("keydown", e => {
+    if (e.key !== "Enter" || state.ui.mode !== "track") return;
+    const id = $("#list").getAttribute("aria-activedescendant");
+    const el = id && document.getElementById(id);
+    if (el && el.dataset.i != null){ e.preventDefault(); addFromView(+el.dataset.i); }
+  });
+
+  // combatant list actions
+  function flashErr(inp){
+    inp.classList.add("err");
+    setTimeout(() => inp.classList.remove("err"), 600);
+    inp.focus();
+  }
+  const refocusAmt = id => {
+    const el = $("#trklist").querySelector(`.cbt[data-id="${id}"] .cbt-amt`);
+    if (el) el.focus();
+  };
+  $("#trklist").addEventListener("click", e => {
+    const btn = e.target.closest("[data-act]");
+    if (!btn) return;
+    const card = btn.closest(".cbt"); if (!card) return;
+    const id = card.dataset.id;
+    if (btn.dataset.act === "x"){
+      const c = byId(id);
+      confirmSwap(btn, "Remove " + (c ? c.name : "") + "?", () => removeCombatant(id));
+    } else {
+      const amt = card.querySelector(".cbt-amt");
+      if (applyHP(id, amt.value, btn.dataset.act)) refocusAmt(id);
+      else flashErr(amt);
+    }
+  });
+  $("#trklist").addEventListener("keydown", e => {
+    if (e.key !== "Enter" || !e.target.classList.contains("cbt-amt")) return;
+    e.preventDefault();
+    const id = e.target.closest(".cbt").dataset.id;
+    const kind = e.shiftKey
+      ? (state.enc.last.kind === "dmg" ? "heal" : "dmg")   // Shift+Enter = opposite
+      : state.enc.last.kind;                               // Enter = repeat last
+    if (applyHP(id, e.target.value, kind)) refocusAmt(id);
+    else flashErr(e.target);
+  });
+
+  $("#t-add").onclick = () => openAddForm();
+  $("#t-undo").onclick = undo;
+  $("#t-redo").onclick = redo;
+  $("#qty").onchange = e => {
+    state.ui.qty = Math.min(10, Math.max(1, int(e.target.value, 1)));
+    save(LS.ui, state.ui);
+  };
+
+  return { state, setMode, onDataReady, renderTrk, key,
+           mutate, undo, redo, addMany, addFromView, removeCombatant, applyHP,
+           initModOf, acOf, hpOf, openAddForm, closeOvl,
+           _test: { vEnc, vParty, vPresets, vDice, vUi, autoName, hpClass } };
 })();
 /* const bindings don't become window properties; the start()/keydown hooks in
    the first script test window.TRK so they stay no-ops if this block is absent */
