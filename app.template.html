@@ -565,6 +565,12 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 .dlg .warn{margin:0 0 10px}
 .dlg .chip.yes{background:var(--gilt); border-color:var(--gilt); color:#FBF6EA}
 
+/* player display layer + the #pd fallback page mode */
+#pdisp{position:fixed; inset:0; z-index:60}
+.dlg .dlghint{margin:0 0 6px; color:var(--dim); font-size:12.5px}
+body.pd header, body.pd #side, body.pd #trk, body.pd #pane,
+body.pd #dpop, body.pd #trkovl, body.pd #load{display:none !important}
+
 @media (max-width:760px){
   body.trk #trk{width:100%; order:-1; border-right:none; border-bottom:1px solid var(--hair)}
   body.trk #trklist{max-height:60vh}
@@ -629,6 +635,7 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
       </select></span>
       <button type="button" class="chip" id="t-party">Party</button>
       <button type="button" class="chip" id="t-presets">Saved</button>
+      <button type="button" class="chip" id="t-pd">Display</button>
       <span class="sp"></span>
       <button type="button" class="chip" id="t-undo" disabled>Undo</button>
       <button type="button" class="chip" id="t-redo" disabled>Redo</button>
@@ -667,7 +674,7 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
   </section>
   <div id="pane" class="empty">Select an entry</div>
   <div id="trkovl" hidden></div>
-  <div id="pdisp" hidden></div>
+  <div id="pdisp" class="pdroot" hidden></div>
   <div id="dpop" hidden></div>
 </main>
 
@@ -1454,7 +1461,161 @@ const TRK = (() => {
     state.enc = vEnc(JSON.parse(hist.future.pop()));
     save(LS.enc, state.enc); renderTrk(); pdPush(); announce("Redone");
   }
-  function pdPush(){ /* player display — phase F */ }
+  /* ---------------- player display ---------------- */
+  /* One renderer, three surfaces: a fullscreen layer on this screen, a child
+     window scripted directly from here (same-origin, no sync machinery), and
+     a #pd fallback page that polls localStorage — for the file:// cases where
+     a blank child window can't be scripted. Never shows an HP number. */
+  const PD_MODE = location.hash === "#pd";
+  let pw = null;
+
+  function badgeOf(c){
+    if (c.type === "player") return null;          // players are never described
+    if (c.hp.current === 0) return "Unconscious";
+    if (c.hp.current / c.hp.max <= .25) return "Bloody";
+    if (c.hp.current < c.hp.max) return "Hurt";
+    return null;                                   // healthy carries no badge
+  }
+  function pdHTML(enc){
+    const head = `<div class="pdhead"><span>${esc(enc.name)}</span>` +
+                 (enc.round >= 1 ? `<span>Round ${esc(enc.round)}</span>` : "") + `</div>`;
+    if (enc.round < 1){
+      const pcs = enc.combatants.filter(c => c.type === "player");
+      return head + `<div class="pdwait"><span>The GM is preparing the encounter…</span>` +
+        (pcs.length ? `<div class="pdpcs">${pcs.map(c => esc(c.name)).join(" · ")}</div>` : "") +
+        `</div>`;
+    }
+    if (!enc.combatants.length)
+      return head + `<div class="pdwait"><span>Combat in progress…</span></div>`;
+    const rows = enc.combatants.map(c => {
+      const b = badgeOf(c);
+      return `<div class="pdrow${c.id === enc.activeId ? " on" : ""}${c.hp.current === 0 ? " uncon" : ""}">
+        <span class="pdinit">${esc(c.initiative)}</span>
+        <span class="pdnm">${esc(c.name)}</span>
+        ${b ? `<span class="pdbadge ${b.toLowerCase()}">${b}</span>` : ""}
+      </div>`;
+    }).join("");
+    return head + `<div class="pdrows">${rows}</div>`;
+  }
+  function pdCSS(){
+    const g = t => getComputedStyle(document.documentElement).getPropertyValue(t).trim();
+    const ink = g("--ink"), st3 = g("--stone-3"), st2 = g("--stone-2"),
+          gilt = g("--gilt"), brick = g("--brick"), faint = g("--faint"),
+          sans = g("--sans"), serif = g("--serif"), mono = g("--mono");
+    return `
+.pdbody{margin:0;height:100vh;background:${ink};overflow:hidden}
+.pdroot{height:100%;background:${ink};color:${st3};font-family:${sans};overflow:hidden;
+  display:flex;flex-direction:column}
+.pdroot .pdhead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:14px 22px;border-bottom:1px solid rgba(242,241,237,.16);
+  font-family:${serif};font-variant:small-caps;letter-spacing:.05em;font-size:22px;color:${st2}}
+.pdroot .pdrows{flex:1;display:flex;flex-direction:column;justify-content:center;
+  padding:10px 22px;min-height:0}
+.pdroot .pdrow{display:flex;align-items:baseline;gap:.55em;
+  font-size:var(--pd-fs,30px);line-height:1.35;padding:.1em .35em;
+  border-left:.14em solid transparent}
+.pdroot .pdrow.on{border-left-color:${gilt};background:rgba(156,124,28,.12)}
+.pdroot .pdinit{min-width:1.5em;text-align:right;font-family:${mono};font-weight:700;
+  font-variant-numeric:tabular-nums;color:${gilt};font-size:.85em}
+.pdroot .pdnm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  font-weight:600}
+.pdroot .pdrow.uncon .pdnm{color:${faint}}
+.pdroot .pdbadge{flex:none;align-self:center;font-family:${mono};font-size:.34em;
+  font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  padding:.45em .8em;border-radius:.25em}
+.pdroot .pdbadge.hurt{background:${gilt};color:#241E0C}
+.pdroot .pdbadge.bloody{background:${brick};color:#FBF6EA}
+.pdroot .pdbadge.unconscious{background:none;border:1px solid ${faint};color:${st3}}
+.pdroot .pdwait{flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:.8em;padding:20px;
+  font-family:${serif};font-style:italic;font-size:26px;color:${st2};text-align:center}
+.pdroot .pdpcs{font-family:${sans};font-style:normal;font-size:20px;color:${st2};opacity:.75}
+.pddead{position:fixed;left:0;right:0;bottom:0;padding:10px;text-align:center;
+  background:${brick};color:#FBF6EA;font:600 14px ${sans}}`;
+  }
+  function ensurePdStyle(doc){
+    if (doc.getElementById("pdstyle")) return;
+    const s = doc.createElement("style");
+    s.id = "pdstyle"; s.textContent = pdCSS();
+    doc.head.appendChild(s);
+  }
+  /* the old tracker's best idea: scale type to fill the screen from the
+     combatant count, so a 4-row board and a 12-row board both fill a TV */
+  function scalePd(root, h){
+    const rows = root.querySelectorAll(".pdrow").length;
+    const head = root.querySelector(".pdhead");
+    const n = Math.max(4, rows);
+    const fs = Math.max(16, Math.min(72, (h - (head ? head.offsetHeight : 0) - 24) / n / 1.65));
+    root.style.setProperty("--pd-fs", fs.toFixed(1) + "px");
+  }
+  function pdPush(){
+    const p = $("#pdisp");
+    if (!PD_MODE && !p.hidden){
+      ensurePdStyle(document);
+      p.innerHTML = pdHTML(state.enc);
+      scalePd(p, innerHeight);
+    }
+    if (pw && !pw.closed){
+      try{
+        const root = pw.document.getElementById("pdroot");
+        if (root){
+          root.innerHTML = pdHTML(state.enc);
+          scalePd(root, pw.innerHeight);
+        }
+      }catch(_){ /* unscriptable child (file://) — it runs the #pd fallback */ }
+    }
+  }
+  function openPdLocal(){
+    const p = $("#pdisp");
+    p.hidden = false;
+    pdPush();
+    if (p.requestFullscreen) p.requestFullscreen().catch(() => {});
+    announce("Player display on — Escape to close");
+  }
+  function closePdLocal(){
+    const p = $("#pdisp");
+    p.hidden = true;
+    if (document.fullscreenElement === p) document.exitFullscreen().catch(() => {});
+  }
+  function openPdWindow(){
+    try{ pw = window.open("", "bgpd", "width=1100,height=700"); }catch(_){ pw = null; }
+    if (!pw){ announce("Pop-up blocked — allow pop-ups for this page"); return; }
+    let scripted = false;
+    try{
+      pw.document.open();
+      pw.document.write(`<!doctype html><html><head><meta charset="utf-8">` +
+        `<title>${esc(state.enc.name)} — Initiative</title>` +
+        `<style>${pdCSS()}</style></head><body class="pdbody">` +
+        `<div id="pdroot" class="pdroot"></div>` +
+        `<div id="pddead" class="pddead" hidden>Display disconnected — reopen it from the GM window</div>` +
+        `<scr` + `ipt>setInterval(function(){try{if(!window.opener||window.opener.closed)` +
+        `document.getElementById("pddead").hidden=false}catch(e){` +
+        `document.getElementById("pddead").hidden=false}},2000)</scr` + `ipt></body></html>`);
+      pw.document.close();
+      scripted = true;
+    }catch(_){ scripted = false; }
+    if (!scripted){
+      // file:// gives the blank child an unscriptable origin; navigating it is
+      // still allowed, and #pd renders the same board from polled storage
+      try{ pw.location.href = location.href.split("#")[0] + "#pd"; }catch(_){ pw = null; }
+      return;
+    }
+    try{ pw.addEventListener("resize", pdPush); }catch(_){}
+    pdPush();
+  }
+  function openPdChooser(){
+    openOvl(`<h3>Player display</h3>
+      <p class="dlghint">A clean initiative board — names and turn order, never hit points.</p>
+      <div class="btns">
+        <button type="button" class="chip yes" data-pd-here>This screen</button>
+        <button type="button" class="chip yes" data-pd-win>New window</button>
+        <button type="button" class="chip" data-close>Cancel</button>
+      </div>`);
+    const o = $("#trkovl");
+    o.querySelector("[data-close]").onclick = closeOvl;
+    o.querySelector("[data-pd-here]").onclick = () => { closeOvl(); openPdLocal(); };
+    o.querySelector("[data-pd-win]").onclick = () => { closeOvl(); openPdWindow(); };
+  }
 
   /* ---------------- naming ---------------- */
   /* "Goblin", then another goblin: the first retroactively becomes "Goblin 1"
@@ -2120,6 +2281,7 @@ const TRK = (() => {
 
   /* ---------------- keyboard ---------------- */
   function key(e){
+    if (e.key === "Escape" && !PD_MODE && !$("#pdisp").hidden){ closePdLocal(); return true; }
     if (e.key === "Escape" && !$("#dpop").hidden){ hideDpop(); return true; }
     const o = $("#trkovl");
     if (!o.hidden){                           // dialog is modal to shortcuts
@@ -2293,6 +2455,26 @@ const TRK = (() => {
   $("#t-add").onclick = () => openAddForm();
   $("#t-party").onclick = () => openPartyOvl();
   $("#t-presets").onclick = () => openPresetsOvl();
+  $("#t-pd").onclick = openPdChooser;
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement && !PD_MODE && !$("#pdisp").hidden) closePdLocal();
+  });
+  addEventListener("resize", () => { if (!$("#pdisp").hidden || (pw && !pw.closed)) pdPush(); });
+
+  // #pd fallback page: no live state here — render from polled storage
+  if (PD_MODE){
+    document.body.classList.add("pd");
+    const p = $("#pdisp");
+    p.hidden = false;
+    ensurePdStyle(document);
+    const tick = () => {
+      p.innerHTML = pdHTML(vEnc(load(LS.enc, null)));
+      scalePd(p, innerHeight);
+    };
+    tick();
+    setInterval(tick, 500);
+    addEventListener("resize", tick);
+  }
   $("#t-undo").onclick = undo;
   $("#t-redo").onclick = redo;
   $("#qty").onchange = e => {
@@ -2373,7 +2555,9 @@ const TRK = (() => {
            setInitiative, reorderTo, moveBy, resetEnc, clearAll,
            initModOf, acOf, hpOf, openAddForm, openStartModal, closeOvl,
            rollDice, doRoll, savePreset, loadPreset, openPartyOvl, openPresetsOvl,
-           _test: { vEnc, vParty, vPresets, vDice, vUi, autoName, hpClass, midInit } };
+           pdHTML, openPdChooser, openPdLocal, closePdLocal, openPdWindow,
+           _test: { vEnc, vParty, vPresets, vDice, vUi, autoName, hpClass, midInit,
+                    badgeOf, scalePd } };
 })();
 /* const bindings don't become window properties; the start()/keydown hooks in
    the first script test window.TRK so they stay no-ops if this block is absent */
