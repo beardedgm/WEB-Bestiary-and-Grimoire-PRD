@@ -9,7 +9,9 @@
   /* chrome — cool stone: the table the books lie on */
   --stone:#E7E5E0; --stone-2:#DCD9D2; --stone-3:#F2F1ED;
   --hair:#C5C2B8; --hair-soft:#D8D5CC;
-  --ink:#24211C; --dim:#5F594F; --faint:#767063;
+  /* --faint carries real information (list metadata, ability labels, the empty
+     state), so it clears 4.5:1 on every ground it sits on, --stone-2 included */
+  --ink:#24211C; --dim:#5F594F; --faint:#645D51;
 
   /* the two paper stocks */
   --vellum:#FBF6EA; --vellum-edge:#E7DBBE; --vellum-cell:#F2E9D5;
@@ -69,7 +71,7 @@ main{flex:1; display:flex; min-height:0}
 /* filters are traits — so they are set as trait tags */
 .chip{
   font:600 10px/1 var(--mono); text-transform:uppercase; letter-spacing:.08em;
-  padding:5px 8px; border:1px solid var(--hair); border-radius:2px;
+  padding:6px 9px; border:1px solid var(--hair); border-radius:2px;  /* 24px tall: WCAG 2.5.8 */
   background:var(--stone); color:var(--dim); cursor:pointer;
   user-select:none; white-space:nowrap;
 }
@@ -80,8 +82,9 @@ main{flex:1; display:flex; min-height:0}
 label.tog{
   display:flex; align-items:center; gap:6px; cursor:pointer;
   color:var(--dim); font-size:12px;
+  min-height:24px;                 /* the label is the target, not the 13px box */
 }
-label.tog input{accent-color:var(--gilt)}
+label.tog input{accent-color:var(--gilt); width:15px; height:15px}
 
 /* range controls — same micro-type as the filter chips, no new colours */
 #f-range:empty{display:none}
@@ -101,6 +104,10 @@ label.tog input{accent-color:var(--gilt)}
 
 /* ---- list: system marked by a spine, like books on a shelf ---- */
 #list{flex:1; overflow-y:auto; min-height:0}
+#more{
+  flex:none; padding:8px 12px; border-top:1px solid var(--hair-soft);
+  background:var(--stone-3); color:var(--faint); font-size:12.5px;
+}
 .item{
   padding:8px 12px 8px 10px; border-bottom:1px solid var(--hair-soft);
   border-left:3px solid transparent; cursor:pointer;
@@ -302,8 +309,9 @@ kbd{
 
 <header>
   <h1>Bestiary <span class="amp">&amp;</span> Grimoire</h1>
-  <input id="q" type="search" placeholder="Search by name…  ( / to focus )" autocomplete="off">
-  <span id="count"></span>
+  <input id="q" type="search" aria-label="Search creatures and spells by name"
+         placeholder="Search by name…  ( / to focus )" autocomplete="off">
+  <span id="count" role="status" aria-live="polite" aria-atomic="true"></span>
 </header>
 
 <main>
@@ -317,7 +325,8 @@ kbd{
         <label class="tog"><input type="checkbox" id="deep"> also search description text</label>
       </div>
     </div>
-    <div id="list"></div>
+    <div id="list" role="listbox" aria-label="Search results" tabindex="0"></div>
+    <div id="more" hidden></div>
   </div>
   <div id="pane" class="empty">Select an entry</div>
 </main>
@@ -452,10 +461,14 @@ function passRange(r){
 }
 function chip(row, label, set, val, cls){
   const b = document.createElement("button");
+  b.type = "button";
   b.className = "chip" + (cls ? " " + cls : "");
   b.textContent = label;
+  b.setAttribute("aria-pressed", "false");     // state is not colour alone
   b.onclick = () => { set.has(val) ? set.delete(val) : set.add(val);
-                      b.classList.toggle("on"); refresh(); };
+                      b.classList.toggle("on");
+                      b.setAttribute("aria-pressed", String(set.has(val)));
+                      refresh(); };
   $(row).appendChild(b);
 }
 function buildFilters(){
@@ -582,14 +595,17 @@ function renderList(){
   const L = $("#list");
   const shown = view.slice(0, CAP);
   L.innerHTML = shown.map((r,i) =>
-    `<div class="item ${r.gameSystem}" data-i="${i}">
+    `<div class="item ${r.gameSystem}" role="option" id="opt-${i}" aria-selected="false" data-i="${i}">
        <span class="nm">${esc(r.name)}</span>
        <span class="lv">${esc(r.variant||"")} · ${esc(tag(r))}</span>
-     </div>`).join("") +
-    (view.length > CAP ? `<div class="item" style="color:var(--faint);cursor:default">
-       …${(view.length-CAP).toLocaleString()} more — narrow your search</div>` : "");
+     </div>`).join("");
   L.querySelectorAll(".item[data-i]").forEach(el =>
     el.onclick = () => pick(+el.dataset.i));
+  L.removeAttribute("aria-activedescendant");
+  // the overflow note lives outside the listbox: a listbox may only own options
+  const more = $("#more"), over = view.length - CAP;
+  more.hidden = over <= 0;
+  more.textContent = over > 0 ? `…${over.toLocaleString()} more — narrow your search` : "";
   sel = -1;
 }
 function tag(r){
@@ -605,7 +621,13 @@ function tag(r){
 }
 function pick(i){
   sel = i;
-  $("#list").querySelectorAll(".item").forEach((el,k) => el.classList.toggle("sel", k===i));
+  const L = $("#list");
+  L.querySelectorAll(".item").forEach((el,k) => {
+    const on = k === i;
+    el.classList.toggle("sel", on);
+    el.setAttribute("aria-selected", String(on));
+    if (on) L.setAttribute("aria-activedescendant", el.id);
+  });
   const r = view[i]; if (!r) return;
   $("#pane").className = r.gameSystem;      // sets the paper stock for this record
   $("#pane").innerHTML = r._kind === "spell" ? spellHTML(r) : monsterHTML(r);
