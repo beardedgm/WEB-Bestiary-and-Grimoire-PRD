@@ -308,6 +308,48 @@ kbd{
   .sb{animation:none}
   *{transition:none !important}
 }
+
+/* ==== initiative tracker ==================================================
+   Every rule is gated on body.trk (or a #trk descendant), so browse mode is
+   pixel-identical when the class is absent. */
+.vh{position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+    overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0}
+#mode{display:flex; gap:5px; flex:none}
+
+#trk{display:none}
+body.trk #trk{
+  display:flex; flex-direction:column; min-height:0;
+  width:380px; flex:none;
+  border-right:1px solid var(--hair); background:var(--stone);
+}
+#trkhead{
+  display:flex; align-items:baseline; gap:10px; padding:11px 12px;
+  border-bottom:1px solid var(--hair); background:var(--stone-3);
+}
+#trkname{
+  flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  font:600 15px/1.2 var(--serif); font-variant:small-caps; letter-spacing:.04em;
+  color:var(--ink);
+}
+#trkround{
+  flex:none; font:600 10.5px/1 var(--mono); text-transform:uppercase;
+  letter-spacing:.09em; color:var(--dim);
+}
+#trklist{flex:1; overflow-y:auto; min-height:0;
+         scrollbar-color:var(--hair) transparent; scrollbar-width:thin}
+#trkempty{
+  display:none; flex:1; padding:26px 14px; text-align:center;
+  color:var(--faint); font:italic 14px/1.5 var(--serif);
+}
+#trklist:empty{flex:none}
+#trklist:empty + #trkempty{display:block}
+/* load-bearing: an author display rule on these would defeat the hidden attribute */
+#trkbar[hidden], #dice[hidden], #trkovl[hidden], #pdisp[hidden]{display:none}
+
+@media (max-width:760px){
+  body.trk #trk{width:100%; order:-1; border-right:none; border-bottom:1px solid var(--hair)}
+  body.trk #trklist{max-height:60vh}
+}
 </style>
 </head>
 <body>
@@ -329,6 +371,10 @@ kbd{
   <input id="q" type="search" aria-label="Search creatures and spells by name"
          placeholder="Search by name…  ( / to focus )" autocomplete="off">
   <span id="count" role="status" aria-live="polite" aria-atomic="true"></span>
+  <span id="mode" role="group" aria-label="App mode">
+    <button type="button" id="m-browse" class="chip on" aria-pressed="true">Library</button>
+    <button type="button" id="m-track" class="chip" aria-pressed="false">Tracker</button>
+  </span>
 </header>
 
 <main>
@@ -346,7 +392,20 @@ kbd{
     <div id="list" role="listbox" aria-label="Search results" tabindex="0"></div>
     <div id="more" hidden></div>
   </div>
+  <section id="trk" aria-label="Initiative tracker">
+    <div id="trkhead">
+      <span id="trkname">Encounter</span>
+      <span id="trkround">Setup</span>
+    </div>
+    <div id="trkbar" hidden></div>
+    <div id="trklist" role="list" aria-label="Combatants"></div>
+    <div id="trkempty">No combatants yet — add monsters from the results list, or your party from the toolbar.</div>
+    <span id="trklive" class="vh" role="status" aria-live="polite"></span>
+    <details id="dice" hidden></details>
+  </section>
   <div id="pane" class="empty">Select an entry</div>
+  <div id="trkovl" hidden></div>
+  <div id="pdisp" hidden></div>
 </main>
 
 <script>
@@ -429,6 +488,7 @@ function start(){
   $("#load").remove();
   refresh();
   $("#q").focus();
+  if (window.TRK) TRK.onDataReady();
 }
 
 /* ---------------- filters ---------------- */
@@ -938,6 +998,153 @@ document.addEventListener("keydown", e => {
   }
 });
 boot();
+</script>
+
+<script>
+"use strict";
+/* ================= initiative tracker =================
+   One global: TRK. Reads DATA / monsterHTML / esc / $ from the first script,
+   never shadows them. All persistent state lives in localStorage under
+   bg.trk.*.v1 keys and passes through a validating merge on every load. */
+const TRK = (() => {
+
+  /* ---------------- persistence ---------------- */
+  const LS = { enc:"bg.trk.enc.v1", party:"bg.trk.party.v1", presets:"bg.trk.presets.v1",
+               dice:"bg.trk.dice.v1", ui:"bg.trk.ui.v1" };
+  const load = (k, fb) => { try{ const v = JSON.parse(localStorage.getItem(k)); return v ?? fb; }
+                            catch(_){ return fb; } };
+  const save = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(_){} };
+
+  const fin = (v, fb) => Number.isFinite(+v) ? +v : fb;         // finite number or fallback
+  const int = (v, fb) => Number.isFinite(+v) ? Math.round(+v) : fb;
+
+  /* Validating merges: stored data is untrusted (hand-edited, older schema,
+     truncated write). Recognized fields are copied and clamped; everything
+     else is dropped. Never re-sorts — array order carries the manual tie
+     arrangement. */
+  function vEnc(raw){
+    const e = { name:"Encounter", round:0, activeId:null, seq:0, combatants:[],
+                last:{kind:"dmg"} };
+    if (!raw || typeof raw !== "object") return e;
+    if (typeof raw.name === "string" && raw.name.trim()) e.name = raw.name.trim().slice(0, 80);
+    e.round = Math.max(0, int(raw.round, 0));
+    if (raw.last && raw.last.kind === "heal") e.last = {kind:"heal"};
+    const seen = new Set();
+    let maxN = 0;
+    for (const c of Array.isArray(raw.combatants) ? raw.combatants : []){
+      if (!c || typeof c !== "object") continue;
+      if (typeof c.name !== "string" || !c.name.trim()) continue;
+      let id = (typeof c.id === "string" && /^c\d+$/.test(c.id) && !seen.has(c.id)) ? c.id : null;
+      if (id){ seen.add(id); maxN = Math.max(maxN, parseInt(id.slice(1), 10)); }
+      const max = Math.max(1, int(c.hp && c.hp.max, 1));
+      const cur = Math.min(max, Math.max(0, int(c.hp && c.hp.current, max)));
+      e.combatants.push({
+        id,
+        name: c.name.trim().slice(0, 80),
+        type: c.type === "player" || c.type === "monster" ? c.type : "npc",
+        initiative: fin(c.initiative, 0),
+        initiativeModifier: fin(c.initiativeModifier, 0),
+        ac: c.ac == null ? null : (Number.isFinite(+c.ac) ? +c.ac : null),
+        hp: { current: cur, max },
+        status: cur === 0 ? "unconscious" : "normal",
+        ref: typeof c.ref === "string" ? c.ref : null,
+        sys: c.sys === "dnd5e" || c.sys === "pf2e" ? c.sys : null,
+      });
+    }
+    for (const cb of e.combatants) if (!cb.id){ cb.id = "c" + (++maxN); }
+    e.seq = Math.max(maxN, int(raw.seq, 0));
+    e.activeId = (typeof raw.activeId === "string" &&
+                  e.combatants.some(c => c.id === raw.activeId)) ? raw.activeId : null;
+    if (e.round === 0) e.activeId = null;          // setup has no active turn
+    return e;
+  }
+  function vParty(raw){
+    const out = [];
+    for (const p of Array.isArray(raw) ? raw : []){
+      if (!p || typeof p !== "object" || typeof p.name !== "string" || !p.name.trim()) continue;
+      out.push({ id: typeof p.id === "string" ? p.id : "p" + (out.length + 1),
+                 name: p.name.trim().slice(0, 80),
+                 type: p.type === "npc" ? "npc" : "player",
+                 hpMax: p.hpMax == null ? null : Math.max(1, int(p.hpMax, 1)),
+                 ac: p.ac == null ? null : (Number.isFinite(+p.ac) ? +p.ac : null),
+                 mod: fin(p.mod, 0) });
+    }
+    return out;
+  }
+  function vDice(raw){
+    const d = { history:[], ui:{ die:20, count:1, mod:0, adv:"normal" } };
+    if (!raw || typeof raw !== "object") return d;
+    if (Array.isArray(raw.history)) d.history = raw.history.slice(0, 12);
+    const u = raw.ui || {};
+    if ([4,6,8,10,12,20,100].includes(+u.die)) d.ui.die = +u.die;
+    d.ui.count = Math.min(20, Math.max(1, int(u.count, 1)));
+    d.ui.mod = Math.min(99, Math.max(-99, int(u.mod, 0)));
+    if (u.adv === "advantage" || u.adv === "disadvantage") d.ui.adv = u.adv;
+    return d;
+  }
+  function vPresets(raw){
+    const out = [];
+    for (const p of Array.isArray(raw) ? raw : []){
+      if (!p || typeof p !== "object" || typeof p.name !== "string" || !p.name.trim()) continue;
+      out.push({ id: typeof p.id === "string" ? p.id : "s" + (out.length + 1),
+                 name: p.name.trim().slice(0, 80),
+                 savedAt: int(p.savedAt, 0),
+                 enc: vEnc(p.enc),
+                 dice: vDice(p.dice) });
+    }
+    return out;
+  }
+  function vUi(raw){
+    const u = { mode:"browse", qty:1, diceOpen:true };
+    if (!raw || typeof raw !== "object") return u;
+    if (raw.mode === "track") u.mode = "track";
+    u.qty = Math.min(10, Math.max(1, int(raw.qty, 1)));
+    u.diceOpen = raw.diceOpen !== false;
+    return u;
+  }
+
+  /* ---------------- state ---------------- */
+  const state = {
+    enc:     vEnc(load(LS.enc, null)),
+    party:   vParty(load(LS.party, null)),
+    presets: vPresets(load(LS.presets, null)),
+    dice:    vDice(load(LS.dice, null)),
+    ui:      vUi(load(LS.ui, null)),
+  };
+
+  /* ---------------- mode ---------------- */
+  function setMode(m){
+    state.ui.mode = m === "track" ? "track" : "browse";
+    save(LS.ui, state.ui);
+    const track = state.ui.mode === "track";
+    document.body.classList.toggle("trk", track);
+    $("#m-browse").classList.toggle("on", !track);
+    $("#m-browse").setAttribute("aria-pressed", String(!track));
+    $("#m-track").classList.toggle("on", track);
+    $("#m-track").setAttribute("aria-pressed", String(track));
+    if (track) renderTrk();
+  }
+
+  function renderTrk(){
+    $("#trkname").textContent = state.enc.name;
+    $("#trkround").textContent = state.enc.round > 0 ? "Round " + state.enc.round : "Setup";
+    /* combatant cards arrive in Phase A */
+  }
+
+  function onDataReady(){
+    if (state.ui.mode === "track") setMode("track");
+  }
+
+  /* ---------------- wiring ---------------- */
+  $("#m-browse").onclick = () => setMode("browse");
+  $("#m-track").onclick = () => setMode("track");
+
+  return { state, setMode, onDataReady, renderTrk,
+           _test: { vEnc, vParty, vPresets, vDice, vUi } };
+})();
+/* const bindings don't become window properties; the start()/keydown hooks in
+   the first script test window.TRK so they stay no-ops if this block is absent */
+window.TRK = TRK;
 </script>
 </body>
 </html>
