@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-20T06:00:00.000Z",
+  "title": "Design System: Bestiary & Grimoire",
+  "extensions": {
+    "colorMeta": {
+      "stone": {
+        "role": "neutral",
+        "displayName": "Table Stone",
+        "canonical": "#E7E5E0",
+        "tonalRamp": ["#2A2824", "#4A4740", "#6B6760", "#8C8880", "#ADA9A0", "#C5C2B8", "#DCD9D2", "#E7E5E0", "#F2F1ED"]
+      },
+      "brick": {
+        "role": "primary",
+        "displayName": "Brick Red",
+        "canonical": "#7B2418",
+        "tonalRamp": ["#1A0A07", "#3D120C", "#5C1A11", "#7B2418", "#9A3324", "#B84A3A", "#D66B5C", "#E89588", "#F2C4BC"]
+      },
+      "olive": {
+        "role": "primary",
+        "displayName": "Olive Green",
+        "canonical": "#54632A",
+        "tonalRamp": ["#151A0A", "#2A3314", "#3F4D1F", "#54632A", "#6A7A38", "#84944F", "#A0AE72", "#BEC896", "#DCE2C0"]
+      },
+      "gilt": {
+        "role": "secondary",
+        "displayName": "Gilt",
+        "canonical": "#9C7C1C",
+        "tonalRamp": ["#1A1506", "#332B0C", "#4D4012", "#665618", "#806C1E", "#9C7C1C", "#B89530", "#D4B05A", "#F0D494"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#24211C",
+        "tonalRamp": ["#0A0908", "#121110", "#1A1816", "#24211C", "#3D3A34", "#5F594F", "#817A70", "#A39B90", "#C5C2B8"]
+      },
+      "vellum": {
+        "role": "neutral",
+        "displayName": "Vellum",
+        "canonical": "#FBF6EA",
+        "tonalRamp": ["#3D3520", "#5C5030", "#7B6B40", "#9A8650", "#B9A160", "#D4BC80", "#E7DBBE", "#F2E9D5", "#FBF6EA"]
+      },
+      "party-sel": {
+        "role": "neutral",
+        "displayName": "Party Selection",
+        "canonical": "#F4EFDC",
+        "tonalRamp": ["#3D3520", "#5C5030", "#7B6B40", "#9A8650", "#B9A160", "#D4BC80", "#E7DBBE", "#F2E9D5", "#F4EFDC"]
+      },
+      "select": {
+        "role": "neutral",
+        "displayName": "Selection Wash",
+        "canonical": "#EADFBC",
+        "tonalRamp": ["#3D3520", "#5C5030", "#7B6B40", "#9A8650", "#B9A160", "#D4BC80", "#E7DBBE", "#EADFBC", "#F2E9D5"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "App title and encounter name." },
+      "title": { "displayName": "Stat Title", "purpose": "Record name in reading pane." },
+      "section-5e": { "displayName": "Section 5e", "purpose": "D&D ability block headings." },
+      "section-pf2e": { "displayName": "Section PF2e", "purpose": "Pathfinder section labels." },
+      "body": { "displayName": "UI Body", "purpose": "Chrome and controls." },
+      "label": { "displayName": "Label", "purpose": "Chips and filter summaries." },
+      "label-sm": { "displayName": "Label Small", "purpose": "Range captions and ability keys." },
+      "meta": { "displayName": "Meta", "purpose": "CR, rank, and list metadata." },
+      "data-lg": { "displayName": "Data Large", "purpose": "Initiative on combat cards." },
+      "player-display": { "displayName": "Player Display", "purpose": "Second-screen initiative board." }
+    },
+    "shadows": [
+      {
+        "name": "stat-sheet",
+        "value": "0 1px 2px rgba(36,33,28,.07), 0 10px 26px -14px rgba(36,33,28,.24)",
+        "purpose": "Single lifted sheet on the reading pane only."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-short",
+        "value": "0.12s ease-out",
+        "purpose": "Filter chevron and resize gutter hover."
+      }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "760px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Toggle filter or mode; uppercase mono label.",
+      "html": "<button type=\"button\" class=\"ds-chip\">MONSTERS</button>",
+      "css": ".ds-chip { font: 600 10px/1 ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.08em; padding: 6px 9px; border: 1px solid var(--hair, #C5C2B8); border-radius: 2px; background: var(--stone, #E7E5E0); color: var(--dim, #5F594F); cursor: pointer; } .ds-chip:hover { border-color: var(--gilt, #9C7C1C); color: var(--ink, #24211C); } .ds-chip:focus-visible { outline: 2px solid var(--gilt, #9C7C1C); outline-offset: 2px; }"
+    },
+    {
+      "name": "Filter Chip Selected",
+      "kind": "chip",
+      "refersTo": "chip-on",
+      "description": "Active filter — ink fill.",
+      "html": "<button type=\"button\" class=\"ds-chip ds-chip-on\" aria-pressed=\"true\">MONSTERS</button>",
+      "css": ".ds-chip-on { background: var(--ink, #24211C); border-color: var(--ink, #24211C); color: var(--stone-3, #F2F1ED); }"
+    },
+    {
+      "name": "Primary Action Chip",
+      "kind": "button",
+      "refersTo": "chip-go",
+      "description": "Start combat, roll dice, save.",
+      "html": "<button type=\"button\" class=\"ds-chip-go\">Start combat</button>",
+      "css": ".ds-chip-go { font: 600 10px/1 ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.08em; padding: 6px 9px; border: 1px solid var(--brick, #7B2418); border-radius: 2px; background: var(--brick, #7B2418); color: #FBF6EA; cursor: pointer; } .ds-chip-go:focus-visible { outline: 2px solid var(--gilt, #9C7C1C); outline-offset: 2px; }"
+    },
+    {
+      "name": "Search Input",
+      "kind": "input",
+      "description": "Primary catalog search.",
+      "html": "<input type=\"search\" class=\"ds-search\" placeholder=\"Search monsters…\" aria-label=\"Search\">",
+      "css": ".ds-search { padding: 9px 13px; border-radius: 3px; border: 1px solid var(--hair, #C5C2B8); background: var(--paper, #FFFFFF); color: var(--ink, #24211C); font: 15px/1.2 system-ui, sans-serif; } .ds-search:focus { outline: none; border-color: var(--gilt, #9C7C1C); box-shadow: 0 0 0 3px rgba(156,124,28,.18); }"
+    },
+    {
+      "name": "Catalog List Item",
+      "kind": "custom",
+      "description": "Search result with system spine.",
+      "html": "<div class=\"ds-item dnd5e\"><span class=\"ds-item-nm\">Aboleth</span><span class=\"ds-item-lv\">CR 10</span></div>",
+      "css": ".ds-item { padding: 8px 12px 8px 10px; border-bottom: 1px solid var(--hair-soft, #D8D5CC); border-left: 3px solid var(--brick, #7B2418); display: flex; align-items: baseline; gap: 10px; cursor: pointer; } .ds-item-nm { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .ds-item-lv { color: var(--faint, #645D51); font: 10.5px/1 ui-monospace, monospace; }"
+    },
+    {
+      "name": "Rarity Trait",
+      "kind": "chip",
+      "description": "Uncommon/rare spell trait.",
+      "html": "<span class=\"ds-trait-rarity\">UNCOMMON</span>",
+      "css": ".ds-trait-rarity { font: 600 10px/1 ui-monospace, monospace; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 7px; border: 1px solid var(--gilt, #9C7C1C); border-radius: 2px; background: var(--vellum-edge, #E7DBBE); color: var(--ink, #24211C); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Game Table",
+    "overview": "The interface is a GM's physical table: cool stone chrome holds warm paper stat blocks. D&D 5e reads on vellum serif; Pathfinder 2e on clean white sans.",
+    "keyCharacteristics": [
+      "Two paper stocks per game system",
+      "Gilt reserved for borders and focus, not body text",
+      "Book-spine list and combatant marks",
+      "Chips as universal control primitive",
+      "Operate mode: task completion over decoration"
+    ],
+    "rules": [
+      {
+        "name": "The Gilt Border Rule",
+        "body": "Gilt may outline, focus, or underline; it must not carry readable text smaller than large display type.",
+        "section": "colors"
+      },
+      {
+        "name": "The Spine Rule",
+        "body": "List items and combatant cards mark game system with a 3px left border.",
+        "section": "colors"
+      },
+      {
+        "name": "The Role Scale Rule",
+        "body": "New font sizes must be added to DESIGN.md before use in CSS.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Chrome Rule",
+        "body": "Sidebars and lists have no drop shadow; only the stat block sheet lifts.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do assign --sysink, --sheet, and --cell on #pane per game system",
+      "Do use aria-pressed on chip toggles",
+      "Do edit app.template.html, not index.html"
+    ],
+    "donts": [
+      "Don't use gilt as foreground on vellum, paper, or stone",
+      "Don't nest focusable controls inside listbox options",
+      "Don't fabricate cross-system CR-to-level conversions"
+    ]
+  }
+}

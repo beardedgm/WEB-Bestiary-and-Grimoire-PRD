@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bestiary &amp; Grimoire</title>
 <style>
 :root{
@@ -19,6 +19,8 @@
 
   /* system inks, lifted from the printed blocks */
   --brick:#7B2418; --olive:#54632A; --gilt:#9C7C1C; --danger:#9C3020;
+  --party-sel:#F4EFDC; /* party row selected — warm vellum tint */
+  --select:#EADFBC;    /* text selection wash on stone */
 
   --radius:3px;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
@@ -30,23 +32,27 @@ html,body{height:100%;margin:0}
 body{
   background:var(--stone); color:var(--ink);
   font:15px/1.55 var(--sans);
-  display:flex; flex-direction:column; overflow:hidden;
+  display:flex; flex-direction:column; min-height:100%;
+  overflow:auto;
   -webkit-font-smoothing:antialiased;
 }
 :focus-visible{outline:2px solid var(--gilt); outline-offset:2px}
-::selection{background:#EADFBC; color:var(--ink)}
+::selection{background:var(--select); color:var(--ink)}
 #side,#list,#pane{scrollbar-color:var(--hair) transparent; scrollbar-width:thin}
 
 /* ---- header ---- */
 header{
   display:flex; align-items:center; gap:14px; padding:11px 16px;
+  padding-top:max(11px, env(safe-area-inset-top));
+  padding-left:max(16px, env(safe-area-inset-left));
+  padding-right:max(16px, env(safe-area-inset-right));
   border-bottom:1px solid var(--hair); background:var(--stone-3); flex:none;
 }
 header h1{
   margin:0; white-space:nowrap; color:var(--ink);
   font:600 18px/1 var(--serif); font-variant:small-caps; letter-spacing:.07em;
 }
-header h1 .amp{color:var(--gilt); font-variant:normal; font-style:italic; padding:0 1px}
+header h1 .amp{color:var(--brick); font-variant:normal; font-style:italic; padding:0 1px}
 #q{
   flex:1; min-width:120px; padding:9px 13px; border-radius:var(--radius);
   border:1px solid var(--hair); background:var(--paper); color:var(--ink);
@@ -78,6 +84,20 @@ body:not(.trk) #resize-trk{display:none}
   width:var(--col-side, 340px); flex:none; border-right:1px solid var(--hair);
   display:flex; flex-direction:column; background:var(--stone); min-height:0;
 }
+#sidenav{padding:8px 10px; border-bottom:1px solid var(--hair); background:var(--stone-3)}
+#sidenav .frow{margin-top:6px}
+.seg{display:flex; padding:3px; gap:3px; background:var(--stone-2); border-radius:3px}
+.seg .chip{flex:1; text-align:center}
+#tablebar{padding:9px 12px; border-bottom:1px solid var(--hair); background:var(--stone-3)}
+#tablebar[hidden],#filters.table-off{display:none}
+#tbar-party[hidden],#side-save-enc[hidden]{display:none !important}
+#side-save-enc:not([hidden]){display:flex; gap:6px; align-items:center}
+#side-save-enc input{
+  flex:1; min-width:0; padding:6px 9px; border-radius:2px;
+  border:1px solid var(--hair); background:var(--paper); color:var(--ink);
+  font:13px/1.3 var(--sans)}
+#side-save-enc input:focus{outline:none; border-color:var(--gilt);
+  box-shadow:0 0 0 2px rgba(156,124,28,.18)}
 #filters{padding:11px 12px; border-bottom:1px solid var(--hair); background:var(--stone-3)}
 /* native disclosure: keyboard and ARIA come free, and it still works with no JS */
 #filters > summary{
@@ -156,6 +176,12 @@ label.tog input{accent-color:var(--gilt); width:15px; height:15px}
   flex:none; white-space:nowrap; color:var(--faint);
   font:10.5px/1 var(--mono); letter-spacing:.02em;
 }
+.item.pc{border-left-color:var(--gilt)}
+.item.enc{border-left-color:var(--hair)}
+.item.sel.pc{background:var(--party-sel)}
+.item.sel.enc{background:var(--paper)}
+.item .sideact{flex:none; display:flex; gap:4px}
+body:not(.trk) .item [data-padd]{display:none}
 
 /* ---- reading pane: a sheet on the table ---- */
 #pane{
@@ -208,7 +234,7 @@ label.tog input{accent-color:var(--gilt); width:15px; height:15px}
   padding:4px 7px; border:1px solid var(--gilt); border-radius:2px;
   background:var(--sysink); color:var(--sheet);
 }
-.trait.rarity{background:var(--gilt); border-color:var(--gilt); color:#241E0C}
+.trait.rarity{background:var(--vellum-edge); border-color:var(--gilt); color:var(--ink)}
 
 /* fixed label column: values line up down the block, and a long value hangs
    in its own column instead of wrapping back under the label */
@@ -249,7 +275,7 @@ label.tog input{accent-color:var(--gilt); width:15px; height:15px}
 .deg{margin:6px 0 6px 1px; padding-left:12px; border-left:2px solid var(--sheet-edge)}
 .deg b{color:var(--sysink); font-weight:700}
 .ht{margin:8px 0; padding-left:12px; border-left:2px solid var(--gilt)}
-.ht b{font:700 11.5px/1.5 var(--mono); text-transform:uppercase; letter-spacing:.06em; color:var(--gilt)}
+.ht b{font:700 11.5px/1.5 var(--mono); text-transform:uppercase; letter-spacing:.06em; color:var(--sysink)}
 .ent{margin:13px 0}
 /* Pathfinder prints strike names lowercase ("jaws"); they read as headings here.
    Italic on the 5e stock hurt legibility at body size, so both stocks set these
@@ -290,11 +316,19 @@ label.tog input{accent-color:var(--gilt); width:15px; height:15px}
   font:600 26px/1.2 var(--serif); font-variant:small-caps; letter-spacing:.05em;
 }
 #load p{color:var(--dim); margin:8px 0}
-#drop{
-  margin-top:16px; padding:26px; border:2px dashed var(--hair);
-  border-radius:var(--radius); color:var(--dim); cursor:pointer; background:var(--stone-3);
+#drop[hidden]{display:none !important}
+#drop:not([hidden]){
+  display:block; width:100%; margin-top:16px; padding:26px;
+  border:2px dashed var(--hair); border-radius:var(--radius);
+  color:var(--dim); cursor:pointer; background:var(--stone-3);
+  font:inherit; text-align:center;
+  appearance:none; -webkit-appearance:none;
 }
 #drop.hot{border-color:var(--gilt); color:var(--ink); background:var(--vellum)}
+#fin{
+  position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
 #load .st{
   margin-top:14px; text-align:left; white-space:pre;
   font:12px/1.7 var(--mono); color:var(--faint);
@@ -320,10 +354,34 @@ kbd{
   .grid6{grid-template-columns:repeat(3,1fr)}
   .kv{display:block}                       /* no room for a label column */
   .kv b{margin-right:7px}
+  .chip{padding:10px 12px; min-height:44px}
+  .item .add{width:44px; height:44px; margin:-8px -6px -8px 0}
+  .cbt-x{width:44px; height:44px; font-size:16px}
+  .cbt .dmg,.cbt .heal{width:44px; height:44px; font-size:16px}
+  .cbt-amt{height:44px; width:52px}
+  .sre,.dre{min-width:44px; min-height:44px}
+}
+@media (hover:none){
+  .chip{padding:10px 12px; min-height:44px}
+  .item .add{width:44px; height:44px; margin:-8px -6px -6px 0}
+  .cbt-x{width:44px; height:44px; font-size:16px}
+  .cbt .dmg,.cbt .heal{width:44px; height:44px; font-size:16px}
+  .cbt-amt{height:44px; width:52px}
+}
+@media (pointer:coarse){
+  .chip{padding:10px 12px; min-height:44px}
+  .item .add{width:44px; height:44px; margin:-8px -6px -8px 0}
+  .cbt-x{width:44px; height:44px; font-size:16px}
+  .cbt .dmg,.cbt .heal{width:44px; height:44px; font-size:16px}
+  .cbt-amt{height:44px; width:52px}
+  .sre,.dre{min-width:44px; min-height:44px}
+  .cbt-drag{width:22px; font-size:13px}
 }
 @media (prefers-reduced-motion:reduce){
   .sb{animation:none}
-  *{transition:none !important}
+  #filters > summary::before{transition:none}
+  .col-resize::after{transition:none}
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important}
 }
 
 /* ==== initiative tracker ==================================================
@@ -377,7 +435,7 @@ body.trk #trk{
   font:600 12.5px/1.5 var(--mono); color:var(--ink); overflow-wrap:anywhere;
 }
 #dpop s{color:var(--faint)}
-#dpop .nat20{color:var(--gilt)} #dpop .nat1{color:var(--danger)}
+#dpop .nat20{color:var(--olive)} #dpop .nat1{color:var(--danger)}
 
 /* toolbar */
 #trkbar{
@@ -534,7 +592,7 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 .dres{margin:8px 0 0; min-height:18px; color:var(--ink);
       font:600 12.5px/1.5 var(--mono); overflow-wrap:anywhere}
 .dres s,.dhist s{color:var(--faint)}
-.dres .nat20{color:var(--gilt)} .dres .nat1{color:var(--danger)}
+.dres .nat20{color:var(--olive)} .dres .nat1{color:var(--danger)}
 .dhist{margin-top:6px; max-height:150px; overflow-y:auto;
        scrollbar-color:var(--hair) transparent; scrollbar-width:thin}
 .dhist .drow{
@@ -543,7 +601,7 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 }
 .dhist .drow .lbl{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .dhist .drow b{color:var(--ink); font-variant-numeric:tabular-nums}
-.dhist .nat20{color:var(--gilt)} .dhist .nat1{color:var(--danger)}
+.dhist .nat20{color:var(--olive)} .dhist .nat1{color:var(--danger)}
 .dre{min-width:24px; min-height:24px}
 #d-clear{margin-top:5px}
 
@@ -615,22 +673,22 @@ body.pd #pdisp{position:fixed; inset:0; z-index:60}
 </head>
 <body>
 
-<div id="load"><div class="card">
-  <h2>Bestiary &amp; Grimoire</h2>
+<div id="load" role="dialog" aria-modal="true" aria-labelledby="load-title"><div class="card">
+  <h2 id="load-title">Bestiary &amp; Grimoire</h2>
   <p id="lmsg">Unpacking 9,339 records…</p>
-  <div id="drop" hidden>
-    <b>Drop the four JSON files here</b><br>
+  <button type="button" id="drop" hidden>
+    <b>Choose or drop the four JSON files</b><br>
     <span style="font-size:12px">monsters-5e · monsters-pf2e · spells-5e · spells-pf2e<br>
-    (or click to browse)</span>
-    <input id="fin" type="file" multiple accept=".json" hidden>
-  </div>
+    (Enter to browse · drag-and-drop also works)</span>
+  </button>
+  <input id="fin" type="file" multiple accept=".json" tabindex="-1" aria-hidden="true">
   <div class="st" id="lst"></div>
 </div></div>
 
-<header>
+<header inert>
   <h1>Bestiary <span class="amp">&amp;</span> Grimoire</h1>
-  <input id="q" type="search" aria-label="Search creatures and spells by name"
-         placeholder="Search by name…  ( / to focus )" autocomplete="off">
+  <input id="q" type="search" aria-label="Search"
+         placeholder="Search monsters…  ( / to focus )" autocomplete="off">
   <span id="count" role="status" aria-live="polite" aria-atomic="true"></span>
   <span id="mode" role="group" aria-label="App mode">
     <button type="button" id="m-browse" class="chip on" aria-pressed="true">Library</button>
@@ -638,11 +696,22 @@ body.pd #pdisp{position:fixed; inset:0; z-index:60}
   </span>
 </header>
 
-<main>
+<main inert>
   <div id="side">
+    <div id="sidenav">
+      <div class="seg" role="group" aria-label="Library column">
+        <button type="button" class="chip on" id="sg-catalog" aria-pressed="true">Catalog</button>
+        <button type="button" class="chip" id="sg-table" aria-pressed="false">Table</button>
+      </div>
+      <div class="frow" id="side-inner">
+        <button type="button" class="chip on" id="st-monster" data-side="monster" aria-pressed="true">Monsters</button>
+        <button type="button" class="chip" id="st-spell" data-side="spell" aria-pressed="false">Spells</button>
+        <button type="button" class="chip" id="st-party" data-side="party" aria-pressed="false" hidden>Party</button>
+        <button type="button" class="chip" id="st-enc" data-side="enc" aria-pressed="false" hidden>Encounters</button>
+      </div>
+    </div>
     <details id="filters" open>
       <summary>Filters<span id="fcount" hidden></span></summary>
-      <div class="frow" id="f-kind"></div>
       <div class="frow" id="f-sys"></div>
       <div class="frow" id="f-extra"></div>
       <div id="f-range"></div>
@@ -650,6 +719,15 @@ body.pd #pdisp{position:fixed; inset:0; z-index:60}
         <label class="tog"><input type="checkbox" id="deep"> also search description text</label>
       </div>
     </details>
+    <div id="tablebar" hidden>
+      <div class="frow" id="tbar-party">
+        <button type="button" class="chip go" id="side-new-party">New member</button>
+      </div>
+      <form id="side-save-enc" novalidate hidden>
+        <input name="name" maxlength="80" placeholder="Save current as…" aria-label="Encounter name">
+        <button type="submit" class="chip yes">Save</button>
+      </form>
+    </div>
     <div id="list" role="listbox" aria-label="Search results" tabindex="0"></div>
     <div id="more" hidden></div>
   </div>
@@ -671,8 +749,6 @@ body.pd #pdisp{position:fixed; inset:0; z-index:60}
         <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option>
         <option>6</option><option>7</option><option>8</option><option>9</option><option>10</option>
       </select></span>
-      <button type="button" class="chip" id="t-party">Party</button>
-      <button type="button" class="chip" id="t-presets">Saved</button>
       <button type="button" class="chip" id="t-pd">Display</button>
       <span class="sp"></span>
       <button type="button" class="chip" id="t-undo" disabled>Undo</button>
@@ -681,7 +757,7 @@ body.pd #pdisp{position:fixed; inset:0; z-index:60}
       <button type="button" class="chip" id="t-clear" title="Remove everyone from the encounter">Clear</button>
     </div>
     <div id="trklist" role="list" aria-label="Combatants"></div>
-    <div id="trkempty">No combatants yet — add monsters from the results list, or your party from the toolbar.</div>
+    <div id="trkempty">No combatants yet — add monsters from Catalog, or party members from Table.</div>
     <span id="trklive" class="vh" role="status" aria-live="polite"></span>
     <details id="dice">
       <summary>Dice<span id="dlast" hidden></span></summary>
@@ -732,6 +808,27 @@ let DATA = [], view = [], sel = -1;
 const ID_INDEX = new Map();
 const $ = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function inEditable(t){
+  if (!t || t === document.body) return false;
+  if (t.isContentEditable) return true;
+  const tag = t.tagName;
+  if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return true;
+  return !!(t.closest && t.closest("input,textarea,select,[contenteditable=true]"));
+}
+function listNavActive(){
+  const a = document.activeElement;
+  return a && (a.id === "q" || a.id === "list");
+}
+function setAppInert(on){
+  for (const sel of ["header", "main"]){
+    const el = document.querySelector(sel);
+    if (!el) continue;
+    if (on) el.setAttribute("inert", "");
+    else el.removeAttribute("inert");
+  }
+}
+window.setAppInert = setAppInert;
 
 /* ---------------- loading ---------------- */
 function ingest(name, arr){
@@ -810,8 +907,12 @@ async function boot(){
     "<span style='font-size:13px'>Browsers block local file access from <code>file://</code> pages. " +
     "Drop the files below, or serve the folder with <code>python -m http.server</code> and reload.</span>";
   $("#drop").hidden = false;
+  $("#drop").focus();
 }
-$("#drop").onclick = () => $("#fin").click();
+$("#drop").addEventListener("click", () => $("#fin").click());
+$("#drop").addEventListener("keydown", e => {
+  if (e.key === "Enter" || e.key === " "){ e.preventDefault(); $("#fin").click(); }
+});
 $("#fin").onchange = e => handleFiles(e.target.files);
 ["dragenter","dragover"].forEach(ev => $("#drop").addEventListener(ev, e => {
   e.preventDefault(); $("#drop").classList.add("hot"); }));
@@ -829,6 +930,8 @@ function start(){
   // compete for the same budget — start collapsed there, expanded on desktop
   if (matchMedia("(max-width:760px)").matches) $("#filters").open = false;
   $("#load").remove();
+  setAppInert(false);
+  applySideChrome();
   refresh();
   $("#q").focus();
   if (window.TRK) TRK.onDataReady();
@@ -883,6 +986,53 @@ function passRange(r){
   if (v == null) return true;                // never hide a record for lacking a value
   return v >= g.from && v <= g.to;
 }
+function getSide(){
+  const s = window.TRK && TRK.state.ui.side;
+  return s === "spell" || s === "party" || s === "enc" ? s : "monster";
+}
+function isTableSide(s){ return s === "party" || s === "enc"; }
+const SIDE_PLACE = {
+  monster: "Search monsters…  ( / to focus )",
+  spell: "Search spells…  ( / to focus )",
+  party: "Search party…  ( / to focus )",
+  enc: "Search encounters…  ( / to focus )",
+};
+function applySideChrome(){
+  const side = getSide();
+  const table = isTableSide(side);
+  const catOn = $("#sg-catalog"), tabOn = $("#sg-table");
+  if (catOn){
+    catOn.classList.toggle("on", !table);
+    catOn.setAttribute("aria-pressed", String(!table));
+    tabOn.classList.toggle("on", table);
+    tabOn.setAttribute("aria-pressed", String(table));
+  }
+  for (const k of ["monster","spell","party","enc"]){
+    const b = $("#st-" + k);
+    if (!b) continue;
+    b.hidden = table ? (k === "monster" || k === "spell") : (k === "party" || k === "enc");
+    const on = k === side;
+    b.classList.toggle("on", on);
+    b.setAttribute("aria-pressed", String(on));
+  }
+  $("#filters").classList.toggle("table-off", table);
+  $("#tablebar").hidden = !table;
+  $("#tbar-party").hidden = side !== "party";
+  $("#side-save-enc").hidden = side !== "enc";
+  const q = $("#q");
+  q.placeholder = SIDE_PLACE[side];
+  q.setAttribute("aria-label", SIDE_PLACE[side].replace(/\s+\(.*$/, ""));
+  $("#list").setAttribute("aria-label",
+    side === "monster" ? "Monsters" : side === "spell" ? "Spells"
+    : side === "party" ? "Party" : "Saved encounters");
+  const extra = $("#f-extra");
+  if (extra) extra.hidden = side !== "spell";
+}
+function setSide(side){
+  if (window.TRK) TRK.setSide(side);
+  else applySideChrome();
+  refresh();
+}
 function chip(row, label, set, val, cls){
   const b = document.createElement("button");
   b.type = "button";
@@ -896,8 +1046,6 @@ function chip(row, label, set, val, cls){
   $(row).appendChild(b);
 }
 function buildFilters(){
-  const kinds = [...new Set(DATA.map(r=>r._kind))];
-  if (kinds.length > 1){ chip("#f-kind","Spells",F.kind,"spell"); chip("#f-kind","Monsters",F.kind,"monster"); }
   const syss = [...new Set(DATA.map(r=>r.gameSystem))];
   if (syss.includes("dnd5e")) chip("#f-sys","D&D 5e",F.sys,"dnd5e","dnd");
   if (syss.includes("pf2e"))  chip("#f-sys","Pathfinder 2e",F.sys,"pf2e","pf");
@@ -962,7 +1110,8 @@ function buildRangeControls(){
 /* A collapsed panel that hides active filters is a trap, so the summary carries
    the count and the panel refuses to look empty when it isn't. */
 function activeFilterCount(){
-  let n = F.kind.size + F.sys.size + F.extra.size;
+  let n = F.sys.size;
+  if (getSide() === "spell") n += F.extra.size;
   for (const s of SCALES){
     const g = F.range[s.key];
     if (g && (g.from !== g.min || g.to !== g.max)) n++;
@@ -1012,35 +1161,82 @@ function deepText(r){
 }
 
 /* ---------------- search ---------------- */
-function refresh(){
+let listSig = "";
+let refreshTimer = 0;
+function computeCatalogView(){
+  const side = getSide();
   const q = $("#q").value.trim().toLowerCase();
   const deep = $("#deep").checked;
-  // chipped is everything the chips allow, before ranges and before the query.
-  // Range control visibility is computed from it in Task 3 — deliberately not
-  // from the final view, or a range matching nothing would hide the control
-  // needed to widen it again.
   const chipped = DATA.filter(r => {
-    if (F.kind.size && !F.kind.has(r._kind)) return false;
+    if (r._kind !== side) return false;
     if (F.sys.size && !F.sys.has(r.gameSystem)) return false;
-    return passExtra(r);
+    if (side === "spell" && !passExtra(r)) return false;
+    return true;
   });
-  updateRangeVisibility(chipped);
-  updateFilterCount();
-  view = chipped.filter(r => {
+  const next = chipped.filter(r => {
     if (!passRange(r)) return false;
     if (!q) return true;
     return deep ? deepText(r).includes(q) : r._search.includes(q);
   });
-  // exact-prefix matches first
-  if (q) view.sort((a,b) => (a._search.startsWith(q)?0:1) - (b._search.startsWith(q)?0:1)
+  if (q) next.sort((a,b) => (a._search.startsWith(q)?0:1) - (b._search.startsWith(q)?0:1)
                             || a.name.localeCompare(b.name));
-  $("#count").textContent = view.length.toLocaleString() + " of " + DATA.length.toLocaleString();
+  return { side, view: next, corpus: DATA.filter(r => r._kind === side).length };
+}
+function updateCatalogCount(v, side, corpus){
+  $("#count").textContent = v.length.toLocaleString() + " of " + corpus.toLocaleString();
+  const over = v.length - CAP;
+  $("#more").hidden = over <= 0;
+  $("#more").textContent = over > 0 ? `…${over.toLocaleString()} more — narrow your search` : "";
+}
+function refresh(){
+  const side = getSide();
+  if (isTableSide(side)){
+    if (window.TRK) TRK.renderSideList($("#q").value.trim().toLowerCase());
+    else {
+      $("#list").innerHTML = "";
+      listSig = "";
+      $("#count").textContent = "";
+      $("#more").hidden = true;
+    }
+    return;
+  }
+  const chipped = DATA.filter(r => {
+    if (r._kind !== side) return false;
+    if (F.sys.size && !F.sys.has(r.gameSystem)) return false;
+    if (side === "spell" && !passExtra(r)) return false;
+    return true;
+  });
+  updateRangeVisibility(chipped);
+  updateFilterCount();
+  const { view: next, corpus } = computeCatalogView();
+  view = next;
+  updateCatalogCount(view, side, corpus);
   renderList();
+}
+function scheduleRefresh(){
+  clearTimeout(refreshTimer);
+  const side = getSide();
+  if (!isTableSide(side)){
+    const { view: next, corpus } = computeCatalogView();
+    view = next;
+    updateCatalogCount(view, side, corpus);
+  }
+  refreshTimer = setTimeout(refresh, 180);
 }
 const CAP = 400;
 function renderList(){
   const L = $("#list");
   const shown = view.slice(0, CAP);
+  const sig = getSide() + "\0" + view.length + "\0" + shown.map(r => r.id).join("\0");
+  if (sig === listSig){
+    L.removeAttribute("aria-activedescendant");
+    sel = -1;
+    const over = view.length - CAP;
+    $("#more").hidden = over <= 0;
+    $("#more").textContent = over > 0 ? `…${over.toLocaleString()} more — narrow your search` : "";
+    return;
+  }
+  listSig = sig;
   L.innerHTML = shown.map((r,i) =>
     `<div class="item ${r.gameSystem}" role="option" id="opt-${i}" aria-selected="false" data-i="${i}">
        <span class="nm">${esc(r.name)}</span>
@@ -1423,14 +1619,20 @@ function metaHTML(r){
 }
 
 /* ---------------- events ---------------- */
-$("#q").addEventListener("input", refresh);
+$("#q").addEventListener("input", scheduleRefresh);
 $("#deep").addEventListener("change", refresh);
 document.addEventListener("keydown", e => {
   if (window.TRK && TRK.key(e)) return;      // tracker gets first refusal
-  if (e.key === "/" && document.activeElement !== $("#q")){ e.preventDefault(); $("#q").focus(); return; }
-  if (e.key === "Escape"){ $("#q").value=""; refresh(); $("#q").focus(); return; }
+  const ae = document.activeElement;
+  if (e.key === "/" && !inEditable(ae) && ae !== $("#q")){
+    e.preventDefault(); $("#q").focus(); return;
+  }
+  if (e.key === "Escape" && ae === $("#q")){
+    e.preventDefault(); $("#q").value = ""; refresh(); return;
+  }
   if (e.key === "ArrowDown" || e.key === "ArrowUp"){
-    if (!view.length) return;
+    if (inEditable(ae) || !listNavActive()) return;
+    if (isTableSide(getSide()) || !view.length) return;
     e.preventDefault();
     const n = Math.min(view.length, CAP);
     pick(((sel + (e.key==="ArrowDown"?1:-1)) % n + n) % n);
@@ -1438,6 +1640,9 @@ document.addEventListener("keydown", e => {
   }
 });
 boot();
+window.refresh = refresh;
+window.applySideChrome = applySideChrome;
+window.setSide = setSide;
 </script>
 
 <script>
@@ -1558,7 +1763,8 @@ const TRK = (() => {
     // with the combatant list for the same height budget
     const u = { mode:"browse", qty:1, viewingId:null,
                 diceOpen: !matchMedia("(max-width:760px)").matches,
-                colSide: COL_DEF.side, colTrk: COL_DEF.trk };
+                colSide: COL_DEF.side, colTrk: COL_DEF.trk,
+                side:"monster", catalogTab:"monster", tableTab:"party" };
     if (!raw || typeof raw !== "object") return u;
     if (raw.mode === "track") u.mode = "track";
     u.qty = Math.min(10, Math.max(1, int(raw.qty, 1)));
@@ -1566,6 +1772,11 @@ const TRK = (() => {
     if (typeof raw.viewingId === "string") u.viewingId = raw.viewingId;
     u.colSide = Math.min(COL_MAX.side, Math.max(COL_MIN.side, int(raw.colSide, COL_DEF.side)));
     u.colTrk = Math.min(COL_MAX.trk, Math.max(COL_MIN.trk, int(raw.colTrk, COL_DEF.trk)));
+    if (raw.side === "spell" || raw.side === "party" || raw.side === "enc") u.side = raw.side;
+    if (raw.catalogTab === "spell") u.catalogTab = "spell";
+    if (raw.tableTab === "enc") u.tableTab = "enc";
+    if (u.side === "monster" || u.side === "spell") u.catalogTab = u.side;
+    if (u.side === "party" || u.side === "enc") u.tableTab = u.side;
     return u;
   }
   function vPd(raw){
@@ -2188,6 +2399,21 @@ const TRK = (() => {
   function initDisplay(c){
     return c.initiative === 0 ? "—" : String(c.initiative);
   }
+  function cardSig(c){
+    const combat = state.enc.round >= 1;
+    const active = combat && c.id === state.enc.activeId;
+    const viewing = c.id === state.ui.viewingId;
+    return [c.id, c.name, c.initiative, c.hp.current, c.hp.max, c.status, c.ac,
+            c.type, c.sys || "", active, viewing].join("\0");
+  }
+  function mountCard(c, amt){
+    const wrap = document.createElement("div");
+    wrap.innerHTML = cardHTML(c);
+    const el = wrap.firstElementChild;
+    el.dataset.sig = cardSig(c);
+    if (amt != null && amt !== "") el.querySelector(".cbt-amt").value = amt;
+    return el;
+  }
   function cardHTML(c){
     const spine = c.type === "player" ? "pc" : (c.sys || "");
     const pct = Math.round(100 * c.hp.current / c.hp.max);
@@ -2198,7 +2424,7 @@ const TRK = (() => {
     const init = `<button type="button" class="cbt-init" data-act="init"
            aria-label="Initiative ${esc(shown)} for ${esc(c.name)} — press Enter to edit">${esc(shown)}</button>`;
     return `<div class="cbt ${spine}${c.status === "unconscious" ? " ko" : ""}${active ? " on" : ""}${viewing ? " viewing" : ""}"
-      role="listitem" tabindex="0" data-id="${c.id}"
+      role="listitem" data-id="${c.id}"
       ${active ? 'aria-current="true"' : ""}>
       <div class="cbt-r1">
         <span class="cbt-drag" draggable="true" aria-label="Drag to reorder ${esc(c.name)}" title="Drag to reorder">⋮⋮</span>
@@ -2252,7 +2478,14 @@ const TRK = (() => {
     ovlReturn = document.activeElement;
     const o = $("#trkovl");
     o.innerHTML = `<div class="dlg" role="dialog" aria-modal="true">${html}</div>`;
+    const dlg = o.querySelector(".dlg");
+    const title = dlg && dlg.querySelector("h3");
+    if (title){
+      title.id = "ovl-title";
+      dlg.setAttribute("aria-labelledby", "ovl-title");
+    }
     o.hidden = false;
+    if (window.setAppInert) setAppInert(true);
     o.onclick = e => { if (e.target === o) closeOvl(); };
     const f = o.querySelector("input,select,textarea,button");
     if (f) f.focus();
@@ -2261,6 +2494,7 @@ const TRK = (() => {
     const o = $("#trkovl");
     if (o.hidden) return;
     o.hidden = true; o.innerHTML = ""; o.onclick = null;
+    if (window.setAppInert) setAppInert(false);
     if (ovlReturn && ovlReturn.isConnected) ovlReturn.focus();
     ovlReturn = null;
   }
@@ -2384,6 +2618,7 @@ const TRK = (() => {
           state.party = state.party.filter(x => x.id !== p.id);
           save(LS.party, state.party);
           openPartyOvl();
+          if (window.refresh) refresh();
         });
       }
     });
@@ -2411,6 +2646,7 @@ const TRK = (() => {
       else state.party.push(m);
       save(LS.party, state.party);
       openPartyOvl();
+      if (window.refresh) refresh();
     };
     if (showForm){
       const inp = o.querySelector("#pform [name=name]");
@@ -2452,6 +2688,90 @@ const TRK = (() => {
     save(LS.dice, state.dice);
     renderDice();
     announce("Loaded " + p.name);
+  }
+
+  function partyMeta(p){
+    return [p.type, p.hpMax != null ? p.hpMax + " HP" : "HP ?",
+            p.ac != null ? "AC " + p.ac : null,
+            (p.mod >= 0 ? "+" : "") + p.mod].filter(Boolean).join(" · ");
+  }
+  function renderPartyPane(p){
+    $("#pane").className = "";
+    $("#pane").innerHTML = `<div class="sb" style="max-width:420px"><h2><span>${esc(p.name)}</span>
+      <span class="rank">${esc(p.type)}</span></h2><div class="rule"></div>
+      <div class="kv"><b>HP</b> <span>${esc(p.hpMax ?? "—")}</span></div>
+      <div class="kv"><b>AC</b> <span>${esc(p.ac ?? "—")}</span></div>
+      <div class="kv"><b>Init</b> <span>${esc((p.mod >= 0 ? "+" : "") + p.mod)}</span></div>
+      <div class="btns" style="margin-top:14px">
+        <button type="button" class="chip" data-pedit-pane="${esc(p.id)}">Edit</button>
+      </div></div>`;
+    $("#pane").querySelector("[data-pedit-pane]").onclick = () => openPartyOvl(p.id);
+  }
+  function renderEncPane(p){
+    const names = p.enc.combatants.map(c => c.name).join(" · ") || "Empty roster";
+    $("#pane").className = "";
+    $("#pane").innerHTML = `<div class="sb" style="max-width:420px"><h2><span>${esc(p.name)}</span>
+      <span class="rank">${esc(p.enc.combatants.length)}</span></h2><div class="rule"></div>
+      <p style="margin:0;color:var(--dim)">${esc(names)}</p></div>`;
+  }
+  function addPartyMember(p){
+    if (p.hpMax == null){ openAddForm({ name: p.name, type: p.type, ac: p.ac, mod: p.mod }); return; }
+    addMany({ name: p.name, type: p.type, hpMax: p.hpMax, ac: p.ac, mod: p.mod,
+              ref: null, sys: null }, p.type === "player" ? 1 : state.ui.qty);
+  }
+  function renderSideList(q){
+    if (window.applySideChrome) applySideChrome();
+    const side = state.ui.side === "enc" ? "enc" : "party";
+    const src = side === "party" ? state.party : state.presets;
+    const rows = src.filter(p => !q || p.name.toLowerCase().includes(q));
+    $("#count").textContent = rows.length.toLocaleString() + " of " + src.length.toLocaleString();
+    const L = $("#list");
+    if (!rows.length){
+      L.innerHTML = `<div class="pempty" style="padding:22px 12px">${
+        side === "party" ? "No saved party members yet." : "No saved encounters yet."}</div>`;
+      $("#more").hidden = true;
+      return;
+    }
+    L.innerHTML = rows.map((p, i) => {
+      const meta = side === "party" ? partyMeta(p)
+        : (p.enc.combatants.length + " combatants");
+      const acts = side === "party"
+        ? `<span class="sideact">
+             <button type="button" class="chip" data-padd tabindex="-1" aria-hidden="true">Add</button>
+             <button type="button" class="chip" data-pedit tabindex="-1">Edit</button>
+             <button type="button" class="chip" data-pdel tabindex="-1" aria-label="Delete">✕</button>
+           </span>`
+        : `<span class="sideact">
+             <button type="button" class="chip" data-sload tabindex="-1">Load</button>
+             <button type="button" class="chip" data-sdel tabindex="-1" aria-label="Delete">✕</button>
+           </span>`;
+      return `<div class="item ${side === "party" ? "pc" : "enc"}" role="option" id="opt-${i}"
+                   aria-selected="false" data-table-i="${i}" data-id="${esc(p.id)}">
+        <span class="nm">${esc(p.name)}</span>
+        <span class="lv">${esc(meta)}</span>${acts}
+      </div>`;
+    }).join("");
+    L.querySelectorAll(".item[data-id]").forEach(el => {
+      el.onclick = e => {
+        if (e.target.closest("button")) return;
+        L.querySelectorAll(".item").forEach(x => {
+          x.classList.toggle("sel", x === el);
+          x.setAttribute("aria-selected", String(x === el));
+        });
+        L.setAttribute("aria-activedescendant", el.id);
+        const id = el.dataset.id;
+        if (side === "party"){
+          const p = state.party.find(x => x.id === id);
+          if (p) renderPartyPane(p);
+        } else {
+          const p = state.presets.find(x => x.id === id);
+          if (p) renderEncPane(p);
+        }
+      };
+    });
+    $("#more").hidden = true;
+    const inp = $("#side-save-enc [name=name]");
+    if (inp && side === "enc") inp.value = state.enc.name;
   }
   function openPresetsOvl(){
     openOvl(`<h3>Saved encounters</h3>
@@ -2650,6 +2970,24 @@ const TRK = (() => {
     $("#m-track").classList.toggle("on", track);
     $("#m-track").setAttribute("aria-pressed", String(track));
     if (track){ $("#dice").open = state.ui.diceOpen; renderTrk(); renderDice(); }
+    if (window.applySideChrome) applySideChrome();
+    if (window.refresh) refresh();
+  }
+
+  function setSide(side){
+    if (side === "spell" || side === "monster"){
+      state.ui.catalogTab = side;
+      state.ui.side = side;
+    } else if (side === "party" || side === "enc"){
+      state.ui.tableTab = side;
+      state.ui.side = side;
+    } else if (side === "catalog"){
+      state.ui.side = state.ui.catalogTab === "spell" ? "spell" : "monster";
+    } else if (side === "table"){
+      state.ui.side = state.ui.tableTab === "enc" ? "enc" : "party";
+    }
+    save(LS.ui, state.ui);
+    if (window.applySideChrome) applySideChrome();
   }
 
   function renderTrk(){
@@ -2671,11 +3009,27 @@ const TRK = (() => {
       state.ui.viewingId = null;
       save(LS.ui, state.ui);
     }
-    $("#trklist").innerHTML = e.combatants.map(cardHTML).join("");
+    const list = $("#trklist");
+    const ids = e.combatants.map(c => c.id).join("\0");
+    const rows = [...list.querySelectorAll(".cbt")];
+    const rowIds = rows.map(el => el.dataset.id).join("\0");
+    if (rows.length === e.combatants.length && rowIds === ids){
+      for (let i = 0; i < e.combatants.length; i++){
+        const c = e.combatants[i], el = rows[i];
+        const sig = cardSig(c);
+        if (el.dataset.sig === sig) continue;
+        const amt = el.querySelector(".cbt-amt")?.value ?? "";
+        el.replaceWith(mountCard(c, amt));
+      }
+      return;
+    }
+    list.replaceChildren(...e.combatants.map(c => mountCard(c)));
   }
 
   function onDataReady(){
+    if (window.applySideChrome) applySideChrome();
     if (state.ui.mode === "track") setMode("track");
+    else if (window.refresh) refresh();
   }
 
   /* ---------------- wiring ---------------- */
@@ -2685,9 +3039,70 @@ const TRK = (() => {
 
   $("#m-browse").onclick = () => setMode("browse");
   $("#m-track").onclick = () => setMode("track");
+  $("#sg-catalog").onclick = () => { setSide("catalog"); if (window.refresh) refresh(); };
+  $("#sg-table").onclick = () => { setSide("table"); if (window.refresh) refresh(); };
+  $("#side-inner").addEventListener("click", e => {
+    const b = e.target.closest("[data-side]");
+    if (b) { setSide(b.dataset.side); if (window.refresh) refresh(); }
+  });
+  $("#side-new-party").onclick = () => openPartyOvl("__new__");
+  $("#side-save-enc").onsubmit = ev => {
+    ev.preventDefault();
+    const name = String(new FormData(ev.target).get("name") || "").trim() || state.enc.name;
+    if (!name){ announce("Name the encounter first."); return; }
+    if (state.presets.length >= 50 && !state.presets.some(p => p.name.toLowerCase() === name.toLowerCase())){
+      announce("Preset list is full (50)."); return;
+    }
+    const go = () => { savePreset(name); if (window.refresh) refresh(); announce("Saved " + name); };
+    if (state.presets.some(p => p.name.toLowerCase() === name.toLowerCase()))
+      confirmSwap(ev.target.querySelector("[type=submit]"), "Overwrite " + name + "?", go);
+    else go();
+  };
 
   // picker: capture phase so the row's own click (pick) never fires for +
   $("#list").addEventListener("click", e => {
+    const row = e.target.closest(".item");
+    if (row && row.dataset.id){
+      if (e.target.closest("[data-padd]")){
+        e.stopPropagation();
+        const p = state.party.find(x => x.id === row.dataset.id);
+        if (p) addPartyMember(p);
+        return;
+      }
+      if (e.target.closest("[data-pedit]")){
+        e.stopPropagation();
+        openPartyOvl(row.dataset.id);
+        return;
+      }
+      if (e.target.closest("[data-pdel]")){
+        e.stopPropagation();
+        const p = state.party.find(x => x.id === row.dataset.id);
+        confirmSwap(e.target.closest("[data-pdel]"), "Delete " + (p ? p.name : "") + "?", () => {
+          state.party = state.party.filter(x => x.id !== row.dataset.id);
+          save(LS.party, state.party);
+          if (window.refresh) refresh();
+        });
+        return;
+      }
+      if (e.target.closest("[data-sload]")){
+        e.stopPropagation();
+        confirmSwap(e.target.closest("[data-sload]"), "Replace the current encounter?", () => {
+          loadPreset(row.dataset.id);
+          if (state.ui.mode !== "track") setMode("track");
+        });
+        return;
+      }
+      if (e.target.closest("[data-sdel]")){
+        e.stopPropagation();
+        const p = state.presets.find(x => x.id === row.dataset.id);
+        confirmSwap(e.target.closest("[data-sdel]"), "Delete " + (p ? p.name : "") + "?", () => {
+          state.presets = state.presets.filter(x => x.id !== row.dataset.id);
+          save(LS.presets, state.presets);
+          if (window.refresh) refresh();
+        });
+        return;
+      }
+    }
     const b = e.target.closest(".add");
     if (!b || !document.body.classList.contains("trk")) return;
     e.stopPropagation();
@@ -2699,6 +3114,11 @@ const TRK = (() => {
     const id = $("#list").getAttribute("aria-activedescendant");
     const el = id && document.getElementById(id);
     if (el && el.dataset.i != null){ e.preventDefault(); addFromView(+el.dataset.i); }
+    if (el && el.dataset.id && el.classList.contains("pc")){
+      e.preventDefault();
+      const p = state.party.find(x => x.id === el.dataset.id);
+      if (p) addPartyMember(p);
+    }
   });
 
   // combatant list actions
@@ -2733,13 +3153,13 @@ const TRK = (() => {
     if (card) pickCombatant(card.dataset.id);
   });
   $("#trklist").addEventListener("keydown", e => {
+    const card = e.target.closest(".cbt");
     if (e.altKey && (e.key === "ArrowUp" || e.key === "ArrowDown")){
-      const card = e.target.closest(".cbt");
       if (!card) return;
       e.preventDefault();
       const id = card.dataset.id;
       moveBy(id, e.key === "ArrowUp" ? -1 : 1);
-      const el = $("#trklist").querySelector(`.cbt[data-id="${id}"]`);
+      const el = $("#trklist").querySelector(`.cbt[data-id="${id}"] .cbt-init`);
       if (el) el.focus();
       return;
     }
@@ -2752,10 +3172,6 @@ const TRK = (() => {
         : state.enc.last.kind;                             // Enter = repeat last
       if (applyHP(id, e.target.value, kind)) refocusAmt(id);
       else flashErr(e.target);
-    } else if (e.target.classList.contains("cbt")){
-      e.preventDefault();
-      const b = e.target.querySelector(".cbt-init");
-      if (b) editInit(b);
     }
   });
 
@@ -2853,8 +3269,6 @@ const TRK = (() => {
     if (e.key === "Enter"){ e.preventDefault(); editName(); }
   });
   $("#t-add").onclick = () => openAddForm();
-  $("#t-party").onclick = () => openPartyOvl();
-  $("#t-presets").onclick = () => openPresetsOvl();
   $("#t-pd").onclick = openPdWindow;
   addEventListener("resize", () => { if (pw && !pw.closed) pdPush(); });
 
@@ -2955,7 +3369,7 @@ const TRK = (() => {
       hideDpop();
   });
 
-  return { state, setMode, onDataReady, renderTrk, key,
+  return { state, setMode, setSide, onDataReady, renderTrk, renderSideList, key,
            mutate, undo, redo, addMany, addFromView, removeCombatant, applyHP,
            startCombat, endCombat, nextTurn, prevTurn, canPrev,
            setInitiative, reorderTo, moveBy, resetEnc, clearAll,
