@@ -55,6 +55,8 @@ The target repeats the save whenever it takes damage as well as after every 24 h
 
 ## Legendary Actions
 
+***Legendary Action Uses: 3 (4 in Lair).*** Immediately after another creature's turn, the aboleth can expend a use to take one of the following actions. The aboleth regains all expended uses at the start of each of its turns.
+
 ***Lash.*** The aboleth makes one Tentacle attack.
 
 ***Psychic Drain.*** If the aboleth has at least one creature Charmed or Grappled, it uses Consume Memories and regains 5 (1d10) Hit Points.
