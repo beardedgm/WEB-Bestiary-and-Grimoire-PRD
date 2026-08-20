@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Left column mockups: Bestiary &amp; Grimoire</title>
+<style>
+:root{
+  --stone:#E7E5E0; --stone-2:#DCD9D2; --stone-3:#F2F1ED;
+  --hair:#C5C2B8; --hair-soft:#D8D5CC;
+  --ink:#24211C; --dim:#5F594F; --faint:#645D51;
+  --vellum:#FBF6EA; --paper:#FFFFFF;
+  --brick:#7B2418; --olive:#54632A; --gilt:#9C7C1C;
+  --radius:3px;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0; background:var(--stone); color:var(--ink);
+  font:15px/1.55 var(--sans); -webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--gilt); outline-offset:2px}
+
+.page{max-width:1180px; margin:0 auto; padding:28px 22px 80px}
+.page > h1{
+  margin:0 0 8px; font:600 32px/1.1 var(--serif); font-variant:small-caps; letter-spacing:.04em}
+.page > h1 .amp{color:var(--gilt); font-variant:normal; font-style:italic}
+.lede{margin:0 0 18px; max-width:46em; color:var(--dim); font:italic 18px/1.45 var(--serif)}
+.note{
+  margin:0 0 22px; padding:10px 12px; border:1px solid var(--hair); border-radius:2px;
+  background:var(--stone-3); color:var(--dim); font-size:13px}
+.note code{font:12px/1 var(--mono); color:var(--ink)}
+
+.toolbar{
+  display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-bottom:28px}
+.toolbar .lbl{color:var(--faint); font:600 10px/1 var(--mono);
+  text-transform:uppercase; letter-spacing:.1em; margin-right:4px}
+
+.chip{
+  font:600 10px/1 var(--mono); text-transform:uppercase; letter-spacing:.08em;
+  padding:6px 9px; border:1px solid var(--hair); border-radius:2px;
+  background:var(--stone); color:var(--dim); cursor:pointer;
+  user-select:none; white-space:nowrap;
+}
+.chip:hover{border-color:var(--gilt); color:var(--ink)}
+.chip.on{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
+.chip.on.dnd{background:var(--brick); border-color:var(--brick); color:#FBF6EA}
+.chip.on.pf{background:var(--olive); border-color:var(--olive); color:#FBF6EA}
+.chip.quiet{background:transparent; font-weight:600}
+.chip.quiet.on{background:var(--stone-2); border-color:var(--hair); color:var(--ink)}
+.chip.go{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
+
+.var{margin-bottom:42px}
+.var h2{
+  margin:0 0 8px; font:600 22px/1.2 var(--serif); font-variant:small-caps; letter-spacing:.05em}
+.cap{margin:0 0 12px; color:var(--dim); font-size:14px; line-height:1.5; max-width:52em}
+.frame{
+  display:flex; min-height:560px; max-height:70vh;
+  border:1px solid var(--hair); background:var(--stone); overflow:hidden;
+}
+.frame header{
+  display:flex; align-items:center; gap:12px; padding:10px 14px;
+  border-bottom:1px solid var(--hair); background:var(--stone-3); flex:none}
+.frame header h3{
+  margin:0; white-space:nowrap; font:600 16px/1 var(--serif);
+  font-variant:small-caps; letter-spacing:.07em}
+.frame header h3 .amp{color:var(--gilt); font-style:italic; font-variant:normal}
+.q{
+  flex:1; min-width:80px; padding:8px 11px; border-radius:var(--radius);
+  border:1px solid var(--hair); background:var(--paper); color:var(--ink);
+  font:14px/1.2 var(--sans)}
+.q::placeholder{color:var(--faint)}
+.count{color:var(--dim); white-space:nowrap; flex:none;
+  font:11px/1 var(--mono); letter-spacing:.03em}
+.mode{display:flex; gap:5px; flex:none}
+
+.shell{display:flex; flex-direction:column; flex:1; min-height:0; min-width:0}
+.cols{display:flex; flex:1; min-height:0}
+
+.side{
+  width:340px; flex:none; border-right:1px solid var(--hair);
+  display:flex; flex-direction:column; background:var(--stone); min-height:0}
+.nav{padding:8px 10px; border-bottom:1px solid var(--hair); background:var(--stone-3)}
+.nav .frow{margin-bottom:0}
+.nav .frow + .frow{margin-top:6px}
+.frow{display:flex; flex-wrap:wrap; gap:5px; margin-bottom:7px}
+.frow:last-child{margin-bottom:0}
+
+.filters{padding:10px 12px; border-bottom:1px solid var(--hair); background:var(--stone-3)}
+.filters .ttl{display:flex; align-items:center; gap:7px; margin-bottom:8px;
+  color:var(--dim); font:600 10px/1 var(--mono); text-transform:uppercase; letter-spacing:.1em}
+.rng .lbl{display:block; margin-bottom:4px; color:var(--faint);
+  font:600 9.5px/1 var(--mono); text-transform:uppercase; letter-spacing:.1em}
+.rng .row{display:flex; align-items:center; gap:6px}
+.rng select{
+  flex:1; min-width:0; padding:4px 6px; border-radius:2px;
+  border:1px solid var(--hair); background:var(--stone); color:var(--ink);
+  font:11.5px/1.3 var(--mono)}
+.rng .to{flex:none; color:var(--faint); font:10px/1 var(--mono)}
+.tog{display:flex; align-items:center; gap:6px; color:var(--dim); font-size:12px; min-height:24px}
+.tog input{accent-color:var(--gilt)}
+
+.list{flex:1; overflow-y:auto; min-height:0;
+  scrollbar-color:var(--hair) transparent; scrollbar-width:thin}
+.item{
+  padding:8px 12px 8px 10px; border-bottom:1px solid var(--hair-soft);
+  border-left:3px solid transparent; cursor:pointer;
+  display:flex; align-items:baseline; gap:8px}
+.item.dnd5e{border-left-color:var(--brick)}
+.item.pf2e{border-left-color:var(--olive)}
+.item.pc{border-left-color:var(--gilt)}
+.item.enc{border-left-color:var(--hair)}
+.item:hover{background:var(--stone-2)}
+.item.sel.dnd5e{background:var(--vellum)}
+.item.sel.pf2e,.item.sel.enc{background:var(--paper)}
+.item.sel.pc{background:#F4EFDC}
+.item .nm{flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.item.sel .nm{font-weight:600}
+.item .lv{flex:none; white-space:nowrap; color:var(--faint);
+  font:10.5px/1 var(--mono); letter-spacing:.02em}
+.item .add{
+  flex:none; width:24px; height:24px; margin:-4px -6px -4px 0;
+  border:1px solid var(--hair); border-radius:2px; background:var(--stone-3);
+  color:var(--dim); font:700 14px/1 var(--mono); cursor:pointer}
+body:not(.show-trk) .item .add, body:not(.show-trk) .trk-only{display:none}
+.foot{
+  flex:none; padding:8px 12px; border-top:1px solid var(--hair-soft);
+  background:var(--stone-3); color:var(--faint); font-size:12.5px;
+  display:flex; justify-content:space-between; align-items:center; gap:8px}
+
+.pane{
+  flex:1; min-width:0; overflow-y:auto; padding:22px 24px;
+  background:var(--stone-2); color:var(--faint);
+  font:italic 16px/1.45 var(--serif); display:flex; align-items:flex-start}
+.pane .card{
+  max-width:420px; padding:18px 20px; background:var(--vellum);
+  border:1px solid #E7DBBE; border-radius:2px; font-style:normal; color:var(--ink)}
+.pane .card h4{
+  margin:0 0 8px; font:600 22px/1.15 var(--serif); font-variant:small-caps;
+  letter-spacing:.02em; color:var(--brick)}
+.pane .card p{margin:0; color:var(--dim); font:13.5px/1.5 var(--sans)}
+
+/* stacked sections */
+.sec{
+  border-bottom:1px solid var(--hair); background:var(--stone-3); flex:none}
+.sec > summary{
+  display:flex; align-items:center; gap:7px; padding:9px 12px; cursor:pointer;
+  list-style:none; color:var(--dim);
+  font:600 10px/1 var(--mono); text-transform:uppercase; letter-spacing:.1em}
+.sec > summary::-webkit-details-marker{display:none}
+.sec > summary::before{content:"▸"; color:var(--faint); font-size:11px}
+.sec[open] > summary::before{transform:rotate(90deg); display:inline-block}
+.sec .body{display:flex; flex-direction:column; min-height:0; background:var(--stone)}
+.sec[open]{flex:1; min-height:0; display:flex; flex-direction:column}
+.sec[open] .list{max-height:none}
+
+.seg{display:flex; padding:4px; gap:3px; background:var(--stone-2); border-radius:3px}
+.seg .chip{flex:1; text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+  <h1>Bestiary <span class="amp">&amp;</span> Grimoire: left column</h1>
+  <p class="lede">Four ways to split monsters, spells, party, and encounters. Fake data only. Pick a direction before we wire this into the app.</p>
+  <p class="note">Open this file from the repo: <code>http://127.0.0.1:8000/docs/mockups/left-column.html</code>. Toggle <b>Tracker</b> below to see the add / load controls that would appear in combat prep. Tabs inside each mock switch the list.</p>
+  <div class="toolbar">
+    <span class="lbl">Preview as</span>
+    <button type="button" class="chip on" id="m-lib" aria-pressed="true">Library</button>
+    <button type="button" class="chip" id="m-trk" aria-pressed="false">Tracker</button>
+  </div>
+
+  <section class="var" id="v1">
+    <h2>1. Four peer tabs</h2>
+    <p class="cap">Monsters, Spells, Party, and Encounters sit as equal tabs. Catalog filters (system + scale) only appear on Monsters or Spells. Party and Encounters get a list plus New. Closest to “everything lives in the left column.”</p>
+    <div class="frame" data-var="peer"></div>
+  </section>
+
+  <section class="var" id="v2">
+    <h2>2. Two-row nav</h2>
+    <p class="cap">Row 1 is the catalog (Monsters | Spells). Row 2 is quieter prep (Party | Encounters). Catalog stays primary; party and encounters are always one click away without four equal tabs crowding 340px.</p>
+    <div class="frame" data-var="tworow"></div>
+  </section>
+
+  <section class="var" id="v3">
+    <h2>3. Catalog vs table</h2>
+    <p class="cap">A top segment chooses Catalog or Table. Catalog inner tabs: Monsters / Spells. Table inner tabs: Party / Encounters. Library can default to Catalog; Tracker can default to Table, without changing the header mode buttons yet.</p>
+    <div class="frame" data-var="catalog"></div>
+  </section>
+
+  <section class="var" id="v4">
+    <h2>4. Stacked sections</h2>
+    <p class="cap">No tabs. Four collapsible blocks. Filters live inside the open catalog section. Everything can be visible at once. Usually cramped at this width; useful as a contrast.</p>
+    <div class="frame" data-var="stack"></div>
+  </section>
+</div>
+
+<script>
+const MONSTERS = [
+  {name:"Aboleth", sys:"dnd5e", lv:"CR 10"},
+  {name:"Goblin Warrior", sys:"dnd5e", lv:"CR 1/4"},
+  {name:"Adult Red Dragon", sys:"dnd5e", lv:"CR 17"},
+  {name:"Goblin War Chanter", sys:"pf2e", lv:"Lvl 1"},
+  {name:"Alghollthu Master", sys:"pf2e", lv:"Lvl 7"},
+];
+const SPELLS = [
+  {name:"Fireball", sys:"dnd5e", lv:"Lvl 3"},
+  {name:"Cure Wounds", sys:"dnd5e", lv:"Lvl 1"},
+  {name:"Fireball", sys:"pf2e", lv:"Rank 3"},
+  {name:"Heal", sys:"pf2e", lv:"Rank 1"},
+];
+const PARTY = [
+  {name:"Ireena", meta:"Player · 38 HP · AC 15 · +2"},
+  {name:"Ismark", meta:"Player · 44 HP · AC 16 · +1"},
+  {name:"Ezmerelda", meta:"Player · 52 HP · AC 16 · +3"},
+  {name:"Rahadin", meta:"NPC · 90 HP · AC 18 · +4"},
+];
+const ENCS = [
+  {name:"Village ambush", meta:"4 combatants · Setup"},
+  {name:"Lair of the Aboleth", meta:"7 combatants · Round 3"},
+];
+const BLURB = {
+  monster: "Stat block would open here, same reading pane as today.",
+  spell: "Spell block would open here.",
+  party: "Edit this character in the pane, or keep a small form overlay.",
+  enc: "Encounter roster and notes. In Tracker, Load replaces the current fight.",
+};
+
+const PLACE = {
+  monster: "Search monsters…",
+  spell: "Search spells…",
+  party: "Search party…",
+  enc: "Search encounters…",
+};
+
+function esc(s){
+  return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+}
+
+function itemHTML(kind, row, i, sel){
+  const cls = kind === "monster" || kind === "spell" ? row.sys
+            : kind === "party" ? "pc" : "enc";
+  const add = kind === "monster"
+    ? `<button type="button" class="add" title="Add to encounter">+</button>`
+    : kind === "party"
+      ? `<button type="button" class="chip trk-only">Add</button>`
+      : kind === "enc"
+        ? `<button type="button" class="chip trk-only">Load</button>` : "";
+  const meta = row.lv || row.meta;
+  return `<div class="item ${cls}${sel===i?" sel":""}" data-i="${i}" data-kind="${kind}">
+    <span class="nm">${esc(row.name)}</span>
+    <span class="lv">${esc(meta)}</span>${add}
+  </div>`;
+}
+
+function listFor(kind){
+  if (kind === "monster") return MONSTERS;
+  if (kind === "spell") return SPELLS;
+  if (kind === "party") return PARTY;
+  return ENCS;
+}
+
+function filtersHTML(kind){
+  if (kind === "monster") return `
+    <div class="filters">
+      <div class="ttl">Filters</div>
+      <div class="frow">
+        <button type="button" class="chip on dnd">D&amp;D</button>
+        <button type="button" class="chip">Pathfinder</button>
+      </div>
+      <div class="rng">
+        <span class="lbl">D&amp;D 5e · CR</span>
+        <div class="row">
+          <select><option>1/8</option><option selected>10</option></select>
+          <span class="to">to</span>
+          <select><option selected>30</option></select>
+        </div>
+      </div>
+      <label class="tog"><input type="checkbox"> also search description text</label>
+    </div>`;
+  if (kind === "spell") return `
+    <div class="filters">
+      <div class="ttl">Filters</div>
+      <div class="frow">
+        <button type="button" class="chip on dnd">D&amp;D</button>
+        <button type="button" class="chip">Pathfinder</button>
+      </div>
+      <div class="rng">
+        <span class="lbl">D&amp;D 5e · Spell level</span>
+        <div class="row">
+          <select><option selected>0</option></select>
+          <span class="to">to</span>
+          <select><option selected>9</option></select>
+        </div>
+      </div>
+      <div class="frow">
+        <button type="button" class="chip">Cantrip</button>
+        <button type="button" class="chip">Ritual</button>
+      </div>
+    </div>`;
+  return `
+    <div class="filters">
+      <div class="frow">
+        <button type="button" class="chip go">New ${kind === "party" ? "member" : "encounter"}</button>
+      </div>
+    </div>`;
+}
+
+function paneHTML(kind, row){
+  const title = row ? row.name : "Select an entry";
+  const body = row ? BLURB[kind] : "The reading pane stays on the right, as today.";
+  return `<div class="card"><h4>${esc(title)}</h4><p>${esc(body)}</p></div>`;
+}
+
+function headerHTML(kind){
+  const n = listFor(kind).length;
+  return `<header>
+    <h3>Bestiary <span class="amp">&amp;</span> Grimoire</h3>
+    <input class="q" type="search" placeholder="${esc(PLACE[kind])}" autocomplete="off">
+    <span class="count">${n}</span>
+    <span class="mode">
+      <button type="button" class="chip on">Library</button>
+      <button type="button" class="chip">Tracker</button>
+    </span>
+  </header>`;
+}
+
+function sideBody(kind, sel){
+  const rows = listFor(kind);
+  return `${filtersHTML(kind)}
+    <div class="list">${rows.map((r,i) => itemHTML(kind, r, i, sel)).join("")}</div>
+    <div class="foot"><span>${rows.length} shown</span></div>`;
+}
+
+function renderPeer(root, st){
+  const tabs = [
+    ["monster","Monsters"],["spell","Spells"],["party","Party"],["enc","Encounters"],
+  ];
+  root.innerHTML = `<div class="shell">${headerHTML(st.kind)}
+    <div class="cols">
+      <div class="side">
+        <div class="nav"><div class="frow">
+          ${tabs.map(([k,l]) => `<button type="button" class="chip${st.kind===k?" on":""}" data-tab="${k}">${l}</button>`).join("")}
+        </div></div>
+        ${sideBody(st.kind, st.sel)}
+      </div>
+      <div class="pane">${paneHTML(st.kind, listFor(st.kind)[st.sel])}</div>
+    </div></div>`;
+}
+
+function renderTwoRow(root, st){
+  const top = [["monster","Monsters"],["spell","Spells"]];
+  const bot = [["party","Party"],["enc","Encounters"]];
+  const cat = st.kind === "monster" || st.kind === "spell";
+  root.innerHTML = `<div class="shell">${headerHTML(st.kind)}
+    <div class="cols">
+      <div class="side">
+        <div class="nav">
+          <div class="frow">
+            ${top.map(([k,l]) => `<button type="button" class="chip${st.kind===k?" on":""}" data-tab="${k}">${l}</button>`).join("")}
+          </div>
+          <div class="frow">
+            ${bot.map(([k,l]) => `<button type="button" class="chip quiet${st.kind===k?" on":""}" data-tab="${k}">${l}</button>`).join("")}
+          </div>
+        </div>
+        ${sideBody(st.kind, st.sel)}
+      </div>
+      <div class="pane">${paneHTML(st.kind, listFor(st.kind)[st.sel])}</div>
+    </div></div>`;
+}
+
+function renderCatalog(root, st){
+  const table = st.kind === "party" || st.kind === "enc";
+  const inner = table
+    ? [["party","Party"],["enc","Encounters"]]
+    : [["monster","Monsters"],["spell","Spells"]];
+  root.innerHTML = `<div class="shell">${headerHTML(st.kind)}
+    <div class="cols">
+      <div class="side">
+        <div class="nav">
+          <div class="seg">
+            <button type="button" class="chip${!table?" on":""}" data-tab="${table?"monster":st.kind}">Catalog</button>
+            <button type="button" class="chip${table?" on":""}" data-tab="${table?st.kind:"party"}">Table</button>
+          </div>
+          <div class="frow" style="margin-top:8px">
+            ${inner.map(([k,l]) => `<button type="button" class="chip${st.kind===k?" on":""}" data-tab="${k}">${l}</button>`).join("")}
+          </div>
+        </div>
+        ${sideBody(st.kind, st.sel)}
+      </div>
+      <div class="pane">${paneHTML(st.kind, listFor(st.kind)[st.sel])}</div>
+    </div></div>`;
+}
+
+function renderStack(root, st){
+  const blocks = [
+    ["monster","Monsters"],["spell","Spells"],["party","Party"],["enc","Encounters"],
+  ];
+  const sections = blocks.map(([k,l]) => {
+    const open = st.kind === k ? " open" : "";
+    const rows = listFor(k);
+    return `<details class="sec"${open} data-tab="${k}">
+      <summary>${l}<span style="margin-left:auto;color:var(--faint)">${rows.length}</span></summary>
+      <div class="body">
+        ${k === "monster" || k === "spell" ? filtersHTML(k) : `<div class="filters"><button type="button" class="chip go">New ${k==="party"?"member":"encounter"}</button></div>`}
+        <div class="list">${rows.map((r,i) => itemHTML(k, r, i, st.kind===k?st.sel:-1)).join("")}</div>
+      </div>
+    </details>`;
+  }).join("");
+  root.innerHTML = `<div class="shell">${headerHTML(st.kind)}
+    <div class="cols">
+      <div class="side">${sections}</div>
+      <div class="pane">${paneHTML(st.kind, listFor(st.kind)[st.sel])}</div>
+    </div></div>`;
+}
+
+const STATES = {
+  peer: {kind:"monster", sel:0},
+  tworow: {kind:"monster", sel:0},
+  catalog: {kind:"monster", sel:0},
+  stack: {kind:"monster", sel:0},
+};
+const RENDER = {peer:renderPeer, tworow:renderTwoRow, catalog:renderCatalog, stack:renderStack};
+
+function paint(key){
+  const el = document.querySelector(`[data-var="${key}"]`);
+  RENDER[key](el, STATES[key]);
+}
+
+function paintAll(){ Object.keys(STATES).forEach(paint); }
+
+document.body.addEventListener("click", e => {
+  const frame = e.target.closest(".frame");
+  if (!frame) return;
+  const key = frame.dataset.var;
+  const st = STATES[key];
+  const tab = e.target.closest("[data-tab]");
+  if (tab){
+    e.preventDefault();
+    st.kind = tab.dataset.tab;
+    st.sel = 0;
+    paint(key);
+    return;
+  }
+  const item = e.target.closest(".item");
+  if (item && !e.target.closest(".add,.chip")){
+    st.kind = item.dataset.kind;
+    st.sel = +item.dataset.i;
+    paint(key);
+  }
+});
+
+document.getElementById("m-lib").onclick = () => {
+  document.body.classList.remove("show-trk");
+  document.getElementById("m-lib").classList.add("on");
+  document.getElementById("m-lib").setAttribute("aria-pressed","true");
+  document.getElementById("m-trk").classList.remove("on");
+  document.getElementById("m-trk").setAttribute("aria-pressed","false");
+};
+document.getElementById("m-trk").onclick = () => {
+  document.body.classList.add("show-trk");
+  document.getElementById("m-trk").classList.add("on");
+  document.getElementById("m-trk").setAttribute("aria-pressed","true");
+  document.getElementById("m-lib").classList.remove("on");
+  document.getElementById("m-lib").setAttribute("aria-pressed","false");
+};
+
+paintAll();
+</script>
+</body>
+</html>
