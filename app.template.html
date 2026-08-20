@@ -243,6 +243,7 @@ label.tog input{accent-color:var(--gilt); width:15px; height:15px}
   font:600 11px/1 var(--mono); text-transform:uppercase; letter-spacing:.14em;
   border-bottom:1px solid var(--hair-soft);
 }
+.legintro{margin:-4px 0 12px; color:var(--dim); font-size:.92em; line-height:1.55}
 
 .body p{margin:10px 0; color:var(--ink)}
 .deg{margin:6px 0 6px 1px; padding-left:12px; border-left:2px solid var(--sheet-edge)}
@@ -1079,10 +1080,11 @@ function renderRecord(r){
 function glyph(a){
   if (!a) return "";
   if (a.symbol) return a.symbol;
-  const n = a.number, u = a.unit;
+  const n = a.number ?? 1, u = a.unit;
   if (!u) return "—";
+  if (u === "legendary") return "(cost " + n + ")";
   if (u === "action" || u === "bonus" || u === "reaction" || u === "free")
-    return (n ?? "") + " " + u + (n > 1 ? "s" : "");
+    return n + " " + u + (n > 1 ? "s" : "");
   return (n != null ? n + " " : "") + u + (n > 1 ? "s" : "");
 }
 function kv(label, val){ return val ? `<div class="kv"><b>${label}</b> <span>${esc(val)}</span></div>` : ""; }
@@ -1092,17 +1094,43 @@ function kv(label, val){ return val ? `<div class="kv"><b>${label}</b> <span>${e
 function drollBtn(rollSpec, label){
   return `<button type="button" class="droll" data-roll="${esc(rollSpec)}">${esc(label)}</button>`;
 }
+function normRoll(spec){ return String(spec).replace(/\s+/g, ""); }
+function fmtFormulaSpaces(f){
+  return String(f).replace(/([+-])/g, " $1 ").replace(/\s+/g, " ").trim();
+}
+function isDiceRollSpec(spec){
+  return /^\d+d\d+([+-]\d+)?$/i.test(normRoll(spec));
+}
+function diceOnlyRoll(formula){
+  const label = fmtFormulaSpaces(formula);
+  const spec = normRoll(formula);
+  return isDiceRollSpec(spec) ? drollBtn(spec, label) : esc(label);
+}
+function avgDiceHTML(average, formula){
+  if (average != null && formula)
+    return esc(String(average) + " (") + diceOnlyRoll(formula) + esc(")");
+  return diceOnlyRoll(formula);
+}
 function droll(formula){
-  return /^\d+d\d+([+-]\d+)?$/.test(formula) ? drollBtn(formula, formula) : esc(formula);
+  return diceOnlyRoll(formula);
 }
 function modFmt(mod){ return (mod >= 0 ? "+" : "") + mod; }
 function d20mod(mod, label){ return drollBtn("1d20" + modFmt(mod), label ?? modFmt(mod)); }
-/* link dice formulas embedded in prose (Hit: 10 (1d10+5), heightening text, etc.) */
+/* link dice in prose — only NdX ± M is clickable; leading avg and parens stay plain */
+const PROSE_DICE_RE = /(\d+)\s*\(\s*(\d+d\d+(?:\s*[+-]\s*\d+)?)\s*\)|(\d+d\d+(?:\s*[+-]\s*\d+)?)/gi;
 function proseWithDice(text){
   if (text == null || text === "") return "";
-  return String(text).split(/(\d+d\d+(?:[+-]\d+)?)/g).map((p, i) =>
-    i % 2 && /^\d+d\d+([+-]\d+)?$/.test(p) ? droll(p) : esc(p)
-  ).join("");
+  let h = "", last = 0, m;
+  PROSE_DICE_RE.lastIndex = 0;
+  while ((m = PROSE_DICE_RE.exec(text)) !== null){
+    h += esc(text.slice(last, m.index));
+    if (m[1] != null && m[2] != null)
+      h += esc(m[1] + " (") + diceOnlyRoll(m[2]) + esc(")");
+    else if (m[3] != null)
+      h += diceOnlyRoll(m[3]);
+    last = m.index + m[0].length;
+  }
+  return h + esc(text.slice(last));
 }
 /* a labelled row whose value is a single number worth picking out of the block */
 function chipKV(label, value, qual){
@@ -1156,7 +1184,7 @@ function spellHTML(r){
                                                         : (r.attack.vs||"") + " spell attack"));
   if (r.damage && r.damage.length)
     h += `<div class="kv"><b>Damage</b> <span>${r.damage.map(d =>
-          droll(d.formula) + (d.type ? " " + esc(d.type) : "")).join(", ")}</span></div>`;
+          avgDiceHTML(d.average, d.formula) + (d.type ? " " + esc(d.type) : "")).join(", ")}</span></div>`;
 
   if (r.entries.length){
     h += `<div class="sec">Description</div><div class="body">` +
@@ -1263,7 +1291,12 @@ function monsterHTML(r){
     return (ia<0?99:ia) - (ib<0?99:ib);
   });
   for (const k of keys){
-    h += `<div class="sec">${esc(SECLABEL[k] || k.replace(/([A-Z])/g," $1"))}</div>`;
+    let sec = SECLABEL[k] || k.replace(/([A-Z])/g," $1");
+    const legN = r.systemExtras?.legendaryActionsPerRound;
+    if (k === "legendary" && legN != null) sec += ` (${legN}/round)`;
+    h += `<div class="sec">${esc(sec)}</div>`;
+    if (k === "legendary" && r.systemExtras?.legendaryPreamble)
+      h += `<div class="legintro">${esc(r.systemExtras.legendaryPreamble)}</div>`;
     for (const e of groups[k]) h += entryHTML(e);
   }
   if (r.spellcasting.length){
@@ -1289,16 +1322,26 @@ function monsterHTML(r){
 }
 
 // "1 action" under an Actions heading says nothing the heading didn't. Pathfinder
-// symbols always carry cost, and so does any count above one (legendary 2, 3).
+// symbols always carry cost; legendary actions always show their cost.
 const IMPLIED_BY_SECTION = {action:1, reaction:1, bonus:1, legendary:1, free:1};
 function showsActivity(a){
   if (!a) return false;
   if (a.symbol) return true;
+  if (a.unit === "legendary") return true;
   return !(a.number === 1 && IMPLIED_BY_SECTION[a.unit]);
+}
+
+function usesLabel(u){
+  if (!u) return null;
+  if (u.display) return u.display;
+  if (u.count != null && u.period) return u.count + "/" + u.period;
+  return null;
 }
 
 function entryHTML(e){
   let h = `<div class="ent"><span class="en">${esc(e.name)}</span>`;
+  const ul = usesLabel(e.uses);
+  if (ul) h += ` <span class="qual">(${esc(ul)})</span>`;
   if (showsActivity(e.activity))
     h += ` <span class="act${e.activity.symbol ? " sym" : ""}">${esc(glyph(e.activity))}</span>`;
   if (e.traits && e.traits.length)
@@ -1313,7 +1356,7 @@ function entryHTML(e){
   }
   if (e.damage && e.damage.length)
     h += `<br><span style="color:var(--dim)">Damage</span> ${e.damage.map(x =>
-          droll(x.formula) + (x.type ? " " + esc(x.type) : "")).join(" plus ")}`;
+          avgDiceHTML(x.average, x.formula) + (x.type ? " " + esc(x.type) : "")).join(" plus ")}`;
   if (e.trigger) h += `<br><span style="color:var(--dim)"><b>Trigger</b> ${esc(e.trigger)}</span>`;
   if (e.requirements) h += `<br><span style="color:var(--dim)"><b>Requirements</b> ${esc(e.requirements)}</span>`;
   if (e.frequency){

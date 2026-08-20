@@ -1060,6 +1060,12 @@ def parse_5e_entries(lines, rec, warn):
             if mn: rec['systemExtras']['legendaryActionsPerRound'] = int(mn.group(1))
             flush()
             continue
+        mu = re.search(r'legendary action uses?\s*:\s*(\d+)', plain, re.I)
+        if mu:
+            rec['systemExtras']['legendaryPreamble'] = plain.strip()
+            rec['systemExtras']['legendaryActionsPerRound'] = int(mu.group(1))
+            flush()
+            continue
 
         m = (re.match(r'^\*\*\*([^*]+?)[:\.]?\*\*\*\s*(.*)$', s) or
              re.match(r'^\*\*([^*]+?)[:\.]?\*\*\s*:?\s*(.*)$', s))
