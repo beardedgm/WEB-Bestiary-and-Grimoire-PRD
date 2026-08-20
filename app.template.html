@@ -60,9 +60,22 @@ header h1 .amp{color:var(--gilt); font-variant:normal; font-style:italic; paddin
 }
 main{flex:1; display:flex; min-height:0}
 
+/* ---- resizable column gutters ---- */
+.col-resize{
+  flex:none; width:6px; margin:0 -3px; position:relative; z-index:3;
+  cursor:col-resize; touch-action:none; background:transparent;
+}
+.col-resize::after{
+  content:""; position:absolute; inset:0 2px;
+  background:var(--hair); opacity:0; transition:opacity .12s;
+}
+.col-resize:hover::after, .col-resize.dragging::after{background:var(--gilt); opacity:1}
+body.col-resizing{cursor:col-resize; user-select:none}
+body:not(.trk) #resize-trk{display:none}
+
 /* ---- sidebar ---- */
 #side{
-  width:340px; flex:none; border-right:1px solid var(--hair);
+  width:var(--col-side, 340px); flex:none; border-right:1px solid var(--hair);
   display:flex; flex-direction:column; background:var(--stone); min-height:0;
 }
 #filters{padding:11px 12px; border-bottom:1px solid var(--hair); background:var(--stone-3)}
@@ -146,7 +159,7 @@ label.tog input{accent-color:var(--gilt); width:15px; height:15px}
 
 /* ---- reading pane: a sheet on the table ---- */
 #pane{
-  flex:1; overflow-y:auto; min-height:0; padding:26px 28px 60px;
+  flex:1; min-width:200px; overflow-y:auto; min-height:0; padding:26px 28px 60px;
   background:var(--stone-2);
   /* stock defaults; overridden per game system */
   --sysink:var(--brick); --sheet:var(--paper); --sheet-edge:var(--paper-edge);
@@ -298,6 +311,7 @@ kbd{
   header h1{width:100%}
   main{flex-direction:column}
   #side{width:100%; border-right:none; border-bottom:1px solid var(--hair); max-height:46vh; overflow-y:auto}
+  .col-resize{display:none !important}
   #list{min-height:150px}          /* a floor so the results list can't be squeezed to 0 */
   #pane{padding:16px 12px 40px}
   .sb{padding:22px 18px 20px}
@@ -321,7 +335,7 @@ kbd{
 #trk{display:none}
 body.trk #trk{
   display:flex; flex-direction:column; min-height:0;
-  width:380px; flex:none;
+  width:var(--col-trk, 380px); flex:none;
   border-right:1px solid var(--hair); background:var(--stone);
 }
 #trkhead{
@@ -389,6 +403,7 @@ body:not(.trk) .item .add{display:none}
 
 /* combatant cards — the spine metaphor from the results list */
 .cbt{
+  position:relative;
   padding:8px 12px 9px 9px; border-bottom:1px solid var(--hair-soft);
   border-left:3px solid var(--hair);
 }
@@ -409,7 +424,13 @@ body:not(.trk) .item .add{display:none}
   color:var(--faint); font:14px/1 var(--mono); cursor:pointer; align-self:center;
 }
 .cbt-x:hover{color:var(--danger); background:var(--stone-2)}
-.cbt-r2{display:flex; align-items:center; gap:7px; margin:6px 0 0 34px}
+.cbt-drag{
+  flex:none; width:14px; cursor:grab; color:var(--faint); user-select:none;
+  font:11px/1.2 var(--mono); text-align:center; letter-spacing:-1px;
+}
+.cbt-drag:hover{color:var(--dim)}
+.cbt-drag:active{cursor:grabbing}
+.cbt-r2{display:flex; align-items:center; gap:7px; margin:6px 0 0 58px}
 .hpbar{flex:1; height:4px; border-radius:2px; background:var(--stone-2);
        border:1px solid var(--hair-soft); overflow:hidden}
 .hpbar i{display:block; height:100%}
@@ -446,7 +467,18 @@ body:not(.trk) .item .add{display:none}
 }
 .cbt.on{background:var(--stone-3); box-shadow:inset 0 0 0 2px var(--gilt)}
 .cbt.on .cbt-init{color:var(--ink)}
-.cbt.drag{opacity:.5}
+.cbt.viewing{background:var(--stone-2); box-shadow:inset 0 0 0 1px var(--hair)}
+.cbt.on.viewing{box-shadow:inset 0 0 0 2px var(--gilt), inset 0 0 0 3px var(--hair)}
+.cbt.drag{opacity:.45}
+/* insertion gap — independent of .on/.viewing box-shadow so the landing
+   slot stays visible while dragging over the active or selected card */
+.cbt.drop-before::before,
+.cbt.drop-after::after{
+  content:""; position:absolute; left:0; right:0; height:3px;
+  background:var(--gilt); pointer-events:none; z-index:1;
+}
+.cbt.drop-before::before{top:-2px}
+.cbt.drop-after::after{bottom:-2px}
 button.cbt-init{border:none; background:none; padding:0; cursor:pointer; min-height:24px}
 button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gilt)}
 .cbt-init-edit{
@@ -572,6 +604,7 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 .dlg .dlghint{margin:0 0 6px; color:var(--dim); font-size:12.5px}
 body.pd header, body.pd #side, body.pd #trk, body.pd #pane,
 body.pd #dpop, body.pd #trkovl, body.pd #load{display:none !important}
+body.pd #pdisp{position:fixed; inset:0; z-index:60}
 
 @media (max-width:760px){
   body.trk #trk{width:100%; order:-1; border-right:none; border-bottom:1px solid var(--hair)}
@@ -619,6 +652,8 @@ body.pd #dpop, body.pd #trkovl, body.pd #load{display:none !important}
     <div id="list" role="listbox" aria-label="Search results" tabindex="0"></div>
     <div id="more" hidden></div>
   </div>
+  <div class="col-resize" id="resize-side" role="separator" aria-orientation="vertical"
+       aria-label="Resize library column" tabindex="-1"></div>
   <section id="trk" aria-label="Initiative tracker">
     <div id="trkhead">
       <span id="trkname" role="button" tabindex="0"
@@ -641,8 +676,8 @@ body.pd #dpop, body.pd #trkovl, body.pd #load{display:none !important}
       <span class="sp"></span>
       <button type="button" class="chip" id="t-undo" disabled>Undo</button>
       <button type="button" class="chip" id="t-redo" disabled>Redo</button>
-      <button type="button" class="chip" id="t-reset">Reset</button>
-      <button type="button" class="chip" id="t-clear">Clear</button>
+      <button type="button" class="chip" id="t-reset" title="Keep party members, remove monsters and NPCs">Reset</button>
+      <button type="button" class="chip" id="t-clear" title="Remove everyone from the encounter">Clear</button>
     </div>
     <div id="trklist" role="list" aria-label="Combatants"></div>
     <div id="trkempty">No combatants yet — add monsters from the results list, or your party from the toolbar.</div>
@@ -671,9 +706,14 @@ body.pd #dpop, body.pd #trkovl, body.pd #load{display:none !important}
         </div>
         <div class="dres" id="dres" role="status" aria-live="polite"></div>
         <div class="dhist" id="dhist"></div>
+        <label class="tog" style="display:block;margin-top:10px">
+          <input type="checkbox" id="pd-showrolls"> Show rolls on player display
+        </label>
       </div>
     </details>
   </section>
+  <div class="col-resize" id="resize-trk" role="separator" aria-orientation="vertical"
+       aria-label="Resize tracker column" tabindex="-1"></div>
   <div id="pane" class="empty">Select an entry</div>
   <div id="trkovl" hidden></div>
   <div id="pdisp" class="pdroot" hidden></div>
@@ -684,6 +724,7 @@ body.pd #dpop, body.pd #trkovl, body.pd #load{display:none !important}
 "use strict";
 const FILES = ["spells-5e.json","spells-pf2e.json","monsters-5e.json","monsters-pf2e.json"];
 let DATA = [], view = [], sel = -1;
+const ID_INDEX = new Map();
 const $ = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -753,6 +794,8 @@ $("#drop").addEventListener("drop", e => handleFiles(e.dataTransfer.files));
 function start(){
   if (!DATA.length){ logline("\nNothing loaded."); return; }
   DATA.sort((a,b) => a.name.localeCompare(b.name));
+  ID_INDEX.clear();
+  for (const r of DATA) ID_INDEX.set(r.id, r);
   buildFilters();
   // the narrow layout caps the sidebar height, where the panel and the results
   // compete for the same budget — start collapsed there, expanded on desktop
@@ -1008,6 +1051,24 @@ function pick(i){
     if (on) L.setAttribute("aria-activedescendant", el.id);
   });
   const r = view[i]; if (!r) return;
+  renderRecord(r);
+}
+function pickById(id){
+  const r = ID_INDEX.get(id);
+  if (!r){
+    sel = -1;
+    $("#pane").className = "empty";
+    $("#pane").innerHTML = "Record not found.";
+    return;
+  }
+  sel = -1;
+  $("#list").querySelectorAll(".item").forEach(el => {
+    el.classList.remove("sel");
+    el.setAttribute("aria-selected", "false");
+  });
+  renderRecord(r);
+}
+function renderRecord(r){
   $("#pane").className = r.gameSystem;      // sets the paper stock for this record
   $("#pane").innerHTML = r._kind === "spell" ? spellHTML(r) : monsterHTML(r);
   $("#pane").scrollTop = 0;
@@ -1033,6 +1094,15 @@ function drollBtn(rollSpec, label){
 }
 function droll(formula){
   return /^\d+d\d+([+-]\d+)?$/.test(formula) ? drollBtn(formula, formula) : esc(formula);
+}
+function modFmt(mod){ return (mod >= 0 ? "+" : "") + mod; }
+function d20mod(mod, label){ return drollBtn("1d20" + modFmt(mod), label ?? modFmt(mod)); }
+/* link dice formulas embedded in prose (Hit: 10 (1d10+5), heightening text, etc.) */
+function proseWithDice(text){
+  if (text == null || text === "") return "";
+  return String(text).split(/(\d+d\d+(?:[+-]\d+)?)/g).map((p, i) =>
+    i % 2 && /^\d+d\d+([+-]\d+)?$/.test(p) ? droll(p) : esc(p)
+  ).join("");
 }
 /* a labelled row whose value is a single number worth picking out of the block */
 function chipKV(label, value, qual){
@@ -1090,14 +1160,14 @@ function spellHTML(r){
 
   if (r.entries.length){
     h += `<div class="sec">Description</div><div class="body">` +
-         r.entries.map(p => `<p>${esc(p)}</p>`).join("") + `</div>`;
+         r.entries.map(p => `<p>${proseWithDice(p)}</p>`).join("") + `</div>`;
   }
 
   const oc = r.save && r.save.outcomes;
   if (oc && Object.keys(oc).length){
     h += `<div class="sec">Degrees of Success</div>`;
     for (const k of ["criticalSuccess","success","failure","criticalFailure"])
-      if (oc[k]) h += `<div class="deg"><b>${DEGLABEL[k]}</b> ${esc(oc[k])}</div>`;
+      if (oc[k]) h += `<div class="deg"><b>${DEGLABEL[k]}</b> ${proseWithDice(oc[k])}</div>`;
   }
   if (r.heightening.length){
     h += `<div class="sec">Heightening</div>`;
@@ -1105,7 +1175,7 @@ function spellHTML(r){
       const lbl = ht.kind === "increment" ? `Heightened (+${ht.step})`
                 : ht.kind === "fixed"     ? `Heightened (${ht.atRank})`
                 : "Using a Higher-Level Spell Slot";
-      h += `<div class="ht"><b>${esc(lbl)}</b><br>${esc(ht.text)}</div>`;
+      h += `<div class="ht"><b>${esc(lbl)}</b><br>${proseWithDice(ht.text)}</div>`;
     }
   }
   h += metaHTML(r);
@@ -1127,25 +1197,31 @@ function monsterHTML(r){
         `<span class="trait ${c}">${esc(t)}</span>`).join("")}</div>`;
 
   if (r.perception && r.perception.mod != null){
-    let p = (r.perception.mod >= 0 ? "+" : "") + r.perception.mod;
-    if (r.perception.passive != null) p += ` (passive ${r.perception.passive})`;
+    let p = d20mod(r.perception.mod, modFmt(r.perception.mod));
+    if (r.perception.passive != null) p += ` (passive ${esc(r.perception.passive)})`;
     if (r.senses.length) p += "; " + r.senses.map(s =>
-      s.name + (s.range ? " " + s.range + " " + (s.unit||"ft") : "") +
-      (s.acuity ? " (" + s.acuity + ")" : "")).join(", ");
-    h += kv("Perception", p);
+      esc(s.name + (s.range ? " " + s.range + " " + (s.unit||"ft") : "") +
+      (s.acuity ? " (" + s.acuity + ")" : ""))).join(", ");
+    h += `<div class="kv"><b>Perception</b> <span>${p}</span></div>`;
   }
   if (r.languages.length) h += kv("Languages", r.languages.join(", "));
-  if (r.skills.length) h += kv("Skills", r.skills.map(s =>
-      s.name + " " + (s.mod>=0?"+":"") + s.mod).join(", "));
+  if (r.skills.length){
+    h += `<div class="kv"><b>Skills</b> <span>${r.skills.map(s =>
+      esc(s.name) + " " + d20mod(s.mod, modFmt(s.mod))).join(", ")}</span></div>`;
+  }
 
   if (r.abilityMods){
     h += `<div class="grid6">` + ["str","dex","con","int","wis","cha"].map(k => {
       const m = r.abilityMods[k], sc = r.abilityScores ? r.abilityScores[k] : null;
       return `<div class="ab"><div class="k">${k}</div>
-              <div class="v">${m>=0?"+":""}${m}</div>
+              <div class="v">${d20mod(m, modFmt(m))}</div>
               ${sc!=null?`<div class="s">${sc}</div>`:""}</div>`;
     }).join("") + `</div>`;
   }
+
+  if (r.systemExtras?.initiative != null)
+    h += `<div class="kv"><b>Initiative</b> <span>${d20mod(r.systemExtras.initiative,
+      modFmt(r.systemExtras.initiative))}</span></div>`;
 
   h += `<div class="sec">Defense</div>`;
   // AC, saves and HP all read as chips: the numbers carry the chip, the detail
@@ -1153,7 +1229,7 @@ function monsterHTML(r){
   h += chipKV("AC", d.ac.value ?? "—", d.ac.note ? "(" + d.ac.note + ")" : "");
   if (d.savingThrows.length){
     const chips = d.savingThrows.map(s =>
-      `<span class="statchip"><b>${esc(s.name)}</b>${esc((s.mod>=0?"+":"") + s.mod)}</span>`).join("");
+      `<span class="statchip"><b>${esc(s.name)}</b>${d20mod(s.mod, modFmt(s.mod))}</span>`).join("");
     h += `<div class="kv"><b>Saves</b><span class="chips">${chips}` +
          (d.saveNote ? `<span class="qual">${esc(d.saveNote)}</span>` : "") +
          `</span></div>`;
@@ -1161,7 +1237,7 @@ function monsterHTML(r){
   h += `<div class="kv"><b>HP</b><span class="chips">` + d.hp.map(x =>
       `<span class="statchip">${esc(x.value ?? "—")}</span>` +
       ([x.formula, x.note].filter(Boolean).length
-        ? `<span class="qual">${esc([x.formula ? "(" + x.formula + ")" : "", x.note].filter(Boolean).join(" "))}</span>`
+        ? `<span class="qual">${x.formula ? droll(x.formula) : ""}${x.formula && x.note ? " " : ""}${x.note ? esc(x.note) : ""}</span>`
         : "")).join("") + `</span></div>`;
   const im = d.immunities, imAll = [].concat(im.damage, im.conditions, im.other);
   if (imAll.length) h += kv("Immunities", imAll.join(", "));
@@ -1197,8 +1273,7 @@ function monsterHTML(r){
       const bits = [];
       if (b.dc != null) bits.push("DC " + b.dc);
       if (b.attackBonus != null)
-        bits.push("attack " + drollBtn("1d20" + (b.attackBonus>=0?"+":"") + b.attackBonus,
-                                       (b.attackBonus>=0?"+":"") + b.attackBonus));
+        bits.push("attack " + d20mod(b.attackBonus, modFmt(b.attackBonus)));
       h += `<div class="ent"><span class="en">${esc(head)}</span>` +
            (bits.length ? ` <span style="color:var(--dim)">(${bits.join(", ")})</span>` : "") + `</div>`;
       for (const l of b.levels||[]){
@@ -1230,8 +1305,9 @@ function entryHTML(e){
     h += ` <span class="qual">(${esc(e.traits.join(", "))})</span>`;
   if (e.attack){
     const a = e.attack;
-    // each attack-map value rolls d20+bonus — Pathfinder's chain gives three
-    h += ` <span class="act">${a.map ? a.map.map(x => drollBtn("1d20" + (x>=0?"+":"") + x, (x>=0?"+":"")+x)).join("/") : ""}</span>`;
+    const bonuses = (a.map && a.map.length) ? a.map : (a.bonus != null ? [a.bonus] : []);
+    if (bonuses.length)
+      h += ` <span class="act">${bonuses.map(x => d20mod(x, modFmt(x))).join("/")}</span>`;
     if (a.reach) h += ` <span class="qual">reach ${a.reach.value} ft</span>`;
     if (a.range_) h += ` <span class="qual">range ${a.range_.value} ft</span>`;
   }
@@ -1245,7 +1321,12 @@ function entryHTML(e){
     const ft = f.number != null ? `${f.number} per ${f.unit}` : (f.text || "");
     if (ft) h += `<br><span style="color:var(--dim)"><b>Frequency</b> ${esc(ft)}</span>`;
   }
-  for (const p of (e.entries||[])) h += `<div style="margin-top:4px">${esc(p)}</div>`;
+  if (e.recharge){
+    const rc = e.recharge;
+    const lbl = rc.display || (rc.kind === "d6-range" ? `Recharge ${rc.min}${rc.max !== rc.min ? "–" + rc.max : ""}` : "Recharge");
+    h += `<br><span style="color:var(--dim)"><b>${esc(lbl)}</b> ${drollBtn("1d6", "roll 1d6")}</span>`;
+  }
+  for (const p of (e.entries||[])) h += `<div style="margin-top:4px">${proseWithDice(p)}</div>`;
   const oc = e.save && e.save.outcomes;
   if (e.save){
     const s = (e.save.basic ? "basic " : "") + (e.save.defense||"") +
@@ -1253,7 +1334,7 @@ function entryHTML(e){
     if (s.trim()) h += `<div style="margin-top:4px;color:var(--dim)"><b>Save</b> ${esc(s)}</div>`;
   }
   if (oc) for (const k of ["criticalSuccess","success","failure","criticalFailure"])
-    if (oc[k] && oc[k].length > 8) h += `<div class="deg"><b>${DEGLABEL[k]}</b> ${esc(oc[k])}</div>`;
+    if (oc[k] && oc[k].length > 8) h += `<div class="deg"><b>${DEGLABEL[k]}</b> ${proseWithDice(oc[k])}</div>`;
   return h + `</div>`;
 }
 
@@ -1299,7 +1380,7 @@ const TRK = (() => {
 
   /* ---------------- persistence ---------------- */
   const LS = { enc:"bg.trk.enc.v1", party:"bg.trk.party.v1", presets:"bg.trk.presets.v1",
-               dice:"bg.trk.dice.v1", ui:"bg.trk.ui.v1" };
+               dice:"bg.trk.dice.v1", ui:"bg.trk.ui.v1", pd:"bg.trk.pd.v1" };
   const load = (k, fb) => { try{ const v = JSON.parse(localStorage.getItem(k)); return v ?? fb; }
                             catch(_){ return fb; } };
   const save = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(_){} };
@@ -1405,22 +1486,48 @@ const TRK = (() => {
   function vUi(raw){
     // dice panel defaults collapsed on narrow viewports, where it competes
     // with the combatant list for the same height budget
-    const u = { mode:"browse", qty:1,
-                diceOpen: !matchMedia("(max-width:760px)").matches };
+    const u = { mode:"browse", qty:1, viewingId:null,
+                diceOpen: !matchMedia("(max-width:760px)").matches,
+                colSide: COL_DEF.side, colTrk: COL_DEF.trk };
     if (!raw || typeof raw !== "object") return u;
     if (raw.mode === "track") u.mode = "track";
     u.qty = Math.min(10, Math.max(1, int(raw.qty, 1)));
     if (typeof raw.diceOpen === "boolean") u.diceOpen = raw.diceOpen;
+    if (typeof raw.viewingId === "string") u.viewingId = raw.viewingId;
+    u.colSide = Math.min(COL_MAX.side, Math.max(COL_MIN.side, int(raw.colSide, COL_DEF.side)));
+    u.colTrk = Math.min(COL_MAX.trk, Math.max(COL_MIN.trk, int(raw.colTrk, COL_DEF.trk)));
     return u;
+  }
+  function vPd(raw){
+    const p = { showRolls: false, roll: null };
+    if (!raw || typeof raw !== "object") return p;
+    if (typeof raw.showRolls === "boolean") p.showRolls = raw.showRolls;
+    if (raw.roll && typeof raw.roll === "object"){
+      const id = int(raw.roll.id, 0);
+      if (id){
+        p.roll = {
+          total: int(raw.roll.total, 0),
+          nat: raw.roll.nat === "nat20" || raw.roll.nat === "nat1" ? raw.roll.nat : null,
+          id,
+        };
+      }
+    }
+    return p;
   }
 
   /* ---------------- state ---------------- */
+  const COL_DEF = { side: 340, trk: 380 };
+  const COL_MIN = { side: 200, trk: 260 };
+  const COL_MAX = { side: 560, trk: 640 };
+  const PANE_MIN = 200;
+
   const state = {
     enc:     vEnc(load(LS.enc, null)),
     party:   vParty(load(LS.party, null)),
     presets: vPresets(load(LS.presets, null)),
     dice:    vDice(load(LS.dice, null)),
     ui:      vUi(load(LS.ui, null)),
+    pd:      vPd(load(LS.pd, null)),
   };
 
   /* ---------------- shared helpers ---------------- */
@@ -1469,6 +1576,7 @@ const TRK = (() => {
      a #pd fallback page that polls localStorage — for the file:// cases where
      a blank child window can't be scripted. Never shows an HP number. */
   const PD_MODE = location.hash === "#pd";
+  const PD_W = 1920, PD_H = 1080;
   let pw = null;
 
   function badgeOf(c){
@@ -1532,6 +1640,21 @@ const TRK = (() => {
   justify-content:center;gap:.8em;padding:20px;
   font-family:${serif};font-style:italic;font-size:26px;color:${st2};text-align:center}
 .pdroot .pdpcs{font-family:${sans};font-style:normal;font-size:20px;color:${st2};opacity:.75}
+.pdroot .pdmain{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.pdtoast-wrap{
+  position:fixed;left:0;right:0;bottom:0;pointer-events:none;z-index:5;
+  display:flex;justify-content:center;padding:20px 18px 28px}
+.pdtoast{
+  padding:.28em .55em;border-radius:.15em;
+  font-family:${mono};font-weight:700;font-size:clamp(52px,14vw,128px);
+  font-variant-numeric:tabular-nums;line-height:1;
+  background:rgba(36,33,28,.9);color:${st3};
+  border:2px solid rgba(242,241,237,.22);
+  transform:translateY(115%);opacity:0;
+  transition:transform .32s ease-out,opacity .32s ease-out}
+.pdtoast.show{transform:translateY(0);opacity:1}
+.pdtoast.nat20{color:#FBF6EA;background:${g("--olive")};border-color:rgba(242,241,237,.35)}
+.pdtoast.nat1{color:#FBF6EA;background:${brick};border-color:rgba(242,241,237,.35)}
 .pddead{position:fixed;left:0;right:0;bottom:0;padding:10px;text-align:center;
   background:${brick};color:#FBF6EA;font:600 14px ${sans}}`;
   }
@@ -1543,49 +1666,100 @@ const TRK = (() => {
   }
   /* the old tracker's best idea: scale type to fill the screen from the
      combatant count, so a 4-row board and a 12-row board both fill a TV */
-  function scalePd(root, h){
-    const rows = root.querySelectorAll(".pdrow").length;
-    const head = root.querySelector(".pdhead");
+  function scalePd(main, h){
+    if (!main) return;
+    h = h || PD_H;
+    const rows = main.querySelectorAll(".pdrow").length;
+    const head = main.querySelector(".pdhead");
     const n = Math.max(4, rows);
-    const fs = Math.max(16, Math.min(72, (h - (head ? head.offsetHeight : 0) - 24) / n / 1.65));
-    root.style.setProperty("--pd-fs", fs.toFixed(1) + "px");
+    const fs = Math.max(22, Math.min(84, (h - (head ? head.offsetHeight : 0) - 32) / n / 1.55));
+    main.style.setProperty("--pd-fs", fs.toFixed(1) + "px");
+  }
+  function ensurePdLayout(root, boardHTML){
+    let main = root.querySelector(".pdmain");
+    if (!main){
+      root.innerHTML = `<div class="pdmain">${boardHTML}</div><div class="pdtoast-wrap"></div>`;
+      return root.querySelector(".pdmain");
+    }
+    main.innerHTML = boardHTML;
+    return main;
+  }
+  function flashPdToast(wrap, roll){
+    if (!wrap || !roll) return;
+    if (wrap.dataset.lastRoll === String(roll.id)) return;
+    wrap.dataset.lastRoll = String(roll.id);
+    clearTimeout(wrap._t);
+    const nat = roll.nat === "nat20" ? " nat20" : roll.nat === "nat1" ? " nat1" : "";
+    const el = document.createElement("div");
+    el.className = "pdtoast" + nat;
+    el.textContent = String(roll.total);
+    wrap.replaceChildren(el);
+    requestAnimationFrame(() => el.classList.add("show"));
+    wrap._t = setTimeout(() => {
+      el.classList.remove("show");
+      setTimeout(() => { if (wrap.firstChild === el) wrap.replaceChildren(); }, 360);
+    }, 3200);
+  }
+  function pdApplyRoll(root){
+    if (!root || !state.pd.showRolls || !state.pd.roll) return;
+    flashPdToast(root.querySelector(".pdtoast-wrap"), state.pd.roll);
+  }
+  function broadcastPdRoll(entry){
+    if (!state.pd.showRolls) return;
+    state.pd.roll = { total: entry.total, nat: entry.nat, id: Date.now() };
+    save(LS.pd, state.pd);
+    pdPushRoll();
+  }
+  function pdPushRoll(){
+    if (PD_MODE) return;
+    if (pw && !pw.closed){
+      try{
+        const root = pw.document.getElementById("pdroot");
+        if (root) pdApplyRoll(root);
+      }catch(_){}
+    }
+  }
+  function setPdShowRolls(on){
+    state.pd.showRolls = !!on;
+    save(LS.pd, state.pd);
+    renderPdRollToggle();
+  }
+  function renderPdRollToggle(){
+    const el = $("#pd-showrolls");
+    if (el) el.checked = state.pd.showRolls;
   }
   function pdPush(){
-    const p = $("#pdisp");
-    if (!PD_MODE && !p.hidden){
-      ensurePdStyle(document);
-      p.innerHTML = pdHTML(state.enc);
-      scalePd(p, innerHeight);
-    }
+    const board = pdHTML(state.enc);
     if (pw && !pw.closed){
       try{
         const root = pw.document.getElementById("pdroot");
         if (root){
-          root.innerHTML = pdHTML(state.enc);
-          scalePd(root, pw.innerHeight);
+          const main = ensurePdLayout(root, board);
+          scalePd(main, pw.innerHeight || PD_H);
+          pdApplyRoll(root);
         }
       }catch(_){ /* unscriptable child (file://) — it runs the #pd fallback */ }
     }
   }
-  function openPdLocal(){
-    const p = $("#pdisp");
-    p.hidden = false;
-    pdPush();
-    if (p.requestFullscreen) p.requestFullscreen().catch(() => {});
-    announce("Player display on — Escape to close");
-  }
-  function closePdLocal(){
-    const p = $("#pdisp");
-    p.hidden = true;
-    if (document.fullscreenElement === p) document.exitFullscreen().catch(() => {});
-  }
   function openPdWindow(){
-    try{ pw = window.open("", "bgpd", "width=1100,height=700"); }catch(_){ pw = null; }
+    if (pw && !pw.closed){
+      pw.focus();
+      pdPush();
+      announce("Player display focused");
+      return;
+    }
+    const left = Math.max(0, Math.round((screen.width - PD_W) / 2));
+    const top = Math.max(0, Math.round((screen.height - PD_H) / 2));
+    try{
+      pw = window.open("", "bgpd",
+        `popup=yes,width=${PD_W},height=${PD_H},left=${left},top=${top}`);
+    }catch(_){ pw = null; }
     if (!pw){ announce("Pop-up blocked — allow pop-ups for this page"); return; }
     let scripted = false;
     try{
       pw.document.open();
       pw.document.write(`<!doctype html><html><head><meta charset="utf-8">` +
+        `<meta name="viewport" content="width=${PD_W},height=${PD_H}">` +
         `<title>${esc(state.enc.name)} — Initiative</title>` +
         `<style>${pdCSS()}</style></head><body class="pdbody">` +
         `<div id="pdroot" class="pdroot"></div>` +
@@ -1597,26 +1771,12 @@ const TRK = (() => {
       scripted = true;
     }catch(_){ scripted = false; }
     if (!scripted){
-      // file:// gives the blank child an unscriptable origin; navigating it is
-      // still allowed, and #pd renders the same board from polled storage
       try{ pw.location.href = location.href.split("#")[0] + "#pd"; }catch(_){ pw = null; }
       return;
     }
     try{ pw.addEventListener("resize", pdPush); }catch(_){}
     pdPush();
-  }
-  function openPdChooser(){
-    openOvl(`<h3>Player display</h3>
-      <p class="dlghint">A clean initiative board — names and turn order, never hit points.</p>
-      <div class="btns">
-        <button type="button" class="chip yes" data-pd-here>This screen</button>
-        <button type="button" class="chip yes" data-pd-win>New window</button>
-        <button type="button" class="chip" data-close>Cancel</button>
-      </div>`);
-    const o = $("#trkovl");
-    o.querySelector("[data-close]").onclick = closeOvl;
-    o.querySelector("[data-pd-here]").onclick = () => { closeOvl(); openPdLocal(); };
-    o.querySelector("[data-pd-win]").onclick = () => { closeOvl(); openPdWindow(); };
+    announce("Player display opened");
   }
 
   /* ---------------- naming ---------------- */
@@ -1782,7 +1942,7 @@ const TRK = (() => {
       let to = beforeId ? e.combatants.findIndex(x => x.id === beforeId) : e.combatants.length;
       if (to < 0) to = e.combatants.length;
       e.combatants.splice(to, 0, c);
-      c.initiative = midInit(e.combatants, to);
+      if (e.round >= 1) c.initiative = midInit(e.combatants, to);
     });
   }
   function canMove(id, delta){
@@ -1797,16 +1957,17 @@ const TRK = (() => {
       const i = e.combatants.findIndex(c => c.id === id);
       const [c] = e.combatants.splice(i, 1);
       e.combatants.splice(i + delta, 0, c);
-      c.initiative = midInit(e.combatants, i + delta);
+      if (e.round >= 1) c.initiative = midInit(e.combatants, i + delta);
     });
   }
   function editInit(span){
     const card = span.closest(".cbt");
     const c = byId(card.dataset.id);
-    if (!c || state.enc.round < 1) return;
+    if (!c) return;
     const inp = document.createElement("input");
     inp.type = "number"; inp.className = "cbt-init-edit";
-    inp.value = c.initiative;
+    inp.min = "-10"; inp.max = "50";
+    inp.value = c.initiative === 0 ? "" : c.initiative;
     inp.setAttribute("aria-label", "Initiative for " + c.name);
     span.replaceWith(inp); inp.focus(); inp.select();
     let done = false;
@@ -1846,23 +2007,32 @@ const TRK = (() => {
   }
 
   /* ---------------- start-combat modal ---------------- */
+  function startInitRow(c){
+    const preset = c.initiative !== 0;
+    const r = preset ? (c.initiative - c.initiativeModifier) : d20();
+    const tot = r + c.initiativeModifier;
+    const modSign = c.initiativeModifier >= 0 ? "+" : "−";
+    const modAbs = Math.abs(c.initiativeModifier);
+    const brk = `d20 ${r} ${modSign} ${modAbs}`;
+    if (c.type === "player")
+      return `<div class="srow" data-id="${c.id}" data-roll="${r}">
+        <span class="srnm">${esc(c.name)}</span>
+        <span class="sbreak">${esc(brk)}</span>
+        <input type="number" class="sinit" min="-5" max="45" value="${tot}"
+               aria-label="Initiative for ${esc(c.name)}">
+        <button type="button" class="chip sre" aria-label="Reroll for ${esc(c.name)}">↻</button>
+      </div>`;
+    return `<div class="srow" data-id="${c.id}" data-roll="${r}">
+      <span class="srnm">${esc(c.name)}</span>
+      <span class="sbreak">${esc(brk)}</span>
+      <span class="stot">${tot}</span>
+      <button type="button" class="chip sre" aria-label="Reroll for ${esc(c.name)}">↻</button>
+    </div>`;
+  }
   function openStartModal(){
     const e = state.enc;
     if (!e.combatants.length) return;
-    const rows = e.combatants.map(c => {
-      if (c.type === "player")
-        return `<div class="srow" data-id="${c.id}">
-          <span class="srnm">${esc(c.name)}</span>
-          <input type="number" class="sinit" min="-5" max="45" aria-label="Initiative for ${esc(c.name)}">
-        </div>`;
-      const r = d20();
-      return `<div class="srow" data-id="${c.id}" data-roll="${r}">
-        <span class="srnm">${esc(c.name)}</span>
-        <span class="sbreak">d20 ${r} ${c.initiativeModifier >= 0 ? "+" : "−"} ${Math.abs(c.initiativeModifier)}</span>
-        <span class="stot">${r + c.initiativeModifier}</span>
-        <button type="button" class="chip sre" aria-label="Reroll for ${esc(c.name)}">↻</button>
-      </div>`;
-    }).join("");
+    const rows = e.combatants.map(c => startInitRow(c)).join("");
     openOvl(`<form id="startform" novalidate>
       <h3>Roll initiative</h3>
       <div class="warn" id="sf-warn" hidden></div>
@@ -1879,10 +2049,13 @@ const TRK = (() => {
       const row = b.closest(".srow");
       const c = byId(row.dataset.id);
       const r = d20();
+      const tot = r + c.initiativeModifier;
       row.dataset.roll = r;
       row.querySelector(".sbreak").textContent =
         `d20 ${r} ${c.initiativeModifier >= 0 ? "+" : "−"} ${Math.abs(c.initiativeModifier)}`;
-      row.querySelector(".stot").textContent = r + c.initiativeModifier;
+      const inp = row.querySelector(".sinit");
+      if (inp) inp.value = tot;
+      else row.querySelector(".stot").textContent = tot;
     });
     form.onsubmit = ev => {
       ev.preventDefault();
@@ -1916,24 +2089,49 @@ const TRK = (() => {
   }
 
   /* ---------------- cards ---------------- */
+  function pickCombatant(combatantId){
+    const c = byId(combatantId);
+    if (!c) return;
+    state.ui.viewingId = combatantId;
+    save(LS.ui, state.ui);
+    renderTrk();
+    if (c.ref){
+      pickById(c.ref);
+      return;
+    }
+    const stock = c.sys || (c.type === "player" ? "dnd5e" : "");
+    $("#pane").className = stock || "empty";
+    const mod = (c.initiativeModifier >= 0 ? "+" : "−") + Math.abs(c.initiativeModifier);
+    $("#pane").innerHTML = `<div class="sb"><h2><span>${esc(c.name)}</span></h2><div class="rule"></div>` +
+      `<div class="kv"><b>Type</b> <span>${esc(c.type)}</span></div>` +
+      (c.ac != null ? `<div class="kv"><b>AC</b> <span>${esc(c.ac)}</span></div>` : "") +
+      `<div class="kv"><b>HP</b> <span>${esc(c.hp.current)} / ${esc(c.hp.max)}</span></div>` +
+      `<div class="kv"><b>Initiative mod</b> <span>${esc(mod)}</span></div>` +
+      `<p style="color:var(--dim);font-size:13px;margin-top:12px">No linked stat block — added manually.</p></div>`;
+    $("#pane").scrollTop = 0;
+  }
   function hpClass(c){
     if (c.hp.current === 0) return "";
     const p = c.hp.current / c.hp.max;
     return p > .5 ? "hp-hi" : p > .25 ? "hp-mid" : "hp-lo";
+  }
+  function initDisplay(c){
+    return c.initiative === 0 ? "—" : String(c.initiative);
   }
   function cardHTML(c){
     const spine = c.type === "player" ? "pc" : (c.sys || "");
     const pct = Math.round(100 * c.hp.current / c.hp.max);
     const combat = state.enc.round >= 1;
     const active = combat && c.id === state.enc.activeId;
-    const init = combat
-      ? `<button type="button" class="cbt-init" data-act="init"
-           aria-label="Initiative ${esc(c.initiative)} for ${esc(c.name)} — press Enter to edit">${esc(c.initiative)}</button>`
-      : `<span class="cbt-init">—</span>`;
-    return `<div class="cbt ${spine}${c.status === "unconscious" ? " ko" : ""}${active ? " on" : ""}"
-      role="listitem" tabindex="0" data-id="${c.id}" draggable="${combat}"
+    const viewing = c.id === state.ui.viewingId;
+    const shown = initDisplay(c);
+    const init = `<button type="button" class="cbt-init" data-act="init"
+           aria-label="Initiative ${esc(shown)} for ${esc(c.name)} — press Enter to edit">${esc(shown)}</button>`;
+    return `<div class="cbt ${spine}${c.status === "unconscious" ? " ko" : ""}${active ? " on" : ""}${viewing ? " viewing" : ""}"
+      role="listitem" tabindex="0" data-id="${c.id}"
       ${active ? 'aria-current="true"' : ""}>
       <div class="cbt-r1">
+        <span class="cbt-drag" draggable="true" aria-label="Drag to reorder ${esc(c.name)}" title="Drag to reorder">⋮⋮</span>
         ${init}
         <span class="cbt-nm">${esc(c.name)}</span>
         ${c.status === "unconscious" ? '<span class="kochip">unconscious</span>' : ""}
@@ -1952,6 +2150,8 @@ const TRK = (() => {
   }
 
   /* ---------------- inline confirm (never window.confirm) ---------------- */
+  /* Yes restores the trigger first, then runs the action — otherwise the
+     confirm hangs in the toolbar because Reset/Clear/End never rebuild it. */
   function confirmSwap(btn, label, onYes){
     const host = document.createElement("span");
     host.className = "cfm";
@@ -1959,9 +2159,16 @@ const TRK = (() => {
       `<button type="button" class="chip yes">Yes</button>` +
       `<button type="button" class="chip">No</button>`;
     const [yes, no] = host.querySelectorAll("button");
+    let done = false;
     const t = setTimeout(revert, 5000);
-    function revert(){ clearTimeout(t); host.replaceWith(btn); btn.focus(); }
-    yes.onclick = () => { clearTimeout(t); onYes(); };
+    function revert(){
+      if (done) return;
+      done = true;
+      clearTimeout(t);
+      if (host.isConnected) host.replaceWith(btn);
+      if (btn.isConnected) btn.focus();
+    }
+    yes.onclick = () => { revert(); onYes(); };
     no.onclick = revert;
     host.addEventListener("keydown", e => {
       if (e.key === "Escape"){ e.stopPropagation(); revert(); } });
@@ -2062,11 +2269,13 @@ const TRK = (() => {
     }).join("");
   }
   function openPartyOvl(editId){
-    const editing = editId ? state.party.find(p => p.id === editId) : null;
+    const isNew = editId === "__new__";
+    const editing = editId && !isNew ? state.party.find(p => p.id === editId) : null;
+    const showForm = isNew || !!editing;
     openOvl(`<h3>Party</h3>
       <div class="warn" id="pf-warn" hidden></div>
-      <div class="plist" ${editing ? "hidden" : ""}>${partyRowsHTML()}</div>
-      <form id="pform" novalidate ${editing ? "" : "hidden"}>
+      <div class="plist" ${showForm ? "hidden" : ""}>${partyRowsHTML()}</div>
+      <form id="pform" novalidate ${showForm ? "" : "hidden"}>
         <label>Name <input name="name" maxlength="80" value="${esc(editing?.name ?? "")}"></label>
         <label>Type <select name="type">
           <option value="player"${!editing || editing.type === "player" ? " selected" : ""}>Player</option>
@@ -2082,7 +2291,7 @@ const TRK = (() => {
           <button type="submit" class="chip yes">${editing ? "Save" : "Add member"}</button>
         </div>
       </form>
-      <div class="btns" id="pfoot" ${editing ? "hidden" : ""}>
+      <div class="btns" id="pfoot" ${showForm ? "hidden" : ""}>
         <button type="button" class="chip" data-new>New member</button>
         <button type="button" class="chip" data-close>Close</button>
       </div>`);
@@ -2133,6 +2342,10 @@ const TRK = (() => {
       save(LS.party, state.party);
       openPartyOvl();
     };
+    if (showForm){
+      const inp = o.querySelector("#pform [name=name]");
+      if (inp) inp.focus();
+    }
   }
 
   /* ---------------- encounter presets ---------------- */
@@ -2244,6 +2457,7 @@ const TRK = (() => {
     if (state.dice.history.length > 12) state.dice.history.length = 12;
     save(LS.dice, state.dice);
     renderDice();
+    broadcastPdRoll(entry);
     return entry;
   }
   function breakdownHTML(h){
@@ -2279,11 +2493,11 @@ const TRK = (() => {
          <b>${esc(x.total)}</b>
        </div>`).join("") +
       (h.length ? `<button type="button" class="chip" id="d-clear">Clear history</button>` : "");
+    renderPdRollToggle();
   }
 
   /* ---------------- keyboard ---------------- */
   function key(e){
-    if (e.key === "Escape" && !PD_MODE && !$("#pdisp").hidden){ closePdLocal(); return true; }
     if (e.key === "Escape" && !$("#dpop").hidden){ hideDpop(); return true; }
     const o = $("#trkovl");
     if (!o.hidden){                           // dialog is modal to shortcuts
@@ -2317,6 +2531,45 @@ const TRK = (() => {
   }
 
   /* ---------------- mode ---------------- */
+  function colBudget(which){
+    const main = document.querySelector("main");
+    if (!main) return COL_MAX[which];
+    const handles = document.body.classList.contains("trk") ? 12 : 6;
+    const other = which === "side"
+      ? (document.body.classList.contains("trk") ? state.ui.colTrk : 0)
+      : state.ui.colSide;
+    return Math.max(COL_MIN[which], main.clientWidth - other - PANE_MIN - handles);
+  }
+  function applyColWidths(){
+    document.documentElement.style.setProperty("--col-side", state.ui.colSide + "px");
+    document.documentElement.style.setProperty("--col-trk", state.ui.colTrk + "px");
+  }
+  function bindColResize(el, key, which, cssVar){
+    if (!el) return;
+    el.addEventListener("mousedown", e => {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      const startX = e.clientX, startW = state.ui[key];
+      el.classList.add("dragging");
+      document.body.classList.add("col-resizing");
+      const move = e2 => {
+        const w = Math.min(colBudget(which), COL_MAX[which],
+          Math.max(COL_MIN[which], startW + (e2.clientX - startX)));
+        state.ui[key] = w;
+        document.documentElement.style.setProperty(cssVar, w + "px");
+      };
+      const up = () => {
+        el.classList.remove("dragging");
+        document.body.classList.remove("col-resizing");
+        document.removeEventListener("mousemove", move);
+        document.removeEventListener("mouseup", up);
+        save(LS.ui, state.ui);
+      };
+      document.addEventListener("mousemove", move);
+      document.addEventListener("mouseup", up);
+    });
+  }
+
   function setMode(m){
     state.ui.mode = m === "track" ? "track" : "browse";
     save(LS.ui, state.ui);
@@ -2341,6 +2594,13 @@ const TRK = (() => {
     $("#t-start").disabled = !e.combatants.length;
     $("#t-prev").hidden = $("#t-next").hidden = $("#t-end").hidden = !combat;
     $("#t-prev").disabled = !canPrev();
+    // Reset keeps players; it is a no-op (and a Clear duplicate) with no monsters/NPCs
+    $("#t-reset").disabled = !e.combatants.some(c => c.type !== "player");
+    $("#t-clear").disabled = !e.combatants.length;
+    if (state.ui.viewingId && !e.combatants.some(c => c.id === state.ui.viewingId)){
+      state.ui.viewingId = null;
+      save(LS.ui, state.ui);
+    }
     $("#trklist").innerHTML = e.combatants.map(cardHTML).join("");
   }
 
@@ -2349,6 +2609,10 @@ const TRK = (() => {
   }
 
   /* ---------------- wiring ---------------- */
+  applyColWidths();
+  bindColResize($("#resize-side"), "colSide", "side", "--col-side");
+  bindColResize($("#resize-trk"), "colTrk", "trk", "--col-trk");
+
   $("#m-browse").onclick = () => setMode("browse");
   $("#m-track").onclick = () => setMode("track");
 
@@ -2379,24 +2643,29 @@ const TRK = (() => {
   };
   $("#trklist").addEventListener("click", e => {
     const btn = e.target.closest("[data-act]");
-    if (!btn) return;
-    const card = btn.closest(".cbt"); if (!card) return;
-    const id = card.dataset.id;
-    if (btn.dataset.act === "x"){
-      const c = byId(id);
-      confirmSwap(btn, "Remove " + (c ? c.name : "") + "?", () => removeCombatant(id));
-    } else if (btn.dataset.act === "init"){
-      editInit(btn);
-    } else {
-      const amt = card.querySelector(".cbt-amt");
-      if (applyHP(id, amt.value, btn.dataset.act)) refocusAmt(id);
-      else flashErr(amt);
+    if (btn){
+      const card = btn.closest(".cbt"); if (!card) return;
+      const id = card.dataset.id;
+      if (btn.dataset.act === "x"){
+        const c = byId(id);
+        confirmSwap(btn, "Remove " + (c ? c.name : "") + "?", () => removeCombatant(id));
+      } else if (btn.dataset.act === "init"){
+        editInit(btn);
+      } else {
+        const amt = card.querySelector(".cbt-amt");
+        if (applyHP(id, amt.value, btn.dataset.act)) refocusAmt(id);
+        else flashErr(amt);
+      }
+      return;
     }
+    if (e.target.closest("input, button, .cbt-drag")) return;
+    const card = e.target.closest(".cbt");
+    if (card) pickCombatant(card.dataset.id);
   });
   $("#trklist").addEventListener("keydown", e => {
     if (e.altKey && (e.key === "ArrowUp" || e.key === "ArrowDown")){
       const card = e.target.closest(".cbt");
-      if (!card || state.enc.round < 1) return;
+      if (!card) return;
       e.preventDefault();
       const id = card.dataset.id;
       moveBy(id, e.key === "ArrowUp" ? -1 : 1);
@@ -2413,43 +2682,102 @@ const TRK = (() => {
         : state.enc.last.kind;                             // Enter = repeat last
       if (applyHP(id, e.target.value, kind)) refocusAmt(id);
       else flashErr(e.target);
-    } else if (e.target.classList.contains("cbt") && state.enc.round >= 1){
+    } else if (e.target.classList.contains("cbt")){
       e.preventDefault();
       const b = e.target.querySelector(".cbt-init");
       if (b) editInit(b);
     }
   });
 
-  // drag reorder (combat only; keyboard parity is Alt+Arrow above)
-  let dragId = null;
+  // drag reorder (handle-only; keyboard parity is Alt+Arrow above)
+  // Indicator is a gap line at the insertion point, not a highlight on the
+  // hovered card: pointer in the top half of a card = insert before it,
+  // bottom half = insert after it. Drop uses the same slot the line shows.
+  let dragId = null, dropSlot = null;          // { card, where: "before"|"after" }
+  function clearDropSlot(){
+    $("#trklist").querySelectorAll(".drop-before,.drop-after").forEach(el => {
+      el.classList.remove("drop-before", "drop-after");
+    });
+    dropSlot = null;
+  }
+  function beforeIdOf(slot){
+    if (!slot) return null;
+    if (slot.where === "before") return slot.card.dataset.id;
+    let n = slot.card.nextElementSibling;
+    while (n && !n.classList.contains("cbt")) n = n.nextElementSibling;
+    return n ? n.dataset.id : null;
+  }
+  function isNoOpDrop(beforeId){
+    const cards = [...$("#trklist").querySelectorAll(".cbt")];
+    const from = cards.findIndex(el => el.dataset.id === dragId);
+    if (from < 0) return true;
+    if (beforeId === dragId) return true;
+    const next = cards[from + 1];
+    if (next && next.dataset.id === beforeId) return true;
+    if (!beforeId && from === cards.length - 1) return true;
+    return false;
+  }
+  function insertionFromY(clientY){
+    const cards = [...$("#trklist").querySelectorAll(".cbt")];
+    if (!cards.length) return null;
+    for (const card of cards){
+      if (card.dataset.id === dragId) continue;
+      const r = card.getBoundingClientRect();
+      if (clientY < r.top + r.height / 2) return { card, where: "before" };
+    }
+    const last = cards.filter(c => c.dataset.id !== dragId).pop() || cards[cards.length - 1];
+    return { card: last, where: "after" };
+  }
+  function markDropSlot(slot){
+    const beforeId = beforeIdOf(slot);
+    if (!slot || isNoOpDrop(beforeId)){ clearDropSlot(); return; }
+    if (dropSlot && dropSlot.card === slot.card && dropSlot.where === slot.where) return;
+    clearDropSlot();
+    slot.card.classList.add(slot.where === "before" ? "drop-before" : "drop-after");
+    dropSlot = slot;
+  }
   $("#trklist").addEventListener("dragstart", e => {
-    const card = e.target.closest(".cbt");
-    if (!card || state.enc.round < 1){ e.preventDefault(); return; }
+    const handle = e.target.closest(".cbt-drag");
+    if (!handle){ e.preventDefault(); return; }
+    const card = handle.closest(".cbt");
+    if (!card){ e.preventDefault(); return; }
     dragId = card.dataset.id;
+    e.dataTransfer.setData("text/plain", dragId);
     e.dataTransfer.effectAllowed = "move";
     card.classList.add("drag");
   });
   $("#trklist").addEventListener("dragover", e => {
-    if (dragId){ e.preventDefault(); e.dataTransfer.dropEffect = "move"; }
+    if (!dragId) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
+    markDropSlot(insertionFromY(e.clientY));
   });
   $("#trklist").addEventListener("drop", e => {
     if (!dragId) return;
     e.preventDefault();
-    const over = e.target.closest(".cbt");
-    reorderTo(dragId, over ? over.dataset.id : null);
+    const slot = dropSlot;
+    const id = dragId;
+    const beforeId = beforeIdOf(slot);
+    const skip = !slot || isNoOpDrop(beforeId);
+    clearDropSlot();
     dragId = null;
+    if (!skip) reorderTo(id, beforeId);
   });
-  $("#trklist").addEventListener("dragend", () => { dragId = null; renderTrk(); });
+  $("#trklist").addEventListener("dragend", () => {
+    clearDropSlot();
+    dragId = null;
+    renderTrk();
+  });
 
   $("#t-start").onclick = openStartModal;
   $("#t-next").onclick = nextTurn;
   $("#t-prev").onclick = prevTurn;
   $("#t-end").onclick = () =>
-    confirmSwap($("#t-end"), "End combat?", endCombat);
+    confirmSwap($("#t-end"), "End combat? Roster and HP stay.", endCombat);
   $("#t-reset").onclick = () =>
-    confirmSwap($("#t-reset"), "Remove all monsters and NPCs?", resetEnc);
+    confirmSwap($("#t-reset"), "Keep the party, remove monsters and NPCs?", resetEnc);
   $("#t-clear").onclick = () =>
-    confirmSwap($("#t-clear"), "Remove everyone?", clearAll);
+    confirmSwap($("#t-clear"), "Remove everyone from the encounter?", clearAll);
   $("#trkname").onclick = editName;
   $("#trkname").addEventListener("keydown", e => {
     if (e.key === "Enter"){ e.preventDefault(); editName(); }
@@ -2457,11 +2785,8 @@ const TRK = (() => {
   $("#t-add").onclick = () => openAddForm();
   $("#t-party").onclick = () => openPartyOvl();
   $("#t-presets").onclick = () => openPresetsOvl();
-  $("#t-pd").onclick = openPdChooser;
-  document.addEventListener("fullscreenchange", () => {
-    if (!document.fullscreenElement && !PD_MODE && !$("#pdisp").hidden) closePdLocal();
-  });
-  addEventListener("resize", () => { if (!$("#pdisp").hidden || (pw && !pw.closed)) pdPush(); });
+  $("#t-pd").onclick = openPdWindow;
+  addEventListener("resize", () => { if (pw && !pw.closed) pdPush(); });
 
   // #pd fallback page: no live state here — render from polled storage
   if (PD_MODE){
@@ -2469,9 +2794,16 @@ const TRK = (() => {
     const p = $("#pdisp");
     p.hidden = false;
     ensurePdStyle(document);
+    let lastRollId = 0;
     const tick = () => {
-      p.innerHTML = pdHTML(vEnc(load(LS.enc, null)));
-      scalePd(p, innerHeight);
+      const enc = vEnc(load(LS.enc, null));
+      const pd = vPd(load(LS.pd, null));
+      const main = ensurePdLayout(p, pdHTML(enc));
+      scalePd(main, innerHeight || PD_H);
+      if (pd.showRolls && pd.roll && pd.roll.id !== lastRollId){
+        flashPdToast(p.querySelector(".pdtoast-wrap"), pd.roll);
+        lastRollId = pd.roll.id;
+      }
     };
     tick();
     setInterval(tick, 500);
@@ -2519,6 +2851,8 @@ const TRK = (() => {
     state.ui.diceOpen = $("#dice").open;
     save(LS.ui, state.ui);
   });
+  $("#pd-showrolls").onchange = e => setPdShowRolls(e.target.checked);
+  renderPdRollToggle();
 
   // clickable dice in stat blocks: one delegated listener on the reading pane;
   // rolls land in the dice history and a small popover shows the breakdown
@@ -2557,7 +2891,7 @@ const TRK = (() => {
            setInitiative, reorderTo, moveBy, resetEnc, clearAll,
            initModOf, acOf, hpOf, openAddForm, openStartModal, closeOvl,
            rollDice, doRoll, savePreset, loadPreset, openPartyOvl, openPresetsOvl,
-           pdHTML, openPdChooser, openPdLocal, closePdLocal, openPdWindow,
+           pdHTML, openPdWindow, pickCombatant,
            _test: { vEnc, vParty, vPresets, vDice, vUi, autoName, hpClass, midInit,
                     badgeOf, scalePd } };
 })();
