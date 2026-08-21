@@ -70,6 +70,7 @@ async function tryEmbedded(){
   if (typeof DecompressionStream === "undefined"){
     logline("this browser has no DecompressionStream @@EM@@ falling back"); return 0;
   }
+  DATA.length = 0;
   let ok = 0;
   for (const n of nodes){
     try{
@@ -172,7 +173,7 @@ def build_page(bundle_bytes, total_records):
     html = _sub_once(html,
                      "async function boot(){\n",
                      LOADER_JS + "async function boot(){\n"
-                     "  if (await tryEmbedded()) { start(); return; }\n",
+                     "  if ((await tryEmbedded()) === FILES.length) { start(); return; }\n",
                      "boot()")
     return html
 
