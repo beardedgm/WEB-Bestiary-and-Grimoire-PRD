@@ -18,6 +18,11 @@ colors:
   danger: "#9C3020"
   party-sel: "#F4EFDC"
   select: "#EADFBC"
+  mark-white: "#F2F1ED"
+  mark-red: "#9C3020"
+  mark-blue: "#3B6EA5"
+  mark-green: "#54632A"
+  mark-yellow: "#C4A035"
 typography:
   display:
     fontFamily: '"Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif'
@@ -263,6 +268,15 @@ Flat-by-default stone surfaces. Depth is tonal layering (`stone` → `stone-3` t
 
 - Reuse spine colors; initiative in bold mono; HP bar 4px with olive/gilt/brick fill by percentage
 - Inline confirm replaces destructive chip — never `window.confirm`
+- Marker swatches sit in the name row immediately before AC (see Markers)
+
+### Markers
+
+- Fixed five colors: white, red, blue, green, yellow (`--mark-*` tokens)
+- Always-visible ~12px circles on every combatant card; click cycles `off → solid → outline → off`
+- No legend — ad-hoc table-ring shorthand only
+- Player display shows active markers only (solid fill / outline ring) in a cluster beside Hurt/Bloody/Unconscious badges
+- `aria-label` on each swatch includes color name and state so color is not the only cue for the GM
 
 ### Inputs
 
