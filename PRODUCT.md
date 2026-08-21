@@ -41,6 +41,7 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 - Library mode: search, filters, deep description search, stat block rendering with clickable dice formulas
 - Monster spellcasting lists: click a known spell name to peek its full block without leaving the creature
 - Tracker mode: initiative order, rounds, drag-reorder, undo/redo, party library, encounter presets, dice tray, player display
+- Ad-hoc colored markers on combatants (five colors, solid/outline) mirrored on the player display — table-ring shorthand, no condition legend
 - Catalog vs Table navigation in the left column (monsters/spells vs party/encounters)
 - Resizable library and tracker columns
 - D&D 5e and PF2e visual differentiation (vellum vs paper, brick vs olive system ink)

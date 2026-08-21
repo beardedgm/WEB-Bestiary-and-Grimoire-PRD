@@ -21,6 +21,9 @@
   --brick:#7B2418; --olive:#54632A; --gilt:#9C7C1C; --danger:#9C3020;
   --party-sel:#F4EFDC; /* party row selected — warm vellum tint */
   --select:#EADFBC;    /* text selection wash on stone */
+  /* combatant markers — table-ring shorthand (no legend) */
+  --mark-white:#F2F1ED; --mark-red:#9C3020; --mark-blue:#3B6EA5;
+  --mark-green:#54632A; --mark-yellow:#C4A035;
 
   --radius:3px;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
@@ -513,6 +516,29 @@ body:not(.trk) .item .add{display:none}
         white-space:nowrap; font-weight:600; color:var(--ink)}
 .cbt-ac{flex:none; font:600 10.5px/1 var(--mono); color:var(--dim);
         font-variant-numeric:tabular-nums}
+.cbt-marks{
+  flex:none; display:inline-flex; align-items:center; gap:3px; align-self:center;
+}
+.cbt-mark{
+  width:12px; height:12px; padding:0; border-radius:50%; flex:none;
+  border:1.5px solid var(--hair); background:var(--stone-3); cursor:pointer;
+  box-sizing:border-box;
+}
+.cbt-mark[data-color="white"]{--mc:var(--mark-white)}
+.cbt-mark[data-color="red"]{--mc:var(--mark-red)}
+.cbt-mark[data-color="blue"]{--mc:var(--mark-blue)}
+.cbt-mark[data-color="green"]{--mc:var(--mark-green)}
+.cbt-mark[data-color="yellow"]{--mc:var(--mark-yellow)}
+.cbt-mark[data-state="solid"]{
+  background:var(--mc); border-color:transparent;
+  box-shadow:inset 0 0 0 1px rgba(36,33,28,.18);
+}
+.cbt-mark[data-color="white"][data-state="solid"]{
+  border-color:var(--hair); box-shadow:none;
+}
+.cbt-mark[data-state="outline"]{
+  background:transparent; border:2.5px solid var(--mc); box-shadow:none;
+}
 .cbt-x{
   flex:none; width:24px; height:24px; border:none; background:none; border-radius:2px;
   color:var(--faint); font:14px/1 var(--mono); cursor:pointer; align-self:center;
@@ -1779,6 +1805,49 @@ const TRK = (() => {
      truncated write). Recognized fields are copied and clamped; everything
      else is dropped. Never re-sorts — array order carries the manual tie
      arrangement. */
+  const MARKER_COLORS = ["white", "red", "blue", "green", "yellow"];
+  const MARKER_NEXT = { off: "solid", solid: "outline", outline: "off" };
+  function vMarkers(raw){
+    const out = {};
+    if (!raw || typeof raw !== "object") return out;
+    for (const k of MARKER_COLORS){
+      const v = raw[k];
+      if (v === "solid" || v === "outline") out[k] = v;
+    }
+    return out;
+  }
+  function markersSig(m){
+    return MARKER_COLORS.map(k => (m && m[k]) || "").join(",");
+  }
+  function marksHTML(c){
+    const m = c.markers || {};
+    return `<span class="cbt-marks" role="group" aria-label="Markers for ${esc(c.name)}">` +
+      MARKER_COLORS.map(color => {
+        const st = m[color] || "off";
+        const label = color.charAt(0).toUpperCase() + color.slice(1);
+        return `<button type="button" class="cbt-mark" data-act="mark" data-color="${color}"` +
+          ` data-state="${st}" aria-label="${label} marker, ${st} — activate for ${MARKER_NEXT[st]}"></button>`;
+      }).join("") + `</span>`;
+  }
+  function pdMarksHTML(c){
+    const m = c.markers || {};
+    const bits = MARKER_COLORS.filter(k => m[k]).map(k =>
+      `<span class="pddot" data-c="${k}" data-state="${m[k]}"></span>`);
+    return bits.length ? `<span class="pddots">${bits.join("")}</span>` : "";
+  }
+  function cycleMarker(id, color){
+    if (!MARKER_COLORS.includes(color)) return;
+    mutate(e => {
+      const c = e.combatants.find(x => x.id === id);
+      if (!c) return;
+      const m = c.markers = vMarkers(c.markers);
+      const cur = m[color] || "off";
+      const next = MARKER_NEXT[cur];
+      if (next === "off") delete m[color];
+      else m[color] = next;
+    });
+  }
+
   function vEnc(raw){
     const e = { name:"Encounter", round:0, activeId:null, seq:0, combatants:[],
                 last:{kind:"dmg"} };
@@ -1806,6 +1875,7 @@ const TRK = (() => {
         status: cur === 0 ? "unconscious" : "normal",
         ref: typeof c.ref === "string" ? c.ref : null,
         sys: c.sys === "dnd5e" || c.sys === "pf2e" ? c.sys : null,
+        markers: vMarkers(c.markers),
       });
     }
     for (const cb of e.combatants) if (!cb.id){ cb.id = "c" + (++maxN); }
@@ -1995,6 +2065,7 @@ const TRK = (() => {
       return `<div class="pdrow${c.id === enc.activeId ? " on" : ""}${c.hp.current === 0 ? " uncon" : ""}">
         <span class="pdinit">${esc(c.initiative)}</span>
         <span class="pdnm">${esc(c.name)}</span>
+        ${pdMarksHTML(c)}
         ${b ? `<span class="pdbadge ${b.toLowerCase()}">${b}</span>` : ""}
       </div>`;
     }).join("");
@@ -2004,7 +2075,9 @@ const TRK = (() => {
     const g = t => getComputedStyle(document.documentElement).getPropertyValue(t).trim();
     const ink = g("--ink"), st3 = g("--stone-3"), st2 = g("--stone-2"),
           gilt = g("--gilt"), brick = g("--brick"), faint = g("--faint"),
-          sans = g("--sans"), serif = g("--serif"), mono = g("--mono");
+          sans = g("--sans"), serif = g("--serif"), mono = g("--mono"),
+          mw = g("--mark-white"), mr = g("--mark-red"), mb = g("--mark-blue"),
+          mg = g("--mark-green"), my = g("--mark-yellow");
     return `
 .pdbody{margin:0;height:100vh;background:${ink};overflow:hidden}
 .pdroot{height:100%;background:${ink};color:${st3};font-family:${sans};overflow:hidden;
@@ -2014,7 +2087,7 @@ const TRK = (() => {
   font-family:${serif};font-variant:small-caps;letter-spacing:.05em;font-size:22px;color:${st2}}
 .pdroot .pdrows{flex:1;display:flex;flex-direction:column;justify-content:center;
   padding:10px 22px;min-height:0}
-.pdroot .pdrow{display:flex;align-items:baseline;gap:.55em;
+.pdroot .pdrow{display:flex;align-items:center;gap:.55em;
   font-size:var(--pd-fs,30px);line-height:1.35;padding:.1em .35em;
   border-left:.14em solid transparent}
 .pdroot .pdrow.on{border-left-color:${gilt};background:rgba(156,124,28,.12)}
@@ -2023,6 +2096,16 @@ const TRK = (() => {
 .pdroot .pdnm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
   font-weight:600}
 .pdroot .pdrow.uncon .pdnm{color:${faint}}
+.pdroot .pddots{flex:none;display:inline-flex;align-items:center;gap:.22em}
+.pdroot .pddot{width:.45em;height:.45em;border-radius:50%;flex:none;box-sizing:border-box}
+.pdroot .pddot[data-c="white"]{--mc:${mw}}
+.pdroot .pddot[data-c="red"]{--mc:${mr}}
+.pdroot .pddot[data-c="blue"]{--mc:${mb}}
+.pdroot .pddot[data-c="green"]{--mc:${mg}}
+.pdroot .pddot[data-c="yellow"]{--mc:${my}}
+.pdroot .pddot[data-state="solid"]{background:var(--mc);border:1px solid rgba(242,241,237,.28)}
+.pdroot .pddot[data-c="white"][data-state="solid"]{border-color:rgba(242,241,237,.55)}
+.pdroot .pddot[data-state="outline"]{background:transparent;border:.11em solid var(--mc)}
 .pdroot .pdbadge{flex:none;align-self:center;font-family:${mono};font-size:.34em;
   font-weight:700;text-transform:uppercase;letter-spacing:.1em;
   padding:.45em .8em;border-radius:.25em}
@@ -2203,6 +2286,7 @@ const TRK = (() => {
           initiativeModifier: spec.mod,
           ac: spec.ac, hp: { current: spec.hpMax, max: spec.hpMax },
           status: "normal", ref: spec.ref ?? null, sys: spec.sys ?? null,
+          markers: {},
         });
       }
       if (e.round >= 1) sortEnc(e);
@@ -2515,7 +2599,7 @@ const TRK = (() => {
     const active = combat && c.id === state.enc.activeId;
     const viewing = c.id === state.ui.viewingId;
     return [c.id, c.name, c.initiative, c.hp.current, c.hp.max, c.status, c.ac,
-            c.type, c.sys || "", active, viewing].join("\0");
+            c.type, c.sys || "", active, viewing, markersSig(c.markers)].join("\0");
   }
   function mountCard(c, amt){
     const wrap = document.createElement("div");
@@ -2542,6 +2626,7 @@ const TRK = (() => {
         ${init}
         <span class="cbt-nm">${esc(c.name)}</span>
         ${c.status === "unconscious" ? '<span class="kochip">unconscious</span>' : ""}
+        ${marksHTML(c)}
         <span class="cbt-ac">${c.ac == null ? "AC —" : "AC " + esc(c.ac)}</span>
         <button type="button" class="cbt-x" data-act="x" aria-label="Remove ${esc(c.name)}">✕</button>
       </div>
@@ -3253,6 +3338,8 @@ const TRK = (() => {
         confirmSwap(btn, "Remove " + (c ? c.name : "") + "?", () => removeCombatant(id));
       } else if (btn.dataset.act === "init"){
         editInit(btn);
+      } else if (btn.dataset.act === "mark"){
+        cycleMarker(id, btn.dataset.color);
       } else {
         const amt = card.querySelector(".cbt-amt");
         if (applyHP(id, amt.value, btn.dataset.act)) refocusAmt(id);
