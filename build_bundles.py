@@ -165,8 +165,8 @@ def build_page(bundle_bytes, total_records):
         for name in EMBED_ORDER
     )
     html = _sub_once(html,
-                     '</main>\n\n<script>\n"use strict";',
-                     '</main>\n\n%s<script>\n"use strict";' % tags,
+                     '<div id="dpop" hidden></div>\n\n<script>\n"use strict";',
+                     '<div id="dpop" hidden></div>\n\n%s<script>\n"use strict";' % tags,
                      "bundle insertion point")
 
     html = _sub_once(html,

@@ -287,6 +287,20 @@ Flat-by-default stone surfaces. Depth is tonal layering (`stone` → `stone-3` t
 
 - Segmented control (`Catalog | Table`) in stone-2 tray; inner chips for Monsters/Spells/Party/Encounters
 - Native `<details>` for Filters and Dice — keyboard and disclosure behavior come free
+- **Custom** filter chip beside system chips; custom list rows use a dashed gilt spine (`.item.custom`)
+- List footer (`#listfoot`): overflow hint; `+` (`#custom-add`) for adding one custom creature/spell; `Save` (`#user-save`) for portable export/import
+
+### Custom library dialog
+
+- Wide overlay (`#trkovl` `.dlg.wide`): stub toggle (Spell | D&D 5e | PF2e), JSON textarea, Import only
+- `#trkovl` / `#dpop` / `#pdisp` sit **outside** `<main>` so `setAppInert` does not make overlays unclickable
+- Validation errors in plain language (`.liberr`); no Ajv dependency
+- Remove from library control on custom pane meta (confirm via `confirmSwap`)
+
+### Portable save dialog
+
+- Normal-width overlay from footer **Save**: Export save… / Import save… (`bg-user-save/1`)
+- Merge-by-id for customs/party/presets; replace active encounter
 
 ### Spell links (`.slink`)
 

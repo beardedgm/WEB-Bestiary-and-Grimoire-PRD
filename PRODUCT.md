@@ -30,7 +30,7 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 
 - **Prep:** Browse Catalog (monsters/spells), filter by system, CR/creature level, rank, spell traits; read full stat blocks in the reading pane.
 - **Play:** Switch to Tracker; add monsters from Catalog or party from Table; roll initiative, advance turns, apply damage/healing; click formulas in stat blocks to roll; optional player display window (1920×1080).
-- **Persistence:** Encounter state, party, saved encounters, dice history, column widths, and UI mode persist in `localStorage`.
+- **Persistence:** Encounter state, party, saved encounters, dice history, column widths, and UI mode persist in `localStorage`. Custom monsters/spells live under `bg.custom.records.v1`. A portable `bg-user-save/1` JSON export merges customs/party/presets by id (local-only kept) and replaces the active encounter.
 - **Offline:** `index.html` embeds all four JSON bundles; works from `file://` after build. Development uses `python3 -m http.server` with separate JSON fetch.
 - **Data pipeline:** Markdown sidecars → `convert_monsters.py` / `convert_spells.py` → bundles → `build_bundles.py`.
 
@@ -43,18 +43,21 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 - Tracker mode: initiative order, rounds, drag-reorder, undo/redo, party library, encounter presets, dice tray, player display
 - Ad-hoc colored markers on combatants (five colors, solid/outline) mirrored on the player display — table-ring shorthand, no condition legend
 - Catalog vs Table navigation in the left column (monsters/spells vs party/encounters)
+- Custom library: paste-validate JSON monsters/spells via list-footer `+`; Custom filter chip; remove from library
+- Portable save: list-footer **Save** exports/imports merge-safe `bg-user-save/1` (customs, party, presets, encounter)
 - Resizable library and tracker columns
 - D&D 5e and PF2e visual differentiation (vellum vs paper, brick vs olive system ink)
 
 **Constraints:**
 
-- No server, auth, or cloud sync — local-only persistence
+- No server, auth, or cloud sync — local-only persistence (portable save file is manual export/import)
+- Customs cannot overwrite built-in corpus ids; prefer ids like `dnd5e:custom:my-ogre`
 - No CR-to-level or cross-system power comparison (by design; see README §13)
 - Data must not be fabricated; parse warnings surfaced in UI
 - `index.html` is generated — edit `app.template.html` only
 - Render free-tier hosting constraints apply if deployed to Render (ephemeral FS, bind `0.0.0.0:$PORT` for any future server)
 
-**Terminology:** Catalog, Table, Library, Tracker, party, encounter preset, stat block, spine (system color mark on list rows).
+**Terminology:** Catalog, Table, Library, Tracker, party, encounter preset, stat block, spine (system color mark on list rows), custom library, user save.
 
 ## Brand Commitments
 

@@ -159,10 +159,16 @@ label.tog input{accent-color:var(--gilt); width:15px; height:15px}
 
 /* ---- list: system marked by a spine, like books on a shelf ---- */
 #list{flex:1; overflow-y:auto; min-height:0}
-#more{
-  flex:none; padding:8px 12px; border-top:1px solid var(--hair-soft);
-  background:var(--stone-3); color:var(--faint); font-size:12.5px;
+#listfoot{
+  flex:none; display:flex; align-items:center; gap:8px;
+  padding:6px 10px; border-top:1px solid var(--hair-soft); background:var(--stone-3);
 }
+#more{
+  flex:1; min-width:0; padding:2px 0; border:none; background:transparent;
+  color:var(--faint); font-size:12.5px;
+}
+#more[hidden]{display:none !important}
+#listfoot-acts{flex:none; display:flex; gap:4px}
 .item{
   padding:8px 12px 8px 10px; border-bottom:1px solid var(--hair-soft);
   border-left:3px solid transparent; cursor:pointer;
@@ -170,6 +176,7 @@ label.tog input{accent-color:var(--gilt); width:15px; height:15px}
 }
 .item.dnd5e{border-left-color:var(--brick)}
 .item.pf2e{border-left-color:var(--olive)}
+.item.custom{border-left-style:dashed; border-left-color:var(--gilt)}
 .item:hover{background:var(--stone-2)}
 .item.sel.dnd5e{background:var(--vellum)}   /* the row previews its own stock */
 .item.sel.pf2e{background:var(--paper)}
@@ -703,6 +710,20 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
   padding:20px 22px;
   box-shadow:0 1px 2px rgba(36,33,28,.07), 0 14px 30px -12px rgba(36,33,28,.3);
 }
+.dlg.wide{width:min(640px, 100%)}
+.dlg textarea.libjson{
+  display:block; width:100%; min-height:220px; margin-top:6px; padding:8px 10px;
+  border-radius:2px; border:1px solid var(--hair); background:var(--stone-3); color:var(--ink);
+  font:12px/1.4 var(--mono); resize:vertical;
+}
+.dlg textarea.libjson:focus{
+  outline:none; border-color:var(--gilt); box-shadow:0 0 0 2px rgba(156,124,28,.18)}
+.dlg .liberr{
+  margin:8px 0 0; padding:8px 10px; border:1px solid var(--danger); border-radius:2px;
+  background:rgba(156,48,32,.06); color:var(--danger); font:12px/1.4 var(--sans);
+  white-space:pre-wrap}
+.dlg .liberr[hidden]{display:none !important}
+.dlg .libhint{margin:0 0 8px; color:var(--dim); font-size:12.5px}
 .dlg h3{margin:0 0 12px; color:var(--ink);
         font:600 18px/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em}
 .dlg label{display:block; margin:9px 0; color:var(--dim); font-size:12px}
@@ -790,7 +811,17 @@ body.pd #pdisp{position:fixed; inset:0; z-index:60}
       </form>
     </div>
     <div id="list" role="listbox" aria-label="Search results" tabindex="0"></div>
-    <div id="more" hidden></div>
+    <div id="listfoot">
+      <div id="more" hidden></div>
+      <div id="listfoot-acts">
+        <button type="button" class="chip" id="custom-add"
+                title="Add a custom creature or spell"
+                aria-label="Add custom creature or spell">+</button>
+        <button type="button" class="chip" id="user-save"
+                title="Export or import portable save"
+                aria-label="Export or import save file">Save</button>
+      </div>
+    </div>
   </div>
   <div class="col-resize" id="resize-side" role="separator" aria-orientation="vertical"
        aria-label="Resize library column" tabindex="-1"></div>
@@ -856,10 +887,11 @@ body.pd #pdisp{position:fixed; inset:0; z-index:60}
     <div id="pane-sheet">Select an entry</div>
     <div id="spellpeek" hidden></div>
   </div>
-  <div id="trkovl" hidden></div>
-  <div id="pdisp" class="pdroot" hidden></div>
-  <div id="dpop" hidden></div>
 </main>
+<!-- overlays outside main so setAppInert(main) does not make them unclickable -->
+<div id="trkovl" hidden></div>
+<div id="pdisp" class="pdroot" hidden></div>
+<div id="dpop" hidden></div>
 
 <script>
 "use strict";
@@ -1053,12 +1085,385 @@ $("#fin").onchange = e => handleFiles(e.target.files);
   e.preventDefault(); $("#drop").classList.remove("hot"); }));
 $("#drop").addEventListener("drop", e => handleFiles(e.dataTransfer.files));
 
-function start(){
-  if (!DATA.length){ logline("\nNothing loaded."); return; }
+/* ---------------- custom library + portable save ---------------- */
+const CUSTOM_LS = "bg.custom.records.v1";
+const USER_SAVE_SCHEMA = "bg-user-save/1";
+const ID_RE = /^[a-z0-9]+:[a-z0-9._()-]+:[a-z0-9-]+$/;
+let CORPUS_IDS = new Set();
+
+function lsGet(k, fb){
+  try{ const v = JSON.parse(localStorage.getItem(k)); return v ?? fb; }catch(_){ return fb; }
+}
+function lsSet(k, v){
+  try{ localStorage.setItem(k, JSON.stringify(v)); }catch(_){}
+}
+
+const MONSTER_REQ = ["schema","id","name","gameSystem","source","challenge","identity",
+  "abilityMods","abilityScores","perception","senses","languages","skills","defenses",
+  "speeds","entries","spellcasting","systemExtras","parse"];
+const SPELL_REQ = ["schema","id","name","gameSystem","source","level","identity","activity",
+  "components","range","targets","area","duration","save","attack","damage","heightening",
+  "entries","systemExtras","parse"];
+
+function stubMonster(sys){
+  const pf = sys === "pf2e";
+  return {
+    schema: "ttrpg-monster/0.2",
+    id: pf ? "pf2e:custom:new-creature" : "dnd5e:custom:new-creature",
+    name: "New Creature",
+    gameSystem: sys,
+    variant: "custom",
+    source: { code: "custom", name: "Custom", page: null, path: "custom/" + sys + "/new-creature" },
+    challenge: pf
+      ? { kind: "level", value: 1, xp: null, display: "Creature 1" }
+      : { kind: "cr", value: 1, xp: null, display: "1" },
+    identity: {
+      size: "Medium", types: ["humanoid"], subtypes: [], rarity: pf ? "common" : null,
+      alignment: { raw: null, lawChaos: null, goodEvil: null },
+      nativeTraits: pf ? ["medium", "humanoid"] : []
+    },
+    abilityMods: { str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0 },
+    abilityScores: pf ? null : { str: 10, dex: 10, con: 10, int: 10, wis: 10, cha: 10 },
+    perception: { mod: 0, passive: pf ? null : 10 },
+    senses: [], languages: ["Common"], skills: [],
+    defenses: {
+      ac: { value: 10, note: null },
+      savingThrows: [], saveNote: null,
+      hp: [{ value: 10, formula: null, note: null }],
+      immunities: { damage: [], conditions: [], other: [] },
+      resistances: [], weaknesses: []
+    },
+    speeds: { modes: { walk: 30 }, special: [] },
+    entries: [], spellcasting: [], systemExtras: {},
+    parse: { status: "ok", warnings: [], unmapped: [] }
+  };
+}
+function stubSpell(sys){
+  const pf = sys === "pf2e";
+  return {
+    schema: "ttrpg-spell/0.1",
+    id: pf ? "pf2e:custom:new-spell" : "dnd5e:custom:new-spell",
+    name: "New Spell",
+    gameSystem: sys,
+    variant: "custom",
+    source: { code: "custom", name: "Custom", page: null, path: "custom/" + sys + "/new-spell" },
+    level: pf
+      ? { kind: "rank", value: 1, display: "1" }
+      : { kind: "level", value: 1, display: "1" },
+    identity: {
+      rarity: pf ? "common" : null, traits: [], school: pf ? null : "Evocation",
+      traditions: pf ? ["arcane"] : [], classes: pf ? [] : ["Wizard"],
+      cantrip: false, ritual: false
+    },
+    activity: { unit: pf ? "action" : "action", number: pf ? 2 : 1, symbol: null },
+    trigger: null,
+    components: { list: pf ? [] : ["verbal", "somatic"], material: null, cost: null, currency: null, consumed: false },
+    range: { text: "30 feet", value: 30, unit: "ft" },
+    targets: null,
+    area: null,
+    duration: { text: "Instantaneous", value: null, unit: null, concentration: false, sustained: false },
+    save: null, attack: null, damage: [], heightening: [],
+    entries: ["Describe the spell effect here."],
+    systemExtras: {},
+    parse: { status: "ok", warnings: [], unmapped: [] }
+  };
+}
+function stubForKind(kind){
+  if (kind === "spell") return stubSpell("dnd5e");
+  if (kind === "pf2e") return stubMonster("pf2e");
+  return stubMonster("dnd5e");
+}
+
+function validateCustomRecord(raw){
+  const errors = [];
+  if (!raw || typeof raw !== "object" || Array.isArray(raw))
+    return { ok: false, errors: ["Root value must be a JSON object."], record: null };
+  const schema = raw.schema;
+  let kind = null;
+  if (schema === "ttrpg-monster/0.2") kind = "monster";
+  else if (schema === "ttrpg-spell/0.1") kind = "spell";
+  else {
+    errors.push('schema must be "ttrpg-monster/0.2" or "ttrpg-spell/0.1".');
+    return { ok: false, errors, record: null };
+  }
+  const req = kind === "monster" ? MONSTER_REQ : SPELL_REQ;
+  for (const k of req) if (!(k in raw)) errors.push("Missing required field: " + k);
+  if (typeof raw.id !== "string" || !ID_RE.test(raw.id))
+    errors.push('id must match pattern like "dnd5e:custom:my-ogre".');
+  if (typeof raw.name !== "string" || !raw.name.trim())
+    errors.push("name must be a non-empty string.");
+  if (raw.gameSystem !== "dnd5e" && raw.gameSystem !== "pf2e")
+    errors.push('gameSystem must be "dnd5e" or "pf2e".');
+  if (kind === "monster"){
+    if (!raw.defenses || typeof raw.defenses !== "object") errors.push("defenses must be an object.");
+    if (!Array.isArray(raw.entries)) errors.push("entries must be an array.");
+    if (!Array.isArray(raw.spellcasting)) errors.push("spellcasting must be an array.");
+  } else {
+    if (!raw.level || typeof raw.level !== "object") errors.push("level must be an object.");
+    if (!Array.isArray(raw.entries)) errors.push("entries must be an array.");
+  }
+  if (errors.length) return { ok: false, errors, record: null };
+  if (CORPUS_IDS.has(raw.id))
+    return { ok: false, errors: ["id collides with a built-in corpus record: " + raw.id], record: null };
+  const record = JSON.parse(JSON.stringify(raw));
+  return { ok: true, errors: [], record, kind };
+}
+
+function stripRuntimeFields(r){
+  const o = JSON.parse(JSON.stringify(r));
+  delete o._kind; delete o._search; delete o._deep; delete o._custom;
+  return o;
+}
+function attachCustomRuntime(r, kind){
+  r._kind = kind;
+  r._search = r.name.toLowerCase();
+  r._deep = null;
+  r._custom = true;
+  return r;
+}
+function vCustomRecords(raw){
+  const out = [];
+  for (const item of Array.isArray(raw) ? raw : []){
+    const v = validateCustomRecord(item);
+    if (!v.ok) continue;
+    out.push(attachCustomRuntime(v.record, v.kind));
+  }
+  return out;
+}
+function loadCustomStore(){
+  return vCustomRecords(lsGet(CUSTOM_LS, []));
+}
+function saveCustomStore(list){
+  lsSet(CUSTOM_LS, list.map(stripRuntimeFields));
+}
+function getCustomStore(){
+  return DATA.filter(r => r._custom).map(stripRuntimeFields);
+}
+function markCorpusBaseline(){
+  CORPUS_IDS = new Set(DATA.filter(r => !r._custom).map(r => r.id));
+}
+function rebuildCatalogIndexes(){
   DATA.sort((a,b) => a.name.localeCompare(b.name));
   ID_INDEX.clear();
   for (const r of DATA) ID_INDEX.set(r.id, r);
   buildSpellIndex();
+}
+function mergeCustomsIntoData(customs){
+  const byId = new Map();
+  for (const r of customs){
+    if (CORPUS_IDS.has(r.id)) continue;
+    byId.set(r.id, r);
+  }
+  DATA = DATA.filter(r => !r._custom);
+  for (const r of byId.values()) DATA.push(r);
+  rebuildCatalogIndexes();
+}
+function upsertCustomRecord(record, kind){
+  const prepared = attachCustomRuntime(JSON.parse(JSON.stringify(record)), kind);
+  const store = loadCustomStore().filter(r => r.id !== prepared.id);
+  store.push(prepared);
+  saveCustomStore(store);
+  mergeCustomsIntoData(store);
+  return prepared;
+}
+function removeCustomRecord(id){
+  const store = loadCustomStore().filter(r => r.id !== id);
+  saveCustomStore(store);
+  mergeCustomsIntoData(store);
+}
+function parseImportPayload(text){
+  let data;
+  try{ data = JSON.parse(text); }
+  catch(e){ return { ok: false, errors: ["Invalid JSON: " + e.message] }; }
+  if (Array.isArray(data)){
+    if (data.length !== 1)
+      return { ok: false, errors: ["Paste a single object, or an array with exactly one record."] };
+    data = data[0];
+  }
+  return validateCustomRecord(data);
+}
+function mergeById(localArr, incomingArr, idKey){
+  const map = new Map();
+  for (const x of localArr || []) if (x && x[idKey] != null) map.set(x[idKey], x);
+  for (const x of incomingArr || []) if (x && x[idKey] != null) map.set(x[idKey], x);
+  return [...map.values()];
+}
+function buildUserSave(){
+  const bag = {
+    schema: USER_SAVE_SCHEMA,
+    exportedAt: new Date().toISOString(),
+    customs: getCustomStore(),
+    party: [],
+    presets: [],
+    enc: null,
+    dice: null,
+    ui: null,
+  };
+  if (window.TRK){
+    const s = TRK.state;
+    bag.party = JSON.parse(JSON.stringify(s.party || []));
+    bag.presets = JSON.parse(JSON.stringify(s.presets || []));
+    bag.enc = JSON.parse(JSON.stringify(s.enc || null));
+    bag.dice = JSON.parse(JSON.stringify(s.dice || null));
+    bag.ui = JSON.parse(JSON.stringify(s.ui || null));
+  }
+  return bag;
+}
+function downloadUserSave(){
+  const bag = buildUserSave();
+  const blob = new Blob([JSON.stringify(bag, null, 2)], { type: "application/json" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "bestiary-grimoire-save.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+function applyUserSaveBag(bag){
+  if (!bag || bag.schema !== USER_SAVE_SCHEMA)
+    return { ok: false, message: 'Save file must have schema "' + USER_SAVE_SCHEMA + '".' };
+  const incomingCustoms = vCustomRecords(bag.customs || []);
+  const localCustoms = loadCustomStore();
+  const mergedCustoms = [];
+  const cmap = new Map();
+  for (const r of localCustoms) cmap.set(r.id, r);
+  let customUpserts = 0;
+  for (const r of incomingCustoms){
+    if (CORPUS_IDS.has(r.id)) continue;
+    if (!cmap.has(r.id)) customUpserts++;
+    cmap.set(r.id, r);
+  }
+  for (const r of cmap.values()) mergedCustoms.push(r);
+  saveCustomStore(mergedCustoms);
+  mergeCustomsIntoData(mergedCustoms);
+
+  let partyAdd = 0, presetAdd = 0;
+  if (window.TRK && TRK.applyUserSave){
+    const stats = TRK.applyUserSave({
+      party: bag.party,
+      presets: bag.presets,
+      enc: bag.enc,
+      dice: bag.dice,
+      ui: bag.ui,
+    });
+    partyAdd = stats.partyAdd || 0;
+    presetAdd = stats.presetAdd || 0;
+  }
+  refresh();
+  if (window.applySideChrome) applySideChrome();
+  const bits = [];
+  if (customUpserts) bits.push("+" + customUpserts + " custom");
+  bits.push(mergedCustoms.length + " customs total");
+  if (partyAdd) bits.push("+" + partyAdd + " party");
+  if (presetAdd) bits.push("+" + presetAdd + " presets");
+  bits.push("encounter replaced");
+  return { ok: true, message: bits.join(" · ") };
+}
+
+function openLibDialog(){
+  if (!window.TRK || !TRK.openOvl){
+    alert("Tracker overlay is not ready yet.");
+    return;
+  }
+  let stubKind = "dnd5e";
+  const render = () => {
+    const stub = stubForKind(stubKind);
+    const stubText = JSON.stringify(stub, null, 2);
+    TRK.openOvl(`
+      <h3>Add custom record</h3>
+      <p class="libhint">Paste or edit one creature or spell as JSON, then Import. The stub toggle only loads a blank example — routing uses <code>schema</code> and <code>gameSystem</code>.</p>
+      <div class="frow" style="margin-bottom:8px" role="group" aria-label="Stub type">
+        <button type="button" class="chip${stubKind==="spell"?" on":""}" data-stub="spell">Spell</button>
+        <button type="button" class="chip${stubKind==="dnd5e"?" on":""}" data-stub="dnd5e">D&amp;D 5e creature</button>
+        <button type="button" class="chip${stubKind==="pf2e"?" on":""}" data-stub="pf2e">Pathfinder 2e creature</button>
+      </div>
+      <label>JSON<textarea class="libjson" id="lib-json" spellcheck="false">${esc(stubText)}</textarea></label>
+      <div class="liberr" id="lib-err" hidden></div>
+      <div class="btns">
+        <button type="button" class="chip" data-lib-cancel>Cancel</button>
+        <button type="button" class="chip yes" data-lib-import>Import</button>
+      </div>
+    `, { wide: true });
+    const root = $("#trkovl");
+    root.querySelectorAll("[data-stub]").forEach(b => b.onclick = () => {
+      stubKind = b.dataset.stub; render();
+    });
+    root.querySelector("[data-lib-cancel]").onclick = () => TRK.closeOvl();
+    const err = root.querySelector("#lib-err");
+    root.querySelector("[data-lib-import]").onclick = () => {
+      const text = root.querySelector("#lib-json").value;
+      const v = parseImportPayload(text);
+      if (!v.ok){
+        err.hidden = false;
+        err.textContent = v.errors.slice(0, 8).join("\n");
+        return;
+      }
+      const rec = upsertCustomRecord(v.record, v.kind);
+      err.hidden = true;
+      TRK.closeOvl();
+      const el = $("#trklive");
+      if (el){ el.textContent = ""; el.textContent = "Imported " + rec.name; }
+      setSide(v.kind === "spell" ? "spell" : "monster");
+      pickById(rec.id);
+      refresh();
+    };
+  };
+  render();
+}
+
+function openUserSaveDialog(){
+  if (!window.TRK || !TRK.openOvl){
+    alert("Tracker overlay is not ready yet.");
+    return;
+  }
+  TRK.openOvl(`
+    <h3>Save file</h3>
+    <p class="libhint">Export packs customs, party, encounter presets, active encounter, dice, and UI. Import <b>merges</b> customs/party/presets by id (local-only records are kept) and <b>replaces</b> the active encounter.</p>
+    <div class="btns" style="justify-content:flex-start;flex-wrap:wrap">
+      <button type="button" class="chip go" data-save-export>Export save…</button>
+      <button type="button" class="chip" data-save-import>Import save…</button>
+      <input type="file" id="user-save-file" accept="application/json,.json" hidden>
+    </div>
+    <div class="liberr" id="user-save-err" hidden></div>
+    <div class="btns"><button type="button" class="chip" data-save-close>Close</button></div>
+  `);
+  const root = $("#trkovl");
+  root.querySelector("[data-save-close]").onclick = () => TRK.closeOvl();
+  root.querySelector("[data-save-export]").onclick = () => downloadUserSave();
+  const saveErr = root.querySelector("#user-save-err");
+  const fileInp = root.querySelector("#user-save-file");
+  root.querySelector("[data-save-import]").onclick = () => fileInp.click();
+  fileInp.onchange = () => {
+    const f = fileInp.files && fileInp.files[0];
+    if (!f) return;
+    const fr = new FileReader();
+    fr.onload = () => {
+      try{
+        const bag = JSON.parse(fr.result);
+        const res = applyUserSaveBag(bag);
+        if (!res.ok){
+          saveErr.hidden = false;
+          saveErr.textContent = res.message;
+          return;
+        }
+        saveErr.hidden = true;
+        TRK.closeOvl();
+        const el = $("#trklive");
+        if (el){ el.textContent = ""; el.textContent = res.message; }
+      }catch(e){
+        saveErr.hidden = false;
+        saveErr.textContent = "Invalid JSON: " + e.message;
+      }
+    };
+    fr.readAsText(f);
+    fileInp.value = "";
+  };
+}
+
+function start(){
+  if (!DATA.length){ logline("\nNothing loaded."); return; }
+  DATA.sort((a,b) => a.name.localeCompare(b.name));
+  markCorpusBaseline();
+  mergeCustomsIntoData(loadCustomStore());
   buildFilters();
   // the narrow layout caps the sidebar height, where the panel and the results
   // compete for the same budget — start collapsed there, expanded on desktop
@@ -1072,7 +1477,7 @@ function start(){
 }
 
 /* ---------------- filters ---------------- */
-const F = { kind:new Set(), sys:new Set(), extra:new Set(), range:{} };
+const F = { kind:new Set(), sys:new Set(), extra:new Set(), custom:new Set(), range:{} };
 
 /* The corpus carries four separate numeric scales. CR 15 is not Creature 15,
    so each scale filters only its own records and they never interact.
@@ -1161,6 +1566,10 @@ function applySideChrome(){
     : side === "party" ? "Party" : "Saved encounters");
   const extra = $("#f-extra");
   if (extra) extra.hidden = side !== "spell";
+  const libBtn = $("#custom-add");
+  if (libBtn) libBtn.hidden = isTableSide(side);
+  const saveBtn = $("#user-save");
+  if (saveBtn) saveBtn.hidden = isTableSide(side);
 }
 function setSide(side){
   if (window.TRK) TRK.setSide(side);
@@ -1183,6 +1592,7 @@ function buildFilters(){
   const syss = [...new Set(DATA.map(r=>r.gameSystem))];
   if (syss.includes("dnd5e")) chip("#f-sys","D&D 5e",F.sys,"dnd5e","dnd");
   if (syss.includes("pf2e"))  chip("#f-sys","Pathfinder 2e",F.sys,"pf2e","pf");
+  chip("#f-sys","Custom",F.custom,"custom");
   if (DATA.some(r=>r._kind==="spell")){
     chip("#f-extra","Cantrips",F.extra,"cantrip");
     chip("#f-extra","Focus",F.extra,"focus");
@@ -1244,7 +1654,7 @@ function buildRangeControls(){
 /* A collapsed panel that hides active filters is a trap, so the summary carries
    the count and the panel refuses to look empty when it isn't. */
 function activeFilterCount(){
-  let n = F.sys.size;
+  let n = F.sys.size + F.custom.size;
   if (getSide() === "spell") n += F.extra.size;
   for (const s of SCALES){
     const g = F.range[s.key];
@@ -1304,6 +1714,7 @@ function computeCatalogView(){
   const chipped = DATA.filter(r => {
     if (r._kind !== side) return false;
     if (F.sys.size && !F.sys.has(r.gameSystem)) return false;
+    if (F.custom.size && !r._custom) return false;
     if (side === "spell" && !passExtra(r)) return false;
     return true;
   });
@@ -1337,6 +1748,7 @@ function refresh(){
   const chipped = DATA.filter(r => {
     if (r._kind !== side) return false;
     if (F.sys.size && !F.sys.has(r.gameSystem)) return false;
+    if (F.custom.size && !r._custom) return false;
     if (side === "spell" && !passExtra(r)) return false;
     return true;
   });
@@ -1372,11 +1784,9 @@ function renderList(){
   }
   listSig = sig;
   L.innerHTML = shown.map((r,i) =>
-    `<div class="item ${r.gameSystem}" role="option" id="opt-${i}" aria-selected="false" data-i="${i}">
+    `<div class="item ${r.gameSystem}${r._custom ? " custom" : ""}" role="option" id="opt-${i}" aria-selected="false" data-i="${i}">
        <span class="nm">${esc(r.name)}</span>
-       <span class="lv">${esc(r.variant||"")} · ${esc(tag(r))}</span>${
-       // mouse affordance for the tracker; hidden from AT because a focusable
-       // child would break the option role — keyboard adds via Enter on the listbox
+       <span class="lv">${esc(r._custom ? "custom" : (r.variant||""))} · ${esc(tag(r))}</span>${
        r._kind === "monster" ? '<button class="add" type="button" tabindex="-1" aria-hidden="true" title="Add to encounter">+</button>' : ""}
      </div>`).join("");
   L.querySelectorAll(".item[data-i]").forEach(el =>
@@ -1428,9 +1838,39 @@ function pickById(id){
 function renderRecord(r){
   fillPane(r._kind === "spell" ? spellHTML(r) : monsterHTML(r), r.gameSystem);
   location.hash = encodeURIComponent(r.id);
+  const rm = $("#pane-sheet") && $("#pane-sheet").querySelector("[data-rm-custom]");
+  if (rm){
+    rm.onclick = () => {
+      const id = rm.dataset.rmCustom;
+      const doRm = () => {
+        removeCustomRecord(id);
+        fillPane("Select an entry", "empty");
+        refresh();
+      };
+      if (window.TRK && TRK.confirmSwap)
+        TRK.confirmSwap(rm, "Remove " + (r.name || "this record") + " from library?", doRm);
+      else if (confirm("Remove from library?")) doRm();
+    };
+  }
 }
 
-/* ---------------- renderers ---------------- */
+function metaHTML(r){
+  let m = `<div class="meta">${esc(r.id)}`;
+  if (r._custom) m += `  ·  custom`;
+  if (r.source){
+    let s = r.source.name || r.source.code || "";
+    if (r.source.page && !/\bp\.?\s*\d/i.test(s)) s += " p." + r.source.page;
+    if (s) m += `  ·  ${esc(s)}`;
+  }
+  m += `</div>`;
+  if (r.parse && r.parse.warnings && r.parse.warnings.length)
+    m += `<div class="warn"><b>Parse notes (${r.parse.status})</b><br>` +
+         r.parse.warnings.map(esc).join("<br>") + `</div>`;
+  if (r._custom)
+    m += `<div class="btns" style="margin-top:12px;justify-content:flex-start">` +
+         `<button type="button" class="chip" data-rm-custom="${esc(r.id)}">Remove from library</button></div>`;
+  return m;
+}
 function glyph(a){
   if (!a) return "";
   if (a.symbol) return a.symbol;
@@ -1736,20 +2176,6 @@ function entryHTML(e){
   return h + `</div>`;
 }
 
-function metaHTML(r){
-  let m = `<div class="meta">${esc(r.id)}`;
-  if (r.source){
-    let s = r.source.name || r.source.code || "";
-    if (r.source.page && !/\bp\.?\s*\d/i.test(s)) s += " p." + r.source.page;
-    if (s) m += `  ·  ${esc(s)}`;
-  }
-  m += `</div>`;
-  if (r.parse && r.parse.warnings && r.parse.warnings.length)
-    m += `<div class="warn"><b>Parse notes (${r.parse.status})</b><br>` +
-         r.parse.warnings.map(esc).join("<br>") + `</div>`;
-  return m;
-}
-
 /* ---------------- events ---------------- */
 $("#q").addEventListener("input", scheduleRefresh);
 $("#deep").addEventListener("change", refresh);
@@ -1781,6 +2207,8 @@ window.setSide = setSide;
 window.closeSpellPeek = closeSpellPeek;
 window.openSpellPeek = openSpellPeek;
 window.fillPane = fillPane;
+$("#custom-add").addEventListener("click", openLibDialog);
+$("#user-save").addEventListener("click", openUserSaveDialog);
 </script>
 
 <script>
@@ -2670,10 +3098,11 @@ const TRK = (() => {
 
   /* ---------------- overlay ---------------- */
   let ovlReturn = null;
-  function openOvl(html){
+  function openOvl(html, opts){
     ovlReturn = document.activeElement;
+    const wide = opts && opts.wide;
     const o = $("#trkovl");
-    o.innerHTML = `<div class="dlg" role="dialog" aria-modal="true">${html}</div>`;
+    o.innerHTML = `<div class="dlg${wide ? " wide" : ""}" role="dialog" aria-modal="true">${html}</div>`;
     const dlg = o.querySelector(".dlg");
     const title = dlg && dlg.querySelector("h3");
     if (title){
@@ -3591,11 +4020,53 @@ const TRK = (() => {
       hideDpop();
   });
 
+  function applyUserSave(parts){
+    const localParty = state.party.slice();
+    const localPresets = state.presets.slice();
+    const beforeParty = new Set(localParty.map(p => p.id));
+    const beforePresets = new Set(localPresets.map(p => p.id));
+    const incomingParty = vParty(parts && parts.party);
+    const incomingPresets = vPresets(parts && parts.presets);
+    const pmap = new Map();
+    for (const p of localParty) pmap.set(p.id, p);
+    for (const p of incomingParty) pmap.set(p.id, p);
+    state.party = [...pmap.values()];
+    const smap = new Map();
+    for (const p of localPresets) smap.set(p.id, p);
+    for (const p of incomingPresets) smap.set(p.id, p);
+    state.presets = [...smap.values()];
+    if (parts && parts.enc) state.enc = vEnc(parts.enc);
+    if (parts && parts.dice) state.dice = vDice(parts.dice);
+    if (parts && parts.ui){
+      const u = vUi(parts.ui);
+      state.ui.colSide = u.colSide;
+      state.ui.colTrk = u.colTrk;
+      state.ui.qty = u.qty;
+      state.ui.diceOpen = u.diceOpen;
+    }
+    save(LS.party, state.party);
+    save(LS.presets, state.presets);
+    save(LS.enc, state.enc);
+    save(LS.dice, state.dice);
+    save(LS.ui, state.ui);
+    applyColWidths();
+    hist = { past: [], future: [] };
+    renderTrk();
+    renderDice();
+    pdPush();
+    if (window.refresh) refresh();
+    let partyAdd = 0, presetAdd = 0;
+    for (const p of state.party) if (!beforeParty.has(p.id)) partyAdd++;
+    for (const p of state.presets) if (!beforePresets.has(p.id)) presetAdd++;
+    return { partyAdd, presetAdd };
+  }
+
   return { state, setMode, setSide, onDataReady, renderTrk, renderSideList, key,
            mutate, undo, redo, addMany, addFromView, removeCombatant, applyHP,
            startCombat, endCombat, nextTurn, prevTurn, canPrev,
            setInitiative, reorderTo, moveBy, resetEnc, clearAll,
-           initModOf, acOf, hpOf, openAddForm, openStartModal, closeOvl,
+           initModOf, acOf, hpOf, openAddForm, openStartModal, closeOvl, openOvl,
+           confirmSwap, applyUserSave,
            rollDice, doRoll, savePreset, loadPreset, openPartyOvl, openPresetsOvl,
            pdHTML, openPdWindow, pickCombatant,
            _test: { vEnc, vParty, vPresets, vDice, vUi, autoName, hpClass, midInit,
