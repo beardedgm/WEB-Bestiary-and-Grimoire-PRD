@@ -30,8 +30,8 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 
 - **Prep:** Browse Catalog (monsters/spells), filter by system, CR/creature level, rank, spell traits; read full stat blocks in the reading pane.
 - **Play:** Switch to Tracker; add monsters from Catalog or party from Table; roll initiative, advance turns, apply damage/healing; click formulas in stat blocks to roll; optional player display window (1920×1080).
-- **Persistence:** Encounter state, party, saved encounters, dice history, column widths, and UI mode persist in `localStorage`. Custom monsters/spells live under `bg.custom.records.v1` (validated on load; invalid rows dropped with notice). A portable `bg-user-save/1` JSON export merges customs/party/presets by id (local-only kept) and replaces the active encounter after confirmation.
-- **Offline:** `index.html` embeds all four JSON bundles; works from `file://` after build. Development uses `python3 -m http.server` with separate JSON fetch.
+- **Persistence:** Encounter state, party, saved encounters, dice history, column widths, and UI mode persist in `localStorage` (storage failures are announced). Custom monsters/spells live under `bg.custom.records.v1` (validated on load; invalid rows dropped with notice). A portable `bg-user-save/1` JSON export merges customs/party/presets by id (local-only kept) and replaces the active encounter after confirmation.
+- **Offline:** `index.html` embeds all four JSON bundles; works from `file://` after build. Development fetch/drop requires all four packs before the app starts (`python3 -m http.server`).
 - **Data pipeline:** Markdown sidecars → `convert_monsters.py` / `convert_spells.py` → bundles → `build_bundles.py`.
 
 ## Capabilities and Constraints

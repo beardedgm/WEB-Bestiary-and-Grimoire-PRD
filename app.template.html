@@ -1033,6 +1033,7 @@ function logline(t){ $("#lst").textContent += t + "\n"; }
 
 async function tryFetch(){
   let ok = 0;
+  DATA.length = 0;
   for (const f of FILES){
     try{
       const res = await fetch(f, {cache:"no-store"});
@@ -1043,6 +1044,19 @@ async function tryFetch(){
     }catch(e){ logline("✗ " + f + "  — " + e.message); }
   }
   return ok;
+}
+
+const loadedPacks = new Set();
+function notePack(name){
+  const base = String(name).split(/[/\\]/).pop();
+  if (FILES.includes(base)) loadedPacks.add(base);
+}
+function allPacksReady(){ return FILES.every(f => loadedPacks.has(f)); }
+function resetCorpusLoad(){
+  DATA.length = 0;
+  loadedPacks.clear();
+  ID_INDEX.clear();
+  SPELL_INDEX.clear();
 }
 
 function handleFiles(files){
@@ -1056,9 +1070,18 @@ function handleFiles(files){
         const arr = JSON.parse(fr.result);
         if (!Array.isArray(arr)) throw new Error("not a JSON array");
         ingest(file.name, arr);
+        notePack(file.name);
         logline("✓ " + file.name + "  (" + arr.length.toLocaleString() + " records)");
       }catch(e){ logline("✗ " + file.name + " — " + e.message); }
-      if (++done === pending) start();
+      if (++done === pending){
+        if (allPacksReady()) start();
+        else logline("Need all four packs: " + FILES.join(", ") +
+                     "  (have " + [...loadedPacks].join(", ") + " or none)");
+      }
+    };
+    fr.onerror = () => {
+      logline("✗ " + file.name + " — could not read file");
+      if (++done === pending && allPacksReady()) start();
     };
     fr.readAsText(file);
   }
@@ -1067,10 +1090,16 @@ function handleFiles(files){
 
 async function boot(){
   const n = await tryFetch();
-  if (n) { start(); return; }
-  $("#lmsg").innerHTML = "Couldn't read the files automatically.<br>" +
-    "<span style='font-size:13px'>Browsers block local file access from <code>file://</code> pages. " +
-    "Drop the files below, or serve the folder with <code>python -m http.server</code> and reload.</span>";
+  if (n === FILES.length){
+    FILES.forEach(notePack);
+    start();
+    return;
+  }
+  resetCorpusLoad();
+  $("#lmsg").innerHTML = "Couldn't load all four data packs (" + n + " of " + FILES.length + ").<br>" +
+    "<span style='font-size:13px'>Drop <code>spells-5e.json</code>, <code>spells-pf2e.json</code>, " +
+    "<code>monsters-5e.json</code>, and <code>monsters-pf2e.json</code>, or serve the folder with " +
+    "<code>python -m http.server</code> and reload.</span>";
   $("#drop").hidden = false;
   $("#drop").focus();
 }
@@ -1090,6 +1119,7 @@ const CUSTOM_LS = "bg.custom.records.v1";
 const USER_SAVE_SCHEMA = "bg-user-save/1";
 const CUSTOM_ID_RE = /^(dnd5e|pf2e):custom:[a-z0-9-]+$/;
 const CUSTOM_PASTE_MAX = 512 * 1024;
+const USER_SAVE_MAX = 2 * 1024 * 1024;
 const ABIL_KEYS = ["str", "dex", "con", "int", "wis", "cha"];
 let CORPUS_IDS = new Set();
 let pendingCustomDrops = 0;
@@ -1456,10 +1486,11 @@ function downloadUserSave(){
   const bag = buildUserSave();
   const blob = new Blob([JSON.stringify(bag, null, 2)], { type: "application/json" });
   const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
+  const url = URL.createObjectURL(blob);
+  a.href = url;
   a.download = "bestiary-grimoire-save.json";
   a.click();
-  URL.revokeObjectURL(a.href);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 function applyUserSaveBag(bag){
   if (!bag || bag.schema !== USER_SAVE_SCHEMA)
@@ -1479,7 +1510,7 @@ function applyUserSaveBag(bag){
     return { ok: false, message: "Could not save customs — browser storage may be full. Nothing was changed." };
   mergeCustomsIntoData(mergedCustoms);
 
-  let partyAdd = 0, presetAdd = 0;
+  let partyAdd = 0, presetAdd = 0, encReplaced = false;
   if (window.TRK && TRK.applyUserSave){
     const stats = TRK.applyUserSave({
       party: bag.party,
@@ -1490,6 +1521,7 @@ function applyUserSaveBag(bag){
     });
     partyAdd = stats.partyAdd || 0;
     presetAdd = stats.presetAdd || 0;
+    encReplaced = !!stats.encReplaced;
   }
   refresh();
   if (window.applySideChrome) applySideChrome();
@@ -1499,8 +1531,8 @@ function applyUserSaveBag(bag){
   if (dropped) bits.push(dropped + " custom skipped (invalid)");
   if (partyAdd) bits.push("+" + partyAdd + " party");
   if (presetAdd) bits.push("+" + presetAdd + " presets");
-  bits.push("encounter replaced");
-  return { ok: true, message: bits.join(" · ") };
+  if (encReplaced) bits.push("encounter replaced");
+  return { ok: true, message: bits.join(" · ") || "Save imported" };
 }
 
 function commitImportedCustom(v, errEl){
@@ -1604,7 +1636,17 @@ function openUserSaveDialog(){
   fileInp.onchange = () => {
     const f = fileInp.files && fileInp.files[0];
     if (!f) return;
+    if (f.size > USER_SAVE_MAX){
+      saveErr.hidden = false;
+      saveErr.textContent = "Save file is too large (max 2 MB).";
+      fileInp.value = "";
+      return;
+    }
     const fr = new FileReader();
+    fr.onerror = () => {
+      saveErr.hidden = false;
+      saveErr.textContent = "Could not read that file.";
+    };
     fr.onload = () => {
       let bag;
       try{ bag = JSON.parse(fr.result); }
@@ -2023,7 +2065,15 @@ function pickById(id){
   renderRecord(r);
 }
 function renderRecord(r){
-  fillPane(r._kind === "spell" ? spellHTML(r) : monsterHTML(r), r.gameSystem);
+  let html, sys = r.gameSystem;
+  try{
+    html = r._kind === "spell" ? spellHTML(r) : monsterHTML(r);
+  }catch(e){
+    html = `<div class="warn"><b>Couldn’t render this record</b><br>${esc(r.name || r.id || "")}` +
+           (e && e.message ? `<br>${esc(e.message)}` : "") + `</div>`;
+    sys = "empty";
+  }
+  fillPane(html, sys);
   location.hash = encodeURIComponent(r.id);
   const rm = $("#pane-sheet") && $("#pane-sheet").querySelector("[data-rm-custom]");
   if (rm){
@@ -2412,7 +2462,15 @@ const TRK = (() => {
                dice:"bg.trk.dice.v1", ui:"bg.trk.ui.v1", pd:"bg.trk.pd.v1" };
   const load = (k, fb) => { try{ const v = JSON.parse(localStorage.getItem(k)); return v ?? fb; }
                             catch(_){ return fb; } };
-  const save = (k, v) => { try{ localStorage.setItem(k, JSON.stringify(v)); }catch(_){} };
+  const save = (k, v) => {
+    try{ localStorage.setItem(k, JSON.stringify(v)); return true; }
+    catch(_){ return false; }
+  };
+  function saveOrWarn(k, v){
+    if (save(k, v)) return true;
+    announce("Could not save — browser storage may be full");
+    return false;
+  }
 
   const fin = (v, fb) => Number.isFinite(+v) ? +v : fb;         // finite number or fallback
   const int = (v, fb) => Number.isFinite(+v) ? Math.round(+v) : fb;
@@ -2634,20 +2692,20 @@ const TRK = (() => {
     hist.future.length = 0;
     fn(state.enc);
     state.enc = vEnc(state.enc);             // self-heal after every mutation
-    save(LS.enc, state.enc);
+    saveOrWarn(LS.enc, state.enc);
     renderTrk(); pdPush();
   }
   function undo(){
     if (!hist.past.length) return;
     hist.future.push(JSON.stringify(state.enc));
     state.enc = vEnc(JSON.parse(hist.past.pop()));
-    save(LS.enc, state.enc); renderTrk(); pdPush(); announce("Undone");
+    saveOrWarn(LS.enc, state.enc); renderTrk(); pdPush(); announce("Undone");
   }
   function redo(){
     if (!hist.future.length) return;
     hist.past.push(JSON.stringify(state.enc));
     state.enc = vEnc(JSON.parse(hist.future.pop()));
-    save(LS.enc, state.enc); renderTrk(); pdPush(); announce("Redone");
+    saveOrWarn(LS.enc, state.enc); renderTrk(); pdPush(); announce("Redone");
   }
   /* ---------------- player display ---------------- */
   /* One renderer, three surfaces: a fullscreen layer on this screen, a child
@@ -2799,7 +2857,7 @@ const TRK = (() => {
   function broadcastPdRoll(entry){
     if (!state.pd.showRolls) return;
     state.pd.roll = { total: entry.total, nat: entry.nat, id: Date.now() };
-    save(LS.pd, state.pd);
+    saveOrWarn(LS.pd, state.pd);
     pdPushRoll();
   }
   function pdPushRoll(){
@@ -2813,7 +2871,7 @@ const TRK = (() => {
   }
   function setPdShowRolls(on){
     state.pd.showRolls = !!on;
-    save(LS.pd, state.pd);
+    saveOrWarn(LS.pd, state.pd);
     renderPdRollToggle();
   }
   function renderPdRollToggle(){
@@ -3186,7 +3244,7 @@ const TRK = (() => {
     const c = byId(combatantId);
     if (!c) return;
     state.ui.viewingId = combatantId;
-    save(LS.ui, state.ui);
+    saveOrWarn(LS.ui, state.ui);
     renderTrk();
     if (c.ref){
       pickById(c.ref);
@@ -3429,7 +3487,7 @@ const TRK = (() => {
       } else if (e.target.closest("[data-pdel]")){
         confirmSwap(e.target.closest("[data-pdel]"), "Delete " + p.name + "?", () => {
           state.party = state.party.filter(x => x.id !== p.id);
-          save(LS.party, state.party);
+          saveOrWarn(LS.party, state.party);
           openPartyOvl();
           if (window.refresh) refresh();
         });
@@ -3457,7 +3515,7 @@ const TRK = (() => {
                   mod: Math.min(50, Math.max(-10, int(fd.get("mod"), 0))) };
       if (editing) state.party = state.party.map(x => x.id === editing.id ? m : x);
       else state.party.push(m);
-      save(LS.party, state.party);
+      saveOrWarn(LS.party, state.party);
       openPartyOvl();
       if (window.refresh) refresh();
     };
@@ -3490,7 +3548,7 @@ const TRK = (() => {
                    dice: JSON.parse(JSON.stringify(state.dice)) };
     if (existing) state.presets = state.presets.map(p => p.id === existing.id ? snap : p);
     else state.presets.push(snap);
-    save(LS.presets, state.presets);
+    saveOrWarn(LS.presets, state.presets);
     return !existing;
   }
   function loadPreset(id){
@@ -3498,7 +3556,7 @@ const TRK = (() => {
     if (!p) return;
     mutate(e => { Object.assign(e, vEnc(p.enc)); });   // undoable, like everything
     state.dice = vDice(p.dice);
-    save(LS.dice, state.dice);
+    saveOrWarn(LS.dice, state.dice);
     renderDice();
     announce("Loaded " + p.name);
   }
@@ -3623,7 +3681,7 @@ const TRK = (() => {
       } else if (e.target.closest("[data-sdel]")){
         confirmSwap(e.target.closest("[data-sdel]"), "Delete " + p.name + "?", () => {
           state.presets = state.presets.filter(x => x.id !== id);
-          save(LS.presets, state.presets);
+          saveOrWarn(LS.presets, state.presets);
           openPresetsOvl();
         });
       }
@@ -3656,7 +3714,7 @@ const TRK = (() => {
     const entry = rollDice(spec);
     state.dice.history.unshift(entry);
     if (state.dice.history.length > 12) state.dice.history.length = 12;
-    save(LS.dice, state.dice);
+    saveOrWarn(LS.dice, state.dice);
     renderDice();
     broadcastPdRoll(entry);
     return entry;
@@ -3767,7 +3825,7 @@ const TRK = (() => {
         document.body.classList.remove("col-resizing");
         document.removeEventListener("mousemove", move);
         document.removeEventListener("mouseup", up);
-        save(LS.ui, state.ui);
+        saveOrWarn(LS.ui, state.ui);
       };
       document.addEventListener("mousemove", move);
       document.addEventListener("mouseup", up);
@@ -3776,7 +3834,7 @@ const TRK = (() => {
 
   function setMode(m){
     state.ui.mode = m === "track" ? "track" : "browse";
-    save(LS.ui, state.ui);
+    saveOrWarn(LS.ui, state.ui);
     const track = state.ui.mode === "track";
     document.body.classList.toggle("trk", track);
     $("#m-browse").classList.toggle("on", !track);
@@ -3800,7 +3858,7 @@ const TRK = (() => {
     } else if (side === "table"){
       state.ui.side = state.ui.tableTab === "enc" ? "enc" : "party";
     }
-    save(LS.ui, state.ui);
+    saveOrWarn(LS.ui, state.ui);
     if (window.applySideChrome) applySideChrome();
   }
 
@@ -3821,7 +3879,7 @@ const TRK = (() => {
     $("#t-clear").disabled = !e.combatants.length;
     if (state.ui.viewingId && !e.combatants.some(c => c.id === state.ui.viewingId)){
       state.ui.viewingId = null;
-      save(LS.ui, state.ui);
+      saveOrWarn(LS.ui, state.ui);
     }
     const list = $("#trklist");
     const ids = e.combatants.map(c => c.id).join("\0");
@@ -3893,7 +3951,7 @@ const TRK = (() => {
         const p = state.party.find(x => x.id === row.dataset.id);
         confirmSwap(e.target.closest("[data-pdel]"), "Delete " + (p ? p.name : "") + "?", () => {
           state.party = state.party.filter(x => x.id !== row.dataset.id);
-          save(LS.party, state.party);
+          saveOrWarn(LS.party, state.party);
           if (window.refresh) refresh();
         });
         return;
@@ -3911,7 +3969,7 @@ const TRK = (() => {
         const p = state.presets.find(x => x.id === row.dataset.id);
         confirmSwap(e.target.closest("[data-sdel]"), "Delete " + (p ? p.name : "") + "?", () => {
           state.presets = state.presets.filter(x => x.id !== row.dataset.id);
-          save(LS.presets, state.presets);
+          saveOrWarn(LS.presets, state.presets);
           if (window.refresh) refresh();
         });
         return;
@@ -4113,7 +4171,7 @@ const TRK = (() => {
   $("#t-redo").onclick = redo;
   $("#qty").onchange = e => {
     state.ui.qty = Math.min(10, Math.max(1, int(e.target.value, 1)));
-    save(LS.ui, state.ui);
+    saveOrWarn(LS.ui, state.ui);
   };
 
   // dice
@@ -4121,19 +4179,19 @@ const TRK = (() => {
   $("#dpick").addEventListener("click", e => {
     const b = e.target.closest("[data-d]"); if (!b) return;
     state.dice.ui.die = +b.dataset.d;
-    save(LS.dice, state.dice); renderDice();
+    saveOrWarn(LS.dice, state.dice); renderDice();
   });
   document.querySelectorAll("#dice [data-adv]").forEach(b => b.onclick = () => {
     state.dice.ui.adv = b.dataset.adv;
-    save(LS.dice, state.dice); renderDice();
+    saveOrWarn(LS.dice, state.dice); renderDice();
   });
   $("#dcount").onchange = e => {
     state.dice.ui.count = Math.min(20, Math.max(1, int(e.target.value, 1)));
-    save(LS.dice, state.dice);
+    saveOrWarn(LS.dice, state.dice);
   };
   $("#dmod").onchange = e => {
     state.dice.ui.mod = Math.min(99, Math.max(-99, int(e.target.value, 0)));
-    save(LS.dice, state.dice); renderDice();
+    saveOrWarn(LS.dice, state.dice); renderDice();
   };
   $("#d-roll").onclick = () => {
     const u = state.dice.ui;
@@ -4144,12 +4202,12 @@ const TRK = (() => {
     if (re){ const h = state.dice.history[+re.dataset.i]; if (h) doRoll(h.spec); return; }
     if (e.target.closest("#d-clear")){
       state.dice.history = [];
-      save(LS.dice, state.dice); renderDice();
+      saveOrWarn(LS.dice, state.dice); renderDice();
     }
   });
   $("#dice").addEventListener("toggle", () => {
     state.ui.diceOpen = $("#dice").open;
-    save(LS.ui, state.ui);
+    saveOrWarn(LS.ui, state.ui);
   });
   $("#pd-showrolls").onchange = e => setPdShowRolls(e.target.checked);
   renderPdRollToggle();
@@ -4232,13 +4290,14 @@ const TRK = (() => {
       state.ui.qty = u.qty;
       state.ui.diceOpen = u.diceOpen;
     }
-    save(LS.party, state.party);
-    save(LS.presets, state.presets);
-    save(LS.enc, state.enc);
-    save(LS.dice, state.dice);
-    save(LS.ui, state.ui);
+    saveOrWarn(LS.party, state.party);
+    saveOrWarn(LS.presets, state.presets);
+    saveOrWarn(LS.enc, state.enc);
+    saveOrWarn(LS.dice, state.dice);
+    saveOrWarn(LS.ui, state.ui);
     applyColWidths();
-    hist = { past: [], future: [] };
+    hist.past.length = 0;
+    hist.future.length = 0;
     renderTrk();
     renderDice();
     pdPush();
@@ -4246,7 +4305,7 @@ const TRK = (() => {
     let partyAdd = 0, presetAdd = 0;
     for (const p of state.party) if (!beforeParty.has(p.id)) partyAdd++;
     for (const p of state.presets) if (!beforePresets.has(p.id)) presetAdd++;
-    return { partyAdd, presetAdd };
+    return { partyAdd, presetAdd, encReplaced: !!(parts && parts.enc) };
   }
 
   return { state, setMode, setSide, onDataReady, renderTrk, renderSideList, key,
