@@ -274,6 +274,20 @@ Flat-by-default stone surfaces. Depth is tonal layering (`stone` → `stone-3` t
 - Segmented control (`Catalog | Table`) in stone-2 tray; inner chips for Monsters/Spells/Party/Encounters
 - Native `<details>` for Filters and Dice — keyboard and disclosure behavior come free
 
+### Spell links (`.slink`)
+
+- Inline buttons inside monster Spellcasting lists only (structured `spellcasting` rows)
+- Italic + solid underline in `--sysink` — distinct from `.droll` dotted underline (rolls)
+- Unmatched corpus names stay plain text; never a dead button
+
+### Spell peek (`#spellpeek`)
+
+- Absolute overlay covering only `#pane`; monster sheet stays underneath with `aria-hidden`
+- Sticky toolbar: Close, Back to {monster}, optional “Listed under …”, Open in catalog
+- Body reuses `spellHTML()` (full block, including clickable dice)
+- Escape closes after dice pop / tracker dialog; does not change URL hash or catalog selection
+- Do **not** set `inert` on header/main — tracker and search must stay usable
+
 ## Do's and Don'ts
 
 ### Do:
