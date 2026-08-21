@@ -293,14 +293,17 @@ Flat-by-default stone surfaces. Depth is tonal layering (`stone` → `stone-3` t
 ### Custom library dialog
 
 - Wide overlay (`#trkovl` `.dlg.wide`): stub toggle (Spell | D&D 5e | PF2e), JSON textarea, Import only
+- **Authoring JSON ≠ stored JSON:** four stub chips (5e/PF2e spell Fireball, 5e/PF2e Lich) with `schema` / `id` / `gameSystem` / `source` / `variant` / `parse` stripped; Import stamps plumbing from the selected toggle’s system
+- Import **stamps** plumbing (`{sys}:custom:{slug(name)}`, custom source, parse) then deep-validates; safe as an AI/notes fill-in template
+- Confirm before replacing an existing custom with the same id
 - `#trkovl` / `#dpop` / `#pdisp` sit **outside** `<main>` so `setAppInert` does not make overlays unclickable
-- Validation errors in plain language (`.liberr`); no Ajv dependency
 - Remove from library control on custom pane meta (confirm via `confirmSwap`)
 
 ### Portable save dialog
 
-- Normal-width overlay from footer **Save**: Export save… / Import save… (`bg-user-save/1`)
-- Merge-by-id for customs/party/presets; replace active encounter
+- Normal-width overlay from footer **Save**: Export, Download backup first, Import (`bg-user-save/1`)
+- Import confirms encounter replace + same-id overwrites; merge-keep-local for other ids; invalid customs skipped with a count
+- Customs store writes are atomic (failed write leaves previous data); invalid rows dropped on load with a live announcement
 
 ### Spell links (`.slink`)
 

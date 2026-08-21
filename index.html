@@ -1115,14 +1115,24 @@ $("#drop").addEventListener("drop", e => handleFiles(e.dataTransfer.files));
 /* ---------------- custom library + portable save ---------------- */
 const CUSTOM_LS = "bg.custom.records.v1";
 const USER_SAVE_SCHEMA = "bg-user-save/1";
-const ID_RE = /^[a-z0-9]+:[a-z0-9._()-]+:[a-z0-9-]+$/;
+const CUSTOM_ID_RE = /^(dnd5e|pf2e):custom:[a-z0-9-]+$/;
+const CUSTOM_PASTE_MAX = 512 * 1024;
+const ABIL_KEYS = ["str", "dex", "con", "int", "wis", "cha"];
 let CORPUS_IDS = new Set();
+let pendingCustomDrops = 0;
 
 function lsGet(k, fb){
   try{ const v = JSON.parse(localStorage.getItem(k)); return v ?? fb; }catch(_){ return fb; }
 }
 function lsSet(k, v){
-  try{ localStorage.setItem(k, JSON.stringify(v)); }catch(_){}
+  try{ localStorage.setItem(k, JSON.stringify(v)); return true; }
+  catch(_){ return false; }
+}
+function announceLive(msg){
+  const el = $("#trklive");
+  if (!el) return;
+  el.textContent = "";
+  el.textContent = msg;
 }
 
 const MONSTER_REQ = ["schema","id","name","gameSystem","source","challenge","identity",
@@ -1132,15 +1142,24 @@ const SPELL_REQ = ["schema","id","name","gameSystem","source","level","identity"
   "components","range","targets","area","duration","save","attack","damage","heightening",
   "entries","systemExtras","parse"];
 
-function stubMonster(sys){
+const AUTHORING_OMIT = ["schema", "id", "gameSystem", "source", "variant", "parse"];
+const STUB_IDS = {
+  spell5e: "dnd5e:srd51:fireball",
+  spellPf: "pf2e:crb:fireball",
+  dnd5e: "dnd5e:srd51:lich",
+  pf2e: "pf2e:b1:lich",
+};
+
+function toAuthoringStub(record){
+  const o = JSON.parse(JSON.stringify(record));
+  delete o._kind; delete o._search; delete o._deep; delete o._custom;
+  for (const k of AUTHORING_OMIT) delete o[k];
+  return o;
+}
+function fallbackAuthoringMonster(sys){
   const pf = sys === "pf2e";
   return {
-    schema: "ttrpg-monster/0.2",
-    id: pf ? "pf2e:custom:new-creature" : "dnd5e:custom:new-creature",
     name: "New Creature",
-    gameSystem: sys,
-    variant: "custom",
-    source: { code: "custom", name: "Custom", page: null, path: "custom/" + sys + "/new-creature" },
     challenge: pf
       ? { kind: "level", value: 1, xp: null, display: "Creature 1" }
       : { kind: "cr", value: 1, xp: null, display: "1" },
@@ -1161,79 +1180,191 @@ function stubMonster(sys){
       resistances: [], weaknesses: []
     },
     speeds: { modes: { walk: 30 }, special: [] },
-    entries: [], spellcasting: [], systemExtras: {},
-    parse: { status: "ok", warnings: [], unmapped: [] }
+    entries: [], spellcasting: [], systemExtras: {}
   };
 }
-function stubSpell(sys){
+function fallbackAuthoringSpell(sys){
   const pf = sys === "pf2e";
   return {
-    schema: "ttrpg-spell/0.1",
-    id: pf ? "pf2e:custom:new-spell" : "dnd5e:custom:new-spell",
     name: "New Spell",
-    gameSystem: sys,
-    variant: "custom",
-    source: { code: "custom", name: "Custom", page: null, path: "custom/" + sys + "/new-spell" },
     level: pf
       ? { kind: "rank", value: 1, display: "1" }
       : { kind: "level", value: 1, display: "1" },
     identity: {
-      rarity: pf ? "common" : null, traits: [], school: pf ? null : "Evocation",
-      traditions: pf ? ["arcane"] : [], classes: pf ? [] : ["Wizard"],
+      rarity: pf ? "common" : null,
+      traits: [],
+      school: pf ? null : "Evocation",
+      traditions: pf ? ["arcane"] : [],
+      classes: pf ? [] : ["Wizard"],
       cantrip: false, ritual: false
     },
-    activity: { unit: pf ? "action" : "action", number: pf ? 2 : 1, symbol: null },
+    activity: { unit: "action", number: pf ? 2 : 1, symbol: null },
     trigger: null,
-    components: { list: pf ? [] : ["verbal", "somatic"], material: null, cost: null, currency: null, consumed: false },
+    components: {
+      list: pf ? [] : ["verbal", "somatic"],
+      material: null, cost: null, currency: null, consumed: false
+    },
     range: { text: "30 feet", value: 30, unit: "ft" },
-    targets: null,
-    area: null,
+    targets: null, area: null,
     duration: { text: "Instantaneous", value: null, unit: null, concentration: false, sustained: false },
     save: null, attack: null, damage: [], heightening: [],
     entries: ["Describe the spell effect here."],
-    systemExtras: {},
-    parse: { status: "ok", warnings: [], unmapped: [] }
+    systemExtras: {}
   };
 }
 function stubForKind(kind){
-  if (kind === "spell") return stubSpell("dnd5e");
-  if (kind === "pf2e") return stubMonster("pf2e");
-  return stubMonster("dnd5e");
+  const id = STUB_IDS[kind] || STUB_IDS.dnd5e;
+  const rec = ID_INDEX.get(id);
+  if (rec) return toAuthoringStub(rec);
+  if (kind === "spell5e") return fallbackAuthoringSpell("dnd5e");
+  if (kind === "spellPf") return fallbackAuthoringSpell("pf2e");
+  return fallbackAuthoringMonster(kind === "pf2e" ? "pf2e" : "dnd5e");
+}
+
+function slugName(name){
+  const s = String(name == null ? "" : name).toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 64);
+  return s || "unnamed";
+}
+function isFiniteNum(v){ return typeof v === "number" && Number.isFinite(v); }
+function requireArray(obj, key, errors, label){
+  if (!Array.isArray(obj[key])) errors.push((label || key) + " must be an array.");
+}
+
+function normalizeCustomRecord(raw, hintKind){
+  if (!raw || typeof raw !== "object" || Array.isArray(raw))
+    return { ok: false, errors: ["Root value must be a JSON object."], record: null, kind: null };
+  const r = JSON.parse(JSON.stringify(raw));
+  let kind = null;
+  if (r.schema === "ttrpg-monster/0.2") kind = "monster";
+  else if (r.schema === "ttrpg-spell/0.1") kind = "spell";
+  else if (hintKind === "spell5e" || hintKind === "spellPf" || hintKind === "spell") kind = "spell";
+  else if (r.challenge && !r.level) kind = "monster";
+  else if (r.level && !r.challenge) kind = "spell";
+  else kind = "monster";
+
+  r.schema = kind === "spell" ? "ttrpg-spell/0.1" : "ttrpg-monster/0.2";
+  let sys = r.gameSystem;
+  if (sys !== "dnd5e" && sys !== "pf2e"){
+    if (hintKind === "pf2e" || hintKind === "spellPf") sys = "pf2e";
+    else sys = "dnd5e";
+  }
+  r.gameSystem = sys;
+  if (typeof r.name !== "string" || !r.name.trim())
+    return { ok: false, errors: ["name must be a non-empty string."], record: null, kind: null };
+  r.name = r.name.trim();
+  const slug = slugName(r.name);
+  r.id = sys + ":custom:" + slug;
+  r.variant = "custom";
+  r.source = { code: "custom", name: "Custom", page: null, path: "custom/" + sys + "/" + slug };
+  r.parse = { status: "ok", warnings: [], unmapped: [] };
+  return { ok: true, errors: [], record: r, kind };
 }
 
 function validateCustomRecord(raw){
   const errors = [];
   if (!raw || typeof raw !== "object" || Array.isArray(raw))
-    return { ok: false, errors: ["Root value must be a JSON object."], record: null };
+    return { ok: false, errors: ["Root value must be a JSON object."], record: null, kind: null };
   const schema = raw.schema;
   let kind = null;
   if (schema === "ttrpg-monster/0.2") kind = "monster";
   else if (schema === "ttrpg-spell/0.1") kind = "spell";
   else {
     errors.push('schema must be "ttrpg-monster/0.2" or "ttrpg-spell/0.1".');
-    return { ok: false, errors, record: null };
+    return { ok: false, errors, record: null, kind: null };
   }
   const req = kind === "monster" ? MONSTER_REQ : SPELL_REQ;
   for (const k of req) if (!(k in raw)) errors.push("Missing required field: " + k);
-  if (typeof raw.id !== "string" || !ID_RE.test(raw.id))
-    errors.push('id must match pattern like "dnd5e:custom:my-ogre".');
   if (typeof raw.name !== "string" || !raw.name.trim())
     errors.push("name must be a non-empty string.");
   if (raw.gameSystem !== "dnd5e" && raw.gameSystem !== "pf2e")
     errors.push('gameSystem must be "dnd5e" or "pf2e".');
-  if (kind === "monster"){
-    if (!raw.defenses || typeof raw.defenses !== "object") errors.push("defenses must be an object.");
-    if (!Array.isArray(raw.entries)) errors.push("entries must be an array.");
-    if (!Array.isArray(raw.spellcasting)) errors.push("spellcasting must be an array.");
-  } else {
-    if (!raw.level || typeof raw.level !== "object") errors.push("level must be an object.");
-    if (!Array.isArray(raw.entries)) errors.push("entries must be an array.");
-  }
-  if (errors.length) return { ok: false, errors, record: null };
+  if (typeof raw.id !== "string" || !CUSTOM_ID_RE.test(raw.id))
+    errors.push('id must look like "dnd5e:custom:my-ogre" (system:custom:slug).');
+  else if (raw.gameSystem && raw.id.split(":")[0] !== raw.gameSystem)
+    errors.push("id system prefix must match gameSystem.");
   if (CORPUS_IDS.has(raw.id))
-    return { ok: false, errors: ["id collides with a built-in corpus record: " + raw.id], record: null };
-  const record = JSON.parse(JSON.stringify(raw));
-  return { ok: true, errors: [], record, kind };
+    errors.push("id collides with a built-in corpus record: " + raw.id);
+
+  if (kind === "monster"){
+    const ch = raw.challenge;
+    if (!ch || typeof ch !== "object") errors.push("challenge must be an object.");
+    else {
+      const want = raw.gameSystem === "pf2e" ? "level" : "cr";
+      if (ch.kind !== want)
+        errors.push(raw.gameSystem === "pf2e"
+          ? 'challenge.kind must be "level" for Pathfinder creatures.'
+          : 'challenge.kind must be "cr" for D&D 5e creatures.');
+      if (typeof ch.display !== "string") errors.push("challenge.display must be a string.");
+      if (ch.value != null && !isFiniteNum(ch.value)) errors.push("challenge.value must be a number or null.");
+    }
+    const id = raw.identity;
+    if (!id || typeof id !== "object") errors.push("identity must be an object.");
+    else {
+      requireArray(id, "types", errors, "identity.types");
+      requireArray(id, "subtypes", errors, "identity.subtypes");
+      requireArray(id, "nativeTraits", errors, "identity.nativeTraits");
+      if (!id.alignment || typeof id.alignment !== "object")
+        errors.push("identity.alignment must be an object.");
+    }
+    const am = raw.abilityMods;
+    if (!am || typeof am !== "object") errors.push("abilityMods must be an object.");
+    else for (const k of ABIL_KEYS)
+      if (!isFiniteNum(am[k])) errors.push("abilityMods." + k + " must be a number (0 is fine).");
+    if (raw.gameSystem === "pf2e"){
+      if (raw.abilityScores != null) errors.push("abilityScores must be null for Pathfinder creatures.");
+    } else if (!raw.abilityScores || typeof raw.abilityScores !== "object")
+      errors.push("abilityScores must be an object for D&D 5e creatures.");
+    else for (const k of ABIL_KEYS)
+      if (!isFiniteNum(raw.abilityScores[k])) errors.push("abilityScores." + k + " must be a number.");
+    if (!raw.perception || typeof raw.perception !== "object")
+      errors.push("perception must be an object.");
+    requireArray(raw, "senses", errors);
+    requireArray(raw, "languages", errors);
+    requireArray(raw, "skills", errors);
+    requireArray(raw, "entries", errors);
+    requireArray(raw, "spellcasting", errors);
+    const d = raw.defenses;
+    if (!d || typeof d !== "object") errors.push("defenses must be an object.");
+    else {
+      if (!d.ac || typeof d.ac !== "object" || !isFiniteNum(d.ac.value))
+        errors.push("defenses.ac.value must be a number.");
+      if (!Array.isArray(d.hp) || !d.hp.length)
+        errors.push("defenses.hp must be a non-empty array.");
+      else if (!d.hp[0] || !isFiniteNum(d.hp[0].value) || d.hp[0].value < 1)
+        errors.push("defenses.hp[0].value must be a number ≥ 1.");
+      requireArray(d, "savingThrows", errors, "defenses.savingThrows");
+    }
+    if (!raw.speeds || typeof raw.speeds !== "object") errors.push("speeds must be an object.");
+  } else {
+    const lv = raw.level;
+    if (!lv || typeof lv !== "object") errors.push("level must be an object.");
+    else {
+      if (typeof lv.kind !== "string" || !lv.kind) errors.push("level.kind is required.");
+      if (lv.value != null && !isFiniteNum(lv.value)) errors.push("level.value must be a number or null.");
+    }
+    const id = raw.identity;
+    if (!id || typeof id !== "object") errors.push("identity must be an object.");
+    else {
+      if (typeof id.cantrip !== "boolean") errors.push("identity.cantrip must be true or false.");
+      if (typeof id.ritual !== "boolean") errors.push("identity.ritual must be true or false.");
+      requireArray(id, "traits", errors, "identity.traits");
+      requireArray(id, "traditions", errors, "identity.traditions");
+      requireArray(id, "classes", errors, "identity.classes");
+    }
+    requireArray(raw, "entries", errors);
+    requireArray(raw, "damage", errors);
+    requireArray(raw, "heightening", errors);
+  }
+
+  if (errors.length) return { ok: false, errors, record: null, kind: null };
+  return { ok: true, errors: [], record: JSON.parse(JSON.stringify(raw)), kind };
+}
+
+function acceptCustomRecord(raw, hintKind){
+  const n = normalizeCustomRecord(raw, hintKind);
+  if (!n.ok) return n;
+  return validateCustomRecord(n.record);
 }
 
 function stripRuntimeFields(r){
@@ -1248,20 +1379,24 @@ function attachCustomRuntime(r, kind){
   r._custom = true;
   return r;
 }
-function vCustomRecords(raw){
+function vCustomRecords(raw, opts){
+  const normalize = !!(opts && opts.normalize);
+  const hintKind = opts && opts.hintKind;
   const out = [];
+  let dropped = 0;
   for (const item of Array.isArray(raw) ? raw : []){
-    const v = validateCustomRecord(item);
-    if (!v.ok) continue;
+    const v = normalize ? acceptCustomRecord(item, hintKind) : validateCustomRecord(item);
+    if (!v.ok){ dropped++; continue; }
     out.push(attachCustomRuntime(v.record, v.kind));
   }
-  return out;
+  return { records: out, dropped };
 }
 function loadCustomStore(){
-  return vCustomRecords(lsGet(CUSTOM_LS, []));
+  return vCustomRecords(lsGet(CUSTOM_LS, []), { normalize: false }).records;
 }
 function saveCustomStore(list){
-  lsSet(CUSTOM_LS, list.map(stripRuntimeFields));
+  const payload = list.map(stripRuntimeFields);
+  return lsSet(CUSTOM_LS, payload);
 }
 function getCustomStore(){
   return DATA.filter(r => r._custom).map(stripRuntimeFields);
@@ -1289,16 +1424,21 @@ function upsertCustomRecord(record, kind){
   const prepared = attachCustomRuntime(JSON.parse(JSON.stringify(record)), kind);
   const store = loadCustomStore().filter(r => r.id !== prepared.id);
   store.push(prepared);
-  saveCustomStore(store);
+  if (!saveCustomStore(store))
+    return { ok: false, error: "Could not save — browser storage may be full. Nothing was changed." };
   mergeCustomsIntoData(store);
-  return prepared;
+  return { ok: true, record: prepared };
 }
 function removeCustomRecord(id){
   const store = loadCustomStore().filter(r => r.id !== id);
-  saveCustomStore(store);
+  if (!saveCustomStore(store))
+    return { ok: false, error: "Could not save — browser storage may be full. Nothing was changed." };
   mergeCustomsIntoData(store);
+  return { ok: true };
 }
-function parseImportPayload(text){
+function parseImportPayload(text, hintKind){
+  if (typeof text === "string" && text.length > CUSTOM_PASTE_MAX)
+    return { ok: false, errors: ["JSON is too large (max 512 KB)."] };
   let data;
   try{ data = JSON.parse(text); }
   catch(e){ return { ok: false, errors: ["Invalid JSON: " + e.message] }; }
@@ -1307,7 +1447,10 @@ function parseImportPayload(text){
       return { ok: false, errors: ["Paste a single object, or an array with exactly one record."] };
     data = data[0];
   }
-  return validateCustomRecord(data);
+  return acceptCustomRecord(data, hintKind);
+}
+function findStoredCustom(id){
+  return loadCustomStore().find(r => r.id === id) || null;
 }
 function mergeById(localArr, incomingArr, idKey){
   const map = new Map();
@@ -1348,9 +1491,8 @@ function downloadUserSave(){
 function applyUserSaveBag(bag){
   if (!bag || bag.schema !== USER_SAVE_SCHEMA)
     return { ok: false, message: 'Save file must have schema "' + USER_SAVE_SCHEMA + '".' };
-  const incomingCustoms = vCustomRecords(bag.customs || []);
+  const { records: incomingCustoms, dropped } = vCustomRecords(bag.customs || [], { normalize: true });
   const localCustoms = loadCustomStore();
-  const mergedCustoms = [];
   const cmap = new Map();
   for (const r of localCustoms) cmap.set(r.id, r);
   let customUpserts = 0;
@@ -1359,8 +1501,9 @@ function applyUserSaveBag(bag){
     if (!cmap.has(r.id)) customUpserts++;
     cmap.set(r.id, r);
   }
-  for (const r of cmap.values()) mergedCustoms.push(r);
-  saveCustomStore(mergedCustoms);
+  const mergedCustoms = [...cmap.values()];
+  if (!saveCustomStore(mergedCustoms))
+    return { ok: false, message: "Could not save customs — browser storage may be full. Nothing was changed." };
   mergeCustomsIntoData(mergedCustoms);
 
   let partyAdd = 0, presetAdd = 0;
@@ -1380,10 +1523,25 @@ function applyUserSaveBag(bag){
   const bits = [];
   if (customUpserts) bits.push("+" + customUpserts + " custom");
   bits.push(mergedCustoms.length + " customs total");
+  if (dropped) bits.push(dropped + " custom skipped (invalid)");
   if (partyAdd) bits.push("+" + partyAdd + " party");
   if (presetAdd) bits.push("+" + presetAdd + " presets");
   bits.push("encounter replaced");
   return { ok: true, message: bits.join(" · ") };
+}
+
+function commitImportedCustom(v, errEl){
+  const res = upsertCustomRecord(v.record, v.kind);
+  if (!res.ok){
+    if (errEl){ errEl.hidden = false; errEl.textContent = res.error; }
+    return;
+  }
+  if (errEl) errEl.hidden = true;
+  TRK.closeOvl();
+  announceLive("Imported " + res.record.name);
+  setSide(v.kind === "spell" ? "spell" : "monster");
+  pickById(res.record.id);
+  refresh();
 }
 
 function openLibDialog(){
@@ -1397,15 +1555,16 @@ function openLibDialog(){
     const stubText = JSON.stringify(stub, null, 2);
     TRK.openOvl(`
       <h3>Add custom record</h3>
-      <p class="libhint">Paste or edit one creature or spell as JSON, then Import. The stub toggle only loads a blank example — routing uses <code>schema</code> and <code>gameSystem</code>.</p>
-      <div class="frow" style="margin-bottom:8px" role="group" aria-label="Stub type">
-        <button type="button" class="chip${stubKind==="spell"?" on":""}" data-stub="spell">Spell</button>
+      <p class="libhint">Content-only examples: Fireball (spells) or Lich (creatures). Pick the system that matches what you are adding — safe to copy into a notes app or AI. Change the <b>name</b> and fields; Import adds <code>schema</code>, <code>id</code>, and custom <code>source</code> for that system.</p>
+      <div class="frow" style="margin-bottom:8px;flex-wrap:wrap" role="group" aria-label="Stub type">
+        <button type="button" class="chip${stubKind==="spell5e"?" on":""}" data-stub="spell5e">D&amp;D 5e spell</button>
+        <button type="button" class="chip${stubKind==="spellPf"?" on":""}" data-stub="spellPf">Pathfinder 2e spell</button>
         <button type="button" class="chip${stubKind==="dnd5e"?" on":""}" data-stub="dnd5e">D&amp;D 5e creature</button>
         <button type="button" class="chip${stubKind==="pf2e"?" on":""}" data-stub="pf2e">Pathfinder 2e creature</button>
       </div>
       <label>JSON<textarea class="libjson" id="lib-json" spellcheck="false">${esc(stubText)}</textarea></label>
       <div class="liberr" id="lib-err" hidden></div>
-      <div class="btns">
+      <div class="btns" id="lib-btns">
         <button type="button" class="chip" data-lib-cancel>Cancel</button>
         <button type="button" class="chip yes" data-lib-import>Import</button>
       </div>
@@ -1418,20 +1577,25 @@ function openLibDialog(){
     const err = root.querySelector("#lib-err");
     root.querySelector("[data-lib-import]").onclick = () => {
       const text = root.querySelector("#lib-json").value;
-      const v = parseImportPayload(text);
+      const v = parseImportPayload(text, stubKind);
       if (!v.ok){
         err.hidden = false;
         err.textContent = v.errors.slice(0, 8).join("\n");
         return;
       }
-      const rec = upsertCustomRecord(v.record, v.kind);
-      err.hidden = true;
-      TRK.closeOvl();
-      const el = $("#trklive");
-      if (el){ el.textContent = ""; el.textContent = "Imported " + rec.name; }
-      setSide(v.kind === "spell" ? "spell" : "monster");
-      pickById(rec.id);
-      refresh();
+      const existing = findStoredCustom(v.record.id);
+      if (existing){
+        err.hidden = true;
+        const btns = root.querySelector("#lib-btns");
+        btns.innerHTML =
+          `<span style="flex:1;color:var(--dim);font-size:12.5px">Replace existing “${esc(existing.name)}” (${esc(existing.id)})?</span>` +
+          `<button type="button" class="chip" data-lib-cancel>No</button>` +
+          `<button type="button" class="chip yes" data-lib-replace>Yes, replace</button>`;
+        btns.querySelector("[data-lib-cancel]").onclick = () => TRK.closeOvl();
+        btns.querySelector("[data-lib-replace]").onclick = () => commitImportedCustom(v, err);
+        return;
+      }
+      commitImportedCustom(v, err);
     };
   };
   render();
@@ -1447,15 +1611,20 @@ function openUserSaveDialog(){
     <p class="libhint">Export packs customs, party, encounter presets, active encounter, dice, and UI. Import <b>merges</b> customs/party/presets by id (local-only records are kept) and <b>replaces</b> the active encounter.</p>
     <div class="btns" style="justify-content:flex-start;flex-wrap:wrap">
       <button type="button" class="chip go" data-save-export>Export save…</button>
+      <button type="button" class="chip" data-save-backup>Download backup first</button>
       <button type="button" class="chip" data-save-import>Import save…</button>
       <input type="file" id="user-save-file" accept="application/json,.json" hidden>
     </div>
     <div class="liberr" id="user-save-err" hidden></div>
-    <div class="btns"><button type="button" class="chip" data-save-close>Close</button></div>
+    <div class="btns" id="save-btns"><button type="button" class="chip" data-save-close>Close</button></div>
   `);
   const root = $("#trkovl");
   root.querySelector("[data-save-close]").onclick = () => TRK.closeOvl();
   root.querySelector("[data-save-export]").onclick = () => downloadUserSave();
+  root.querySelector("[data-save-backup]").onclick = () => {
+    downloadUserSave();
+    announceLive("Backup downloaded");
+  };
   const saveErr = root.querySelector("#user-save-err");
   const fileInp = root.querySelector("#user-save-file");
   root.querySelector("[data-save-import]").onclick = () => fileInp.click();
@@ -1464,22 +1633,35 @@ function openUserSaveDialog(){
     if (!f) return;
     const fr = new FileReader();
     fr.onload = () => {
-      try{
-        const bag = JSON.parse(fr.result);
+      let bag;
+      try{ bag = JSON.parse(fr.result); }
+      catch(e){
+        saveErr.hidden = false;
+        saveErr.textContent = "Invalid JSON: " + e.message;
+        return;
+      }
+      if (!bag || bag.schema !== USER_SAVE_SCHEMA){
+        saveErr.hidden = false;
+        saveErr.textContent = 'Save file must have schema "' + USER_SAVE_SCHEMA + '".';
+        return;
+      }
+      saveErr.hidden = true;
+      const btns = root.querySelector("#save-btns");
+      btns.innerHTML =
+        `<span style="flex:1;min-width:12em;color:var(--dim);font-size:12.5px">Import will <b>replace</b> the active encounter and overwrite same-id customs/party/presets. Local-only ids are kept.</span>` +
+        `<button type="button" class="chip" data-save-abort>Cancel</button>` +
+        `<button type="button" class="chip yes" data-save-confirm>Import</button>`;
+      btns.querySelector("[data-save-abort]").onclick = () => TRK.closeOvl();
+      btns.querySelector("[data-save-confirm]").onclick = () => {
         const res = applyUserSaveBag(bag);
         if (!res.ok){
           saveErr.hidden = false;
           saveErr.textContent = res.message;
           return;
         }
-        saveErr.hidden = true;
         TRK.closeOvl();
-        const el = $("#trklive");
-        if (el){ el.textContent = ""; el.textContent = res.message; }
-      }catch(e){
-        saveErr.hidden = false;
-        saveErr.textContent = "Invalid JSON: " + e.message;
-      }
+        announceLive(res.message);
+      };
     };
     fr.readAsText(f);
     fileInp.value = "";
@@ -1490,7 +1672,9 @@ function start(){
   if (!DATA.length){ logline("\nNothing loaded."); return; }
   DATA.sort((a,b) => a.name.localeCompare(b.name));
   markCorpusBaseline();
-  mergeCustomsIntoData(loadCustomStore());
+  const loaded = vCustomRecords(lsGet(CUSTOM_LS, []), { normalize: false });
+  pendingCustomDrops = loaded.dropped;
+  mergeCustomsIntoData(loaded.records);
   buildFilters();
   // the narrow layout caps the sidebar height, where the panel and the results
   // compete for the same budget — start collapsed there, expanded on desktop
@@ -1501,6 +1685,9 @@ function start(){
   refresh();
   $("#q").focus();
   if (window.TRK) TRK.onDataReady();
+  if (pendingCustomDrops > 0)
+    announceLive("Dropped " + pendingCustomDrops + " invalid custom record" +
+                 (pendingCustomDrops === 1 ? "" : "s") + " from storage");
 }
 
 /* ---------------- filters ---------------- */
@@ -1870,7 +2057,8 @@ function renderRecord(r){
     rm.onclick = () => {
       const id = rm.dataset.rmCustom;
       const doRm = () => {
-        removeCustomRecord(id);
+        const res = removeCustomRecord(id);
+        if (!res.ok){ announceLive(res.error); return; }
         fillPane("Select an entry", "empty");
         refresh();
       };
