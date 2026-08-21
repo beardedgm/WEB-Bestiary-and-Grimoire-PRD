@@ -38,7 +38,7 @@ body{
 }
 :focus-visible{outline:2px solid var(--gilt); outline-offset:2px}
 ::selection{background:var(--select); color:var(--ink)}
-#side,#list,#pane{scrollbar-color:var(--hair) transparent; scrollbar-width:thin}
+#side,#list,#pane-sheet,#spellpeek{scrollbar-color:var(--hair) transparent; scrollbar-width:thin}
 
 /* ---- header ---- */
 header{
@@ -185,11 +185,16 @@ body:not(.trk) .item [data-padd]{display:none}
 
 /* ---- reading pane: a sheet on the table ---- */
 #pane{
-  flex:1; min-width:200px; overflow-y:auto; min-height:0; padding:26px 28px 60px;
+  position:relative;
+  flex:1; min-width:200px; overflow:hidden; min-height:0;
   background:var(--stone-2);
   /* stock defaults; overridden per game system */
   --sysink:var(--brick); --sheet:var(--paper); --sheet-edge:var(--paper-edge);
   --cell:var(--paper-cell); --readfont:var(--sans); --readsize:14.5px;
+}
+#pane-sheet{
+  height:100%; overflow-y:auto; min-height:0; padding:26px 28px 60px;
+  box-sizing:border-box;
 }
 #pane.dnd5e{
   --sysink:var(--brick); --sheet:var(--vellum); --sheet-edge:var(--vellum-edge);
@@ -199,10 +204,39 @@ body:not(.trk) .item [data-padd]{display:none}
   --sysink:var(--olive); --sheet:var(--paper); --sheet-edge:var(--paper-edge);
   --cell:var(--paper-cell); --readfont:var(--sans); --readsize:14.5px;
 }
-#pane.empty{
+#pane.empty #pane-sheet{
   display:flex; align-items:center; justify-content:center;
   color:var(--faint); font:italic 16px/1 var(--serif);
 }
+/* spell peek — second sheet over the reading pane only */
+#spellpeek[hidden]{display:none !important}
+#spellpeek{
+  position:absolute; inset:0; z-index:5; overflow-y:auto;
+  background:var(--stone-2); padding:0 0 40px;
+  box-sizing:border-box;
+}
+#spellpeek.dnd5e{
+  --sysink:var(--brick); --sheet:var(--vellum); --sheet-edge:var(--vellum-edge);
+  --cell:var(--vellum-cell); --readfont:var(--serif); --readsize:15.5px;
+}
+#spellpeek.pf2e{
+  --sysink:var(--olive); --sheet:var(--paper); --sheet-edge:var(--paper-edge);
+  --cell:var(--paper-cell); --readfont:var(--sans); --readsize:14.5px;
+}
+.spkbar{
+  position:sticky; top:0; z-index:1;
+  display:flex; flex-wrap:wrap; align-items:center; gap:6px;
+  padding:10px 16px; border-bottom:1px solid var(--hair); background:var(--stone-3);
+}
+.spkbar .spkunder{flex:1; min-width:8em; color:var(--dim); font:12px/1.3 var(--sans)}
+.spkbody{padding:20px 28px 0}
+/* spell name links — solid underline; dotted is reserved for dice rolls */
+.slink{
+  display:inline; padding:0 1px; border:none; background:none; cursor:pointer;
+  font:inherit; font-style:italic; color:var(--sysink, var(--ink));
+  text-decoration:underline; text-underline-offset:2px;
+}
+.slink:hover{text-decoration-thickness:2px}
 
 /* ---- stat block ---- */
 .sb{
@@ -225,8 +259,8 @@ body:not(.trk) .item [data-padd]{display:none}
 }
 /* the 5e block's tapered rule vs Pathfinder's flat hairline */
 .rule{margin:10px 0 14px; height:2px}
-#pane.dnd5e .rule{background:linear-gradient(90deg,var(--sysink) 0%,var(--sysink) 58%,transparent 100%)}
-#pane.pf2e .rule{height:1px; background:var(--hair)}
+#pane.dnd5e .rule, #spellpeek.dnd5e .rule{background:linear-gradient(90deg,var(--sysink) 0%,var(--sysink) 58%,transparent 100%)}
+#pane.pf2e .rule, #spellpeek.pf2e .rule{height:1px; background:var(--hair)}
 
 .traits{display:flex; flex-wrap:wrap; gap:5px; margin:0 0 14px}
 .trait{
@@ -259,13 +293,13 @@ body:not(.trk) .item [data-padd]{display:none}
 .chips .qual{color:var(--dim); font-size:.85em}   /* formula, note — detail, not the number */
 
 .sec{margin:24px 0 9px; padding-bottom:5px; color:var(--sysink)}
-#pane.dnd5e .sec{
+#pane.dnd5e .sec, #spellpeek.dnd5e .sec{
   font:600 17px/1 var(--serif); font-variant:small-caps; letter-spacing:.05em;
   text-transform:capitalize;
   background:linear-gradient(90deg,var(--sysink) 0%,var(--sysink) 70%,transparent 100%)
              left bottom/100% 2px no-repeat;
 }
-#pane.pf2e .sec{
+#pane.pf2e .sec, #spellpeek.pf2e .sec{
   font:600 11px/1 var(--mono); text-transform:uppercase; letter-spacing:.14em;
   border-bottom:1px solid var(--hair-soft);
 }
@@ -348,7 +382,8 @@ kbd{
   #side{width:100%; border-right:none; border-bottom:1px solid var(--hair); max-height:46vh; overflow-y:auto}
   .col-resize{display:none !important}
   #list{min-height:150px}          /* a floor so the results list can't be squeezed to 0 */
-  #pane{padding:16px 12px 40px}
+  #pane-sheet{padding:16px 12px 40px}
+  .spkbody{padding:16px 12px 0}
   .sb{padding:22px 18px 20px}
   .sb h2{font-size:25px; flex-wrap:wrap; gap:8px}
   .grid6{grid-template-columns:repeat(3,1fr)}
@@ -791,7 +826,10 @@ body.pd #pdisp{position:fixed; inset:0; z-index:60}
   </section>
   <div class="col-resize" id="resize-trk" role="separator" aria-orientation="vertical"
        aria-label="Resize tracker column" tabindex="-1"></div>
-  <div id="pane" class="empty">Select an entry</div>
+  <div id="pane" class="empty">
+    <div id="pane-sheet">Select an entry</div>
+    <div id="spellpeek" hidden></div>
+  </div>
   <div id="trkovl" hidden></div>
   <div id="pdisp" class="pdroot" hidden></div>
   <div id="dpop" hidden></div>
@@ -802,8 +840,104 @@ body.pd #pdisp{position:fixed; inset:0; z-index:60}
 const FILES = ["spells-5e.json","spells-pf2e.json","monsters-5e.json","monsters-pf2e.json"];
 let DATA = [], view = [], sel = -1;
 const ID_INDEX = new Map();
+const SPELL_INDEX = new Map();
+let spellPeekReturn = null;
 const $ = s => document.querySelector(s);
 const esc = s => String(s==null?"":s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* strip parentheticals then collapse case/whitespace for spell name lookup */
+function normSpellName(name){
+  return String(name == null ? "" : name)
+    .replace(/\([^)]*\)/g, " ")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .replace(/\s+/g, " ");
+}
+function spellPrefScore(r){
+  const code = ((r.source && r.source.code) || "").toLowerCase();
+  if (/\bsrd\b/.test(code) || code.includes("srd")) return 0;
+  if (/\bcrb\b/.test(code) || code.includes("crb")) return 1;
+  if (/\bpc1\b/.test(code) || code.includes("pc1")) return 2;
+  return 10;
+}
+function preferSpell(a, b){
+  const sa = spellPrefScore(a), sb = spellPrefScore(b);
+  if (sa !== sb) return sa < sb ? a : b;
+  return a.id < b.id ? a : b;
+}
+function buildSpellIndex(){
+  SPELL_INDEX.clear();
+  for (const r of DATA){
+    if (r._kind !== "spell") continue;
+    const key = r.gameSystem + "\0" + normSpellName(r.name);
+    const prev = SPELL_INDEX.get(key);
+    SPELL_INDEX.set(key, prev ? preferSpell(prev, r) : r);
+  }
+}
+function lookupSpell(sys, name){
+  if (!sys || name == null) return null;
+  const key = sys + "\0" + normSpellName(name);
+  return SPELL_INDEX.get(key) || null;
+}
+function fillPane(html, className){
+  closeSpellPeek();
+  const pane = $("#pane");
+  const sheet = $("#pane-sheet");
+  if (!pane || !sheet) return;
+  pane.className = className == null ? "" : className;
+  sheet.innerHTML = html;
+  sheet.scrollTop = 0;
+}
+function closeSpellPeek(){
+  const peek = $("#spellpeek");
+  const sheet = $("#pane-sheet");
+  if (!peek || peek.hidden){
+    spellPeekReturn = null;
+    return;
+  }
+  peek.hidden = true;
+  peek.innerHTML = "";
+  peek.className = "";
+  if (sheet) sheet.removeAttribute("aria-hidden");
+  const ret = spellPeekReturn;
+  spellPeekReturn = null;
+  if (ret && ret.isConnected) ret.focus();
+}
+function openSpellPeek(id, opts){
+  opts = opts || {};
+  const r = ID_INDEX.get(id);
+  const peek = $("#spellpeek");
+  const sheet = $("#pane-sheet");
+  if (!r || r._kind !== "spell" || !peek) return;
+  spellPeekReturn = opts.returnEl || null;
+  const under = opts.under || "";
+  const backName = opts.backName || "monster";
+  peek.className = r.gameSystem;
+  peek.innerHTML =
+    `<div class="spkbar" role="toolbar" aria-label="Spell peek">` +
+      `<button type="button" class="chip" data-spk-close>Close</button>` +
+      `<button type="button" class="chip" data-spk-close>Back to ${esc(backName)}</button>` +
+      (under ? `<span class="spkunder">Listed under ${esc(under)}</span>` : `<span class="spkunder"></span>`) +
+      `<button type="button" class="chip" data-spk-catalog="${esc(r.id)}">Open in catalog</button>` +
+    `</div>` +
+    `<div class="spkbody">${spellHTML(r)}</div>`;
+  peek.hidden = false;
+  if (sheet) sheet.setAttribute("aria-hidden", "true");
+  const closeBtn = peek.querySelector("[data-spk-close]");
+  if (closeBtn) closeBtn.focus();
+}
+function spellLinkHTML(monsterSys, spellObj, under){
+  const name = spellObj && spellObj.name;
+  if (!name) return "";
+  const hit = lookupSpell(monsterSys, name);
+  const uses = spellObj.uses ? ` (${esc(spellObj.uses)})` : "";
+  if (!hit)
+    return esc(name) + uses;
+  return `<button type="button" class="slink" data-spell="${esc(hit.id)}"` +
+         (under ? ` data-under="${esc(under)}"` : "") +
+         `>${esc(name)}</button>` + uses;
+}
 
 function inEditable(t){
   if (!t || t === document.body) return false;
@@ -898,6 +1032,7 @@ function start(){
   DATA.sort((a,b) => a.name.localeCompare(b.name));
   ID_INDEX.clear();
   for (const r of DATA) ID_INDEX.set(r.id, r);
+  buildSpellIndex();
   buildFilters();
   // the narrow layout caps the sidebar height, where the panel and the results
   // compete for the same budget — start collapsed there, expanded on desktop
@@ -1254,8 +1389,7 @@ function pickById(id){
   const r = ID_INDEX.get(id);
   if (!r){
     sel = -1;
-    $("#pane").className = "empty";
-    $("#pane").innerHTML = "Record not found.";
+    fillPane("Record not found.", "empty");
     return;
   }
   sel = -1;
@@ -1266,9 +1400,7 @@ function pickById(id){
   renderRecord(r);
 }
 function renderRecord(r){
-  $("#pane").className = r.gameSystem;      // sets the paper stock for this record
-  $("#pane").innerHTML = r._kind === "spell" ? spellHTML(r) : monsterHTML(r);
-  $("#pane").scrollTop = 0;
+  fillPane(r._kind === "spell" ? spellHTML(r) : monsterHTML(r), r.gameSystem);
   location.hash = encodeURIComponent(r.id);
 }
 
@@ -1508,8 +1640,9 @@ function monsterHTML(r){
       for (const l of b.levels||[]){
         const lbl = l.rankLabel || (l.rank===0 ? "Cantrips" : l.rank!=null ? "Rank "+l.rank : (l.uses||""));
         const extra = l.slots ? ` (${l.slots} slots)` : (l.uses && !l.rankLabel ? ` (${l.uses})` : "");
-        h += `<div class="deg"><b>${esc(lbl)}${esc(extra)}</b> ${esc((l.spells||[]).map(s =>
-              s.name + (s.uses ? ` (${s.uses})` : "")).join(", "))}</div>`;
+        const under = (lbl || "") + (extra || "");
+        h += `<div class="deg"><b>${esc(lbl)}${esc(extra)}</b> ${(l.spells||[]).map(s =>
+              spellLinkHTML(r.gameSystem, s, under)).join(", ")}</div>`;
       }
     }
   }
@@ -1597,6 +1730,9 @@ $("#deep").addEventListener("change", refresh);
 document.addEventListener("keydown", e => {
   if (window.TRK && TRK.key(e)) return;      // tracker gets first refusal
   const ae = document.activeElement;
+  if (e.key === "Escape" && $("#spellpeek") && !$("#spellpeek").hidden){
+    e.preventDefault(); closeSpellPeek(); return;
+  }
   if (e.key === "/" && !inEditable(ae) && ae !== $("#q")){
     e.preventDefault(); $("#q").focus(); return;
   }
@@ -1616,6 +1752,9 @@ boot();
 window.refresh = refresh;
 window.applySideChrome = applySideChrome;
 window.setSide = setSide;
+window.closeSpellPeek = closeSpellPeek;
+window.openSpellPeek = openSpellPeek;
+window.fillPane = fillPane;
 </script>
 
 <script>
@@ -2354,15 +2493,14 @@ const TRK = (() => {
       return;
     }
     const stock = c.sys || (c.type === "player" ? "dnd5e" : "");
-    $("#pane").className = stock || "empty";
     const mod = (c.initiativeModifier >= 0 ? "+" : "−") + Math.abs(c.initiativeModifier);
-    $("#pane").innerHTML = `<div class="sb"><h2><span>${esc(c.name)}</span></h2><div class="rule"></div>` +
+    fillPane(`<div class="sb"><h2><span>${esc(c.name)}</span></h2><div class="rule"></div>` +
       `<div class="kv"><b>Type</b> <span>${esc(c.type)}</span></div>` +
       (c.ac != null ? `<div class="kv"><b>AC</b> <span>${esc(c.ac)}</span></div>` : "") +
       `<div class="kv"><b>HP</b> <span>${esc(c.hp.current)} / ${esc(c.hp.max)}</span></div>` +
       `<div class="kv"><b>Initiative mod</b> <span>${esc(mod)}</span></div>` +
-      `<p style="color:var(--dim);font-size:13px;margin-top:12px">No linked stat block — added manually.</p></div>`;
-    $("#pane").scrollTop = 0;
+      `<p style="color:var(--dim);font-size:13px;margin-top:12px">No linked stat block — added manually.</p></div>`,
+      stock || "empty");
   }
   function hpClass(c){
     if (c.hp.current === 0) return "";
@@ -2669,23 +2807,21 @@ const TRK = (() => {
             (p.mod >= 0 ? "+" : "") + p.mod].filter(Boolean).join(" · ");
   }
   function renderPartyPane(p){
-    $("#pane").className = "";
-    $("#pane").innerHTML = `<div class="sb" style="max-width:420px"><h2><span>${esc(p.name)}</span>
+    fillPane(`<div class="sb" style="max-width:420px"><h2><span>${esc(p.name)}</span>
       <span class="rank">${esc(p.type)}</span></h2><div class="rule"></div>
       <div class="kv"><b>HP</b> <span>${esc(p.hpMax ?? "—")}</span></div>
       <div class="kv"><b>AC</b> <span>${esc(p.ac ?? "—")}</span></div>
       <div class="kv"><b>Init</b> <span>${esc((p.mod >= 0 ? "+" : "") + p.mod)}</span></div>
       <div class="btns" style="margin-top:14px">
         <button type="button" class="chip" data-pedit-pane="${esc(p.id)}">Edit</button>
-      </div></div>`;
-    $("#pane").querySelector("[data-pedit-pane]").onclick = () => openPartyOvl(p.id);
+      </div></div>`, "");
+    $("#pane-sheet").querySelector("[data-pedit-pane]").onclick = () => openPartyOvl(p.id);
   }
   function renderEncPane(p){
     const names = p.enc.combatants.map(c => c.name).join(" · ") || "Empty roster";
-    $("#pane").className = "";
-    $("#pane").innerHTML = `<div class="sb" style="max-width:420px"><h2><span>${esc(p.name)}</span>
+    fillPane(`<div class="sb" style="max-width:420px"><h2><span>${esc(p.name)}</span>
       <span class="rank">${esc(p.enc.combatants.length)}</span></h2><div class="rule"></div>
-      <p style="margin:0;color:var(--dim)">${esc(names)}</p></div>`;
+      <p style="margin:0;color:var(--dim)">${esc(names)}</p></div>`, "");
   }
   function addPartyMember(p){
     if (p.hpMax == null){ openAddForm({ name: p.name, type: p.type, ac: p.ac, mod: p.mod }); return; }
@@ -2873,6 +3009,9 @@ const TRK = (() => {
         }
       }
       return true;                            // native typing unaffected; app shortcuts swallowed
+    }
+    if (e.key === "Escape" && $("#spellpeek") && !$("#spellpeek").hidden){
+      closeSpellPeek(); return true;
     }
     const t = e.target;
     if (t && t.closest && (t.closest("input,textarea,select") || t.isContentEditable)) return false;
@@ -3331,6 +3470,29 @@ const TRK = (() => {
     $("#dpop").hidden = true;
   }
   $("#pane").addEventListener("click", e => {
+    const close = e.target.closest("[data-spk-close]");
+    if (close){ closeSpellPeek(); return; }
+    const cat = e.target.closest("[data-spk-catalog]");
+    if (cat){
+      const id = cat.dataset.spkCatalog;
+      closeSpellPeek();
+      if (window.setSide) setSide("spell");
+      pickById(id);
+      return;
+    }
+    const link = e.target.closest(".slink");
+    if (link){
+      const id = link.dataset.spell;
+      if (!id) return;
+      const sheet = $("#pane-sheet");
+      const h2 = sheet && sheet.querySelector(".sb h2 span");
+      openSpellPeek(id, {
+        under: link.dataset.under || "",
+        returnEl: link,
+        backName: h2 ? h2.textContent : "monster",
+      });
+      return;
+    }
     const b = e.target.closest(".droll");
     if (!b) return;
     const m = /^(\d+)d(\d+)([+-]\d+)?$/.exec(b.dataset.roll || "");
