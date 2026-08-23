@@ -45,7 +45,7 @@ body{
 
 /* ---- header ---- */
 header{
-  display:flex; align-items:center; gap:14px; padding:11px 16px;
+  display:flex; align-items:center; justify-content:space-between; gap:14px; padding:11px 16px;
   padding-top:max(11px, env(safe-area-inset-top));
   padding-left:max(16px, env(safe-area-inset-left));
   padding-right:max(16px, env(safe-area-inset-right));
@@ -56,17 +56,7 @@ header h1{
   font:600 18px/1 var(--serif); font-variant:small-caps; letter-spacing:.07em;
 }
 header h1 .amp{color:var(--brick); font-variant:normal; font-style:italic; padding:0 1px}
-#q{
-  flex:1; min-width:120px; padding:9px 13px; border-radius:var(--radius);
-  border:1px solid var(--hair); background:var(--paper); color:var(--ink);
-  font:15px/1.2 var(--sans);
-}
-#q::placeholder{color:var(--faint)}
-#q:focus{outline:none; border-color:var(--gilt); box-shadow:0 0 0 3px rgba(156,124,28,.18)}
-#count{
-  color:var(--dim); white-space:nowrap; flex:none;
-  font:11.5px/1 var(--mono); letter-spacing:.03em; font-variant-numeric:tabular-nums;
-}
+#mode{display:flex; flex-wrap:wrap; gap:5px; justify-content:flex-end}
 main{flex:1; display:flex; min-height:0}
 
 /* ---- resizable column gutters ---- */
@@ -91,6 +81,23 @@ body:not(.trk) #resize-trk{display:none}
 #sidenav .frow{margin-top:6px}
 .seg{display:flex; padding:3px; gap:3px; background:var(--stone-2); border-radius:3px}
 .seg .chip{flex:1; text-align:center}
+#sidesearch{
+  display:flex; flex-direction:column; gap:6px; flex:none;
+  padding:9px 10px 10px; border-bottom:1px solid var(--hair); background:var(--stone-3);
+}
+#q{
+  width:100%; min-width:0; box-sizing:border-box;
+  padding:9px 11px; border-radius:var(--radius);
+  border:1px solid var(--hair); background:var(--paper); color:var(--ink);
+  font:16px/1.2 var(--sans);
+}
+#q::placeholder{color:var(--faint)}
+#q:focus{outline:none; border-color:var(--gilt); box-shadow:0 0 0 3px rgba(156,124,28,.18)}
+#count{
+  color:var(--dim); white-space:nowrap; align-self:flex-end;
+  font:11.5px/1 var(--mono); letter-spacing:.03em; font-variant-numeric:tabular-nums;
+  min-height:1em;
+}
 #tablebar{padding:9px 12px; border-bottom:1px solid var(--hair); background:var(--stone-3)}
 #tablebar[hidden],#filters.table-off{display:none}
 #tbar-party[hidden],#side-save-enc[hidden]{display:none !important}
@@ -421,11 +428,27 @@ kbd{
   .cbt-amt{height:44px; width:52px}
   .sre,.dre{min-width:44px; min-height:44px}
   .cbt-drag{width:22px; font-size:13px}
+  #board .board-card .ops button{width:44px; height:44px; font-size:16px}
+  #board .board-card .resize{width:28px; height:28px}
+  #board .checklist li .x{width:44px; height:44px}
+  #board .counter .counter-ops button,
+  #board .md-meta button,
+  #board .dice .presets button,
+  #board .dice .roll-btn,
+  #board .clip .transport button,
+  #board .clip .file-row label,
+  #board .timer .modes button,
+  #board .timer .presets button,
+  #board .timer .ops-row button,
+  #board .checklist .add-row button,
+  #board .rand .roll-btn,
+  #board .board-add button{min-height:44px}
 }
 @media (prefers-reduced-motion:reduce){
   .sb{animation:none}
   #filters > summary::before{transition:none}
   .col-resize::after{transition:none}
+  .board-toast{transition:none}
   *{animation-duration:0.01ms !important; animation-iteration-count:1 !important}
 }
 
@@ -875,12 +898,29 @@ body.board main{display:flex}
 
 #board .counter{display:flex; flex-direction:column; align-items:center; gap:10px; height:100%; justify-content:center}
 #board .counter svg{width:min(100%, 140px); height:auto}
+#board .counter svg path{fill:var(--stone-3); stroke:var(--hair); stroke-width:1.2; cursor:pointer}
+#board .counter svg path.filled{fill:var(--brick)}
 #board .counter .seg-label{font:600 12px/1 var(--mono); letter-spacing:.06em; color:var(--dim)}
-#board .counter .counter-ops{display:flex; gap:6px}
+#board .counter .counter-ops{display:flex; flex-wrap:wrap; gap:6px; justify-content:center}
 #board .counter .counter-ops button{
   padding:6px 9px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
   font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
 #board .counter .counter-ops button:hover{border-color:var(--gilt); color:var(--ink)}
+
+#board .board-rail-toggle{
+  display:none; position:fixed; z-index:42;
+  left:50%; bottom:max(12px, env(safe-area-inset-bottom, 0px));
+  transform:translateX(-50%);
+  padding:12px 18px; min-height:44px; border:1px solid var(--hair); border-radius:3px;
+  background:var(--ink); color:var(--stone-3); box-shadow:0 8px 24px -10px rgba(36,33,28,.45);
+  font:600 12px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; cursor:pointer}
+#board .board-rail-scrim{
+  display:none; position:fixed; inset:0; z-index:40; background:rgba(36,33,28,.35); border:0; padding:0; cursor:pointer}
+#board .board-rename{
+  display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:8px}
+#board .board-rename input{
+  flex:1; min-width:0; padding:8px 10px; border:1px solid var(--hair); border-radius:3px;
+  background:var(--paper); color:var(--ink); font:13px/1.2 var(--sans)}
 
 #board .dice{display:flex; flex-direction:column; gap:8px; height:100%}
 #board .dice .row{display:flex; gap:6px; flex-wrap:wrap}
@@ -1004,7 +1044,18 @@ body.board main{display:flex}
 .board-toast.show{opacity:1}
 
 @media (max-width:760px){
-  body.board .board-rail{display:none}
+  body.board #board{position:relative}
+  body.board .board-rail-toggle{display:inline-flex; align-items:center; justify-content:center}
+  body.board .board-rail{
+    display:none; position:fixed; left:0; right:0; bottom:0; width:100%; max-height:min(72vh, 640px);
+    z-index:41; border-right:0; border-top:1px solid var(--hair);
+    box-shadow:0 -10px 32px -12px rgba(36,33,28,.35);
+    padding-bottom:max(8px, env(safe-area-inset-bottom, 0px))}
+  body.board.board-rail-open .board-rail{display:flex}
+  body.board.board-rail-open .board-rail-scrim{display:block}
+  body.board.board-rail-open .board-rail-toggle{display:none}
+  #board .board-card .ops button{width:44px; height:44px; font-size:16px}
+  #board .board-empty{left:8%; right:8%; top:16%; font-size:18px; padding:24px 18px}
   #boardExpand .panel-body{grid-template-columns:1fr}
   #boardExpand textarea{border-right:0; border-bottom:1px solid var(--vellum-edge); max-height:45%}
 }
@@ -1027,9 +1078,6 @@ body.board main{display:flex}
 
 <header inert>
   <h1>Bestiary <span class="amp">&amp;</span> Grimoire</h1>
-  <input id="q" type="search" aria-label="Search"
-         placeholder="Search monsters…  ( / to focus )" autocomplete="off">
-  <span id="count" role="status" aria-live="polite" aria-atomic="true"></span>
   <span id="mode" role="group" aria-label="App mode">
     <button type="button" id="m-browse" class="chip on" aria-pressed="true">Library</button>
     <button type="button" id="m-track" class="chip" aria-pressed="false">Tracker</button>
@@ -1050,6 +1098,11 @@ body.board main{display:flex}
         <button type="button" class="chip" id="st-party" data-side="party" aria-pressed="false" hidden>Party</button>
         <button type="button" class="chip" id="st-enc" data-side="enc" aria-pressed="false" hidden>Encounters</button>
       </div>
+    </div>
+    <div id="sidesearch">
+      <input id="q" type="search" aria-label="Search"
+             placeholder="Search monsters…  ( / to focus )" autocomplete="off">
+      <span id="count" role="status" aria-live="polite" aria-atomic="true"></span>
     </div>
     <details id="filters" open>
       <summary>Filters<span id="fcount" hidden></span></summary>
@@ -1148,11 +1201,12 @@ body.board main{display:flex}
   </div>
 
 <section id="board" aria-label="Session board" hidden>
-  <aside class="board-rail">
+  <button type="button" class="board-rail-scrim" id="boardRailScrim" aria-label="Close board tools" tabindex="-1"></button>
+  <aside class="board-rail" id="boardRail">
     <h2>Session</h2>
-    <div class="board-session">
+    <div class="board-session" id="boardSession">
       <select class="board-pick" id="boardPick" aria-label="Active session board"></select>
-      <div class="board-session-actions">
+      <div class="board-session-actions" id="boardSessionActions">
         <button type="button" class="chip" id="boardNew">New</button>
         <button type="button" class="chip" id="boardDup">Duplicate</button>
         <button type="button" class="chip" id="boardRen">Rename</button>
@@ -1176,6 +1230,7 @@ body.board main{display:flex}
   <div class="board-stage-wrap" id="boardStageWrap">
     <div class="board-stage" id="boardStage"></div>
   </div>
+  <button type="button" class="board-rail-toggle" id="boardRailToggle" aria-expanded="false" aria-controls="boardRail">Cards &amp; sessions</button>
 </section>
 
 </main>
@@ -4685,8 +4740,17 @@ const BOARD = (() => {
     toastEl.textContent = msg;
     toastEl.classList.add("show");
     clearTimeout(toast._t);
-    toast._t = setTimeout(() => toastEl.classList.remove("show"), 1800);
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    toast._t = setTimeout(() => toastEl.classList.remove("show"), reduced ? 4000 : 1800);
   }
+
+  function setBoardRailOpen(open){
+    document.body.classList.toggle("board-rail-open", !!open);
+    const toggle = document.getElementById("boardRailToggle");
+    if (toggle) toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  document.getElementById("boardRailToggle").onclick = () => setBoardRailOpen(true);
+  document.getElementById("boardRailScrim").onclick = () => setBoardRailOpen(false);
 
   function splitPipeRow(line){
     let s = String(line).trim();
@@ -4867,8 +4931,16 @@ const BOARD = (() => {
     return n + " chars";
   }
   let expandCardId = null;
+  let expandReturn = null;
+  function expandFocusables(){
+    const panel = document.querySelector("#boardExpand .panel");
+    if (!panel) return [];
+    return [...panel.querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])")]
+      .filter(el => !el.disabled && el.getAttribute("aria-hidden") !== "true");
+  }
   function openMdExpand(card){
     expandCardId = card.id;
+    expandReturn = document.activeElement;
     const overlay = document.getElementById("boardExpand");
     const title = document.getElementById("boardExpandTitle");
     const body = document.getElementById("boardExpandBody");
@@ -4881,11 +4953,13 @@ const BOARD = (() => {
     size.textContent = sizeLabel((card.body || "").length);
     overlay.hidden = false;
     overlay.classList.add("open");
+    if (window.setAppInert) setAppInert(true);
     body.focus();
   }
   function closeMdExpand(commit){
     const overlay = document.getElementById("boardExpand");
     if (!overlay) return;
+    const returnId = expandCardId;
     if (commit && expandCardId){
       const card = active().cards.find(c => c.id === expandCardId);
       if (card){
@@ -4893,16 +4967,36 @@ const BOARD = (() => {
         card.body = document.getElementById("boardExpandBody").value;
         card._previewDirty = true;
         touch();
-        render();
+        refreshCard(card);
       }
     }
     expandCardId = null;
     overlay.classList.remove("open");
     overlay.hidden = true;
+    if (window.setAppInert) setAppInert(false);
+    const ret = expandReturn;
+    expandReturn = null;
+    if (ret && ret.isConnected) ret.focus();
+    else if (returnId){
+      const art = stage.querySelector(`.board-card[data-id="${CSS.escape(returnId)}"] .title`);
+      if (art) art.focus();
+    }
   }
   document.getElementById("boardExpandDone").onclick = () => closeMdExpand(true);
+  document.getElementById("boardExpand").addEventListener("click", e => {
+    if (e.target === document.getElementById("boardExpand")) closeMdExpand(true);
+  });
   document.getElementById("boardExpand").addEventListener("keydown", e => {
-    if (e.key === "Escape"){ e.stopPropagation(); closeMdExpand(true); }
+    if (e.key === "Escape"){ e.stopPropagation(); closeMdExpand(true); return; }
+    if (e.key !== "Tab") return;
+    const list = expandFocusables();
+    if (!list.length) return;
+    const first = list[0], last = list[list.length - 1];
+    if (e.shiftKey && document.activeElement === first){
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last){
+      e.preventDefault(); first.focus();
+    }
   });
   document.getElementById("boardExpandBody").oninput = () => {
     const card = expandCardId && active().cards.find(c => c.id === expandCardId);
@@ -4934,7 +5028,7 @@ const BOARD = (() => {
     state.boards.push(b);
     state.activeBoardId = b.id;
     selectedId = null;
-    save(); render(); toast("Created empty board");
+    save(); render(); setBoardRailOpen(false); toast("Created empty board");
   };
   document.getElementById("boardDup").onclick = () => {
     const src = active();
@@ -4946,32 +5040,67 @@ const BOARD = (() => {
     state.boards.push(copy);
     state.activeBoardId = copy.id;
     selectedId = null;
-    save(); render(); toast("Duplicated board");
+    save(); render(); setBoardRailOpen(false); toast("Duplicated board");
   };
   document.getElementById("boardRen").onclick = () => {
     const b = active();
-    const t = prompt("Board title", b.title);
-    if (t == null || !t.trim()) return;
-    b.title = t.trim(); b.updatedAt = Date.now();
-    save(); refreshPicker(); toast("Renamed");
+    const session = document.getElementById("boardSession");
+    const actions = document.getElementById("boardSessionActions");
+    if (!session || !actions || session.querySelector(".board-rename")) return;
+    boardPick.hidden = true;
+    actions.hidden = true;
+    const host = document.createElement("div");
+    host.className = "board-rename";
+    host.innerHTML =
+      `<input type="text" maxlength="80" aria-label="Board title" value="${esc(b.title)}">` +
+      `<button type="button" class="chip yes">Save</button>` +
+      `<button type="button" class="chip">Cancel</button>`;
+    const [inp, saveBtn, cancelBtn] = [host.querySelector("input"), ...host.querySelectorAll("button")];
+    const finish = commit => {
+      if (commit){
+        const t = inp.value.trim();
+        if (t){
+          b.title = t.slice(0, 80);
+          b.updatedAt = Date.now();
+          save(); refreshPicker(); toast("Renamed");
+        }
+      }
+      host.remove();
+      boardPick.hidden = false;
+      actions.hidden = false;
+      document.getElementById("boardRen").focus();
+    };
+    saveBtn.onclick = () => finish(true);
+    cancelBtn.onclick = () => finish(false);
+    inp.onkeydown = e => {
+      if (e.key === "Enter"){ e.preventDefault(); finish(true); }
+      if (e.key === "Escape"){ e.preventDefault(); finish(false); }
+    };
+    session.insertBefore(host, actions);
+    inp.focus();
+    inp.select();
   };
-  document.getElementById("boardDel").onclick = () => {
+  document.getElementById("boardDel").onclick = e => {
     if (state.boards.length < 2){ toast("Keep at least one board"); return; }
     const b = active();
-    if (!confirm(`Delete “${b.title}”?`)) return;
-    state.boards = state.boards.filter(x => x.id !== b.id);
-    state.activeBoardId = state.boards[0].id;
-    selectedId = null;
-    save(); render(); toast("Deleted board");
+    const btn = e.currentTarget;
+    const go = () => {
+      state.boards = state.boards.filter(x => x.id !== b.id);
+      state.activeBoardId = state.boards[0].id;
+      selectedId = null;
+      save(); render(); setBoardRailOpen(false); toast("Deleted board");
+    };
+    if (window.TRK && TRK.confirmSwap) TRK.confirmSwap(btn, "Delete “" + b.title + "”?", go);
+    else go();
   };
   boardPick.onchange = () => {
     state.activeBoardId = boardPick.value;
     selectedId = null;
-    save(); render();
+    save(); render(); setBoardRailOpen(false);
   };
 
   document.querySelectorAll("#boardAdd [data-add]").forEach(btn => {
-    btn.onclick = () => addCard(btn.getAttribute("data-add"));
+    btn.onclick = () => { addCard(btn.getAttribute("data-add")); setBoardRailOpen(false); };
   });
 
   function addCard(type){
@@ -5004,7 +5133,15 @@ const BOARD = (() => {
     });
     b.cards.push(base);
     selectedId = base.id;
-    touch(); render();
+    touch();
+    const empty = stage.querySelector(".board-empty");
+    if (empty) empty.remove();
+    stage.appendChild(renderCard(base));
+    refreshPicker();
+  }
+
+  function emptyBoardCopy(){
+    return "Empty board — add cards from the rail (or Cards & sessions on a phone).";
   }
 
   function render(){
@@ -5015,13 +5152,64 @@ const BOARD = (() => {
     if (!b.cards.length){
       const empty = document.createElement("div");
       empty.className = "board-empty";
-      empty.textContent = "Empty board — add cards from the rail (notes, media, tools).";
+      empty.textContent = emptyBoardCopy();
       stage.appendChild(empty);
       return;
     }
     b.cards.slice().sort((a,c) => (a.z||0) - (c.z||0)).forEach(card => {
       stage.appendChild(renderCard(card));
     });
+  }
+
+  function refreshCard(card){
+    if (!card){ render(); return; }
+    const old = stage.querySelector(`.board-card[data-id="${CSS.escape(card.id)}"]`);
+    if (!old){ render(); return; }
+    const empty = stage.querySelector(".board-empty");
+    if (empty) empty.remove();
+    old.replaceWith(renderCard(card));
+  }
+
+  function cardHasSubstance(card){
+    if (!card) return false;
+    switch (card.type){
+      case "markdown": {
+        const body = String(card.body || "").trim();
+        return body.length > 0 && body !== "## New note";
+      }
+      case "image":
+      case "audio": return !!card.src;
+      case "counter":
+      case "clock": return (card.filled || 0) > 0 || (card.segments || 0) !== 6;
+      case "dice": return !!(card.history && card.history.length);
+      case "timer": return !!card.running || (card.mode === "stopwatch" && (card.baseMs || 0) > 0)
+        || (card.mode === "countdown" && card.durationSec && card.durationSec !== 300);
+      case "checklist": return (card.items || []).some(i => i.done || String(i.text || "").trim());
+      case "random": return !!(card.last || String(card.lines || "").trim());
+      default: return true;
+    }
+  }
+
+  function removeCardById(id, triggerBtn){
+    const card = active().cards.find(c => c.id === id);
+    const go = () => {
+      active().cards = active().cards.filter(c => c.id !== id);
+      if (selectedId === id) selectedId = null;
+      const el = stage.querySelector(`.board-card[data-id="${CSS.escape(id)}"]`);
+      if (el) el.remove();
+      if (!active().cards.length){
+        const empty = document.createElement("div");
+        empty.className = "board-empty";
+        empty.textContent = emptyBoardCopy();
+        stage.appendChild(empty);
+      }
+      touch();
+    };
+    if (card && cardHasSubstance(card) && triggerBtn && window.TRK && TRK.confirmSwap){
+      TRK.confirmSwap(triggerBtn, "Remove this card?", go);
+      return;
+    }
+    go();
   }
 
   function renderCard(card){
@@ -5071,7 +5259,7 @@ const BOARD = (() => {
         card.collapsed = false;
         card.h = card.expandedH || card.h || GRID * 10;
       }
-      touch(); render();
+      touch(); refreshCard(card);
     };
     ops.appendChild(fold);
 
@@ -5079,17 +5267,18 @@ const BOARD = (() => {
       const tog = document.createElement("button");
       tog.type = "button";
       tog.title = card.editing ? "Preview" : "Edit";
+      tog.setAttribute("aria-label", card.editing ? "Preview note" : "Edit note");
       tog.textContent = card.editing ? "◉" : "✎";
-      tog.onclick = e => { e.stopPropagation(); card.editing = !card.editing; save(); render(); };
+      tog.onclick = e => { e.stopPropagation(); card.editing = !card.editing; save(); refreshCard(card); };
       ops.appendChild(tog);
     }
     const del = document.createElement("button");
-    del.type = "button"; del.title = "Remove card"; del.textContent = "×";
+    del.type = "button"; del.title = "Remove card";
+    del.setAttribute("aria-label", "Remove card");
+    del.textContent = "×";
     del.onclick = e => {
       e.stopPropagation();
-      active().cards = active().cards.filter(c => c.id !== card.id);
-      if (selectedId === card.id) selectedId = null;
-      touch(); render();
+      removeCardById(card.id, del);
     };
     ops.appendChild(del);
     hd.appendChild(ops);
@@ -5195,7 +5384,7 @@ const BOARD = (() => {
   function readImageFile(f, card){
     if (!f) return;
     const r = new FileReader();
-    r.onload = () => { card.src = r.result; touch(); render(); };
+    r.onload = () => { card.src = r.result; touch(); refreshCard(card); };
     r.readAsDataURL(f);
   }
   function pickImage(card){
@@ -5235,7 +5424,7 @@ const BOARD = (() => {
       r.onload = () => {
         card.src = r.result;
         card.fileName = f.name;
-        touch(); render();
+        touch(); refreshCard(card);
       };
       r.readAsDataURL(f);
     };
@@ -5381,7 +5570,7 @@ const BOARD = (() => {
       r.onload = () => {
         card.src = r.result;
         card.fileName = f.name;
-        touch(); render();
+        touch(); refreshCard(card);
       };
       r.readAsDataURL(f);
     });
@@ -5398,6 +5587,7 @@ const BOARD = (() => {
     wrap.className = "counter";
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("viewBox", "0 0 100 100");
+    svg.setAttribute("aria-hidden", "true");
     const cx = 50, cy = 50, r = 40;
     for (let i = 0; i < segs; i++){
       const a0 = (Math.PI * 2 * i) / segs - Math.PI / 2;
@@ -5407,14 +5597,11 @@ const BOARD = (() => {
       const large = (a1 - a0) > Math.PI ? 1 : 0;
       const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
       path.setAttribute("d", `M ${cx} ${cy} L ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} Z`);
-      path.setAttribute("fill", i < card.filled ? "#7B2418" : "#F2F1ED");
-      path.setAttribute("stroke", "#C5C2B8");
-      path.setAttribute("stroke-width", "1.2");
-      path.style.cursor = "pointer";
+      if (i < card.filled) path.classList.add("filled");
       path.onclick = e => {
         e.stopPropagation();
         card.filled = (i < card.filled) ? i : i + 1;
-        touch(); render();
+        touch(); refreshCard(card);
       };
       svg.appendChild(path);
     }
@@ -5425,11 +5612,19 @@ const BOARD = (() => {
     wrap.appendChild(lab);
     const ops = document.createElement("div");
     ops.className = "counter-ops";
+    const fillM = document.createElement("button"); fillM.type = "button"; fillM.textContent = "− Fill";
+    fillM.setAttribute("aria-label", "Decrease filled segments");
+    const fillP = document.createElement("button"); fillP.type = "button"; fillP.textContent = "+ Fill";
+    fillP.setAttribute("aria-label", "Increase filled segments");
     const minus = document.createElement("button"); minus.type = "button"; minus.textContent = "− Seg";
+    minus.setAttribute("aria-label", "Fewer segments");
     const plus = document.createElement("button"); plus.type = "button"; plus.textContent = "+ Seg";
-    minus.onclick = e => { e.stopPropagation(); card.segments = clamp(segs - 1, 2, 12); card.filled = clamp(card.filled, 0, card.segments); touch(); render(); };
-    plus.onclick = e => { e.stopPropagation(); card.segments = clamp(segs + 1, 2, 12); touch(); render(); };
-    ops.append(minus, plus);
+    plus.setAttribute("aria-label", "More segments");
+    fillM.onclick = e => { e.stopPropagation(); card.filled = clamp(card.filled - 1, 0, segs); touch(); refreshCard(card); };
+    fillP.onclick = e => { e.stopPropagation(); card.filled = clamp(card.filled + 1, 0, segs); touch(); refreshCard(card); };
+    minus.onclick = e => { e.stopPropagation(); card.segments = clamp(segs - 1, 2, 12); card.filled = clamp(card.filled, 0, card.segments); touch(); refreshCard(card); };
+    plus.onclick = e => { e.stopPropagation(); card.segments = clamp(segs + 1, 2, 12); touch(); refreshCard(card); };
+    ops.append(fillM, fillP, minus, plus);
     wrap.appendChild(ops);
     body.appendChild(wrap);
   }
@@ -5481,7 +5676,7 @@ const BOARD = (() => {
       try{
         const r = rollExpr(card.expr || input.value);
         card.history = [r, ...(card.history || [])].slice(0, 20);
-        touch(); render();
+        touch(); refreshCard(card);
       }catch(err){ toast(err.message || "Roll failed"); }
     };
     body.appendChild(wrap);
@@ -5535,7 +5730,7 @@ const BOARD = (() => {
         } else {
           card.baseMs = 0;
         }
-        touch(); render();
+        touch(); refreshCard(card);
       };
       modes.appendChild(b);
     }
@@ -5562,7 +5757,7 @@ const BOARD = (() => {
           card.durationSec = sec;
           card.baseMs = sec * 1000;
           card.fired = false;
-          touch(); render();
+          touch(); refreshCard(card);
         };
         presets.appendChild(b);
       }
@@ -5587,7 +5782,7 @@ const BOARD = (() => {
         card.running = true;
         card.startedAt = Date.now();
       }
-      touch(); render();
+      touch(); refreshCard(card);
     };
     const reset = document.createElement("button");
     reset.type = "button";
@@ -5598,7 +5793,7 @@ const BOARD = (() => {
       card.startedAt = null;
       card.fired = false;
       card.baseMs = card.mode === "stopwatch" ? 0 : (card.durationSec || 300) * 1000;
-      touch(); render();
+      touch(); refreshCard(card);
     };
     ops.append(start, reset);
     wrap.appendChild(ops);
@@ -5615,11 +5810,11 @@ const BOARD = (() => {
   function tickTimers(){
     const b = active();
     if (!b) return;
-    let dirty = false;
+    const finished = [];
     for (const card of b.cards){
       if (card.type !== "timer" || !card.running) continue;
       const ms = timerDisplayMs(card);
-      const art = stage.querySelector(`.card[data-id="${CSS.escape(card.id)}"]`);
+      const art = stage.querySelector(`.board-card[data-id="${CSS.escape(card.id)}"]`);
       const face = art && art.querySelector("[data-role=face]");
       if (face){
         face.textContent = formatMs(ms);
@@ -5631,11 +5826,14 @@ const BOARD = (() => {
         if (!card.fired){
           card.fired = true;
           toast(`${card.title || "Timer"} — time`);
-          dirty = true;
+          finished.push(card);
         }
       }
     }
-    if (dirty){ touch(); render(); }
+    if (finished.length){
+      touch();
+      finished.forEach(c => refreshCard(c));
+    }
   }
 
   function fillChecklist(body, card){
@@ -5650,7 +5848,7 @@ const BOARD = (() => {
       cb.type = "checkbox";
       cb.checked = !!item.done;
       cb.setAttribute("aria-label", "Done");
-      cb.onchange = () => { item.done = cb.checked; touch(); render(); };
+      cb.onchange = () => { item.done = cb.checked; touch(); refreshCard(card); };
       const tx = document.createElement("input");
       tx.type = "text";
       tx.value = item.text || "";
@@ -5658,11 +5856,11 @@ const BOARD = (() => {
       tx.oninput = () => { item.text = tx.value; touch(); };
       tx.onclick = e => e.stopPropagation();
       const x = document.createElement("button");
-      x.type = "button"; x.className = "x"; x.title = "Remove"; x.textContent = "×";
+      x.type = "button"; x.className = "x"; x.title = "Remove"; x.setAttribute("aria-label", "Remove item"); x.textContent = "×";
       x.onclick = e => {
         e.stopPropagation();
         card.items = card.items.filter(i => i.id !== item.id);
-        touch(); render();
+        touch(); refreshCard(card);
       };
       li.append(cb, tx, x);
       ul.appendChild(li);
@@ -5682,7 +5880,7 @@ const BOARD = (() => {
       if (!t) return;
       card.items.push({ id: uid(), text: t, done: false });
       inp.value = "";
-      touch(); render();
+      touch(); refreshCard(card);
     };
     btn.onclick = e => { e.stopPropagation(); commit(); };
     inp.onkeydown = e => { if (e.key === "Enter"){ e.preventDefault(); commit(); } };
@@ -5716,7 +5914,7 @@ const BOARD = (() => {
       const entries = String(card.lines || "").split(/\n/).map(s => s.trim()).filter(Boolean);
       if (!entries.length){ toast("Add at least one line"); return; }
       card.last = entries[Math.floor(Math.random() * entries.length)];
-      touch(); render();
+      touch(); refreshCard(card);
     };
     const hint = document.createElement("p");
     hint.className = "hint";
@@ -5786,19 +5984,22 @@ const BOARD = (() => {
 
   document.addEventListener("keydown", e => {
     if (!activeMode) return;
+    if (document.getElementById("boardExpand")?.classList.contains("open")) return;
     if (e.key === "Escape"){
+      if (document.body.classList.contains("board-rail-open")){
+        setBoardRailOpen(false);
+        return;
+      }
       selectedId = null;
       document.querySelectorAll(".board-card.selected").forEach(n => n.classList.remove("selected"));
     }
     const tag = (e.target && e.target.tagName) || "";
     if ((e.key === "Delete" || e.key === "Backspace") && selectedId && !/INPUT|TEXTAREA|SELECT/.test(tag)){
-      active().cards = active().cards.filter(c => c.id !== selectedId);
-      selectedId = null; touch(); render();
+      e.preventDefault();
+      const delBtn = stage.querySelector(`.board-card[data-id="${CSS.escape(selectedId)}"] .ops button[aria-label="Remove card"]`);
+      removeCardById(selectedId, delBtn);
     }
   });
-
-
-
 
   function stopAllAudio(){
     document.querySelectorAll("#boardStage audio").forEach(a => {
@@ -5823,6 +6024,14 @@ const BOARD = (() => {
     if (!activeMode){
       stopAllAudio();
       freezeRunningTimers();
+      setBoardRailOpen(false);
+      const ren = document.querySelector("#boardSession .board-rename");
+      if (ren){
+        ren.remove();
+        boardPick.hidden = false;
+        const actions = document.getElementById("boardSessionActions");
+        if (actions) actions.hidden = false;
+      }
       if (typeof closeMdExpand === "function") closeMdExpand(false);
       return;
     }

@@ -84,6 +84,6 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 
 ## Accessibility & Inclusion
 
-- Target WCAG 2.1 AA for the Operate UI: keyboard paths, focus management, contrast on tokens, touch targets on coarse pointers.
+- Target WCAG 2.1 AA for the Operate UI: keyboard paths, focus management (including Board expand dialog), contrast on tokens, touch targets on coarse pointers; Board mobile uses a Cards & sessions sheet instead of a hidden rail.
 - Reduced-motion alternative preserves state without global transition kill.
 - Player display is supplementary; core GM workflow must remain keyboard-accessible.
