@@ -226,10 +226,12 @@ Documented size steps (use these literals in CSS; do not invent ad-hoc values):
 
 ## Layout
 
-Three-column flex shell on desktop: library (`#side`, resizable), optional tracker (`#trk`, resizable), reading pane (`#pane`). Header band holds search and Library/Tracker mode toggle.
+Three exclusive app modes via header chips: **Library** (`browse`), **Tracker** (`track` → `body.trk`), **Board** (`board` → `body.board`).
 
+- **Library / Tracker:** Three-column flex shell on desktop: library (`#side`, resizable), optional tracker (`#trk`, resizable), reading pane (`#pane`).
+- **Board:** Full-height `#board` shell replaces the three columns (rail + snap-grid stage). Leaving Board stops audio and freezes running timers.
 - Column defaults: side 340px, tracker 380px; drag gutters 6px
-- Mobile breakpoint **760px**: stack columns, hide resize handles, cap sidebar height 46vh, tracker order first in combat mode
+- Mobile breakpoint **760px**: stack Library/Tracker columns, hide resize handles; Board hides the add rail (stage full width)
 - Touch/coarse pointer: 44px minimum on tracker damage/heal/remove and catalog add buttons
 - Body scrolls when zoom or content exceeds viewport (`overflow: auto`)
 
@@ -240,8 +242,9 @@ Flat-by-default stone surfaces. Depth is tonal layering (`stone` → `stone-3` t
 ### Shadow Vocabulary
 
 - **Stat block sheet** (`0 1px 2px rgba(36,33,28,.07), 0 10px 26px -14px rgba(36,33,28,.24)`): Reading pane record only — a single sheet on the table
+- **Board cards:** Same shadow vocabulary as the stat block sheet — Board cards are interactive surfaces that may lift; Library chrome stays flat
 
-**The Flat Chrome Rule.** Sidebars, headers, and lists have no drop shadow. Only the active stat block lifts.
+**The Flat Chrome Rule.** Sidebars, headers, and lists have no drop shadow. Only the active stat block (and Board cards) lifts.
 
 ## Shapes
 
@@ -250,6 +253,10 @@ Flat-by-default stone surfaces. Depth is tonal layering (`stone` → `stone-3` t
 - **Stat block rule:** 2px tapered gradient (5e) or 1px hairline (PF2e) under the title
 
 ## Components
+
+### Board cards
+
+Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes render in olive as **read-aloud** cues. Card chrome may use the sheet shadow (interaction surfaces).
 
 ### Chips
 

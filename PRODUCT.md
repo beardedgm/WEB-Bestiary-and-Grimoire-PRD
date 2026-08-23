@@ -20,7 +20,7 @@ Single-page application: `app.template.html` (source) → `build_bundles.py` →
 
 Bestiary & Grimoire is a browser-based reference and combat assistant built on a normalized 9,339-record corpus (monsters and spells for both game systems). It lets a GM search and read stat blocks, add creatures to an encounter, run initiative, track HP, roll dice from stat-block formulas, manage a party roster and saved encounters, and mirror initiative on a player display — all without leaving the browser or sending data off-machine.
 
-Success means a GM can prep and run combat faster than flipping PDFs, with system-accurate data and rules that respect each game's distinct mechanics (no fabricated cross-system conversions).
+Success means a GM can prep and run combat faster than flipping PDFs, with system-accurate data and rules that respect each game's distinct mechanics (no fabricated cross-system conversions), and keep session layout notes on a local Board without leaving the app.
 
 ## Positioning
 
@@ -29,8 +29,8 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 ## Operating Context
 
 - **Prep:** Browse Catalog (monsters/spells), filter by system, CR/creature level, rank, spell traits; read full stat blocks in the reading pane.
-- **Play:** Switch to Tracker; add monsters from Catalog or party from Table; roll initiative, advance turns, apply damage/healing; click formulas in stat blocks to roll; optional player display window (1920×1080).
-- **Persistence:** Encounter state, party, saved encounters, dice history, column widths, and UI mode persist in `localStorage` (storage failures are announced). Custom monsters/spells live under `bg.custom.records.v1` (validated on load; invalid rows dropped with notice). A portable `bg-user-save/1` JSON export merges customs/party/presets by id (local-only kept) and replaces the active encounter after confirmation.
+- **Play:** Switch to Tracker; add monsters from Catalog or party from Table; roll initiative, advance turns, apply damage/healing; click formulas in stat blocks to roll; optional player display window (1920×1080). Switch to Board for spatial session notes, maps, timers, and tools.
+- **Persistence:** Encounter state, party, saved encounters, dice history, column widths, UI mode, and Board sessions persist in `localStorage` (storage failures are announced). Custom monsters/spells live under `bg.custom.records.v1` (validated on load; invalid rows dropped with notice). Boards live under `bg.board.v1`. A portable `bg-user-save/1` JSON export merges customs/party/presets/boards by id (local-only kept) and replaces the active encounter after confirmation.
 - **Offline:** `index.html` embeds all four JSON bundles; works from `file://` after build. Development fetch/drop requires all four packs before the app starts (`python3 -m http.server`).
 - **Data pipeline:** Markdown sidecars → `convert_monsters.py` / `convert_spells.py` → bundles → `build_bundles.py`.
 
@@ -41,6 +41,7 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 - Library mode: search, filters, deep description search, stat block rendering with clickable dice formulas
 - Monster spellcasting lists: click a known spell name to peek its full block without leaving the creature
 - Tracker mode: initiative order, rounds, drag-reorder, undo/redo, party library, encounter presets, dice tray, player display
+- Board mode: multi-session spatial boards (`bg.board.v1`) with markdown (incl. GFM tables / read-aloud blockquotes), image, audio clip, counter, dice, timer (countdown/stopwatch), checklist, and random table cards; snap-grid drag/resize; portable save includes boards
 - Ad-hoc colored markers on combatants (five colors, solid/outline) mirrored on the player display — table-ring shorthand, no condition legend
 - Catalog vs Table navigation in the left column (monsters/spells vs party/encounters)
 - Custom library: content-only authoring JSON in `+` (5e/PF2e Fireball and Lich stubs; plumbing omitted); Import stamps id/schema/source from the chosen system and deep-validates; Custom filter; remove from library
@@ -55,9 +56,10 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 - No CR-to-level or cross-system power comparison (by design; see README §13)
 - Data must not be fabricated; parse warnings surfaced in UI
 - `index.html` is generated — edit `app.template.html` only
+- Board media (images/audio) stored as data URLs in localStorage for v1 — large assets can hit quota
 - Render free-tier hosting constraints apply if deployed to Render (ephemeral FS, bind `0.0.0.0:$PORT` for any future server)
 
-**Terminology:** Catalog, Table, Library, Tracker, party, encounter preset, stat block, spine (system color mark on list rows), custom library, user save.
+**Terminology:** Catalog, Table, Library, Tracker, Board, party, encounter preset, stat block, spine (system color mark on list rows), custom library, user save, counter, random table.
 
 ## Brand Commitments
 

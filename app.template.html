@@ -743,14 +743,272 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 /* player display layer + the #pd fallback page mode */
 #pdisp{position:fixed; inset:0; z-index:60}
 .dlg .dlghint{margin:0 0 6px; color:var(--dim); font-size:12.5px}
-body.pd header, body.pd #side, body.pd #trk, body.pd #pane,
-body.pd #dpop, body.pd #trkovl, body.pd #load{display:none !important}
+body.pd header, body.pd #side, body.pd #trk, body.pd #pane, body.pd #board,
+body.pd #dpop, body.pd #trkovl, body.pd #load, body.pd #boardExpand, body.pd #boardToast{display:none !important}
 body.pd #pdisp{position:fixed; inset:0; z-index:60}
 
 @media (max-width:760px){
   body.trk #trk{width:100%; order:-1; border-right:none; border-bottom:1px solid var(--hair)}
   body.trk #trklist{max-height:60vh}
 }
+
+/* ==== board mode ========================================================== */
+#board{
+  display:none; flex:1; min-width:0; min-height:0;
+  background:var(--stone);
+}
+body.board #board{display:flex}
+body.board #side,
+body.board #trk,
+body.board #pane,
+body.board .col-resize{display:none !important}
+body.board main{display:flex}
+
+#board .board-rail{
+  flex:none; width:248px; border-right:1px solid var(--hair); background:var(--stone-3);
+  display:flex; flex-direction:column; min-height:0; overflow:auto}
+#board .board-rail h2{
+  margin:0; padding:14px 12px 6px; font:600 11px/1 var(--mono);
+  letter-spacing:.12em; text-transform:uppercase; color:var(--faint)}
+#board .board-hint{padding:0 12px 12px; color:var(--dim); font-size:12.5px; line-height:1.45}
+#board .board-session{padding:0 10px 12px; border-bottom:1px solid var(--hair); margin-bottom:4px}
+#board .board-pick{
+  width:100%; margin-bottom:8px; padding:8px 10px; border:1px solid var(--hair); border-radius:3px;
+  background:var(--paper); color:var(--ink); font:13px/1.2 var(--sans)}
+#board .board-session-actions{display:grid; grid-template-columns:1fr 1fr; gap:5px}
+#board .board-session-actions .chip{width:100%; text-align:center; padding:8px 6px}
+#board .board-add{display:flex; flex-direction:column; gap:6px; padding:0 10px 12px}
+#board .board-add button{
+  text-align:left; padding:10px 11px; border:1px solid var(--hair); border-radius:2px;
+  background:var(--paper); color:var(--ink); font:13px/1.25 var(--sans); cursor:pointer}
+#board .board-add button:hover{border-color:var(--gilt); background:var(--vellum)}
+#board .board-add button b{display:block; font:600 13px/1.2 var(--sans)}
+#board .board-add button span{display:block; margin-top:4px; color:var(--dim); font-size:11.5px; line-height:1.35}
+#board .board-foot{
+  margin-top:auto; padding:12px; border-top:1px solid var(--hair);
+  color:var(--faint); font:11px/1.45 var(--mono)}
+
+#board .board-stage-wrap{
+  flex:1; min-width:0; min-height:0; position:relative; overflow:auto;
+  background:
+    linear-gradient(var(--hair) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hair) 1px, transparent 1px),
+    var(--stone);
+  background-size:24px 24px, 24px 24px, auto;
+  background-position:-1px -1px, -1px -1px, 0 0}
+#board .board-stage{position:relative; width:2400px; height:1600px; min-height:100%}
+#board .board-empty{
+  position:absolute; left:18%; right:18%; top:22%; padding:36px 28px;
+  text-align:center; color:var(--dim); font:italic 22px/1.4 var(--serif);
+  border:1px dashed var(--hair); background:color-mix(in srgb, var(--stone-3) 75%, transparent);
+  pointer-events:none}
+
+#board .board-card{
+  position:absolute; display:flex; flex-direction:column;
+  min-width:192px; min-height:144px;
+  background:var(--paper); border:1px solid var(--hair); border-radius:2px;
+  box-shadow:0 1px 2px rgba(36,33,28,.07), 0 10px 26px -14px rgba(36,33,28,.24);
+  overflow:hidden; touch-action:none}
+#board .board-card.vellum{background:var(--vellum); border-color:var(--vellum-edge)}
+#board .board-card.selected{border-color:var(--gilt); box-shadow:0 1px 2px rgba(36,33,28,.07), 0 10px 26px -14px rgba(36,33,28,.24), 0 0 0 1px var(--gilt)}
+#board .board-card.collapsed{min-height:0; height:auto !important}
+#board .board-card.collapsed .hd{border-bottom:0}
+#board .board-card.collapsed .body,
+#board .board-card.collapsed .resize{display:none}
+#board .board-card .hd{
+  flex:none; display:flex; align-items:center; gap:6px; padding:6px 8px;
+  background:var(--stone-3); border-bottom:1px solid var(--hair); cursor:grab}
+#board .board-card.selected .hd{background:color-mix(in srgb, var(--gilt) 16%, var(--stone-3))}
+#board .board-card .hd:active{cursor:grabbing}
+#board .board-card .kind{
+  font:600 9.5px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--faint)}
+#board .board-card .title{
+  flex:1; min-width:0; border:0; background:transparent; color:var(--ink);
+  font:600 14px/1.2 var(--serif); padding:2px 4px}
+#board .board-card .title:focus{outline:1px solid var(--gilt); background:var(--paper)}
+#board .board-card .ops{display:flex; gap:3px}
+#board .board-card .ops button{
+  width:26px; height:26px; border:1px solid transparent; border-radius:2px;
+  background:transparent; color:var(--dim); cursor:pointer; font:13px/1 var(--sans)}
+#board .board-card .ops button:hover{border-color:var(--hair); background:var(--paper); color:var(--ink)}
+#board .board-card .body{flex:1; min-height:0; overflow:auto; padding:10px 12px}
+#board .board-card .resize{
+  position:absolute; right:0; bottom:0; width:14px; height:14px; cursor:nwse-resize;
+  background:linear-gradient(135deg, transparent 50%, var(--hair) 50%)}
+
+#board .md-view{font:15px/1.55 var(--serif); color:var(--ink)}
+#board .md-view h1,#board .md-view h2,#board .md-view h3{font-family:var(--serif); margin:.15em 0 .4em; line-height:1.2}
+#board .md-view h1{font-size:1.4em}#board .md-view h2{font-size:1.2em}#board .md-view h3{font-size:1.08em}
+#board .md-view p{margin:0 0 .7em}
+#board .md-view ul,#board .md-view ol{margin:0 0 .7em; padding-left:1.2em}
+#board .md-view code{font:12px/1.4 var(--mono); background:var(--stone-2); padding:1px 4px; border-radius:2px}
+#board .md-view pre{font:12px/1.45 var(--mono); background:var(--stone-2); padding:8px; overflow:auto; border-radius:2px}
+#board .md-view blockquote{
+  margin:0 0 .7em; padding:8px 10px 8px 12px;
+  border-left:3px solid var(--olive);
+  background:color-mix(in srgb, var(--olive) 10%, var(--vellum));
+  color:var(--olive);
+  font:italic 15px/1.5 var(--serif)}
+#board .md-view table{width:100%; border-collapse:collapse; margin:0 0 .7em; font:13px/1.4 var(--sans)}
+#board .md-view th,#board .md-view td{border:1px solid var(--hair); padding:6px 8px; vertical-align:top; text-align:left}
+#board .md-view th{background:var(--stone-2); font-weight:600}
+#board .md-view td.num,#board .md-view th.num{text-align:right; font-variant-numeric:tabular-nums}
+#board .md-view td.ctr,#board .md-view th.ctr{text-align:center}
+#board .md-edit{
+  width:100%; height:100%; min-height:120px; border:0; resize:none; padding:0;
+  background:transparent; color:var(--ink); font:13px/1.5 var(--mono)}
+#board .md-meta{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:6px}
+#board .md-meta .chip-size{font:600 10px/1 var(--mono); color:var(--faint)}
+#board .md-meta button{
+  padding:5px 8px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
+#board .md-meta button:hover{border-color:var(--gilt); color:var(--ink)}
+
+#board .img-body{padding:0 !important; display:flex; align-items:center; justify-content:center; background:var(--stone-2)}
+#board .img-body img{max-width:100%; max-height:100%; object-fit:contain; display:block}
+#board .img-empty{padding:18px; text-align:center; color:var(--dim); font-size:13px}
+#board .img-empty label{
+  display:inline-block; margin-top:10px; padding:8px 11px; border:1px solid var(--hair);
+  border-radius:2px; background:var(--paper); cursor:pointer; font:600 10px/1 var(--mono);
+  letter-spacing:.08em; text-transform:uppercase}
+#board .img-empty input{display:none}
+
+#board .counter{display:flex; flex-direction:column; align-items:center; gap:10px; height:100%; justify-content:center}
+#board .counter svg{width:min(100%, 140px); height:auto}
+#board .counter .seg-label{font:600 12px/1 var(--mono); letter-spacing:.06em; color:var(--dim)}
+#board .counter .counter-ops{display:flex; gap:6px}
+#board .counter .counter-ops button{
+  padding:6px 9px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
+#board .counter .counter-ops button:hover{border-color:var(--gilt); color:var(--ink)}
+
+#board .dice{display:flex; flex-direction:column; gap:8px; height:100%}
+#board .dice .row{display:flex; gap:6px; flex-wrap:wrap}
+#board .dice input[type=text]{
+  flex:1; min-width:100px; padding:7px 9px; border:1px solid var(--hair); border-radius:3px;
+  background:var(--paper); font:13px/1.2 var(--mono)}
+#board .dice .presets button{
+  padding:6px 8px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 11px/1 var(--mono); cursor:pointer; color:var(--dim)}
+#board .dice .presets button:hover{border-color:var(--gilt); color:var(--ink)}
+#board .dice .roll-btn{
+  padding:8px 12px; border:1px solid var(--brick); border-radius:2px; background:var(--brick);
+  color:#FBF6EA; font:600 11px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; cursor:pointer}
+#board .dice .result{
+  margin-top:auto; padding:10px; background:var(--stone-3); border:1px solid var(--hair); border-radius:2px}
+#board .dice .result .total{font:700 28px/1 var(--mono); font-variant-numeric:tabular-nums}
+#board .dice .result .detail{margin-top:4px; color:var(--dim); font:12px/1.35 var(--mono)}
+#board .dice .hist{margin:0; padding:0; list-style:none; max-height:72px; overflow:auto}
+#board .dice .hist li{font:11px/1.4 var(--mono); color:var(--faint); padding:2px 0; border-bottom:1px solid var(--hair)}
+
+#board .clip{display:flex; flex-direction:column; gap:10px; height:100%}
+#board .clip .file-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+#board .clip .file-name{flex:1; min-width:0; color:var(--dim); font:12px/1.3 var(--mono);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+#board .clip .file-row label{
+  padding:7px 10px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
+#board .clip .file-row label:hover{border-color:var(--gilt); color:var(--ink)}
+#board .clip .file-row input{display:none}
+#board .clip audio{width:100%; height:32px}
+#board .clip .transport{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+#board .clip .transport button{
+  padding:7px 10px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
+#board .clip .transport button:hover{border-color:var(--gilt); color:var(--ink)}
+#board .clip .transport button.primary{background:var(--brick); border-color:var(--brick); color:#FBF6EA}
+#board .clip .transport button.on{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
+#board .clip .vol{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+#board .clip .vol .lbl{margin-right:2px; font:600 10px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--faint)}
+#board .clip .vol button{
+  padding:6px 8px; border:1px solid var(--hair); border-radius:2px; background:var(--paper);
+  font:600 10px/1 var(--mono); cursor:pointer; color:var(--dim)}
+#board .clip .vol button.on{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
+#board .clip .hint{margin:0; color:var(--faint); font:11px/1.4 var(--sans)}
+
+#board .timer{display:flex; flex-direction:column; gap:10px; height:100%; align-items:center; justify-content:center}
+#board .timer .face{
+  font:700 40px/1 var(--mono); font-variant-numeric:tabular-nums; letter-spacing:.02em; color:var(--ink)}
+#board .timer .face.warn{color:var(--brick)}
+#board .timer .modes,#board .timer .presets,#board .timer .ops-row{display:flex; flex-wrap:wrap; gap:6px; justify-content:center}
+#board .timer .modes button,#board .timer .presets button,#board .timer .ops-row button{
+  padding:7px 10px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
+#board .timer .modes button:hover,#board .timer .presets button:hover,#board .timer .ops-row button:hover{border-color:var(--gilt); color:var(--ink)}
+#board .timer .modes button.on,#board .timer .ops-row button.primary{
+  background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
+#board .timer .ops-row button.primary{background:var(--brick); border-color:var(--brick); color:#FBF6EA}
+#board .timer .hint{margin:0; color:var(--faint); font:11px/1.35 var(--sans); text-align:center}
+
+#board .checklist{display:flex; flex-direction:column; gap:8px; height:100%}
+#board .checklist ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; flex:1; min-height:0; overflow:auto}
+#board .checklist li{display:flex; align-items:flex-start; gap:8px}
+#board .checklist li input[type=checkbox]{margin-top:3px; flex:none; accent-color:var(--olive)}
+#board .checklist li input[type=text]{
+  flex:1; min-width:0; border:0; border-bottom:1px solid transparent; background:transparent;
+  font:14px/1.35 var(--serif); color:var(--ink); padding:2px 0}
+#board .checklist li input[type=text]:focus{outline:none; border-bottom-color:var(--gilt)}
+#board .checklist li.done input[type=text]{color:var(--faint); text-decoration:line-through}
+#board .checklist li .x{
+  flex:none; width:22px; height:22px; border:0; background:transparent; color:var(--faint);
+  cursor:pointer; font:14px/1 var(--sans)}
+#board .checklist li .x:hover{color:var(--brick)}
+#board .checklist .add-row{display:flex; gap:6px}
+#board .checklist .add-row input{
+  flex:1; min-width:0; padding:7px 9px; border:1px solid var(--hair); border-radius:3px;
+  background:var(--paper); font:13px/1.2 var(--sans)}
+#board .checklist .add-row button{
+  padding:7px 10px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
+#board .checklist .meta{margin:0; color:var(--faint); font:11px/1.3 var(--mono)}
+
+#board .rand{display:flex; flex-direction:column; gap:8px; height:100%}
+#board .rand textarea{
+  flex:1; min-height:72px; width:100%; border:1px solid var(--hair); border-radius:3px; resize:none;
+  padding:8px; background:var(--paper); color:var(--ink); font:12.5px/1.45 var(--mono)}
+#board .rand .row{display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+#board .rand .roll-btn{
+  padding:8px 12px; border:1px solid var(--brick); border-radius:2px; background:var(--brick);
+  color:#FBF6EA; font:600 11px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; cursor:pointer}
+#board .rand .hint{margin:0; color:var(--faint); font:11px/1.35 var(--sans)}
+#board .rand .result{
+  padding:10px; background:var(--vellum); border:1px solid var(--vellum-edge); border-radius:2px;
+  font:italic 16px/1.4 var(--serif); color:var(--ink); min-height:3.2em}
+#board .rand .result.empty{color:var(--faint)}
+
+#boardExpand{
+  display:none; position:fixed; inset:0; z-index:55; background:rgba(36,33,28,.45);
+  align-items:center; justify-content:center; padding:24px}
+#boardExpand.open{display:flex}
+#boardExpand .panel{
+  width:min(920px, 96vw); height:min(720px, 90vh); display:flex; flex-direction:column;
+  background:var(--vellum); border:1px solid var(--vellum-edge); border-radius:3px;
+  box-shadow:0 12px 40px rgba(36,33,28,.35)}
+#boardExpand .panel-hd{
+  flex:none; display:flex; gap:8px; align-items:center; padding:10px 12px;
+  border-bottom:1px solid var(--vellum-edge); background:var(--stone-3)}
+#boardExpand .panel-hd input{
+  flex:1; border:1px solid var(--hair); border-radius:2px; padding:7px 9px;
+  font:600 15px/1.2 var(--serif); background:var(--paper)}
+#boardExpand .panel-body{flex:1; min-height:0; display:grid; grid-template-columns:1fr 1fr; gap:0}
+#boardExpand textarea{
+  width:100%; height:100%; border:0; border-right:1px solid var(--vellum-edge);
+  padding:14px; resize:none; font:13px/1.5 var(--mono); background:var(--paper)}
+#boardExpand .prev{overflow:auto; padding:14px}
+#boardExpand .panel-ft{flex:none; display:flex; gap:8px; justify-content:flex-end; padding:10px 12px; border-top:1px solid var(--vellum-edge)}
+
+.board-toast{
+  position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
+  padding:8px 14px; background:var(--ink); color:var(--stone-3); border-radius:2px;
+  font:12px/1.3 var(--sans); opacity:0; pointer-events:none; transition:opacity .2s; z-index:50}
+.board-toast.show{opacity:1}
+
+@media (max-width:760px){
+  body.board .board-rail{display:none}
+  #boardExpand .panel-body{grid-template-columns:1fr}
+  #boardExpand textarea{border-right:0; border-bottom:1px solid var(--vellum-edge); max-height:45%}
+}
+
 </style>
 </head>
 <body>
@@ -775,6 +1033,7 @@ body.pd #pdisp{position:fixed; inset:0; z-index:60}
   <span id="mode" role="group" aria-label="App mode">
     <button type="button" id="m-browse" class="chip on" aria-pressed="true">Library</button>
     <button type="button" id="m-track" class="chip" aria-pressed="false">Tracker</button>
+    <button type="button" id="m-board" class="chip" aria-pressed="false">Board</button>
   </span>
 </header>
 
@@ -887,7 +1146,58 @@ body.pd #pdisp{position:fixed; inset:0; z-index:60}
     <div id="pane-sheet">Select an entry</div>
     <div id="spellpeek" hidden></div>
   </div>
+
+<section id="board" aria-label="Session board" hidden>
+  <aside class="board-rail">
+    <h2>Session</h2>
+    <div class="board-session">
+      <select class="board-pick" id="boardPick" aria-label="Active session board"></select>
+      <div class="board-session-actions">
+        <button type="button" class="chip" id="boardNew">New</button>
+        <button type="button" class="chip" id="boardDup">Duplicate</button>
+        <button type="button" class="chip" id="boardRen">Rename</button>
+        <button type="button" class="chip" id="boardDel">Delete</button>
+      </div>
+    </div>
+    <h2>Add to board</h2>
+    <p class="board-hint">Cards snap to a 24px grid. Drag the header to move; corner to resize.</p>
+    <div class="board-add" id="boardAdd">
+      <button type="button" data-add="markdown"><b>Markdown note</b><span>Session notes, NPC briefs — edit ↔ preview</span></button>
+      <button type="button" data-add="image"><b>Image</b><span>Map, handout, portrait from a local file</span></button>
+      <button type="button" data-add="audio"><b>Audio clip</b><span>Short narration / stinger — loop, volume, fade</span></button>
+      <button type="button" data-add="counter"><b>Counter</b><span>Progress segments you click to fill</span></button>
+      <button type="button" data-add="dice"><b>Dice</b><span>Ad-hoc rolls without leaving the board</span></button>
+      <button type="button" data-add="timer"><b>Timer</b><span>Countdown or stopwatch — one card, both modes</span></button>
+      <button type="button" data-add="checklist"><b>Checklist</b><span>Agenda beats, loot to hand out</span></button>
+      <button type="button" data-add="random"><b>Random table</b><span>One entry per line — roll for content</span></button>
+    </div>
+    <div class="board-foot">Local boards · <code>bg.board.v1</code></div>
+  </aside>
+  <div class="board-stage-wrap" id="boardStageWrap">
+    <div class="board-stage" id="boardStage"></div>
+  </div>
+</section>
+
 </main>
+<div id="boardExpand" role="dialog" aria-modal="true" aria-label="Expanded note editor" hidden>
+  <div class="panel">
+    <div class="panel-hd">
+      <input id="boardExpandTitle" aria-label="Note title" />
+      <button type="button" class="chip" id="boardExpandDone">Done</button>
+    </div>
+    <div class="panel-body">
+      <textarea id="boardExpandBody" aria-label="Note markdown"></textarea>
+      <div class="prev md-view" id="boardExpandPrev"></div>
+    </div>
+    <div class="panel-ft">
+      <span class="chip-size" id="boardExpandSize"></span>
+    </div>
+  </div>
+</div>
+<div id="boardToast" class="board-toast" role="status"></div>
+
+
+
 <!-- overlays outside main so setAppInert(main) does not make them unclickable -->
 <div id="trkovl" hidden></div>
 <div id="pdisp" class="pdroot" hidden></div>
@@ -1471,6 +1781,8 @@ function buildUserSave(){
     enc: null,
     dice: null,
     ui: null,
+    boards: null,
+    activeBoardId: null,
   };
   if (window.TRK){
     const s = TRK.state;
@@ -1479,6 +1791,11 @@ function buildUserSave(){
     bag.enc = JSON.parse(JSON.stringify(s.enc || null));
     bag.dice = JSON.parse(JSON.stringify(s.dice || null));
     bag.ui = JSON.parse(JSON.stringify(s.ui || null));
+  }
+  if (window.BOARD && BOARD.getExport){
+    const b = BOARD.getExport();
+    bag.boards = JSON.parse(JSON.stringify(b.boards || []));
+    bag.activeBoardId = b.activeBoardId || null;
   }
   return bag;
 }
@@ -1510,7 +1827,7 @@ function applyUserSaveBag(bag){
     return { ok: false, message: "Could not save customs — browser storage may be full. Nothing was changed." };
   mergeCustomsIntoData(mergedCustoms);
 
-  let partyAdd = 0, presetAdd = 0, encReplaced = false;
+  let partyAdd = 0, presetAdd = 0, encReplaced = false, boardUpserts = 0;
   if (window.TRK && TRK.applyUserSave){
     const stats = TRK.applyUserSave({
       party: bag.party,
@@ -1523,6 +1840,10 @@ function applyUserSaveBag(bag){
     presetAdd = stats.presetAdd || 0;
     encReplaced = !!stats.encReplaced;
   }
+  if (window.BOARD && BOARD.applyUserSave && Array.isArray(bag.boards)){
+    const st = BOARD.applyUserSave({ boards: bag.boards, activeBoardId: bag.activeBoardId });
+    boardUpserts = st.boardUpserts || 0;
+  }
   refresh();
   if (window.applySideChrome) applySideChrome();
   const bits = [];
@@ -1532,6 +1853,7 @@ function applyUserSaveBag(bag){
   if (partyAdd) bits.push("+" + partyAdd + " party");
   if (presetAdd) bits.push("+" + presetAdd + " presets");
   if (encReplaced) bits.push("encounter replaced");
+  if (boardUpserts) bits.push("+" + boardUpserts + " boards");
   return { ok: true, message: bits.join(" · ") || "Save imported" };
 }
 
@@ -1613,7 +1935,7 @@ function openUserSaveDialog(){
   }
   TRK.openOvl(`
     <h3>Save file</h3>
-    <p class="libhint">Export packs customs, party, encounter presets, active encounter, dice, and UI. Import <b>merges</b> customs/party/presets by id (local-only records are kept) and <b>replaces</b> the active encounter.</p>
+    <p class="libhint">Export packs customs, party, encounter presets, active encounter, dice, UI, and Board sessions. Import <b>merges</b> customs/party/presets/boards by id (local-only records are kept) and <b>replaces</b> the active encounter.</p>
     <div class="btns" style="justify-content:flex-start;flex-wrap:wrap">
       <button type="button" class="chip go" data-save-export>Export save…</button>
       <button type="button" class="chip" data-save-backup>Download backup first</button>
@@ -2623,6 +2945,7 @@ const TRK = (() => {
                 side:"monster", catalogTab:"monster", tableTab:"party" };
     if (!raw || typeof raw !== "object") return u;
     if (raw.mode === "track") u.mode = "track";
+    else if (raw.mode === "board") u.mode = "board";
     u.qty = Math.min(10, Math.max(1, int(raw.qty, 1)));
     if (typeof raw.diceOpen === "boolean") u.diceOpen = raw.diceOpen;
     if (typeof raw.viewingId === "string") u.viewingId = raw.viewingId;
@@ -3833,17 +4156,28 @@ const TRK = (() => {
   }
 
   function setMode(m){
-    state.ui.mode = m === "track" ? "track" : "browse";
+    const mode = m === "track" ? "track" : m === "board" ? "board" : "browse";
+    const prev = state.ui.mode;
+    state.ui.mode = mode;
     saveOrWarn(LS.ui, state.ui);
-    const track = state.ui.mode === "track";
-    document.body.classList.toggle("trk", track);
-    $("#m-browse").classList.toggle("on", !track);
-    $("#m-browse").setAttribute("aria-pressed", String(!track));
-    $("#m-track").classList.toggle("on", track);
-    $("#m-track").setAttribute("aria-pressed", String(track));
-    if (track){ $("#dice").open = state.ui.diceOpen; renderTrk(); renderDice(); }
+    document.body.classList.toggle("trk", mode === "track");
+    document.body.classList.toggle("board", mode === "board");
+    const boardEl = document.getElementById("board");
+    if (boardEl) boardEl.hidden = mode !== "board";
+    $("#m-browse").classList.toggle("on", mode === "browse");
+    $("#m-browse").setAttribute("aria-pressed", String(mode === "browse"));
+    $("#m-track").classList.toggle("on", mode === "track");
+    $("#m-track").setAttribute("aria-pressed", String(mode === "track"));
+    const mb = $("#m-board");
+    if (mb){
+      mb.classList.toggle("on", mode === "board");
+      mb.setAttribute("aria-pressed", String(mode === "board"));
+    }
+    if (prev === "board" && mode !== "board" && window.BOARD) BOARD.setActive(false);
+    if (mode === "track"){ $("#dice").open = state.ui.diceOpen; renderTrk(); renderDice(); }
+    if (mode === "board" && window.BOARD) BOARD.setActive(true);
     if (window.applySideChrome) applySideChrome();
-    if (window.refresh) refresh();
+    if (window.refresh && mode !== "board") refresh();
   }
 
   function setSide(side){
@@ -3901,6 +4235,7 @@ const TRK = (() => {
   function onDataReady(){
     if (window.applySideChrome) applySideChrome();
     if (state.ui.mode === "track") setMode("track");
+    else if (state.ui.mode === "board") setMode("board");
     else if (window.refresh) refresh();
   }
 
@@ -3911,6 +4246,8 @@ const TRK = (() => {
 
   $("#m-browse").onclick = () => setMode("browse");
   $("#m-track").onclick = () => setMode("track");
+  const mBoard = $("#m-board");
+  if (mBoard) mBoard.onclick = () => setMode("board");
   $("#sg-catalog").onclick = () => { setSide("catalog"); if (window.refresh) refresh(); };
   $("#sg-table").onclick = () => { setSide("table"); if (window.refresh) refresh(); };
   $("#side-inner").addEventListener("click", e => {
@@ -4322,6 +4659,1213 @@ const TRK = (() => {
 /* const bindings don't become window properties; the start()/keydown hooks in
    the first script test window.TRK so they stay no-ops if this block is absent */
 window.TRK = TRK;
+</script>
+
+<script>
+"use strict";
+"use strict";
+
+const BOARD = (() => {
+
+  const GRID = 24;
+  const STORE = "bg.board.v1";
+  const stage = document.getElementById("boardStage");
+  const stageWrap = document.getElementById("boardStageWrap");
+  const boardPick = document.getElementById("boardPick");
+  const toastEl = document.getElementById("boardToast");
+  let activeMode = false;
+  let timerIv = null;
+
+  const uid = () => "c" + Math.random().toString(36).slice(2, 10);
+  const snap = n => Math.round(n / GRID) * GRID;
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toastEl.classList.remove("show"), 1800);
+  }
+
+  function splitPipeRow(line){
+    let s = String(line).trim();
+    if (s.startsWith("|")) s = s.slice(1);
+    if (s.endsWith("|")) s = s.slice(0, -1);
+    return s.split("|").map(c => c.trim());
+  }
+  function isSepRow(cells){
+    return cells.length > 0 && cells.every(c => /^:?-+:?$/.test(c));
+  }
+  function alignClass(cell){
+    const left = cell.startsWith(":");
+    const right = cell.endsWith(":");
+    if (left && right) return "ctr";
+    if (right) return "num";
+    return "";
+  }
+
+  function md(src){
+    const lines = String(src || "").replace(/\r\n/g,"\n").split("\n");
+    let html = "", inUl = false, inOl = false, inPre = false, pre = [];
+    const closeLists = () => {
+      if (inUl){ html += "</ul>"; inUl = false; }
+      if (inOl){ html += "</ol>"; inOl = false; }
+    };
+    const inline = t => esc(t)
+      .replace(/`([^`]+)`/g, "<code>$1</code>")
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+    for (let i = 0; i < lines.length; i++){
+      const raw = lines[i];
+      if (raw.startsWith("```")){
+        if (inPre){ html += "<pre><code>" + esc(pre.join("\n")) + "</code></pre>"; pre = []; inPre = false; }
+        else { closeLists(); inPre = true; }
+        continue;
+      }
+      if (inPre){ pre.push(raw); continue; }
+      if (/^\s*$/.test(raw)){ closeLists(); continue; }
+      if (raw.trim().startsWith("|") && i + 1 < lines.length){
+        const header = splitPipeRow(raw);
+        const sep = splitPipeRow(lines[i + 1] || "");
+        if (header.length && isSepRow(sep) && sep.length === header.length){
+          closeLists();
+          const aligns = sep.map(alignClass);
+          let table = "<table><thead><tr>";
+          header.forEach((h, idx) => {
+            const cls = aligns[idx] ? ` class="${aligns[idx]}"` : "";
+            table += `<th${cls}>${inline(h)}</th>`;
+          });
+          table += "</tr></thead><tbody>";
+          i += 2;
+          while (i < lines.length && lines[i].trim().startsWith("|")){
+            const cells = splitPipeRow(lines[i]);
+            table += "<tr>";
+            for (let c = 0; c < header.length; c++){
+              const cls = aligns[c] ? ` class="${aligns[c]}"` : "";
+              table += `<td${cls}>${inline(cells[c] || "")}</td>`;
+            }
+            table += "</tr>";
+            i++;
+          }
+          i--;
+          table += "</tbody></table>";
+          html += table;
+          continue;
+        }
+      }
+      const h = raw.match(/^(#{1,3})\s+(.*)$/);
+      if (h){ closeLists(); html += `<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`; continue; }
+      if (/^>\s?/.test(raw)){ closeLists(); html += `<blockquote>${inline(raw.replace(/^>\s?/,""))}</blockquote>`; continue; }
+      if (/^[-*]\s+/.test(raw)){
+        if (!inUl){ closeLists(); html += "<ul>"; inUl = true; }
+        html += `<li>${inline(raw.replace(/^[-*]\s+/,""))}</li>`; continue;
+      }
+      if (/^\d+\.\s+/.test(raw)){
+        if (!inOl){ closeLists(); html += "<ol>"; inOl = true; }
+        html += `<li>${inline(raw.replace(/^\d+\.\s+/,""))}</li>`; continue;
+      }
+      closeLists();
+      html += `<p>${inline(raw)}</p>`;
+    }
+    closeLists();
+    if (inPre) html += "<pre><code>" + esc(pre.join("\n")) + "</code></pre>";
+    return html || "<p></p>";
+  }
+
+  function rollExpr(expr){
+    const clean = String(expr || "").trim().toLowerCase().replace(/\s+/g,"");
+    if (!/^[\dd+\-]+$/.test(clean) || !/\d/.test(clean)) throw new Error("Use forms like 1d20+3 or 2d6");
+    const parts = clean.replace(/-/g,"+-").split("+").filter(Boolean);
+    let total = 0, detail = [];
+    for (const p of parts){
+      const m = p.match(/^(\d*)d(\d+)$/);
+      if (m){
+        const n = Math.min(40, parseInt(m[1] || "1", 10));
+        const sides = parseInt(m[2], 10);
+        if (sides < 2 || sides > 1000) throw new Error("Die size out of range");
+        const rolls = [];
+        for (let i = 0; i < n; i++){
+          const r = 1 + Math.floor(Math.random() * sides);
+          rolls.push(r); total += r;
+        }
+        detail.push(`${n}d${sides}[${rolls.join(",")}]`);
+      } else if (/^-?\d+$/.test(p)){
+        const v = parseInt(p, 10); total += v; detail.push(String(v));
+      } else throw new Error("Bad expression");
+    }
+    return { total, detail: detail.join(" + "), expr: clean };
+  }
+
+
+
+  
+  function seedBoards(){
+    const id = "board-" + uid();
+    return {
+      activeBoardId: id,
+      boards: [{ id, title: "Session 1", updatedAt: Date.now(), cards: [] }]
+    };
+  }
+
+
+  let state = load();
+  let selectedId = null;
+  let zTop = 10;
+
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORE);
+      if (!raw) return seedBoards();
+      const v = JSON.parse(raw);
+      if (!v || !Array.isArray(v.boards) || !v.boards.length) return seedBoards();
+      for (const b of v.boards){
+        for (const c of (b.cards || [])){
+          if (c.type === "clock") c.type = "counter";
+        }
+      }
+      return v;
+    }catch(_){ return seedBoards(); }
+  }
+  function save(){
+    try{ localStorage.setItem(STORE, JSON.stringify(state)); }
+    catch(err){
+      const quota = err && (err.name === "QuotaExceededError" || err.code === 22);
+      toast(quota
+        ? "Storage full — shrink large notes or remove image/audio cards"
+        : "Could not save board");
+    }
+  }
+  function active(){
+    return state.boards.find(b => b.id === state.activeBoardId) || state.boards[0];
+  }
+  function bumpZ(card){ zTop += 1; card.z = zTop; }
+  let saveTimer = null;
+  function scheduleBoardSave(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => { saveTimer = null; save(); }, 400);
+  }
+  function touch(persist = true){
+    active().updatedAt = Date.now();
+    if (persist) scheduleBoardSave();
+  }
+  function markdownHtml(card){
+    const body = card.body || "";
+    if (card._previewFor === body && card._previewHtml != null && !card._previewDirty)
+      return card._previewHtml;
+    const html = md(body);
+    card._previewHtml = html;
+    card._previewFor = body;
+    card._previewDirty = false;
+    return html;
+  }
+  const MD_SOFT = 20000, MD_WARN = 60000, MD_HARD = 120000;
+  function sizeLabel(n){
+    if (n >= MD_HARD) return n + " chars · too large to save reliably";
+    if (n >= MD_WARN) return n + " chars · large note";
+    if (n >= MD_SOFT) return n + " chars · growing";
+    return n + " chars";
+  }
+  let expandCardId = null;
+  function openMdExpand(card){
+    expandCardId = card.id;
+    const overlay = document.getElementById("boardExpand");
+    const title = document.getElementById("boardExpandTitle");
+    const body = document.getElementById("boardExpandBody");
+    const prev = document.getElementById("boardExpandPrev");
+    const size = document.getElementById("boardExpandSize");
+    if (!overlay || !title || !body || !prev) return;
+    title.value = card.title || "";
+    body.value = card.body || "";
+    prev.innerHTML = markdownHtml(card);
+    size.textContent = sizeLabel((card.body || "").length);
+    overlay.hidden = false;
+    overlay.classList.add("open");
+    body.focus();
+  }
+  function closeMdExpand(commit){
+    const overlay = document.getElementById("boardExpand");
+    if (!overlay) return;
+    if (commit && expandCardId){
+      const card = active().cards.find(c => c.id === expandCardId);
+      if (card){
+        card.title = document.getElementById("boardExpandTitle").value;
+        card.body = document.getElementById("boardExpandBody").value;
+        card._previewDirty = true;
+        touch();
+        render();
+      }
+    }
+    expandCardId = null;
+    overlay.classList.remove("open");
+    overlay.hidden = true;
+  }
+  document.getElementById("boardExpandDone").onclick = () => closeMdExpand(true);
+  document.getElementById("boardExpand").addEventListener("keydown", e => {
+    if (e.key === "Escape"){ e.stopPropagation(); closeMdExpand(true); }
+  });
+  document.getElementById("boardExpandBody").oninput = () => {
+    const card = expandCardId && active().cards.find(c => c.id === expandCardId);
+    if (!card) return;
+    card.body = document.getElementById("boardExpandBody").value;
+    card._previewDirty = true;
+    document.getElementById("boardExpandPrev").innerHTML = markdownHtml(card);
+    document.getElementById("boardExpandSize").textContent = sizeLabel((card.body || "").length);
+    touch();
+  };
+  document.getElementById("boardExpandTitle").oninput = () => {
+    const card = expandCardId && active().cards.find(c => c.id === expandCardId);
+    if (!card) return;
+    card.title = document.getElementById("boardExpandTitle").value;
+    touch();
+  };
+
+  function refreshPicker(){
+    const cur = state.activeBoardId;
+    boardPick.innerHTML = state.boards
+      .slice()
+      .sort((a,b) => (b.updatedAt||0) - (a.updatedAt||0))
+      .map(b => `<option value="${b.id}"${b.id===cur?" selected":""}>${esc(b.title)}</option>`)
+      .join("");
+  }
+
+  document.getElementById("boardNew").onclick = () => {
+    const b = { id: "board-" + uid(), title: "New session", updatedAt: Date.now(), cards: [] };
+    state.boards.push(b);
+    state.activeBoardId = b.id;
+    selectedId = null;
+    save(); render(); toast("Created empty board");
+  };
+  document.getElementById("boardDup").onclick = () => {
+    const src = active();
+    const copy = JSON.parse(JSON.stringify(src));
+    copy.id = "board-" + uid();
+    copy.title = src.title.replace(/\s*\(copy\)\s*$/,"") + " (copy)";
+    copy.updatedAt = Date.now();
+    copy.cards.forEach(c => { c.id = uid(); });
+    state.boards.push(copy);
+    state.activeBoardId = copy.id;
+    selectedId = null;
+    save(); render(); toast("Duplicated board");
+  };
+  document.getElementById("boardRen").onclick = () => {
+    const b = active();
+    const t = prompt("Board title", b.title);
+    if (t == null || !t.trim()) return;
+    b.title = t.trim(); b.updatedAt = Date.now();
+    save(); refreshPicker(); toast("Renamed");
+  };
+  document.getElementById("boardDel").onclick = () => {
+    if (state.boards.length < 2){ toast("Keep at least one board"); return; }
+    const b = active();
+    if (!confirm(`Delete “${b.title}”?`)) return;
+    state.boards = state.boards.filter(x => x.id !== b.id);
+    state.activeBoardId = state.boards[0].id;
+    selectedId = null;
+    save(); render(); toast("Deleted board");
+  };
+  boardPick.onchange = () => {
+    state.activeBoardId = boardPick.value;
+    selectedId = null;
+    save(); render();
+  };
+
+  document.querySelectorAll("#boardAdd [data-add]").forEach(btn => {
+    btn.onclick = () => addCard(btn.getAttribute("data-add"));
+  });
+
+  function addCard(type){
+    const b = active();
+    const base = {
+      id: uid(), type,
+      x: snap(stageWrap.scrollLeft + 48),
+      y: snap(stageWrap.scrollTop + 48),
+      w: 288, h: 240, z: ++zTop,
+      title: type[0].toUpperCase() + type.slice(1)
+    };
+    if (type === "markdown") Object.assign(base, { title: "Note", body: "## New note\n\n", editing: true, w: 336, h: 280 });
+    if (type === "image") Object.assign(base, { title: "Image", src: "", w: 336, h: 240 });
+    if (type === "audio") Object.assign(base, {
+      title: "Clip", fileName: "", src: "", loop: false, volume: 0.7, fadeMs: 1000, w: 312, h: 264
+    });
+    if (type === "counter") Object.assign(base, { title: "Counter", filled: 0, segments: 6, w: 216, h: 240 });
+    if (type === "dice") Object.assign(base, { title: "Dice", expr: "1d20", history: [], w: 264, h: 280 });
+    if (type === "timer") Object.assign(base, {
+      title: "Timer", mode: "countdown", durationSec: 300,
+      baseMs: 300000, running: false, startedAt: null, fired: false, w: 264, h: 264
+    });
+    if (type === "checklist") Object.assign(base, {
+      title: "Checklist", items: [{ id: uid(), text: "First beat", done: false }], w: 312, h: 264
+    });
+    if (type === "random") Object.assign(base, {
+      title: "Random table",
+      lines: "Entry one\nEntry two\nEntry three",
+      last: "", w: 312, h: 288
+    });
+    b.cards.push(base);
+    selectedId = base.id;
+    touch(); render();
+  }
+
+  function render(){
+    refreshPicker();
+    const b = active();
+    zTop = Math.max(10, ...b.cards.map(c => c.z || 1), 10);
+    stage.innerHTML = "";
+    if (!b.cards.length){
+      const empty = document.createElement("div");
+      empty.className = "board-empty";
+      empty.textContent = "Empty board — add cards from the rail (notes, media, tools).";
+      stage.appendChild(empty);
+      return;
+    }
+    b.cards.slice().sort((a,c) => (a.z||0) - (c.z||0)).forEach(card => {
+      stage.appendChild(renderCard(card));
+    });
+  }
+
+  function renderCard(card){
+    const collapsed = !!card.collapsed;
+    const KIND = {
+      markdown: "note", image: "image", audio: "audio", counter: "counter", dice: "dice",
+      timer: "timer", checklist: "list", random: "table", clock: "counter"
+    };
+    const el = document.createElement("article");
+    el.className = "board-card"
+      + (card.type === "markdown" ? " vellum" : "")
+      + (card.id === selectedId ? " selected" : "")
+      + (collapsed ? " collapsed" : "");
+    el.style.left = card.x + "px";
+    el.style.top = card.y + "px";
+    el.style.width = card.w + "px";
+    if (!collapsed) el.style.height = card.h + "px";
+    el.style.zIndex = String(card.z || 1);
+    el.dataset.id = card.id;
+
+    const hd = document.createElement("div");
+    hd.className = "hd";
+    hd.innerHTML = `<span class="kind">${esc(KIND[card.type] || card.type)}</span>`;
+    const title = document.createElement("input");
+    title.className = "title";
+    title.value = card.title || "";
+    title.setAttribute("aria-label", "Card title");
+    title.oninput = () => { card.title = title.value; touch(); };
+    title.onclick = e => e.stopPropagation();
+    hd.appendChild(title);
+
+    const ops = document.createElement("div");
+    ops.className = "ops";
+
+    const fold = document.createElement("button");
+    fold.type = "button";
+    fold.title = collapsed ? "Expand card" : "Collapse card";
+    fold.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    fold.setAttribute("aria-label", collapsed ? "Expand card" : "Collapse card");
+    fold.textContent = collapsed ? "▸" : "▾";
+    fold.onclick = e => {
+      e.stopPropagation();
+      if (!card.collapsed){
+        card.expandedH = card.h;
+        card.collapsed = true;
+      } else {
+        card.collapsed = false;
+        card.h = card.expandedH || card.h || GRID * 10;
+      }
+      touch(); render();
+    };
+    ops.appendChild(fold);
+
+    if (card.type === "markdown" && !collapsed){
+      const tog = document.createElement("button");
+      tog.type = "button";
+      tog.title = card.editing ? "Preview" : "Edit";
+      tog.textContent = card.editing ? "◉" : "✎";
+      tog.onclick = e => { e.stopPropagation(); card.editing = !card.editing; save(); render(); };
+      ops.appendChild(tog);
+    }
+    const del = document.createElement("button");
+    del.type = "button"; del.title = "Remove card"; del.textContent = "×";
+    del.onclick = e => {
+      e.stopPropagation();
+      active().cards = active().cards.filter(c => c.id !== card.id);
+      if (selectedId === card.id) selectedId = null;
+      touch(); render();
+    };
+    ops.appendChild(del);
+    hd.appendChild(ops);
+    el.appendChild(hd);
+
+    if (!collapsed){
+      const body = document.createElement("div");
+      body.className = "body";
+      if (card.type === "markdown") fillMarkdown(body, card);
+      else if (card.type === "image") fillImage(body, card);
+      else if (card.type === "audio") fillAudio(body, card);
+      else if (card.type === "counter" || card.type === "clock") fillCounter(body, card);
+      else if (card.type === "dice") fillDice(body, card);
+      else if (card.type === "timer") fillTimer(body, card);
+      else if (card.type === "checklist") fillChecklist(body, card);
+      else if (card.type === "random") fillRandom(body, card);
+      el.appendChild(body);
+
+      const rz = document.createElement("div");
+      rz.className = "resize";
+      el.appendChild(rz);
+      enableResize(rz, el, card);
+    }
+
+    el.addEventListener("pointerdown", e => {
+      if (e.target.closest(".ops") || e.target === title) return;
+      selectedId = card.id;
+      bumpZ(card);
+      document.querySelectorAll(".board-card.selected").forEach(n => n.classList.remove("selected"));
+      el.classList.add("selected");
+      el.style.zIndex = String(card.z);
+      touch(false);
+    });
+
+    enableDrag(hd, el, card);
+    return el;
+  }
+
+  function fillMarkdown(body, card){
+    const len = (card.body || "").length;
+    const meta = document.createElement("div");
+    meta.className = "md-meta";
+    const size = document.createElement("span");
+    size.className = "chip-size";
+    size.textContent = sizeLabel(len);
+    meta.appendChild(size);
+    if (card.editing){
+      const exp = document.createElement("button");
+      exp.type = "button";
+      exp.textContent = "Expand";
+      exp.onclick = e => { e.stopPropagation(); openMdExpand(card); };
+      meta.appendChild(exp);
+    }
+    body.appendChild(meta);
+    if (card.editing){
+      const ta = document.createElement("textarea");
+      ta.className = "md-edit";
+      ta.value = card.body || "";
+      ta.placeholder = "# Heading\n\nNotes…\n\n| A | B |\n| --- | --- |\n| 1 | 2 |";
+      ta.oninput = () => {
+        card.body = ta.value;
+        card._previewDirty = true;
+        size.textContent = sizeLabel((card.body || "").length);
+        touch();
+      };
+      body.appendChild(ta);
+    } else {
+      const view = document.createElement("div");
+      view.className = "md-view";
+      view.innerHTML = markdownHtml(card);
+      body.appendChild(view);
+    }
+  }
+
+  function fillImage(body, card){
+    body.classList.add("img-body");
+    if (card.src){
+      const img = document.createElement("img");
+      img.src = card.src;
+      img.alt = card.title || "Board image";
+      body.appendChild(img);
+      body.ondblclick = () => pickImage(card);
+    } else {
+      const empty = document.createElement("div");
+      empty.className = "img-empty";
+      empty.innerHTML = `<div>Drop a local image or choose a file.</div>`;
+      const lab = document.createElement("label");
+      lab.textContent = "Choose image";
+      const inp = document.createElement("input");
+      inp.type = "file"; inp.accept = "image/*";
+      inp.onchange = () => readImageFile(inp.files && inp.files[0], card);
+      lab.appendChild(inp);
+      empty.appendChild(lab);
+      body.appendChild(empty);
+    }
+    body.addEventListener("dragover", e => e.preventDefault());
+    body.addEventListener("drop", e => {
+      e.preventDefault();
+      const f = e.dataTransfer.files && e.dataTransfer.files[0];
+      if (f && f.type.startsWith("image/")) readImageFile(f, card);
+    });
+  }
+  function readImageFile(f, card){
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => { card.src = r.result; touch(); render(); };
+    r.readAsDataURL(f);
+  }
+  function pickImage(card){
+    const inp = document.createElement("input");
+    inp.type = "file"; inp.accept = "image/*";
+    inp.onchange = () => readImageFile(inp.files && inp.files[0], card);
+    inp.click();
+  }
+
+  function fillAudio(body, card){
+    if (card.volume == null) card.volume = 0.7;
+    if (card.fadeMs == null) card.fadeMs = 1000;
+    card.loop = !!card.loop;
+
+    const wrap = document.createElement("div");
+    wrap.className = "clip";
+
+    const fileRow = document.createElement("div");
+    fileRow.className = "file-row";
+    const name = document.createElement("div");
+    name.className = "file-name";
+    name.textContent = card.fileName || (card.src ? "Loaded clip" : "No file loaded");
+    name.title = card.fileName || "";
+    const lab = document.createElement("label");
+    lab.textContent = "Load file";
+    const inp = document.createElement("input");
+    inp.type = "file";
+    inp.accept = "audio/mpeg,audio/wav,audio/ogg,audio/webm,audio/*";
+    inp.onchange = () => {
+      const f = inp.files && inp.files[0];
+      if (!f) return;
+      if (!/^audio\//.test(f.type) && !/\.(mp3|wav|ogg|webm|m4a)$/i.test(f.name)){
+        toast("Choose an audio file (mp3, wav, …)");
+        return;
+      }
+      const r = new FileReader();
+      r.onload = () => {
+        card.src = r.result;
+        card.fileName = f.name;
+        touch(); render();
+      };
+      r.readAsDataURL(f);
+    };
+    lab.appendChild(inp);
+    const demo = document.createElement("button");
+    wrap.appendChild(fileRow);
+
+    const audio = document.createElement("audio");
+    audio.preload = "metadata";
+    audio.loop = card.loop;
+    audio.volume = clamp(card.volume, 0, 1);
+    if (card.src) audio.src = card.src;
+    wrap.appendChild(audio);
+
+    let fading = false;
+    const setPlayingUi = () => {
+      playBtn.textContent = audio.paused ? "Play" : "Pause";
+    };
+
+    const transport = document.createElement("div");
+    transport.className = "transport";
+
+    const playBtn = document.createElement("button");
+    playBtn.type = "button"; playBtn.className = "primary";
+    playBtn.textContent = "Play";
+    playBtn.disabled = !card.src;
+    playBtn.onclick = e => {
+      e.stopPropagation();
+      if (!card.src){ toast("Load an audio file first"); return; }
+      if (audio.paused){
+        fading = false;
+        audio.volume = clamp(card.volume, 0, 1);
+        audio.play().catch(err => toast(err.message || "Could not play"));
+      } else {
+        audio.pause();
+      }
+      setPlayingUi();
+    };
+
+    const stopBtn = document.createElement("button");
+    stopBtn.type = "button"; stopBtn.textContent = "Stop";
+    stopBtn.onclick = e => {
+      e.stopPropagation();
+      fading = false;
+      audio.pause();
+      audio.currentTime = 0;
+      audio.volume = clamp(card.volume, 0, 1);
+      setPlayingUi();
+    };
+
+    const fadeBtn = document.createElement("button");
+    fadeBtn.type = "button"; fadeBtn.textContent = "Fade out";
+    fadeBtn.title = "Fade volume over 1s, then stop";
+    fadeBtn.onclick = e => {
+      e.stopPropagation();
+      if (audio.paused){ toast("Nothing playing"); return; }
+      if (fading) return;
+      fading = true;
+      const startVol = audio.volume;
+      const ms = card.fadeMs || 1000;
+      const t0 = performance.now();
+      const tick = now => {
+        if (!fading) return;
+        const p = Math.min(1, (now - t0) / ms);
+        audio.volume = startVol * (1 - p);
+        if (p < 1){
+          requestAnimationFrame(tick);
+        } else {
+          fading = false;
+          audio.pause();
+          audio.currentTime = 0;
+          audio.volume = clamp(card.volume, 0, 1);
+          setPlayingUi();
+        }
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const loopBtn = document.createElement("button");
+    loopBtn.type = "button";
+    loopBtn.textContent = "Loop";
+    loopBtn.classList.toggle("on", card.loop);
+    loopBtn.setAttribute("aria-pressed", card.loop ? "true" : "false");
+    loopBtn.onclick = e => {
+      e.stopPropagation();
+      card.loop = !card.loop;
+      audio.loop = card.loop;
+      loopBtn.classList.toggle("on", card.loop);
+      loopBtn.setAttribute("aria-pressed", card.loop ? "true" : "false");
+      touch();
+    };
+
+    transport.append(playBtn, stopBtn, fadeBtn, loopBtn);
+    wrap.appendChild(transport);
+
+    const vol = document.createElement("div");
+    vol.className = "vol";
+    const volLbl = document.createElement("span");
+    volLbl.className = "lbl";
+    volLbl.textContent = "Vol";
+    vol.appendChild(volLbl);
+    for (const preset of [
+      { label: "25%", value: 0.25 },
+      { label: "50%", value: 0.5 },
+      { label: "70%", value: 0.7 },
+      { label: "100%", value: 1 }
+    ]){
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = preset.label;
+      b.classList.toggle("on", Math.abs(card.volume - preset.value) < 0.001);
+      b.onclick = e => {
+        e.stopPropagation();
+        card.volume = preset.value;
+        if (!fading) audio.volume = preset.value;
+        touch();
+        vol.querySelectorAll("button").forEach(x => x.classList.remove("on"));
+        b.classList.add("on");
+      };
+      vol.appendChild(b);
+    }
+    wrap.appendChild(vol);
+
+    const hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent = "Clip player for short narration / stingers — not background music.";
+    wrap.appendChild(hint);
+
+    audio.addEventListener("play", setPlayingUi);
+    audio.addEventListener("pause", setPlayingUi);
+    audio.addEventListener("ended", setPlayingUi);
+
+    wrap.addEventListener("dragover", e => e.preventDefault());
+    wrap.addEventListener("drop", e => {
+      e.preventDefault();
+      const f = e.dataTransfer.files && e.dataTransfer.files[0];
+      if (!f) return;
+      if (!/^audio\//.test(f.type) && !/\.(mp3|wav|ogg|webm|m4a)$/i.test(f.name)){
+        toast("Drop an audio file");
+        return;
+      }
+      const r = new FileReader();
+      r.onload = () => {
+        card.src = r.result;
+        card.fileName = f.name;
+        touch(); render();
+      };
+      r.readAsDataURL(f);
+    });
+
+    body.appendChild(wrap);
+  }
+
+  function fillCounter(body, card){
+    if (card.type === "clock") card.type = "counter";
+    const segs = clamp(card.segments || 4, 2, 12);
+    card.segments = segs;
+    card.filled = clamp(card.filled || 0, 0, segs);
+    const wrap = document.createElement("div");
+    wrap.className = "counter";
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 100 100");
+    const cx = 50, cy = 50, r = 40;
+    for (let i = 0; i < segs; i++){
+      const a0 = (Math.PI * 2 * i) / segs - Math.PI / 2;
+      const a1 = (Math.PI * 2 * (i + 1)) / segs - Math.PI / 2;
+      const x0 = cx + r * Math.cos(a0), y0 = cy + r * Math.sin(a0);
+      const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+      const large = (a1 - a0) > Math.PI ? 1 : 0;
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", `M ${cx} ${cy} L ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} Z`);
+      path.setAttribute("fill", i < card.filled ? "#7B2418" : "#F2F1ED");
+      path.setAttribute("stroke", "#C5C2B8");
+      path.setAttribute("stroke-width", "1.2");
+      path.style.cursor = "pointer";
+      path.onclick = e => {
+        e.stopPropagation();
+        card.filled = (i < card.filled) ? i : i + 1;
+        touch(); render();
+      };
+      svg.appendChild(path);
+    }
+    wrap.appendChild(svg);
+    const lab = document.createElement("div");
+    lab.className = "seg-label";
+    lab.textContent = `${card.filled} / ${segs}`;
+    wrap.appendChild(lab);
+    const ops = document.createElement("div");
+    ops.className = "counter-ops";
+    const minus = document.createElement("button"); minus.type = "button"; minus.textContent = "− Seg";
+    const plus = document.createElement("button"); plus.type = "button"; plus.textContent = "+ Seg";
+    minus.onclick = e => { e.stopPropagation(); card.segments = clamp(segs - 1, 2, 12); card.filled = clamp(card.filled, 0, card.segments); touch(); render(); };
+    plus.onclick = e => { e.stopPropagation(); card.segments = clamp(segs + 1, 2, 12); touch(); render(); };
+    ops.append(minus, plus);
+    wrap.appendChild(ops);
+    body.appendChild(wrap);
+  }
+
+  function fillDice(body, card){
+    const wrap = document.createElement("div");
+    wrap.className = "dice";
+    const row = document.createElement("div");
+    row.className = "row";
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = card.expr || "1d20";
+    input.setAttribute("aria-label", "Dice expression");
+    input.oninput = () => { card.expr = input.value; touch(); };
+    const rollBtn = document.createElement("button");
+    rollBtn.type = "button"; rollBtn.className = "roll-btn"; rollBtn.textContent = "Roll";
+    row.append(input, rollBtn);
+    wrap.appendChild(row);
+
+    const presets = document.createElement("div");
+    presets.className = "row presets";
+    for (const p of ["1d20", "1d20+5", "2d6", "1d100", "4d6"]){
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = p;
+      b.onclick = e => { e.stopPropagation(); card.expr = p; input.value = p; touch(); };
+      presets.appendChild(b);
+    }
+    wrap.appendChild(presets);
+
+    const result = document.createElement("div");
+    result.className = "result";
+    const last = (card.history && card.history[0]) || null;
+    result.innerHTML = last
+      ? `<div class="total">${last.total}</div><div class="detail">${esc(last.detail)}</div>`
+      : `<div class="total">—</div><div class="detail">No rolls yet</div>`;
+    wrap.appendChild(result);
+
+    const hist = document.createElement("ul");
+    hist.className = "hist";
+    (card.history || []).slice(0, 6).forEach(h => {
+      const li = document.createElement("li");
+      li.textContent = `${h.expr} → ${h.total} (${h.detail})`;
+      hist.appendChild(li);
+    });
+    wrap.appendChild(hist);
+
+    rollBtn.onclick = e => {
+      e.stopPropagation();
+      try{
+        const r = rollExpr(card.expr || input.value);
+        card.history = [r, ...(card.history || [])].slice(0, 20);
+        touch(); render();
+      }catch(err){ toast(err.message || "Roll failed"); }
+    };
+    body.appendChild(wrap);
+  }
+
+  function formatMs(ms){
+    const s = Math.max(0, Math.ceil(ms / 1000));
+    const m = Math.floor(s / 60);
+    const r = s % 60;
+    return `${m}:${String(r).padStart(2, "0")}`;
+  }
+
+  function timerDisplayMs(card){
+    const now = Date.now();
+    if (card.mode === "stopwatch"){
+      const base = card.baseMs || 0;
+      return card.running && card.startedAt ? base + (now - card.startedAt) : base;
+    }
+    const base = card.baseMs != null ? card.baseMs : (card.durationSec || 300) * 1000;
+    return card.running && card.startedAt ? Math.max(0, base - (now - card.startedAt)) : Math.max(0, base);
+  }
+
+  function freezeTimer(card){
+    if (!card.running || !card.startedAt) return;
+    card.baseMs = timerDisplayMs(card);
+    card.running = false;
+    card.startedAt = null;
+  }
+
+  function fillTimer(body, card){
+    if (card.mode !== "stopwatch" && card.mode !== "countdown") card.mode = "countdown";
+    if (card.baseMs == null) card.baseMs = (card.durationSec || 300) * 1000;
+    const wrap = document.createElement("div");
+    wrap.className = "timer";
+    wrap.dataset.timerId = card.id;
+
+    const modes = document.createElement("div");
+    modes.className = "modes";
+    for (const [id, lab] of [["countdown", "Countdown"], ["stopwatch", "Stopwatch"]]){
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = lab;
+      if (card.mode === id) b.classList.add("on");
+      b.onclick = e => {
+        e.stopPropagation();
+        freezeTimer(card);
+        card.mode = id;
+        card.fired = false;
+        if (id === "countdown"){
+          card.durationSec = card.durationSec || 300;
+          card.baseMs = card.durationSec * 1000;
+        } else {
+          card.baseMs = 0;
+        }
+        touch(); render();
+      };
+      modes.appendChild(b);
+    }
+    wrap.appendChild(modes);
+
+    const face = document.createElement("div");
+    face.className = "face";
+    face.dataset.role = "face";
+    const ms = timerDisplayMs(card);
+    face.textContent = formatMs(ms);
+    if (card.mode === "countdown" && ms > 0 && ms <= 10000) face.classList.add("warn");
+    wrap.appendChild(face);
+
+    if (card.mode === "countdown"){
+      const presets = document.createElement("div");
+      presets.className = "presets";
+      for (const sec of [60, 300, 600]){
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = sec < 60 ? `${sec}s` : `${sec / 60}m`;
+        b.onclick = e => {
+          e.stopPropagation();
+          freezeTimer(card);
+          card.durationSec = sec;
+          card.baseMs = sec * 1000;
+          card.fired = false;
+          touch(); render();
+        };
+        presets.appendChild(b);
+      }
+      wrap.appendChild(presets);
+    }
+
+    const ops = document.createElement("div");
+    ops.className = "ops-row";
+    const start = document.createElement("button");
+    start.type = "button";
+    start.className = "primary";
+    start.textContent = card.running ? "Pause" : "Start";
+    start.onclick = e => {
+      e.stopPropagation();
+      if (card.running){
+        freezeTimer(card);
+      } else {
+        if (card.mode === "countdown" && timerDisplayMs(card) <= 0){
+          card.baseMs = (card.durationSec || 300) * 1000;
+          card.fired = false;
+        }
+        card.running = true;
+        card.startedAt = Date.now();
+      }
+      touch(); render();
+    };
+    const reset = document.createElement("button");
+    reset.type = "button";
+    reset.textContent = "Reset";
+    reset.onclick = e => {
+      e.stopPropagation();
+      card.running = false;
+      card.startedAt = null;
+      card.fired = false;
+      card.baseMs = card.mode === "stopwatch" ? 0 : (card.durationSec || 300) * 1000;
+      touch(); render();
+    };
+    ops.append(start, reset);
+    wrap.appendChild(ops);
+
+    const hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent = card.mode === "countdown"
+      ? "Counts down · soft warn under 10s"
+      : "Counts up from zero";
+    wrap.appendChild(hint);
+    body.appendChild(wrap);
+  }
+
+  function tickTimers(){
+    const b = active();
+    if (!b) return;
+    let dirty = false;
+    for (const card of b.cards){
+      if (card.type !== "timer" || !card.running) continue;
+      const ms = timerDisplayMs(card);
+      const art = stage.querySelector(`.card[data-id="${CSS.escape(card.id)}"]`);
+      const face = art && art.querySelector("[data-role=face]");
+      if (face){
+        face.textContent = formatMs(ms);
+        face.classList.toggle("warn", card.mode === "countdown" && ms > 0 && ms <= 10000);
+      }
+      if (card.mode === "countdown" && ms <= 0){
+        freezeTimer(card);
+        card.baseMs = 0;
+        if (!card.fired){
+          card.fired = true;
+          toast(`${card.title || "Timer"} — time`);
+          dirty = true;
+        }
+      }
+    }
+    if (dirty){ touch(); render(); }
+  }
+
+  function fillChecklist(body, card){
+    if (!Array.isArray(card.items)) card.items = [];
+    const wrap = document.createElement("div");
+    wrap.className = "checklist";
+    const ul = document.createElement("ul");
+    card.items.forEach(item => {
+      const li = document.createElement("li");
+      if (item.done) li.classList.add("done");
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = !!item.done;
+      cb.setAttribute("aria-label", "Done");
+      cb.onchange = () => { item.done = cb.checked; touch(); render(); };
+      const tx = document.createElement("input");
+      tx.type = "text";
+      tx.value = item.text || "";
+      tx.placeholder = "Beat…";
+      tx.oninput = () => { item.text = tx.value; touch(); };
+      tx.onclick = e => e.stopPropagation();
+      const x = document.createElement("button");
+      x.type = "button"; x.className = "x"; x.title = "Remove"; x.textContent = "×";
+      x.onclick = e => {
+        e.stopPropagation();
+        card.items = card.items.filter(i => i.id !== item.id);
+        touch(); render();
+      };
+      li.append(cb, tx, x);
+      ul.appendChild(li);
+    });
+    wrap.appendChild(ul);
+
+    const add = document.createElement("div");
+    add.className = "add-row";
+    const inp = document.createElement("input");
+    inp.type = "text";
+    inp.placeholder = "Add item…";
+    inp.onclick = e => e.stopPropagation();
+    const btn = document.createElement("button");
+    btn.type = "button"; btn.textContent = "Add";
+    const commit = () => {
+      const t = inp.value.trim();
+      if (!t) return;
+      card.items.push({ id: uid(), text: t, done: false });
+      inp.value = "";
+      touch(); render();
+    };
+    btn.onclick = e => { e.stopPropagation(); commit(); };
+    inp.onkeydown = e => { if (e.key === "Enter"){ e.preventDefault(); commit(); } };
+    add.append(inp, btn);
+    wrap.appendChild(add);
+
+    const done = card.items.filter(i => i.done).length;
+    const meta = document.createElement("p");
+    meta.className = "meta";
+    meta.textContent = `${done} / ${card.items.length} done`;
+    wrap.appendChild(meta);
+    body.appendChild(wrap);
+  }
+
+  function fillRandom(body, card){
+    const wrap = document.createElement("div");
+    wrap.className = "rand";
+    const ta = document.createElement("textarea");
+    ta.value = card.lines || "";
+    ta.placeholder = "One entry per line…";
+    ta.oninput = () => { card.lines = ta.value; touch(); };
+    ta.onclick = e => e.stopPropagation();
+    wrap.appendChild(ta);
+
+    const row = document.createElement("div");
+    row.className = "row";
+    const roll = document.createElement("button");
+    roll.type = "button"; roll.className = "roll-btn"; roll.textContent = "Roll";
+    roll.onclick = e => {
+      e.stopPropagation();
+      const entries = String(card.lines || "").split(/\n/).map(s => s.trim()).filter(Boolean);
+      if (!entries.length){ toast("Add at least one line"); return; }
+      card.last = entries[Math.floor(Math.random() * entries.length)];
+      touch(); render();
+    };
+    const hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent = "Equal weight · blank lines ignored";
+    row.append(roll, hint);
+    wrap.appendChild(row);
+
+    const result = document.createElement("div");
+    result.className = "result" + (card.last ? "" : " empty");
+    result.textContent = card.last || "Roll to draw an entry";
+    wrap.appendChild(result);
+    body.appendChild(wrap);
+  }
+
+  function enableDrag(handle, el, card){
+    handle.addEventListener("pointerdown", e => {
+      if (e.button !== 0) return;
+      if (e.target.closest("input,button,textarea,label")) return;
+      e.preventDefault();
+      selectedId = card.id;
+      bumpZ(card);
+      el.classList.add("selected");
+      el.style.zIndex = String(card.z);
+      const startX = card.x, startY = card.y, px = e.clientX, py = e.clientY;
+      handle.setPointerCapture(e.pointerId);
+      const move = ev => {
+        card.x = snap(clamp(startX + (ev.clientX - px), 0, 2400 - card.w));
+        card.y = snap(clamp(startY + (ev.clientY - py), 0, 1600 - card.h));
+        el.style.left = card.x + "px";
+        el.style.top = card.y + "px";
+      };
+      const up = () => {
+        handle.releasePointerCapture(e.pointerId);
+        handle.removeEventListener("pointermove", move);
+        handle.removeEventListener("pointerup", up);
+        touch();
+      };
+      handle.addEventListener("pointermove", move);
+      handle.addEventListener("pointerup", up);
+    });
+  }
+
+  function enableResize(handle, el, card){
+    handle.addEventListener("pointerdown", e => {
+      if (e.button !== 0) return;
+      e.preventDefault(); e.stopPropagation();
+      selectedId = card.id;
+      bumpZ(card);
+      const sx = e.clientX, sy = e.clientY, sw = card.w, sh = card.h;
+      handle.setPointerCapture(e.pointerId);
+      const move = ev => {
+        card.w = snap(clamp(sw + (ev.clientX - sx), GRID * 8, 900));
+        card.h = snap(clamp(sh + (ev.clientY - sy), GRID * 6, 800));
+        el.style.width = card.w + "px";
+        el.style.height = card.h + "px";
+      };
+      const up = () => {
+        handle.releasePointerCapture(e.pointerId);
+        handle.removeEventListener("pointermove", move);
+        handle.removeEventListener("pointerup", up);
+        touch();
+      };
+      handle.addEventListener("pointermove", move);
+      handle.addEventListener("pointerup", up);
+    });
+  }
+
+  document.addEventListener("keydown", e => {
+    if (!activeMode) return;
+    if (e.key === "Escape"){
+      selectedId = null;
+      document.querySelectorAll(".board-card.selected").forEach(n => n.classList.remove("selected"));
+    }
+    const tag = (e.target && e.target.tagName) || "";
+    if ((e.key === "Delete" || e.key === "Backspace") && selectedId && !/INPUT|TEXTAREA|SELECT/.test(tag)){
+      active().cards = active().cards.filter(c => c.id !== selectedId);
+      selectedId = null; touch(); render();
+    }
+  });
+
+
+
+
+  function stopAllAudio(){
+    document.querySelectorAll("#boardStage audio").forEach(a => {
+      try { a.pause(); a.currentTime = 0; } catch(_){}
+    });
+  }
+
+  function freezeRunningTimers(){
+    const b = active();
+    if (!b) return;
+    for (const card of b.cards){
+      if (card.type === "timer" && card.running && typeof freezeTimer === "function"){
+        freezeTimer(card);
+      }
+    }
+    save();
+  }
+
+  function setActive(on){
+    activeMode = !!on;
+    if (timerIv){ clearInterval(timerIv); timerIv = null; }
+    if (!activeMode){
+      stopAllAudio();
+      freezeRunningTimers();
+      if (typeof closeMdExpand === "function") closeMdExpand(false);
+      return;
+    }
+    refreshPicker();
+    render();
+    timerIv = setInterval(tickTimers, 250);
+  }
+
+  function getExport(){
+    return { activeBoardId: state.activeBoardId, boards: state.boards };
+  }
+
+  function applyUserSave(parts){
+    if (!parts || !Array.isArray(parts.boards)) return { boardUpserts: 0 };
+    const map = new Map(state.boards.map(b => [b.id, b]));
+    let upserts = 0;
+    for (const raw of parts.boards){
+      if (!raw || typeof raw !== "object" || typeof raw.id !== "string") continue;
+      const cards = Array.isArray(raw.cards) ? raw.cards : [];
+      for (const c of cards){ if (c && c.type === "clock") c.type = "counter"; }
+      const board = {
+        id: raw.id,
+        title: typeof raw.title === "string" && raw.title.trim() ? raw.title.trim().slice(0, 80) : "Session",
+        updatedAt: typeof raw.updatedAt === "number" ? raw.updatedAt : Date.now(),
+        cards
+      };
+      if (!map.has(board.id)) upserts++;
+      map.set(board.id, board);
+    }
+    state.boards = [...map.values()];
+    if (!state.boards.length) state = seedBoards();
+    if (typeof parts.activeBoardId === "string" && map.has(parts.activeBoardId))
+      state.activeBoardId = parts.activeBoardId;
+    else if (!map.has(state.activeBoardId))
+      state.activeBoardId = state.boards[0].id;
+    save();
+    if (activeMode){ refreshPicker(); render(); }
+    return { boardUpserts: upserts };
+  }
+
+  return { setActive, getExport, applyUserSave };
+})();
+window.BOARD = BOARD;
 </script>
 </body>
 </html>
