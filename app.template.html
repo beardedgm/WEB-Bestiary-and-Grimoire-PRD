@@ -56,7 +56,9 @@ header h1{
   font:600 18px/1 var(--serif); font-variant:small-caps; letter-spacing:.07em;
 }
 header h1 .amp{color:var(--brick); font-variant:normal; font-style:italic; padding:0 1px}
-#mode{display:flex; flex-wrap:wrap; gap:5px; justify-content:flex-end}
+#header-actions{display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:flex-end}
+#mode{display:flex; flex-wrap:wrap; gap:5px}
+#user-save{flex:none}
 main{flex:1; display:flex; min-height:0}
 
 /* ---- resizable column gutters ---- */
@@ -821,9 +823,14 @@ body.board main{display:flex}
   background-position:-1px -1px, -1px -1px, 0 0}
 #board .board-stage{position:relative; width:2400px; height:1600px; min-height:100%}
 #board .board-empty{
-  position:absolute; left:18%; right:18%; top:22%; padding:36px 28px;
-  text-align:center; color:var(--dim); font:italic 22px/1.4 var(--serif);
-  border:1px dashed var(--hair); background:color-mix(in srgb, var(--stone-3) 75%, transparent);
+  position:absolute; z-index:2;
+  left:max(20px, env(safe-area-inset-left, 0px));
+  top:max(20px, env(safe-area-inset-top, 0px));
+  width:min(420px, calc(100% - 40px)); max-width:100%; box-sizing:border-box;
+  padding:22px 20px; text-align:left;
+  color:var(--dim); font:italic 17px/1.45 var(--serif);
+  border:1px dashed var(--hair); border-radius:2px;
+  background:color-mix(in srgb, var(--stone-3) 88%, transparent);
   pointer-events:none}
 
 #board .board-card{
@@ -1055,7 +1062,7 @@ body.board main{display:flex}
   body.board.board-rail-open .board-rail-scrim{display:block}
   body.board.board-rail-open .board-rail-toggle{display:none}
   #board .board-card .ops button{width:44px; height:44px; font-size:16px}
-  #board .board-empty{left:8%; right:8%; top:16%; font-size:18px; padding:24px 18px}
+  #board .board-empty{padding:18px 16px; font-size:16px; width:min(360px, calc(100% - 32px))}
   #boardExpand .panel-body{grid-template-columns:1fr}
   #boardExpand textarea{border-right:0; border-bottom:1px solid var(--vellum-edge); max-height:45%}
 }
@@ -1078,11 +1085,16 @@ body.board main{display:flex}
 
 <header inert>
   <h1>Bestiary <span class="amp">&amp;</span> Grimoire</h1>
-  <span id="mode" role="group" aria-label="App mode">
-    <button type="button" id="m-browse" class="chip on" aria-pressed="true">Library</button>
-    <button type="button" id="m-track" class="chip" aria-pressed="false">Tracker</button>
-    <button type="button" id="m-board" class="chip" aria-pressed="false">Board</button>
-  </span>
+  <div id="header-actions">
+    <span id="mode" role="group" aria-label="App mode">
+      <button type="button" id="m-browse" class="chip on" aria-pressed="true">Library</button>
+      <button type="button" id="m-track" class="chip" aria-pressed="false">Tracker</button>
+      <button type="button" id="m-board" class="chip" aria-pressed="false">Board</button>
+    </span>
+    <button type="button" class="chip" id="user-save"
+            title="Export or import portable save"
+            aria-label="Export or import save file">Export</button>
+  </div>
 </header>
 
 <main inert>
@@ -1129,9 +1141,6 @@ body.board main{display:flex}
         <button type="button" class="chip" id="custom-add"
                 title="Add a custom creature or spell"
                 aria-label="Add custom creature or spell">+</button>
-        <button type="button" class="chip" id="user-save"
-                title="Export or import portable save"
-                aria-label="Export or import save file">Save</button>
       </div>
     </div>
   </div>
@@ -1228,6 +1237,7 @@ body.board main{display:flex}
     <div class="board-foot">Local boards · <code>bg.board.v1</code></div>
   </aside>
   <div class="board-stage-wrap" id="boardStageWrap">
+    <div id="boardEmpty" class="board-empty" role="status" hidden></div>
     <div class="board-stage" id="boardStage"></div>
   </div>
   <button type="button" class="board-rail-toggle" id="boardRailToggle" aria-expanded="false" aria-controls="boardRail">Cards &amp; sessions</button>
@@ -2174,8 +2184,6 @@ function applySideChrome(){
   if (extra) extra.hidden = side !== "spell";
   const libBtn = $("#custom-add");
   if (libBtn) libBtn.hidden = isTableSide(side);
-  const saveBtn = $("#user-save");
-  if (saveBtn) saveBtn.hidden = isTableSide(side);
 }
 function setSide(side){
   if (window.TRK) TRK.setSide(side);
@@ -4726,6 +4734,7 @@ const BOARD = (() => {
   const STORE = "bg.board.v1";
   const stage = document.getElementById("boardStage");
   const stageWrap = document.getElementById("boardStageWrap");
+  const boardEmpty = document.getElementById("boardEmpty");
   const boardPick = document.getElementById("boardPick");
   const toastEl = document.getElementById("boardToast");
   let activeMode = false;
@@ -5134,8 +5143,7 @@ const BOARD = (() => {
     b.cards.push(base);
     selectedId = base.id;
     touch();
-    const empty = stage.querySelector(".board-empty");
-    if (empty) empty.remove();
+    setBoardEmpty(false);
     stage.appendChild(renderCard(base));
     refreshPicker();
   }
@@ -5144,18 +5152,26 @@ const BOARD = (() => {
     return "Empty board — add cards from the rail (or Cards & sessions on a phone).";
   }
 
+  function setBoardEmpty(on){
+    if (!boardEmpty) return;
+    if (on){
+      boardEmpty.textContent = emptyBoardCopy();
+      boardEmpty.hidden = false;
+    } else {
+      boardEmpty.hidden = true;
+    }
+  }
+
   function render(){
     refreshPicker();
     const b = active();
     zTop = Math.max(10, ...b.cards.map(c => c.z || 1), 10);
     stage.innerHTML = "";
     if (!b.cards.length){
-      const empty = document.createElement("div");
-      empty.className = "board-empty";
-      empty.textContent = emptyBoardCopy();
-      stage.appendChild(empty);
+      setBoardEmpty(true);
       return;
     }
+    setBoardEmpty(false);
     b.cards.slice().sort((a,c) => (a.z||0) - (c.z||0)).forEach(card => {
       stage.appendChild(renderCard(card));
     });
@@ -5165,8 +5181,7 @@ const BOARD = (() => {
     if (!card){ render(); return; }
     const old = stage.querySelector(`.board-card[data-id="${CSS.escape(card.id)}"]`);
     if (!old){ render(); return; }
-    const empty = stage.querySelector(".board-empty");
-    if (empty) empty.remove();
+    setBoardEmpty(false);
     old.replaceWith(renderCard(card));
   }
 
@@ -5197,12 +5212,7 @@ const BOARD = (() => {
       if (selectedId === id) selectedId = null;
       const el = stage.querySelector(`.board-card[data-id="${CSS.escape(id)}"]`);
       if (el) el.remove();
-      if (!active().cards.length){
-        const empty = document.createElement("div");
-        empty.className = "board-empty";
-        empty.textContent = emptyBoardCopy();
-        stage.appendChild(empty);
-      }
+      setBoardEmpty(!active().cards.length);
       touch();
     };
     if (card && cardHasSubstance(card) && triggerBtn && window.TRK && TRK.confirmSwap){

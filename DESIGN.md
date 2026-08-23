@@ -230,7 +230,7 @@ Three exclusive app modes via header chips: **Library** (`browse`), **Tracker** 
 
 - **Library / Tracker:** Three-column flex shell on desktop: library (`#side`, resizable), optional tracker (`#trk`, resizable), reading pane (`#pane`).
 - **Board:** Full-height `#board` shell replaces the three columns (rail + snap-grid stage). Leaving Board stops audio and freezes running timers. Library search is unavailable with `#side` (by design).
-- Header: brand + mode chips only; library-list search (`#q` + `#count` in `#sidesearch`) sits under Catalog/Table nav, above Filters / Table bar — not inside Filters
+- Header: brand + mode chips + **Export** (`#user-save`, far right) for portable save export/import; library-list search (`#q` + `#count` in `#sidesearch`) sits under Catalog/Table nav, above Filters / Table bar — not inside Filters
 - Column defaults: side 340px, tracker 380px; drag gutters 6px
 - Mobile breakpoint **760px**: stack Library/Tracker columns, hide resize handles; Board collapses the add rail into a **Cards & sessions** bottom sheet (scrim + sheet) so add/session actions stay reachable
 - Touch/coarse pointer: 44px minimum on tracker damage/heal/remove, catalog add, and Board card ops / primary card controls
@@ -301,7 +301,7 @@ Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes
 - Segmented control (`Catalog | Table`) in stone-2 tray; inner chips for Monsters/Spells/Party/Encounters
 - Native `<details>` for Filters and Dice — keyboard and disclosure behavior come free
 - **Custom** filter chip beside system chips; custom list rows use a dashed gilt spine (`.item.custom`)
-- List footer (`#listfoot`): overflow hint; `+` (`#custom-add`) for adding one custom creature/spell; `Save` (`#user-save`) for portable export/import
+- List footer (`#listfoot`): overflow hint; `+` (`#custom-add`) for adding one custom creature/spell
 
 ### Custom library dialog
 
@@ -314,7 +314,7 @@ Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes
 
 ### Portable save dialog
 
-- Normal-width overlay from footer **Save**: Export, Download backup first, Import (`bg-user-save/1`)
+- Normal-width overlay from header **Export**: Export, Download backup first, Import (`bg-user-save/1`)
 - Import confirms encounter replace + same-id overwrites; merge-keep-local for other ids; invalid customs skipped with a count
 - Customs store writes are atomic (failed write leaves previous data); invalid rows dropped on load with a live announcement
 

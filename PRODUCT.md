@@ -45,7 +45,7 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 - Ad-hoc colored markers on combatants (five colors, solid/outline) mirrored on the player display — table-ring shorthand, no condition legend
 - Catalog vs Table navigation in the left column (monsters/spells vs party/encounters)
 - Custom library: content-only authoring JSON in `+` (5e/PF2e Fireball and Lich stubs; plumbing omitted); Import stamps id/schema/source from the chosen system and deep-validates; Custom filter; remove from library
-- Portable save: list-footer **Save** exports/imports merge-safe `bg-user-save/1` (backup download + confirm before import)
+- Portable save: header **Export** exports/imports merge-safe `bg-user-save/1` (backup download + confirm before import)
 - Resizable library and tracker columns
 - D&D 5e and PF2e visual differentiation (vellum vs paper, brick vs olive system ink)
 
