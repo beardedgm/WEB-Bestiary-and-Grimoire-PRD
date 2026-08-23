@@ -229,10 +229,11 @@ Documented size steps (use these literals in CSS; do not invent ad-hoc values):
 Three exclusive app modes via header chips: **Library** (`browse`), **Tracker** (`track` → `body.trk`), **Board** (`board` → `body.board`).
 
 - **Library / Tracker:** Three-column flex shell on desktop: library (`#side`, resizable), optional tracker (`#trk`, resizable), reading pane (`#pane`).
-- **Board:** Full-height `#board` shell replaces the three columns (rail + snap-grid stage). Leaving Board stops audio and freezes running timers.
+- **Board:** Full-height `#board` shell replaces the three columns (rail + snap-grid stage). Leaving Board stops audio and freezes running timers. Library search is unavailable with `#side` (by design).
+- Header: brand + mode chips only; library-list search (`#q` + `#count` in `#sidesearch`) sits under Catalog/Table nav, above Filters / Table bar — not inside Filters
 - Column defaults: side 340px, tracker 380px; drag gutters 6px
-- Mobile breakpoint **760px**: stack Library/Tracker columns, hide resize handles; Board hides the add rail (stage full width)
-- Touch/coarse pointer: 44px minimum on tracker damage/heal/remove and catalog add buttons
+- Mobile breakpoint **760px**: stack Library/Tracker columns, hide resize handles; Board collapses the add rail into a **Cards & sessions** bottom sheet (scrim + sheet) so add/session actions stay reachable
+- Touch/coarse pointer: 44px minimum on tracker damage/heal/remove, catalog add, and Board card ops / primary card controls
 - Body scrolls when zoom or content exceeds viewport (`overflow: auto`)
 
 ## Elevation & Depth
@@ -257,6 +258,10 @@ Flat-by-default stone surfaces. Depth is tonal layering (`stone` → `stone-3` t
 ### Board cards
 
 Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes render in olive as **read-aloud** cues. Card chrome may use the sheet shadow (interaction surfaces).
+
+- Session delete and non-empty card remove use Tracker `confirmSwap` (no `window.confirm` / `prompt`)
+- Markdown Expand (`#boardExpand`, outside `<main>`): Tab focus trap, `setAppInert`, Escape/Done commit; counter wedges use `--brick` / `--stone-3` / `--hair` (Fill ± for keyboard)
+- Mobile: **Cards & sessions** toggle opens the rail as a bottom sheet over a scrim
 
 ### Chips
 
@@ -288,7 +293,8 @@ Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes
 ### Inputs
 
 - Paper or stone fill, hair border, gilt focus ring
-- Search field is primary chrome input; filter range selects use compact mono styling
+- Search field (`#q`) is the primary **library-column** input (Catalog monsters/spells and Table party/encounters); `/` focuses it; filter range selects use compact mono styling
+- Result count (`#count`) sits under the search field in `#sidesearch`
 
 ### Navigation
 
@@ -324,7 +330,7 @@ Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes
 - Sticky toolbar: Close, Back to {monster}, optional “Listed under …”, Open in catalog
 - Body reuses `spellHTML()` (full block, including clickable dice)
 - Escape closes after dice pop / tracker dialog; does not change URL hash or catalog selection
-- Do **not** set `inert` on header/main — tracker and search must stay usable
+- Do **not** set `inert` on header/main for spell peek — library search and tracker must stay usable
 
 ## Do's and Don'ts
 
