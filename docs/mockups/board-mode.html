@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Board mode sample — Bestiary &amp; Grimoire</title>
+<style>
+:root{
+  --stone:#E7E5E0; --stone-2:#DCD9D2; --stone-3:#F2F1ED;
+  --hair:#C5C2B8; --ink:#24211C; --dim:#5F594F; --faint:#645D51;
+  --vellum:#FBF6EA; --vellum-edge:#E7DBBE; --paper:#FFFFFF;
+  --brick:#7B2418; --olive:#54632A; --gilt:#9C7C1C;
+  --grid:24px;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --shadow:0 1px 2px rgba(36,33,28,.07), 0 10px 26px -14px rgba(36,33,28,.24);
+}
+*{box-sizing:border-box}
+html,body{height:100%; margin:0; background:var(--stone); color:var(--ink);
+  font:15px/1.5 var(--sans); -webkit-font-smoothing:antialiased}
+:focus-visible{outline:2px solid var(--gilt); outline-offset:2px}
+::selection{background:var(--vellum-edge); color:var(--ink)}
+code{font-family:var(--mono); font-size:.92em}
+
+.app{display:flex; flex-direction:column; height:100%; min-height:0}
+
+.banner{
+  flex:none; display:flex; flex-wrap:wrap; gap:10px 16px; align-items:baseline;
+  padding:10px 16px; border-bottom:1px solid var(--hair); background:var(--stone-3);
+}
+.banner h1{
+  margin:0; font:600 26px/1.1 var(--serif); font-variant:small-caps; letter-spacing:.06em}
+.banner h1 .amp{color:var(--gilt); font-style:italic; font-variant:normal}
+.banner p{margin:0; color:var(--dim); font:italic 16px/1.35 var(--serif); max-width:52em}
+.banner .tag{
+  margin-left:auto; font:600 10px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase;
+  color:var(--faint); border:1px dashed var(--hair); padding:5px 8px; border-radius:2px}
+
+.top{
+  flex:none; display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+  padding:9px 12px; border-bottom:1px solid var(--hair); background:var(--stone);
+}
+.lbl{font:600 10px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--faint)}
+.seg{display:flex; gap:4px; padding:3px; background:var(--stone-2); border-radius:2px}
+.chip{
+  font:600 10px/1 var(--mono); text-transform:uppercase; letter-spacing:.08em;
+  padding:7px 10px; border:1px solid var(--hair); border-radius:2px;
+  background:var(--stone); color:var(--dim); cursor:pointer; user-select:none;
+}
+.chip:hover{border-color:var(--gilt); color:var(--ink)}
+.chip.on{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
+.chip.ghost{background:transparent; opacity:.55; cursor:default}
+.chip.ghost:hover{border-color:var(--hair); color:var(--dim)}
+.grow{flex:1; min-width:8px}
+
+.shell{display:flex; flex:1; min-height:0}
+.rail{
+  flex:none; width:248px; border-right:1px solid var(--hair); background:var(--stone-3);
+  display:flex; flex-direction:column; min-height:0; overflow:auto}
+.rail h2{
+  margin:0; padding:14px 12px 6px; font:600 11px/1 var(--mono);
+  letter-spacing:.12em; text-transform:uppercase; color:var(--faint)}
+.rail .hint{padding:0 12px 12px; color:var(--dim); font-size:12.5px; line-height:1.45}
+.rail .session{
+  padding:0 10px 12px; border-bottom:1px solid var(--hair); margin-bottom:4px}
+.rail .session select.board-pick{
+  width:100%; margin-bottom:8px; padding:8px 10px; border:1px solid var(--hair); border-radius:3px;
+  background:var(--paper); color:var(--ink); font:13px/1.2 var(--sans)}
+.rail .session-actions{display:grid; grid-template-columns:1fr 1fr; gap:5px}
+.rail .session-actions .chip{width:100%; text-align:center; padding:8px 6px}
+.add-list{display:flex; flex-direction:column; gap:6px; padding:0 10px 12px}
+.add-list button{
+  text-align:left; padding:10px 11px; border:1px solid var(--hair); border-radius:2px;
+  background:var(--paper); color:var(--ink); font:13px/1.25 var(--sans); cursor:pointer}
+.add-list button:hover{border-color:var(--gilt); background:var(--vellum)}
+.add-list button b{display:block; font:600 13px/1.2 var(--sans)}
+.add-list button span{display:block; margin-top:4px; color:var(--dim); font-size:11.5px; line-height:1.35}
+.rail .foot{
+  margin-top:auto; padding:12px; border-top:1px solid var(--hair);
+  color:var(--faint); font:11px/1.45 var(--mono)}
+
+.stage-wrap{
+  flex:1; min-width:0; min-height:0; position:relative; overflow:auto;
+  background:
+    linear-gradient(var(--hair) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hair) 1px, transparent 1px),
+    var(--stone);
+  background-size:var(--grid) var(--grid), var(--grid) var(--grid), auto;
+  background-position:-1px -1px, -1px -1px, 0 0;
+}
+.stage{position:relative; width:2400px; height:1600px; min-height:100%}
+.empty-stage{
+  position:absolute; left:18%; right:18%; top:22%; padding:36px 28px;
+  text-align:center; color:var(--dim); font:italic 22px/1.4 var(--serif);
+  border:1px dashed var(--hair); background:color-mix(in srgb, var(--stone-3) 75%, transparent);
+  pointer-events:none}
+
+.card{
+  position:absolute; display:flex; flex-direction:column;
+  min-width:calc(var(--grid) * 8); min-height:calc(var(--grid) * 6);
+  background:var(--paper); border:1px solid var(--hair); border-radius:2px;
+  box-shadow:var(--shadow); overflow:hidden; touch-action:none}
+.card.vellum{background:var(--vellum); border-color:var(--vellum-edge)}
+.card.selected{border-color:var(--gilt); box-shadow:var(--shadow), 0 0 0 1px var(--gilt)}
+.card.collapsed{min-height:0; height:auto !important}
+.card.collapsed .hd{border-bottom:0}
+.card.collapsed .body,
+.card.collapsed .resize{display:none}
+.card .hd{
+  flex:none; display:flex; align-items:center; gap:6px; padding:6px 8px;
+  background:var(--stone-3); border-bottom:1px solid var(--hair); cursor:grab}
+.card.selected .hd{background:color-mix(in srgb, var(--gilt) 16%, var(--stone-3))}
+.card .hd:active{cursor:grabbing}
+.card .kind{
+  font:600 9.5px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--faint)}
+.card .title{
+  flex:1; min-width:0; border:0; background:transparent; color:var(--ink);
+  font:600 14px/1.2 var(--serif); padding:2px 4px}
+.card .title:focus{outline:1px solid var(--gilt); background:var(--paper)}
+.card .ops{display:flex; gap:3px}
+.card .ops button{
+  width:26px; height:26px; border:1px solid transparent; border-radius:2px;
+  background:transparent; color:var(--dim); cursor:pointer; font:13px/1 var(--sans)}
+.card .ops button:hover{border-color:var(--hair); background:var(--paper); color:var(--ink)}
+.card .ops button[aria-expanded="false"]{color:var(--ink)}
+.card .body{flex:1; min-height:0; overflow:auto; padding:10px 12px}
+.card .resize{
+  position:absolute; right:0; bottom:0; width:14px; height:14px; cursor:nwse-resize;
+  background:linear-gradient(135deg, transparent 50%, var(--hair) 50%)}
+
+.md-view{font:15px/1.55 var(--serif); color:var(--ink)}
+.md-view h1,.md-view h2,.md-view h3{font-family:var(--serif); margin:.15em 0 .4em; line-height:1.2}
+.md-view h1{font-size:1.4em}.md-view h2{font-size:1.2em}.md-view h3{font-size:1.08em}
+.md-view p{margin:0 0 .7em}
+.md-view ul,.md-view ol{margin:0 0 .7em; padding-left:1.2em}
+.md-view code{font:12px/1.4 var(--mono); background:var(--stone-2); padding:1px 4px; border-radius:2px}
+.md-view pre{font:12px/1.45 var(--mono); background:var(--stone-2); padding:8px; overflow:auto; border-radius:2px}
+.md-view blockquote{
+  margin:0 0 .7em; padding:8px 10px 8px 12px;
+  border-left:3px solid var(--olive);
+  background:color-mix(in srgb, var(--olive) 10%, var(--vellum));
+  color:var(--olive);
+  font:italic 15px/1.5 var(--serif);
+}
+.md-edit{
+  width:100%; height:100%; min-height:120px; border:0; resize:none; padding:0;
+  background:transparent; color:var(--ink); font:13px/1.5 var(--mono)}
+
+.img-body{padding:0 !important; display:flex; align-items:center; justify-content:center; background:var(--stone-2)}
+.img-body img{max-width:100%; max-height:100%; object-fit:contain; display:block}
+.img-empty{padding:18px; text-align:center; color:var(--dim); font-size:13px}
+.img-empty label{
+  display:inline-block; margin-top:10px; padding:8px 11px; border:1px solid var(--hair);
+  border-radius:2px; background:var(--paper); cursor:pointer; font:600 10px/1 var(--mono);
+  letter-spacing:.08em; text-transform:uppercase}
+.img-empty input{display:none}
+
+.counter{display:flex; flex-direction:column; align-items:center; gap:10px; height:100%; justify-content:center}
+.counter svg{width:min(100%, 140px); height:auto}
+.counter .seg-label{font:600 12px/1 var(--mono); letter-spacing:.06em; color:var(--dim)}
+.counter .counter-ops{display:flex; gap:6px}
+.counter .counter-ops button{
+  padding:6px 9px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
+.counter .counter-ops button:hover{border-color:var(--gilt); color:var(--ink)}
+
+.dice{display:flex; flex-direction:column; gap:8px; height:100%}
+.dice .row{display:flex; gap:6px; flex-wrap:wrap}
+.dice input[type=text]{
+  flex:1; min-width:100px; padding:7px 9px; border:1px solid var(--hair); border-radius:3px;
+  background:var(--paper); font:13px/1.2 var(--mono)}
+.dice .presets button{
+  padding:6px 8px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 11px/1 var(--mono); cursor:pointer; color:var(--dim)}
+.dice .presets button:hover{border-color:var(--gilt); color:var(--ink)}
+.dice .roll-btn{
+  padding:8px 12px; border:1px solid var(--brick); border-radius:2px; background:var(--brick);
+  color:#FBF6EA; font:600 11px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; cursor:pointer}
+.dice .result{
+  margin-top:auto; padding:10px; background:var(--stone-3); border:1px solid var(--hair); border-radius:2px}
+.dice .result .total{font:700 28px/1 var(--mono); font-variant-numeric:tabular-nums}
+.dice .result .detail{margin-top:4px; color:var(--dim); font:12px/1.35 var(--mono)}
+.dice .hist{margin:0; padding:0; list-style:none; max-height:72px; overflow:auto}
+.dice .hist li{font:11px/1.4 var(--mono); color:var(--faint); padding:2px 0; border-bottom:1px solid var(--hair)}
+
+.clip{display:flex; flex-direction:column; gap:10px; height:100%}
+.clip .file-row{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+.clip .file-name{flex:1; min-width:0; color:var(--dim); font:12px/1.3 var(--mono);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.clip .file-row label,
+.clip .file-row button.demo{
+  padding:7px 10px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
+.clip .file-row label:hover,
+.clip .file-row button.demo:hover{border-color:var(--gilt); color:var(--ink)}
+.clip .file-row input{display:none}
+.clip audio{width:100%; height:32px}
+.clip .transport{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+.clip .transport button{
+  padding:7px 10px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
+.clip .transport button:hover{border-color:var(--gilt); color:var(--ink)}
+.clip .transport button.primary{
+  background:var(--brick); border-color:var(--brick); color:#FBF6EA}
+.clip .transport button.on{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
+.clip .vol{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
+.clip .vol .lbl{margin-right:2px}
+.clip .vol button{
+  padding:6px 8px; border:1px solid var(--hair); border-radius:2px; background:var(--paper);
+  font:600 10px/1 var(--mono); cursor:pointer; color:var(--dim)}
+.clip .vol button.on{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
+.clip .hint{margin:0; color:var(--faint); font:11px/1.4 var(--sans)}
+
+.timer{display:flex; flex-direction:column; gap:10px; height:100%; align-items:center; justify-content:center}
+.timer .face{
+  font:700 40px/1 var(--mono); font-variant-numeric:tabular-nums; letter-spacing:.02em;
+  color:var(--ink)}
+.timer .face.warn{color:var(--brick)}
+.timer .modes,.timer .presets,.timer .ops-row{display:flex; flex-wrap:wrap; gap:6px; justify-content:center}
+.timer .modes button,.timer .presets button,.timer .ops-row button{
+  padding:7px 10px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
+.timer .modes button:hover,.timer .presets button:hover,.timer .ops-row button:hover{border-color:var(--gilt); color:var(--ink)}
+.timer .modes button.on,.timer .ops-row button.primary{
+  background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
+.timer .ops-row button.primary{background:var(--brick); border-color:var(--brick); color:#FBF6EA}
+.timer .hint{margin:0; color:var(--faint); font:11px/1.35 var(--sans); text-align:center}
+
+.checklist{display:flex; flex-direction:column; gap:8px; height:100%}
+.checklist ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px; flex:1; min-height:0; overflow:auto}
+.checklist li{display:flex; align-items:flex-start; gap:8px}
+.checklist li input[type=checkbox]{margin-top:3px; flex:none; accent-color:var(--olive)}
+.checklist li input[type=text]{
+  flex:1; min-width:0; border:0; border-bottom:1px solid transparent; background:transparent;
+  font:14px/1.35 var(--serif); color:var(--ink); padding:2px 0}
+.checklist li input[type=text]:focus{outline:none; border-bottom-color:var(--gilt)}
+.checklist li.done input[type=text]{color:var(--faint); text-decoration:line-through}
+.checklist li .x{
+  flex:none; width:22px; height:22px; border:0; background:transparent; color:var(--faint);
+  cursor:pointer; font:14px/1 var(--sans)}
+.checklist li .x:hover{color:var(--brick)}
+.checklist .add-row{display:flex; gap:6px}
+.checklist .add-row input{
+  flex:1; min-width:0; padding:7px 9px; border:1px solid var(--hair); border-radius:3px;
+  background:var(--paper); font:13px/1.2 var(--sans)}
+.checklist .add-row button{
+  padding:7px 10px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
+.checklist .add-row button:hover{border-color:var(--gilt); color:var(--ink)}
+.checklist .meta{margin:0; color:var(--faint); font:11px/1.3 var(--mono)}
+
+.rand{display:flex; flex-direction:column; gap:8px; height:100%}
+.rand textarea{
+  flex:1; min-height:72px; width:100%; border:1px solid var(--hair); border-radius:3px; resize:none;
+  padding:8px; background:var(--paper); color:var(--ink); font:12.5px/1.45 var(--mono)}
+.rand .row{display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+.rand .roll-btn{
+  padding:8px 12px; border:1px solid var(--brick); border-radius:2px; background:var(--brick);
+  color:#FBF6EA; font:600 11px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; cursor:pointer}
+.rand .hint{margin:0; color:var(--faint); font:11px/1.35 var(--sans)}
+.rand .result{
+  padding:10px; background:var(--vellum); border:1px solid var(--vellum-edge); border-radius:2px;
+  font:italic 16px/1.4 var(--serif); color:var(--ink); min-height:3.2em}
+.rand .result.empty{color:var(--faint); font-style:italic}
+
+.toast{
+  position:fixed; bottom:16px; left:50%; transform:translateX(-50%);
+  padding:8px 14px; background:var(--ink); color:var(--stone-3); border-radius:2px;
+  font:12px/1.3 var(--sans); opacity:0; pointer-events:none; transition:opacity .2s; z-index:50}
+.toast.show{opacity:1}
+
+@media (max-width:760px){
+  .rail{display:none}
+  .banner p{display:none}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="banner">
+    <h1>Bestiary <span class="amp">&amp;</span> Grimoire — Board sample</h1>
+    <p>Standalone prototype. Snap-grid cards, multiple session boards, local only. Not wired into the main app.</p>
+    <span class="tag">Mockup</span>
+  </div>
+
+  <div class="top">
+    <div class="grow"></div>
+    <span class="lbl">Mode (preview)</span>
+    <div class="seg" role="group" aria-label="App mode preview">
+      <button type="button" class="chip ghost" disabled>Library</button>
+      <button type="button" class="chip ghost" disabled>Tracker</button>
+      <button type="button" class="chip on" aria-pressed="true">Board</button>
+    </div>
+  </div>
+
+  <div class="shell">
+    <aside class="rail">
+      <h2>Session</h2>
+      <div class="session">
+        <select class="board-pick" id="boardPick" aria-label="Active session board"></select>
+        <div class="session-actions">
+          <button type="button" class="chip" id="btnNew">New</button>
+          <button type="button" class="chip" id="btnDup">Duplicate</button>
+          <button type="button" class="chip" id="btnRen">Rename</button>
+          <button type="button" class="chip" id="btnDel">Delete</button>
+        </div>
+      </div>
+      <h2>Add to board</h2>
+      <p class="hint">Cards snap to a 24px grid. Drag the header to move; corner to resize.</p>
+      <div class="add-list">
+        <button type="button" data-add="markdown"><b>Markdown note</b><span>Session notes, NPC briefs — edit ↔ preview</span></button>
+        <button type="button" data-add="image"><b>Image</b><span>Map, handout, portrait from a local file</span></button>
+        <button type="button" data-add="audio"><b>Audio clip</b><span>Short narration / stinger — loop, volume, fade</span></button>
+        <button type="button" data-add="counter"><b>Counter</b><span>Progress segments you click to fill</span></button>
+        <button type="button" data-add="dice"><b>Dice</b><span>Ad-hoc rolls without leaving the board</span></button>
+        <button type="button" data-add="timer"><b>Timer</b><span>Countdown or stopwatch — one card, both modes</span></button>
+        <button type="button" data-add="checklist"><b>Checklist</b><span>Agenda beats, loot to hand out</span></button>
+        <button type="button" data-add="random"><b>Random table</b><span>One entry per line — roll for content</span></button>
+      </div>
+      <div class="foot">Persists in this browser under<br><code>bg.board.sample.v5</code></div>
+    </aside>
+    <div class="stage-wrap" id="stageWrap">
+      <div class="stage" id="stage"></div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+  const GRID = 24;
+  const STORE = "bg.board.sample.v5";
+  const stage = document.getElementById("stage");
+  const stageWrap = document.getElementById("stageWrap");
+  const boardPick = document.getElementById("boardPick");
+  const toastEl = document.getElementById("toast");
+
+  const uid = () => "c" + Math.random().toString(36).slice(2, 10);
+  const snap = n => Math.round(n / GRID) * GRID;
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+  const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => toastEl.classList.remove("show"), 1800);
+  }
+
+  function md(src){
+    const lines = String(src || "").replace(/\r\n/g,"\n").split("\n");
+    let html = "", inUl = false, inOl = false, inPre = false, pre = [];
+    const closeLists = () => {
+      if (inUl){ html += "</ul>"; inUl = false; }
+      if (inOl){ html += "</ol>"; inOl = false; }
+    };
+    const inline = t => esc(t)
+      .replace(/`([^`]+)`/g, "<code>$1</code>")
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+    for (const raw of lines){
+      if (raw.startsWith("```")){
+        if (inPre){ html += "<pre><code>" + esc(pre.join("\n")) + "</code></pre>"; pre = []; inPre = false; }
+        else { closeLists(); inPre = true; }
+        continue;
+      }
+      if (inPre){ pre.push(raw); continue; }
+      if (/^\s*$/.test(raw)){ closeLists(); continue; }
+      const h = raw.match(/^(#{1,3})\s+(.*)$/);
+      if (h){ closeLists(); html += `<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`; continue; }
+      if (/^>\s?/.test(raw)){ closeLists(); html += `<blockquote>${inline(raw.replace(/^>\s?/,""))}</blockquote>`; continue; }
+      if (/^[-*]\s+/.test(raw)){
+        if (!inUl){ closeLists(); html += "<ul>"; inUl = true; }
+        html += `<li>${inline(raw.replace(/^[-*]\s+/,""))}</li>`; continue;
+      }
+      if (/^\d+\.\s+/.test(raw)){
+        if (!inOl){ closeLists(); html += "<ol>"; inOl = true; }
+        html += `<li>${inline(raw.replace(/^\d+\.\s+/,""))}</li>`; continue;
+      }
+      closeLists();
+      html += `<p>${inline(raw)}</p>`;
+    }
+    closeLists();
+    if (inPre) html += "<pre><code>" + esc(pre.join("\n")) + "</code></pre>";
+    return html || "<p></p>";
+  }
+
+  function rollExpr(expr){
+    const clean = String(expr || "").trim().toLowerCase().replace(/\s+/g,"");
+    if (!/^[\dd+\-]+$/.test(clean) || !/\d/.test(clean)) throw new Error("Use forms like 1d20+3 or 2d6");
+    const parts = clean.replace(/-/g,"+-").split("+").filter(Boolean);
+    let total = 0, detail = [];
+    for (const p of parts){
+      const m = p.match(/^(\d*)d(\d+)$/);
+      if (m){
+        const n = Math.min(40, parseInt(m[1] || "1", 10));
+        const sides = parseInt(m[2], 10);
+        if (sides < 2 || sides > 1000) throw new Error("Die size out of range");
+        const rolls = [];
+        for (let i = 0; i < n; i++){
+          const r = 1 + Math.floor(Math.random() * sides);
+          rolls.push(r); total += r;
+        }
+        detail.push(`${n}d${sides}[${rolls.join(",")}]`);
+      } else if (/^-?\d+$/.test(p)){
+        const v = parseInt(p, 10); total += v; detail.push(String(v));
+      } else throw new Error("Bad expression");
+    }
+    return { total, detail: detail.join(" + "), expr: clean };
+  }
+
+  function sampleSvg(){
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400">
+      <rect width="640" height="400" fill="#DCD9D2"/>
+      <rect x="40" y="60" width="560" height="280" fill="#FBF6EA" stroke="#C5C2B8"/>
+      <path d="M80 300 H560" stroke="#54632A" stroke-width="6" fill="none"/>
+      <rect x="120" y="140" width="120" height="90" fill="#E7DBBE" stroke="#9C7C1C"/>
+      <rect x="320" y="160" width="160" height="70" fill="#E7E5E0" stroke="#7B2418"/>
+      <text x="320" y="40" text-anchor="middle" font-family="Georgia, serif" font-size="22" fill="#24211C">Pier 3 — sample map</text>
+      <text x="180" y="190" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#5F594F">WAREHOUSE</text>
+      <text x="400" y="200" text-anchor="middle" font-family="ui-monospace,monospace" font-size="12" fill="#5F594F">GULL (burning)</text>
+    </svg>`;
+    return "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
+  }
+
+  /* Short stand-in narration clip (~2.2s) so the sample works without a local file. */
+  function sampleNarrationWav(){
+    const sr = 22050, dur = 2.2, n = Math.floor(sr * dur);
+    const samples = new Int16Array(n);
+    const tones = [[220, 0.0, 0.55], [277, 0.45, 1.05], [330, 0.95, 1.55], [247, 1.5, 2.15]];
+    for (let i = 0; i < n; i++){
+      const t = i / sr;
+      let v = 0;
+      for (const [f, a, b] of tones){
+        if (t < a || t > b) continue;
+        const local = (t - a) / (b - a);
+        const env = Math.sin(Math.PI * Math.min(1, Math.max(0, local)));
+        v += Math.sin(2 * Math.PI * f * t) * env * 0.28;
+      }
+      samples[i] = Math.max(-1, Math.min(1, v)) * 0x7fff;
+    }
+    const buf = new ArrayBuffer(44 + samples.length * 2);
+    const view = new DataView(buf);
+    const writeStr = (o, s) => { for (let i = 0; i < s.length; i++) view.setUint8(o + i, s.charCodeAt(i)); };
+    writeStr(0, "RIFF");
+    view.setUint32(4, 36 + samples.length * 2, true);
+    writeStr(8, "WAVE");
+    writeStr(12, "fmt ");
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, sr, true);
+    view.setUint32(28, sr * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    writeStr(36, "data");
+    view.setUint32(40, samples.length * 2, true);
+    for (let i = 0; i < samples.length; i++) view.setInt16(44 + i * 2, samples[i], true);
+    const bytes = new Uint8Array(buf);
+    let bin = "";
+    for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+    return "data:audio/wav;base64," + btoa(bin);
+  }
+
+  function seedBoards(){
+    const s12 = {
+      id: "board-s12",
+      title: "Session 12 — Dockside",
+      updatedAt: Date.now(),
+      cards: [
+        {
+          id: uid(), type: "markdown", x: 24, y: 24, w: 360, h: 320, z: 1,
+          title: "Cold open", editing: false,
+          body: "## Dockside fog\n\nThe *Harrowed Gull* is still burning at pier 3.\n\n- Harbor watch wants bribes **or** answers\n- Smuggler contact: **Vessa** (half-elf, scarred lip)\n- Party last left the warehouse map upstairs\n\n> Smoke hangs low over the piers. Somewhere a bell rings twice — then silence."
+        },
+        {
+          id: uid(), type: "counter", x: 408, y: 24, w: 240, h: 264, z: 2,
+          title: "Watch arrives", filled: 2, segments: 6
+        },
+        {
+          id: uid(), type: "dice", x: 672, y: 24, w: 264, h: 280, z: 3,
+          title: "Skill checks", expr: "1d20+5", history: []
+        },
+        {
+          id: uid(), type: "markdown", x: 24, y: 372, w: 432, h: 288, z: 4,
+          title: "NPC — Vessa", editing: false,
+          body: "### Vessa Quill\n\nFence for the Salt Sisters. Knows about the sealed hold.\n\n**Wants:** safe passage out of town  \n**Fears:** the harbormaster’s ledger  \n**Tell:** taps twice when lying\n\nPersuasion DC 14 to learn the warehouse password: `red-lantern`."
+        },
+        {
+          id: uid(), type: "image", x: 480, y: 372, w: 384, h: 288, z: 5,
+          title: "Pier sketch", src: sampleSvg()
+        },
+        {
+          id: uid(), type: "audio", x: 888, y: 372, w: 312, h: 264, z: 6,
+          title: "Vessa line",
+          fileName: "sample-narration.wav",
+          src: sampleNarrationWav(),
+          loop: false,
+          volume: 0.7,
+          fadeMs: 1000
+        },
+        {
+          id: uid(), type: "timer", x: 888, y: 24, w: 264, h: 264, z: 7,
+          title: "Skill challenge", mode: "countdown", durationSec: 300,
+          baseMs: 300000, running: false, startedAt: null, fired: false
+        },
+        {
+          id: uid(), type: "checklist", x: 24, y: 684, w: 336, h: 264, z: 8,
+          title: "Session beats",
+          items: [
+            { id: uid(), text: "Cold open — burning Gull", done: true },
+            { id: uid(), text: "Meet Vessa at the pier", done: false },
+            { id: uid(), text: "Warehouse password if earned", done: false },
+            { id: uid(), text: "Hand out pier sketch", done: false }
+          ]
+        },
+        {
+          id: uid(), type: "random", x: 384, y: 684, w: 336, h: 288, z: 9,
+          title: "Dockside rumors",
+          lines: "Harbor watch took a bribe last night\nSomeone saw lights in the sealed hold\nVessa’s contact skipped town\nThe Gull’s cargo was not grain\nA ledger page washed up at pier 2",
+          last: ""
+        }
+      ]
+    };
+    const s13 = {
+      id: "board-s13",
+      title: "Session 13 — Sewers (stub)",
+      updatedAt: Date.now() - 86400000,
+      cards: [
+        {
+          id: uid(), type: "markdown", x: 48, y: 48, w: 336, h: 240, z: 1,
+          title: "Prep stub", editing: true,
+          body: "## Next session\n\nDuplicate Dockside or clear this board and start fresh.\n\n- Key the flooded junction\n- Place the otyugh counter\n- Drop the map image"
+        },
+        {
+          id: uid(), type: "counter", x: 408, y: 48, w: 216, h: 240, z: 2,
+          title: "Flood level", filled: 0, segments: 4
+        }
+      ]
+    };
+    return { activeBoardId: s12.id, boards: [s12, s13] };
+  }
+
+  let state = load();
+  let selectedId = null;
+  let zTop = 10;
+
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORE);
+      if (!raw) return seedBoards();
+      const v = JSON.parse(raw);
+      if (!v || !Array.isArray(v.boards) || !v.boards.length) return seedBoards();
+      return v;
+    }catch(_){ return seedBoards(); }
+  }
+  function save(){
+    try{ localStorage.setItem(STORE, JSON.stringify(state)); }
+    catch(_){ toast("Could not save to localStorage (quota?)"); }
+  }
+  function active(){
+    return state.boards.find(b => b.id === state.activeBoardId) || state.boards[0];
+  }
+  function bumpZ(card){ zTop += 1; card.z = zTop; }
+  function touch(persist = true){
+    active().updatedAt = Date.now();
+    if (persist) save();
+  }
+
+  function refreshPicker(){
+    const cur = state.activeBoardId;
+    boardPick.innerHTML = state.boards
+      .slice()
+      .sort((a,b) => (b.updatedAt||0) - (a.updatedAt||0))
+      .map(b => `<option value="${b.id}"${b.id===cur?" selected":""}>${esc(b.title)}</option>`)
+      .join("");
+  }
+
+  document.getElementById("btnNew").onclick = () => {
+    const b = { id: "board-" + uid(), title: "New session", updatedAt: Date.now(), cards: [] };
+    state.boards.push(b);
+    state.activeBoardId = b.id;
+    selectedId = null;
+    save(); render(); toast("Created empty board");
+  };
+  document.getElementById("btnDup").onclick = () => {
+    const src = active();
+    const copy = JSON.parse(JSON.stringify(src));
+    copy.id = "board-" + uid();
+    copy.title = src.title.replace(/\s*\(copy\)\s*$/,"") + " (copy)";
+    copy.updatedAt = Date.now();
+    copy.cards.forEach(c => { c.id = uid(); });
+    state.boards.push(copy);
+    state.activeBoardId = copy.id;
+    selectedId = null;
+    save(); render(); toast("Duplicated board");
+  };
+  document.getElementById("btnRen").onclick = () => {
+    const b = active();
+    const t = prompt("Board title", b.title);
+    if (t == null || !t.trim()) return;
+    b.title = t.trim(); b.updatedAt = Date.now();
+    save(); refreshPicker(); toast("Renamed");
+  };
+  document.getElementById("btnDel").onclick = () => {
+    if (state.boards.length < 2){ toast("Keep at least one board"); return; }
+    const b = active();
+    if (!confirm(`Delete “${b.title}”?`)) return;
+    state.boards = state.boards.filter(x => x.id !== b.id);
+    state.activeBoardId = state.boards[0].id;
+    selectedId = null;
+    save(); render(); toast("Deleted board");
+  };
+  boardPick.onchange = () => {
+    state.activeBoardId = boardPick.value;
+    selectedId = null;
+    save(); render();
+  };
+
+  document.querySelectorAll("[data-add]").forEach(btn => {
+    btn.onclick = () => addCard(btn.getAttribute("data-add"));
+  });
+
+  function addCard(type){
+    const b = active();
+    const base = {
+      id: uid(), type,
+      x: snap(stageWrap.scrollLeft + 48),
+      y: snap(stageWrap.scrollTop + 48),
+      w: 288, h: 240, z: ++zTop,
+      title: type[0].toUpperCase() + type.slice(1)
+    };
+    if (type === "markdown") Object.assign(base, { title: "Note", body: "## New note\n\n", editing: true, w: 336, h: 280 });
+    if (type === "image") Object.assign(base, { title: "Image", src: "", w: 336, h: 240 });
+    if (type === "audio") Object.assign(base, {
+      title: "Clip", fileName: "", src: "", loop: false, volume: 0.7, fadeMs: 1000, w: 312, h: 264
+    });
+    if (type === "counter") Object.assign(base, { title: "Counter", filled: 0, segments: 6, w: 216, h: 240 });
+    if (type === "dice") Object.assign(base, { title: "Dice", expr: "1d20", history: [], w: 264, h: 280 });
+    if (type === "timer") Object.assign(base, {
+      title: "Timer", mode: "countdown", durationSec: 300,
+      baseMs: 300000, running: false, startedAt: null, fired: false, w: 264, h: 264
+    });
+    if (type === "checklist") Object.assign(base, {
+      title: "Checklist", items: [{ id: uid(), text: "First beat", done: false }], w: 312, h: 264
+    });
+    if (type === "random") Object.assign(base, {
+      title: "Random table",
+      lines: "Entry one\nEntry two\nEntry three",
+      last: "", w: 312, h: 288
+    });
+    b.cards.push(base);
+    selectedId = base.id;
+    touch(); render();
+  }
+
+  function render(){
+    refreshPicker();
+    const b = active();
+    zTop = Math.max(10, ...b.cards.map(c => c.z || 1), 10);
+    stage.innerHTML = "";
+    if (!b.cards.length){
+      const empty = document.createElement("div");
+      empty.className = "empty-stage";
+      empty.textContent = "Empty board — add cards from the rail (notes, media, tools).";
+      stage.appendChild(empty);
+      return;
+    }
+    b.cards.slice().sort((a,c) => (a.z||0) - (c.z||0)).forEach(card => {
+      stage.appendChild(renderCard(card));
+    });
+  }
+
+  function renderCard(card){
+    const collapsed = !!card.collapsed;
+    const KIND = {
+      markdown: "note", image: "image", audio: "audio", counter: "counter", dice: "dice",
+      timer: "timer", checklist: "list", random: "table", clock: "counter"
+    };
+    const el = document.createElement("article");
+    el.className = "card"
+      + (card.type === "markdown" ? " vellum" : "")
+      + (card.id === selectedId ? " selected" : "")
+      + (collapsed ? " collapsed" : "");
+    el.style.left = card.x + "px";
+    el.style.top = card.y + "px";
+    el.style.width = card.w + "px";
+    if (!collapsed) el.style.height = card.h + "px";
+    el.style.zIndex = String(card.z || 1);
+    el.dataset.id = card.id;
+
+    const hd = document.createElement("div");
+    hd.className = "hd";
+    hd.innerHTML = `<span class="kind">${esc(KIND[card.type] || card.type)}</span>`;
+    const title = document.createElement("input");
+    title.className = "title";
+    title.value = card.title || "";
+    title.setAttribute("aria-label", "Card title");
+    title.oninput = () => { card.title = title.value; touch(); };
+    title.onclick = e => e.stopPropagation();
+    hd.appendChild(title);
+
+    const ops = document.createElement("div");
+    ops.className = "ops";
+
+    const fold = document.createElement("button");
+    fold.type = "button";
+    fold.title = collapsed ? "Expand card" : "Collapse card";
+    fold.setAttribute("aria-expanded", collapsed ? "false" : "true");
+    fold.setAttribute("aria-label", collapsed ? "Expand card" : "Collapse card");
+    fold.textContent = collapsed ? "▸" : "▾";
+    fold.onclick = e => {
+      e.stopPropagation();
+      if (!card.collapsed){
+        card.expandedH = card.h;
+        card.collapsed = true;
+      } else {
+        card.collapsed = false;
+        card.h = card.expandedH || card.h || GRID * 10;
+      }
+      touch(); render();
+    };
+    ops.appendChild(fold);
+
+    if (card.type === "markdown" && !collapsed){
+      const tog = document.createElement("button");
+      tog.type = "button";
+      tog.title = card.editing ? "Preview" : "Edit";
+      tog.textContent = card.editing ? "◉" : "✎";
+      tog.onclick = e => { e.stopPropagation(); card.editing = !card.editing; save(); render(); };
+      ops.appendChild(tog);
+    }
+    const del = document.createElement("button");
+    del.type = "button"; del.title = "Remove card"; del.textContent = "×";
+    del.onclick = e => {
+      e.stopPropagation();
+      active().cards = active().cards.filter(c => c.id !== card.id);
+      if (selectedId === card.id) selectedId = null;
+      touch(); render();
+    };
+    ops.appendChild(del);
+    hd.appendChild(ops);
+    el.appendChild(hd);
+
+    if (!collapsed){
+      const body = document.createElement("div");
+      body.className = "body";
+      if (card.type === "markdown") fillMarkdown(body, card);
+      else if (card.type === "image") fillImage(body, card);
+      else if (card.type === "audio") fillAudio(body, card);
+      else if (card.type === "counter" || card.type === "clock") fillCounter(body, card);
+      else if (card.type === "dice") fillDice(body, card);
+      else if (card.type === "timer") fillTimer(body, card);
+      else if (card.type === "checklist") fillChecklist(body, card);
+      else if (card.type === "random") fillRandom(body, card);
+      el.appendChild(body);
+
+      const rz = document.createElement("div");
+      rz.className = "resize";
+      el.appendChild(rz);
+      enableResize(rz, el, card);
+    }
+
+    el.addEventListener("pointerdown", e => {
+      if (e.target.closest(".ops") || e.target === title) return;
+      selectedId = card.id;
+      bumpZ(card);
+      document.querySelectorAll(".card.selected").forEach(n => n.classList.remove("selected"));
+      el.classList.add("selected");
+      el.style.zIndex = String(card.z);
+      touch(false);
+    });
+
+    enableDrag(hd, el, card);
+    return el;
+  }
+
+  function fillMarkdown(body, card){
+    if (card.editing){
+      const ta = document.createElement("textarea");
+      ta.className = "md-edit";
+      ta.value = card.body || "";
+      ta.placeholder = "# Heading\n\nNotes…";
+      ta.oninput = () => { card.body = ta.value; touch(); };
+      body.appendChild(ta);
+    } else {
+      const view = document.createElement("div");
+      view.className = "md-view";
+      view.innerHTML = md(card.body);
+      body.appendChild(view);
+    }
+  }
+
+  function fillImage(body, card){
+    body.classList.add("img-body");
+    if (card.src){
+      const img = document.createElement("img");
+      img.src = card.src;
+      img.alt = card.title || "Board image";
+      body.appendChild(img);
+      body.ondblclick = () => pickImage(card);
+    } else {
+      const empty = document.createElement("div");
+      empty.className = "img-empty";
+      empty.innerHTML = `<div>Drop a local image or choose a file.</div>`;
+      const lab = document.createElement("label");
+      lab.textContent = "Choose image";
+      const inp = document.createElement("input");
+      inp.type = "file"; inp.accept = "image/*";
+      inp.onchange = () => readImageFile(inp.files && inp.files[0], card);
+      lab.appendChild(inp);
+      empty.appendChild(lab);
+      body.appendChild(empty);
+    }
+    body.addEventListener("dragover", e => e.preventDefault());
+    body.addEventListener("drop", e => {
+      e.preventDefault();
+      const f = e.dataTransfer.files && e.dataTransfer.files[0];
+      if (f && f.type.startsWith("image/")) readImageFile(f, card);
+    });
+  }
+  function readImageFile(f, card){
+    if (!f) return;
+    const r = new FileReader();
+    r.onload = () => { card.src = r.result; touch(); render(); };
+    r.readAsDataURL(f);
+  }
+  function pickImage(card){
+    const inp = document.createElement("input");
+    inp.type = "file"; inp.accept = "image/*";
+    inp.onchange = () => readImageFile(inp.files && inp.files[0], card);
+    inp.click();
+  }
+
+  function fillAudio(body, card){
+    if (card.volume == null) card.volume = 0.7;
+    if (card.fadeMs == null) card.fadeMs = 1000;
+    card.loop = !!card.loop;
+
+    const wrap = document.createElement("div");
+    wrap.className = "clip";
+
+    const fileRow = document.createElement("div");
+    fileRow.className = "file-row";
+    const name = document.createElement("div");
+    name.className = "file-name";
+    name.textContent = card.fileName || (card.src ? "Loaded clip" : "No file loaded");
+    name.title = card.fileName || "";
+    const lab = document.createElement("label");
+    lab.textContent = "Load file";
+    const inp = document.createElement("input");
+    inp.type = "file";
+    inp.accept = "audio/mpeg,audio/wav,audio/ogg,audio/webm,audio/*";
+    inp.onchange = () => {
+      const f = inp.files && inp.files[0];
+      if (!f) return;
+      if (!/^audio\//.test(f.type) && !/\.(mp3|wav|ogg|webm|m4a)$/i.test(f.name)){
+        toast("Choose an audio file (mp3, wav, …)");
+        return;
+      }
+      const r = new FileReader();
+      r.onload = () => {
+        card.src = r.result;
+        card.fileName = f.name;
+        touch(); render();
+      };
+      r.readAsDataURL(f);
+    };
+    lab.appendChild(inp);
+    const demo = document.createElement("button");
+    demo.type = "button"; demo.className = "demo"; demo.textContent = "Sample";
+    demo.title = "Load short stand-in narration tone";
+    demo.onclick = e => {
+      e.stopPropagation();
+      card.src = sampleNarrationWav();
+      card.fileName = "sample-narration.wav";
+      touch(); render();
+    };
+    fileRow.append(name, lab, demo);
+    wrap.appendChild(fileRow);
+
+    const audio = document.createElement("audio");
+    audio.preload = "metadata";
+    audio.loop = card.loop;
+    audio.volume = clamp(card.volume, 0, 1);
+    if (card.src) audio.src = card.src;
+    wrap.appendChild(audio);
+
+    let fading = false;
+    const setPlayingUi = () => {
+      playBtn.textContent = audio.paused ? "Play" : "Pause";
+    };
+
+    const transport = document.createElement("div");
+    transport.className = "transport";
+
+    const playBtn = document.createElement("button");
+    playBtn.type = "button"; playBtn.className = "primary";
+    playBtn.textContent = "Play";
+    playBtn.disabled = !card.src;
+    playBtn.onclick = e => {
+      e.stopPropagation();
+      if (!card.src){ toast("Load an audio file first"); return; }
+      if (audio.paused){
+        fading = false;
+        audio.volume = clamp(card.volume, 0, 1);
+        audio.play().catch(err => toast(err.message || "Could not play"));
+      } else {
+        audio.pause();
+      }
+      setPlayingUi();
+    };
+
+    const stopBtn = document.createElement("button");
+    stopBtn.type = "button"; stopBtn.textContent = "Stop";
+    stopBtn.onclick = e => {
+      e.stopPropagation();
+      fading = false;
+      audio.pause();
+      audio.currentTime = 0;
+      audio.volume = clamp(card.volume, 0, 1);
+      setPlayingUi();
+    };
+
+    const fadeBtn = document.createElement("button");
+    fadeBtn.type = "button"; fadeBtn.textContent = "Fade out";
+    fadeBtn.title = "Fade volume over 1s, then stop";
+    fadeBtn.onclick = e => {
+      e.stopPropagation();
+      if (audio.paused){ toast("Nothing playing"); return; }
+      if (fading) return;
+      fading = true;
+      const startVol = audio.volume;
+      const ms = card.fadeMs || 1000;
+      const t0 = performance.now();
+      const tick = now => {
+        if (!fading) return;
+        const p = Math.min(1, (now - t0) / ms);
+        audio.volume = startVol * (1 - p);
+        if (p < 1){
+          requestAnimationFrame(tick);
+        } else {
+          fading = false;
+          audio.pause();
+          audio.currentTime = 0;
+          audio.volume = clamp(card.volume, 0, 1);
+          setPlayingUi();
+        }
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const loopBtn = document.createElement("button");
+    loopBtn.type = "button";
+    loopBtn.textContent = "Loop";
+    loopBtn.classList.toggle("on", card.loop);
+    loopBtn.setAttribute("aria-pressed", card.loop ? "true" : "false");
+    loopBtn.onclick = e => {
+      e.stopPropagation();
+      card.loop = !card.loop;
+      audio.loop = card.loop;
+      loopBtn.classList.toggle("on", card.loop);
+      loopBtn.setAttribute("aria-pressed", card.loop ? "true" : "false");
+      touch();
+    };
+
+    transport.append(playBtn, stopBtn, fadeBtn, loopBtn);
+    wrap.appendChild(transport);
+
+    const vol = document.createElement("div");
+    vol.className = "vol";
+    const volLbl = document.createElement("span");
+    volLbl.className = "lbl";
+    volLbl.textContent = "Vol";
+    vol.appendChild(volLbl);
+    for (const preset of [
+      { label: "25%", value: 0.25 },
+      { label: "50%", value: 0.5 },
+      { label: "70%", value: 0.7 },
+      { label: "100%", value: 1 }
+    ]){
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = preset.label;
+      b.classList.toggle("on", Math.abs(card.volume - preset.value) < 0.001);
+      b.onclick = e => {
+        e.stopPropagation();
+        card.volume = preset.value;
+        if (!fading) audio.volume = preset.value;
+        touch();
+        vol.querySelectorAll("button").forEach(x => x.classList.remove("on"));
+        b.classList.add("on");
+      };
+      vol.appendChild(b);
+    }
+    wrap.appendChild(vol);
+
+    const hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent = "Clip player for short narration / stingers — not background music.";
+    wrap.appendChild(hint);
+
+    audio.addEventListener("play", setPlayingUi);
+    audio.addEventListener("pause", setPlayingUi);
+    audio.addEventListener("ended", setPlayingUi);
+
+    wrap.addEventListener("dragover", e => e.preventDefault());
+    wrap.addEventListener("drop", e => {
+      e.preventDefault();
+      const f = e.dataTransfer.files && e.dataTransfer.files[0];
+      if (!f) return;
+      if (!/^audio\//.test(f.type) && !/\.(mp3|wav|ogg|webm|m4a)$/i.test(f.name)){
+        toast("Drop an audio file");
+        return;
+      }
+      const r = new FileReader();
+      r.onload = () => {
+        card.src = r.result;
+        card.fileName = f.name;
+        touch(); render();
+      };
+      r.readAsDataURL(f);
+    });
+
+    body.appendChild(wrap);
+  }
+
+  function fillCounter(body, card){
+    if (card.type === "clock") card.type = "counter";
+    const segs = clamp(card.segments || 4, 2, 12);
+    card.segments = segs;
+    card.filled = clamp(card.filled || 0, 0, segs);
+    const wrap = document.createElement("div");
+    wrap.className = "counter";
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "0 0 100 100");
+    const cx = 50, cy = 50, r = 40;
+    for (let i = 0; i < segs; i++){
+      const a0 = (Math.PI * 2 * i) / segs - Math.PI / 2;
+      const a1 = (Math.PI * 2 * (i + 1)) / segs - Math.PI / 2;
+      const x0 = cx + r * Math.cos(a0), y0 = cy + r * Math.sin(a0);
+      const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
+      const large = (a1 - a0) > Math.PI ? 1 : 0;
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      path.setAttribute("d", `M ${cx} ${cy} L ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} Z`);
+      path.setAttribute("fill", i < card.filled ? "#7B2418" : "#F2F1ED");
+      path.setAttribute("stroke", "#C5C2B8");
+      path.setAttribute("stroke-width", "1.2");
+      path.style.cursor = "pointer";
+      path.onclick = e => {
+        e.stopPropagation();
+        card.filled = (i < card.filled) ? i : i + 1;
+        touch(); render();
+      };
+      svg.appendChild(path);
+    }
+    wrap.appendChild(svg);
+    const lab = document.createElement("div");
+    lab.className = "seg-label";
+    lab.textContent = `${card.filled} / ${segs}`;
+    wrap.appendChild(lab);
+    const ops = document.createElement("div");
+    ops.className = "counter-ops";
+    const minus = document.createElement("button"); minus.type = "button"; minus.textContent = "− Seg";
+    const plus = document.createElement("button"); plus.type = "button"; plus.textContent = "+ Seg";
+    minus.onclick = e => { e.stopPropagation(); card.segments = clamp(segs - 1, 2, 12); card.filled = clamp(card.filled, 0, card.segments); touch(); render(); };
+    plus.onclick = e => { e.stopPropagation(); card.segments = clamp(segs + 1, 2, 12); touch(); render(); };
+    ops.append(minus, plus);
+    wrap.appendChild(ops);
+    body.appendChild(wrap);
+  }
+
+  function fillDice(body, card){
+    const wrap = document.createElement("div");
+    wrap.className = "dice";
+    const row = document.createElement("div");
+    row.className = "row";
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = card.expr || "1d20";
+    input.setAttribute("aria-label", "Dice expression");
+    input.oninput = () => { card.expr = input.value; touch(); };
+    const rollBtn = document.createElement("button");
+    rollBtn.type = "button"; rollBtn.className = "roll-btn"; rollBtn.textContent = "Roll";
+    row.append(input, rollBtn);
+    wrap.appendChild(row);
+
+    const presets = document.createElement("div");
+    presets.className = "row presets";
+    for (const p of ["1d20", "1d20+5", "2d6", "1d100", "4d6"]){
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = p;
+      b.onclick = e => { e.stopPropagation(); card.expr = p; input.value = p; touch(); };
+      presets.appendChild(b);
+    }
+    wrap.appendChild(presets);
+
+    const result = document.createElement("div");
+    result.className = "result";
+    const last = (card.history && card.history[0]) || null;
+    result.innerHTML = last
+      ? `<div class="total">${last.total}</div><div class="detail">${esc(last.detail)}</div>`
+      : `<div class="total">—</div><div class="detail">No rolls yet</div>`;
+    wrap.appendChild(result);
+
+    const hist = document.createElement("ul");
+    hist.className = "hist";
+    (card.history || []).slice(0, 6).forEach(h => {
+      const li = document.createElement("li");
+      li.textContent = `${h.expr} → ${h.total} (${h.detail})`;
+      hist.appendChild(li);
+    });
+    wrap.appendChild(hist);
+
+    rollBtn.onclick = e => {
+      e.stopPropagation();
+      try{
+        const r = rollExpr(card.expr || input.value);
+        card.history = [r, ...(card.history || [])].slice(0, 20);
+        touch(); render();
+      }catch(err){ toast(err.message || "Roll failed"); }
+    };
+    body.appendChild(wrap);
+  }
+
+  function formatMs(ms){
+    const s = Math.max(0, Math.ceil(ms / 1000));
+    const m = Math.floor(s / 60);
+    const r = s % 60;
+    return `${m}:${String(r).padStart(2, "0")}`;
+  }
+
+  function timerDisplayMs(card){
+    const now = Date.now();
+    if (card.mode === "stopwatch"){
+      const base = card.baseMs || 0;
+      return card.running && card.startedAt ? base + (now - card.startedAt) : base;
+    }
+    const base = card.baseMs != null ? card.baseMs : (card.durationSec || 300) * 1000;
+    return card.running && card.startedAt ? Math.max(0, base - (now - card.startedAt)) : Math.max(0, base);
+  }
+
+  function freezeTimer(card){
+    if (!card.running || !card.startedAt) return;
+    card.baseMs = timerDisplayMs(card);
+    card.running = false;
+    card.startedAt = null;
+  }
+
+  function fillTimer(body, card){
+    if (card.mode !== "stopwatch" && card.mode !== "countdown") card.mode = "countdown";
+    if (card.baseMs == null) card.baseMs = (card.durationSec || 300) * 1000;
+    const wrap = document.createElement("div");
+    wrap.className = "timer";
+    wrap.dataset.timerId = card.id;
+
+    const modes = document.createElement("div");
+    modes.className = "modes";
+    for (const [id, lab] of [["countdown", "Countdown"], ["stopwatch", "Stopwatch"]]){
+      const b = document.createElement("button");
+      b.type = "button"; b.textContent = lab;
+      if (card.mode === id) b.classList.add("on");
+      b.onclick = e => {
+        e.stopPropagation();
+        freezeTimer(card);
+        card.mode = id;
+        card.fired = false;
+        if (id === "countdown"){
+          card.durationSec = card.durationSec || 300;
+          card.baseMs = card.durationSec * 1000;
+        } else {
+          card.baseMs = 0;
+        }
+        touch(); render();
+      };
+      modes.appendChild(b);
+    }
+    wrap.appendChild(modes);
+
+    const face = document.createElement("div");
+    face.className = "face";
+    face.dataset.role = "face";
+    const ms = timerDisplayMs(card);
+    face.textContent = formatMs(ms);
+    if (card.mode === "countdown" && ms > 0 && ms <= 10000) face.classList.add("warn");
+    wrap.appendChild(face);
+
+    if (card.mode === "countdown"){
+      const presets = document.createElement("div");
+      presets.className = "presets";
+      for (const sec of [60, 300, 600]){
+        const b = document.createElement("button");
+        b.type = "button";
+        b.textContent = sec < 60 ? `${sec}s` : `${sec / 60}m`;
+        b.onclick = e => {
+          e.stopPropagation();
+          freezeTimer(card);
+          card.durationSec = sec;
+          card.baseMs = sec * 1000;
+          card.fired = false;
+          touch(); render();
+        };
+        presets.appendChild(b);
+      }
+      wrap.appendChild(presets);
+    }
+
+    const ops = document.createElement("div");
+    ops.className = "ops-row";
+    const start = document.createElement("button");
+    start.type = "button";
+    start.className = "primary";
+    start.textContent = card.running ? "Pause" : "Start";
+    start.onclick = e => {
+      e.stopPropagation();
+      if (card.running){
+        freezeTimer(card);
+      } else {
+        if (card.mode === "countdown" && timerDisplayMs(card) <= 0){
+          card.baseMs = (card.durationSec || 300) * 1000;
+          card.fired = false;
+        }
+        card.running = true;
+        card.startedAt = Date.now();
+      }
+      touch(); render();
+    };
+    const reset = document.createElement("button");
+    reset.type = "button";
+    reset.textContent = "Reset";
+    reset.onclick = e => {
+      e.stopPropagation();
+      card.running = false;
+      card.startedAt = null;
+      card.fired = false;
+      card.baseMs = card.mode === "stopwatch" ? 0 : (card.durationSec || 300) * 1000;
+      touch(); render();
+    };
+    ops.append(start, reset);
+    wrap.appendChild(ops);
+
+    const hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent = card.mode === "countdown"
+      ? "Counts down · soft warn under 10s"
+      : "Counts up from zero";
+    wrap.appendChild(hint);
+    body.appendChild(wrap);
+  }
+
+  function tickTimers(){
+    const b = active();
+    if (!b) return;
+    let dirty = false;
+    for (const card of b.cards){
+      if (card.type !== "timer" || !card.running) continue;
+      const ms = timerDisplayMs(card);
+      const art = stage.querySelector(`.card[data-id="${CSS.escape(card.id)}"]`);
+      const face = art && art.querySelector("[data-role=face]");
+      if (face){
+        face.textContent = formatMs(ms);
+        face.classList.toggle("warn", card.mode === "countdown" && ms > 0 && ms <= 10000);
+      }
+      if (card.mode === "countdown" && ms <= 0){
+        freezeTimer(card);
+        card.baseMs = 0;
+        if (!card.fired){
+          card.fired = true;
+          toast(`${card.title || "Timer"} — time`);
+          dirty = true;
+        }
+      }
+    }
+    if (dirty){ touch(); render(); }
+  }
+  setInterval(tickTimers, 250);
+
+  function fillChecklist(body, card){
+    if (!Array.isArray(card.items)) card.items = [];
+    const wrap = document.createElement("div");
+    wrap.className = "checklist";
+    const ul = document.createElement("ul");
+    card.items.forEach(item => {
+      const li = document.createElement("li");
+      if (item.done) li.classList.add("done");
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = !!item.done;
+      cb.setAttribute("aria-label", "Done");
+      cb.onchange = () => { item.done = cb.checked; touch(); render(); };
+      const tx = document.createElement("input");
+      tx.type = "text";
+      tx.value = item.text || "";
+      tx.placeholder = "Beat…";
+      tx.oninput = () => { item.text = tx.value; touch(); };
+      tx.onclick = e => e.stopPropagation();
+      const x = document.createElement("button");
+      x.type = "button"; x.className = "x"; x.title = "Remove"; x.textContent = "×";
+      x.onclick = e => {
+        e.stopPropagation();
+        card.items = card.items.filter(i => i.id !== item.id);
+        touch(); render();
+      };
+      li.append(cb, tx, x);
+      ul.appendChild(li);
+    });
+    wrap.appendChild(ul);
+
+    const add = document.createElement("div");
+    add.className = "add-row";
+    const inp = document.createElement("input");
+    inp.type = "text";
+    inp.placeholder = "Add item…";
+    inp.onclick = e => e.stopPropagation();
+    const btn = document.createElement("button");
+    btn.type = "button"; btn.textContent = "Add";
+    const commit = () => {
+      const t = inp.value.trim();
+      if (!t) return;
+      card.items.push({ id: uid(), text: t, done: false });
+      inp.value = "";
+      touch(); render();
+    };
+    btn.onclick = e => { e.stopPropagation(); commit(); };
+    inp.onkeydown = e => { if (e.key === "Enter"){ e.preventDefault(); commit(); } };
+    add.append(inp, btn);
+    wrap.appendChild(add);
+
+    const done = card.items.filter(i => i.done).length;
+    const meta = document.createElement("p");
+    meta.className = "meta";
+    meta.textContent = `${done} / ${card.items.length} done`;
+    wrap.appendChild(meta);
+    body.appendChild(wrap);
+  }
+
+  function fillRandom(body, card){
+    const wrap = document.createElement("div");
+    wrap.className = "rand";
+    const ta = document.createElement("textarea");
+    ta.value = card.lines || "";
+    ta.placeholder = "One entry per line…";
+    ta.oninput = () => { card.lines = ta.value; touch(); };
+    ta.onclick = e => e.stopPropagation();
+    wrap.appendChild(ta);
+
+    const row = document.createElement("div");
+    row.className = "row";
+    const roll = document.createElement("button");
+    roll.type = "button"; roll.className = "roll-btn"; roll.textContent = "Roll";
+    roll.onclick = e => {
+      e.stopPropagation();
+      const entries = String(card.lines || "").split(/\n/).map(s => s.trim()).filter(Boolean);
+      if (!entries.length){ toast("Add at least one line"); return; }
+      card.last = entries[Math.floor(Math.random() * entries.length)];
+      touch(); render();
+    };
+    const hint = document.createElement("p");
+    hint.className = "hint";
+    hint.textContent = "Equal weight · blank lines ignored";
+    row.append(roll, hint);
+    wrap.appendChild(row);
+
+    const result = document.createElement("div");
+    result.className = "result" + (card.last ? "" : " empty");
+    result.textContent = card.last || "Roll to draw an entry";
+    wrap.appendChild(result);
+    body.appendChild(wrap);
+  }
+
+  function enableDrag(handle, el, card){
+    handle.addEventListener("pointerdown", e => {
+      if (e.button !== 0) return;
+      if (e.target.closest("input,button,textarea,label")) return;
+      e.preventDefault();
+      selectedId = card.id;
+      bumpZ(card);
+      el.classList.add("selected");
+      el.style.zIndex = String(card.z);
+      const startX = card.x, startY = card.y, px = e.clientX, py = e.clientY;
+      handle.setPointerCapture(e.pointerId);
+      const move = ev => {
+        card.x = snap(clamp(startX + (ev.clientX - px), 0, 2400 - card.w));
+        card.y = snap(clamp(startY + (ev.clientY - py), 0, 1600 - card.h));
+        el.style.left = card.x + "px";
+        el.style.top = card.y + "px";
+      };
+      const up = () => {
+        handle.releasePointerCapture(e.pointerId);
+        handle.removeEventListener("pointermove", move);
+        handle.removeEventListener("pointerup", up);
+        touch();
+      };
+      handle.addEventListener("pointermove", move);
+      handle.addEventListener("pointerup", up);
+    });
+  }
+
+  function enableResize(handle, el, card){
+    handle.addEventListener("pointerdown", e => {
+      if (e.button !== 0) return;
+      e.preventDefault(); e.stopPropagation();
+      selectedId = card.id;
+      bumpZ(card);
+      const sx = e.clientX, sy = e.clientY, sw = card.w, sh = card.h;
+      handle.setPointerCapture(e.pointerId);
+      const move = ev => {
+        card.w = snap(clamp(sw + (ev.clientX - sx), GRID * 8, 900));
+        card.h = snap(clamp(sh + (ev.clientY - sy), GRID * 6, 800));
+        el.style.width = card.w + "px";
+        el.style.height = card.h + "px";
+      };
+      const up = () => {
+        handle.releasePointerCapture(e.pointerId);
+        handle.removeEventListener("pointermove", move);
+        handle.removeEventListener("pointerup", up);
+        touch();
+      };
+      handle.addEventListener("pointermove", move);
+      handle.addEventListener("pointerup", up);
+    });
+  }
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape"){
+      selectedId = null;
+      document.querySelectorAll(".card.selected").forEach(n => n.classList.remove("selected"));
+    }
+    const tag = (e.target && e.target.tagName) || "";
+    if ((e.key === "Delete" || e.key === "Backspace") && selectedId && !/INPUT|TEXTAREA|SELECT/.test(tag)){
+      active().cards = active().cards.filter(c => c.id !== selectedId);
+      selectedId = null; touch(); render();
+    }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
