@@ -72,7 +72,7 @@ main{flex:1; display:flex; min-height:0}
 }
 .col-resize:hover::after, .col-resize.dragging::after{background:var(--gilt); opacity:1}
 body.col-resizing{cursor:col-resize; user-select:none}
-body:not(.trk) #resize-trk{display:none}
+body:not(.trk):not(.build) #resize-trk{display:none}
 
 /* ---- sidebar ---- */
 #side{
@@ -528,7 +528,7 @@ body.trk #trk{
   color:var(--dim); font:700 14px/1 var(--mono); cursor:pointer;
 }
 .item .add:hover{border-color:var(--gilt); color:var(--ink)}
-body:not(.trk) .item .add{display:none}
+body:not(.trk):not(.build) .item .add{display:none}
 
 /* combatant cards — the spine metaphor from the results list */
 .cbt{
@@ -768,14 +768,71 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 /* player display layer + the #pd fallback page mode */
 #pdisp{position:fixed; inset:0; z-index:60}
 .dlg .dlghint{margin:0 0 6px; color:var(--dim); font-size:12.5px}
-body.pd header, body.pd #side, body.pd #trk, body.pd #pane, body.pd #board,
+body.pd header, body.pd #side, body.pd #trk, body.pd #builder, body.pd #pane, body.pd #board,
 body.pd #dpop, body.pd #trkovl, body.pd #load, body.pd #boardExpand, body.pd #boardToast{display:none !important}
 body.pd #pdisp{position:fixed; inset:0; z-index:60}
 
 @media (max-width:760px){
   body.trk #trk{width:100%; order:-1; border-right:none; border-bottom:1px solid var(--hair)}
   body.trk #trklist{max-height:60vh}
+  body.build #builder{width:100%; order:-1; border-right:none; border-bottom:1px solid var(--hair)}
+  body.build #buildRoster{max-height:40vh}
 }
+
+/* ==== encounter builder =================================================== */
+#builder{display:none}
+body.build #builder{
+  display:flex; flex-direction:column; min-height:0;
+  width:var(--col-trk, 380px); flex:none;
+  border-right:1px solid var(--hair); background:var(--stone);
+}
+body.build #trk{display:none !important}
+body.board #builder{display:none !important}
+#buildhead{
+  display:flex; align-items:baseline; gap:10px; padding:11px 12px;
+  border-bottom:1px solid var(--hair); background:var(--stone-3);
+}
+#buildhead h2{
+  margin:0; flex:1; font:600 15px/1.2 var(--serif); font-variant:small-caps;
+  letter-spacing:.04em; color:var(--ink);
+}
+#buildbody{flex:1; min-height:0; overflow:auto; padding:10px 12px; display:flex; flex-direction:column; gap:12px}
+#builder .bsec{display:flex; flex-direction:column; gap:6px}
+#builder .bsec h3{
+  margin:0; font:600 10px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--faint)}
+#builder .brow{display:flex; flex-wrap:wrap; gap:5px; align-items:center}
+#builder .brow label{display:flex; flex-direction:column; gap:3px; font:11px/1.2 var(--sans); color:var(--dim)}
+#builder .brow input[type=number],#builder .brow input[type=text]{
+  width:100%; min-width:0; padding:7px 9px; border:1px solid var(--hair); border-radius:3px;
+  background:var(--paper); color:var(--ink); font:14px/1.2 var(--sans)}
+#builder .brow input:focus{outline:none; border-color:var(--gilt); box-shadow:0 0 0 2px rgba(156,124,28,.18)}
+#builder #buildPartySize,#builder #buildPartyLevel{width:4.5em}
+#builder #buildName{flex:1; min-width:8em}
+#buildMeter{
+  padding:10px; border:1px solid var(--hair); border-radius:2px; background:var(--stone-3);
+  font:12.5px/1.4 var(--sans); color:var(--ink)}
+#buildMeter .bm-line{display:flex; justify-content:space-between; gap:8px; margin-bottom:4px}
+#buildMeter .bm-line:last-child{margin-bottom:0}
+#buildMeter .bm-warn{color:var(--brick); margin-top:6px}
+#buildMeter .bm-ok{color:var(--olive)}
+#buildRoster{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:6px}
+#buildRoster li{
+  display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:8px 9px;
+  border:1px solid var(--hair); border-radius:2px; background:var(--paper)}
+#buildRoster .br-name{flex:1; min-width:0; font:600 13px/1.2 var(--serif)}
+#buildRoster .br-meta{flex:none; font:11px/1 var(--mono); color:var(--dim)}
+#buildRoster .br-qty{display:flex; align-items:center; gap:3px}
+#buildRoster .br-qty button{
+  width:28px; height:28px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
+  font:600 14px/1 var(--mono); cursor:pointer; color:var(--dim)}
+#buildRoster .br-qty button:hover{border-color:var(--gilt); color:var(--ink)}
+#buildEmpty{
+  display:none; padding:18px 8px; text-align:center; color:var(--faint);
+  font:italic 14px/1.45 var(--serif)}
+#buildRoster:empty + #buildEmpty{display:block}
+#buildActs{display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:8px; border-top:1px solid var(--hair)}
+#buildStatus{min-height:1.2em; font:12px/1.3 var(--sans); color:var(--dim)}
+#buildStatus.err{color:var(--brick)}
 
 /* ==== board mode ========================================================== */
 #board{
@@ -785,6 +842,7 @@ body.pd #pdisp{position:fixed; inset:0; z-index:60}
 body.board #board{display:flex}
 body.board #side,
 body.board #trk,
+body.board #builder,
 body.board #pane,
 body.board .col-resize{display:none !important}
 body.board main{display:flex}
@@ -1090,6 +1148,7 @@ body.board main{display:flex}
       <button type="button" id="m-browse" class="chip on" aria-pressed="true">Library</button>
       <button type="button" id="m-track" class="chip" aria-pressed="false">Tracker</button>
       <button type="button" id="m-board" class="chip" aria-pressed="false">Board</button>
+      <button type="button" id="m-build" class="chip" aria-pressed="false">Builder</button>
     </span>
     <button type="button" class="chip" id="user-save"
             title="Export or import portable save"
@@ -1201,6 +1260,44 @@ body.board main{display:flex}
         </label>
       </div>
     </details>
+  </section>
+  <section id="builder" aria-label="Encounter builder">
+    <div id="buildhead"><h2>Builder</h2></div>
+    <div id="buildbody">
+      <div class="bsec">
+        <h3>System</h3>
+        <div class="brow" id="buildSys" role="group" aria-label="Game system"></div>
+        <div class="brow" id="buildRuleset" role="group" aria-label="Ruleset"></div>
+      </div>
+      <div class="bsec">
+        <h3>Party</h3>
+        <div class="brow">
+          <label>Players <input type="number" id="buildPartySize" min="1" max="8" value="4"></label>
+          <label>Level <input type="number" id="buildPartyLevel" min="1" max="20" value="3"></label>
+        </div>
+      </div>
+      <div class="bsec">
+        <h3>Threat</h3>
+        <div class="brow" id="buildThreat" role="group" aria-label="Threat level"></div>
+      </div>
+      <div id="buildMeter" role="status" aria-live="polite"></div>
+      <div class="bsec">
+        <h3>Roster</h3>
+        <ul id="buildRoster"></ul>
+        <div id="buildEmpty">Add monsters from Catalog on the left.</div>
+      </div>
+      <div class="bsec">
+        <h3>Save</h3>
+        <div class="brow">
+          <input type="text" id="buildName" maxlength="80" placeholder="Encounter name" aria-label="Encounter name">
+        </div>
+      </div>
+      <div id="buildStatus" role="status"></div>
+      <div id="buildActs">
+        <button type="button" class="chip go" id="buildSave">Save to Encounters</button>
+        <button type="button" class="chip" id="buildLoad">Load into Tracker</button>
+      </div>
+    </div>
   </section>
   <div class="col-resize" id="resize-trk" role="separator" aria-orientation="vertical"
        aria-label="Resize tracker column" tabindex="-1"></div>
@@ -2183,6 +2280,7 @@ const SIDE_PLACE = {
 function applySideChrome(){
   const side = getSide();
   const table = isTableSide(side);
+  const building = document.body.classList.contains("build");
   const catOn = $("#sg-catalog"), tabOn = $("#sg-table");
   if (catOn){
     catOn.classList.toggle("on", !table);
@@ -2193,7 +2291,10 @@ function applySideChrome(){
   for (const k of ["monster","spell","party","enc"]){
     const b = $("#st-" + k);
     if (!b) continue;
-    b.hidden = table ? (k === "monster" || k === "spell") : (k === "party" || k === "enc");
+    // Builder keeps Table (for Open) but Catalog is monsters-only
+    const hide = table ? (k === "monster" || k === "spell")
+      : (k === "party" || k === "enc" || (building && k === "spell"));
+    b.hidden = hide;
     const on = k === side;
     b.classList.toggle("on", on);
     b.setAttribute("aria-pressed", String(on));
@@ -2353,8 +2454,11 @@ function computeCatalogView(){
   const side = getSide();
   const q = $("#q").value.trim().toLowerCase();
   const deep = $("#deep").checked;
+  const buildSys = document.body.classList.contains("build") && window.BUILD
+    ? BUILD.draftSystem() : null;
   const chipped = DATA.filter(r => {
     if (r._kind !== side) return false;
+    if (buildSys && r.gameSystem !== buildSys) return false;
     if (F.sys.size && !F.sys.has(r.gameSystem)) return false;
     if (F.custom.size && !r._custom) return false;
     if (side === "spell" && !passExtra(r)) return false;
@@ -2367,7 +2471,8 @@ function computeCatalogView(){
   });
   if (q) next.sort((a,b) => (a._search.startsWith(q)?0:1) - (b._search.startsWith(q)?0:1)
                             || a.name.localeCompare(b.name));
-  return { side, view: next, corpus: DATA.filter(r => r._kind === side).length };
+  return { side, view: next, corpus: DATA.filter(r => r._kind === side
+    && (!buildSys || r.gameSystem === buildSys)).length };
 }
 function updateCatalogCount(v, side, corpus){
   $("#count").textContent = v.length.toLocaleString() + " of " + corpus.toLocaleString();
@@ -2389,6 +2494,9 @@ function refresh(){
   }
   const chipped = DATA.filter(r => {
     if (r._kind !== side) return false;
+    const buildSys = document.body.classList.contains("build") && window.BUILD
+      ? BUILD.draftSystem() : null;
+    if (buildSys && r.gameSystem !== buildSys) return false;
     if (F.sys.size && !F.sys.has(r.gameSystem)) return false;
     if (F.custom.size && !r._custom) return false;
     if (side === "spell" && !passExtra(r)) return false;
@@ -3015,6 +3123,29 @@ const TRK = (() => {
     if (u.adv === "advantage" || u.adv === "disadvantage") d.ui.adv = u.adv;
     return d;
   }
+  function vBuilderMeta(raw){
+    if (!raw || typeof raw !== "object") return null;
+    const system = raw.system === "pf2e" ? "pf2e" : raw.system === "dnd5e" ? "dnd5e" : null;
+    if (!system) return null;
+    let ruleset = raw.ruleset;
+    if (system === "pf2e") ruleset = "pf2e";
+    else if (ruleset !== "dnd5e-2014" && ruleset !== "dnd5e-2024") ruleset = "dnd5e-2014";
+    const threats = system === "pf2e"
+      ? ["trivial","low","moderate","severe","extreme"]
+      : ruleset === "dnd5e-2024" ? ["low","moderate","high"] : ["easy","medium","hard","deadly"];
+    const threat = threats.includes(raw.threat) ? raw.threat : threats[Math.min(2, threats.length - 1)];
+    const lines = [];
+    for (const ln of Array.isArray(raw.lines) ? raw.lines : []){
+      if (!ln || typeof ln.ref !== "string" || !ln.ref) continue;
+      lines.push({ ref: ln.ref.slice(0, 120), qty: Math.min(20, Math.max(1, int(ln.qty, 1))) });
+    }
+    return {
+      system, ruleset, threat,
+      partySize: Math.min(8, Math.max(1, int(raw.partySize, 4))),
+      partyLevel: Math.min(20, Math.max(1, int(raw.partyLevel, 3))),
+      lines,
+    };
+  }
   function vPresets(raw){
     const out = [];
     for (const p of Array.isArray(raw) ? raw : []){
@@ -3023,7 +3154,8 @@ const TRK = (() => {
                  name: p.name.trim().slice(0, 80),
                  savedAt: int(p.savedAt, 0),
                  enc: vEnc(p.enc),
-                 dice: vDice(p.dice) });
+                 dice: vDice(p.dice),
+                 builder: vBuilderMeta(p.builder) });
     }
     return out;
   }
@@ -3037,6 +3169,7 @@ const TRK = (() => {
     if (!raw || typeof raw !== "object") return u;
     if (raw.mode === "track") u.mode = "track";
     else if (raw.mode === "board") u.mode = "board";
+    else if (raw.mode === "build") u.mode = "build";
     u.qty = Math.min(10, Math.max(1, int(raw.qty, 1)));
     if (typeof raw.diceOpen === "boolean") u.diceOpen = raw.diceOpen;
     if (typeof raw.viewingId === "string") u.viewingId = raw.viewingId;
@@ -3959,11 +4092,33 @@ const TRK = (() => {
     const snap = { id: existing ? existing.id : "s" + Date.now().toString(36),
                    name, savedAt: Date.now(),
                    enc: JSON.parse(JSON.stringify(state.enc)),
-                   dice: JSON.parse(JSON.stringify(state.dice)) };
+                   dice: JSON.parse(JSON.stringify(state.dice)),
+                   builder: existing ? existing.builder : null };
     if (existing) state.presets = state.presets.map(p => p.id === existing.id ? snap : p);
     else state.presets.push(snap);
     saveOrWarn(LS.presets, state.presets);
     return !existing;
+  }
+  function savePresetFull(snap){
+    const name = String(snap && snap.name || "").trim().slice(0, 80);
+    if (!name) return null;
+    const byId = snap.id && state.presets.find(p => p.id === snap.id);
+    const byName = state.presets.find(p => p.name.toLowerCase() === name.toLowerCase());
+    const existing = byId || byName;
+    if (!existing && state.presets.length >= 50) return null;
+    const out = {
+      id: existing ? existing.id : (typeof snap.id === "string" && snap.id
+        ? snap.id : "s" + Date.now().toString(36)),
+      name,
+      savedAt: Date.now(),
+      enc: vEnc(snap.enc),
+      dice: vDice(snap.dice),
+      builder: vBuilderMeta(snap.builder),
+    };
+    if (existing) state.presets = state.presets.map(p => p.id === existing.id ? out : p);
+    else state.presets.push(out);
+    saveOrWarn(LS.presets, state.presets);
+    return out;
   }
   function loadPreset(id){
     const p = state.presets.find(x => x.id === id);
@@ -3973,6 +4128,17 @@ const TRK = (() => {
     saveOrWarn(LS.dice, state.dice);
     renderDice();
     announce("Loaded " + p.name);
+  }
+  function replaceEncounter(enc, dice){
+    mutate(e => { Object.assign(e, vEnc(enc)); });
+    if (dice !== undefined){
+      state.dice = vDice(dice);
+      saveOrWarn(LS.dice, state.dice);
+      renderDice();
+    }
+  }
+  function getPreset(id){
+    return state.presets.find(x => x.id === id) || null;
   }
 
   function partyMeta(p){
@@ -3995,7 +4161,23 @@ const TRK = (() => {
     const names = p.enc.combatants.map(c => c.name).join(" · ") || "Empty roster";
     fillPane(`<div class="sb" style="max-width:420px"><h2><span>${esc(p.name)}</span>
       <span class="rank">${esc(p.enc.combatants.length)}</span></h2><div class="rule"></div>
-      <p style="margin:0;color:var(--dim)">${esc(names)}</p></div>`, "");
+      <p style="margin:0;color:var(--dim)">${esc(names)}</p>
+      <div class="btns" style="margin-top:14px">
+        <button type="button" class="chip go" data-sload-pane="${esc(p.id)}">Load</button>
+        <button type="button" class="chip" data-sbuild-pane="${esc(p.id)}">Open in Builder</button>
+      </div></div>`, "");
+    const sheet = $("#pane-sheet");
+    const loadBtn = sheet.querySelector("[data-sload-pane]");
+    if (loadBtn) loadBtn.onclick = () => {
+      confirmSwap(loadBtn, "Replace the current encounter?", () => {
+        loadPreset(p.id);
+        if (state.ui.mode !== "track") setMode("track");
+      });
+    };
+    const buildBtn = sheet.querySelector("[data-sbuild-pane]");
+    if (buildBtn) buildBtn.onclick = () => {
+      if (window.BUILD) BUILD.openPreset(p.id);
+    };
   }
   function addPartyMember(p){
     if (p.hpMax == null){ openAddForm({ name: p.name, type: p.type, ac: p.ac, mod: p.mod }); return; }
@@ -4026,6 +4208,7 @@ const TRK = (() => {
            </span>`
         : `<span class="sideact">
              <button type="button" class="chip" data-sload tabindex="-1">Load</button>
+             <button type="button" class="chip" data-sbuild tabindex="-1">Builder</button>
              <button type="button" class="chip" data-sdel tabindex="-1" aria-label="Delete">✕</button>
            </span>`;
       return `<div class="item ${side === "party" ? "pc" : "enc"}" role="option" id="opt-${i}"
@@ -4247,12 +4430,15 @@ const TRK = (() => {
   }
 
   function setMode(m){
-    const mode = m === "track" ? "track" : m === "board" ? "board" : "browse";
+    const mode = m === "track" ? "track"
+      : m === "board" ? "board"
+      : m === "build" ? "build" : "browse";
     const prev = state.ui.mode;
     state.ui.mode = mode;
     saveOrWarn(LS.ui, state.ui);
     document.body.classList.toggle("trk", mode === "track");
     document.body.classList.toggle("board", mode === "board");
+    document.body.classList.toggle("build", mode === "build");
     const boardEl = document.getElementById("board");
     if (boardEl) boardEl.hidden = mode !== "board";
     $("#m-browse").classList.toggle("on", mode === "browse");
@@ -4264,9 +4450,19 @@ const TRK = (() => {
       mb.classList.toggle("on", mode === "board");
       mb.setAttribute("aria-pressed", String(mode === "board"));
     }
+    const mbuild = $("#m-build");
+    if (mbuild){
+      mbuild.classList.toggle("on", mode === "build");
+      mbuild.setAttribute("aria-pressed", String(mode === "build"));
+    }
     if (prev === "board" && mode !== "board" && window.BOARD) BOARD.setActive(false);
+    if (prev === "build" && mode !== "build" && window.BUILD) BUILD.setActive(false);
     if (mode === "track"){ $("#dice").open = state.ui.diceOpen; renderTrk(); renderDice(); }
     if (mode === "board" && window.BOARD) BOARD.setActive(true);
+    if (mode === "build"){
+      if (state.ui.side === "spell") setSide("monster");
+      if (window.BUILD) BUILD.setActive(true);
+    }
     if (window.applySideChrome) applySideChrome();
     if (window.refresh && mode !== "board") refresh();
   }
@@ -4327,6 +4523,7 @@ const TRK = (() => {
     if (window.applySideChrome) applySideChrome();
     if (state.ui.mode === "track") setMode("track");
     else if (state.ui.mode === "board") setMode("board");
+    else if (state.ui.mode === "build") setMode("build");
     else if (window.refresh) refresh();
   }
 
@@ -4339,6 +4536,8 @@ const TRK = (() => {
   $("#m-track").onclick = () => setMode("track");
   const mBoard = $("#m-board");
   if (mBoard) mBoard.onclick = () => setMode("board");
+  const mBuild = $("#m-build");
+  if (mBuild) mBuild.onclick = () => setMode("build");
   $("#sg-catalog").onclick = () => { setSide("catalog"); if (window.refresh) refresh(); };
   $("#sg-table").onclick = () => { setSide("table"); if (window.refresh) refresh(); };
   $("#side-inner").addEventListener("click", e => {
@@ -4392,6 +4591,11 @@ const TRK = (() => {
         });
         return;
       }
+      if (e.target.closest("[data-sbuild]")){
+        e.stopPropagation();
+        if (window.BUILD) BUILD.openPreset(row.dataset.id);
+        return;
+      }
       if (e.target.closest("[data-sdel]")){
         e.stopPropagation();
         const p = state.presets.find(x => x.id === row.dataset.id);
@@ -4404,17 +4608,33 @@ const TRK = (() => {
       }
     }
     const b = e.target.closest(".add");
-    if (!b || !document.body.classList.contains("trk")) return;
+    if (!b) return;
+    const inTrk = document.body.classList.contains("trk");
+    const inBuild = document.body.classList.contains("build");
+    if (!inTrk && !inBuild) return;
     e.stopPropagation();
-    addFromView(+b.closest(".item").dataset.i);
+    const i = +b.closest(".item").dataset.i;
+    if (inBuild && window.BUILD){
+      const r = view[i];
+      if (r) BUILD.tryAdd(r.id);
+      return;
+    }
+    addFromView(i);
   }, true);
   // keyboard path: Enter on the listbox adds the active option
   $("#list").addEventListener("keydown", e => {
-    if (e.key !== "Enter" || state.ui.mode !== "track") return;
+    if (e.key !== "Enter") return;
+    if (state.ui.mode !== "track" && state.ui.mode !== "build") return;
     const id = $("#list").getAttribute("aria-activedescendant");
     const el = id && document.getElementById(id);
-    if (el && el.dataset.i != null){ e.preventDefault(); addFromView(+el.dataset.i); }
-    if (el && el.dataset.id && el.classList.contains("pc")){
+    if (el && el.dataset.i != null){
+      e.preventDefault();
+      if (state.ui.mode === "build" && window.BUILD){
+        const r = view[+el.dataset.i];
+        if (r) BUILD.tryAdd(r.id);
+      } else addFromView(+el.dataset.i);
+    }
+    if (el && el.dataset.id && el.classList.contains("pc") && state.ui.mode === "track"){
       e.preventDefault();
       const p = state.party.find(x => x.id === el.dataset.id);
       if (p) addPartyMember(p);
@@ -4742,14 +4962,680 @@ const TRK = (() => {
            setInitiative, reorderTo, moveBy, resetEnc, clearAll,
            initModOf, acOf, hpOf, openAddForm, openStartModal, closeOvl, openOvl,
            confirmSwap, applyUserSave,
-           rollDice, doRoll, savePreset, loadPreset, openPartyOvl, openPresetsOvl,
+           rollDice, doRoll, savePreset, savePresetFull, loadPreset, replaceEncounter,
+           getPreset, openPartyOvl, openPresetsOvl,
            pdHTML, openPdWindow, pickCombatant,
-           _test: { vEnc, vParty, vPresets, vDice, vUi, autoName, hpClass, midInit,
-                    badgeOf, scalePd } };
+           _test: { vEnc, vParty, vPresets, vDice, vUi, vBuilderMeta, autoName, hpClass,
+                    midInit, badgeOf, scalePd } };
 })();
 /* const bindings don't become window properties; the start()/keydown hooks in
    the first script test window.TRK so they stay no-ops if this block is absent */
 window.TRK = TRK;
+</script>
+
+<script>
+"use strict";
+
+const BUILD = (() => {
+
+  const STORE = "bg.builder.v1";
+  const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const int = (v, fb) => Number.isFinite(+v) ? Math.round(+v) : fb;
+  const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+
+  const PF2E_THREAT = {
+    trivial:  { base: 40,  adj: 10 },
+    low:      { base: 60,  adj: 20 },
+    moderate: { base: 80,  adj: 20 },
+    severe:   { base: 120, adj: 30 },
+    extreme:  { base: 160, adj: 40 },
+  };
+  const PF2E_COST = { "-4":10, "-3":15, "-2":20, "-1":30, "0":40, "1":60, "2":80, "3":120, "4":160 };
+  const PF2E_ORDER = ["trivial","low","moderate","severe","extreme"];
+
+  const DND2014_THRESH = {
+    1:[25,50,75,100], 2:[50,100,150,200], 3:[75,150,225,400], 4:[125,250,375,500],
+    5:[250,500,750,1100], 6:[300,600,900,1400], 7:[350,750,1100,1700], 8:[450,900,1400,2100],
+    9:[550,1100,1600,2400], 10:[600,1200,1900,2800], 11:[800,1600,2400,3600],
+    12:[1000,2000,3000,4500], 13:[1100,2200,3400,5100], 14:[1250,2500,3800,5700],
+    15:[1400,2800,4300,6400], 16:[1600,3200,4800,7200], 17:[2000,3900,5900,8800],
+    18:[2100,4200,6300,9500], 19:[2400,4900,7300,10900], 20:[2800,5700,8500,12700],
+  };
+  const DND2014_KEYS = ["easy","medium","hard","deadly"];
+  const DND2014_MULT = [
+    { max:1, m:1 }, { max:2, m:1.5 }, { max:6, m:2 },
+    { max:10, m:2.5 }, { max:14, m:3 }, { max:Infinity, m:4 },
+  ];
+  const DND2014_MULT_STEPS = [0.5, 1, 1.5, 2, 2.5, 3, 4];
+
+  const DND2024_BUDGET = {
+    1:[50,75,100], 2:[100,150,200], 3:[150,225,400], 4:[250,375,500],
+    5:[500,750,1100], 6:[600,1000,1400], 7:[750,1300,1700], 8:[1000,1700,2100],
+    9:[1300,2000,2600], 10:[1600,2300,3100], 11:[1900,2900,4100],
+    12:[2200,3700,4700], 13:[2600,4200,5400], 14:[2900,4900,6200],
+    15:[3300,5400,7800], 16:[3800,6100,9800], 17:[4500,7200,11700],
+    18:[5000,8700,14200], 19:[5500,10700,17200], 20:[6400,13200,22000],
+  };
+  const DND2024_KEYS = ["low","moderate","high"];
+
+  function defaultDraft(){
+    return {
+      system: "dnd5e",
+      ruleset: "dnd5e-2014",
+      partySize: 4,
+      partyLevel: 3,
+      threat: "medium",
+      name: "",
+      lines: [],
+      editingPresetId: null,
+    };
+  }
+  function vBuilder(raw){
+    const d = defaultDraft();
+    if (!raw || typeof raw !== "object") return d;
+    d.system = raw.system === "pf2e" ? "pf2e" : "dnd5e";
+    if (d.system === "pf2e") d.ruleset = "pf2e";
+    else d.ruleset = raw.ruleset === "dnd5e-2024" ? "dnd5e-2024" : "dnd5e-2014";
+    d.partySize = clamp(int(raw.partySize, 4), 1, 8);
+    d.partyLevel = clamp(int(raw.partyLevel, 3), 1, 20);
+    const threats = threatKeys(d.ruleset);
+    d.threat = threats.includes(raw.threat) ? raw.threat
+      : threats[Math.min(2, threats.length - 1)];
+    if (typeof raw.name === "string") d.name = raw.name.trim().slice(0, 80);
+    d.lines = [];
+    for (const ln of Array.isArray(raw.lines) ? raw.lines : []){
+      if (!ln || typeof ln.ref !== "string" || !ln.ref) continue;
+      d.lines.push({ ref: ln.ref.slice(0, 120), qty: clamp(int(ln.qty, 1), 1, 20) });
+    }
+    d.editingPresetId = typeof raw.editingPresetId === "string" ? raw.editingPresetId : null;
+    return d;
+  }
+  function threatKeys(ruleset){
+    if (ruleset === "pf2e") return PF2E_ORDER.slice();
+    if (ruleset === "dnd5e-2024") return DND2024_KEYS.slice();
+    return DND2014_KEYS.slice();
+  }
+  function threatLabel(k){
+    return k.charAt(0).toUpperCase() + k.slice(1);
+  }
+
+  function pf2eBudget(threat, partySize){
+    const t = PF2E_THREAT[threat] || PF2E_THREAT.moderate;
+    const size = clamp(int(partySize, 4), 1, 8);
+    return t.base + (size - 4) * t.adj;
+  }
+  function pf2eCreatureCost(partyLevel, creatureLevel){
+    const pl = clamp(int(partyLevel, 1), 1, 20);
+    const cl = int(creatureLevel, NaN);
+    if (!Number.isFinite(cl)) return { ok: false, reason: "missing-level", cost: null, delta: null };
+    const delta = cl - pl;
+    if (Math.abs(delta) > 4) return { ok: false, reason: "out-of-range", cost: null, delta };
+    return { ok: true, reason: null, cost: PF2E_COST[String(delta)], delta };
+  }
+  function pf2eClassify(spent, partySize){
+    let best = "trivial", bestDist = Infinity;
+    for (const k of PF2E_ORDER){
+      const b = pf2eBudget(k, partySize);
+      const dist = Math.abs(spent - b);
+      if (dist < bestDist){ bestDist = dist; best = k; }
+    }
+    return best;
+  }
+
+  function dnd2014Thresholds(partySize, partyLevel){
+    const lvl = clamp(int(partyLevel, 1), 1, 20);
+    const n = clamp(int(partySize, 4), 1, 8);
+    const row = DND2014_THRESH[lvl];
+    return {
+      easy: row[0] * n, medium: row[1] * n, hard: row[2] * n, deadly: row[3] * n,
+    };
+  }
+  function dnd2014Multiplier(monsterCount, partySize){
+    const count = Math.max(0, int(monsterCount, 0));
+    const size = clamp(int(partySize, 4), 1, 8);
+    let m = 1;
+    for (const row of DND2014_MULT){
+      if (count <= row.max){ m = row.m; break; }
+    }
+    let idx = DND2014_MULT_STEPS.indexOf(m);
+    if (idx < 0) idx = 1;
+    if (size < 3) idx = Math.min(DND2014_MULT_STEPS.length - 1, idx + 1);
+    if (size >= 6) idx = Math.max(0, idx - 1);
+    return DND2014_MULT_STEPS[idx];
+  }
+  function dnd2014Classify(adjustedXp, thresholds){
+    let best = "trivial";
+    for (const k of DND2014_KEYS){
+      if (adjustedXp >= thresholds[k]) best = k;
+    }
+    if (adjustedXp < thresholds.easy) return "trivial";
+    return best;
+  }
+  function dnd2014Budget(threat, partySize, partyLevel){
+    const t = dnd2014Thresholds(partySize, partyLevel);
+    return t[threat] != null ? t[threat] : t.medium;
+  }
+
+  function dnd2024Budget(threat, partySize, partyLevel){
+    const lvl = clamp(int(partyLevel, 1), 1, 20);
+    const n = clamp(int(partySize, 4), 1, 8);
+    const row = DND2024_BUDGET[lvl];
+    const i = DND2024_KEYS.indexOf(threat);
+    const per = row[i >= 0 ? i : 1];
+    return per * n;
+  }
+  function dnd2024Classify(spent, partySize, partyLevel){
+    const bands = DND2024_KEYS.map(k => ({ k, b: dnd2024Budget(k, partySize, partyLevel) }));
+    let best = "low";
+    for (const band of bands){
+      if (spent >= band.b) best = band.k;
+    }
+    if (spent < bands[0].b){
+      // below Low — still label low if anything spent, else empty
+      return spent > 0 ? "low" : "low";
+    }
+    return best;
+  }
+
+  function budgetFor(draft){
+    const size = draft.partySize, lvl = draft.partyLevel, threat = draft.threat;
+    if (draft.ruleset === "pf2e") return pf2eBudget(threat, size);
+    if (draft.ruleset === "dnd5e-2024") return dnd2024Budget(threat, size, lvl);
+    return dnd2014Budget(threat, size, lvl);
+  }
+
+  function loadDraft(){
+    try{ return vBuilder(JSON.parse(localStorage.getItem(STORE))); }
+    catch(_){ return vBuilder(null); }
+  }
+  function saveDraft(){
+    try{ localStorage.setItem(STORE, JSON.stringify(draft)); }
+    catch(_){
+      if (window.TRK){ /* storage full announced elsewhere */ }
+      status("Could not save builder draft — browser storage may be full", true);
+    }
+  }
+
+  let draft = loadDraft();
+  let active = false;
+
+  function status(msg, isErr){
+    const el = document.getElementById("buildStatus");
+    if (!el) return;
+    el.textContent = msg || "";
+    el.classList.toggle("err", !!isErr && !!msg);
+  }
+  function toast(msg){
+    if (window.TRK && TRK.state){
+      const el = document.getElementById("trklive");
+      if (el){ el.textContent = ""; el.textContent = msg; }
+    }
+    status(msg, false);
+  }
+
+  function recordOf(ref){
+    return (typeof ID_INDEX !== "undefined" && ID_INDEX.get(ref)) || null;
+  }
+  function creatureLevel(r){
+    if (!r || r._kind !== "monster") return null;
+    if (r.gameSystem === "pf2e" && r.challenge && r.challenge.kind === "level")
+      return Number.isFinite(+r.challenge.value) ? +r.challenge.value : null;
+    return null;
+  }
+  function creatureXp(r){
+    if (!r || r._kind !== "monster") return null;
+    if (r.gameSystem === "dnd5e" && r.challenge && Number.isFinite(+r.challenge.xp))
+      return +r.challenge.xp;
+    return null;
+  }
+  function canFormCombatant(r){
+    if (!window.TRK) return { ok: false, reason: "tracker-unavailable" };
+    const hp = TRK.hpOf(r);
+    if (hp == null) return { ok: false, reason: "missing-hp" };
+    // ac may be null; init mod defaults via initModOf
+    TRK.initModOf(r);
+    return { ok: true, reason: null, hp, ac: TRK.acOf(r), mod: TRK.initModOf(r) };
+  }
+
+  function lineCost(ref, qty){
+    const r = recordOf(ref);
+    if (!r) return { ok: false, reason: "missing-record", unit: 0, total: 0, name: ref };
+    const n = clamp(int(qty, 1), 1, 20);
+    if (draft.system === "pf2e"){
+      if (r.gameSystem !== "pf2e") return { ok: false, reason: "wrong-system", unit: 0, total: 0, name: r.name };
+      const c = pf2eCreatureCost(draft.partyLevel, creatureLevel(r));
+      if (!c.ok) return { ok: false, reason: c.reason, unit: 0, total: 0, name: r.name, delta: c.delta };
+      return { ok: true, reason: null, unit: c.cost, total: c.cost * n, name: r.name, delta: c.delta };
+    }
+    if (r.gameSystem !== "dnd5e") return { ok: false, reason: "wrong-system", unit: 0, total: 0, name: r.name };
+    const xp = creatureXp(r);
+    if (xp == null) return { ok: false, reason: "missing-xp", unit: 0, total: 0, name: r.name };
+    return { ok: true, reason: null, unit: xp, total: xp * n, name: r.name };
+  }
+
+  function spendSummary(){
+    let base = 0, monsters = 0, warnings = [];
+    for (const ln of draft.lines){
+      const c = lineCost(ln.ref, ln.qty);
+      if (!c.ok) warnings.push(c.name + ": " + (c.reason || "invalid"));
+      else { base += c.total; monsters += ln.qty; }
+    }
+    let spent = base, mult = 1;
+    if (draft.ruleset === "dnd5e-2014"){
+      mult = dnd2014Multiplier(monsters, draft.partySize);
+      spent = Math.round(base * mult);
+    }
+    const budget = budgetFor(draft);
+    let classified;
+    if (draft.ruleset === "pf2e") classified = pf2eClassify(spent, draft.partySize);
+    else if (draft.ruleset === "dnd5e-2024")
+      classified = dnd2024Classify(spent, draft.partySize, draft.partyLevel);
+    else {
+      const th = dnd2014Thresholds(draft.partySize, draft.partyLevel);
+      classified = dnd2014Classify(spent, th);
+    }
+    if (draft.ruleset === "dnd5e-2024" && draft.partySize > 0
+        && monsters / draft.partySize > 2){
+      warnings.push("More than 2 creatures per PC — 2024 rules tip: include fragile foes.");
+    }
+    return { budget, spent, remaining: budget - spent, base, mult, monsters, classified, warnings };
+  }
+
+  function autoName(combatants, base, want){
+    const rx = new RegExp("^" + base.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "( (\\d+))?$");
+    let plain = null; const nums = [];
+    for (const c of combatants){
+      const m = c.name.match(rx);
+      if (!m) continue;
+      if (m[2] == null) plain = c; else nums.push(+m[2]);
+    }
+    if (!plain && !nums.length && want === 1) return [base];
+    if (plain){ plain.name = base + " 1"; nums.push(1); }
+    let n = nums.length ? Math.max(...nums) : 0;
+    return Array.from({ length: want }, () => base + " " + (++n));
+  }
+
+  function combatantsFromLines(lines){
+    if (!window.TRK) return { ok: false, combatants: [], error: "Tracker unavailable" };
+    const combatants = [];
+    let seq = 0;
+    for (const ln of lines){
+      const r = recordOf(ln.ref);
+      if (!r) return { ok: false, combatants: [], error: "Missing record: " + ln.ref };
+      const form = canFormCombatant(r);
+      if (!form.ok) return { ok: false, combatants: [], error: form.reason === "missing-hp"
+        ? ("Missing HP — can’t save " + r.name) : ("Can’t form combatant for " + r.name) };
+      const qty = clamp(int(ln.qty, 1), 1, 20);
+      const names = autoName(combatants, r.name, qty);
+      for (const nm of names){
+        combatants.push({
+          id: "c" + (++seq),
+          name: nm,
+          type: "monster",
+          initiative: 0,
+          initiativeModifier: form.mod,
+          ac: form.ac,
+          hp: { current: form.hp, max: form.hp },
+          status: "normal",
+          ref: r.id,
+          sys: r.gameSystem,
+          markers: {},
+        });
+      }
+    }
+    return { ok: true, combatants, error: null };
+  }
+
+  function builderMetaSnapshot(){
+    return {
+      system: draft.system,
+      ruleset: draft.ruleset,
+      partySize: draft.partySize,
+      partyLevel: draft.partyLevel,
+      threat: draft.threat,
+      lines: draft.lines.map(l => ({ ref: l.ref, qty: l.qty })),
+    };
+  }
+
+  function tryAdd(ref){
+    const r = recordOf(ref);
+    if (!r || r._kind !== "monster"){
+      status("Not a monster.", true); return false;
+    }
+    if (r.gameSystem !== draft.system){
+      status("Wrong system for this build (“" + r.name + "”).", true); return false;
+    }
+    if (draft.system === "pf2e"){
+      const c = pf2eCreatureCost(draft.partyLevel, creatureLevel(r));
+      if (!c.ok && c.reason === "out-of-range"){
+        status("Outside party level ±4 — can’t add “" + r.name + "”.", true); return false;
+      }
+      if (!c.ok){
+        status("Missing level — can’t add “" + r.name + "”.", true); return false;
+      }
+    } else if (creatureXp(r) == null){
+      status("Missing XP — can’t add “" + r.name + "”.", true); return false;
+    }
+    const form = canFormCombatant(r);
+    if (!form.ok){
+      status(form.reason === "missing-hp"
+        ? ("Missing HP — can’t add “" + r.name + "” to Builder")
+        : ("Can’t add “" + r.name + "” to Builder"), true);
+      return false;
+    }
+    const existing = draft.lines.find(l => l.ref === r.id);
+    if (existing){
+      if (existing.qty >= 20){ status("Quantity cap is 20.", true); return false; }
+      existing.qty += 1;
+    } else draft.lines.push({ ref: r.id, qty: 1 });
+    saveDraft();
+    render();
+    status("Added “" + r.name + "”", false);
+    return true;
+  }
+
+  function setQty(ref, qty){
+    const ln = draft.lines.find(l => l.ref === ref);
+    if (!ln) return;
+    const n = clamp(int(qty, 1), 0, 20);
+    if (n < 1) draft.lines = draft.lines.filter(l => l.ref !== ref);
+    else ln.qty = n;
+    saveDraft();
+    render();
+  }
+
+  function clearRosterConfirm(btn, then){
+    if (!draft.lines.length){ then(); return; }
+    if (window.TRK && TRK.confirmSwap)
+      TRK.confirmSwap(btn, "Clear the builder roster?", then);
+    else then();
+  }
+
+  function setSystem(sys, btn){
+    const next = sys === "pf2e" ? "pf2e" : "dnd5e";
+    if (next === draft.system) return;
+    const apply = () => {
+      draft.system = next;
+      draft.ruleset = next === "pf2e" ? "pf2e" : "dnd5e-2014";
+      draft.threat = next === "pf2e" ? "moderate" : "medium";
+      draft.lines = [];
+      draft.editingPresetId = null;
+      saveDraft();
+      render();
+      if (window.refresh) refresh();
+    };
+    clearRosterConfirm(btn, apply);
+  }
+
+  function setRuleset(rs, btn){
+    if (draft.system !== "dnd5e") return;
+    const next = rs === "dnd5e-2024" ? "dnd5e-2024" : "dnd5e-2014";
+    if (next === draft.ruleset) return;
+    draft.ruleset = next;
+    const keys = threatKeys(next);
+    if (!keys.includes(draft.threat))
+      draft.threat = next === "dnd5e-2024" ? "moderate" : "medium";
+    saveDraft();
+    render();
+  }
+
+  function setThreat(t){
+    if (!threatKeys(draft.ruleset).includes(t)) return;
+    draft.threat = t;
+    saveDraft();
+    render();
+  }
+
+  function chipRow(host, items, current, onPick){
+    host.innerHTML = "";
+    for (const it of items){
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip" + (it.value === current ? " on" : "");
+      b.textContent = it.label;
+      b.setAttribute("aria-pressed", String(it.value === current));
+      b.onclick = () => onPick(it.value, b);
+      host.appendChild(b);
+    }
+  }
+
+  function renderControls(){
+    chipRow(document.getElementById("buildSys"), [
+      { value: "dnd5e", label: "D&D 5e" },
+      { value: "pf2e", label: "Pathfinder 2e" },
+    ], draft.system, setSystem);
+
+    const rs = document.getElementById("buildRuleset");
+    if (draft.system === "dnd5e"){
+      rs.hidden = false;
+      chipRow(rs, [
+        { value: "dnd5e-2014", label: "2014" },
+        { value: "dnd5e-2024", label: "2024" },
+      ], draft.ruleset, setRuleset);
+    } else {
+      rs.hidden = true;
+      rs.innerHTML = "";
+    }
+
+    const sizeEl = document.getElementById("buildPartySize");
+    const lvlEl = document.getElementById("buildPartyLevel");
+    if (sizeEl && document.activeElement !== sizeEl) sizeEl.value = String(draft.partySize);
+    if (lvlEl && document.activeElement !== lvlEl) lvlEl.value = String(draft.partyLevel);
+
+    chipRow(document.getElementById("buildThreat"),
+      threatKeys(draft.ruleset).map(k => ({ value: k, label: threatLabel(k) })),
+      draft.threat, t => setThreat(t));
+
+    const nameEl = document.getElementById("buildName");
+    if (nameEl && document.activeElement !== nameEl) nameEl.value = draft.name;
+  }
+
+  function renderMeter(){
+    const el = document.getElementById("buildMeter");
+    if (!el) return;
+    const s = spendSummary();
+    const remCls = s.remaining < 0 ? "bm-warn" : "bm-ok";
+    const multNote = draft.ruleset === "dnd5e-2014" && s.monsters
+      ? ` · ×${s.mult} (${s.base.toLocaleString()} base)` : "";
+    el.innerHTML =
+      `<div class="bm-line"><span>Budget</span><strong>${s.budget.toLocaleString()} XP</strong></div>` +
+      `<div class="bm-line"><span>Spent${esc(multNote)}</span><strong>${s.spent.toLocaleString()} XP</strong></div>` +
+      `<div class="bm-line"><span>Remaining</span><strong class="${remCls}">${s.remaining.toLocaleString()} XP</strong></div>` +
+      `<div class="bm-line"><span>Difficulty</span><strong>${esc(threatLabel(s.classified))}</strong></div>` +
+      (s.warnings.length
+        ? s.warnings.map(w => `<div class="bm-warn">${esc(w)}</div>`).join("")
+        : "");
+  }
+
+  function renderRoster(){
+    const ul = document.getElementById("buildRoster");
+    if (!ul) return;
+    ul.innerHTML = draft.lines.map(ln => {
+      const c = lineCost(ln.ref, ln.qty);
+      const meta = c.ok
+        ? (c.unit.toLocaleString() + " XP × " + ln.qty)
+        : (c.reason || "invalid");
+      return `<li data-ref="${esc(ln.ref)}">
+        <span class="br-name">${esc(c.name)}</span>
+        <span class="br-meta">${esc(meta)}</span>
+        <span class="br-qty">
+          <button type="button" data-q="-1" aria-label="Decrease quantity">−</button>
+          <span aria-label="Quantity">${esc(ln.qty)}</span>
+          <button type="button" data-q="1" aria-label="Increase quantity">+</button>
+        </span>
+        <button type="button" class="chip" data-rm aria-label="Remove">✕</button>
+      </li>`;
+    }).join("");
+    ul.querySelectorAll("li").forEach(li => {
+      const ref = li.dataset.ref;
+      li.querySelectorAll("[data-q]").forEach(btn => {
+        btn.onclick = () => {
+          const ln = draft.lines.find(l => l.ref === ref);
+          if (!ln) return;
+          setQty(ref, ln.qty + (+btn.dataset.q));
+        };
+      });
+      const rm = li.querySelector("[data-rm]");
+      if (rm) rm.onclick = () => setQty(ref, 0);
+    });
+  }
+
+  function render(){
+    if (!active && document.body.classList.contains("build")) active = true;
+    renderControls();
+    renderMeter();
+    renderRoster();
+  }
+
+  function setActive(on){
+    active = !!on;
+    if (active) render();
+    else saveDraft();
+  }
+
+  function hydrateFromBuilderMeta(meta, name, presetId){
+    const m = vBuilder({ ...meta, name: name || "", editingPresetId: presetId || null });
+    draft = m;
+    if (name) draft.name = name.slice(0, 80);
+    draft.editingPresetId = presetId || null;
+    saveDraft();
+  }
+
+  function hydrateFromEnc(enc, name, presetId){
+    const lines = [];
+    const byRef = new Map();
+    for (const c of (enc && enc.combatants) || []){
+      if (c.type === "player" || !c.ref) continue;
+      byRef.set(c.ref, (byRef.get(c.ref) || 0) + 1);
+    }
+    let sys = null;
+    for (const [ref, qty] of byRef){
+      const r = recordOf(ref);
+      if (r){
+        if (!sys) sys = r.gameSystem;
+        if (r.gameSystem === sys) lines.push({ ref, qty: clamp(qty, 1, 20) });
+      }
+    }
+    draft = vBuilder({
+      system: sys || draft.system,
+      ruleset: sys === "pf2e" ? "pf2e" : (draft.ruleset === "pf2e" ? "dnd5e-2014" : draft.ruleset),
+      partySize: draft.partySize,
+      partyLevel: draft.partyLevel,
+      threat: draft.threat,
+      name: name || "",
+      lines,
+      editingPresetId: presetId || null,
+    });
+    saveDraft();
+    return lines.length > 0;
+  }
+
+  function openPreset(id){
+    if (!window.TRK) return;
+    const p = TRK.getPreset(id);
+    if (!p){ status("Encounter not found.", true); return; }
+    if (window.TRK) TRK.setMode("build");
+    if (p.builder){
+      hydrateFromBuilderMeta(p.builder, p.name, p.id);
+      status("Opened “" + p.name + "” in Builder", false);
+    } else {
+      const ok = hydrateFromEnc(p.enc, p.name, p.id);
+      status(ok
+        ? ("Opened “" + p.name + "” — Builder metadata incomplete; roster rebuilt from combatants.")
+        : ("Opened “" + p.name + "” — no rebuildable Builder lines (add monsters with corpus refs)."),
+        !ok);
+    }
+    render();
+    if (window.refresh) refresh();
+  }
+
+  function saveToEncounters(btn){
+    const name = (document.getElementById("buildName")?.value || draft.name || "").trim();
+    if (!name){ status("Name the encounter first.", true); return; }
+    draft.name = name.slice(0, 80);
+    const built = combatantsFromLines(draft.lines);
+    if (!built.ok){ status(built.error, true); return; }
+    if (!window.TRK){ status("Tracker unavailable.", true); return; }
+    const go = () => {
+      const out = TRK.savePresetFull({
+        id: draft.editingPresetId,
+        name: draft.name,
+        enc: { name: draft.name, round: 0, activeId: null, seq: built.combatants.length,
+               combatants: built.combatants, last: { kind: "dmg" } },
+        dice: null,
+        builder: builderMetaSnapshot(),
+      });
+      if (!out){ status("Preset list is full (50).", true); return; }
+      draft.editingPresetId = out.id;
+      saveDraft();
+      toast("Saved “" + out.name + "” to Encounters");
+      if (window.refresh) refresh();
+    };
+    const existing = TRK.state.presets.find(p =>
+      p.name.toLowerCase() === draft.name.toLowerCase()
+      || (draft.editingPresetId && p.id === draft.editingPresetId));
+    if (existing && window.TRK.confirmSwap)
+      TRK.confirmSwap(btn, "Overwrite " + existing.name + "?", go);
+    else go();
+  }
+
+  function loadIntoTracker(btn){
+    const built = combatantsFromLines(draft.lines);
+    if (!built.ok){ status(built.error, true); return; }
+    if (!window.TRK){ status("Tracker unavailable.", true); return; }
+    const name = (document.getElementById("buildName")?.value || draft.name || "Encounter").trim()
+      || "Encounter";
+    draft.name = name.slice(0, 80);
+    saveDraft();
+    const enc = {
+      name: draft.name, round: 0, activeId: null, seq: built.combatants.length,
+      combatants: built.combatants, last: { kind: "dmg" },
+    };
+    const go = () => {
+      TRK.replaceEncounter(enc);
+      toast("Loaded into Tracker");
+      TRK.setMode("track");
+    };
+    if (window.TRK.confirmSwap)
+      TRK.confirmSwap(btn, "Replace the current encounter?", go);
+    else go();
+  }
+
+  function draftSystem(){ return draft.system; }
+
+  // wire inputs once
+  const sizeEl = document.getElementById("buildPartySize");
+  const lvlEl = document.getElementById("buildPartyLevel");
+  const nameEl = document.getElementById("buildName");
+  if (sizeEl) sizeEl.addEventListener("change", () => {
+    draft.partySize = clamp(int(sizeEl.value, 4), 1, 8);
+    sizeEl.value = String(draft.partySize);
+    saveDraft(); render();
+  });
+  if (lvlEl) lvlEl.addEventListener("change", () => {
+    draft.partyLevel = clamp(int(lvlEl.value, 3), 1, 20);
+    lvlEl.value = String(draft.partyLevel);
+    saveDraft(); render();
+  });
+  if (nameEl) nameEl.addEventListener("change", () => {
+    draft.name = String(nameEl.value || "").trim().slice(0, 80);
+    saveDraft();
+  });
+  const saveBtn = document.getElementById("buildSave");
+  const loadBtn = document.getElementById("buildLoad");
+  if (saveBtn) saveBtn.onclick = () => saveToEncounters(saveBtn);
+  if (loadBtn) loadBtn.onclick = () => loadIntoTracker(loadBtn);
+
+  return {
+    setActive, tryAdd, openPreset, draftSystem, render,
+    _test: {
+      vBuilder, pf2eBudget, pf2eCreatureCost, pf2eClassify,
+      dnd2014Thresholds, dnd2014Multiplier, dnd2014Classify, dnd2014Budget,
+      dnd2024Budget, dnd2024Classify, budgetFor, combatantsFromLines,
+    },
+  };
+})();
+window.BUILD = BUILD;
 </script>
 
 <script>
