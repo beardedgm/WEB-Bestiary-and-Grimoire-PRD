@@ -226,13 +226,14 @@ Documented size steps (use these literals in CSS; do not invent ad-hoc values):
 
 ## Layout
 
-Three exclusive app modes via header chips: **Library** (`browse`), **Tracker** (`track` → `body.trk`), **Board** (`board` → `body.board`).
+Three exclusive app modes via header chips: **Library** (`browse`), **Tracker** (`track` → `body.trk`), **Board** (`board` → `body.board`), **Builder** (`build` → `body.build`).
 
-- **Library / Tracker:** Three-column flex shell on desktop: library (`#side`, resizable), optional tracker (`#trk`, resizable), reading pane (`#pane`).
+- **Library / Tracker / Builder:** Three-column flex shell on desktop: library (`#side`, resizable), optional tracker (`#trk`) or builder (`#builder`) in the middle column slot (same `--col-trk` width), reading pane (`#pane`).
+- **Builder chrome:** System / ruleset / party size+level / threat chips, live XP meter, roster with qty 1–20, Save to Encounters + Load into Tracker. Catalog is monsters-only for the draft system; Table → Encounters keeps Load + Builder open actions.
 - **Board:** Full-height `#board` shell replaces the three columns (rail + snap-grid stage). Leaving Board stops audio and freezes running timers. Library search is unavailable with `#side` (by design).
 - Header: brand + mode chips + **Export** (`#user-save`, far right) for portable save export/import; library-list search (`#q` + `#count` in `#sidesearch`) sits under Catalog/Table nav, above Filters / Table bar — not inside Filters
-- Column defaults: side 340px, tracker 380px; drag gutters 6px
-- Mobile breakpoint **760px**: stack Library/Tracker columns, hide resize handles; Board collapses the add rail into a **Cards & sessions** bottom sheet (scrim + sheet) so add/session actions stay reachable
+- Column defaults: side 340px, tracker/builder 380px; drag gutters 6px
+- Mobile breakpoint **760px**: stack Library/Tracker/Builder columns, hide resize handles; Board collapses the add rail into a **Cards & sessions** bottom sheet (scrim + sheet) so add/session actions stay reachable
 - Touch/coarse pointer: 44px minimum on tracker damage/heal/remove, catalog add, and Board card ops / primary card controls
 - Body scrolls when zoom or content exceeds viewport (`overflow: auto`)
 

@@ -27,7 +27,8 @@ python3 -m http.server 8000    # → http://localhost:8000/app.template.html
 There is no test suite and no linter. CI (`.github/workflows/ci.yml`) runs `py_compile` on
 the three Python scripts plus `build_bundles.py --check`. Verification of app behaviour is
 manual in the browser; `TRK._test` exposes the pure validators (`vEnc`, `vParty`, `vUi`,
-`autoName`, `hpClass`, `midInit`, `badgeOf`, `scalePd`) for console checks.
+`autoName`, `hpClass`, `midInit`, `badgeOf`, `scalePd`) and `BUILD._test` the encounter
+budget helpers (`pf2eBudget`, `dnd2014Multiplier`, `dnd2024Budget`, …) for console checks.
 
 ## Generated files
 
@@ -48,18 +49,20 @@ telling you to update `build_bundles.py` — heed it rather than working around 
 
 ## Architecture
 
-One HTML file, no framework, no dependencies. `app.template.html` holds three sequential
+One HTML file, no framework, no dependencies. `app.template.html` holds four sequential
 `<script>` blocks:
 
 | Block | Scope |
 |---|---|
-| 1 (`~1271–2835`) | Corpus load, custom library, portable save, filters/`SCALES`, search, stat-block + spell rendering, spell peek |
-| `TRK` (`~2843–4725`) | Initiative tracker, dice, party/presets, player display, undo ring, column resize |
-| `BOARD` (`~4731–6088`) | Session boards: markdown / image / audio / counter / dice / timer / checklist / random cards |
+| 1 (`~1370–2930`) | Corpus load, custom library, portable save, filters/`SCALES`, search, stat-block + spell rendering, spell peek |
+| `TRK` | Initiative tracker, dice, party/presets, player display, undo ring, column resize, mode chrome |
+| `BUILD` | Encounter Builder: draft `bg.builder.v1`, PF2e / 5e 2014 / 5e 2024 budgets, roster, Save/Load bridges |
+| `BOARD` | Session boards: markdown / image / audio / counter / dice / timer / checklist / random cards |
 
-**Module boundary.** `TRK` and `BOARD` are IIFEs assigned to `window.TRK` / `window.BOARD`
-at the end of their block (`const` bindings don't become window properties). Script 1 guards
-every cross-module call with `if (window.TRK)` so each block stays independently removable.
+**Module boundary.** `TRK`, `BUILD`, and `BOARD` are IIFEs assigned to `window.TRK` /
+`window.BUILD` / `window.BOARD` at the end of their block (`const` bindings don't become
+window properties). Script 1 guards every cross-module call with `if (window.TRK)` /
+`if (window.BUILD)` so each block stays independently removable.
 Script 1 publishes `window.refresh`, `window.setSide`, `window.openSpellPeek`, etc. for the
 same reason. Keep new cross-module calls guarded.
 
@@ -73,8 +76,10 @@ treated as untrusted (hand-edited, older schema, truncated write): every read go
 `vCustomRecords`) that copies and clamps recognised fields and drops everything else. Follow
 that pattern for any new persisted state, and never re-sort arrays whose order carries user
 intent (combatant tie order). Keys: `bg.trk.{enc,party,presets,dice,ui,pd}.v1`,
-`bg.custom.records.v1`, `bg.board.v1`. The portable export is `bg-user-save/1`, merged by id
-(local kept on conflict for non-encounter data; the encounter is replaced after confirmation).
+`bg.custom.records.v1`, `bg.board.v1`, `bg.builder.v1`. Presets may include optional
+`builder` metadata (validated by `vBuilderMeta`). The portable export is `bg-user-save/1`,
+merged by id (local kept on conflict for non-encounter data; the encounter is replaced after
+confirmation).
 
 **Per-system rules live in one place.** `initModOf()` is the only place the initiative rule
 branches: PF2e rolls on Perception, 5e on DEX, except 2025-SRD monsters which print
