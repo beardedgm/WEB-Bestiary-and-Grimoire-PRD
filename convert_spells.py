@@ -549,7 +549,7 @@ def main():
         if not os.path.isdir(sdir): continue
         for folder in sorted(os.listdir(sdir)):
             fdir = os.path.join(sdir, folder)
-            if not os.path.isdir(fdir): continue
+            if not os.path.isdir(fdir) or folder.startswith("_"): continue
             for fn in sorted(os.listdir(fdir)):
                 if not fn.endswith('.md'): continue
                 stem = fn[:-3]

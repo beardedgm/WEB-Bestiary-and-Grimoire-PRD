@@ -907,9 +907,11 @@ To find out whether the committed artifacts are current without touching anythin
 
 ```bash
 python build_bundles.py --check
+python validate_schemas.py   # every record in the four bundles vs JSON Schemas
 ```
 
 That exits non-zero and names the stale files. It's the check to run before committing.
+CI also installs pinned `jsonschema` and runs `validate_schemas.py`.
 
 **The bundles are build artifacts.** If you edit a sidecar without rebuilding, the bundle
 goes stale silently. Pick one as your working copy and regenerate the other.
