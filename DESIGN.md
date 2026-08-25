@@ -301,6 +301,7 @@ Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes
 
 - Segmented control (`Catalog | Table`) in stone-2 tray; inner chips for Monsters/Spells/Party/Encounters
 - Native `<details>` for Filters and Dice — keyboard and disclosure behavior come free
+- Spell-only filter chips live in `#f-extra`; `#f-extra[hidden]{display:none !important}` so `.frow` flex cannot leak them onto Catalog Monsters (same pattern as table-bar hidden overrides)
 - **Custom** filter chip beside system chips; custom list rows use a dashed gilt spine (`.item.custom`)
 - List footer (`#listfoot`): overflow hint; `+` (`#custom-add`) for adding one custom creature/spell
 
