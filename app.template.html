@@ -103,6 +103,8 @@ body:not(.trk):not(.build) #resize-trk{display:none}
 #tablebar{padding:9px 12px; border-bottom:1px solid var(--hair); background:var(--stone-3)}
 #tablebar[hidden],#filters.table-off{display:none}
 #tbar-party[hidden],#side-save-enc[hidden]{display:none !important}
+/* .frow { display:flex } would otherwise defeat the UA [hidden] rule */
+#f-extra[hidden]{display:none !important}
 #side-save-enc:not([hidden]){display:flex; gap:6px; align-items:center}
 #side-save-enc input{
   flex:1; min-width:0; padding:6px 9px; border-radius:2px;
@@ -153,7 +155,7 @@ label.tog input{accent-color:var(--gilt); width:15px; height:15px}
 /* range controls — same micro-type as the filter chips, no new colours */
 #f-range:empty{display:none}
 .rng{margin-bottom:9px}
-.rng[hidden]{display:none}
+.rng[hidden]{display:none !important}
 .rng .lbl{display:block; margin-bottom:4px; color:var(--faint);
           font:600 9.5px/1 var(--mono); text-transform:uppercase; letter-spacing:.1em}
 .rng .row{display:flex; align-items:center; gap:6px}
@@ -2282,7 +2284,17 @@ function applySideChrome(){
     side === "monster" ? "Monsters" : side === "spell" ? "Spells"
     : side === "party" ? "Party" : "Saved encounters");
   const extra = $("#f-extra");
-  if (extra) extra.hidden = side !== "spell";
+  if (extra){
+    const onSpell = side === "spell";
+    extra.hidden = !onSpell;
+    if (!onSpell && F.extra.size){
+      F.extra.clear();
+      extra.querySelectorAll(".chip").forEach(b => {
+        b.classList.remove("on");
+        b.setAttribute("aria-pressed", "false");
+      });
+    }
+  }
   const libBtn = $("#custom-add");
   if (libBtn) libBtn.hidden = isTableSide(side);
 }
