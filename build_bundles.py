@@ -70,12 +70,13 @@ async function tryEmbedded(){
   if (typeof DecompressionStream === "undefined"){
     logline("this browser has no DecompressionStream @@EM@@ falling back"); return 0;
   }
+  packData.clear();
   DATA.length = 0;
   let ok = 0;
   for (const n of nodes){
     try{
       const arr = JSON.parse(await gunzipB64(n.textContent.trim()));
-      ingest(n.dataset.bundle, arr); ok++;
+      setPack(n.dataset.bundle, arr); ok++;
       logline("\u2713 " + n.dataset.bundle + "  (" + arr.length.toLocaleString() + " records)");
     }catch(e){ logline("\u2717 " + n.dataset.bundle + " @@EM@@ " + e.message); }
     n.remove();                       // release the base64 text

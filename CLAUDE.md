@@ -12,6 +12,9 @@ python3 build_bundles.py
 # ~3s over all 9,346 sidecars. This is the CI gate; run it before every commit.
 python3 build_bundles.py --check
 
+# Validate every record in the four bundles against monster/spell JSON Schemas (CI)
+python3 validate_schemas.py
+
 # Bundles only, leave index.html alone
 python3 build_bundles.py --no-page
 
@@ -25,7 +28,8 @@ python3 -m http.server 8000    # → http://localhost:8000/app.template.html
 ```
 
 There is no test suite and no linter. CI (`.github/workflows/ci.yml`) runs `py_compile` on
-the three Python scripts plus `build_bundles.py --check`. Verification of app behaviour is
+the Python scripts, `build_bundles.py --check`, and `validate_schemas.py` (pinned
+`jsonschema`). Verification of app behaviour is
 manual in the browser; `TRK._test` exposes the pure validators (`vEnc`, `vParty`, `vUi`,
 `autoName`, `hpClass`, `midInit`, `badgeOf`, `scalePd`) and `BUILD._test` the encounter
 budget helpers (`pf2eBudget`, `dnd2014Multiplier`, `dnd2024Budget`, …) for console checks.

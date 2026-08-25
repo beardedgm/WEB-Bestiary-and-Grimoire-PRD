@@ -1497,42 +1497,61 @@ function setAppInert(on){
 window.setAppInert = setAppInert;
 
 /* ---------------- loading ---------------- */
-function ingest(name, arr){
+/* Pack basename → tagged record array. Drop/replace is atomic per pack so
+   re-dropping the same file cannot duplicate rows in DATA. */
+const packData = new Map();
+
+function tagPackRecords(arr){
   const kind = arr.length && arr[0].schema && arr[0].schema.startsWith("ttrpg-spell") ? "spell" : "monster";
   for (const r of arr){
     r._kind = kind;
-    r._search = r.name.toLowerCase();
+    r._search = (r.name || "").toLowerCase();
     r._deep = null;                       // built lazily on first deep search
-    DATA.push(r);
   }
   return kind;
+}
+function packBasename(name){
+  return String(name).split(/[/\\]/).pop();
+}
+function rebuildDataFromPacks(){
+  DATA.length = 0;
+  for (const f of FILES){
+    const arr = packData.get(f);
+    if (!arr) continue;
+    for (const r of arr) DATA.push(r);
+  }
+}
+function setPack(name, arr){
+  const base = packBasename(name);
+  if (!FILES.includes(base)) return false;
+  if (!Array.isArray(arr)) throw new Error("not a JSON array");
+  tagPackRecords(arr);
+  packData.set(base, arr);
+  rebuildDataFromPacks();
+  return true;
 }
 function logline(t){ $("#lst").textContent += t + "\n"; }
 
 async function tryFetch(){
   let ok = 0;
+  packData.clear();
   DATA.length = 0;
   for (const f of FILES){
     try{
       const res = await fetch(f, {cache:"no-store"});
       if (!res.ok) throw new Error("HTTP " + res.status);
       const arr = await res.json();
-      ingest(f, arr); ok++;
+      setPack(f, arr); ok++;
       logline("✓ " + f + "  (" + arr.length.toLocaleString() + " records)");
     }catch(e){ logline("✗ " + f + "  — " + e.message); }
   }
   return ok;
 }
 
-const loadedPacks = new Set();
-function notePack(name){
-  const base = String(name).split(/[/\\]/).pop();
-  if (FILES.includes(base)) loadedPacks.add(base);
-}
-function allPacksReady(){ return FILES.every(f => loadedPacks.has(f)); }
+function allPacksReady(){ return FILES.every(f => packData.has(f)); }
 function resetCorpusLoad(){
   DATA.length = 0;
-  loadedPacks.clear();
+  packData.clear();
   ID_INDEX.clear();
   SPELL_INDEX.clear();
 }
@@ -1546,15 +1565,14 @@ function handleFiles(files){
     fr.onload = () => {
       try{
         const arr = JSON.parse(fr.result);
-        if (!Array.isArray(arr)) throw new Error("not a JSON array");
-        ingest(file.name, arr);
-        notePack(file.name);
+        if (!setPack(file.name, arr))
+          throw new Error("unknown pack name (need one of " + FILES.join(", ") + ")");
         logline("✓ " + file.name + "  (" + arr.length.toLocaleString() + " records)");
       }catch(e){ logline("✗ " + file.name + " — " + e.message); }
       if (++done === pending){
         if (allPacksReady()) start();
         else logline("Need all four packs: " + FILES.join(", ") +
-                     "  (have " + [...loadedPacks].join(", ") + " or none)");
+                     "  (have " + [...packData.keys()].join(", ") + " or none)");
       }
     };
     fr.onerror = () => {
@@ -1577,12 +1595,13 @@ async function tryEmbedded(){
   if (typeof DecompressionStream === "undefined"){
     logline("this browser has no DecompressionStream — falling back"); return 0;
   }
+  packData.clear();
   DATA.length = 0;
   let ok = 0;
   for (const n of nodes){
     try{
       const arr = JSON.parse(await gunzipB64(n.textContent.trim()));
-      ingest(n.dataset.bundle, arr); ok++;
+      setPack(n.dataset.bundle, arr); ok++;
       logline("\u2713 " + n.dataset.bundle + "  (" + arr.length.toLocaleString() + " records)");
     }catch(e){ logline("\u2717 " + n.dataset.bundle + " — " + e.message); }
     n.remove();                       // release the base64 text
@@ -1593,7 +1612,6 @@ async function boot(){
   if ((await tryEmbedded()) === FILES.length) { start(); return; }
   const n = await tryFetch();
   if (n === FILES.length){
-    FILES.forEach(notePack);
     start();
     return;
   }
@@ -1621,7 +1639,7 @@ const CUSTOM_LS = "bg.custom.records.v1";
 const USER_SAVE_SCHEMA = "bg-user-save/1";
 const CUSTOM_ID_RE = /^(dnd5e|pf2e):custom:[a-z0-9-]+$/;
 const CUSTOM_PASTE_MAX = 512 * 1024;
-const USER_SAVE_MAX = 2 * 1024 * 1024;
+const USER_SAVE_MAX = 8 * 1024 * 1024;
 const ABIL_KEYS = ["str", "dex", "con", "int", "wis", "cha"];
 let CORPUS_IDS = new Set();
 let pendingCustomDrops = 0;
@@ -1994,6 +2012,11 @@ function buildUserSave(){
 function downloadUserSave(){
   const bag = buildUserSave();
   const blob = new Blob([JSON.stringify(bag, null, 2)], { type: "application/json" });
+  if (blob.size > USER_SAVE_MAX){
+    announceLive("Warning: save is " + (blob.size / (1024 * 1024)).toFixed(1) +
+      " MB — over the " + (USER_SAVE_MAX / (1024 * 1024)) +
+      " MB import limit; re-import may fail. Remove large Board images/audio or shrink notes.");
+  }
   const a = document.createElement("a");
   const url = URL.createObjectURL(blob);
   a.href = url;
@@ -2020,6 +2043,7 @@ function applyUserSaveBag(bag){
   mergeCustomsIntoData(mergedCustoms);
 
   let partyAdd = 0, presetAdd = 0, encReplaced = false, boardUpserts = 0;
+  let storageOk = true;
   if (window.TRK && TRK.applyUserSave){
     const stats = TRK.applyUserSave({
       party: bag.party,
@@ -2031,10 +2055,12 @@ function applyUserSaveBag(bag){
     partyAdd = stats.partyAdd || 0;
     presetAdd = stats.presetAdd || 0;
     encReplaced = !!stats.encReplaced;
+    if (stats.ok === false) storageOk = false;
   }
   if (window.BOARD && BOARD.applyUserSave && Array.isArray(bag.boards)){
     const st = BOARD.applyUserSave({ boards: bag.boards, activeBoardId: bag.activeBoardId });
     boardUpserts = st.boardUpserts || 0;
+    if (st.ok === false) storageOk = false;
   }
   refresh();
   if (window.applySideChrome) applySideChrome();
@@ -2046,6 +2072,8 @@ function applyUserSaveBag(bag){
   if (presetAdd) bits.push("+" + presetAdd + " presets");
   if (encReplaced) bits.push("encounter replaced");
   if (boardUpserts) bits.push("+" + boardUpserts + " boards");
+  if (!storageOk)
+    return { ok: false, message: "Import partially applied but browser storage failed — some changes may not persist. Free space and try again." };
   return { ok: true, message: bits.join(" · ") || "Save imported" };
 }
 
@@ -2152,7 +2180,7 @@ function openUserSaveDialog(){
     if (!f) return;
     if (f.size > USER_SAVE_MAX){
       saveErr.hidden = false;
-      saveErr.textContent = "Save file is too large (max 2 MB).";
+      saveErr.textContent = "Save file is too large (max 8 MB).";
       fileInp.value = "";
       return;
     }
@@ -4950,11 +4978,12 @@ const TRK = (() => {
       state.ui.qty = u.qty;
       state.ui.diceOpen = u.diceOpen;
     }
-    saveOrWarn(LS.party, state.party);
-    saveOrWarn(LS.presets, state.presets);
-    saveOrWarn(LS.enc, state.enc);
-    saveOrWarn(LS.dice, state.dice);
-    saveOrWarn(LS.ui, state.ui);
+    let storageOk = true;
+    if (!saveOrWarn(LS.party, state.party)) storageOk = false;
+    if (!saveOrWarn(LS.presets, state.presets)) storageOk = false;
+    if (!saveOrWarn(LS.enc, state.enc)) storageOk = false;
+    if (!saveOrWarn(LS.dice, state.dice)) storageOk = false;
+    if (!saveOrWarn(LS.ui, state.ui)) storageOk = false;
     applyColWidths();
     hist.past.length = 0;
     hist.future.length = 0;
@@ -4965,7 +4994,7 @@ const TRK = (() => {
     let partyAdd = 0, presetAdd = 0;
     for (const p of state.party) if (!beforeParty.has(p.id)) partyAdd++;
     for (const p of state.presets) if (!beforePresets.has(p.id)) presetAdd++;
-    return { partyAdd, presetAdd, encReplaced: !!(parts && parts.enc) };
+    return { partyAdd, presetAdd, encReplaced: !!(parts && parts.enc), ok: storageOk };
   }
 
   return { state, setMode, setSide, onDataReady, renderTrk, renderSideList, key,
@@ -4991,7 +5020,7 @@ window.TRK = TRK;
 const BUILD = (() => {
 
   const STORE = "bg.builder.v1";
-  const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const esc = s => String(s==null?"":s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
   const int = (v, fb) => Number.isFinite(+v) ? Math.round(+v) : fb;
   const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 
@@ -5669,7 +5698,7 @@ const BOARD = (() => {
   const uid = () => "c" + Math.random().toString(36).slice(2, 10);
   const snap = n => Math.round(n / GRID) * GRID;
   const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
-  const esc = s => String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const esc = s => String(s==null?"":s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
   function toast(msg){
     toastEl.textContent = msg;
@@ -5798,7 +5827,15 @@ const BOARD = (() => {
 
 
 
-  
+
+  const MD_SOFT = 20000, MD_WARN = 60000, MD_HARD = 120000;
+  const CARD_TYPES = new Set(["markdown","image","audio","counter","dice","timer","checklist","random"]);
+  const MAX_BOARD_CARDS = 200;
+  const MAX_BOARDS = 40;
+  const MAX_CHECKLIST = 200;
+  const MAX_DICE_HIST = 20;
+  const MAX_RANDOM_LINES = 50000;
+
   function seedBoards(){
     const id = "board-" + uid();
     return {
@@ -5807,34 +5844,164 @@ const BOARD = (() => {
     };
   }
 
+  function vStr(v, max, fb){
+    if (typeof v !== "string") return fb;
+    return v.length > max ? v.slice(0, max) : v;
+  }
+  function vNum(v, fb){
+    return Number.isFinite(+v) ? +v : fb;
+  }
+  function vInt(v, fb){
+    return Number.isFinite(+v) ? Math.round(+v) : fb;
+  }
+  function mediaSrc(v, kind){
+    if (typeof v !== "string" || !v) return "";
+    if (kind === "image" && v.startsWith("data:image/")) return v;
+    if (kind === "audio" && v.startsWith("data:audio/")) return v;
+    return "";
+  }
 
-  let state = load();
-  let selectedId = null;
-  let zTop = 10;
+  function vCard(raw){
+    if (!raw || typeof raw !== "object") return null;
+    let type = typeof raw.type === "string" ? raw.type : "";
+    if (type === "clock") type = "counter";
+    if (!CARD_TYPES.has(type)) return null;
+    const id = (typeof raw.id === "string" && raw.id) ? raw.id.slice(0, 64) : uid();
+    const card = {
+      id,
+      type,
+      x: snap(clamp(vNum(raw.x, 48), -5000, 20000)),
+      y: snap(clamp(vNum(raw.y, 48), -5000, 20000)),
+      w: snap(clamp(vNum(raw.w, 288), GRID * 4, GRID * 40)),
+      h: snap(clamp(vNum(raw.h, 240), GRID * 4, GRID * 40)),
+      z: clamp(vInt(raw.z, 1), 1, 100000),
+      title: vStr(raw.title, 80, type.charAt(0).toUpperCase() + type.slice(1)),
+      collapsed: !!raw.collapsed,
+    };
+    if (raw.expandedH != null)
+      card.expandedH = snap(clamp(vNum(raw.expandedH, card.h), GRID * 4, GRID * 40));
+
+    if (type === "markdown"){
+      card.body = vStr(raw.body, MD_HARD, "");
+      card.editing = !!raw.editing;
+    } else if (type === "image"){
+      card.src = mediaSrc(raw.src, "image");
+    } else if (type === "audio"){
+      card.src = mediaSrc(raw.src, "audio");
+      card.fileName = vStr(raw.fileName, 200, "");
+      card.loop = !!raw.loop;
+      card.volume = clamp(vNum(raw.volume, 0.7), 0, 1);
+      card.fadeMs = clamp(vInt(raw.fadeMs, 1000), 0, 30000);
+    } else if (type === "counter"){
+      card.segments = clamp(vInt(raw.segments, 6), 1, 40);
+      card.filled = clamp(vInt(raw.filled, 0), 0, card.segments);
+    } else if (type === "dice"){
+      card.expr = vStr(raw.expr, 40, "1d20") || "1d20";
+      const hist = Array.isArray(raw.history) ? raw.history : [];
+      card.history = [];
+      for (const h of hist.slice(0, MAX_DICE_HIST)){
+        if (!h || typeof h !== "object") continue;
+        card.history.push({
+          expr: vStr(h.expr, 40, ""),
+          total: vInt(h.total, 0),
+          detail: vStr(h.detail, 200, ""),
+        });
+      }
+    } else if (type === "timer"){
+      card.mode = raw.mode === "stopwatch" ? "stopwatch" : "countdown";
+      card.durationSec = clamp(vInt(raw.durationSec, 300), 1, 86400);
+      card.baseMs = clamp(vInt(raw.baseMs, card.durationSec * 1000), 0, 86400000);
+      card.running = false;
+      card.startedAt = null;
+      card.fired = !!raw.fired;
+    } else if (type === "checklist"){
+      const items = Array.isArray(raw.items) ? raw.items : [];
+      card.items = [];
+      for (const it of items.slice(0, MAX_CHECKLIST)){
+        if (!it || typeof it !== "object") continue;
+        card.items.push({
+          id: (typeof it.id === "string" && it.id) ? it.id.slice(0, 64) : uid(),
+          text: vStr(it.text, 200, ""),
+          done: !!it.done,
+        });
+      }
+    } else if (type === "random"){
+      card.lines = vStr(raw.lines, MAX_RANDOM_LINES, "");
+      card.last = vStr(raw.last, 500, "");
+    }
+    return card;
+  }
+
+  function vBoard(raw){
+    if (!raw || typeof raw !== "object") return null;
+    if (typeof raw.id !== "string" || !raw.id) return null;
+    const cardsIn = Array.isArray(raw.cards) ? raw.cards : [];
+    const cards = [];
+    for (const c of cardsIn.slice(0, MAX_BOARD_CARDS)){
+      const vc = vCard(c);
+      if (vc) cards.push(vc);
+    }
+    return {
+      id: raw.id.slice(0, 64),
+      title: vStr(
+        (typeof raw.title === "string" && raw.title.trim() ? raw.title.trim() : "Session"),
+        80, "Session"),
+      updatedAt: (typeof raw.updatedAt === "number" && Number.isFinite(raw.updatedAt))
+        ? raw.updatedAt : Date.now(),
+      cards,
+    };
+  }
+
+  function vBoardsState(raw){
+    if (!raw || !Array.isArray(raw.boards) || !raw.boards.length) return seedBoards();
+    const boards = [];
+    for (const b of raw.boards.slice(0, MAX_BOARDS)){
+      const vb = vBoard(b);
+      if (vb) boards.push(vb);
+    }
+    if (!boards.length) return seedBoards();
+    let activeBoardId = typeof raw.activeBoardId === "string" ? raw.activeBoardId : boards[0].id;
+    if (!boards.some(b => b.id === activeBoardId)) activeBoardId = boards[0].id;
+    return { activeBoardId, boards };
+  }
 
   function load(){
     try{
       const raw = localStorage.getItem(STORE);
       if (!raw) return seedBoards();
-      const v = JSON.parse(raw);
-      if (!v || !Array.isArray(v.boards) || !v.boards.length) return seedBoards();
-      for (const b of v.boards){
-        for (const c of (b.cards || [])){
-          if (c.type === "clock") c.type = "counter";
-        }
-      }
-      return v;
+      return vBoardsState(JSON.parse(raw));
     }catch(_){ return seedBoards(); }
   }
   function save(){
-    try{ localStorage.setItem(STORE, JSON.stringify(state)); }
-    catch(err){
+    try{
+      const boards = [];
+      for (const b of state.boards){
+        const vb = vBoard(b);
+        if (vb) boards.push(vb);
+      }
+      const payload = {
+        activeBoardId: state.activeBoardId,
+        boards: boards.length ? boards : seedBoards().boards,
+      };
+      if (!boards.some(b => b.id === payload.activeBoardId))
+        payload.activeBoardId = payload.boards[0].id;
+      localStorage.setItem(STORE, JSON.stringify(payload));
+      return true;
+    }catch(err){
       const quota = err && (err.name === "QuotaExceededError" || err.code === 22);
       toast(quota
         ? "Storage full — shrink large notes or remove image/audio cards"
         : "Could not save board");
+      return false;
     }
   }
+
+  let state = load();
+  let selectedId = null;
+  let zTop = 10;
+  for (const b of state.boards)
+    for (const c of b.cards)
+      if (c.z > zTop) zTop = c.z;
   function active(){
     return state.boards.find(b => b.id === state.activeBoardId) || state.boards[0];
   }
@@ -5858,7 +6025,6 @@ const BOARD = (() => {
     card._previewDirty = false;
     return html;
   }
-  const MD_SOFT = 20000, MD_WARN = 60000, MD_HARD = 120000;
   function sizeLabel(n){
     if (n >= MD_HARD) return n + " chars · too large to save reliably";
     if (n >= MD_WARN) return n + " chars · large note";
@@ -6977,23 +7143,21 @@ const BOARD = (() => {
   }
 
   function getExport(){
-    return { activeBoardId: state.activeBoardId, boards: state.boards };
+    const boards = [];
+    for (const b of state.boards){
+      const vb = vBoard(b);
+      if (vb) boards.push(vb);
+    }
+    return { activeBoardId: state.activeBoardId, boards };
   }
 
   function applyUserSave(parts){
-    if (!parts || !Array.isArray(parts.boards)) return { boardUpserts: 0 };
+    if (!parts || !Array.isArray(parts.boards)) return { boardUpserts: 0, ok: true };
     const map = new Map(state.boards.map(b => [b.id, b]));
     let upserts = 0;
-    for (const raw of parts.boards){
-      if (!raw || typeof raw !== "object" || typeof raw.id !== "string") continue;
-      const cards = Array.isArray(raw.cards) ? raw.cards : [];
-      for (const c of cards){ if (c && c.type === "clock") c.type = "counter"; }
-      const board = {
-        id: raw.id,
-        title: typeof raw.title === "string" && raw.title.trim() ? raw.title.trim().slice(0, 80) : "Session",
-        updatedAt: typeof raw.updatedAt === "number" ? raw.updatedAt : Date.now(),
-        cards
-      };
+    for (const raw of parts.boards.slice(0, MAX_BOARDS)){
+      const board = vBoard(raw);
+      if (!board) continue;
       if (!map.has(board.id)) upserts++;
       map.set(board.id, board);
     }
@@ -7003,9 +7167,13 @@ const BOARD = (() => {
       state.activeBoardId = parts.activeBoardId;
     else if (!map.has(state.activeBoardId))
       state.activeBoardId = state.boards[0].id;
-    save();
+    zTop = 10;
+    for (const b of state.boards)
+      for (const c of b.cards)
+        if (c.z > zTop) zTop = c.z;
+    const saved = save();
     if (activeMode){ refreshPicker(); render(); }
-    return { boardUpserts: upserts };
+    return { boardUpserts: upserts, ok: saved };
   }
 
   return { setActive, getExport, applyUserSave };
