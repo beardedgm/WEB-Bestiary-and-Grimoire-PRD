@@ -937,6 +937,34 @@ body.forge #lore{display:none !important}
   flex:1; min-width:0; overflow:auto; padding:16px 18px 28px; background:var(--stone-2)
 }
 #lore .lore-rail h2{margin:0; font:600 15px/1.2 var(--serif); color:var(--ink)}
+#lore .lore-campaign-row{display:flex; flex-wrap:wrap; gap:6px; align-items:flex-end}
+#lore .lore-campaign-row label.grow{
+  flex:1; min-width:8em; display:flex; flex-direction:column; gap:3px;
+  font:11px/1.2 var(--sans); color:var(--dim)
+}
+#lore .lore-campaign-row select,
+#lore #loreCampTitle, #lore #loreQ, #lore #loreTitle, #lore #loreTags, #lore #loreBody{
+  font:13px/1.3 var(--sans); color:var(--ink); background:var(--paper);
+  border:1px solid var(--hair); border-radius:3px; padding:6px 8px; width:100%; box-sizing:border-box
+}
+#lore #loreCampTitle{flex-basis:100%}
+#lore #loreTree{display:flex; flex-direction:column; gap:2px; margin-top:4px}
+#lore .lore-tree-item{
+  display:block; width:100%; text-align:left; border:0; background:transparent;
+  font:13px/1.35 var(--serif); color:var(--ink); padding:6px 8px; border-radius:2px; cursor:pointer
+}
+#lore .lore-tree-item:hover{background:color-mix(in srgb, var(--gilt) 12%, transparent)}
+#lore .lore-tree-item.on{background:color-mix(in srgb, var(--gilt) 22%, var(--paper)); font-weight:600}
+#lore .lore-editor-bar{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:8px}
+#lore .lore-editor-bar #loreTitle{flex:1; min-width:10em; font:600 18px/1.2 var(--serif)}
+#lore #loreBody{min-height:18em; resize:vertical; font:15px/1.5 var(--serif)}
+#lore .lore-preview{
+  min-height:18em; padding:14px 16px; background:var(--paper); border:1px solid var(--hair);
+  border-radius:2px; font:15px/1.55 var(--serif)
+}
+#lore .lore-hint{margin:6px 0 0; font:12px/1.4 var(--sans); color:var(--dim)}
+#lore .lore-empty{max-width:28rem; margin:3rem auto; text-align:center; color:var(--dim)}
+#lore .lore-tagchip{font:11px/1 var(--sans)}
 
 #board .board-rail{
   flex:none; width:248px; border-right:1px solid var(--hair); background:var(--stone-3);
@@ -1554,6 +1582,7 @@ body.forge #lore{display:none !important}
       <button type="button" class="chip" id="loreCampNew" title="New campaign">New</button>
       <button type="button" class="chip" id="loreCampRename" title="Rename campaign">Rename</button>
       <button type="button" class="chip" id="loreCampDel" title="Delete campaign">Delete</button>
+      <input id="loreCampTitle" type="text" aria-label="Campaign title" maxlength="80" hidden>
     </div>
     <div class="frow" id="lorePageOps">
       <button type="button" class="chip" id="lorePageNew">New page</button>
@@ -8235,6 +8264,8 @@ const LORE = (() => {
   let active = false;
   let selectedPageId = null;
   let previewing = false;
+  let renamingCampaign = false;
+  let saveTimer = null;
 
   function activeCamp(){
     return state.campaigns.find(c => c.id === state.activeCampaignId) || state.campaigns[0];
@@ -8278,15 +8309,346 @@ const LORE = (() => {
     if (el) el.hidden = !active;
     if (active) renderAll();
   }
-  function renderAll(){ /* Task 2 fills this */ }
-
-  // stub bind so mode toggle does not throw — Task 2 attaches real handlers
-  function bind(){ /* Task 2 */ }
+  function announce(msg){
+    if (typeof announceLive === "function") announceLive(msg);
+  }
+  function scheduleSave(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => { saveTimer = null; save(); }, 400);
+  }
+  function touch(page){
+    const now = Date.now();
+    const camp = activeCamp();
+    if (page) page.updatedAt = now;
+    if (camp) camp.updatedAt = now;
+    scheduleSave();
+  }
+  function depthOf(page, byId){
+    let d = 0, cur = page, guard = 0;
+    while (cur && cur.parentId && byId.get(cur.parentId) && guard++ < 40){
+      cur = byId.get(cur.parentId);
+      d++;
+    }
+    return d;
+  }
+  function visiblePages(camp, q, tagFilter){
+    const ql = (q || "").trim().toLowerCase();
+    return camp.pages.filter(p => {
+      if (tagFilter && !p.tags.includes(tagFilter)) return false;
+      if (!ql) return true;
+      return p.title.toLowerCase().includes(ql)
+        || p.tags.some(t => t.toLowerCase().includes(ql))
+        || (p.body || "").toLowerCase().includes(ql);
+    });
+  }
+  function renderTree(){
+    const nav = document.getElementById("loreTree");
+    const camp = activeCamp();
+    if (!nav || !camp) return;
+    const q = document.getElementById("loreQ")?.value || "";
+    const tagFilter = nav.dataset.tagFilter || "";
+    const pages = visiblePages(camp, q, tagFilter || null);
+    const visibleIds = new Set(pages.map(p => p.id));
+    const byId = new Map(camp.pages.map(p => [p.id, p]));
+    const ordered = [];
+    const placed = new Set();
+    let guard = 0;
+    while (ordered.length < pages.length && guard++ < pages.length + 5){
+      for (const p of pages){
+        if (placed.has(p.id)) continue;
+        if (!p.parentId || placed.has(p.parentId) || !byId.has(p.parentId) || !visibleIds.has(p.parentId)){
+          ordered.push(p);
+          placed.add(p.id);
+        }
+      }
+    }
+    nav.innerHTML = "";
+    for (const p of ordered){
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "lore-tree-item" + (p.id === selectedPageId ? " on" : "");
+      btn.style.paddingLeft = (8 + depthOf(p, byId) * 14) + "px";
+      btn.textContent = p.title || "Untitled";
+      btn.onclick = () => {
+        selectedPageId = p.id;
+        previewing = false;
+        renderAll();
+      };
+      nav.appendChild(btn);
+    }
+  }
+  function renderCampaigns(){
+    const pick = document.getElementById("loreCampaign");
+    const title = document.getElementById("loreCampTitle");
+    const camp = activeCamp();
+    if (!pick || !camp) return;
+    pick.innerHTML = "";
+    for (const c of state.campaigns){
+      const opt = document.createElement("option");
+      opt.value = c.id;
+      opt.textContent = c.title;
+      pick.appendChild(opt);
+    }
+    pick.value = camp.id;
+    if (title){
+      title.value = camp.title;
+      title.hidden = !renamingCampaign;
+    }
+    const rename = document.getElementById("loreCampRename");
+    if (rename) rename.setAttribute("aria-pressed", String(renamingCampaign));
+  }
+  function campaignTags(camp){
+    const tags = [];
+    for (const page of camp.pages){
+      for (const tag of page.tags) if (!tags.includes(tag)) tags.push(tag);
+    }
+    return tags;
+  }
+  function renderTagFilters(){
+    const host = document.getElementById("loreTagFilters");
+    const nav = document.getElementById("loreTree");
+    const camp = activeCamp();
+    if (!host || !nav || !camp) return;
+    const tags = campaignTags(camp);
+    let current = nav.dataset.tagFilter || "";
+    if (current && !tags.includes(current)){
+      current = "";
+      delete nav.dataset.tagFilter;
+    }
+    host.innerHTML = "";
+    if (!tags.length) return;
+    for (const tag of ["", ...tags]){
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "chip lore-tagchip";
+      btn.textContent = tag || "All";
+      btn.setAttribute("aria-pressed", String(tag === current));
+      btn.onclick = () => {
+        if (tag) nav.dataset.tagFilter = tag;
+        else delete nav.dataset.tagFilter;
+        renderTagFilters();
+        renderTree();
+      };
+      host.appendChild(btn);
+    }
+  }
+  function sizeLabel(n){
+    if (n >= MD_HARD) return n + " chars · maximum reached";
+    if (n >= MD_WARN) return n + " chars · large page";
+    if (n >= MD_SOFT) return n + " chars · growing";
+    return n + " chars";
+  }
+  function renderPreview(page){
+    const view = document.getElementById("lorePreview");
+    if (!view) return;
+    const hasMarkdown = window.BOARD && typeof BOARD.mdHtml === "function";
+    view.style.whiteSpace = hasMarkdown ? "" : "pre-wrap";
+    view.innerHTML = hasMarkdown ? BOARD.mdHtml(page.body || "") : esc(page.body || "");
+  }
+  function renderEditor(){
+    const camp = activeCamp();
+    const page = camp && camp.pages.find(p => p.id === selectedPageId);
+    const empty = document.getElementById("loreEmpty");
+    const editor = document.getElementById("loreEditor");
+    if (!empty || !editor) return;
+    empty.hidden = !!page;
+    editor.hidden = !page;
+    const emptyText = empty.querySelector("p");
+    if (emptyText) emptyText.textContent = camp && camp.pages.length
+      ? "Select a page from the tree, or create a new one."
+      : "No pages yet — create a page to start this campaign’s notebook.";
+    const child = document.getElementById("lorePageChild");
+    if (child) child.disabled = !page;
+    if (!page) return;
+    document.getElementById("loreTitle").value = page.title;
+    document.getElementById("loreTags").value = page.tags.join(", ");
+    const body = document.getElementById("loreBody");
+    const view = document.getElementById("lorePreview");
+    const toggle = document.getElementById("lorePreviewToggle");
+    body.value = page.body || "";
+    body.hidden = previewing;
+    view.hidden = !previewing;
+    toggle.setAttribute("aria-pressed", String(previewing));
+    toggle.textContent = previewing ? "Edit" : "Preview";
+    document.getElementById("loreSize").textContent = sizeLabel((page.body || "").length);
+    if (previewing) renderPreview(page);
+  }
+  function renderAll(){
+    const camp = activeCamp();
+    if (!camp) return;
+    if (selectedPageId && !camp.pages.some(p => p.id === selectedPageId)) selectedPageId = null;
+    renderCampaigns();
+    renderTagFilters();
+    renderTree();
+    renderEditor();
+  }
+  function newCampaign(){
+    if (state.campaigns.length >= MAX_CAMPAIGNS){
+      announce("Lore campaign limit reached (" + MAX_CAMPAIGNS + ").");
+      return;
+    }
+    const id = "camp-" + uid();
+    const n = state.campaigns.length + 1;
+    state.campaigns.push({ id, title: "Campaign " + n, updatedAt: Date.now(), pages: [] });
+    state.activeCampaignId = id;
+    selectedPageId = null;
+    previewing = false;
+    renamingCampaign = false;
+    save();
+    renderAll();
+  }
+  function newPage(parentId){
+    const camp = activeCamp();
+    if (!camp) return;
+    if (camp.pages.length >= MAX_PAGES){
+      announce("Lore page limit reached (" + MAX_PAGES + ").");
+      return;
+    }
+    if (parentId && !camp.pages.some(p => p.id === parentId)) parentId = null;
+    const page = {
+      id: "page-" + uid(), title: "Untitled", parentId: parentId || null,
+      tags: [], body: "", updatedAt: Date.now(),
+    };
+    camp.pages.push(page);
+    camp.updatedAt = page.updatedAt;
+    selectedPageId = page.id;
+    previewing = false;
+    save();
+    renderAll();
+    const title = document.getElementById("loreTitle");
+    if (title){ title.focus(); title.select(); }
+  }
+  function commitCampaignTitle(){
+    if (!renamingCampaign) return;
+    const camp = activeCamp();
+    const input = document.getElementById("loreCampTitle");
+    if (!camp || !input) return;
+    camp.title = input.value.trim().slice(0, 80) || "Campaign";
+    camp.updatedAt = Date.now();
+    renamingCampaign = false;
+    save();
+    renderAll();
+  }
+  function bind(){
+    const campaign = document.getElementById("loreCampaign");
+    campaign.onchange = () => {
+      state.activeCampaignId = campaign.value;
+      selectedPageId = null;
+      previewing = false;
+      renamingCampaign = false;
+      const q = document.getElementById("loreQ");
+      const nav = document.getElementById("loreTree");
+      if (q) q.value = "";
+      if (nav) delete nav.dataset.tagFilter;
+      save();
+      renderAll();
+    };
+    document.getElementById("loreCampNew").onclick = newCampaign;
+    document.getElementById("loreCampRename").onclick = () => {
+      renamingCampaign = !renamingCampaign;
+      renderCampaigns();
+      if (renamingCampaign){
+        const input = document.getElementById("loreCampTitle");
+        input.focus();
+        input.select();
+      }
+    };
+    const campTitle = document.getElementById("loreCampTitle");
+    campTitle.onchange = commitCampaignTitle;
+    campTitle.onkeydown = e => {
+      if (e.key === "Enter"){
+        e.preventDefault();
+        commitCampaignTitle();
+      } else if (e.key === "Escape"){
+        e.preventDefault();
+        renamingCampaign = false;
+        renderCampaigns();
+        document.getElementById("loreCampRename").focus();
+      }
+    };
+    document.getElementById("loreCampDel").onclick = e => {
+      const camp = activeCamp();
+      if (!camp) return;
+      const go = () => {
+        state.campaigns = state.campaigns.filter(c => c.id !== camp.id);
+        if (!state.campaigns.length) state = seedLore();
+        else state.activeCampaignId = state.campaigns[0].id;
+        selectedPageId = null;
+        previewing = false;
+        renamingCampaign = false;
+        save();
+        renderAll();
+      };
+      if (window.TRK && typeof TRK.confirmSwap === "function")
+        TRK.confirmSwap(e.currentTarget, "Delete “" + camp.title + "”?", go);
+      else announce("Delete unavailable.");
+    };
+    document.getElementById("lorePageNew").onclick = () => newPage(null);
+    document.getElementById("loreEmptyNew").onclick = () => newPage(null);
+    document.getElementById("lorePageChild").onclick = () => newPage(selectedPageId);
+    document.getElementById("loreQ").oninput = renderTree;
+    const title = document.getElementById("loreTitle");
+    title.oninput = () => {
+      const page = getPage(state.activeCampaignId, selectedPageId);
+      if (!page) return;
+      page.title = title.value.slice(0, 80);
+      touch(page);
+      renderTree();
+    };
+    title.onchange = () => {
+      const page = getPage(state.activeCampaignId, selectedPageId);
+      if (!page) return;
+      page.title = title.value.trim().slice(0, 80) || "Untitled";
+      title.value = page.title;
+      touch(page);
+      renderTree();
+    };
+    const tags = document.getElementById("loreTags");
+    tags.onchange = () => {
+      const page = getPage(state.activeCampaignId, selectedPageId);
+      if (!page) return;
+      const next = [];
+      for (const raw of tags.value.split(",")){
+        const tag = raw.trim().slice(0, 40);
+        if (tag && !next.includes(tag) && next.length < MAX_TAGS) next.push(tag);
+      }
+      page.tags = next;
+      tags.value = next.join(", ");
+      touch(page);
+      renderTagFilters();
+      renderTree();
+    };
+    const body = document.getElementById("loreBody");
+    body.maxLength = MD_HARD;
+    body.oninput = () => {
+      const page = getPage(state.activeCampaignId, selectedPageId);
+      if (!page) return;
+      page.body = body.value.slice(0, MD_HARD);
+      document.getElementById("loreSize").textContent = sizeLabel(page.body.length);
+      touch(page);
+    };
+    document.getElementById("lorePreviewToggle").onclick = () => {
+      if (!selectedPageId) return;
+      previewing = !previewing;
+      renderEditor();
+    };
+    document.getElementById("lorePin").onclick = () => {
+      const camp = activeCamp();
+      if (!camp || !selectedPageId) return;
+      if (!window.BOARD || typeof BOARD.addLorePage !== "function"){
+        announce("Board unavailable.");
+        return;
+      }
+      const res = BOARD.addLorePage(camp.id, selectedPageId);
+      announce(res && res.ok ? "Pinned “" + (res.name || "Lore page") + "” to Board."
+        : (res && res.error) || "Could not pin Lore page.");
+    };
+  }
   bind();
 
   return {
     setActive, getExport, applyUserSave, getPage,
-    _test: { vLoreState, vCampaign, vPage, seedLore },
+    _test: { vLoreState, vCampaign, vPage, seedLore, visiblePages, depthOf },
   };
 })();
 window.LORE = LORE;
