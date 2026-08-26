@@ -2335,14 +2335,14 @@ function applyUserSaveBag(bag){
     encReplaced = !!stats.encReplaced;
     if (stats.ok === false) storageOk = false;
   }
-  if (window.BOARD && BOARD.applyUserSave && Array.isArray(bag.boards)){
-    const st = BOARD.applyUserSave({ boards: bag.boards, activeBoardId: bag.activeBoardId });
-    boardUpserts = st.boardUpserts || 0;
-    if (st.ok === false) storageOk = false;
-  }
   if (window.LORE && LORE.applyUserSave && bag.lore){
     const st = LORE.applyUserSave(bag.lore);
     loreUpserts = st.loreUpserts || 0;
+    if (st.ok === false) storageOk = false;
+  }
+  if (window.BOARD && BOARD.applyUserSave && Array.isArray(bag.boards)){
+    const st = BOARD.applyUserSave({ boards: bag.boards, activeBoardId: bag.activeBoardId });
+    boardUpserts = st.boardUpserts || 0;
     if (st.ok === false) storageOk = false;
   }
   refresh();
@@ -8352,7 +8352,10 @@ const LORE = (() => {
       });
     }
     state.campaigns = [...map.values()].slice(0, MAX_CAMPAIGNS);
-    if (!state.campaigns.some(c => c.id === state.activeCampaignId))
+    if (typeof parts.activeCampaignId === "string"
+        && state.campaigns.some(c => c.id === parts.activeCampaignId))
+      state.activeCampaignId = parts.activeCampaignId;
+    else if (!state.campaigns.some(c => c.id === state.activeCampaignId))
       state.activeCampaignId = state.campaigns[0].id;
     const ok = save();
     if (active) renderAll();
