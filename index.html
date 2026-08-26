@@ -1003,7 +1003,7 @@ body.trk #forge{display:none !important}
   display:flex; align-items:center; gap:8px;
   font:14px/1.35 var(--serif); color:var(--ink)}
 #board .encounter-roster .etype{
-  font:600 9.5px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; color:var(--faint)}
+  font:600 9.5px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--faint)}
 #board .encounter-roster button.eref{
   border:0; background:transparent; padding:0; font:inherit; color:var(--ink);
   text-decoration:underline; text-decoration-color:var(--gilt); text-underline-offset:2px; cursor:pointer}
@@ -7374,10 +7374,9 @@ const BOARD = (() => {
         btn.onclick = e => {
           e.stopPropagation();
           const res = addRecord(c.ref);
-          if (typeof announceLive === "function")
-            announceLive(res.ok
-              ? "Added to board: " + (res.name || c.name || c.ref)
-              : (res.error || "Couldn’t add to board."));
+          toast(res.ok
+            ? "Added to board: " + (res.name || c.name || c.ref)
+            : (res.error || "Couldn’t add to board."));
         };
         li.appendChild(btn);
       } else {

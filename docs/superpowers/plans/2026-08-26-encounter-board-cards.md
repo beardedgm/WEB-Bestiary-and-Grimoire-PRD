@@ -520,6 +520,9 @@ Browser smoke ran headless via Puppeteer against the built `index.html` (the
 `cursor-ide-browser` MCP tool had no reachable browser tab in this environment, so a local
 Chrome + Puppeteer script drove the same real DOM click paths instead — including the actual
 Table `#sg-table` → `#st-enc` → preset row → `data-sboard-pane` click chain, not just the
-underlying API). All 9 checklist scenarios passed; see
-`.superpowers/sdd/task-4-report.md` for the full transcript. `build_bundles.py --check`
-is clean.
+underlying API). All 9 checklist scenarios passed: Table Send to Board via the real UI click
+chain, Builder Send (enabled on a saved preset, disabled on a fresh draft, re-pin OK), roster
+combatant click spawning a record card with working dice popup, Load into Tracker and Open in
+Builder from the card, persistence across reload, an honest missing-encounter notice after
+corrupting `presetId`, and a portable export containing only `{type, presetId}` with no
+embedded combatants. No console errors observed. `build_bundles.py --check` is clean.

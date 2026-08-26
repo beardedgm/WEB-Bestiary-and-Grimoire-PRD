@@ -61,7 +61,7 @@ One HTML file, no framework, no dependencies. `app.template.html` holds sequenti
 | 1 (`~1370–2930`) | Corpus load, custom library, portable save, filters/`SCALES`, search, stat-block + spell rendering, spell peek |
 | `TRK` | Initiative tracker, dice, party/presets, player display, undo ring, column resize, mode chrome |
 | `BUILD` | Encounter Builder: draft `bg.builder.v1`, PF2e / 5e 2014 / 5e 2024 budgets, roster, Save/Load bridges |
-| `BOARD` | Session boards: markdown / image / audio / counter / dice / timer / checklist / random / record / encounter cards (`BOARD.addRecord` / `BOARD.addEncounter`; Send to Board from Library, Table, Builder) |
+| `BOARD` | Session boards: markdown / image / audio / counter / dice / timer / checklist / random / record / encounter cards (`BOARD.addRecord` / `BOARD.addEncounter`; Send to Board from Library (Script 1 `addSendToBoard`), Table, Builder) |
 | `FORGE` | Creature forge: inlined 5e CR + PF2e level tables, dual-system forms, preview via `monsterHTML`, Save to Custom |
 
 **Module boundary.** `TRK`, `BUILD`, `BOARD`, and `FORGE` are IIFEs assigned to `window.TRK` /
