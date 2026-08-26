@@ -29,7 +29,7 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 ## Operating Context
 
 - **Prep:** Browse Catalog (monsters/spells), filter by system, CR/creature level, rank, spell traits; read full stat blocks in the reading pane.
-- **Play:** Switch to Tracker; add monsters from Catalog or party from Table; roll initiative, advance turns, apply damage/healing; click formulas in stat blocks to roll; optional player display window (1920×1080). Switch to Builder to budget a PF2e / 5e 2014 / 5e 2024 encounter from party size + level, then Save to Encounters or Load into Tracker. Switch to Board for spatial session notes, maps, timers, and tools.
+- **Play:** Switch to Tracker; add monsters from Catalog or party from Table; roll initiative, advance turns, apply damage/healing; click formulas in stat blocks to roll; optional player display window (1920×1080). Switch to Builder to budget a PF2e / 5e 2014 / 5e 2024 encounter from party size + level, then Save to Encounters or Load into Tracker. Switch to Board for spatial session notes, maps, timers, and tools. Switch to Forge to build a custom 5e or PF2e creature from CR/level benchmarks and Save to Custom.
 - **Persistence:** Encounter state, party, saved encounters, dice history, column widths, UI mode, Builder draft, and Board sessions persist in `localStorage` (storage failures are announced; portable import reports failure when a write fails). Custom monsters/spells live under `bg.custom.records.v1` (validated on load; invalid rows dropped with notice). Boards live under `bg.board.v1` (cards validated on load/import; runtime preview cache fields are not persisted). Builder draft under `bg.builder.v1`. Encounter presets may carry optional `builder` metadata for round-trip reopen. A portable `bg-user-save/1` JSON export merges customs/party/presets/boards by id (local-only kept) and replaces the active encounter after confirmation; import rejects files over **8 MB**, and export warns when the download would exceed that cap.
 - **Offline:** `index.html` embeds all four JSON bundles; works from `file://` after build. Development fetch/drop requires all four packs before the app starts (`python3 -m http.server`).
 - **Data pipeline:** Markdown sidecars → `convert_monsters.py` / `convert_spells.py` → bundles → `build_bundles.py`.
@@ -43,9 +43,10 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 - Tracker mode: initiative order, rounds, drag-reorder, undo/redo, party library, encounter presets, dice tray, player display
 - Builder mode: PF2e / 5e 2014 / 5e 2024 XP budgets from party size + shared level; roster from Catalog (system lock, PF2e ±4 block, missing-HP block); Save to Encounters with `builder` meta; Load into Tracker; Open in Builder from Table
 - Board mode: multi-session spatial boards (`bg.board.v1`) with markdown (incl. GFM tables / read-aloud blockquotes), image, audio clip, counter, dice, timer (countdown/stopwatch), checklist, and random table cards; snap-grid drag/resize; portable save includes boards
+- Forge mode: dual system creature builders (D&D 5e CR 0–30 benchmarks; PF2e creature levels −1…25 + damage band); live stat-block preview; **Save to Custom** via the existing custom library (replace confirm when id exists); no CR↔level conversion
 - Ad-hoc colored markers on combatants (five colors, solid/outline) mirrored on the player display — table-ring shorthand, no condition legend
 - Catalog vs Table navigation in the left column (monsters/spells vs party/encounters)
-- Custom library: content-only authoring JSON in `+` (5e/PF2e Fireball and Lich stubs; plumbing omitted); Import stamps id/schema/source from the chosen system and deep-validates; Custom filter; remove from library
+- Custom library: content-only authoring JSON in `+` (5e/PF2e Fireball and Lich stubs; plumbing omitted); Import stamps id/schema/source from the chosen system and deep-validates; Custom filter; remove from library; Forge Save to Custom uses the same store
 - Portable save: header **Export** exports/imports merge-safe `bg-user-save/1` (backup download + confirm before import; **8 MB** import cap)
 - Resizable library and tracker columns
 - D&D 5e and PF2e visual differentiation (vellum vs paper, brick vs olive system ink)
@@ -60,7 +61,7 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 - Board media (images/audio) stored as data URLs in localStorage for v1 — large assets can hit quota; portable saves with big media may exceed the 8 MB import limit
 - Render free-tier hosting constraints apply if deployed to Render (ephemeral FS, bind `0.0.0.0:$PORT` for any future server)
 
-**Terminology:** Catalog, Table, Library, Tracker, Board, Builder, party, encounter preset, threat/difficulty budget, stat block, spine (system color mark on list rows), custom library, user save, counter, random table.
+**Terminology:** Catalog, Table, Library, Tracker, Board, Builder, Forge, party, encounter preset, threat/difficulty budget, stat block, spine (system color mark on list rows), custom library, user save, counter, random table.
 
 ## Brand Commitments
 

@@ -770,7 +770,7 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 /* player display layer + the #pd fallback page mode */
 #pdisp{position:fixed; inset:0; z-index:60}
 .dlg .dlghint{margin:0 0 6px; color:var(--dim); font-size:12.5px}
-body.pd header, body.pd #side, body.pd #trk, body.pd #builder, body.pd #pane, body.pd #board,
+body.pd header, body.pd #side, body.pd #trk, body.pd #builder, body.pd #pane, body.pd #board, body.pd #forge,
 body.pd #dpop, body.pd #trkovl, body.pd #load, body.pd #boardExpand, body.pd #boardToast{display:none !important}
 body.pd #pdisp{position:fixed; inset:0; z-index:60}
 
@@ -848,6 +848,69 @@ body.board #builder,
 body.board #pane,
 body.board .col-resize{display:none !important}
 body.board main{display:flex}
+
+/* ==== forge mode ========================================================== */
+#forge{display:none; flex:1; min-width:0; min-height:0; background:var(--stone-2)}
+body.forge #forge{display:flex}
+body.forge #side,
+body.forge #trk,
+body.forge #builder,
+body.forge #board,
+body.forge #pane,
+body.forge .col-resize{display:none !important}
+body.forge main{display:flex}
+body.board #forge,
+body.build #forge,
+body.trk #forge{display:none !important}
+#forge .forge-rail{
+  width:min(420px, 42vw); flex-shrink:0; overflow:auto; border-right:1px solid var(--hair);
+  background:var(--stone-3); padding:12px 14px 24px; display:flex; flex-direction:column; gap:10px
+}
+#forge .forge-rail h2{
+  margin:0; font:600 15px/1.2 var(--serif); color:var(--ink)
+}
+#forge .forge-hint{margin:0; color:var(--dim); font-size:12.5px; line-height:1.45}
+#forge .forge-row{display:flex; flex-wrap:wrap; gap:6px; align-items:flex-end}
+#forge .forge-row label{
+  display:flex; flex-direction:column; gap:3px; font:11px/1.2 var(--sans); color:var(--dim); flex:1; min-width:5.5em
+}
+#forge .forge-row label.grow{flex:2; min-width:8em}
+#forge .forge-row input[type=text],
+#forge .forge-row input[type=number],
+#forge .forge-row select,
+#forge textarea{
+  font:13px/1.3 var(--sans); color:var(--ink); background:var(--paper);
+  border:1px solid var(--hair); border-radius:3px; padding:6px 8px; width:100%; box-sizing:border-box
+}
+#forge .forge-row input:focus,
+#forge .forge-row select:focus,
+#forge textarea:focus{outline:none; border-color:var(--gilt); box-shadow:0 0 0 2px rgba(156,124,28,.18)}
+#forge textarea{min-height:4.5em; resize:vertical}
+#forge .forge-abs{
+  display:grid; grid-template-columns:repeat(6, 1fr); gap:4px
+}
+#forge .forge-abs label{min-width:0}
+#forge .forge-abs input{text-align:center; padding:6px 2px}
+#forge .forge-actions{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:4px}
+#forge #forgeSave{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
+#forge #forgeStatus{font:12.5px/1.35 var(--sans); color:var(--dim); min-height:1.2em}
+#forge #forgeStatus.err{color:var(--blood, #8b2e2e)}
+#forge .forge-preview{
+  flex:1; min-width:0; overflow:auto; padding:18px 22px 40px; background:var(--stone-2)
+}
+#forge .forge-preview .sb{
+  max-width:42rem; margin:0 auto; background:var(--paper); border:1px solid var(--hair);
+  border-radius:2px; padding:18px 22px; box-shadow:0 1px 2px rgba(36,33,28,.06), 0 12px 28px -16px rgba(36,33,28,.22)
+}
+#forge .forge-preview .forge-hint{max-width:36rem; margin:2rem auto; text-align:center}
+#forge .forge-sec{
+  font:600 11px/1 var(--sans); letter-spacing:.04em; text-transform:uppercase; color:var(--faint);
+  margin:8px 0 2px
+}
+@media (max-width:760px){
+  body.forge #forge{flex-direction:column}
+  #forge .forge-rail{width:100%; max-height:48vh; border-right:none; border-bottom:1px solid var(--hair)}
+}
 
 #board .board-rail{
   flex:none; width:248px; border-right:1px solid var(--hair); background:var(--stone-3);
@@ -1151,6 +1214,7 @@ body.board main{display:flex}
       <button type="button" id="m-track" class="chip" aria-pressed="false">Tracker</button>
       <button type="button" id="m-board" class="chip" aria-pressed="false">Board</button>
       <button type="button" id="m-build" class="chip" aria-pressed="false">Builder</button>
+      <button type="button" id="m-forge" class="chip" aria-pressed="false">Forge</button>
     </span>
     <button type="button" class="chip" id="user-save"
             title="Export or import portable save"
@@ -1340,6 +1404,93 @@ body.board main{display:flex}
     <div class="board-stage" id="boardStage"></div>
   </div>
   <button type="button" class="board-rail-toggle" id="boardRailToggle" aria-expanded="false" aria-controls="boardRail">Cards &amp; sessions</button>
+</section>
+
+<section id="forge" aria-label="Creature forge" hidden>
+  <aside class="forge-rail">
+    <h2>Forge</h2>
+    <p class="forge-hint">Build a custom creature from system benchmarks, then save it to your Custom library.</p>
+    <div class="forge-row" id="forgeSysChips" role="group" aria-label="Game system">
+      <button type="button" class="chip on" data-sys="dnd5e" aria-pressed="true">D&amp;D 5e</button>
+      <button type="button" class="chip" data-sys="pf2e" aria-pressed="false">Pathfinder</button>
+    </div>
+    <div class="forge-row">
+      <label class="grow">Name <input type="text" id="forgeName" placeholder="Creature name" autocomplete="off"></label>
+      <label>Size <select id="forgeSize"></select></label>
+    </div>
+    <div class="forge-row">
+      <label class="grow">Attack name <input type="text" id="forgeAtkName" placeholder="Strike / Claw" autocomplete="off"></label>
+    </div>
+
+    <div id="forgePanel5e">
+      <div class="forge-sec">D&amp;D 5e</div>
+      <div class="forge-row">
+        <label>CR <select id="forgeCr"></select></label>
+        <label>Type <select id="forgeType"></select></label>
+        <label>Alignment <select id="forgeAlign"></select></label>
+      </div>
+      <div class="forge-row">
+        <label>AC <input type="number" id="forgeAc" min="1" max="40"></label>
+        <label>HP <input type="number" id="forgeHp" min="1" max="9999"></label>
+        <label>Hit dice <input type="text" id="forgeHpDice" placeholder="4d8 + 4"></label>
+        <label>Prof <input type="text" id="forgeProf" placeholder="+2"></label>
+      </div>
+      <div class="forge-row">
+        <label>Attacks <input type="number" id="forgeAttacks" min="1" max="10"></label>
+        <label>Damage <input type="text" id="forgeDmgDice" placeholder="1d6 + 2"></label>
+        <label>Atk bonus <input type="text" id="forgeAtkBonus" placeholder="+4"></label>
+      </div>
+      <div class="forge-sec">Ability scores</div>
+      <div class="forge-abs">
+        <label>STR <input type="number" id="forgeAb-str" min="1" max="30"></label>
+        <label>DEX <input type="number" id="forgeAb-dex" min="1" max="30"></label>
+        <label>CON <input type="number" id="forgeAb-con" min="1" max="30"></label>
+        <label>INT <input type="number" id="forgeAb-int" min="1" max="30"></label>
+        <label>WIS <input type="number" id="forgeAb-wis" min="1" max="30"></label>
+        <label>CHA <input type="number" id="forgeAb-cha" min="1" max="30"></label>
+      </div>
+    </div>
+
+    <div id="forgePanelPf" hidden>
+      <div class="forge-sec">Pathfinder</div>
+      <div class="forge-row">
+        <label>Level <select id="forgePfLevel"></select></label>
+        <label>Damage band <select id="forgePfBand"></select></label>
+        <label>Rarity <select id="forgeRarity"></select></label>
+      </div>
+      <div class="forge-row">
+        <label class="grow">Type / trait <input type="text" id="forgePfType" value="humanoid" autocomplete="off"></label>
+      </div>
+      <div class="forge-row">
+        <label>HP <input type="number" id="forgePfHp" min="1" max="9999"></label>
+        <label>AC <input type="number" id="forgePfAc" min="1" max="60"></label>
+        <label>Perception <input type="number" id="forgePfPer"></label>
+        <label>Attack <input type="number" id="forgePfAtk"></label>
+      </div>
+      <div class="forge-row">
+        <label>Fort <input type="number" id="forgePfFort"></label>
+        <label>Ref <input type="number" id="forgePfRef"></label>
+        <label>Will <input type="number" id="forgePfWill"></label>
+        <label>Spell DC <input type="number" id="forgePfSpellDc"></label>
+      </div>
+      <div class="forge-row">
+        <label class="grow">Strike damage <input type="text" id="forgePfDmg" placeholder="1d8+4 (8)"></label>
+      </div>
+    </div>
+
+    <div class="forge-sec">Traits &amp; extras</div>
+    <label class="forge-hint" for="forgeTraits" style="display:block">One per line — optional</label>
+    <textarea id="forgeTraits" placeholder="Pack Tactics. Advantage on attacks if an ally is within 5 ft."></textarea>
+
+    <div class="forge-actions">
+      <button type="button" class="chip" id="forgeApply">Apply benchmarks</button>
+      <button type="button" class="chip" id="forgeSave">Save to Custom</button>
+    </div>
+    <div id="forgeStatus" role="status"></div>
+  </aside>
+  <div class="forge-preview" id="forgePreview">
+    <p class="forge-hint">Set CR or level, then <strong>Apply benchmarks</strong> to fill stats and preview.</p>
+  </div>
 </section>
 
 </main>
@@ -3181,6 +3332,7 @@ const TRK = (() => {
     if (raw.mode === "track") u.mode = "track";
     else if (raw.mode === "board") u.mode = "board";
     else if (raw.mode === "build") u.mode = "build";
+    else if (raw.mode === "forge") u.mode = "forge";
     u.qty = Math.min(10, Math.max(1, int(raw.qty, 1)));
     if (typeof raw.diceOpen === "boolean") u.diceOpen = raw.diceOpen;
     if (typeof raw.viewingId === "string") u.viewingId = raw.viewingId;
@@ -4443,15 +4595,19 @@ const TRK = (() => {
   function setMode(m){
     const mode = m === "track" ? "track"
       : m === "board" ? "board"
-      : m === "build" ? "build" : "browse";
+      : m === "build" ? "build"
+      : m === "forge" ? "forge" : "browse";
     const prev = state.ui.mode;
     state.ui.mode = mode;
     saveOrWarn(LS.ui, state.ui);
     document.body.classList.toggle("trk", mode === "track");
     document.body.classList.toggle("board", mode === "board");
     document.body.classList.toggle("build", mode === "build");
+    document.body.classList.toggle("forge", mode === "forge");
     const boardEl = document.getElementById("board");
     if (boardEl) boardEl.hidden = mode !== "board";
+    const forgeEl = document.getElementById("forge");
+    if (forgeEl) forgeEl.hidden = mode !== "forge";
     $("#m-browse").classList.toggle("on", mode === "browse");
     $("#m-browse").setAttribute("aria-pressed", String(mode === "browse"));
     $("#m-track").classList.toggle("on", mode === "track");
@@ -4466,16 +4622,23 @@ const TRK = (() => {
       mbuild.classList.toggle("on", mode === "build");
       mbuild.setAttribute("aria-pressed", String(mode === "build"));
     }
+    const mforge = $("#m-forge");
+    if (mforge){
+      mforge.classList.toggle("on", mode === "forge");
+      mforge.setAttribute("aria-pressed", String(mode === "forge"));
+    }
     if (prev === "board" && mode !== "board" && window.BOARD) BOARD.setActive(false);
     if (prev === "build" && mode !== "build" && window.BUILD) BUILD.setActive(false);
+    if (prev === "forge" && mode !== "forge" && window.FORGE) FORGE.setActive(false);
     if (mode === "track"){ $("#dice").open = state.ui.diceOpen; renderTrk(); renderDice(); }
     if (mode === "board" && window.BOARD) BOARD.setActive(true);
     if (mode === "build"){
       if (state.ui.side === "spell") setSide("monster");
       if (window.BUILD) BUILD.setActive(true);
     }
+    if (mode === "forge" && window.FORGE) FORGE.setActive(true);
     if (window.applySideChrome) applySideChrome();
-    if (window.refresh && mode !== "board") refresh();
+    if (window.refresh && mode !== "board" && mode !== "forge") refresh();
   }
 
   function setSide(side){
@@ -4535,6 +4698,7 @@ const TRK = (() => {
     if (state.ui.mode === "track") setMode("track");
     else if (state.ui.mode === "board") setMode("board");
     else if (state.ui.mode === "build") setMode("build");
+    else if (state.ui.mode === "forge") setMode("forge");
     else if (window.refresh) refresh();
   }
 
@@ -4549,6 +4713,8 @@ const TRK = (() => {
   if (mBoard) mBoard.onclick = () => setMode("board");
   const mBuild = $("#m-build");
   if (mBuild) mBuild.onclick = () => setMode("build");
+  const mForge = $("#m-forge");
+  if (mForge) mForge.onclick = () => setMode("forge");
   $("#sg-catalog").onclick = () => { setSide("catalog"); if (window.refresh) refresh(); };
   $("#sg-table").onclick = () => { setSide("table"); if (window.refresh) refresh(); };
   $("#side-inner").addEventListener("click", e => {
@@ -7151,5 +7317,484 @@ const BOARD = (() => {
 })();
 window.BOARD = BOARD;
 </script>
+<script>
+"use strict";
+const FORGE = (() => {
+  const CR_DATA = [{"cr":"0","ac":10,"hp":3,"hpMin":2,"hpMax":4,"prof":2,"dmgRnd":2,"attacks":1,"dmgAtk":2,"dice":"1d4"},{"cr":"1/8","ac":11,"hp":9,"hpMin":7,"hpMax":11,"prof":3,"dmgRnd":3,"attacks":1,"dmgAtk":4,"dice":"1d6 + 1"},{"cr":"1/4","ac":11,"hp":13,"hpMin":10,"hpMax":16,"prof":3,"dmgRnd":5,"attacks":1,"dmgAtk":5,"dice":"1d6 + 2"},{"cr":"1/2","ac":12,"hp":22,"hpMin":17,"hpMax":28,"prof":4,"dmgRnd":8,"attacks":2,"dmgAtk":4,"dice":"1d4 + 2"},{"cr":"1","ac":12,"hp":33,"hpMin":25,"hpMax":41,"prof":5,"dmgRnd":12,"attacks":2,"dmgAtk":6,"dice":"1d8 + 2"},{"cr":"2","ac":13,"hp":45,"hpMin":34,"hpMax":56,"prof":5,"dmgRnd":17,"attacks":2,"dmgAtk":9,"dice":"2d6 + 2"},{"cr":"3","ac":13,"hp":65,"hpMin":49,"hpMax":81,"prof":5,"dmgRnd":23,"attacks":2,"dmgAtk":12,"dice":"2d8 + 3"},{"cr":"4","ac":14,"hp":84,"hpMin":64,"hpMax":106,"prof":6,"dmgRnd":28,"attacks":2,"dmgAtk":14,"dice":"3d8 + 1"},{"cr":"5","ac":15,"hp":95,"hpMin":71,"hpMax":119,"prof":7,"dmgRnd":35,"attacks":3,"dmgAtk":12,"dice":"3d6 + 2"},{"cr":"6","ac":15,"hp":112,"hpMin":84,"hpMax":140,"prof":7,"dmgRnd":41,"attacks":3,"dmgAtk":14,"dice":"3d6 + 4"},{"cr":"7","ac":15,"hp":130,"hpMin":98,"hpMax":162,"prof":7,"dmgRnd":47,"attacks":3,"dmgAtk":16,"dice":"3d8 + 3"},{"cr":"8","ac":15,"hp":136,"hpMin":102,"hpMax":170,"prof":7,"dmgRnd":53,"attacks":3,"dmgAtk":18,"dice":"3d10 + 2"},{"cr":"9","ac":16,"hp":145,"hpMin":109,"hpMax":181,"prof":8,"dmgRnd":59,"attacks":3,"dmgAtk":22,"dice":"3d12 + 3"},{"cr":"10","ac":17,"hp":155,"hpMin":116,"hpMax":194,"prof":9,"dmgRnd":65,"attacks":4,"dmgAtk":16,"dice":"3d8 + 3"},{"cr":"11","ac":17,"hp":165,"hpMin":124,"hpMax":206,"prof":9,"dmgRnd":71,"attacks":4,"dmgAtk":18,"dice":"3d10 + 2"},{"cr":"12","ac":17,"hp":175,"hpMin":131,"hpMax":219,"prof":9,"dmgRnd":77,"attacks":4,"dmgAtk":19,"dice":"3d10 + 3"},{"cr":"13","ac":18,"hp":184,"hpMin":138,"hpMax":230,"prof":10,"dmgRnd":83,"attacks":4,"dmgAtk":21,"dice":"4d8 + 3"},{"cr":"14","ac":19,"hp":196,"hpMin":147,"hpMax":245,"prof":11,"dmgRnd":89,"attacks":4,"dmgAtk":22,"dice":"4d10"},{"cr":"15","ac":19,"hp":210,"hpMin":158,"hpMax":263,"prof":11,"dmgRnd":95,"attacks":5,"dmgAtk":19,"dice":"3d10 + 3"},{"cr":"16","ac":19,"hp":229,"hpMin":172,"hpMax":286,"prof":11,"dmgRnd":101,"attacks":5,"dmgAtk":21,"dice":"4d8 + 3"},{"cr":"17","ac":20,"hp":246,"hpMin":185,"hpMax":308,"prof":12,"dmgRnd":107,"attacks":5,"dmgAtk":22,"dice":"3d12 + 3"},{"cr":"18","ac":21,"hp":266,"hpMin":200,"hpMax":333,"prof":13,"dmgRnd":113,"attacks":5,"dmgAtk":23,"dice":"4d10 + 1"},{"cr":"19","ac":21,"hp":285,"hpMin":214,"hpMax":356,"prof":13,"dmgRnd":119,"attacks":5,"dmgAtk":24,"dice":"4d10 + 2"},{"cr":"20","ac":21,"hp":300,"hpMin":225,"hpMax":375,"prof":13,"dmgRnd":132,"attacks":5,"dmgAtk":26,"dice":"4d12"},{"cr":"21","ac":22,"hp":325,"hpMin":244,"hpMax":406,"prof":14,"dmgRnd":150,"attacks":5,"dmgAtk":30,"dice":"4d12 + 4"},{"cr":"22","ac":23,"hp":350,"hpMin":263,"hpMax":438,"prof":15,"dmgRnd":168,"attacks":5,"dmgAtk":34,"dice":"4d12 + 8"},{"cr":"23","ac":23,"hp":375,"hpMin":281,"hpMax":469,"prof":15,"dmgRnd":186,"attacks":5,"dmgAtk":37,"dice":"6d10 + 4"},{"cr":"24","ac":23,"hp":400,"hpMin":300,"hpMax":500,"prof":15,"dmgRnd":204,"attacks":5,"dmgAtk":41,"dice":"6d10 + 8"},{"cr":"25","ac":24,"hp":430,"hpMin":323,"hpMax":538,"prof":16,"dmgRnd":222,"attacks":5,"dmgAtk":44,"dice":"6d10 + 11"},{"cr":"26","ac":25,"hp":460,"hpMin":345,"hpMax":575,"prof":17,"dmgRnd":240,"attacks":5,"dmgAtk":48,"dice":"6d10 + 15"},{"cr":"27","ac":25,"hp":490,"hpMin":368,"hpMax":613,"prof":17,"dmgRnd":258,"attacks":5,"dmgAtk":52,"dice":"6d10 + 19"},{"cr":"28","ac":25,"hp":540,"hpMin":405,"hpMax":675,"prof":17,"dmgRnd":276,"attacks":5,"dmgAtk":55,"dice":"6d10 + 22"},{"cr":"29","ac":26,"hp":600,"hpMin":450,"hpMax":750,"prof":18,"dmgRnd":294,"attacks":5,"dmgAtk":59,"dice":"6d10 + 26"},{"cr":"30","ac":27,"hp":666,"hpMin":500,"hpMax":833,"prof":19,"dmgRnd":312,"attacks":5,"dmgAtk":62,"dice":"6d10 + 29"}];
+  const PF2E_LEVEL_DATA = [{"level":-1,"hp":8,"ac":14,"spellDC":14,"fortitude":4,"reflex":6,"will":4,"perception":5,"attackBonus":6,"lowDamage":"1d4+1 (4)","moderateDamage":"1d4+1 (4)","severeDamage":"1d4+1 (4)","extremeDamage":"1d4+1 (4)"},{"level":0,"hp":16,"ac":15,"spellDC":16,"fortitude":6,"reflex":6,"will":5,"perception":5,"attackBonus":8,"lowDamage":"1d6+1 (5)","moderateDamage":"1d6+1 (5)","severeDamage":"1d8+1 (6)","extremeDamage":"2d6+1 (8)"},{"level":1,"hp":20,"ac":16,"spellDC":17,"fortitude":6,"reflex":7,"will":6,"perception":6,"attackBonus":9,"lowDamage":"1d8+1 (6)","moderateDamage":"1d8+1 (6)","severeDamage":"2d6+1 (8)","extremeDamage":"1d12+2 (9)"},{"level":2,"hp":31,"ac":18,"spellDC":18,"fortitude":8,"reflex":8,"will":7,"perception":8,"attackBonus":10,"lowDamage":"2d6+1 (8)","moderateDamage":"2d6+1 (8)","severeDamage":"2d8+1 (10)","extremeDamage":"2d10+1 (12)"},{"level":3,"hp":46,"ac":18,"spellDC":19,"fortitude":9,"reflex":9,"will":8,"perception":9,"attackBonus":11,"lowDamage":"2d8+1 (10)","moderateDamage":"2d8+1 (10)","severeDamage":"2d10+1 (12)","extremeDamage":"2d12+2 (15)"},{"level":4,"hp":62,"ac":20,"spellDC":20,"fortitude":11,"reflex":11,"will":10,"perception":11,"attackBonus":12,"lowDamage":"2d8+2 (11)","moderateDamage":"2d8+2 (11)","severeDamage":"2d12+3 (15)","extremeDamage":"3d10+3 (20)"},{"level":5,"hp":77,"ac":23,"spellDC":21,"fortitude":12,"reflex":12,"will":11,"perception":12,"attackBonus":13,"lowDamage":"2d10+2 (13)","moderateDamage":"2d10+2 (13)","severeDamage":"3d10+1 (17)","extremeDamage":"3d12+4 (22)"},{"level":6,"hp":100,"ac":25,"spellDC":22,"fortitude":14,"reflex":14,"will":13,"perception":14,"attackBonus":14,"lowDamage":"3d8+2 (16)","moderateDamage":"3d8+2 (16)","severeDamage":"3d12+2 (21)","extremeDamage":"4d10+5 (27)"},{"level":7,"hp":116,"ac":26,"spellDC":23,"fortitude":15,"reflex":15,"will":14,"perception":15,"attackBonus":15,"lowDamage":"3d10+1 (18)","moderateDamage":"3d10+1 (18)","severeDamage":"4d10+3 (25)","extremeDamage":"4d12+4 (30)"},{"level":8,"hp":136,"ac":28,"spellDC":24,"fortitude":17,"reflex":16,"will":15,"perception":16,"attackBonus":16,"lowDamage":"4d8+2 (20)","moderateDamage":"4d8+2 (20)","severeDamage":"5d8+7 (30)","extremeDamage":"5d12+3 (33)"},{"level":9,"hp":159,"ac":29,"spellDC":25,"fortitude":18,"reflex":18,"will":17,"perception":18,"attackBonus":17,"lowDamage":"4d10+1 (23)","moderateDamage":"4d10+1 (23)","severeDamage":"5d10+6 (34)","extremeDamage":"6d10+8 (41)"},{"level":10,"hp":185,"ac":31,"spellDC":26,"fortitude":20,"reflex":19,"will":18,"perception":19,"attackBonus":18,"lowDamage":"5d8+6 (29)","moderateDamage":"5d8+6 (29)","severeDamage":"6d10+5 (38)","extremeDamage":"7d10+8 (46)"},{"level":11,"hp":195,"ac":32,"spellDC":27,"fortitude":21,"reflex":21,"will":20,"perception":21,"attackBonus":19,"lowDamage":"5d10+3 (31)","moderateDamage":"5d10+3 (31)","severeDamage":"6d10+7 (40)","extremeDamage":"7d12+11 (50)"},{"level":12,"hp":222,"ac":34,"spellDC":28,"fortitude":23,"reflex":22,"will":22,"perception":22,"attackBonus":20,"lowDamage":"5d10+5 (33)","moderateDamage":"5d10+5 (33)","severeDamage":"7d10+5 (44)","extremeDamage":"8d10+10 (54)"},{"level":13,"hp":238,"ac":35,"spellDC":29,"fortitude":24,"reflex":23,"will":23,"perception":24,"attackBonus":21,"lowDamage":"6d10+2 (35)","moderateDamage":"6d10+2 (35)","severeDamage":"7d10+8 (47)","extremeDamage":"8d12+9 (57)"},{"level":14,"hp":267,"ac":37,"spellDC":30,"fortitude":25,"reflex":25,"will":25,"perception":25,"attackBonus":22,"lowDamage":"6d10+4 (37)","moderateDamage":"6d10+4 (37)","severeDamage":"8d10+5 (49)","extremeDamage":"9d10+11 (60)"},{"level":15,"hp":258,"ac":39,"spellDC":31,"fortitude":27,"reflex":26,"will":26,"perception":27,"attackBonus":23,"lowDamage":"6d10+6 (39)","moderateDamage":"6d10+6 (39)","severeDamage":"8d10+8 (52)","extremeDamage":"10d10+10 (65)"},{"level":16,"hp":266,"ac":38,"spellDC":32,"fortitude":28,"reflex":28,"will":27,"perception":28,"attackBonus":24,"lowDamage":"7d10+2 (41)","moderateDamage":"7d10+2 (41)","severeDamage":"8d10+9 (53)","extremeDamage":"10d10+11 (66)"},{"level":17,"hp":291,"ac":40,"spellDC":33,"fortitude":30,"reflex":29,"will":29,"perception":30,"attackBonus":25,"lowDamage":"7d10+3 (42)","moderateDamage":"7d10+3 (42)","severeDamage":"9d10+6 (55)","extremeDamage":"10d12+3 (68)"},{"level":18,"hp":309,"ac":41,"spellDC":34,"fortitude":31,"reflex":29,"will":30,"perception":31,"attackBonus":26,"lowDamage":"7d10+5 (44)","moderateDamage":"7d10+5 (44)","severeDamage":"9d10+8 (57)","extremeDamage":"10d12+6 (71)"},{"level":19,"hp":332,"ac":43,"spellDC":35,"fortitude":33,"reflex":32,"will":33,"perception":33,"attackBonus":27,"lowDamage":"8d10+2 (46)","moderateDamage":"8d10+2 (46)","severeDamage":"10d10+6 (61)","extremeDamage":"10d12+10 (75)"},{"level":20,"hp":353,"ac":45,"spellDC":36,"fortitude":34,"reflex":32,"will":34,"perception":35,"attackBonus":28,"lowDamage":"8d10+4 (48)","moderateDamage":"8d10+4 (48)","severeDamage":"10d10+9 (64)","extremeDamage":"10d12+13 (78)"},{"level":21,"hp":373,"ac":46,"spellDC":37,"fortitude":36,"reflex":35,"will":36,"perception":37,"attackBonus":29,"lowDamage":"8d10+6 (50)","moderateDamage":"8d10+6 (50)","severeDamage":"10d12+1 (66)","extremeDamage":"10d12+16 (81)"},{"level":22,"hp":422,"ac":48,"spellDC":38,"fortitude":37,"reflex":37,"will":35,"perception":39,"attackBonus":30,"lowDamage":"9d10+3 (53)","moderateDamage":"9d10+3 (53)","severeDamage":"10d12+4 (69)","extremeDamage":"10d12+20 (85)"},{"level":23,"hp":448,"ac":49,"spellDC":39,"fortitude":38,"reflex":38,"will":39,"perception":40,"attackBonus":31,"lowDamage":"9d10+5 (55)","moderateDamage":"9d10+5 (55)","severeDamage":"10d12+6 (71)","extremeDamage":"10d12+22 (87)"},{"level":24,"hp":479,"ac":52,"spellDC":40,"fortitude":42,"reflex":38,"will":39,"perception":42,"attackBonus":32,"lowDamage":"10d10+2 (57)","moderateDamage":"10d10+2 (57)","severeDamage":"10d12+9 (74)","extremeDamage":"10d12+24 (89)"},{"level":25,"hp":523,"ac":52,"spellDC":41,"fortitude":45,"reflex":38,"will":42,"perception":44,"attackBonus":33,"lowDamage":"10d10+4 (59)","moderateDamage":"10d10+4 (59)","severeDamage":"10d12+12 (77)","extremeDamage":"10d12+24 (89)"}];
+  const XP_BY_CR = {
+    "0":10,"1/8":25,"1/4":50,"1/2":100,
+    "1":200,"2":450,"3":700,"4":1100,"5":1800,
+    "6":2300,"7":2900,"8":3900,"9":5000,"10":5900,
+    "11":7200,"12":8400,"13":10000,"14":11500,"15":13000,
+    "16":15000,"17":18000,"18":20000,"19":22000,"20":25000,
+    "21":33000,"22":41000,"23":50000,"24":62000,"25":75000,
+    "26":90000,"27":105000,"28":120000,"29":135000,"30":155000
+  };
+  const ATTACK_NAMES = {
+    aberration:["Tentacle","Bite"], beast:["Bite","Claw"], celestial:["Radiant Strike","Slam"],
+    construct:["Slam","Fist"], dragon:["Bite","Claw"], elemental:["Slam","Touch"],
+    fey:["Dagger","Shortbow"], fiend:["Claw","Bite"], giant:["Greatclub","Slam"],
+    humanoid:["Longsword","Scimitar"], monstrosity:["Bite","Claw"], ooze:["Pseudopod","Engulf"],
+    plant:["Vine Whip","Slam"], undead:["Slam","Life Drain"]
+  };
+  const SIZES = ["Tiny","Small","Medium","Large","Huge","Gargantuan"];
+  const TYPES_5E = ["aberration","beast","celestial","construct","dragon","elemental","fey","fiend",
+    "giant","humanoid","monstrosity","ooze","plant","undead"];
+  const ALIGNS = ["unaligned","lawful good","neutral good","chaotic good","lawful neutral","neutral",
+    "chaotic neutral","lawful evil","neutral evil","chaotic evil"];
+  const RARITIES = ["common","uncommon","rare","unique"];
+  const BANDS = [
+    { id:"low", label:"Low" }, { id:"moderate", label:"Moderate" },
+    { id:"severe", label:"Severe" }, { id:"extreme", label:"Extreme" }
+  ];
+
+  let active = false;
+  let system = "dnd5e";
+  let applied = false;
+
+  const $ = (sel, root) => (root || document).querySelector(sel);
+  const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+
+  function crNumeric(cr){
+    const s = String(cr);
+    if (s === "0") return 0;
+    if (s.includes("/")){ const [a,b] = s.split("/").map(Number); return a / b; }
+    return parseInt(s, 10) || 0;
+  }
+  function crValue(cr){ return crNumeric(cr); }
+  function abMod(score){ return Math.floor((Number(score) - 10) / 2); }
+  function fmtMod(m){ return m >= 0 ? "+" + m : String(m); }
+  function parseAtkBonus(raw){
+    const n = parseInt(String(raw == null ? "" : raw).replace(/^\+/, ""), 10);
+    return Number.isFinite(n) ? n : 0;
+  }
+  function crRow(cr){ return CR_DATA.find(d => d.cr === String(cr)) || CR_DATA[0]; }
+  function pfRow(lv){ return PF2E_LEVEL_DATA.find(d => d.level === lv) || PF2E_LEVEL_DATA[1]; }
+
+  function suggestAbilities(data){
+    const n = crNumeric(data.cr);
+    const base = Math.max(8, Math.min(10 + Math.floor(n * 0.8), 22));
+    const spread = Math.max(2, Math.floor(n / 3));
+    const primary = n < 8 ? "str" : n < 15 ? "dex" : "str";
+    const secondary = primary === "str" ? "con" : "dex";
+    const scores = { str:10, dex:10, con:10, int:10, wis:10, cha:10 };
+    scores[primary] = base + spread;
+    scores[secondary] = base;
+    scores.con = Math.max(scores.con, base - 2);
+    if (n >= 5) scores.wis = base - 2;
+    if (n >= 10) scores.int = base - 4 + Math.floor(n / 5);
+    return scores;
+  }
+  function suggestHitDice(hp, conMod){
+    const count = Math.max(1, Math.round((hp - conMod * 2) / 8));
+    const conPart = conMod === 0 ? "" : (conMod > 0 ? " + " + (conMod * count) : " - " + Math.abs(conMod * count));
+    return count + "d8" + conPart;
+  }
+  function suggestAttackBonus(data, scores){
+    const strM = abMod(scores.str), dexM = abMod(scores.dex);
+    return data.prof + (dexM > strM ? dexM : strM);
+  }
+  function avgFromDice(dice){
+    const m = String(dice || "").replace(/\s+/g, "").match(/^(\d+)d(\d+)([+-]\d+)?$/i);
+    if (!m) return null;
+    const n = +m[1], faces = +m[2], bonus = m[3] ? parseInt(m[3], 10) : 0;
+    return Math.floor(n * (faces + 1) / 2) + bonus;
+  }
+  function parseDmgBand(str){
+    const s = String(str || "").trim();
+    const m = s.match(/^([^(]+)/);
+    let formula = (m ? m[1] : s).trim().replace(/\s+/g, "");
+    if (!formula) formula = "1d4";
+    return { formula, average: null, type: "bludgeoning" };
+  }
+  function traitEntries(raw){
+    return String(raw || "").split("\n").map(l => l.trim()).filter(Boolean).map(line => {
+      const dot = line.indexOf(".");
+      let name = line, body = "";
+      if (dot > 0 && dot < 48){ name = line.slice(0, dot).trim(); body = line.slice(dot + 1).trim(); }
+      return {
+        name,
+        category: "passive",
+        placement: "traits",
+        activity: null,
+        traits: [],
+        entries: body ? [body] : []
+      };
+    });
+  }
+
+  function setStatus(msg, isErr){
+    const el = $("#forgeStatus");
+    if (!el) return;
+    el.textContent = msg || "";
+    el.classList.toggle("err", !!isErr);
+    if (msg && typeof announceLive === "function") announceLive(msg);
+  }
+
+  function readForm(){
+    if (system === "pf2e"){
+      const lv = parseInt($("#forgePfLevel").value, 10);
+      return {
+        system: "pf2e",
+        name: ($("#forgeName").value || "").trim() || "New Creature",
+        size: $("#forgeSize").value || "Medium",
+        type: (($("#forgePfType").value || "humanoid").trim().toLowerCase()) || "humanoid",
+        rarity: $("#forgeRarity").value || "common",
+        level: Number.isFinite(lv) ? lv : 1,
+        band: $("#forgePfBand").value || "moderate",
+        traits: $("#forgeTraits").value || "",
+        hp: Math.max(1, parseInt($("#forgePfHp").value, 10) || 10),
+        ac: parseInt($("#forgePfAc").value, 10) || 10,
+        fort: parseInt($("#forgePfFort").value, 10) || 0,
+        ref: parseInt($("#forgePfRef").value, 10) || 0,
+        will: parseInt($("#forgePfWill").value, 10) || 0,
+        perception: parseInt($("#forgePfPer").value, 10) || 0,
+        attack: parseInt($("#forgePfAtk").value, 10) || 0,
+        spellDC: parseInt($("#forgePfSpellDc").value, 10) || 10,
+        damageStr: $("#forgePfDmg").value || "1d4",
+        attackName: ($("#forgeAtkName").value || "").trim() || "Strike"
+      };
+    }
+    const scores = {};
+    for (const k of ["str","dex","con","int","wis","cha"])
+      scores[k] = parseInt($("#forgeAb-"+k).value, 10) || 10;
+    return {
+      system: "dnd5e",
+      name: ($("#forgeName").value || "").trim() || "New Creature",
+      size: $("#forgeSize").value || "Medium",
+      type: ($("#forgeType").value || "humanoid").toLowerCase(),
+      alignment: $("#forgeAlign").value || "unaligned",
+      cr: $("#forgeCr").value || "1",
+      ac: parseInt($("#forgeAc").value, 10) || 10,
+      hp: Math.max(1, parseInt($("#forgeHp").value, 10) || 10),
+      hpDice: ($("#forgeHpDice").value || "").trim() || null,
+      prof: parseInt(String($("#forgeProf").value).replace(/^\+/,""), 10) || 2,
+      attacks: Math.max(1, parseInt($("#forgeAttacks").value, 10) || 1),
+      dmgDice: ($("#forgeDmgDice").value || "").trim() || "1d4",
+      attackBonus: parseAtkBonus($("#forgeAtkBonus").value),
+      attackName: ($("#forgeAtkName").value || "").trim() || "Slam",
+      scores,
+      traits: $("#forgeTraits").value || ""
+    };
+  }
+
+  function buildMonster(f){
+    if (!f) return null;
+    if (f.system === "pf2e"){
+      const dmg = parseDmgBand(f.damageStr);
+      const atk = f.attack;
+      const map = [atk, atk - 5, atk - 10];
+      const entries = traitEntries(f.traits);
+      entries.push({
+        name: f.attackName,
+        category: "strike",
+        placement: "bot",
+        activity: { unit: "action", number: 1, symbol: "◆" },
+        traits: [],
+        attack: { range: "melee", subtype: null, bonus: atk, map, traits: [], targets: null },
+        damage: [dmg],
+        entries: []
+      });
+      const wisGuess = Math.max(-5, Math.min(10, f.perception - 3));
+      const display = f.level < 0 ? "Creature -1" : ("Creature " + f.level);
+      return {
+        schema: "ttrpg-monster/0.2",
+        id: "pf2e:custom:pending",
+        name: f.name,
+        gameSystem: "pf2e",
+        variant: "custom",
+        source: { code: "custom", name: "Custom", page: null, path: "custom/pf2e/pending" },
+        parse: { status: "ok", warnings: ["Forged from level benchmarks; ability scores unstated."], unmapped: [] },
+        challenge: { kind: "level", value: f.level, xp: null, display },
+        identity: {
+          size: f.size, types: [f.type], subtypes: [], rarity: f.rarity,
+          alignment: { raw: null, lawChaos: null, goodEvil: null },
+          nativeTraits: [f.size.toLowerCase(), f.type, f.rarity]
+        },
+        abilityMods: { str: 0, dex: 0, con: 0, int: 0, wis: wisGuess, cha: 0 },
+        abilityScores: null,
+        perception: { mod: f.perception, passive: null },
+        senses: [], languages: [], skills: [],
+        defenses: {
+          ac: { value: f.ac, note: null },
+          savingThrows: [
+            { name: "fort", mod: f.fort },
+            { name: "ref", mod: f.ref },
+            { name: "will", mod: f.will }
+          ],
+          saveNote: null,
+          hp: [{ value: f.hp, formula: null, note: null }],
+          immunities: { damage: [], conditions: [], other: [] },
+          resistances: [], weaknesses: [], hardness: null
+        },
+        speeds: { unit: "ft", modes: { walk: 25 }, special: [] },
+        entries, spellcasting: [],
+        systemExtras: { forgeSpellDC: f.spellDC, forgeDamageBand: f.band }
+      };
+    }
+    const scores = f.scores;
+    const mods = {};
+    for (const k of ["str","dex","con","int","wis","cha"]) mods[k] = abMod(scores[k]);
+    const diceClean = String(f.dmgDice).replace(/\s+/g, "");
+    const avg = avgFromDice(diceClean);
+    const entries = traitEntries(f.traits);
+    if (f.attacks > 1){
+      entries.push({
+        name: "Multiattack",
+        category: "action",
+        placement: "actions",
+        activity: { unit: "action", number: 1, symbol: null },
+        traits: [],
+        entries: ["The creature makes " + f.attacks + " " + f.attackName + " attacks."]
+      });
+    }
+    const hitLine = "Melee Weapon Attack: " + fmtMod(f.attackBonus) + " to hit, reach 5 ft., one target. Hit: " +
+      (avg != null ? avg + " (" + diceClean + ")" : diceClean) + " bludgeoning damage.";
+    entries.push({
+      name: f.attackName,
+      category: "strike",
+      placement: "actions",
+      activity: { unit: "action", number: 1, symbol: null },
+      traits: [],
+      entries: [hitLine],
+      attack: {
+        range: "melee", subtype: "weapon", bonus: f.attackBonus,
+        map: [f.attackBonus], traits: [], targets: null
+      },
+      damage: [{ formula: diceClean, average: avg, type: "bludgeoning" }]
+    });
+    const xp = XP_BY_CR[f.cr] != null ? XP_BY_CR[f.cr] : null;
+    return {
+      schema: "ttrpg-monster/0.2",
+      id: "dnd5e:custom:pending",
+      name: f.name,
+      gameSystem: "dnd5e",
+      variant: "custom",
+      source: { code: "custom", name: "Custom", page: null, path: "custom/dnd5e/pending" },
+      parse: { status: "ok", warnings: ["Forged from CR benchmarks."], unmapped: [] },
+      challenge: { kind: "cr", value: crValue(f.cr), xp, display: String(f.cr) },
+      identity: {
+        size: f.size, types: [f.type], subtypes: [], rarity: null,
+        alignment: { raw: f.alignment, lawChaos: null, goodEvil: null },
+        nativeTraits: []
+      },
+      abilityMods: mods,
+      abilityScores: Object.assign({}, scores),
+      perception: { mod: mods.wis, passive: 10 + mods.wis },
+      senses: [], languages: [], skills: [],
+      defenses: {
+        ac: { value: f.ac, note: null },
+        savingThrows: [], saveNote: null,
+        hp: [{ value: f.hp, formula: f.hpDice, note: null }],
+        immunities: { damage: [], conditions: [], other: [] },
+        resistances: [], weaknesses: [], hardness: null
+      },
+      speeds: { unit: "ft", modes: { walk: 30 }, special: [] },
+      entries, spellcasting: [],
+      systemExtras: { proficiencyBonus: f.prof }
+    };
+  }
+
+  function refreshPreview(){
+    const pane = $("#forgePreview");
+    if (!pane) return;
+    if (!applied){
+      pane.innerHTML = '<p class="forge-hint">Set CR or level, then <strong>Apply benchmarks</strong> to fill stats and preview.</p>';
+      return;
+    }
+    const rec = buildMonster(readForm());
+    if (!rec || typeof monsterHTML !== "function"){
+      pane.innerHTML = '<p class="forge-hint">Preview unavailable.</p>';
+      return;
+    }
+    pane.innerHTML = monsterHTML(rec);
+  }
+
+  function applyBenchmarks(){
+    if (system === "pf2e"){
+      const lv = parseInt($("#forgePfLevel").value, 10);
+      const row = pfRow(Number.isFinite(lv) ? lv : 1);
+      const band = $("#forgePfBand").value || "moderate";
+      const key = band === "low" ? "lowDamage" : band === "severe" ? "severeDamage"
+        : band === "extreme" ? "extremeDamage" : "moderateDamage";
+      $("#forgePfHp").value = row.hp;
+      $("#forgePfAc").value = row.ac;
+      $("#forgePfFort").value = row.fortitude;
+      $("#forgePfRef").value = row.reflex;
+      $("#forgePfWill").value = row.will;
+      $("#forgePfPer").value = row.perception;
+      $("#forgePfAtk").value = row.attackBonus;
+      $("#forgePfSpellDc").value = row.spellDC;
+      $("#forgePfDmg").value = row[key];
+      if (!$("#forgeAtkName").value.trim()) $("#forgeAtkName").value = "Strike";
+    } else {
+      const cr = $("#forgeCr").value || "1";
+      const row = crRow(cr);
+      const scores = suggestAbilities(row);
+      $("#forgeAc").value = row.ac;
+      $("#forgeHp").value = row.hp;
+      $("#forgeProf").value = "+" + row.prof;
+      $("#forgeAttacks").value = row.attacks;
+      $("#forgeDmgDice").value = row.dice;
+      for (const k of ["str","dex","con","int","wis","cha"]) $("#forgeAb-"+k).value = scores[k];
+      $("#forgeHpDice").value = suggestHitDice(row.hp, abMod(scores.con));
+      $("#forgeAtkBonus").value = fmtMod(suggestAttackBonus(row, scores));
+      const type = ($("#forgeType").value || "humanoid").toLowerCase();
+      const names = ATTACK_NAMES[type] || ["Slam"];
+      if (!$("#forgeAtkName").value.trim()) $("#forgeAtkName").value = names[0];
+    }
+    applied = true;
+    setStatus("Benchmarks applied.", false);
+    refreshPreview();
+  }
+
+  function setSystem(sys){
+    system = sys === "pf2e" ? "pf2e" : "dnd5e";
+    const root = $("#forge");
+    if (root) root.dataset.system = system;
+    $$("#forgeSysChips .chip").forEach(b => {
+      const on = b.dataset.sys === system;
+      b.classList.toggle("on", on);
+      b.setAttribute("aria-pressed", String(on));
+    });
+    const p5 = $("#forgePanel5e"), pp = $("#forgePanelPf");
+    if (p5) p5.hidden = system !== "dnd5e";
+    if (pp) pp.hidden = system !== "pf2e";
+    applied = false;
+    setStatus("", false);
+    refreshPreview();
+  }
+
+  function saveToCustom(btn){
+    if (!applied){ setStatus("Apply benchmarks before saving.", true); return; }
+    const draft = buildMonster(readForm());
+    if (!draft){ setStatus("Could not build creature.", true); return; }
+    const n = normalizeCustomRecord(draft, draft.gameSystem);
+    if (!n.ok){ setStatus((n.errors || []).join(" "), true); return; }
+    const merged = Object.assign({}, draft, {
+      schema: n.record.schema,
+      id: n.record.id,
+      name: n.record.name,
+      gameSystem: n.record.gameSystem,
+      variant: n.record.variant,
+      source: n.record.source,
+      parse: Object.assign({}, draft.parse, n.record.parse)
+    });
+    const v = validateCustomRecord(merged);
+    if (!v.ok){ setStatus((v.errors || []).slice(0, 5).join(" "), true); return; }
+    const go = () => {
+      const res = upsertCustomRecord(v.record, "monster");
+      if (!res.ok){ setStatus(res.error || "Save failed.", true); return; }
+      setStatus("Saved “" + res.record.name + "” to Custom.", false);
+      if (window.TRK) TRK.setMode("browse");
+      if (typeof setSide === "function") setSide("monster");
+      if (typeof pickById === "function") pickById(res.record.id);
+    };
+    const existing = findStoredCustom(v.record.id);
+    if (existing && window.TRK && TRK.confirmSwap)
+      TRK.confirmSwap(btn, "Replace custom “" + existing.name + "”?", go);
+    else go();
+  }
+
+  function fillSelects(){
+    const crSel = $("#forgeCr");
+    if (crSel && !crSel.options.length){
+      for (const d of CR_DATA){
+        const o = document.createElement("option");
+        o.value = d.cr; o.textContent = "CR " + d.cr;
+        if (d.cr === "1") o.selected = true;
+        crSel.appendChild(o);
+      }
+    }
+    const lvSel = $("#forgePfLevel");
+    if (lvSel && !lvSel.options.length){
+      for (const d of PF2E_LEVEL_DATA){
+        const o = document.createElement("option");
+        o.value = String(d.level);
+        o.textContent = "Level " + d.level;
+        if (d.level === 1) o.selected = true;
+        lvSel.appendChild(o);
+      }
+    }
+    const size = $("#forgeSize");
+    if (size && !size.options.length){
+      for (const s of SIZES){
+        const o = document.createElement("option");
+        o.value = s; o.textContent = s;
+        if (s === "Medium") o.selected = true;
+        size.appendChild(o);
+      }
+    }
+    const type = $("#forgeType");
+    if (type && !type.options.length){
+      for (const t of TYPES_5E){
+        const o = document.createElement("option");
+        o.value = t; o.textContent = t.charAt(0).toUpperCase() + t.slice(1);
+        if (t === "humanoid") o.selected = true;
+        type.appendChild(o);
+      }
+    }
+    const al = $("#forgeAlign");
+    if (al && !al.options.length){
+      for (const a of ALIGNS){
+        const o = document.createElement("option");
+        o.value = a; o.textContent = a;
+        if (a === "unaligned") o.selected = true;
+        al.appendChild(o);
+      }
+    }
+    const rar = $("#forgeRarity");
+    if (rar && !rar.options.length){
+      for (const r of RARITIES){
+        const o = document.createElement("option");
+        o.value = r; o.textContent = r;
+        if (r === "common") o.selected = true;
+        rar.appendChild(o);
+      }
+    }
+    const band = $("#forgePfBand");
+    if (band && !band.options.length){
+      for (const b of BANDS){
+        const o = document.createElement("option");
+        o.value = b.id; o.textContent = b.label;
+        if (b.id === "moderate") o.selected = true;
+        band.appendChild(o);
+      }
+    }
+  }
+
+  function bind(){
+    fillSelects();
+    $$("#forgeSysChips .chip").forEach(b => { b.onclick = () => setSystem(b.dataset.sys); });
+    const apply = $("#forgeApply");
+    if (apply) apply.onclick = () => applyBenchmarks();
+    const save = $("#forgeSave");
+    if (save) save.onclick = () => saveToCustom(save);
+    const root = $("#forge");
+    if (root){
+      root.addEventListener("input", () => { if (applied) refreshPreview(); });
+      root.addEventListener("change", () => { if (applied) refreshPreview(); });
+    }
+    setSystem(system);
+  }
+
+  function setActive(on){
+    active = !!on;
+    const el = $("#forge");
+    if (el) el.hidden = !active;
+    if (active){ fillSelects(); refreshPreview(); }
+  }
+
+  bind();
+
+  return {
+    setActive,
+    _test: { crNumeric, crValue, suggestAbilities, parseDmgBand, buildMonster, CR_DATA, PF2E_LEVEL_DATA, XP_BY_CR }
+  };
+})();
+window.FORGE = FORGE;
+</script>
+
 </body>
 </html>

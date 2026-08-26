@@ -53,7 +53,7 @@ telling you to update `build_bundles.py` — heed it rather than working around 
 
 ## Architecture
 
-One HTML file, no framework, no dependencies. `app.template.html` holds four sequential
+One HTML file, no framework, no dependencies. `app.template.html` holds sequential
 `<script>` blocks:
 
 | Block | Scope |
@@ -62,9 +62,10 @@ One HTML file, no framework, no dependencies. `app.template.html` holds four seq
 | `TRK` | Initiative tracker, dice, party/presets, player display, undo ring, column resize, mode chrome |
 | `BUILD` | Encounter Builder: draft `bg.builder.v1`, PF2e / 5e 2014 / 5e 2024 budgets, roster, Save/Load bridges |
 | `BOARD` | Session boards: markdown / image / audio / counter / dice / timer / checklist / random cards |
+| `FORGE` | Creature forge: inlined 5e CR + PF2e level tables, dual-system forms, preview via `monsterHTML`, Save to Custom |
 
-**Module boundary.** `TRK`, `BUILD`, and `BOARD` are IIFEs assigned to `window.TRK` /
-`window.BUILD` / `window.BOARD` at the end of their block (`const` bindings don't become
+**Module boundary.** `TRK`, `BUILD`, `BOARD`, and `FORGE` are IIFEs assigned to `window.TRK` /
+`window.BUILD` / `window.BOARD` / `window.FORGE` at the end of their block (`const` bindings don't become
 window properties). Script 1 guards every cross-module call with `if (window.TRK)` /
 `if (window.BUILD)` so each block stays independently removable.
 Script 1 publishes `window.refresh`, `window.setSide`, `window.openSpellPeek`, etc. for the
