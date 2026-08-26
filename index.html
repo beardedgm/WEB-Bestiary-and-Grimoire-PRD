@@ -1386,6 +1386,7 @@ body.trk #forge{display:none !important}
       <div id="buildActs">
         <button type="button" class="chip go" id="buildSave">Save to Encounters</button>
         <button type="button" class="chip" id="buildLoad">Load into Tracker</button>
+        <button type="button" class="chip" id="buildBoard" disabled title="Save to Encounters first">Send to Board</button>
       </div>
     </div>
   </section>
@@ -5757,6 +5758,15 @@ const BUILD = (() => {
     renderControls();
     renderMeter();
     renderRoster();
+    syncBoardChip();
+  }
+
+  function syncBoardChip(){
+    const btn = document.getElementById("buildBoard");
+    if (!btn) return;
+    const can = !!(draft.editingPresetId);
+    btn.disabled = !can;
+    btn.title = can ? "Pin this saved encounter to the Board" : "Save to Encounters first";
   }
 
   function setActive(on){
@@ -5840,6 +5850,7 @@ const BUILD = (() => {
       if (!out){ status("Preset list is full (50).", true); return; }
       draft.editingPresetId = out.id;
       saveDraft();
+      syncBoardChip();
       toast("Saved “" + out.name + "” to Encounters");
       if (window.refresh) refresh();
     };
@@ -5897,6 +5908,20 @@ const BUILD = (() => {
   const loadBtn = document.getElementById("buildLoad");
   if (saveBtn) saveBtn.onclick = () => saveToEncounters(saveBtn);
   if (loadBtn) loadBtn.onclick = () => loadIntoTracker(loadBtn);
+  const boardBtn = document.getElementById("buildBoard");
+  if (boardBtn) boardBtn.onclick = () => {
+    if (!draft.editingPresetId){
+      status("Save to Encounters first.", true);
+      return;
+    }
+    if (!window.BOARD || !BOARD.addEncounter){
+      status("Board unavailable.", true);
+      return;
+    }
+    const res = BOARD.addEncounter(draft.editingPresetId);
+    if (res.ok) toast("Added to board: " + (res.name || draft.name || "Encounter"));
+    else status(res.error || "Couldn’t add to board.", true);
+  };
 
   return {
     setActive, tryAdd, openPreset, draftSystem, render,
