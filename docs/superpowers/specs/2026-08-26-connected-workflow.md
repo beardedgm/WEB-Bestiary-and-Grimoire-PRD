@@ -1,0 +1,91 @@
+# Connected Workflow
+
+Bestiary & Grimoire is a connected operating environment for running tabletop RPG campaigns,
+not a collection of DM tools. The problem it solves is fragmentation: monster data in one
+place, initiative in another, session notes in a third, encounter math in a fourth. Here,
+information is created once and referenced everywhere by record id.
+
+## Principles
+
+1. **Create once. Use it everywhere.** Content has one home and one id; every other surface
+   references it. Never copy-paste a stat block between areas.
+2. **Everything one or two clicks away.** During a session, any needed piece of information
+   is reachable without leaving the app or re-entering data.
+3. **Preparation and play are one workflow.** What you build during prep is the same object
+   you run at the table — no export/reimport between "prep tools" and "play tools."
+
+These extend, and never override, the existing product principles in `PRODUCT.md`
+(system fidelity, one corpus many surfaces, table-speed, local-first, honest data quality).
+
+## Campaign lifecycle
+
+1. Create or import a campaign.
+2. Write or import campaign material into **Lore** (future).
+3. Reference monsters, spells, and rules in the **Library** (corpus ships built-in;
+   customs extend it).
+4. Create homebrew material in the **Forge** when the corpus doesn't fit.
+5. Build encounters in the **Builder**.
+6. Prepare the next session by pulling relevant material onto the **Board**.
+7. Run encounters through the **Tracker**.
+8. Take session notes and update Lore afterward (future capture loop).
+9. Repeat for the next session.
+
+The Library is not a step you finish — it is always available; Forge and import fill gaps
+as prep reveals them. After-session capture (step 8) is a first-class path, or the campaign
+knowledge base rots and users drift back to external note tools.
+
+## Area ownership
+
+| Area | Owns | Does NOT own |
+|---|---|---|
+| **Library** | Reusable game content: corpus monsters/spells + customs, keyed by id | Campaign plot, session layout |
+| **Forge** | Creating custom content that lands in the Library | Editing content in place elsewhere |
+| **Builder** | Encounter drafts and difficulty budgets | Live combat state |
+| **Tracker** | Live encounter: initiative, HP, rounds, markers | Adventure text, long-term notes |
+| **Board** | Tonight's session surface — ephemeral, spatial, disposable | Being the permanent campaign archive |
+| **Lore** (future) | Durable campaign truth: adventures, NPCs, locations, history, session logs | Live initiative, rules corpus |
+| **Export** | Portability — the user owns their files (`bg-user-save/1`) | Cloud identity, sync |
+
+The load-bearing sentence: **Lore is where the campaign lives; the Board is where tonight's
+game lives.** If the Board starts absorbing permanent campaign notes, or Lore grows session
+chrome, the ownership contract is broken.
+
+## Integration contract
+
+Connections between areas are the product. Each is an acceptance criterion, not a feature
+idea. Status as of this writing:
+
+- [x] A monster created in the Forge is saved into the Library (custom store) — *shipped*
+- [x] A monster in the Library can be added to an encounter in the Builder — *shipped*
+- [x] An encounter from the Builder can be loaded into the Tracker — *shipped*
+- [x] A creature's stat block is viewable from the Tracker without leaving the session
+      (reading pane) — *shipped*
+- [ ] A monster or spell in the Library can be sent to the Board as a **linked card**
+      (reference by id, live render, not pasted text) — *Phase 1, this branch*
+- [ ] An encounter (Builder draft or Tracker state) can appear on the Board as a linked
+      card — *Phase 2*
+- [ ] A Lore page (or excerpt / read-aloud block) can be pinned to tonight's Board — *Phase 3*
+- [ ] Something that happened during the session (Board note, Tracker outcome) can be added
+      back into Lore in one action — *Phase 4*
+
+Linked means: the card stores `{ ref: "<record id>" }` and renders from the live record at
+view time. Deleting the underlying custom yields an honest missing-record notice, never a
+stale embedded copy (mirrors the `parse.status` honesty philosophy).
+
+## Phased roadmap
+
+- **Phase 0 — Land Forge.** Merge the Forge mode branch (PR #16).
+- **Phase 1 — Linked Board cards.** `record` card type on the Board referencing Library
+  monsters/spells by id; "Send to Board" from the Library reading pane.
+- **Phase 2 — Encounter on the Board.** Builder/Tracker encounter as a linked Board card;
+  stat blocks from Tracker without mode thrash.
+- **Phase 3 — Lore v1.** New mode: markdown campaign pages (tree + tags), local-first,
+  portable; "Pin to Board" turns a Lore page or excerpt into a linked card.
+- **Phase 4 — Capture loop.** Session residue flows back into Lore with one action.
+
+## Non-goals
+
+- Becoming a VTT (maps with tokens, fog of war, multiplayer sync)
+- Out-templating dedicated worldbuilding tools (heavy template engines, mirrored fields)
+- Cross-system power conversion (CR↔level) — unchanged, by design
+- Cloud accounts or sync — local-first with portable export remains the trust model
