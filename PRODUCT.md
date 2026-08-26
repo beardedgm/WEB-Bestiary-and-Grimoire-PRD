@@ -42,7 +42,7 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 - Monster spellcasting lists: click a known spell name to peek its full block without leaving the creature
 - Tracker mode: initiative order, rounds, drag-reorder, undo/redo, party library, encounter presets, dice tray, player display
 - Builder mode: PF2e / 5e 2014 / 5e 2024 XP budgets from party size + shared level; roster from Catalog (system lock, PF2e ±4 block, missing-HP block); Save to Encounters with `builder` meta; Load into Tracker; Open in Builder from Table
-- Board mode: multi-session spatial boards (`bg.board.v1`) with markdown (incl. GFM tables / read-aloud blockquotes), image, audio clip, counter, dice, timer (countdown/stopwatch), checklist, and random table cards; snap-grid drag/resize; portable save includes boards
+- Board mode: multi-session spatial boards (`bg.board.v1`) with markdown (incl. GFM tables / read-aloud blockquotes), image, audio clip, counter, dice, timer (countdown/stopwatch), checklist, random table, and linked record cards (a Library monster/spell referenced by id, rendered live — "Send to Board" from the reading pane; a removed custom shows a missing-record notice, never a stale copy); snap-grid drag/resize; portable save includes boards
 - Forge mode: dual system creature builders (D&D 5e CR 0–30 benchmarks; PF2e creature levels −1…25 + damage band); live stat-block preview; **Save to Custom** via the existing custom library (replace confirm when id exists); no CR↔level conversion
 - Ad-hoc colored markers on combatants (five colors, solid/outline) mirrored on the player display — table-ring shorthand, no condition legend
 - Catalog vs Table navigation in the left column (monsters/spells vs party/encounters)
@@ -83,6 +83,7 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 3. **Table-speed interaction** — search, add, roll, and track HP in fewest clicks; keyboard shortcuts for search and combat.
 4. **Local-first trust** — campaign data stays in the browser; no account required.
 5. **Honest data quality** — surface parse status and warnings; do not hide incomplete conversions.
+6. **Create once, use everywhere** — content lives in the Library keyed by id; every other surface (Builder, Tracker, Board) references it rather than copying it (see `docs/superpowers/specs/2026-08-26-connected-workflow.md`).
 
 ## Accessibility & Inclusion
 

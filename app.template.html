@@ -494,6 +494,7 @@ body.trk #trk{
 #trkbar[hidden], #dice[hidden], #trkovl[hidden], #pdisp[hidden], #dpop[hidden]{display:none}
 
 /* clickable dice in stat blocks — inherit the stock's ink and font */
+.pane-actions{display:flex; gap:6px; margin:2px 0 14px}
 .droll{
   display:inline; padding:0 1px; border:none; background:none; cursor:pointer;
   font:inherit; color:var(--sysink, var(--ink));
@@ -988,6 +989,14 @@ body.trk #forge{display:none !important}
 #board .board-card .resize{
   position:absolute; right:0; bottom:0; width:14px; height:14px; cursor:nwse-resize;
   background:linear-gradient(135deg, transparent 50%, var(--hair) 50%)}
+
+#board .record-body{padding:0}
+#board .record-view .sb{
+  max-width:none; margin:0; padding:14px 16px 12px;
+  border:0; border-radius:0; box-shadow:none; animation:none}
+#board .record-view .sb h2{font-size:21px}
+#board .record-missing{
+  margin:0; padding:14px 16px; font:italic 14px/1.5 var(--serif); color:var(--dim)}
 
 #board .md-view{font:15px/1.55 var(--serif); color:var(--ink)}
 #board .md-view h1,#board .md-view h2,#board .md-view h3{font-family:var(--serif); margin:.15em 0 .4em; line-height:1.2}
@@ -2758,6 +2767,7 @@ function renderRecord(r){
   }
   fillPane(html, sys);
   location.hash = encodeURIComponent(r.id);
+  addSendToBoard(r);
   const rm = $("#pane-sheet") && $("#pane-sheet").querySelector("[data-rm-custom]");
   if (rm){
     rm.onclick = () => {
@@ -2773,6 +2783,30 @@ function renderRecord(r){
       else if (confirm("Remove from library?")) doRm();
     };
   }
+}
+
+/* "Send to Board" belongs to the Library pane, not to monsterHTML/spellHTML —
+   those renderers are reused by the Board, Forge preview, and player display,
+   where the chip would be wrong or inert. Guarded: Board block is removable. */
+function addSendToBoard(r){
+  if (!window.BOARD || !BOARD.addRecord) return;
+  const sheet = $("#pane-sheet");
+  const rule = sheet && sheet.querySelector(".sb .rule");
+  if (!rule) return;
+  const row = document.createElement("div");
+  row.className = "pane-actions";
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "chip";
+  btn.textContent = "Send to Board";
+  btn.onclick = () => {
+    const res = BOARD.addRecord(r.id);
+    announceLive(res.ok
+      ? "Added to board: " + (res.name || r.name || r.id)
+      : (res.error || "Couldn’t add to board."));
+  };
+  row.appendChild(btn);
+  rule.after(row);
 }
 
 function metaHTML(r){
@@ -5080,6 +5114,10 @@ const TRK = (() => {
       });
       return;
     }
+  });
+  /* Delegated at document level so click-to-roll works wherever a stat block
+     renders: reading pane, spell peek, Board record cards, Forge preview. */
+  document.addEventListener("click", e => {
     const b = e.target.closest(".droll");
     if (!b) return;
     const m = /^(\d+)d(\d+)([+-]\d+)?$/.exec(b.dataset.roll || "");
@@ -5966,7 +6004,7 @@ const BOARD = (() => {
 
 
   const MD_SOFT = 20000, MD_WARN = 60000, MD_HARD = 120000;
-  const CARD_TYPES = new Set(["markdown","image","audio","counter","dice","timer","checklist","random"]);
+  const CARD_TYPES = new Set(["markdown","image","audio","counter","dice","timer","checklist","random","record"]);
   const MAX_BOARD_CARDS = 200;
   const MAX_BOARDS = 40;
   const MAX_CHECKLIST = 200;
@@ -6065,6 +6103,10 @@ const BOARD = (() => {
     } else if (type === "random"){
       card.lines = vStr(raw.lines, MAX_RANDOM_LINES, "");
       card.last = vStr(raw.last, 500, "");
+    } else if (type === "record"){
+      /* Linked Library reference; kept valid even when the ref no longer
+         resolves (customs can be removed later) — renders a missing notice. */
+      card.ref = vStr(raw.ref, 120, "");
     }
     return card;
   }
@@ -6341,7 +6383,7 @@ const BOARD = (() => {
     btn.onclick = () => { addCard(btn.getAttribute("data-add")); setBoardRailOpen(false); };
   });
 
-  function addCard(type){
+  function addCard(type, extra){
     const b = active();
     const base = {
       id: uid(), type,
@@ -6369,6 +6411,8 @@ const BOARD = (() => {
       lines: "Entry one\nEntry two\nEntry three",
       last: "", w: 312, h: 288
     });
+    if (type === "record") Object.assign(base, { title: "Record", ref: "", w: 360, h: 408 });
+    if (extra) Object.assign(base, extra);
     b.cards.push(base);
     selectedId = base.id;
     touch();
@@ -6430,6 +6474,7 @@ const BOARD = (() => {
         || (card.mode === "countdown" && card.durationSec && card.durationSec !== 300);
       case "checklist": return (card.items || []).some(i => i.done || String(i.text || "").trim());
       case "random": return !!(card.last || String(card.lines || "").trim());
+      case "record": return false; /* re-creatable in two clicks from the Library */
       default: return true;
     }
   }
@@ -6455,7 +6500,7 @@ const BOARD = (() => {
     const collapsed = !!card.collapsed;
     const KIND = {
       markdown: "note", image: "image", audio: "audio", counter: "counter", dice: "dice",
-      timer: "timer", checklist: "list", random: "table", clock: "counter"
+      timer: "timer", checklist: "list", random: "table", clock: "counter", record: "stat block"
     };
     const el = document.createElement("article");
     el.className = "board-card"
@@ -6534,6 +6579,7 @@ const BOARD = (() => {
       else if (card.type === "timer") fillTimer(body, card);
       else if (card.type === "checklist") fillChecklist(body, card);
       else if (card.type === "random") fillRandom(body, card);
+      else if (card.type === "record") fillRecord(body, card);
       el.appendChild(body);
 
       const rz = document.createElement("div");
@@ -7168,6 +7214,43 @@ const BOARD = (() => {
     body.appendChild(wrap);
   }
 
+  /* Linked Library card: renders the live record at view time — never an
+     embedded copy. A ref that no longer resolves shows an honest notice. */
+  function fillRecord(body, card){
+    body.classList.add("record-body");
+    const rec = (typeof ID_INDEX !== "undefined" && card.ref) ? ID_INDEX.get(card.ref) : null;
+    if (!rec){
+      const miss = document.createElement("p");
+      miss.className = "record-missing";
+      miss.textContent = "Record not found — it may have been removed from the custom library.";
+      body.appendChild(miss);
+      return;
+    }
+    const view = document.createElement("div");
+    view.className = "record-view";
+    try{
+      view.innerHTML = rec._kind === "spell" ? spellHTML(rec) : monsterHTML(rec);
+    }catch(_){
+      view.textContent = "Couldn’t render this record.";
+    }
+    /* Library-management chrome doesn't belong on the Board */
+    view.querySelectorAll("[data-rm-custom]").forEach(b => {
+      const row = b.closest(".btns");
+      (row || b).remove();
+    });
+    body.appendChild(view);
+  }
+
+  function addRecord(ref){
+    if (typeof ref !== "string" || !ref) return { ok: false, error: "No record id." };
+    const b = active();
+    if (b.cards.length >= MAX_BOARD_CARDS)
+      return { ok: false, error: "Board is full (" + MAX_BOARD_CARDS + " cards)." };
+    const rec = (typeof ID_INDEX !== "undefined") ? ID_INDEX.get(ref) : null;
+    addCard("record", { ref: ref.slice(0, 120), title: (rec && rec.name) ? rec.name : "Record" });
+    return { ok: true, name: rec ? rec.name : ref };
+  }
+
   function enableDrag(handle, el, card){
     handle.addEventListener("pointerdown", e => {
       if (e.button !== 0) return;
@@ -7313,7 +7396,7 @@ const BOARD = (() => {
     return { boardUpserts: upserts, ok: saved };
   }
 
-  return { setActive, getExport, applyUserSave };
+  return { setActive, getExport, applyUserSave, addRecord };
 })();
 window.BOARD = BOARD;
 </script>
