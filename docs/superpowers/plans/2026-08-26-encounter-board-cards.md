@@ -502,3 +502,24 @@ EOF
 | Non-goals (live Tracker, draft pin, DnD, edit roster) | Out of plan |
 
 No TBD placeholders. Names consistent: `presetId`, `addEncounter`, `fillEncounter`, `editingPresetId`.
+
+---
+
+## Shipped
+
+Landed on `cursor/encounter-board-cards`. All four tasks complete:
+
+- `BOARD.addEncounter` + `encounter` card type, roster render, missing-preset notice
+  (Task 1).
+- Table Send to Board on the encounter reading pane (Task 2).
+- Builder Send to Board, gated on `draft.editingPresetId` (Task 3).
+- Docs (`PRODUCT.md`, `DESIGN.md`, `CLAUDE.md`, connected-workflow checklist) and full
+  browser smoke, this task.
+
+Browser smoke ran headless via Puppeteer against the built `index.html` (the
+`cursor-ide-browser` MCP tool had no reachable browser tab in this environment, so a local
+Chrome + Puppeteer script drove the same real DOM click paths instead — including the actual
+Table `#sg-table` → `#st-enc` → preset row → `data-sboard-pane` click chain, not just the
+underlying API). All 9 checklist scenarios passed; see
+`.superpowers/sdd/task-4-report.md` for the full transcript. `build_bundles.py --check`
+is clean.
