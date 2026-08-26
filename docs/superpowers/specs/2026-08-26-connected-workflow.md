@@ -20,7 +20,7 @@ These extend, and never override, the existing product principles in `PRODUCT.md
 ## Campaign lifecycle
 
 1. Create or import a campaign.
-2. Write or import campaign material into **Lore** (future).
+2. Write campaign material into **Lore**.
 3. Reference monsters, spells, and rules in the **Library** (corpus ships built-in;
    customs extend it).
 4. Create homebrew material in the **Forge** when the corpus doesn't fit.
@@ -43,7 +43,7 @@ knowledge base rots and users drift back to external note tools.
 | **Builder** | Encounter drafts and difficulty budgets | Live combat state |
 | **Tracker** | Live encounter: initiative, HP, rounds, markers | Adventure text, long-term notes |
 | **Board** | Tonight's session surface — ephemeral, spatial, disposable | Being the permanent campaign archive |
-| **Lore** (future) | Durable campaign truth: adventures, NPCs, locations, history, session logs | Live initiative, rules corpus |
+| **Lore** | Durable campaign truth: adventures, NPCs, locations, history, session logs | Live initiative, rules corpus |
 | **Export** | Portability — the user owns their files (`bg-user-save/1`) | Cloud identity, sync |
 
 The load-bearing sentence: **Lore is where the campaign lives; the Board is where tonight's
@@ -64,7 +64,8 @@ idea. Status as of this writing:
       (reference by id, live render, not pasted text) — *Phase 1, shipped*
 - [x] An encounter (Builder draft or Tracker state) can appear on the Board as a linked
       card — *Phase 2 (saved preset; live Tracker mirroring deferred)*
-- [ ] A Lore page (or excerpt / read-aloud block) can be pinned to tonight's Board — *Phase 3*
+- [x] A whole Lore page can be pinned to tonight's Board as a linked card — *Phase 3, shipped;
+      excerpt/read-aloud pinning deferred*
 - [ ] Something that happened during the session (Board note, Tracker outcome) can be added
       back into Lore in one action — *Phase 4*
 
@@ -79,8 +80,9 @@ stale embedded copy (mirrors the `parse.status` honesty philosophy).
   monsters/spells by id; "Send to Board" from the Library reading pane.
 - **Phase 2 — Encounter on the Board.** Builder/Tracker encounter as a linked Board card;
   stat blocks from Tracker without mode thrash.
-- **Phase 3 — Lore v1.** New mode: markdown campaign pages (tree + tags), local-first,
-  portable; "Pin to Board" turns a Lore page or excerpt into a linked card.
+- **Phase 3 — Lore v1 (shipped).** New mode: markdown campaign pages (tree + tags),
+  local-first and portable; "Pin to Board" turns a whole Lore page into a linked card.
+  Excerpt/read-aloud pinning is deferred.
 - **Phase 4 — Capture loop.** Session residue flows back into Lore with one action.
 
 ## Non-goals

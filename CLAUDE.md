@@ -63,9 +63,10 @@ One HTML file, no framework, no dependencies. `app.template.html` holds sequenti
 | `BUILD` | Encounter Builder: draft `bg.builder.v1`, PF2e / 5e 2014 / 5e 2024 budgets, roster, Save/Load bridges |
 | `BOARD` | Session boards: markdown / image / audio / counter / dice / timer / checklist / random / record / encounter cards (`BOARD.addRecord` / `BOARD.addEncounter`; Send to Board from Library (Script 1 `addSendToBoard`), Table, Builder) |
 | `FORGE` | Creature forge: inlined 5e CR + PF2e level tables, dual-system forms, preview via `monsterHTML`, Save to Custom |
+| `LORE` | Campaign notebook: `bg.lore.v1` campaigns + nested markdown pages/tags, preview, Pin to Board, portable merge by campaign/page id |
 
-**Module boundary.** `TRK`, `BUILD`, `BOARD`, and `FORGE` are IIFEs assigned to `window.TRK` /
-`window.BUILD` / `window.BOARD` / `window.FORGE` at the end of their block (`const` bindings don't become
+**Module boundary.** `TRK`, `BUILD`, `BOARD`, `FORGE`, and `LORE` are IIFEs assigned to `window.TRK` /
+`window.BUILD` / `window.BOARD` / `window.FORGE` / `window.LORE` at the end of their block (`const` bindings don't become
 window properties). Script 1 guards every cross-module call with `if (window.TRK)` /
 `if (window.BUILD)` so each block stays independently removable.
 Script 1 publishes `window.refresh`, `window.setSide`, `window.openSpellPeek`, etc. for the
@@ -81,7 +82,7 @@ treated as untrusted (hand-edited, older schema, truncated write): every read go
 `vCustomRecords`) that copies and clamps recognised fields and drops everything else. Follow
 that pattern for any new persisted state, and never re-sort arrays whose order carries user
 intent (combatant tie order). Keys: `bg.trk.{enc,party,presets,dice,ui,pd}.v1`,
-`bg.custom.records.v1`, `bg.board.v1`, `bg.builder.v1`. Presets may include optional
+`bg.custom.records.v1`, `bg.board.v1`, `bg.builder.v1`, `bg.lore.v1`. Presets may include optional
 `builder` metadata (validated by `vBuilderMeta`). The portable export is `bg-user-save/1`,
 merged by id (local kept on conflict for non-encounter data; the encounter is replaced after
 confirmation).
