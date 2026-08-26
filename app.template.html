@@ -8139,7 +8139,7 @@ const LORE = (() => {
     }
     let body = vStr(raw.body, MD_HARD, "");
     return {
-      id, title: vStr((raw.title || "Untitled").trim() || "Untitled", 80, "Untitled"),
+      id, title: vStr((typeof raw.title === "string" && raw.title.trim() ? raw.title.trim() : "Untitled"), 80, "Untitled"),
       parentId, tags, body,
       updatedAt: (typeof raw.updatedAt === "number" && Number.isFinite(raw.updatedAt))
         ? raw.updatedAt : Date.now(),
