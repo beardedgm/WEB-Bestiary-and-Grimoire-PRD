@@ -1050,6 +1050,10 @@ body.forge #lore{display:none !important}
 #board .record-view .sb h2{font-size:21px}
 #board .record-missing{
   margin:0; padding:14px 16px; font:italic 14px/1.5 var(--serif); color:var(--dim)}
+#board .lore-body{padding:0}
+#board .lore-view{padding:14px 16px; font:15px/1.55 var(--serif)}
+#board .lore-missing{
+  margin:0; padding:14px 16px; font:italic 14px/1.5 var(--serif); color:var(--dim)}
 #board .encounter-body{display:flex; flex-direction:column; gap:8px; padding:10px 12px}
 #board .encounter-roster{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:4px}
 #board .encounter-roster li{
@@ -6166,6 +6170,10 @@ const BOARD = (() => {
     return html || "<p></p>";
   }
 
+  function mdHtml(body){
+    return md(String(body || ""));
+  }
+
   function rollExpr(expr){
     const clean = String(expr || "").trim().toLowerCase().replace(/\s+/g,"");
     if (!/^[\dd+\-]+$/.test(clean) || !/\d/.test(clean)) throw new Error("Use forms like 1d20+3 or 2d6");
@@ -6194,7 +6202,7 @@ const BOARD = (() => {
 
 
   const MD_SOFT = 20000, MD_WARN = 60000, MD_HARD = 120000;
-  const CARD_TYPES = new Set(["markdown","image","audio","counter","dice","timer","checklist","random","record","encounter"]);
+  const CARD_TYPES = new Set(["markdown","image","audio","counter","dice","timer","checklist","random","record","encounter","lore"]);
   const MAX_BOARD_CARDS = 200;
   const MAX_BOARDS = 40;
   const MAX_CHECKLIST = 200;
@@ -6299,6 +6307,9 @@ const BOARD = (() => {
       card.ref = vStr(raw.ref, 120, "");
     } else if (type === "encounter"){
       card.presetId = vStr(raw.presetId, 64, "");
+    } else if (type === "lore"){
+      card.campaignId = vStr(raw.campaignId, 64, "");
+      card.pageId = vStr(raw.pageId, 64, "");
     }
     return card;
   }
@@ -6605,6 +6616,7 @@ const BOARD = (() => {
     });
     if (type === "record") Object.assign(base, { title: "Record", ref: "", w: 360, h: 408 });
     if (type === "encounter") Object.assign(base, { title: "Encounter", presetId: "", w: 336, h: 360 });
+    if (type === "lore") Object.assign(base, { title: "Lore", campaignId: "", pageId: "", w: 360, h: 408 });
     if (extra) Object.assign(base, extra);
     b.cards.push(base);
     selectedId = base.id;
@@ -6669,6 +6681,7 @@ const BOARD = (() => {
       case "random": return !!(card.last || String(card.lines || "").trim());
       case "record": return false; /* re-creatable in two clicks from the Library */
       case "encounter": return false;
+      case "lore": return false;
       default: return true;
     }
   }
@@ -6695,7 +6708,7 @@ const BOARD = (() => {
     const KIND = {
       markdown: "note", image: "image", audio: "audio", counter: "counter", dice: "dice",
       timer: "timer", checklist: "list", random: "table", clock: "counter", record: "stat block",
-      encounter: "encounter"
+      encounter: "encounter", lore: "lore"
     };
     const el = document.createElement("article");
     el.className = "board-card"
@@ -6776,6 +6789,7 @@ const BOARD = (() => {
       else if (card.type === "random") fillRandom(body, card);
       else if (card.type === "record") fillRecord(body, card);
       else if (card.type === "encounter") fillEncounter(body, card);
+      else if (card.type === "lore") fillLore(body, card);
       el.appendChild(body);
 
       const rz = document.createElement("div");
@@ -7447,6 +7461,37 @@ const BOARD = (() => {
     return { ok: true, name: rec ? rec.name : ref };
   }
 
+  function fillLore(body, card){
+    body.classList.add("lore-body");
+    const page = (window.LORE && LORE.getPage)
+      ? LORE.getPage(card.campaignId, card.pageId) : null;
+    if (!page){
+      const miss = document.createElement("p");
+      miss.className = "lore-missing";
+      miss.textContent = "Lore page not found — it may have been removed from the campaign.";
+      body.appendChild(miss);
+      return;
+    }
+    const view = document.createElement("div");
+    view.className = "md-view lore-view";
+    view.innerHTML = mdHtml(page.body);
+    body.appendChild(view);
+  }
+  function addLorePage(campaignId, pageId){
+    if (typeof campaignId !== "string" || !campaignId || typeof pageId !== "string" || !pageId)
+      return { ok: false, error: "No lore page id." };
+    const b = active();
+    if (b.cards.length >= MAX_BOARD_CARDS)
+      return { ok: false, error: "Board is full (" + MAX_BOARD_CARDS + " cards)." };
+    const page = (window.LORE && LORE.getPage) ? LORE.getPage(campaignId, pageId) : null;
+    addCard("lore", {
+      campaignId: campaignId.slice(0, 64),
+      pageId: pageId.slice(0, 64),
+      title: (page && page.title) ? page.title : "Lore",
+    });
+    return { ok: true, name: page ? page.title : pageId };
+  }
+
   function fillEncounter(body, card){
     body.classList.add("encounter-body");
     const preset = (window.TRK && TRK.getPreset)
@@ -7686,7 +7731,7 @@ const BOARD = (() => {
     return { boardUpserts: upserts, ok: saved };
   }
 
-  return { setActive, getExport, applyUserSave, addRecord, addEncounter };
+  return { setActive, getExport, applyUserSave, addRecord, addEncounter, addLorePage, mdHtml };
 })();
 window.BOARD = BOARD;
 </script>
@@ -8658,13 +8703,15 @@ const LORE = (() => {
     document.getElementById("lorePin").onclick = () => {
       const camp = activeCamp();
       if (!camp || !selectedPageId) return;
-      if (!window.BOARD || typeof BOARD.addLorePage !== "function"){
-        announce("Board unavailable.");
+      if (!window.BOARD || !BOARD.addLorePage){
+        if (typeof announceLive === "function") announceLive("Board unavailable.");
         return;
       }
       const res = BOARD.addLorePage(camp.id, selectedPageId);
-      announce(res && res.ok ? "Pinned “" + (res.name || "Lore page") + "” to Board."
-        : (res && res.error) || "Could not pin Lore page.");
+      if (typeof announceLive === "function")
+        announceLive(res.ok
+          ? "Added to board: " + (res.name || "page")
+          : (res.error || "Couldn’t add to board."));
     };
   }
   bind();
