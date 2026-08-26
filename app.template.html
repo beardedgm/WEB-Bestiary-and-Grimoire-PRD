@@ -2238,6 +2238,7 @@ function buildUserSave(){
     ui: null,
     boards: null,
     activeBoardId: null,
+    lore: null,
   };
   if (window.TRK){
     const s = TRK.state;
@@ -2251,6 +2252,9 @@ function buildUserSave(){
     const b = BOARD.getExport();
     bag.boards = JSON.parse(JSON.stringify(b.boards || []));
     bag.activeBoardId = b.activeBoardId || null;
+  }
+  if (window.LORE && LORE.getExport){
+    bag.lore = LORE.getExport();
   }
   return bag;
 }
@@ -2287,7 +2291,7 @@ function applyUserSaveBag(bag){
     return { ok: false, message: "Could not save customs — browser storage may be full. Nothing was changed." };
   mergeCustomsIntoData(mergedCustoms);
 
-  let partyAdd = 0, presetAdd = 0, encReplaced = false, boardUpserts = 0;
+  let partyAdd = 0, presetAdd = 0, encReplaced = false, boardUpserts = 0, loreUpserts = 0;
   let storageOk = true;
   if (window.TRK && TRK.applyUserSave){
     const stats = TRK.applyUserSave({
@@ -2307,6 +2311,11 @@ function applyUserSaveBag(bag){
     boardUpserts = st.boardUpserts || 0;
     if (st.ok === false) storageOk = false;
   }
+  if (window.LORE && LORE.applyUserSave && bag.lore){
+    const st = LORE.applyUserSave(bag.lore);
+    loreUpserts = st.loreUpserts || 0;
+    if (st.ok === false) storageOk = false;
+  }
   refresh();
   if (window.applySideChrome) applySideChrome();
   const bits = [];
@@ -2317,6 +2326,7 @@ function applyUserSaveBag(bag){
   if (presetAdd) bits.push("+" + presetAdd + " presets");
   if (encReplaced) bits.push("encounter replaced");
   if (boardUpserts) bits.push("+" + boardUpserts + " boards");
+  if (loreUpserts) bits.push("+" + loreUpserts + " lore");
   if (!storageOk)
     return { ok: false, message: "Import partially applied but browser storage failed — some changes may not persist. Free space and try again." };
   return { ok: true, message: bits.join(" · ") || "Save imported" };
@@ -2400,7 +2410,7 @@ function openUserSaveDialog(){
   }
   TRK.openOvl(`
     <h3>Save file</h3>
-    <p class="libhint">Export packs customs, party, encounter presets, active encounter, dice, UI, and Board sessions. Import <b>merges</b> customs/party/presets/boards by id (local-only records are kept) and <b>replaces</b> the active encounter.</p>
+    <p class="libhint">Export packs customs, party, encounter presets, active encounter, dice, UI, Board sessions, and Lore campaigns/pages. Import <b>merges</b> customs/party/presets/boards/lore by id (local-only records are kept) and <b>replaces</b> the active encounter.</p>
     <div class="btns" style="justify-content:flex-start;flex-wrap:wrap">
       <button type="button" class="chip go" data-save-export>Export save…</button>
       <button type="button" class="chip" data-save-backup>Download backup first</button>
