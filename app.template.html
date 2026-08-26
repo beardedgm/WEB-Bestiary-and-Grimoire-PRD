@@ -771,7 +771,7 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 /* player display layer + the #pd fallback page mode */
 #pdisp{position:fixed; inset:0; z-index:60}
 .dlg .dlghint{margin:0 0 6px; color:var(--dim); font-size:12.5px}
-body.pd header, body.pd #side, body.pd #trk, body.pd #builder, body.pd #pane, body.pd #board, body.pd #forge,
+body.pd header, body.pd #side, body.pd #trk, body.pd #builder, body.pd #pane, body.pd #board, body.pd #forge, body.pd #lore,
 body.pd #dpop, body.pd #trkovl, body.pd #load, body.pd #boardExpand, body.pd #boardToast{display:none !important}
 body.pd #pdisp{position:fixed; inset:0; z-index:60}
 
@@ -857,6 +857,7 @@ body.forge #side,
 body.forge #trk,
 body.forge #builder,
 body.forge #board,
+body.forge #lore,
 body.forge #pane,
 body.forge .col-resize{display:none !important}
 body.forge main{display:flex}
@@ -912,6 +913,30 @@ body.trk #forge{display:none !important}
   body.forge #forge{flex-direction:column}
   #forge .forge-rail{width:100%; max-height:48vh; border-right:none; border-bottom:1px solid var(--hair)}
 }
+
+/* ==== lore mode =========================================================== */
+#lore{display:none; flex:1; min-width:0; min-height:0; background:var(--stone-2)}
+body.lore #lore{display:flex}
+body.lore #side,
+body.lore #trk,
+body.lore #builder,
+body.lore #board,
+body.lore #forge,
+body.lore #pane,
+body.lore .col-resize{display:none !important}
+body.lore main{display:flex}
+body.board #lore,
+body.build #lore,
+body.trk #lore,
+body.forge #lore{display:none !important}
+#lore .lore-rail{
+  width:min(320px, 38vw); flex-shrink:0; overflow:auto; border-right:1px solid var(--hair);
+  background:var(--stone-3); padding:12px 14px 24px; display:flex; flex-direction:column; gap:10px
+}
+#lore .lore-main{
+  flex:1; min-width:0; overflow:auto; padding:16px 18px 28px; background:var(--stone-2)
+}
+#lore .lore-rail h2{margin:0; font:600 15px/1.2 var(--serif); color:var(--ink)}
 
 #board .board-rail{
   flex:none; width:248px; border-right:1px solid var(--hair); background:var(--stone-3);
@@ -1239,6 +1264,7 @@ body.trk #forge{display:none !important}
       <button type="button" id="m-board" class="chip" aria-pressed="false">Board</button>
       <button type="button" id="m-build" class="chip" aria-pressed="false">Builder</button>
       <button type="button" id="m-forge" class="chip" aria-pressed="false">Forge</button>
+      <button type="button" id="m-lore" class="chip" aria-pressed="false">Lore</button>
     </span>
     <button type="button" class="chip" id="user-save"
             title="Export or import portable save"
@@ -1515,6 +1541,44 @@ body.trk #forge{display:none !important}
   </aside>
   <div class="forge-preview" id="forgePreview">
     <p class="forge-hint">Set CR or level, then <strong>Apply benchmarks</strong> to fill stats and preview.</p>
+  </div>
+</section>
+
+<section id="lore" aria-label="Campaign lore" hidden>
+  <aside class="lore-rail" aria-label="Campaigns and pages">
+    <h2>Lore</h2>
+    <div class="lore-campaign-row">
+      <label class="grow">Campaign
+        <select id="loreCampaign" aria-label="Active campaign"></select>
+      </label>
+      <button type="button" class="chip" id="loreCampNew" title="New campaign">New</button>
+      <button type="button" class="chip" id="loreCampRename" title="Rename campaign">Rename</button>
+      <button type="button" class="chip" id="loreCampDel" title="Delete campaign">Delete</button>
+    </div>
+    <div class="frow" id="lorePageOps">
+      <button type="button" class="chip" id="lorePageNew">New page</button>
+      <button type="button" class="chip" id="lorePageChild">New child</button>
+    </div>
+    <input id="loreQ" type="search" aria-label="Filter pages" placeholder="Filter pages…" autocomplete="off">
+    <div class="frow" id="loreTagFilters" aria-label="Tag filters"></div>
+    <nav id="loreTree" aria-label="Page tree"></nav>
+  </aside>
+  <div class="lore-main">
+    <div id="loreEmpty" class="lore-empty" hidden>
+      <p>No pages yet — create a page to start this campaign’s notebook.</p>
+      <button type="button" class="chip go" id="loreEmptyNew">New page</button>
+    </div>
+    <div id="loreEditor" hidden>
+      <div class="lore-editor-bar">
+        <input id="loreTitle" type="text" aria-label="Page title" maxlength="80">
+        <button type="button" class="chip" id="lorePreviewToggle" aria-pressed="false">Preview</button>
+        <button type="button" class="chip" id="lorePin">Pin to Board</button>
+      </div>
+      <input id="loreTags" type="text" aria-label="Tags" placeholder="tags, comma, separated" autocomplete="off">
+      <textarea id="loreBody" aria-label="Page markdown"></textarea>
+      <div id="lorePreview" class="lore-preview md-view" hidden></div>
+      <p id="loreSize" class="lore-hint" role="status"></p>
+    </div>
   </div>
 </section>
 
@@ -3383,6 +3447,7 @@ const TRK = (() => {
     else if (raw.mode === "board") u.mode = "board";
     else if (raw.mode === "build") u.mode = "build";
     else if (raw.mode === "forge") u.mode = "forge";
+    else if (raw.mode === "lore") u.mode = "lore";
     u.qty = Math.min(10, Math.max(1, int(raw.qty, 1)));
     if (typeof raw.diceOpen === "boolean") u.diceOpen = raw.diceOpen;
     if (typeof raw.viewingId === "string") u.viewingId = raw.viewingId;
@@ -4658,7 +4723,8 @@ const TRK = (() => {
     const mode = m === "track" ? "track"
       : m === "board" ? "board"
       : m === "build" ? "build"
-      : m === "forge" ? "forge" : "browse";
+      : m === "forge" ? "forge"
+      : m === "lore" ? "lore" : "browse";
     const prev = state.ui.mode;
     state.ui.mode = mode;
     saveOrWarn(LS.ui, state.ui);
@@ -4666,10 +4732,13 @@ const TRK = (() => {
     document.body.classList.toggle("board", mode === "board");
     document.body.classList.toggle("build", mode === "build");
     document.body.classList.toggle("forge", mode === "forge");
+    document.body.classList.toggle("lore", mode === "lore");
     const boardEl = document.getElementById("board");
     if (boardEl) boardEl.hidden = mode !== "board";
     const forgeEl = document.getElementById("forge");
     if (forgeEl) forgeEl.hidden = mode !== "forge";
+    const loreEl = document.getElementById("lore");
+    if (loreEl) loreEl.hidden = mode !== "lore";
     $("#m-browse").classList.toggle("on", mode === "browse");
     $("#m-browse").setAttribute("aria-pressed", String(mode === "browse"));
     $("#m-track").classList.toggle("on", mode === "track");
@@ -4689,9 +4758,15 @@ const TRK = (() => {
       mforge.classList.toggle("on", mode === "forge");
       mforge.setAttribute("aria-pressed", String(mode === "forge"));
     }
+    const mlore = $("#m-lore");
+    if (mlore){
+      mlore.classList.toggle("on", mode === "lore");
+      mlore.setAttribute("aria-pressed", String(mode === "lore"));
+    }
     if (prev === "board" && mode !== "board" && window.BOARD) BOARD.setActive(false);
     if (prev === "build" && mode !== "build" && window.BUILD) BUILD.setActive(false);
     if (prev === "forge" && mode !== "forge" && window.FORGE) FORGE.setActive(false);
+    if (prev === "lore" && mode !== "lore" && window.LORE) LORE.setActive(false);
     if (mode === "track"){ $("#dice").open = state.ui.diceOpen; renderTrk(); renderDice(); }
     if (mode === "board" && window.BOARD) BOARD.setActive(true);
     if (mode === "build"){
@@ -4699,8 +4774,9 @@ const TRK = (() => {
       if (window.BUILD) BUILD.setActive(true);
     }
     if (mode === "forge" && window.FORGE) FORGE.setActive(true);
+    if (mode === "lore" && window.LORE) LORE.setActive(true);
     if (window.applySideChrome) applySideChrome();
-    if (window.refresh && mode !== "board" && mode !== "forge") refresh();
+    if (window.refresh && mode !== "board" && mode !== "forge" && mode !== "lore") refresh();
   }
 
   function setSide(side){
@@ -4761,6 +4837,7 @@ const TRK = (() => {
     else if (state.ui.mode === "board") setMode("board");
     else if (state.ui.mode === "build") setMode("build");
     else if (state.ui.mode === "forge") setMode("forge");
+    else if (state.ui.mode === "lore") setMode("lore");
     else if (window.refresh) refresh();
   }
 
@@ -4777,6 +4854,8 @@ const TRK = (() => {
   if (mBuild) mBuild.onclick = () => setMode("build");
   const mForge = $("#m-forge");
   if (mForge) mForge.onclick = () => setMode("forge");
+  const mLore = $("#m-lore");
+  if (mLore) mLore.onclick = () => setMode("lore");
   $("#sg-catalog").onclick = () => { setSide("catalog"); if (window.refresh) refresh(); };
   $("#sg-table").onclick = () => { setSide("table"); if (window.refresh) refresh(); };
   $("#side-inner").addEventListener("click", e => {
@@ -8029,6 +8108,159 @@ const FORGE = (() => {
   };
 })();
 window.FORGE = FORGE;
+</script>
+
+<script>
+"use strict";
+const LORE = (() => {
+  const STORE = "bg.lore.v1";
+  const MAX_CAMPAIGNS = 20;
+  const MAX_PAGES = 200;
+  const MAX_TAGS = 24;
+  const MD_SOFT = 20000, MD_WARN = 60000, MD_HARD = 120000;
+  const esc = s => String(s==null?"":s).replace(/[&<>"]/g, c =>
+    ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const uid = () => "l" + Math.random().toString(36).slice(2, 10);
+  function vStr(v, max, fb){
+    if (typeof v !== "string") return fb;
+    return v.length > max ? v.slice(0, max) : v;
+  }
+  function vPage(raw, knownIds){
+    if (!raw || typeof raw !== "object") return null;
+    const id = (typeof raw.id === "string" && raw.id) ? raw.id.slice(0, 64) : uid();
+    let parentId = (typeof raw.parentId === "string" && raw.parentId) ? raw.parentId.slice(0, 64) : null;
+    if (parentId && knownIds && !knownIds.has(parentId)) parentId = null;
+    const tagsIn = Array.isArray(raw.tags) ? raw.tags : [];
+    const tags = [];
+    for (const t of tagsIn.slice(0, MAX_TAGS)){
+      if (typeof t !== "string") continue;
+      const s = t.trim().slice(0, 40);
+      if (s && !tags.includes(s)) tags.push(s);
+    }
+    let body = vStr(raw.body, MD_HARD, "");
+    return {
+      id, title: vStr((raw.title || "Untitled").trim() || "Untitled", 80, "Untitled"),
+      parentId, tags, body,
+      updatedAt: (typeof raw.updatedAt === "number" && Number.isFinite(raw.updatedAt))
+        ? raw.updatedAt : Date.now(),
+    };
+  }
+  function vCampaign(raw){
+    if (!raw || typeof raw !== "object") return null;
+    if (typeof raw.id !== "string" || !raw.id) return null;
+    const pagesIn = Array.isArray(raw.pages) ? raw.pages : [];
+    const known = new Set();
+    for (const p of pagesIn.slice(0, MAX_PAGES))
+      if (p && typeof p.id === "string" && p.id) known.add(p.id.slice(0, 64));
+    const pages = [];
+    for (const p of pagesIn.slice(0, MAX_PAGES)){
+      const vp = vPage(p, known);
+      if (vp) pages.push(vp);
+    }
+    return {
+      id: raw.id.slice(0, 64),
+      title: vStr((typeof raw.title === "string" && raw.title.trim() ? raw.title.trim() : "Campaign"), 80, "Campaign"),
+      updatedAt: (typeof raw.updatedAt === "number" && Number.isFinite(raw.updatedAt))
+        ? raw.updatedAt : Date.now(),
+      pages,
+    };
+  }
+  function seedLore(){
+    const cid = "camp-" + uid();
+    return {
+      activeCampaignId: cid,
+      campaigns: [{ id: cid, title: "Campaign 1", updatedAt: Date.now(), pages: [] }],
+    };
+  }
+  function vLoreState(raw){
+    if (!raw || !Array.isArray(raw.campaigns) || !raw.campaigns.length) return seedLore();
+    const campaigns = [];
+    for (const c of raw.campaigns.slice(0, MAX_CAMPAIGNS)){
+      const vc = vCampaign(c);
+      if (vc) campaigns.push(vc);
+    }
+    if (!campaigns.length) return seedLore();
+    let activeCampaignId = typeof raw.activeCampaignId === "string"
+      ? raw.activeCampaignId : campaigns[0].id;
+    if (!campaigns.some(c => c.id === activeCampaignId)) activeCampaignId = campaigns[0].id;
+    return { activeCampaignId, campaigns };
+  }
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORE);
+      if (!raw) return seedLore();
+      return vLoreState(JSON.parse(raw));
+    }catch(_){ return seedLore(); }
+  }
+  function save(){
+    try{
+      localStorage.setItem(STORE, JSON.stringify(vLoreState(state)));
+      return true;
+    }catch(_){
+      if (typeof announceLive === "function")
+        announceLive("Could not save Lore — browser storage may be full.");
+      return false;
+    }
+  }
+  let state = load();
+  let active = false;
+  let selectedPageId = null;
+  let previewing = false;
+
+  function activeCamp(){
+    return state.campaigns.find(c => c.id === state.activeCampaignId) || state.campaigns[0];
+  }
+  function getPage(campaignId, pageId){
+    const c = state.campaigns.find(x => x.id === campaignId);
+    if (!c) return null;
+    return c.pages.find(p => p.id === pageId) || null;
+  }
+  function getExport(){ return JSON.parse(JSON.stringify(vLoreState(state))); }
+  function applyUserSave(parts){
+    if (!parts || !Array.isArray(parts.campaigns)) return { loreUpserts: 0, ok: true };
+    const map = new Map(state.campaigns.map(c => [c.id, c]));
+    let upserts = 0;
+    for (const raw of parts.campaigns.slice(0, MAX_CAMPAIGNS)){
+      const incoming = vCampaign(raw);
+      if (!incoming) continue;
+      const local = map.get(incoming.id);
+      if (!local){ map.set(incoming.id, incoming); upserts++; continue; }
+      const pmap = new Map(local.pages.map(p => [p.id, p]));
+      for (const p of incoming.pages) if (!pmap.has(p.id)){ pmap.set(p.id, p); upserts++; }
+      // incoming overwrites same-id pages (portable import semantics: merge ids, prefer incoming body for shared ids — match boards' replace-same-id)
+      for (const p of incoming.pages) pmap.set(p.id, p);
+      map.set(incoming.id, {
+        ...incoming,
+        title: incoming.title || local.title,
+        pages: [...pmap.values()].slice(0, MAX_PAGES),
+      });
+    }
+    state.campaigns = [...map.values()].slice(0, MAX_CAMPAIGNS);
+    if (!state.campaigns.some(c => c.id === state.activeCampaignId))
+      state.activeCampaignId = state.campaigns[0].id;
+    const ok = save();
+    if (active) renderAll();
+    return { loreUpserts: upserts, ok };
+  }
+
+  function setActive(on){
+    active = !!on;
+    const el = document.getElementById("lore");
+    if (el) el.hidden = !active;
+    if (active) renderAll();
+  }
+  function renderAll(){ /* Task 2 fills this */ }
+
+  // stub bind so mode toggle does not throw — Task 2 attaches real handlers
+  function bind(){ /* Task 2 */ }
+  bind();
+
+  return {
+    setActive, getExport, applyUserSave, getPage,
+    _test: { vLoreState, vCampaign, vPage, seedLore },
+  };
+})();
+window.LORE = LORE;
 </script>
 
 </body>
