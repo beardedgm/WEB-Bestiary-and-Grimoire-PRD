@@ -259,7 +259,7 @@ Flat-by-default stone surfaces. Depth is tonal layering (`stone` → `stone-3` t
 
 ### Board cards
 
-Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes render in olive as **read-aloud** cues. Card chrome may use the sheet shadow (interaction surfaces). Record cards render a linked Library stat block on paper stock with the sheet's own chrome suppressed (no inner border/shadow/max-width — the card is the sheet); a broken link shows an italic dim missing-record notice.
+Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes render in olive as **read-aloud** cues. Card chrome may use the sheet shadow (interaction surfaces). Record cards render a linked Library stat block on paper stock with the sheet's own chrome suppressed (no inner border/shadow/max-width — the card is the sheet); a broken link shows an italic dim missing-record notice. Encounter cards list the linked preset's roster on paper stock with chip actions in the footer; missing presets use the same italic dim notice pattern as missing record refs.
 
 - Session delete and non-empty card remove use Tracker `confirmSwap` (no `window.confirm` / `prompt`)
 - Markdown Expand (`#boardExpand`, outside `<main>`): Tab focus trap, `setAppInert`, Escape/Done commit; counter wedges use `--brick` / `--stone-3` / `--hair` (Fill ± for keyboard)

@@ -997,6 +997,21 @@ body.trk #forge{display:none !important}
 #board .record-view .sb h2{font-size:21px}
 #board .record-missing{
   margin:0; padding:14px 16px; font:italic 14px/1.5 var(--serif); color:var(--dim)}
+#board .encounter-body{display:flex; flex-direction:column; gap:8px; padding:10px 12px}
+#board .encounter-roster{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:4px}
+#board .encounter-roster li{
+  display:flex; align-items:center; gap:8px;
+  font:14px/1.35 var(--serif); color:var(--ink)}
+#board .encounter-roster .etype{
+  font:600 9.5px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--faint)}
+#board .encounter-roster button.eref{
+  border:0; background:transparent; padding:0; font:inherit; color:var(--ink);
+  text-decoration:underline; text-decoration-color:var(--gilt); text-underline-offset:2px; cursor:pointer}
+#board .encounter-roster button.eref:hover{text-decoration-style:solid}
+#board .encounter-roster .ename{color:var(--ink)}
+#board .encounter-actions{display:flex; flex-wrap:wrap; gap:6px; margin-top:auto}
+#board .encounter-missing{
+  margin:0; font:italic 14px/1.5 var(--serif); color:var(--dim)}
 
 #board .md-view{font:15px/1.55 var(--serif); color:var(--ink)}
 #board .md-view h1,#board .md-view h2,#board .md-view h3{font-family:var(--serif); margin:.15em 0 .4em; line-height:1.2}
@@ -1371,6 +1386,7 @@ body.trk #forge{display:none !important}
       <div id="buildActs">
         <button type="button" class="chip go" id="buildSave">Save to Encounters</button>
         <button type="button" class="chip" id="buildLoad">Load into Tracker</button>
+        <button type="button" class="chip" id="buildBoard" disabled title="Save to Encounters first">Send to Board</button>
       </div>
     </div>
   </section>
@@ -4391,6 +4407,7 @@ const TRK = (() => {
       <div class="btns" style="margin-top:14px">
         <button type="button" class="chip go" data-sload-pane="${esc(p.id)}">Load</button>
         <button type="button" class="chip" data-sbuild-pane="${esc(p.id)}">Open in Builder</button>
+        <button type="button" class="chip" data-sboard-pane="${esc(p.id)}">Send to Board</button>
       </div></div>`, "");
     const sheet = $("#pane-sheet");
     const loadBtn = sheet.querySelector("[data-sload-pane]");
@@ -4403,6 +4420,17 @@ const TRK = (() => {
     const buildBtn = sheet.querySelector("[data-sbuild-pane]");
     if (buildBtn) buildBtn.onclick = () => {
       if (window.BUILD) BUILD.openPreset(p.id);
+    };
+    const boardBtn = sheet.querySelector("[data-sboard-pane]");
+    if (boardBtn) boardBtn.onclick = () => {
+      if (!window.BOARD || !BOARD.addEncounter){
+        announceLive("Board unavailable.");
+        return;
+      }
+      const res = BOARD.addEncounter(p.id);
+      announceLive(res.ok
+        ? "Added to board: " + (res.name || p.name)
+        : (res.error || "Couldn’t add to board."));
     };
   }
   function addPartyMember(p){
@@ -5730,6 +5758,15 @@ const BUILD = (() => {
     renderControls();
     renderMeter();
     renderRoster();
+    syncBoardChip();
+  }
+
+  function syncBoardChip(){
+    const btn = document.getElementById("buildBoard");
+    if (!btn) return;
+    const can = !!(draft.editingPresetId);
+    btn.disabled = !can;
+    btn.title = can ? "Pin this saved encounter to the Board" : "Save to Encounters first";
   }
 
   function setActive(on){
@@ -5813,6 +5850,7 @@ const BUILD = (() => {
       if (!out){ status("Preset list is full (50).", true); return; }
       draft.editingPresetId = out.id;
       saveDraft();
+      syncBoardChip();
       toast("Saved “" + out.name + "” to Encounters");
       if (window.refresh) refresh();
     };
@@ -5870,6 +5908,20 @@ const BUILD = (() => {
   const loadBtn = document.getElementById("buildLoad");
   if (saveBtn) saveBtn.onclick = () => saveToEncounters(saveBtn);
   if (loadBtn) loadBtn.onclick = () => loadIntoTracker(loadBtn);
+  const boardBtn = document.getElementById("buildBoard");
+  if (boardBtn) boardBtn.onclick = () => {
+    if (!draft.editingPresetId){
+      status("Save to Encounters first.", true);
+      return;
+    }
+    if (!window.BOARD || !BOARD.addEncounter){
+      status("Board unavailable.", true);
+      return;
+    }
+    const res = BOARD.addEncounter(draft.editingPresetId);
+    if (res.ok) toast("Added to board: " + (res.name || draft.name || "Encounter"));
+    else status(res.error || "Couldn’t add to board.", true);
+  };
 
   return {
     setActive, tryAdd, openPreset, draftSystem, render,
@@ -6033,7 +6085,7 @@ const BOARD = (() => {
 
 
   const MD_SOFT = 20000, MD_WARN = 60000, MD_HARD = 120000;
-  const CARD_TYPES = new Set(["markdown","image","audio","counter","dice","timer","checklist","random","record"]);
+  const CARD_TYPES = new Set(["markdown","image","audio","counter","dice","timer","checklist","random","record","encounter"]);
   const MAX_BOARD_CARDS = 200;
   const MAX_BOARDS = 40;
   const MAX_CHECKLIST = 200;
@@ -6136,6 +6188,8 @@ const BOARD = (() => {
       /* Linked Library reference; kept valid even when the ref no longer
          resolves (customs can be removed later) — renders a missing notice. */
       card.ref = vStr(raw.ref, 120, "");
+    } else if (type === "encounter"){
+      card.presetId = vStr(raw.presetId, 64, "");
     }
     return card;
   }
@@ -6441,6 +6495,7 @@ const BOARD = (() => {
       last: "", w: 312, h: 288
     });
     if (type === "record") Object.assign(base, { title: "Record", ref: "", w: 360, h: 408 });
+    if (type === "encounter") Object.assign(base, { title: "Encounter", presetId: "", w: 336, h: 360 });
     if (extra) Object.assign(base, extra);
     b.cards.push(base);
     selectedId = base.id;
@@ -6504,6 +6559,7 @@ const BOARD = (() => {
       case "checklist": return (card.items || []).some(i => i.done || String(i.text || "").trim());
       case "random": return !!(card.last || String(card.lines || "").trim());
       case "record": return false; /* re-creatable in two clicks from the Library */
+      case "encounter": return false;
       default: return true;
     }
   }
@@ -6529,7 +6585,8 @@ const BOARD = (() => {
     const collapsed = !!card.collapsed;
     const KIND = {
       markdown: "note", image: "image", audio: "audio", counter: "counter", dice: "dice",
-      timer: "timer", checklist: "list", random: "table", clock: "counter", record: "stat block"
+      timer: "timer", checklist: "list", random: "table", clock: "counter", record: "stat block",
+      encounter: "encounter"
     };
     const el = document.createElement("article");
     el.className = "board-card"
@@ -6609,6 +6666,7 @@ const BOARD = (() => {
       else if (card.type === "checklist") fillChecklist(body, card);
       else if (card.type === "random") fillRandom(body, card);
       else if (card.type === "record") fillRecord(body, card);
+      else if (card.type === "encounter") fillEncounter(body, card);
       el.appendChild(body);
 
       const rz = document.createElement("div");
@@ -7280,6 +7338,100 @@ const BOARD = (() => {
     return { ok: true, name: rec ? rec.name : ref };
   }
 
+  function fillEncounter(body, card){
+    body.classList.add("encounter-body");
+    const preset = (window.TRK && TRK.getPreset)
+      ? TRK.getPreset(card.presetId) : null;
+    if (!preset){
+      const miss = document.createElement("p");
+      miss.className = "encounter-missing";
+      miss.textContent = "Encounter not found — it may have been removed from saved encounters.";
+      body.appendChild(miss);
+      return;
+    }
+    const list = document.createElement("ul");
+    list.className = "encounter-roster";
+    const combatants = (preset.enc && Array.isArray(preset.enc.combatants))
+      ? preset.enc.combatants : [];
+    if (!combatants.length){
+      const empty = document.createElement("li");
+      empty.className = "ename";
+      empty.style.color = "var(--dim)";
+      empty.textContent = "Empty roster";
+      list.appendChild(empty);
+    }
+    for (const c of combatants){
+      const li = document.createElement("li");
+      const type = document.createElement("span");
+      type.className = "etype";
+      type.textContent = c.type === "player" ? "pc" : (c.type === "monster" ? "mon" : "npc");
+      li.appendChild(type);
+      if (typeof c.ref === "string" && c.ref){
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "eref";
+        btn.textContent = c.name || "—";
+        btn.onclick = e => {
+          e.stopPropagation();
+          const res = addRecord(c.ref);
+          toast(res.ok
+            ? "Added to board: " + (res.name || c.name || c.ref)
+            : (res.error || "Couldn’t add to board."));
+        };
+        li.appendChild(btn);
+      } else {
+        const span = document.createElement("span");
+        span.className = "ename";
+        span.textContent = c.name || "—";
+        li.appendChild(span);
+      }
+      list.appendChild(li);
+    }
+    body.appendChild(list);
+
+    const acts = document.createElement("div");
+    acts.className = "encounter-actions";
+    const load = document.createElement("button");
+    load.type = "button";
+    load.className = "chip go";
+    load.textContent = "Load into Tracker";
+    load.onclick = e => {
+      e.stopPropagation();
+      if (!window.TRK || !TRK.loadPreset) return;
+      const go = () => {
+        TRK.loadPreset(card.presetId);
+        TRK.setMode("track");
+      };
+      if (TRK.confirmSwap)
+        TRK.confirmSwap(load, "Replace the current encounter?", go);
+      else go();
+    };
+    const open = document.createElement("button");
+    open.type = "button";
+    open.className = "chip";
+    open.textContent = "Open in Builder";
+    open.onclick = e => {
+      e.stopPropagation();
+      if (window.BUILD && BUILD.openPreset) BUILD.openPreset(card.presetId);
+    };
+    acts.append(load, open);
+    body.appendChild(acts);
+  }
+
+  function addEncounter(presetId){
+    if (typeof presetId !== "string" || !presetId)
+      return { ok: false, error: "No encounter id." };
+    const b = active();
+    if (b.cards.length >= MAX_BOARD_CARDS)
+      return { ok: false, error: "Board is full (" + MAX_BOARD_CARDS + " cards)." };
+    const preset = (window.TRK && TRK.getPreset) ? TRK.getPreset(presetId) : null;
+    addCard("encounter", {
+      presetId: presetId.slice(0, 64),
+      title: (preset && preset.name) ? preset.name : "Encounter",
+    });
+    return { ok: true, name: preset ? preset.name : presetId };
+  }
+
   function enableDrag(handle, el, card){
     handle.addEventListener("pointerdown", e => {
       if (e.button !== 0) return;
@@ -7425,7 +7577,7 @@ const BOARD = (() => {
     return { boardUpserts: upserts, ok: saved };
   }
 
-  return { setActive, getExport, applyUserSave, addRecord };
+  return { setActive, getExport, applyUserSave, addRecord, addEncounter };
 })();
 window.BOARD = BOARD;
 </script>

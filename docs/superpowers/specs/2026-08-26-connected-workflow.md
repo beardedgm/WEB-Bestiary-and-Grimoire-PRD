@@ -60,10 +60,10 @@ idea. Status as of this writing:
 - [x] An encounter from the Builder can be loaded into the Tracker — *shipped*
 - [x] A creature's stat block is viewable from the Tracker without leaving the session
       (reading pane) — *shipped*
-- [ ] A monster or spell in the Library can be sent to the Board as a **linked card**
-      (reference by id, live render, not pasted text) — *Phase 1, this branch*
-- [ ] An encounter (Builder draft or Tracker state) can appear on the Board as a linked
-      card — *Phase 2*
+- [x] A monster or spell in the Library can be sent to the Board as a **linked card**
+      (reference by id, live render, not pasted text) — *Phase 1, shipped*
+- [x] An encounter (Builder draft or Tracker state) can appear on the Board as a linked
+      card — *Phase 2 (saved preset; live Tracker mirroring deferred)*
 - [ ] A Lore page (or excerpt / read-aloud block) can be pinned to tonight's Board — *Phase 3*
 - [ ] Something that happened during the session (Board note, Tracker outcome) can be added
       back into Lore in one action — *Phase 4*
