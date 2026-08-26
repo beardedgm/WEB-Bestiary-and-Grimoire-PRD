@@ -226,12 +226,13 @@ Documented size steps (use these literals in CSS; do not invent ad-hoc values):
 
 ## Layout
 
-Exclusive app modes via header chips: **Library** (`browse`), **Tracker** (`track` → `body.trk`), **Board** (`board` → `body.board`), **Builder** (`build` → `body.build`), **Forge** (`forge` → `body.forge`).
+Exclusive app modes via header chips: **Library** (`browse`), **Tracker** (`track` → `body.trk`), **Board** (`board` → `body.board`), **Builder** (`build` → `body.build`), **Forge** (`forge` → `body.forge`), **Lore** (`lore` → `body.lore`).
 
 - **Library / Tracker / Builder:** Three-column flex shell on desktop: library (`#side`, resizable), optional tracker (`#trk`) or builder (`#builder`) in the middle column slot (same `--col-trk` width), reading pane (`#pane`).
 - **Builder chrome:** System / ruleset / party size+level / threat chips, live XP meter, roster with qty 1–20, Save to Encounters + Load into Tracker. Catalog is monsters-only for the draft system; Table → Encounters keeps Load + Builder open actions.
 - **Board:** Full-height `#board` shell replaces the three columns (rail + snap-grid stage). Leaving Board stops audio and freezes running timers. Library search is unavailable with `#side` (by design).
 - **Forge:** Full-bleed `#forge` shell (controls rail | live preview) with stone/paper tokens; system chips D&D 5e | Pathfinder; Apply benchmarks + Save to Custom. No Monster Forge leather/gold theme import.
+- **Lore:** Full-bleed `#lore` shell pairs a stone campaign/page rail with the main markdown editor/preview surface; nested pages remain visibly indented and tags filter the tree.
 - Header: brand + mode chips + **Export** (`#user-save`, far right) for portable save export/import; library-list search (`#q` + `#count` in `#sidesearch`) sits under Catalog/Table nav, above Filters / Table bar — not inside Filters
 - Column defaults: side 340px, tracker/builder 380px; drag gutters 6px
 - Mobile breakpoint **760px**: stack Library/Tracker/Builder columns, hide resize handles; Board collapses the add rail into a **Cards & sessions** bottom sheet (scrim + sheet) so add/session actions stay reachable; Forge stacks rail above preview
@@ -259,7 +260,7 @@ Flat-by-default stone surfaces. Depth is tonal layering (`stone` → `stone-3` t
 
 ### Board cards
 
-Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes render in olive as **read-aloud** cues. Card chrome may use the sheet shadow (interaction surfaces). Record cards render a linked Library stat block on paper stock with the sheet's own chrome suppressed (no inner border/shadow/max-width — the card is the sheet); a broken link shows an italic dim missing-record notice. Encounter cards list the linked preset's roster on paper stock with chip actions in the footer; missing presets use the same italic dim notice pattern as missing record refs.
+Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes render in olive as **read-aloud** cues. Card chrome may use the sheet shadow (interaction surfaces). Record cards render a linked Library stat block on paper stock with the sheet's own chrome suppressed (no inner border/shadow/max-width — the card is the sheet); a broken link shows an italic dim missing-record notice. Encounter cards list the linked preset's roster on paper stock with chip actions in the footer; missing presets use the same italic dim notice pattern as missing record refs. Lore cards resolve a linked campaign/page id and render the live body through the shared `.md-view`; a deleted campaign or page uses the same italic dim missing notice as a broken record link.
 
 - Session delete and non-empty card remove use Tracker `confirmSwap` (no `window.confirm` / `prompt`)
 - Markdown Expand (`#boardExpand`, outside `<main>`): Tab focus trap, `setAppInert`, Escape/Done commit; counter wedges use `--brick` / `--stone-3` / `--hair` (Fill ± for keyboard)

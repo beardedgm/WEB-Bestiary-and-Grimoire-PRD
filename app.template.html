@@ -771,7 +771,7 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 /* player display layer + the #pd fallback page mode */
 #pdisp{position:fixed; inset:0; z-index:60}
 .dlg .dlghint{margin:0 0 6px; color:var(--dim); font-size:12.5px}
-body.pd header, body.pd #side, body.pd #trk, body.pd #builder, body.pd #pane, body.pd #board, body.pd #forge,
+body.pd header, body.pd #side, body.pd #trk, body.pd #builder, body.pd #pane, body.pd #board, body.pd #forge, body.pd #lore,
 body.pd #dpop, body.pd #trkovl, body.pd #load, body.pd #boardExpand, body.pd #boardToast{display:none !important}
 body.pd #pdisp{position:fixed; inset:0; z-index:60}
 
@@ -857,6 +857,7 @@ body.forge #side,
 body.forge #trk,
 body.forge #builder,
 body.forge #board,
+body.forge #lore,
 body.forge #pane,
 body.forge .col-resize{display:none !important}
 body.forge main{display:flex}
@@ -912,6 +913,58 @@ body.trk #forge{display:none !important}
   body.forge #forge{flex-direction:column}
   #forge .forge-rail{width:100%; max-height:48vh; border-right:none; border-bottom:1px solid var(--hair)}
 }
+
+/* ==== lore mode =========================================================== */
+#lore{display:none; flex:1; min-width:0; min-height:0; background:var(--stone-2)}
+body.lore #lore{display:flex}
+body.lore #side,
+body.lore #trk,
+body.lore #builder,
+body.lore #board,
+body.lore #forge,
+body.lore #pane,
+body.lore .col-resize{display:none !important}
+body.lore main{display:flex}
+body.board #lore,
+body.build #lore,
+body.trk #lore,
+body.forge #lore{display:none !important}
+#lore .lore-rail{
+  width:min(320px, 38vw); flex-shrink:0; overflow:auto; border-right:1px solid var(--hair);
+  background:var(--stone-3); padding:12px 14px 24px; display:flex; flex-direction:column; gap:10px
+}
+#lore .lore-main{
+  flex:1; min-width:0; overflow:auto; padding:16px 18px 28px; background:var(--stone-2)
+}
+#lore .lore-rail h2{margin:0; font:600 15px/1.2 var(--serif); color:var(--ink)}
+#lore .lore-campaign-row{display:flex; flex-wrap:wrap; gap:6px; align-items:flex-end}
+#lore .lore-campaign-row label.grow{
+  flex:1; min-width:8em; display:flex; flex-direction:column; gap:3px;
+  font:11px/1.2 var(--sans); color:var(--dim)
+}
+#lore .lore-campaign-row select,
+#lore #loreCampTitle, #lore #loreQ, #lore #loreTitle, #lore #loreTags, #lore #loreBody{
+  font:13px/1.3 var(--sans); color:var(--ink); background:var(--paper);
+  border:1px solid var(--hair); border-radius:3px; padding:6px 8px; width:100%; box-sizing:border-box
+}
+#lore #loreCampTitle{flex-basis:100%}
+#lore #loreTree{display:flex; flex-direction:column; gap:2px; margin-top:4px}
+#lore .lore-tree-item{
+  display:block; width:100%; text-align:left; border:0; background:transparent;
+  font:13px/1.35 var(--serif); color:var(--ink); padding:6px 8px; border-radius:2px; cursor:pointer
+}
+#lore .lore-tree-item:hover{background:color-mix(in srgb, var(--gilt) 12%, transparent)}
+#lore .lore-tree-item.on{background:color-mix(in srgb, var(--gilt) 22%, var(--paper)); font-weight:600}
+#lore .lore-editor-bar{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:8px}
+#lore .lore-editor-bar #loreTitle{flex:1; min-width:10em; font:600 18px/1.2 var(--serif)}
+#lore #loreBody{min-height:18em; resize:vertical; font:15px/1.5 var(--serif)}
+#lore .lore-preview{
+  min-height:18em; padding:14px 16px; background:var(--paper); border:1px solid var(--hair);
+  border-radius:2px; font:15px/1.55 var(--serif)
+}
+#lore .lore-hint{margin:6px 0 0; font:12px/1.4 var(--sans); color:var(--dim)}
+#lore .lore-empty{max-width:28rem; margin:3rem auto; text-align:center; color:var(--dim)}
+#lore .lore-tagchip{font:11px/1 var(--sans)}
 
 #board .board-rail{
   flex:none; width:248px; border-right:1px solid var(--hair); background:var(--stone-3);
@@ -996,6 +1049,10 @@ body.trk #forge{display:none !important}
   border:0; border-radius:0; box-shadow:none; animation:none}
 #board .record-view .sb h2{font-size:21px}
 #board .record-missing{
+  margin:0; padding:14px 16px; font:italic 14px/1.5 var(--serif); color:var(--dim)}
+#board .lore-body{padding:0}
+#board .lore-view{padding:14px 16px; font:15px/1.55 var(--serif)}
+#board .lore-missing{
   margin:0; padding:14px 16px; font:italic 14px/1.5 var(--serif); color:var(--dim)}
 #board .encounter-body{display:flex; flex-direction:column; gap:8px; padding:10px 12px}
 #board .encounter-roster{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:4px}
@@ -1239,6 +1296,7 @@ body.trk #forge{display:none !important}
       <button type="button" id="m-board" class="chip" aria-pressed="false">Board</button>
       <button type="button" id="m-build" class="chip" aria-pressed="false">Builder</button>
       <button type="button" id="m-forge" class="chip" aria-pressed="false">Forge</button>
+      <button type="button" id="m-lore" class="chip" aria-pressed="false">Lore</button>
     </span>
     <button type="button" class="chip" id="user-save"
             title="Export or import portable save"
@@ -1515,6 +1573,46 @@ body.trk #forge{display:none !important}
   </aside>
   <div class="forge-preview" id="forgePreview">
     <p class="forge-hint">Set CR or level, then <strong>Apply benchmarks</strong> to fill stats and preview.</p>
+  </div>
+</section>
+
+<section id="lore" aria-label="Campaign lore" hidden>
+  <aside class="lore-rail" aria-label="Campaigns and pages">
+    <h2>Lore</h2>
+    <div class="lore-campaign-row">
+      <label class="grow">Campaign
+        <select id="loreCampaign" aria-label="Active campaign"></select>
+      </label>
+      <button type="button" class="chip" id="loreCampNew" title="New campaign">New</button>
+      <button type="button" class="chip" id="loreCampRename" title="Rename campaign">Rename</button>
+      <button type="button" class="chip" id="loreCampDel" title="Delete campaign">Delete</button>
+      <input id="loreCampTitle" type="text" aria-label="Campaign title" maxlength="80" hidden>
+    </div>
+    <div class="frow" id="lorePageOps">
+      <button type="button" class="chip" id="lorePageNew">New page</button>
+      <button type="button" class="chip" id="lorePageChild">New child</button>
+    </div>
+    <input id="loreQ" type="search" aria-label="Filter pages" placeholder="Filter pages…" autocomplete="off">
+    <div class="frow" id="loreTagFilters" aria-label="Tag filters"></div>
+    <nav id="loreTree" aria-label="Page tree"></nav>
+  </aside>
+  <div class="lore-main">
+    <div id="loreEmpty" class="lore-empty" hidden>
+      <p>No pages yet — create a page to start this campaign’s notebook.</p>
+      <button type="button" class="chip go" id="loreEmptyNew">New page</button>
+    </div>
+    <div id="loreEditor" hidden>
+      <div class="lore-editor-bar">
+        <input id="loreTitle" type="text" aria-label="Page title" maxlength="80">
+        <button type="button" class="chip" id="lorePreviewToggle" aria-pressed="false">Preview</button>
+        <button type="button" class="chip" id="lorePin">Pin to Board</button>
+        <button type="button" class="chip" id="lorePageDel">Delete page</button>
+      </div>
+      <input id="loreTags" type="text" aria-label="Tags" placeholder="tags, comma, separated" autocomplete="off">
+      <textarea id="loreBody" aria-label="Page markdown"></textarea>
+      <div id="lorePreview" class="lore-preview md-view" hidden></div>
+      <p id="loreSize" class="lore-hint" role="status"></p>
+    </div>
   </div>
 </section>
 
@@ -2140,6 +2238,7 @@ function buildUserSave(){
     ui: null,
     boards: null,
     activeBoardId: null,
+    lore: null,
   };
   if (window.TRK){
     const s = TRK.state;
@@ -2153,6 +2252,9 @@ function buildUserSave(){
     const b = BOARD.getExport();
     bag.boards = JSON.parse(JSON.stringify(b.boards || []));
     bag.activeBoardId = b.activeBoardId || null;
+  }
+  if (window.LORE && LORE.getExport){
+    bag.lore = LORE.getExport();
   }
   return bag;
 }
@@ -2189,7 +2291,7 @@ function applyUserSaveBag(bag){
     return { ok: false, message: "Could not save customs — browser storage may be full. Nothing was changed." };
   mergeCustomsIntoData(mergedCustoms);
 
-  let partyAdd = 0, presetAdd = 0, encReplaced = false, boardUpserts = 0;
+  let partyAdd = 0, presetAdd = 0, encReplaced = false, boardUpserts = 0, loreUpserts = 0;
   let storageOk = true;
   if (window.TRK && TRK.applyUserSave){
     const stats = TRK.applyUserSave({
@@ -2203,6 +2305,11 @@ function applyUserSaveBag(bag){
     presetAdd = stats.presetAdd || 0;
     encReplaced = !!stats.encReplaced;
     if (stats.ok === false) storageOk = false;
+  }
+  if (window.LORE && LORE.applyUserSave && bag.lore){
+    const st = LORE.applyUserSave(bag.lore);
+    loreUpserts = st.loreUpserts || 0;
+    if (st.ok === false) storageOk = false;
   }
   if (window.BOARD && BOARD.applyUserSave && Array.isArray(bag.boards)){
     const st = BOARD.applyUserSave({ boards: bag.boards, activeBoardId: bag.activeBoardId });
@@ -2219,6 +2326,7 @@ function applyUserSaveBag(bag){
   if (presetAdd) bits.push("+" + presetAdd + " presets");
   if (encReplaced) bits.push("encounter replaced");
   if (boardUpserts) bits.push("+" + boardUpserts + " boards");
+  if (loreUpserts) bits.push("+" + loreUpserts + " lore");
   if (!storageOk)
     return { ok: false, message: "Import partially applied but browser storage failed — some changes may not persist. Free space and try again." };
   return { ok: true, message: bits.join(" · ") || "Save imported" };
@@ -2302,7 +2410,7 @@ function openUserSaveDialog(){
   }
   TRK.openOvl(`
     <h3>Save file</h3>
-    <p class="libhint">Export packs customs, party, encounter presets, active encounter, dice, UI, and Board sessions. Import <b>merges</b> customs/party/presets/boards by id (local-only records are kept) and <b>replaces</b> the active encounter.</p>
+    <p class="libhint">Export packs customs, party, encounter presets, active encounter, dice, UI, Board sessions, and Lore campaigns/pages. Import <b>merges</b> customs/party/presets/boards/lore by id (local-only records are kept) and <b>replaces</b> the active encounter.</p>
     <div class="btns" style="justify-content:flex-start;flex-wrap:wrap">
       <button type="button" class="chip go" data-save-export>Export save…</button>
       <button type="button" class="chip" data-save-backup>Download backup first</button>
@@ -2352,7 +2460,7 @@ function openUserSaveDialog(){
       saveErr.hidden = true;
       const btns = root.querySelector("#save-btns");
       btns.innerHTML =
-        `<span style="flex:1;min-width:12em;color:var(--dim);font-size:12.5px">Import will <b>replace</b> the active encounter and overwrite same-id customs/party/presets. Local-only ids are kept.</span>` +
+        `<span style="flex:1;min-width:12em;color:var(--dim);font-size:12.5px">Import will <b>replace</b> the active encounter and overwrite same-id customs/party/presets/boards/lore. Local-only ids are kept.</span>` +
         `<button type="button" class="chip" data-save-abort>Cancel</button>` +
         `<button type="button" class="chip yes" data-save-confirm>Import</button>`;
       btns.querySelector("[data-save-abort]").onclick = () => TRK.closeOvl();
@@ -3383,6 +3491,7 @@ const TRK = (() => {
     else if (raw.mode === "board") u.mode = "board";
     else if (raw.mode === "build") u.mode = "build";
     else if (raw.mode === "forge") u.mode = "forge";
+    else if (raw.mode === "lore") u.mode = "lore";
     u.qty = Math.min(10, Math.max(1, int(raw.qty, 1)));
     if (typeof raw.diceOpen === "boolean") u.diceOpen = raw.diceOpen;
     if (typeof raw.viewingId === "string") u.viewingId = raw.viewingId;
@@ -4658,7 +4767,8 @@ const TRK = (() => {
     const mode = m === "track" ? "track"
       : m === "board" ? "board"
       : m === "build" ? "build"
-      : m === "forge" ? "forge" : "browse";
+      : m === "forge" ? "forge"
+      : m === "lore" ? "lore" : "browse";
     const prev = state.ui.mode;
     state.ui.mode = mode;
     saveOrWarn(LS.ui, state.ui);
@@ -4666,10 +4776,13 @@ const TRK = (() => {
     document.body.classList.toggle("board", mode === "board");
     document.body.classList.toggle("build", mode === "build");
     document.body.classList.toggle("forge", mode === "forge");
+    document.body.classList.toggle("lore", mode === "lore");
     const boardEl = document.getElementById("board");
     if (boardEl) boardEl.hidden = mode !== "board";
     const forgeEl = document.getElementById("forge");
     if (forgeEl) forgeEl.hidden = mode !== "forge";
+    const loreEl = document.getElementById("lore");
+    if (loreEl) loreEl.hidden = mode !== "lore";
     $("#m-browse").classList.toggle("on", mode === "browse");
     $("#m-browse").setAttribute("aria-pressed", String(mode === "browse"));
     $("#m-track").classList.toggle("on", mode === "track");
@@ -4689,9 +4802,15 @@ const TRK = (() => {
       mforge.classList.toggle("on", mode === "forge");
       mforge.setAttribute("aria-pressed", String(mode === "forge"));
     }
+    const mlore = $("#m-lore");
+    if (mlore){
+      mlore.classList.toggle("on", mode === "lore");
+      mlore.setAttribute("aria-pressed", String(mode === "lore"));
+    }
     if (prev === "board" && mode !== "board" && window.BOARD) BOARD.setActive(false);
     if (prev === "build" && mode !== "build" && window.BUILD) BUILD.setActive(false);
     if (prev === "forge" && mode !== "forge" && window.FORGE) FORGE.setActive(false);
+    if (prev === "lore" && mode !== "lore" && window.LORE) LORE.setActive(false);
     if (mode === "track"){ $("#dice").open = state.ui.diceOpen; renderTrk(); renderDice(); }
     if (mode === "board" && window.BOARD) BOARD.setActive(true);
     if (mode === "build"){
@@ -4699,8 +4818,9 @@ const TRK = (() => {
       if (window.BUILD) BUILD.setActive(true);
     }
     if (mode === "forge" && window.FORGE) FORGE.setActive(true);
+    if (mode === "lore" && window.LORE) LORE.setActive(true);
     if (window.applySideChrome) applySideChrome();
-    if (window.refresh && mode !== "board" && mode !== "forge") refresh();
+    if (window.refresh && mode !== "board" && mode !== "forge" && mode !== "lore") refresh();
   }
 
   function setSide(side){
@@ -4761,6 +4881,7 @@ const TRK = (() => {
     else if (state.ui.mode === "board") setMode("board");
     else if (state.ui.mode === "build") setMode("build");
     else if (state.ui.mode === "forge") setMode("forge");
+    else if (state.ui.mode === "lore") setMode("lore");
     else if (window.refresh) refresh();
   }
 
@@ -4777,6 +4898,8 @@ const TRK = (() => {
   if (mBuild) mBuild.onclick = () => setMode("build");
   const mForge = $("#m-forge");
   if (mForge) mForge.onclick = () => setMode("forge");
+  const mLore = $("#m-lore");
+  if (mLore) mLore.onclick = () => setMode("lore");
   $("#sg-catalog").onclick = () => { setSide("catalog"); if (window.refresh) refresh(); };
   $("#sg-table").onclick = () => { setSide("table"); if (window.refresh) refresh(); };
   $("#side-inner").addEventListener("click", e => {
@@ -6028,6 +6151,10 @@ const BOARD = (() => {
     return html || "<p></p>";
   }
 
+  function mdHtml(body){
+    return md(String(body || ""));
+  }
+
   function rollExpr(expr){
     const clean = String(expr || "").trim().toLowerCase().replace(/\s+/g,"");
     if (!/^[\dd+\-]+$/.test(clean) || !/\d/.test(clean)) throw new Error("Use forms like 1d20+3 or 2d6");
@@ -6056,7 +6183,7 @@ const BOARD = (() => {
 
 
   const MD_SOFT = 20000, MD_WARN = 60000, MD_HARD = 120000;
-  const CARD_TYPES = new Set(["markdown","image","audio","counter","dice","timer","checklist","random","record","encounter"]);
+  const CARD_TYPES = new Set(["markdown","image","audio","counter","dice","timer","checklist","random","record","encounter","lore"]);
   const MAX_BOARD_CARDS = 200;
   const MAX_BOARDS = 40;
   const MAX_CHECKLIST = 200;
@@ -6161,6 +6288,9 @@ const BOARD = (() => {
       card.ref = vStr(raw.ref, 120, "");
     } else if (type === "encounter"){
       card.presetId = vStr(raw.presetId, 64, "");
+    } else if (type === "lore"){
+      card.campaignId = vStr(raw.campaignId, 64, "");
+      card.pageId = vStr(raw.pageId, 64, "");
     }
     return card;
   }
@@ -6467,6 +6597,7 @@ const BOARD = (() => {
     });
     if (type === "record") Object.assign(base, { title: "Record", ref: "", w: 360, h: 408 });
     if (type === "encounter") Object.assign(base, { title: "Encounter", presetId: "", w: 336, h: 360 });
+    if (type === "lore") Object.assign(base, { title: "Lore", campaignId: "", pageId: "", w: 360, h: 408 });
     if (extra) Object.assign(base, extra);
     b.cards.push(base);
     selectedId = base.id;
@@ -6531,6 +6662,7 @@ const BOARD = (() => {
       case "random": return !!(card.last || String(card.lines || "").trim());
       case "record": return false; /* re-creatable in two clicks from the Library */
       case "encounter": return false;
+      case "lore": return false;
       default: return true;
     }
   }
@@ -6557,7 +6689,7 @@ const BOARD = (() => {
     const KIND = {
       markdown: "note", image: "image", audio: "audio", counter: "counter", dice: "dice",
       timer: "timer", checklist: "list", random: "table", clock: "counter", record: "stat block",
-      encounter: "encounter"
+      encounter: "encounter", lore: "lore"
     };
     const el = document.createElement("article");
     el.className = "board-card"
@@ -6638,6 +6770,7 @@ const BOARD = (() => {
       else if (card.type === "random") fillRandom(body, card);
       else if (card.type === "record") fillRecord(body, card);
       else if (card.type === "encounter") fillEncounter(body, card);
+      else if (card.type === "lore") fillLore(body, card);
       el.appendChild(body);
 
       const rz = document.createElement("div");
@@ -7309,6 +7442,37 @@ const BOARD = (() => {
     return { ok: true, name: rec ? rec.name : ref };
   }
 
+  function fillLore(body, card){
+    body.classList.add("lore-body");
+    const page = (window.LORE && LORE.getPage)
+      ? LORE.getPage(card.campaignId, card.pageId) : null;
+    if (!page){
+      const miss = document.createElement("p");
+      miss.className = "lore-missing";
+      miss.textContent = "Lore page not found — it may have been removed from the campaign.";
+      body.appendChild(miss);
+      return;
+    }
+    const view = document.createElement("div");
+    view.className = "md-view lore-view";
+    view.innerHTML = mdHtml(page.body);
+    body.appendChild(view);
+  }
+  function addLorePage(campaignId, pageId){
+    if (typeof campaignId !== "string" || !campaignId || typeof pageId !== "string" || !pageId)
+      return { ok: false, error: "No lore page id." };
+    const b = active();
+    if (b.cards.length >= MAX_BOARD_CARDS)
+      return { ok: false, error: "Board is full (" + MAX_BOARD_CARDS + " cards)." };
+    const page = (window.LORE && LORE.getPage) ? LORE.getPage(campaignId, pageId) : null;
+    addCard("lore", {
+      campaignId: campaignId.slice(0, 64),
+      pageId: pageId.slice(0, 64),
+      title: (page && page.title) ? page.title : "Lore",
+    });
+    return { ok: true, name: page ? page.title : pageId };
+  }
+
   function fillEncounter(body, card){
     body.classList.add("encounter-body");
     const preset = (window.TRK && TRK.getPreset)
@@ -7548,7 +7712,7 @@ const BOARD = (() => {
     return { boardUpserts: upserts, ok: saved };
   }
 
-  return { setActive, getExport, applyUserSave, addRecord, addEncounter };
+  return { setActive, getExport, applyUserSave, addRecord, addEncounter, addLorePage, mdHtml };
 })();
 window.BOARD = BOARD;
 </script>
@@ -8029,6 +8193,519 @@ const FORGE = (() => {
   };
 })();
 window.FORGE = FORGE;
+</script>
+
+<script>
+"use strict";
+const LORE = (() => {
+  const STORE = "bg.lore.v1";
+  const MAX_CAMPAIGNS = 20;
+  const MAX_PAGES = 200;
+  const MAX_TAGS = 24;
+  const MD_SOFT = 20000, MD_WARN = 60000, MD_HARD = 120000;
+  const esc = s => String(s==null?"":s).replace(/[&<>"]/g, c =>
+    ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  const uid = () => "l" + Math.random().toString(36).slice(2, 10);
+  function vStr(v, max, fb){
+    if (typeof v !== "string") return fb;
+    return v.length > max ? v.slice(0, max) : v;
+  }
+  function vPage(raw, knownIds){
+    if (!raw || typeof raw !== "object") return null;
+    const id = (typeof raw.id === "string" && raw.id) ? raw.id.slice(0, 64) : uid();
+    let parentId = (typeof raw.parentId === "string" && raw.parentId) ? raw.parentId.slice(0, 64) : null;
+    if (parentId && knownIds && !knownIds.has(parentId)) parentId = null;
+    const tagsIn = Array.isArray(raw.tags) ? raw.tags : [];
+    const tags = [];
+    for (const t of tagsIn.slice(0, MAX_TAGS)){
+      if (typeof t !== "string") continue;
+      const s = t.trim().slice(0, 40);
+      if (s && !tags.includes(s)) tags.push(s);
+    }
+    let body = vStr(raw.body, MD_HARD, "");
+    return {
+      id, title: vStr((typeof raw.title === "string" && raw.title.trim() ? raw.title.trim() : "Untitled"), 80, "Untitled"),
+      parentId, tags, body,
+      updatedAt: (typeof raw.updatedAt === "number" && Number.isFinite(raw.updatedAt))
+        ? raw.updatedAt : Date.now(),
+    };
+  }
+  function vCampaign(raw){
+    if (!raw || typeof raw !== "object") return null;
+    if (typeof raw.id !== "string" || !raw.id) return null;
+    const pagesIn = Array.isArray(raw.pages) ? raw.pages : [];
+    const known = new Set();
+    for (const p of pagesIn.slice(0, MAX_PAGES))
+      if (p && typeof p.id === "string" && p.id) known.add(p.id.slice(0, 64));
+    const pages = [];
+    for (const p of pagesIn.slice(0, MAX_PAGES)){
+      const vp = vPage(p, known);
+      if (vp) pages.push(vp);
+    }
+    return {
+      id: raw.id.slice(0, 64),
+      title: vStr((typeof raw.title === "string" && raw.title.trim() ? raw.title.trim() : "Campaign"), 80, "Campaign"),
+      updatedAt: (typeof raw.updatedAt === "number" && Number.isFinite(raw.updatedAt))
+        ? raw.updatedAt : Date.now(),
+      pages,
+    };
+  }
+  function seedLore(){
+    const cid = "camp-" + uid();
+    return {
+      activeCampaignId: cid,
+      campaigns: [{ id: cid, title: "Campaign 1", updatedAt: Date.now(), pages: [] }],
+    };
+  }
+  function vLoreState(raw){
+    if (!raw || !Array.isArray(raw.campaigns) || !raw.campaigns.length) return seedLore();
+    const campaigns = [];
+    for (const c of raw.campaigns.slice(0, MAX_CAMPAIGNS)){
+      const vc = vCampaign(c);
+      if (vc) campaigns.push(vc);
+    }
+    if (!campaigns.length) return seedLore();
+    let activeCampaignId = typeof raw.activeCampaignId === "string"
+      ? raw.activeCampaignId : campaigns[0].id;
+    if (!campaigns.some(c => c.id === activeCampaignId)) activeCampaignId = campaigns[0].id;
+    return { activeCampaignId, campaigns };
+  }
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORE);
+      if (!raw) return seedLore();
+      return vLoreState(JSON.parse(raw));
+    }catch(_){ return seedLore(); }
+  }
+  function save(){
+    try{
+      localStorage.setItem(STORE, JSON.stringify(vLoreState(state)));
+      return true;
+    }catch(_){
+      if (typeof announceLive === "function")
+        announceLive("Could not save Lore — browser storage may be full.");
+      return false;
+    }
+  }
+  let state = load();
+  let active = false;
+  let selectedPageId = null;
+  let previewing = false;
+  let renamingCampaign = false;
+  let saveTimer = null;
+
+  function activeCamp(){
+    return state.campaigns.find(c => c.id === state.activeCampaignId) || state.campaigns[0];
+  }
+  function getPage(campaignId, pageId){
+    const c = state.campaigns.find(x => x.id === campaignId);
+    if (!c) return null;
+    return c.pages.find(p => p.id === pageId) || null;
+  }
+  function getExport(){ return JSON.parse(JSON.stringify(vLoreState(state))); }
+  function applyUserSave(parts){
+    if (!parts || !Array.isArray(parts.campaigns)) return { loreUpserts: 0, ok: true };
+    const map = new Map(state.campaigns.map(c => [c.id, c]));
+    let upserts = 0;
+    for (const raw of parts.campaigns.slice(0, MAX_CAMPAIGNS)){
+      const incoming = vCampaign(raw);
+      if (!incoming) continue;
+      const local = map.get(incoming.id);
+      if (!local){ map.set(incoming.id, incoming); upserts++; continue; }
+      const pmap = new Map(local.pages.map(p => [p.id, p]));
+      for (const p of incoming.pages) if (!pmap.has(p.id)){ pmap.set(p.id, p); upserts++; }
+      // incoming overwrites same-id pages (portable import semantics: merge ids, prefer incoming body for shared ids — match boards' replace-same-id)
+      for (const p of incoming.pages) pmap.set(p.id, p);
+      map.set(incoming.id, {
+        ...incoming,
+        title: incoming.title || local.title,
+        pages: [...pmap.values()].slice(0, MAX_PAGES),
+      });
+    }
+    state.campaigns = [...map.values()].slice(0, MAX_CAMPAIGNS);
+    if (typeof parts.activeCampaignId === "string"
+        && state.campaigns.some(c => c.id === parts.activeCampaignId))
+      state.activeCampaignId = parts.activeCampaignId;
+    else if (!state.campaigns.some(c => c.id === state.activeCampaignId))
+      state.activeCampaignId = state.campaigns[0].id;
+    const ok = save();
+    if (active) renderAll();
+    return { loreUpserts: upserts, ok };
+  }
+
+  function setActive(on){
+    active = !!on;
+    const el = document.getElementById("lore");
+    if (el) el.hidden = !active;
+    if (active) renderAll();
+  }
+  function announce(msg){
+    if (typeof announceLive === "function") announceLive(msg);
+  }
+  function scheduleSave(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => { saveTimer = null; save(); }, 400);
+  }
+  function touch(page){
+    const now = Date.now();
+    const camp = activeCamp();
+    if (page) page.updatedAt = now;
+    if (camp) camp.updatedAt = now;
+    scheduleSave();
+  }
+  function depthOf(page, byId){
+    let d = 0, cur = page, guard = 0;
+    while (cur && cur.parentId && byId.get(cur.parentId) && guard++ < 40){
+      cur = byId.get(cur.parentId);
+      d++;
+    }
+    return d;
+  }
+  function visiblePages(camp, q, tagFilter){
+    const ql = (q || "").trim().toLowerCase();
+    return camp.pages.filter(p => {
+      if (tagFilter && !p.tags.includes(tagFilter)) return false;
+      if (!ql) return true;
+      return p.title.toLowerCase().includes(ql)
+        || p.tags.some(t => t.toLowerCase().includes(ql))
+        || (p.body || "").toLowerCase().includes(ql);
+    });
+  }
+  function renderTree(){
+    const nav = document.getElementById("loreTree");
+    const camp = activeCamp();
+    if (!nav || !camp) return;
+    const q = document.getElementById("loreQ")?.value || "";
+    const tagFilter = nav.dataset.tagFilter || "";
+    const pages = visiblePages(camp, q, tagFilter || null);
+    const visibleIds = new Set(pages.map(p => p.id));
+    const byId = new Map(camp.pages.map(p => [p.id, p]));
+    const ordered = [];
+    const placed = new Set();
+    let guard = 0;
+    while (ordered.length < pages.length && guard++ < pages.length + 5){
+      for (const p of pages){
+        if (placed.has(p.id)) continue;
+        if (!p.parentId || placed.has(p.parentId) || !byId.has(p.parentId) || !visibleIds.has(p.parentId)){
+          ordered.push(p);
+          placed.add(p.id);
+        }
+      }
+    }
+    nav.innerHTML = "";
+    for (const p of ordered){
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "lore-tree-item" + (p.id === selectedPageId ? " on" : "");
+      btn.style.paddingLeft = (8 + depthOf(p, byId) * 14) + "px";
+      btn.textContent = p.title || "Untitled";
+      btn.onclick = () => {
+        selectedPageId = p.id;
+        previewing = false;
+        renderAll();
+      };
+      nav.appendChild(btn);
+    }
+  }
+  function renderCampaigns(){
+    const pick = document.getElementById("loreCampaign");
+    const title = document.getElementById("loreCampTitle");
+    const camp = activeCamp();
+    if (!pick || !camp) return;
+    pick.innerHTML = "";
+    for (const c of state.campaigns){
+      const opt = document.createElement("option");
+      opt.value = c.id;
+      opt.textContent = c.title;
+      pick.appendChild(opt);
+    }
+    pick.value = camp.id;
+    if (title){
+      title.value = camp.title;
+      title.hidden = !renamingCampaign;
+    }
+    const rename = document.getElementById("loreCampRename");
+    if (rename) rename.setAttribute("aria-pressed", String(renamingCampaign));
+  }
+  function campaignTags(camp){
+    const tags = [];
+    for (const page of camp.pages){
+      for (const tag of page.tags) if (!tags.includes(tag)) tags.push(tag);
+    }
+    return tags;
+  }
+  function renderTagFilters(){
+    const host = document.getElementById("loreTagFilters");
+    const nav = document.getElementById("loreTree");
+    const camp = activeCamp();
+    if (!host || !nav || !camp) return;
+    const tags = campaignTags(camp);
+    let current = nav.dataset.tagFilter || "";
+    if (current && !tags.includes(current)){
+      current = "";
+      delete nav.dataset.tagFilter;
+    }
+    host.innerHTML = "";
+    if (!tags.length) return;
+    for (const tag of ["", ...tags]){
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "chip lore-tagchip";
+      btn.textContent = tag || "All";
+      btn.setAttribute("aria-pressed", String(tag === current));
+      btn.onclick = () => {
+        if (tag) nav.dataset.tagFilter = tag;
+        else delete nav.dataset.tagFilter;
+        renderTagFilters();
+        renderTree();
+      };
+      host.appendChild(btn);
+    }
+  }
+  function sizeLabel(n){
+    if (n >= MD_HARD) return n + " chars · maximum reached";
+    if (n >= MD_WARN) return n + " chars · large page";
+    if (n >= MD_SOFT) return n + " chars · growing";
+    return n + " chars";
+  }
+  function renderPreview(page){
+    const view = document.getElementById("lorePreview");
+    if (!view) return;
+    const hasMarkdown = window.BOARD && typeof BOARD.mdHtml === "function";
+    view.style.whiteSpace = hasMarkdown ? "" : "pre-wrap";
+    view.innerHTML = hasMarkdown ? BOARD.mdHtml(page.body || "") : esc(page.body || "");
+  }
+  function renderEditor(){
+    const camp = activeCamp();
+    const page = camp && camp.pages.find(p => p.id === selectedPageId);
+    const empty = document.getElementById("loreEmpty");
+    const editor = document.getElementById("loreEditor");
+    if (!empty || !editor) return;
+    empty.hidden = !!page;
+    editor.hidden = !page;
+    const emptyText = empty.querySelector("p");
+    if (emptyText) emptyText.textContent = camp && camp.pages.length
+      ? "Select a page from the tree, or create a new one."
+      : "No pages yet — create a page to start this campaign’s notebook.";
+    const child = document.getElementById("lorePageChild");
+    if (child) child.disabled = !page;
+    if (!page) return;
+    document.getElementById("loreTitle").value = page.title;
+    document.getElementById("loreTags").value = page.tags.join(", ");
+    const body = document.getElementById("loreBody");
+    const view = document.getElementById("lorePreview");
+    const toggle = document.getElementById("lorePreviewToggle");
+    body.value = page.body || "";
+    body.hidden = previewing;
+    view.hidden = !previewing;
+    toggle.setAttribute("aria-pressed", String(previewing));
+    toggle.textContent = previewing ? "Edit" : "Preview";
+    document.getElementById("loreSize").textContent = sizeLabel((page.body || "").length);
+    if (previewing) renderPreview(page);
+  }
+  function renderAll(){
+    const camp = activeCamp();
+    if (!camp) return;
+    if (selectedPageId && !camp.pages.some(p => p.id === selectedPageId)) selectedPageId = null;
+    renderCampaigns();
+    renderTagFilters();
+    renderTree();
+    renderEditor();
+  }
+  function clearCampaignFilters(){
+    const q = document.getElementById("loreQ");
+    const nav = document.getElementById("loreTree");
+    if (q) q.value = "";
+    if (nav) delete nav.dataset.tagFilter;
+  }
+  function newCampaign(){
+    if (state.campaigns.length >= MAX_CAMPAIGNS){
+      announce("Lore campaign limit reached (" + MAX_CAMPAIGNS + ").");
+      return;
+    }
+    const id = "camp-" + uid();
+    const n = state.campaigns.length + 1;
+    state.campaigns.push({ id, title: "Campaign " + n, updatedAt: Date.now(), pages: [] });
+    state.activeCampaignId = id;
+    selectedPageId = null;
+    previewing = false;
+    renamingCampaign = false;
+    clearCampaignFilters();
+    save();
+    renderAll();
+  }
+  function newPage(parentId){
+    const camp = activeCamp();
+    if (!camp) return;
+    if (camp.pages.length >= MAX_PAGES){
+      announce("Lore page limit reached (" + MAX_PAGES + ").");
+      return;
+    }
+    if (parentId && !camp.pages.some(p => p.id === parentId)) parentId = null;
+    const page = {
+      id: "page-" + uid(), title: "Untitled", parentId: parentId || null,
+      tags: [], body: "", updatedAt: Date.now(),
+    };
+    camp.pages.push(page);
+    camp.updatedAt = page.updatedAt;
+    selectedPageId = page.id;
+    previewing = false;
+    save();
+    renderAll();
+    const title = document.getElementById("loreTitle");
+    if (title){ title.focus(); title.select(); }
+  }
+  function commitCampaignTitle(){
+    if (!renamingCampaign) return;
+    const camp = activeCamp();
+    const input = document.getElementById("loreCampTitle");
+    if (!camp || !input) return;
+    camp.title = input.value.trim().slice(0, 80) || "Campaign";
+    camp.updatedAt = Date.now();
+    renamingCampaign = false;
+    save();
+    renderAll();
+  }
+  function bind(){
+    const campaign = document.getElementById("loreCampaign");
+    campaign.onchange = () => {
+      state.activeCampaignId = campaign.value;
+      selectedPageId = null;
+      previewing = false;
+      renamingCampaign = false;
+      clearCampaignFilters();
+      save();
+      renderAll();
+    };
+    document.getElementById("loreCampNew").onclick = newCampaign;
+    document.getElementById("loreCampRename").onclick = () => {
+      renamingCampaign = !renamingCampaign;
+      renderCampaigns();
+      if (renamingCampaign){
+        const input = document.getElementById("loreCampTitle");
+        input.focus();
+        input.select();
+      }
+    };
+    const campTitle = document.getElementById("loreCampTitle");
+    campTitle.onchange = commitCampaignTitle;
+    campTitle.onkeydown = e => {
+      if (e.key === "Enter"){
+        e.preventDefault();
+        commitCampaignTitle();
+      } else if (e.key === "Escape"){
+        e.preventDefault();
+        renamingCampaign = false;
+        renderCampaigns();
+        document.getElementById("loreCampRename").focus();
+      }
+    };
+    document.getElementById("loreCampDel").onclick = e => {
+      const camp = activeCamp();
+      if (!camp) return;
+      const go = () => {
+        state.campaigns = state.campaigns.filter(c => c.id !== camp.id);
+        if (!state.campaigns.length) state = seedLore();
+        else state.activeCampaignId = state.campaigns[0].id;
+        selectedPageId = null;
+        previewing = false;
+        renamingCampaign = false;
+        clearCampaignFilters();
+        save();
+        renderAll();
+      };
+      if (window.TRK && typeof TRK.confirmSwap === "function")
+        TRK.confirmSwap(e.currentTarget, "Delete “" + camp.title + "”?", go);
+      else announce("Delete unavailable.");
+    };
+    document.getElementById("lorePageNew").onclick = () => newPage(null);
+    document.getElementById("loreEmptyNew").onclick = () => newPage(null);
+    document.getElementById("lorePageChild").onclick = () => newPage(selectedPageId);
+    document.getElementById("lorePageDel").onclick = e => {
+      const camp = activeCamp();
+      const pageId = selectedPageId;
+      if (!camp || !pageId) return;
+      const go = () => {
+        camp.pages = camp.pages.filter(page => page.id !== pageId);
+        for (const page of camp.pages) if (page.parentId === pageId) page.parentId = null;
+        camp.updatedAt = Date.now();
+        if (selectedPageId === pageId) selectedPageId = null;
+        previewing = false;
+        save();
+        renderAll();
+      };
+      if (window.TRK && typeof TRK.confirmSwap === "function")
+        TRK.confirmSwap(e.currentTarget, "Delete this page?", go);
+      else announce("Delete unavailable.");
+    };
+    document.getElementById("loreQ").oninput = renderTree;
+    const title = document.getElementById("loreTitle");
+    title.oninput = () => {
+      const page = getPage(state.activeCampaignId, selectedPageId);
+      if (!page) return;
+      page.title = title.value.slice(0, 80);
+      touch(page);
+      renderTree();
+    };
+    title.onchange = () => {
+      const page = getPage(state.activeCampaignId, selectedPageId);
+      if (!page) return;
+      page.title = title.value.trim().slice(0, 80) || "Untitled";
+      title.value = page.title;
+      touch(page);
+      renderTree();
+    };
+    const tags = document.getElementById("loreTags");
+    tags.onchange = () => {
+      const page = getPage(state.activeCampaignId, selectedPageId);
+      if (!page) return;
+      const next = [];
+      for (const raw of tags.value.split(",")){
+        const tag = raw.trim().slice(0, 40);
+        if (tag && !next.includes(tag) && next.length < MAX_TAGS) next.push(tag);
+      }
+      page.tags = next;
+      tags.value = next.join(", ");
+      touch(page);
+      renderTagFilters();
+      renderTree();
+    };
+    const body = document.getElementById("loreBody");
+    body.maxLength = MD_HARD;
+    body.oninput = () => {
+      const page = getPage(state.activeCampaignId, selectedPageId);
+      if (!page) return;
+      page.body = body.value.slice(0, MD_HARD);
+      document.getElementById("loreSize").textContent = sizeLabel(page.body.length);
+      touch(page);
+    };
+    document.getElementById("lorePreviewToggle").onclick = () => {
+      if (!selectedPageId) return;
+      previewing = !previewing;
+      renderEditor();
+    };
+    document.getElementById("lorePin").onclick = () => {
+      const camp = activeCamp();
+      if (!camp || !selectedPageId) return;
+      if (!window.BOARD || !BOARD.addLorePage){
+        if (typeof announceLive === "function") announceLive("Board unavailable.");
+        return;
+      }
+      const res = BOARD.addLorePage(camp.id, selectedPageId);
+      if (typeof announceLive === "function")
+        announceLive(res.ok
+          ? "Added to board: " + (res.name || "page")
+          : (res.error || "Couldn’t add to board."));
+    };
+  }
+  bind();
+
+  return {
+    setActive, getExport, applyUserSave, getPage,
+    _test: { vLoreState, vCampaign, vPage, seedLore, visiblePages, depthOf },
+  };
+})();
+window.LORE = LORE;
 </script>
 
 </body>
