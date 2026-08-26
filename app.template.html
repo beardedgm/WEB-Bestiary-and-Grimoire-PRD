@@ -1602,6 +1602,7 @@ body.forge #lore{display:none !important}
         <input id="loreTitle" type="text" aria-label="Page title" maxlength="80">
         <button type="button" class="chip" id="lorePreviewToggle" aria-pressed="false">Preview</button>
         <button type="button" class="chip" id="lorePin">Pin to Board</button>
+        <button type="button" class="chip" id="lorePageDel">Delete page</button>
       </div>
       <input id="loreTags" type="text" aria-label="Tags" placeholder="tags, comma, separated" autocomplete="off">
       <textarea id="loreBody" aria-label="Page markdown"></textarea>
@@ -8453,6 +8454,12 @@ const LORE = (() => {
     renderTree();
     renderEditor();
   }
+  function clearCampaignFilters(){
+    const q = document.getElementById("loreQ");
+    const nav = document.getElementById("loreTree");
+    if (q) q.value = "";
+    if (nav) delete nav.dataset.tagFilter;
+  }
   function newCampaign(){
     if (state.campaigns.length >= MAX_CAMPAIGNS){
       announce("Lore campaign limit reached (" + MAX_CAMPAIGNS + ").");
@@ -8465,6 +8472,7 @@ const LORE = (() => {
     selectedPageId = null;
     previewing = false;
     renamingCampaign = false;
+    clearCampaignFilters();
     save();
     renderAll();
   }
@@ -8507,10 +8515,7 @@ const LORE = (() => {
       selectedPageId = null;
       previewing = false;
       renamingCampaign = false;
-      const q = document.getElementById("loreQ");
-      const nav = document.getElementById("loreTree");
-      if (q) q.value = "";
-      if (nav) delete nav.dataset.tagFilter;
+      clearCampaignFilters();
       save();
       renderAll();
     };
@@ -8547,6 +8552,7 @@ const LORE = (() => {
         selectedPageId = null;
         previewing = false;
         renamingCampaign = false;
+        clearCampaignFilters();
         save();
         renderAll();
       };
@@ -8557,6 +8563,23 @@ const LORE = (() => {
     document.getElementById("lorePageNew").onclick = () => newPage(null);
     document.getElementById("loreEmptyNew").onclick = () => newPage(null);
     document.getElementById("lorePageChild").onclick = () => newPage(selectedPageId);
+    document.getElementById("lorePageDel").onclick = e => {
+      const camp = activeCamp();
+      const pageId = selectedPageId;
+      if (!camp || !pageId) return;
+      const go = () => {
+        camp.pages = camp.pages.filter(page => page.id !== pageId);
+        for (const page of camp.pages) if (page.parentId === pageId) page.parentId = null;
+        camp.updatedAt = Date.now();
+        if (selectedPageId === pageId) selectedPageId = null;
+        previewing = false;
+        save();
+        renderAll();
+      };
+      if (window.TRK && typeof TRK.confirmSwap === "function")
+        TRK.confirmSwap(e.currentTarget, "Delete this page?", go);
+      else announce("Delete unavailable.");
+    };
     document.getElementById("loreQ").oninput = renderTree;
     const title = document.getElementById("loreTitle");
     title.oninput = () => {
