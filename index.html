@@ -4406,6 +4406,7 @@ const TRK = (() => {
       <div class="btns" style="margin-top:14px">
         <button type="button" class="chip go" data-sload-pane="${esc(p.id)}">Load</button>
         <button type="button" class="chip" data-sbuild-pane="${esc(p.id)}">Open in Builder</button>
+        <button type="button" class="chip" data-sboard-pane="${esc(p.id)}">Send to Board</button>
       </div></div>`, "");
     const sheet = $("#pane-sheet");
     const loadBtn = sheet.querySelector("[data-sload-pane]");
@@ -4418,6 +4419,17 @@ const TRK = (() => {
     const buildBtn = sheet.querySelector("[data-sbuild-pane]");
     if (buildBtn) buildBtn.onclick = () => {
       if (window.BUILD) BUILD.openPreset(p.id);
+    };
+    const boardBtn = sheet.querySelector("[data-sboard-pane]");
+    if (boardBtn) boardBtn.onclick = () => {
+      if (!window.BOARD || !BOARD.addEncounter){
+        announceLive("Board unavailable.");
+        return;
+      }
+      const res = BOARD.addEncounter(p.id);
+      announceLive(res.ok
+        ? "Added to board: " + (res.name || p.name)
+        : (res.error || "Couldn’t add to board."));
     };
   }
   function addPartyMember(p){
