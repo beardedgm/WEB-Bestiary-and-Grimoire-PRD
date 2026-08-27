@@ -19,3 +19,6 @@ Square overlay UI, Quest log, Audio board, share/QR, React HexPlora shell, stuff
 ## Deliverable when starting phase 2
 
 A dated plan with a written **done checklist** of HexPlora-local tools, IDB schema, UI chrome, and import/export tests.
+
+
+**Superseded by** [`2026-08-27-maps-phase2.md`](2026-08-27-maps-phase2.md) (implemented).

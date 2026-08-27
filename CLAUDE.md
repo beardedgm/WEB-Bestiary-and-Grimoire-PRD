@@ -64,14 +64,15 @@ One HTML file, no framework, no dependencies. `app.template.html` holds sequenti
 |---|---|
 | 1 (`~1370–2930`) | Corpus load, custom library, portable save, filters/`SCALES`, search, stat-block + spell rendering, spell peek |
 | `TRK` | Initiative tracker, dice, party/presets, player display, undo ring, column resize, mode chrome |
-| `CAMPAIGN` | Campaign container: `bg.campaign.v1` (party, presets, lore pages, empty `maps[]`); header picker; one-shot migration from lore/party/presets; portable `campaigns` bag |
+| `CAMPAIGN` | Campaign container: `bg.campaign.v1` (party, presets, lore pages, maps meta); header picker; one-shot migration from lore/party/presets; portable `campaigns` bag |
 | `BUILD` | Encounter Builder: draft `bg.builder.v1`, PF2e / 5e 2014 / 5e 2024 budgets, roster, Save/Load bridges |
 | `BOARD` | Session boards: markdown / image / audio / counter / dice / timer / checklist / random / record / encounter cards (`BOARD.addRecord` / `BOARD.addEncounter`; Send to Board from Library (Script 1 `addSendToBoard`), Table, Builder) |
 | `FORGE` | Creature forge: inlined 5e CR + PF2e level tables, dual-system forms, preview via `monsterHTML`, Save to Custom |
 | `LORE` | Campaign notebook UI: pages for the active campaign (`CAMPAIGN`), nested tree/tags, preview, Pin to Board |
+| `MAPS` | Campaign hex maps: `#maps` mode, Pixi editor (`maps/maps-pixi.bundle.js` + `maps/maps-app.js`), IndexedDB `bg-maps`, bundled `maps/starter.hexplora`, HexPlora import/export |
 
-**Module boundary.** `TRK`, `CAMPAIGN`, `BUILD`, `BOARD`, `FORGE`, and `LORE` are IIFEs assigned to `window.TRK` /
-`window.CAMPAIGN` / `window.BUILD` / `window.BOARD` / `window.FORGE` / `window.LORE` at the end of their block (`const` bindings don't become
+**Module boundary.** `TRK`, `CAMPAIGN`, `BUILD`, `BOARD`, `FORGE`, `LORE`, and `MAPS` are IIFEs assigned to `window.TRK` /
+`window.CAMPAIGN` / `window.BUILD` / `window.BOARD` / `window.FORGE` / `window.LORE` / `window.MAPS` at the end of their block (`const` bindings don't become
 window properties). Script 1 guards every cross-module call with `if (window.TRK)` /
 `if (window.BUILD)` so each block stays independently removable.
 Script 1 publishes `window.refresh`, `window.setSide`, `window.openSpellPeek`, etc. for the
