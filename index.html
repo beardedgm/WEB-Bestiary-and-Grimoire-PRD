@@ -29,6 +29,8 @@
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
@@ -451,14 +453,6 @@ kbd{
   #board .checklist .add-row button,
   #board .rand .roll-btn,
   #board .board-add button{min-height:44px}
-}
-@media (prefers-reduced-motion:reduce){
-  /* Targeted disables only — never a global animation-duration kill. */
-  .sb{animation:none}
-  #filters > summary::before,
-  #dice > summary::before,
-  .col-resize::after,
-  .board-toast{transition:none}
 }
 
 /* ==== initiative tracker ==================================================
@@ -1338,12 +1332,21 @@ body.forge #lore{display:none !important}
   body.board #board{position:relative}
   body.board .board-rail-toggle{display:inline-flex; align-items:center; justify-content:center}
   body.board .board-rail{
-    display:none; position:fixed; left:0; right:0; bottom:0; width:100%; max-height:min(72vh, 640px);
+    display:flex; position:fixed; left:0; right:0; bottom:0; width:100%; max-height:min(72vh, 640px);
     z-index:41; border-right:0; border-top:1px solid var(--hair);
     box-shadow:0 -10px 32px -12px rgba(36,33,28,.35);
-    padding-bottom:max(8px, env(safe-area-inset-bottom, 0px))}
-  body.board.board-rail-open .board-rail{display:flex}
-  body.board.board-rail-open .board-rail-scrim{display:block}
+    padding-bottom:max(8px, env(safe-area-inset-bottom, 0px));
+    transform:translateY(100%); visibility:hidden; pointer-events:none;
+    transition:transform 280ms var(--ease-drawer), visibility 0s linear 280ms}
+  body.board.board-rail-open .board-rail{
+    transform:none; visibility:visible; pointer-events:auto;
+    transition:transform 280ms var(--ease-drawer), visibility 0s linear 0s}
+  body.board .board-rail-scrim{
+    display:block; opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity 200ms var(--ease-out), visibility 0s linear 200ms}
+  body.board.board-rail-open .board-rail-scrim{
+    opacity:1; visibility:visible; pointer-events:auto;
+    transition:opacity 200ms var(--ease-out), visibility 0s linear 0s}
   body.board.board-rail-open .board-rail-toggle{display:none}
   #board .board-card .ops button{width:44px; height:44px; font-size:16px}
   #board .board-empty{padding:18px 16px; font-size:16px; width:min(360px, calc(100% - 32px))}
@@ -1353,12 +1356,21 @@ body.forge #lore{display:none !important}
   body.lore #lore{position:relative; flex-direction:column}
   body.lore .lore-rail-toggle{display:inline-flex; align-items:center; justify-content:center}
   body.lore .lore-rail{
-    display:none; position:fixed; left:0; right:0; bottom:0; width:100%; max-height:min(72vh, 640px);
+    display:flex; position:fixed; left:0; right:0; bottom:0; width:100%; max-height:min(72vh, 640px);
     z-index:41; border-right:0; border-top:1px solid var(--hair);
     box-shadow:0 -10px 32px -12px rgba(36,33,28,.35);
-    padding-bottom:max(8px, env(safe-area-inset-bottom, 0px))}
-  body.lore.lore-rail-open .lore-rail{display:flex}
-  body.lore.lore-rail-open .lore-rail-scrim{display:block}
+    padding-bottom:max(8px, env(safe-area-inset-bottom, 0px));
+    transform:translateY(100%); visibility:hidden; pointer-events:none;
+    transition:transform 280ms var(--ease-drawer), visibility 0s linear 280ms}
+  body.lore.lore-rail-open .lore-rail{
+    transform:none; visibility:visible; pointer-events:auto;
+    transition:transform 280ms var(--ease-drawer), visibility 0s linear 0s}
+  body.lore .lore-rail-scrim{
+    display:block; opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity 200ms var(--ease-out), visibility 0s linear 200ms}
+  body.lore.lore-rail-open .lore-rail-scrim{
+    opacity:1; visibility:visible; pointer-events:auto;
+    transition:opacity 200ms var(--ease-out), visibility 0s linear 0s}
   body.lore.lore-rail-open .lore-rail-toggle{display:none}
   #lore .lore-main{padding:14px 14px 72px}
   #lore .lore-editor-bar .chip,
@@ -1366,6 +1378,33 @@ body.forge #lore{display:none !important}
   #lore .lore-page-ops .chip,
   #lore #lorePageOps .chip,
   #lore .lore-tree-add{min-height:44px; min-width:44px}
+}
+
+/* Mobile rail sheet reduced-motion — after ≤760px rules so cascade wins;
+   rail visibility rules are mobile-only so desktop side columns stay visible. */
+@media (prefers-reduced-motion:reduce){
+  /* Targeted disables only — never a global animation-duration kill. */
+  .sb{animation:none}
+  #filters > summary::before,
+  #dice > summary::before,
+  .col-resize::after,
+  .board-toast{transition:none}
+}
+@media (prefers-reduced-motion:reduce) and (max-width:760px){
+  body.board .board-rail,
+  body.lore .lore-rail{
+    transition:none;
+    transform:none;
+  }
+  body.board:not(.board-rail-open) .board-rail,
+  body.lore:not(.lore-rail-open) .lore-rail{
+    visibility:hidden;
+    pointer-events:none;
+  }
+  body.board .board-rail-scrim,
+  body.lore .lore-rail-scrim{
+    transition:opacity .15s var(--ease-out), visibility 0s linear .15s;
+  }
 }
 
 </style>
