@@ -405,6 +405,10 @@ kbd{
   body{overflow:auto}
   header{flex-wrap:wrap}
   header h1{width:100%}
+  #header-actions{
+    width:100%; justify-content:flex-start; max-width:100%;
+  }
+  #mode{min-width:0; max-width:100%}
   main{flex-direction:column}
   #side{width:100%; border-right:none; border-bottom:1px solid var(--hair); max-height:46vh; overflow-y:auto}
   .col-resize{display:none !important}
@@ -1330,48 +1334,48 @@ body.forge #lore{display:none !important}
 
 @media (max-width:760px){
   body.board #board{position:relative}
-  body.board .board-rail-toggle{display:inline-flex; align-items:center; justify-content:center}
-  body.board .board-rail{
+  body.board #board .board-rail-toggle{display:inline-flex; align-items:center; justify-content:center}
+  body.board #board .board-rail{
     display:flex; position:fixed; left:0; right:0; bottom:0; width:100%; max-height:min(72vh, 640px);
     z-index:41; border-right:0; border-top:1px solid var(--hair);
     box-shadow:0 -10px 32px -12px rgba(36,33,28,.35);
     padding-bottom:max(8px, env(safe-area-inset-bottom, 0px));
     transform:translateY(100%); visibility:hidden; pointer-events:none;
     transition:transform 280ms var(--ease-drawer), visibility 0s linear 280ms}
-  body.board.board-rail-open .board-rail{
+  body.board.board-rail-open #board .board-rail{
     transform:none; visibility:visible; pointer-events:auto;
     transition:transform 280ms var(--ease-drawer), visibility 0s linear 0s}
-  body.board .board-rail-scrim{
+  body.board #board .board-rail-scrim{
     display:block; opacity:0; visibility:hidden; pointer-events:none;
     transition:opacity 200ms var(--ease-out), visibility 0s linear 200ms}
-  body.board.board-rail-open .board-rail-scrim{
+  body.board.board-rail-open #board .board-rail-scrim{
     opacity:1; visibility:visible; pointer-events:auto;
     transition:opacity 200ms var(--ease-out), visibility 0s linear 0s}
-  body.board.board-rail-open .board-rail-toggle{display:none}
+  body.board.board-rail-open #board .board-rail-toggle{display:none}
   #board .board-card .ops button{width:44px; height:44px; font-size:16px}
   #board .board-empty{padding:18px 16px; font-size:16px; width:min(360px, calc(100% - 32px))}
   #boardExpand .panel-body{grid-template-columns:1fr}
   #boardExpand textarea{border-right:0; border-bottom:1px solid var(--vellum-edge); max-height:45%}
 
   body.lore #lore{position:relative; flex-direction:column}
-  body.lore .lore-rail-toggle{display:inline-flex; align-items:center; justify-content:center}
-  body.lore .lore-rail{
+  body.lore #lore .lore-rail-toggle{display:inline-flex; align-items:center; justify-content:center}
+  body.lore #lore .lore-rail{
     display:flex; position:fixed; left:0; right:0; bottom:0; width:100%; max-height:min(72vh, 640px);
     z-index:41; border-right:0; border-top:1px solid var(--hair);
     box-shadow:0 -10px 32px -12px rgba(36,33,28,.35);
     padding-bottom:max(8px, env(safe-area-inset-bottom, 0px));
     transform:translateY(100%); visibility:hidden; pointer-events:none;
     transition:transform 280ms var(--ease-drawer), visibility 0s linear 280ms}
-  body.lore.lore-rail-open .lore-rail{
+  body.lore.lore-rail-open #lore .lore-rail{
     transform:none; visibility:visible; pointer-events:auto;
     transition:transform 280ms var(--ease-drawer), visibility 0s linear 0s}
-  body.lore .lore-rail-scrim{
+  body.lore #lore .lore-rail-scrim{
     display:block; opacity:0; visibility:hidden; pointer-events:none;
     transition:opacity 200ms var(--ease-out), visibility 0s linear 200ms}
-  body.lore.lore-rail-open .lore-rail-scrim{
+  body.lore.lore-rail-open #lore .lore-rail-scrim{
     opacity:1; visibility:visible; pointer-events:auto;
     transition:opacity 200ms var(--ease-out), visibility 0s linear 0s}
-  body.lore.lore-rail-open .lore-rail-toggle{display:none}
+  body.lore.lore-rail-open #lore .lore-rail-toggle{display:none}
   #lore .lore-main{padding:14px 14px 72px}
   #lore .lore-editor-bar .chip,
   #lore .lore-fmt .chip,
@@ -2331,10 +2335,21 @@ function getCustomStore(){
 function markCorpusBaseline(){
   CORPUS_IDS = new Set(DATA.filter(r => !r._custom).map(r => r.id));
 }
+let pendingIdCollisions = 0;
 function rebuildCatalogIndexes(){
   DATA.sort((a,b) => a.name.localeCompare(b.name));
   ID_INDEX.clear();
-  for (const r of DATA) ID_INDEX.set(r.id, r);
+  let collisions = 0;
+  for (const r of DATA){
+    if (!r || typeof r.id !== "string" || !r.id) continue;
+    if (ID_INDEX.has(r.id)){
+      collisions++;
+      console.error("Duplicate record id (kept first):", r.id, r._kind || "?", r.name);
+      continue;
+    }
+    ID_INDEX.set(r.id, r);
+  }
+  pendingIdCollisions = collisions;
   buildSpellIndex();
 }
 function mergeCustomsIntoData(customs){
@@ -2659,6 +2674,9 @@ function start(){
   if (pendingCustomDrops > 0)
     announceLive("Dropped " + pendingCustomDrops + " invalid custom record" +
                  (pendingCustomDrops === 1 ? "" : "s") + " from storage");
+  if (pendingIdCollisions > 0)
+    announceLive("Skipped " + pendingIdCollisions + " duplicate record id" +
+                 (pendingIdCollisions === 1 ? "" : "s") + " — see console");
 }
 
 /* ---------------- filters ---------------- */
@@ -4576,18 +4594,23 @@ const TRK = (() => {
                    enc: JSON.parse(JSON.stringify(state.enc)),
                    dice: JSON.parse(JSON.stringify(state.dice)),
                    builder: existing ? existing.builder : null };
+    const prev = state.presets;
     if (existing) state.presets = state.presets.map(p => p.id === existing.id ? snap : p);
-    else state.presets.push(snap);
-    saveOrWarn(LS.presets, state.presets);
-    return !existing;
+    else state.presets = state.presets.concat(snap);
+    if (!saveOrWarn(LS.presets, state.presets)){
+      state.presets = prev;
+      return { ok: false, created: false, preset: null };
+    }
+    return { ok: true, created: !existing, preset: snap };
   }
   function savePresetFull(snap){
     const name = String(snap && snap.name || "").trim().slice(0, 80);
-    if (!name) return null;
+    if (!name) return { ok: false, error: "empty-name", preset: null };
     const byId = snap.id && state.presets.find(p => p.id === snap.id);
     const byName = state.presets.find(p => p.name.toLowerCase() === name.toLowerCase());
     const existing = byId || byName;
-    if (!existing && state.presets.length >= 50) return null;
+    if (!existing && state.presets.length >= 50)
+      return { ok: false, error: "full", preset: null };
     const out = {
       id: existing ? existing.id : (typeof snap.id === "string" && snap.id
         ? snap.id : "s" + Date.now().toString(36)),
@@ -4597,10 +4620,14 @@ const TRK = (() => {
       dice: vDice(snap.dice),
       builder: vBuilderMeta(snap.builder),
     };
+    const prev = state.presets;
     if (existing) state.presets = state.presets.map(p => p.id === existing.id ? out : p);
-    else state.presets.push(out);
-    saveOrWarn(LS.presets, state.presets);
-    return out;
+    else state.presets = state.presets.concat(out);
+    if (!saveOrWarn(LS.presets, state.presets)){
+      state.presets = prev;
+      return { ok: false, error: "storage", preset: null };
+    }
+    return { ok: true, preset: out };
   }
   function loadPreset(id){
     const p = state.presets.find(x => x.id === id);
@@ -4755,12 +4782,15 @@ const TRK = (() => {
         w.hidden = false; w.textContent = "Preset list is full (50)."; return;
       }
       const submit = form.querySelector("[type=submit]");
+      const doSave = () => {
+        const res = savePreset(name);
+        if (res.ok) openPresetsOvl();
+      };
       if (state.presets.some(p => p.name.toLowerCase() === name.toLowerCase())){
-        confirmSwap(submit, "Overwrite " + name + "?", () => { savePreset(name); openPresetsOvl(); });
+        confirmSwap(submit, "Overwrite " + name + "?", doSave);
         return;
       }
-      savePreset(name);
-      openPresetsOvl();
+      doSave();
     };
     o.querySelector(".slist").addEventListener("click", e => {
       const row = e.target.closest(".prow"); if (!row) return;
@@ -5074,7 +5104,12 @@ const TRK = (() => {
     if (state.presets.length >= 50 && !state.presets.some(p => p.name.toLowerCase() === name.toLowerCase())){
       announce("Preset list is full (50)."); return;
     }
-    const go = () => { savePreset(name); if (window.refresh) refresh(); announce("Saved " + name); };
+    const go = () => {
+      const res = savePreset(name);
+      if (!res.ok) return;
+      if (window.refresh) refresh();
+      announce("Saved " + name);
+    };
     if (state.presets.some(p => p.name.toLowerCase() === name.toLowerCase()))
       confirmSwap(ev.target.querySelector("[type=submit]"), "Overwrite " + name + "?", go);
     else go();
@@ -5583,6 +5618,7 @@ const BUILD = (() => {
     return DND2014_KEYS.slice();
   }
   function threatLabel(k){
+    if (k === "none") return "None";
     return k.charAt(0).toUpperCase() + k.slice(1);
   }
 
@@ -5653,13 +5689,10 @@ const BUILD = (() => {
   }
   function dnd2024Classify(spent, partySize, partyLevel){
     const bands = DND2024_KEYS.map(k => ({ k, b: dnd2024Budget(k, partySize, partyLevel) }));
+    if (!(spent > 0)) return "none";
     let best = "low";
     for (const band of bands){
       if (spent >= band.b) best = band.k;
-    }
-    if (spent < bands[0].b){
-      // below Low — still label low if anything spent, else empty
-      return spent > 0 ? "low" : "low";
     }
     return best;
   }
@@ -6093,7 +6126,7 @@ const BUILD = (() => {
     if (!built.ok){ status(built.error, true); return; }
     if (!window.TRK){ status("Tracker unavailable.", true); return; }
     const go = () => {
-      const out = TRK.savePresetFull({
+      const res = TRK.savePresetFull({
         id: draft.editingPresetId,
         name: draft.name,
         enc: { name: draft.name, round: 0, activeId: null, seq: built.combatants.length,
@@ -6101,7 +6134,13 @@ const BUILD = (() => {
         dice: null,
         builder: builderMetaSnapshot(),
       });
-      if (!out){ status("Preset list is full (50).", true); return; }
+      if (!res || !res.ok){
+        status(res && res.error === "storage"
+          ? "Could not save — browser storage may be full."
+          : "Preset list is full (50).", true);
+        return;
+      }
+      const out = res.preset;
       draft.editingPresetId = out.id;
       saveDraft();
       syncBoardChip();
@@ -6388,7 +6427,8 @@ const BOARD = (() => {
     return "";
   }
 
-  function vCard(raw){
+  function vCard(raw, opts){
+    const live = !!(opts && opts.live);
     if (!raw || typeof raw !== "object") return null;
     let type = typeof raw.type === "string" ? raw.type : "";
     if (type === "clock") type = "counter";
@@ -6426,7 +6466,8 @@ const BOARD = (() => {
       card.expr = vStr(raw.expr, 40, "1d20") || "1d20";
       const hist = Array.isArray(raw.history) ? raw.history : [];
       card.history = [];
-      for (const h of hist.slice(0, MAX_DICE_HIST)){
+      const histCap = live ? hist.length : MAX_DICE_HIST;
+      for (const h of hist.slice(0, histCap)){
         if (!h || typeof h !== "object") continue;
         card.history.push({
           expr: vStr(h.expr, 40, ""),
@@ -6434,17 +6475,30 @@ const BOARD = (() => {
           detail: vStr(h.detail, 200, ""),
         });
       }
+      if (!live && card.history.length > MAX_DICE_HIST)
+        card.history = card.history.slice(0, MAX_DICE_HIST);
     } else if (type === "timer"){
       card.mode = raw.mode === "stopwatch" ? "stopwatch" : "countdown";
       card.durationSec = clamp(vInt(raw.durationSec, 300), 1, 86400);
-      card.baseMs = clamp(vInt(raw.baseMs, card.durationSec * 1000), 0, 86400000);
+      let baseMs = clamp(vInt(raw.baseMs, card.durationSec * 1000), 0, 86400000);
+      if (live && raw.running && typeof raw.startedAt === "number" && Number.isFinite(raw.startedAt)){
+        const now = Date.now();
+        if (card.mode === "stopwatch")
+          baseMs = clamp((raw.baseMs || 0) + (now - raw.startedAt), 0, 86400000);
+        else {
+          const base = raw.baseMs != null ? raw.baseMs : card.durationSec * 1000;
+          baseMs = clamp(Math.max(0, base - (now - raw.startedAt)), 0, 86400000);
+        }
+      }
+      card.baseMs = baseMs;
       card.running = false;
       card.startedAt = null;
       card.fired = !!raw.fired;
     } else if (type === "checklist"){
       const items = Array.isArray(raw.items) ? raw.items : [];
       card.items = [];
-      for (const it of items.slice(0, MAX_CHECKLIST)){
+      const itemCap = live ? items.length : MAX_CHECKLIST;
+      for (const it of items.slice(0, itemCap)){
         if (!it || typeof it !== "object") continue;
         card.items.push({
           id: (typeof it.id === "string" && it.id) ? it.id.slice(0, 64) : uid(),
@@ -6468,13 +6522,15 @@ const BOARD = (() => {
     return card;
   }
 
-  function vBoard(raw){
+  function vBoard(raw, opts){
+    const live = !!(opts && opts.live);
     if (!raw || typeof raw !== "object") return null;
     if (typeof raw.id !== "string" || !raw.id) return null;
     const cardsIn = Array.isArray(raw.cards) ? raw.cards : [];
     const cards = [];
-    for (const c of cardsIn.slice(0, MAX_BOARD_CARDS)){
-      const vc = vCard(c);
+    const cardCap = live ? cardsIn.length : MAX_BOARD_CARDS;
+    for (const c of cardsIn.slice(0, cardCap)){
+      const vc = vCard(c, opts);
       if (vc) cards.push(vc);
     }
     return {
@@ -6512,7 +6568,7 @@ const BOARD = (() => {
     try{
       const boards = [];
       for (const b of state.boards){
-        const vb = vBoard(b);
+        const vb = vBoard(b, { live: true });
         if (vb) boards.push(vb);
       }
       const payload = {
@@ -6585,6 +6641,7 @@ const BOARD = (() => {
     const size = document.getElementById("boardExpandSize");
     if (!overlay || !title || !body || !prev) return;
     title.value = card.title || "";
+    body.maxLength = MD_HARD;
     body.value = card.body || "";
     prev.innerHTML = markdownHtml(card);
     size.textContent = sizeLabel((card.body || "").length);
@@ -6601,7 +6658,12 @@ const BOARD = (() => {
       const card = active().cards.find(c => c.id === expandCardId);
       if (card){
         card.title = document.getElementById("boardExpandTitle").value;
-        card.body = document.getElementById("boardExpandBody").value;
+        const next = document.getElementById("boardExpandBody").value;
+        if (next.length > MD_HARD){
+          toast("Note is at the size limit");
+          return;
+        }
+        card.body = next;
         card._previewDirty = true;
         touch();
         refreshCard(card);
@@ -6638,7 +6700,12 @@ const BOARD = (() => {
   document.getElementById("boardExpandBody").oninput = () => {
     const card = expandCardId && active().cards.find(c => c.id === expandCardId);
     if (!card) return;
-    card.body = document.getElementById("boardExpandBody").value;
+    const ta = document.getElementById("boardExpandBody");
+    if (ta.value.length > MD_HARD){
+      ta.value = ta.value.slice(0, MD_HARD);
+      toast("Note is at the size limit");
+    }
+    card.body = ta.value;
     card._previewDirty = true;
     document.getElementById("boardExpandPrev").innerHTML = markdownHtml(card);
     document.getElementById("boardExpandSize").textContent = sizeLabel((card.body || "").length);
@@ -6661,6 +6728,10 @@ const BOARD = (() => {
   }
 
   document.getElementById("boardNew").onclick = () => {
+    if (state.boards.length >= MAX_BOARDS){
+      toast("Board limit reached (" + MAX_BOARDS + ").");
+      return;
+    }
     const b = { id: "board-" + uid(), title: "New session", updatedAt: Date.now(), cards: [] };
     state.boards.push(b);
     state.activeBoardId = b.id;
@@ -6668,12 +6739,20 @@ const BOARD = (() => {
     save(); render(); setBoardRailOpen(false); toast("Created empty board");
   };
   document.getElementById("boardDup").onclick = () => {
+    if (state.boards.length >= MAX_BOARDS){
+      toast("Board limit reached (" + MAX_BOARDS + ").");
+      return;
+    }
     const src = active();
     const copy = JSON.parse(JSON.stringify(src));
     copy.id = "board-" + uid();
     copy.title = src.title.replace(/\s*\(copy\)\s*$/,"") + " (copy)";
     copy.updatedAt = Date.now();
     copy.cards.forEach(c => { c.id = uid(); });
+    if (copy.cards.length > MAX_BOARD_CARDS){
+      toast("Board is full (" + MAX_BOARD_CARDS + " cards) — cannot duplicate.");
+      return;
+    }
     state.boards.push(copy);
     state.activeBoardId = copy.id;
     selectedId = null;
@@ -6742,6 +6821,10 @@ const BOARD = (() => {
 
   function addCard(type, extra){
     const b = active();
+    if (b.cards.length >= MAX_BOARD_CARDS){
+      toast("Board is full (" + MAX_BOARD_CARDS + " cards).");
+      return null;
+    }
     const base = {
       id: uid(), type,
       x: snap(stageWrap.scrollLeft + 48),
@@ -6985,9 +7068,14 @@ const BOARD = (() => {
     if (card.editing){
       const ta = document.createElement("textarea");
       ta.className = "md-edit";
+      ta.maxLength = MD_HARD;
       ta.value = card.body || "";
       ta.placeholder = "# Heading\n\nNotes…\n\n| A | B |\n| --- | --- |\n| 1 | 2 |";
       ta.oninput = () => {
+        if (ta.value.length > MD_HARD){
+          ta.value = ta.value.slice(0, MD_HARD);
+          toast("Note is at the size limit");
+        }
         card.body = ta.value;
         card._previewDirty = true;
         size.textContent = sizeLabel((card.body || "").length);
@@ -7527,7 +7615,11 @@ const BOARD = (() => {
     const commit = () => {
       const t = inp.value.trim();
       if (!t) return;
-      card.items.push({ id: uid(), text: t, done: false });
+      if (card.items.length >= MAX_CHECKLIST){
+        toast("Checklist is full (" + MAX_CHECKLIST + " items).");
+        return;
+      }
+      card.items.push({ id: uid(), text: t.slice(0, 200), done: false });
       inp.value = "";
       touch(); refreshCard(card);
     };
@@ -7549,8 +7641,16 @@ const BOARD = (() => {
     wrap.className = "rand";
     const ta = document.createElement("textarea");
     ta.value = card.lines || "";
+    ta.maxLength = MAX_RANDOM_LINES;
     ta.placeholder = "One entry per line…";
-    ta.oninput = () => { card.lines = ta.value; touch(); };
+    ta.oninput = () => {
+      if (ta.value.length > MAX_RANDOM_LINES){
+        ta.value = ta.value.slice(0, MAX_RANDOM_LINES);
+        toast("Random table is at the size limit");
+      }
+      card.lines = ta.value;
+      touch();
+    };
     ta.onclick = e => e.stopPropagation();
     wrap.appendChild(ta);
 
@@ -7854,7 +7954,7 @@ const BOARD = (() => {
   function getExport(){
     const boards = [];
     for (const b of state.boards){
-      const vb = vBoard(b);
+      const vb = vBoard(b, { live: true });
       if (vb) boards.push(vb);
     }
     return { activeBoardId: state.activeBoardId, boards };
@@ -7864,9 +7964,14 @@ const BOARD = (() => {
     if (!parts || !Array.isArray(parts.boards)) return { boardUpserts: 0, ok: true };
     const map = new Map(state.boards.map(b => [b.id, b]));
     let upserts = 0;
-    for (const raw of parts.boards.slice(0, MAX_BOARDS)){
+    let trimmed = 0;
+    const incoming = parts.boards;
+    if (incoming.length > MAX_BOARDS) trimmed += incoming.length - MAX_BOARDS;
+    for (const raw of incoming.slice(0, MAX_BOARDS)){
+      const before = Array.isArray(raw.cards) ? raw.cards.length : 0;
       const board = vBoard(raw);
-      if (!board) continue;
+      if (!board){ trimmed++; continue; }
+      if (before > board.cards.length) trimmed += before - board.cards.length;
       if (!map.has(board.id)) upserts++;
       map.set(board.id, board);
     }
@@ -7881,6 +7986,8 @@ const BOARD = (() => {
       for (const c of b.cards)
         if (c.z > zTop) zTop = c.z;
     const saved = save();
+    if (trimmed > 0)
+      toast("Import skipped or trimmed some Board content");
     if (activeMode){ refreshPicker(); render(); }
     return { boardUpserts: upserts, ok: saved };
   }

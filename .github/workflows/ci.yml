@@ -21,10 +21,13 @@ jobs:
         run: pip install 'jsonschema==4.23.0'
 
       - name: Verify Python syntax
-        run: python3 -m py_compile build_bundles.py convert_monsters.py convert_spells.py validate_schemas.py
+        run: python3 -m py_compile build_bundles.py convert_monsters.py convert_spells.py validate_schemas.py check_inline_scripts.py
 
       - name: Verify build artifacts are current
         run: python3 build_bundles.py --check
 
       - name: Validate bundles against JSON Schemas
         run: python3 validate_schemas.py
+
+      - name: Syntax-check inline app scripts
+        run: python3 check_inline_scripts.py

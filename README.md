@@ -359,7 +359,7 @@ Every monster has these 20 keys. Nothing more, nothing less.
 ```jsonc
 {
   "schema": "ttrpg-monster/0.2",
-  "id": "pf2e:b1:adult-green-dragon",     // system:book:slug — stable, unique
+  "id": "pf2e:b1:adult-green-dragon",     // system:book:slug — stable, unique across ALL bundles (monsters + spells)
   "name": "Adult Green Dragon",
   "gameSystem": "pf2e",                   // "dnd5e" | "pf2e"
   "variant": "b1",                        // which book/ruleset within the system
@@ -815,7 +815,10 @@ errors = [e.message for e in v.iter_errors(my_edited_record)]
 names repeat across books** — *Fireball* exists in four D&D sources, and there are five
 different Adult Green Dragons. That's 1,103 redundant spell records and 921 redundant
 monster records. **Always key on `id`**, and show `variant` in any UI, or your users will
-see a column of identical rows with no way to tell them apart.
+see a column of identical rows with no way to tell them apart. **`id` values must also be
+unique across monsters and spells together** — `validate_schemas.py` fails CI on any
+cross-bundle collision. (Historical: PF2e CRB *Unseen Servant* spell keeps
+`pf2e:crb:unseen-servant`; the Creature −1 is `pf2e:crb:unseen-servant-creature`.)
 
 **`challenge.value` is not comparable across systems.** CR 15 ≠ Creature 15. Branch on
 `kind`, or restrict to one system, or accept that any cross-system ranking is your

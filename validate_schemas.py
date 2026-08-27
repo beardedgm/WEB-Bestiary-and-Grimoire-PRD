@@ -38,6 +38,7 @@ def main() -> int:
     }
 
     errors = 0
+    seen_ids: dict[str, str] = {}
     for fname, kind in BUNDLES:
         path = os.path.join(ROOT, fname)
         if not os.path.isfile(path):
@@ -51,6 +52,23 @@ def main() -> int:
         validator = schemas[kind]
         for i, rec in enumerate(records):
             rid = rec.get("id") if isinstance(rec, dict) else None
+            if isinstance(rid, str) and rid:
+                prev = seen_ids.get(rid)
+                if prev is not None:
+                    errors += 1
+                    print(
+                        "duplicate id across bundles: %r in %s and %s"
+                        % (rid, prev, fname),
+                        file=sys.stderr,
+                    )
+                    if errors >= MAX_ERRORS:
+                        print(
+                            "… stopping after %d errors (more may exist)" % MAX_ERRORS,
+                            file=sys.stderr,
+                        )
+                        return 1
+                else:
+                    seen_ids[rid] = fname
             for err in validator.iter_errors(rec):
                 errors += 1
                 loc = "/".join(str(p) for p in err.absolute_path) or "(root)"
@@ -70,6 +88,7 @@ def main() -> int:
     if errors:
         return 1
     print("All bundle records validate against the published schemas.")
+    print("Global record ids unique across %d bundles (%d ids)." % (len(BUNDLES), len(seen_ids)))
     return 0
 
 
