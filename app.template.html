@@ -39,7 +39,11 @@ body{
   overflow:auto;
   -webkit-font-smoothing:antialiased;
 }
-:focus-visible{outline:2px solid var(--gilt); outline-offset:2px}
+:focus-visible{
+  outline:2px solid var(--ink);
+  outline-offset:2px;
+  box-shadow:0 0 0 4px color-mix(in srgb, var(--gilt) 48%, transparent);
+}
 ::selection{background:var(--select); color:var(--ink)}
 #side,#list,#pane-sheet,#spellpeek{scrollbar-color:var(--hair) transparent; scrollbar-width:thin}
 
@@ -94,7 +98,7 @@ body:not(.trk):not(.build) #resize-trk{display:none}
   font:16px/1.2 var(--sans);
 }
 #q::placeholder{color:var(--faint)}
-#q:focus{outline:none; border-color:var(--gilt); box-shadow:0 0 0 3px rgba(156,124,28,.18)}
+#q:focus{outline:none; border-color:var(--ink); box-shadow:0 0 0 3px color-mix(in srgb, var(--gilt) 48%, transparent)}
 #count{
   color:var(--dim); white-space:nowrap; align-self:flex-end;
   font:11.5px/1 var(--mono); letter-spacing:.03em; font-variant-numeric:tabular-nums;
@@ -449,11 +453,12 @@ kbd{
   #board .board-add button{min-height:44px}
 }
 @media (prefers-reduced-motion:reduce){
+  /* Targeted disables only — never a global animation-duration kill. */
   .sb{animation:none}
-  #filters > summary::before{transition:none}
-  .col-resize::after{transition:none}
+  #filters > summary::before,
+  #dice > summary::before,
+  .col-resize::after,
   .board-toast{transition:none}
-  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important}
 }
 
 /* ==== initiative tracker ==================================================
@@ -939,9 +944,14 @@ body.forge #lore{display:none !important}
 #lore .lore-rail h2{margin:0; font:600 15px/1.2 var(--serif); color:var(--ink)}
 #lore .lore-campaign-row{display:flex; flex-wrap:wrap; gap:6px; align-items:flex-end}
 #lore .lore-campaign-row label.grow{
-  flex:1; min-width:8em; display:flex; flex-direction:column; gap:3px;
+  flex:1 1 100%; min-width:0; display:flex; flex-direction:column; gap:3px;
   font:11px/1.2 var(--sans); color:var(--dim)
 }
+#lore .lore-campaign-row select{
+  min-width:0; max-width:100%;
+  text-overflow:ellipsis; overflow:hidden; white-space:nowrap
+}
+#lore .lore-campaign-row .chip{flex:none}
 #lore .lore-campaign-row select,
 #lore #loreCampTitle, #lore #loreQ, #lore #loreTitle, #lore #loreTags, #lore #loreBody{
   font:13px/1.3 var(--sans); color:var(--ink); background:var(--paper);
@@ -949,12 +959,43 @@ body.forge #lore{display:none !important}
 }
 #lore #loreCampTitle{flex-basis:100%}
 #lore #loreTree{display:flex; flex-direction:column; gap:2px; margin-top:4px}
-#lore .lore-tree-item{
-  display:block; width:100%; text-align:left; border:0; background:transparent;
-  font:13px/1.35 var(--serif); color:var(--ink); padding:6px 8px; border-radius:2px; cursor:pointer
+#lore .lore-tree-row{
+  position:relative; display:flex; align-items:stretch; gap:2px; min-width:0;
+  border-radius:2px
 }
-#lore .lore-tree-item:hover{background:color-mix(in srgb, var(--gilt) 12%, transparent)}
+#lore .lore-tree-row.drag{opacity:.45}
+#lore .lore-tree-row.drop-before::before,
+#lore .lore-tree-row.drop-after::after{
+  content:""; position:absolute; left:0; right:0; height:3px;
+  background:var(--gilt); pointer-events:none; z-index:1
+}
+#lore .lore-tree-row.drop-before::before{top:-2px}
+#lore .lore-tree-row.drop-after::after{bottom:-2px}
+#lore .lore-tree-row.drop-into{
+  box-shadow:inset 0 0 0 2px var(--gilt);
+  background:color-mix(in srgb, var(--gilt) 14%, var(--paper))
+}
+#lore .lore-tree-drag{
+  flex:none; width:14px; align-self:center; cursor:grab; color:var(--faint); user-select:none;
+  font:11px/1.2 var(--mono); text-align:center; letter-spacing:-1px; padding:4px 0
+}
+#lore .lore-tree-drag:hover{color:var(--dim)}
+#lore .lore-tree-drag:active{cursor:grabbing}
+#lore .lore-tree-drag[aria-disabled="true"]{cursor:default; opacity:.35}
+#lore .lore-tree-item{
+  flex:1; min-width:0; text-align:left; border:0; background:transparent;
+  font:13px/1.35 var(--serif); color:var(--ink); padding:6px 8px; border-radius:2px; cursor:pointer;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap
+}
+#lore .lore-tree-row:hover .lore-tree-item{background:color-mix(in srgb, var(--gilt) 12%, transparent)}
 #lore .lore-tree-item.on{background:color-mix(in srgb, var(--gilt) 22%, var(--paper)); font-weight:600}
+#lore .lore-tree-add{
+  flex:none; align-self:center; min-width:28px; min-height:28px; padding:0 6px;
+  border:1px solid var(--hair); border-radius:2px; background:var(--paper); color:var(--dim);
+  font:600 14px/1 var(--sans); cursor:pointer
+}
+#lore .lore-tree-add:hover{color:var(--ink); border-color:var(--gilt)}
+#lore .lore-tree-add:disabled{opacity:.4; cursor:not-allowed}
 #lore .lore-editor-bar{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:8px}
 #lore .lore-editor-bar #loreTitle{flex:1; min-width:10em; font:600 18px/1.2 var(--serif)}
 #lore .lore-fmt{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:8px 0 6px}
@@ -1278,6 +1319,21 @@ body.forge #lore{display:none !important}
   font:12px/1.3 var(--sans); opacity:0; pointer-events:none; transition:opacity .2s; z-index:50}
 .board-toast.show{opacity:1}
 
+#lore .lore-fmt-group{display:inline-flex; flex-wrap:wrap; gap:6px; align-items:center}
+#lore .lore-fmt-sep{
+  width:1px; align-self:stretch; min-height:1.6em; background:var(--hair); margin:0 2px; flex:none
+}
+#lore .lore-rail-toggle{
+  display:none; position:fixed; left:12px; bottom:max(12px, env(safe-area-inset-bottom, 0px));
+  z-index:42; padding:10px 14px; border:1px solid var(--hair); border-radius:2px;
+  background:var(--ink); color:var(--stone-3); font:600 13px/1.2 var(--sans); cursor:pointer;
+  box-shadow:0 8px 24px -10px rgba(36,33,28,.4)
+}
+#lore .lore-rail-scrim{
+  display:none; position:fixed; inset:0; z-index:40; border:0; padding:0;
+  background:rgba(36,33,28,.35); cursor:pointer
+}
+
 @media (max-width:760px){
   body.board #board{position:relative}
   body.board .board-rail-toggle{display:inline-flex; align-items:center; justify-content:center}
@@ -1293,6 +1349,23 @@ body.forge #lore{display:none !important}
   #board .board-empty{padding:18px 16px; font-size:16px; width:min(360px, calc(100% - 32px))}
   #boardExpand .panel-body{grid-template-columns:1fr}
   #boardExpand textarea{border-right:0; border-bottom:1px solid var(--vellum-edge); max-height:45%}
+
+  body.lore #lore{position:relative; flex-direction:column}
+  body.lore .lore-rail-toggle{display:inline-flex; align-items:center; justify-content:center}
+  body.lore .lore-rail{
+    display:none; position:fixed; left:0; right:0; bottom:0; width:100%; max-height:min(72vh, 640px);
+    z-index:41; border-right:0; border-top:1px solid var(--hair);
+    box-shadow:0 -10px 32px -12px rgba(36,33,28,.35);
+    padding-bottom:max(8px, env(safe-area-inset-bottom, 0px))}
+  body.lore.lore-rail-open .lore-rail{display:flex}
+  body.lore.lore-rail-open .lore-rail-scrim{display:block}
+  body.lore.lore-rail-open .lore-rail-toggle{display:none}
+  #lore .lore-main{padding:14px 14px 72px}
+  #lore .lore-editor-bar .chip,
+  #lore .lore-fmt .chip,
+  #lore .lore-page-ops .chip,
+  #lore #lorePageOps .chip,
+  #lore .lore-tree-add{min-height:44px; min-width:44px}
 }
 
 </style>
@@ -1601,7 +1674,8 @@ body.forge #lore{display:none !important}
 </section>
 
 <section id="lore" aria-label="Campaign lore" hidden>
-  <aside class="lore-rail" aria-label="Campaigns and pages">
+  <button type="button" class="lore-rail-scrim" id="loreRailScrim" aria-label="Close campaigns and pages" tabindex="-1"></button>
+  <aside class="lore-rail" id="loreRail" aria-label="Campaigns and pages">
     <h2>Lore</h2>
     <div class="lore-campaign-row">
       <label class="grow">Campaign
@@ -1614,7 +1688,7 @@ body.forge #lore{display:none !important}
     </div>
     <div class="frow" id="lorePageOps">
       <button type="button" class="chip" id="lorePageNew">New page</button>
-      <button type="button" class="chip" id="lorePageChild">New child</button>
+      <button type="button" class="chip" id="lorePageChild" title="Add a nested page under the selected page">New child</button>
     </div>
     <input id="loreQ" type="search" aria-label="Filter pages" placeholder="Filter pages…" autocomplete="off">
     <div class="frow" id="loreTagFilters" aria-label="Tag filters"></div>
@@ -1622,35 +1696,44 @@ body.forge #lore{display:none !important}
   </aside>
   <div class="lore-main">
     <div id="loreEmpty" class="lore-empty" hidden>
-      <p>No pages yet — create a page to start this campaign’s notebook.</p>
+      <p>Write notes, Preview read-aloud quotes, then Pin to tonight’s Board.</p>
       <button type="button" class="chip go" id="loreEmptyNew">New page</button>
     </div>
     <div id="loreEditor" hidden>
       <div class="lore-editor-bar">
         <input id="loreTitle" type="text" aria-label="Page title" maxlength="80">
         <button type="button" class="chip" id="lorePreviewToggle" aria-pressed="false">Preview</button>
-        <button type="button" class="chip" id="lorePin">Pin to Board</button>
+        <button type="button" class="chip go" id="lorePin">Pin to Board</button>
         <button type="button" class="chip" id="lorePageDel">Delete page</button>
       </div>
       <input id="loreTags" type="text" aria-label="Tags" placeholder="tags, comma, separated" autocomplete="off">
       <div class="lore-fmt" role="toolbar" aria-label="Markdown formatting" id="loreFmt">
-        <button type="button" class="chip" data-fmt="bold" title="Bold (Ctrl+B)">Bold</button>
-        <button type="button" class="chip" data-fmt="italic" title="Italic (Ctrl+I)">Italic</button>
-        <button type="button" class="chip" data-fmt="code" title="Inline code (Ctrl+E)">Code</button>
-        <button type="button" class="chip" data-fmt="h1" title="Heading 1">H1</button>
-        <button type="button" class="chip" data-fmt="h2" title="Heading 2">H2</button>
-        <button type="button" class="chip" data-fmt="h3" title="Heading 3">H3</button>
-        <button type="button" class="chip" data-fmt="ul" title="Bullet list">• List</button>
-        <button type="button" class="chip" data-fmt="ol" title="Numbered list">1. List</button>
-        <button type="button" class="chip" data-fmt="quote" title="Read-aloud quote">Quote</button>
-        <button type="button" class="chip" data-fmt="fence" title="Code / boxed block">Block</button>
-        <button type="button" class="chip" data-fmt="table" title="Insert table">Table</button>
+        <span class="lore-fmt-group" role="group" aria-label="Inline">
+          <button type="button" class="chip" data-fmt="bold" title="Bold (Ctrl+B)">Bold</button>
+          <button type="button" class="chip" data-fmt="italic" title="Italic (Ctrl+I)">Italic</button>
+          <button type="button" class="chip" data-fmt="code" title="Inline code (Ctrl+E)">Code</button>
+        </span>
+        <span class="lore-fmt-sep" aria-hidden="true"></span>
+        <span class="lore-fmt-group" role="group" aria-label="Block">
+          <button type="button" class="chip" data-fmt="h1" title="Heading 1">H1</button>
+          <button type="button" class="chip" data-fmt="h2" title="Heading 2">H2</button>
+          <button type="button" class="chip" data-fmt="h3" title="Heading 3">H3</button>
+          <button type="button" class="chip" data-fmt="ul" title="Bullet list">• List</button>
+          <button type="button" class="chip" data-fmt="ol" title="Numbered list">1. List</button>
+          <button type="button" class="chip" data-fmt="quote" title="Read-aloud quote for the table">Read-aloud</button>
+        </span>
+        <span class="lore-fmt-sep" aria-hidden="true"></span>
+        <span class="lore-fmt-group" role="group" aria-label="Insert">
+          <button type="button" class="chip" data-fmt="fence" title="Code / boxed block">Block</button>
+          <button type="button" class="chip" data-fmt="table" title="Insert table">Table</button>
+        </span>
       </div>
       <textarea id="loreBody" aria-label="Page markdown"></textarea>
       <div id="lorePreview" class="lore-preview md-view" hidden></div>
       <p id="loreSize" class="lore-hint" role="status"></p>
     </div>
   </div>
+  <button type="button" class="lore-rail-toggle" id="loreRailToggle" aria-expanded="false" aria-controls="loreRail">Campaigns &amp; pages</button>
 </section>
 
 </main>
@@ -3711,6 +3794,7 @@ const TRK = (() => {
 .pdtoast.show{transform:translateY(0);opacity:1}
 .pdtoast.nat20{color:#FBF6EA;background:${g("--olive")};border-color:rgba(242,241,237,.35)}
 .pdtoast.nat1{color:#FBF6EA;background:${brick};border-color:rgba(242,241,237,.35)}
+@media (prefers-reduced-motion:reduce){.pdtoast{transition:none}}
 .pddead{position:fixed;left:0;right:0;bottom:0;padding:10px;text-align:center;
   background:${brick};color:#FBF6EA;font:600 14px ${sans}}`;
   }
@@ -8319,8 +8403,7 @@ const LORE = (() => {
       localStorage.setItem(STORE, JSON.stringify(vLoreState(state)));
       return true;
     }catch(_){
-      if (typeof announceLive === "function")
-        announceLive("Could not save Lore — browser storage may be full.");
+      announce("Could not save Lore — browser storage may be full.");
       return false;
     }
   }
@@ -8374,10 +8457,24 @@ const LORE = (() => {
     active = !!on;
     const el = document.getElementById("lore");
     if (el) el.hidden = !active;
+    if (!active) setLoreRailOpen(false);
     if (active) renderAll();
   }
   function announce(msg){
+    if (!msg) return;
     if (typeof announceLive === "function") announceLive(msg);
+    const toastEl = document.getElementById("boardToast");
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(announce._t);
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    announce._t = setTimeout(() => toastEl.classList.remove("show"), reduced ? 4000 : 2200);
+  }
+  function setLoreRailOpen(open){
+    document.body.classList.toggle("lore-rail-open", !!open);
+    const toggle = document.getElementById("loreRailToggle");
+    if (toggle) toggle.setAttribute("aria-expanded", open ? "true" : "false");
   }
   function scheduleSave(){
     clearTimeout(saveTimer);
@@ -8408,6 +8505,173 @@ const LORE = (() => {
         || (p.body || "").toLowerCase().includes(ql);
     });
   }
+  function treeFilterActive(){
+    const nav = document.getElementById("loreTree");
+    const q = (document.getElementById("loreQ")?.value || "").trim();
+    const tag = nav?.dataset.tagFilter || "";
+    return !!(q || tag);
+  }
+  function pageById(camp, id){
+    return camp.pages.find(p => p.id === id) || null;
+  }
+  function isDescendant(camp, ancestorId, pageId){
+    if (!ancestorId || !pageId || ancestorId === pageId) return false;
+    const byId = new Map(camp.pages.map(p => [p.id, p]));
+    let cur = byId.get(pageId), guard = 0;
+    while (cur && cur.parentId && guard++ < 40){
+      if (cur.parentId === ancestorId) return true;
+      cur = byId.get(cur.parentId);
+    }
+    return false;
+  }
+  function siblingsOf(camp, parentId){
+    return camp.pages.filter(p => (p.parentId || null) === (parentId || null));
+  }
+  function insertPageBefore(camp, page, beforeId){
+    const from = camp.pages.indexOf(page);
+    if (from >= 0) camp.pages.splice(from, 1);
+    let to = beforeId ? camp.pages.findIndex(p => p.id === beforeId) : -1;
+    if (to < 0){
+      const sibs = siblingsOf(camp, page.parentId);
+      if (sibs.length){
+        const last = sibs[sibs.length - 1];
+        to = camp.pages.indexOf(last) + 1;
+      } else if (page.parentId){
+        const parent = pageById(camp, page.parentId);
+        to = parent ? camp.pages.indexOf(parent) + 1 : camp.pages.length;
+      } else {
+        to = camp.pages.length;
+      }
+    }
+    camp.pages.splice(to, 0, page);
+  }
+  function placeAsLastChild(camp, page, parentId){
+    const from = camp.pages.indexOf(page);
+    if (from >= 0) camp.pages.splice(from, 1);
+    page.parentId = parentId || null;
+    const kids = siblingsOf(camp, parentId);
+    let to;
+    if (kids.length){
+      to = camp.pages.indexOf(kids[kids.length - 1]) + 1;
+    } else if (parentId){
+      const parent = pageById(camp, parentId);
+      to = parent ? camp.pages.indexOf(parent) + 1 : camp.pages.length;
+    } else {
+      to = camp.pages.length;
+    }
+    camp.pages.splice(to, 0, page);
+  }
+  /** @returns {{ok:boolean, reason?:string}} */
+  function reorderPage(id, beforeId, newParentId){
+    const camp = activeCamp();
+    if (!camp) return { ok: false, reason: "No campaign" };
+    const page = pageById(camp, id);
+    if (!page) return { ok: false, reason: "Missing page" };
+    const parentId = newParentId === undefined ? (page.parentId || null) : (newParentId || null);
+    if (parentId === id) return { ok: false, reason: "Can’t nest a page under itself." };
+    if (parentId && isDescendant(camp, id, parentId))
+      return { ok: false, reason: "Can’t nest a page under its own child." };
+    if (parentId && !pageById(camp, parentId))
+      return { ok: false, reason: "Missing parent" };
+    if (beforeId && beforeId === id) return { ok: false, reason: "noop" };
+    if (beforeId && !pageById(camp, beforeId)) return { ok: false, reason: "Missing target" };
+    page.parentId = parentId;
+    insertPageBefore(camp, page, beforeId || null);
+    camp.updatedAt = Date.now();
+    save();
+    renderAll();
+    return { ok: true };
+  }
+  function moveSibling(id, delta){
+    const camp = activeCamp();
+    if (!camp) return false;
+    const page = pageById(camp, id);
+    if (!page) return false;
+    const sibs = siblingsOf(camp, page.parentId);
+    const i = sibs.findIndex(p => p.id === id);
+    const j = i + delta;
+    if (i < 0 || j < 0 || j >= sibs.length) return false;
+    const neighbor = sibs[j];
+    const beforeId = delta < 0 ? neighbor.id : (() => {
+      const after = sibs[j + 1];
+      return after ? after.id : null;
+    })();
+    const res = reorderPage(id, beforeId, page.parentId);
+    return res.ok;
+  }
+  function indentPage(id){
+    const camp = activeCamp();
+    if (!camp) return false;
+    const page = pageById(camp, id);
+    if (!page) return false;
+    const sibs = siblingsOf(camp, page.parentId);
+    const i = sibs.findIndex(p => p.id === id);
+    if (i <= 0) return false;
+    const prev = sibs[i - 1];
+    placeAsLastChild(camp, page, prev.id);
+    camp.updatedAt = Date.now();
+    save();
+    renderAll();
+    return true;
+  }
+  function outdentPage(id){
+    const camp = activeCamp();
+    if (!camp) return false;
+    const page = pageById(camp, id);
+    if (!page || !page.parentId) return false;
+    const parent = pageById(camp, page.parentId);
+    if (!parent) return false;
+    const newParent = parent.parentId || null;
+    const uncleSibs = siblingsOf(camp, newParent);
+    const pIdx = uncleSibs.findIndex(p => p.id === parent.id);
+    const nextUncle = pIdx >= 0 ? uncleSibs[pIdx + 1] : null;
+    const from = camp.pages.indexOf(page);
+    if (from >= 0) camp.pages.splice(from, 1);
+    page.parentId = newParent;
+    if (nextUncle){
+      const to = camp.pages.findIndex(p => p.id === nextUncle.id);
+      camp.pages.splice(to < 0 ? camp.pages.length : to, 0, page);
+    } else {
+      const pAt = camp.pages.indexOf(parent);
+      camp.pages.splice(pAt < 0 ? camp.pages.length : pAt + 1, 0, page);
+    }
+    camp.updatedAt = Date.now();
+    save();
+    renderAll();
+    return true;
+  }
+  function orderedVisible(camp, pages, byId, visibleIds){
+    const byParent = new Map();
+    for (const p of pages){
+      let pid = p.parentId || null;
+      if (pid && (!byId.has(pid) || !visibleIds.has(pid))) pid = null;
+      if (!byParent.has(pid)) byParent.set(pid, []);
+      byParent.get(pid).push(p);
+    }
+    const ordered = [];
+    const seen = new Set();
+    function walk(parentId){
+      const kids = byParent.get(parentId) || [];
+      for (const p of kids){
+        if (seen.has(p.id)) continue;
+        seen.add(p.id);
+        ordered.push(p);
+        walk(p.id);
+      }
+    }
+    walk(null);
+    for (const p of pages){
+      if (!seen.has(p.id)){
+        seen.add(p.id);
+        ordered.push(p);
+      }
+    }
+    return ordered;
+  }
+  function focusTreeItem(id){
+    const again = document.querySelector('#loreTree .lore-tree-row[data-id="' + id + '"] .lore-tree-item');
+    if (again) again.focus();
+  }
   function renderTree(){
     const nav = document.getElementById("loreTree");
     const camp = activeCamp();
@@ -8417,31 +8681,78 @@ const LORE = (() => {
     const pages = visiblePages(camp, q, tagFilter || null);
     const visibleIds = new Set(pages.map(p => p.id));
     const byId = new Map(camp.pages.map(p => [p.id, p]));
-    const ordered = [];
-    const placed = new Set();
-    let guard = 0;
-    while (ordered.length < pages.length && guard++ < pages.length + 5){
-      for (const p of pages){
-        if (placed.has(p.id)) continue;
-        if (!p.parentId || placed.has(p.parentId) || !byId.has(p.parentId) || !visibleIds.has(p.parentId)){
-          ordered.push(p);
-          placed.add(p.id);
-        }
-      }
-    }
+    const ordered = orderedVisible(camp, pages, byId, visibleIds);
+    const filtered = treeFilterActive();
+    const atCap = camp.pages.length >= MAX_PAGES;
     nav.innerHTML = "";
     for (const p of ordered){
+      const row = document.createElement("div");
+      row.className = "lore-tree-row";
+      row.dataset.id = p.id;
+      row.dataset.parentId = p.parentId || "";
+
+      const handle = document.createElement("span");
+      handle.className = "lore-tree-drag";
+      handle.textContent = "⋮⋮";
+      if (filtered){
+        handle.setAttribute("aria-disabled", "true");
+        handle.title = "Clear page filter to reorder";
+        handle.removeAttribute("draggable");
+      } else {
+        handle.draggable = true;
+        handle.setAttribute("aria-label", "Drag to reorder " + (p.title || "Untitled"));
+        handle.title = "Drag to reorder";
+      }
+
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "lore-tree-item" + (p.id === selectedPageId ? " on" : "");
+      if (p.id === selectedPageId) btn.setAttribute("aria-current", "page");
       btn.style.paddingLeft = (8 + depthOf(p, byId) * 14) + "px";
       btn.textContent = p.title || "Untitled";
+      btn.title = p.title || "Untitled";
       btn.onclick = () => {
         selectedPageId = p.id;
         previewing = false;
+        setLoreRailOpen(false);
         renderAll();
       };
-      nav.appendChild(btn);
+      btn.onkeydown = e => {
+        if (!e.altKey) return;
+        if (e.key === "ArrowUp" || e.key === "ArrowDown"){
+          e.preventDefault();
+          if (treeFilterActive()){ announce("Clear page filter to reorder."); return; }
+          moveSibling(p.id, e.key === "ArrowUp" ? -1 : 1);
+          focusTreeItem(p.id);
+        } else if (e.key === "ArrowRight"){
+          e.preventDefault();
+          if (treeFilterActive()){ announce("Clear page filter to reorder."); return; }
+          indentPage(p.id);
+          focusTreeItem(p.id);
+        } else if (e.key === "ArrowLeft"){
+          e.preventDefault();
+          if (treeFilterActive()){ announce("Clear page filter to reorder."); return; }
+          outdentPage(p.id);
+          focusTreeItem(p.id);
+        }
+      };
+
+      const add = document.createElement("button");
+      add.type = "button";
+      add.className = "lore-tree-add";
+      add.textContent = "+";
+      add.title = "Add child under \u201c" + (p.title || "Untitled") + "\u201d";
+      add.setAttribute("aria-label", "Add child under " + (p.title || "Untitled"));
+      add.disabled = atCap;
+      add.onclick = e => {
+        e.stopPropagation();
+        newPage(p.id);
+      };
+
+      row.appendChild(handle);
+      row.appendChild(btn);
+      row.appendChild(add);
+      nav.appendChild(row);
     }
   }
   function renderCampaigns(){
@@ -8454,9 +8765,12 @@ const LORE = (() => {
       const opt = document.createElement("option");
       opt.value = c.id;
       opt.textContent = c.title;
+      opt.title = c.title;
       pick.appendChild(opt);
     }
     pick.value = camp.id;
+    pick.title = camp.title;
+    pick.setAttribute("aria-label", "Active campaign: " + camp.title);
     if (title){
       title.value = camp.title;
       title.hidden = !renamingCampaign;
@@ -8630,6 +8944,18 @@ const LORE = (() => {
     document.getElementById("loreSize").textContent = sizeLabel(page.body.length);
     touch(page);
   }
+  function fmtButtons(fmt){
+    return [...fmt.querySelectorAll("[data-fmt]")];
+  }
+  function syncFmtRoving(fmt, active){
+    if (!fmt) return;
+    const btns = fmtButtons(fmt);
+    if (!btns.length) return;
+    let focusIdx = active ? btns.indexOf(active) : -1;
+    if (focusIdx < 0) focusIdx = btns.findIndex(b => b.tabIndex === 0);
+    if (focusIdx < 0) focusIdx = 0;
+    btns.forEach((b, i) => { b.tabIndex = i === focusIdx ? 0 : -1; });
+  }
   function applyFmt(kind){
     if (previewing || !selectedPageId) return;
     const body = document.getElementById("loreBody");
@@ -8662,8 +8988,8 @@ const LORE = (() => {
     editor.hidden = !page;
     const emptyText = empty.querySelector("p");
     if (emptyText) emptyText.textContent = camp && camp.pages.length
-      ? "Select a page from the tree, or create a new one."
-      : "No pages yet — create a page to start this campaign’s notebook.";
+      ? "Select a page from the tree, or create a new one. Preview read-aloud quotes, then Pin to tonight’s Board."
+      : "Write notes, Preview read-aloud quotes, then Pin to tonight’s Board.";
     const child = document.getElementById("lorePageChild");
     if (child) child.disabled = !page;
     if (!page) return;
@@ -8676,6 +9002,7 @@ const LORE = (() => {
     body.value = page.body || "";
     body.hidden = previewing;
     if (fmt) fmt.hidden = previewing;
+    if (fmt && !previewing) syncFmtRoving(fmt);
     view.hidden = !previewing;
     toggle.setAttribute("aria-pressed", String(previewing));
     toggle.textContent = previewing ? "Edit" : "Preview";
@@ -8746,6 +9073,10 @@ const LORE = (() => {
     renderAll();
   }
   function bind(){
+    const railToggle = document.getElementById("loreRailToggle");
+    const railScrim = document.getElementById("loreRailScrim");
+    if (railToggle) railToggle.onclick = () => setLoreRailOpen(true);
+    if (railScrim) railScrim.onclick = () => setLoreRailOpen(false);
     const campaign = document.getElementById("loreCampaign");
     campaign.onchange = () => {
       state.activeCampaignId = campaign.value;
@@ -8753,6 +9084,7 @@ const LORE = (() => {
       previewing = false;
       renamingCampaign = false;
       clearCampaignFilters();
+      setLoreRailOpen(false);
       save();
       renderAll();
     };
@@ -8869,11 +9201,41 @@ const LORE = (() => {
     });
     const fmt = document.getElementById("loreFmt");
     if (fmt){
+      syncFmtRoving(fmt);
+      fmt.addEventListener("focusin", e => {
+        const btn = e.target.closest("[data-fmt]");
+        if (btn && fmt.contains(btn)) syncFmtRoving(fmt, btn);
+      });
+      fmt.addEventListener("keydown", e => {
+        const btn = e.target.closest("[data-fmt]");
+        if (!btn || !fmt.contains(btn)) return;
+        const btns = fmtButtons(fmt);
+        const i = btns.indexOf(btn);
+        if (i < 0) return;
+        let next = -1;
+        if (e.key === "ArrowRight" || e.key === "ArrowDown"){
+          e.preventDefault();
+          next = (i + 1) % btns.length;
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp"){
+          e.preventDefault();
+          next = (i - 1 + btns.length) % btns.length;
+        } else if (e.key === "Home"){
+          e.preventDefault();
+          next = 0;
+        } else if (e.key === "End"){
+          e.preventDefault();
+          next = btns.length - 1;
+        }
+        if (next < 0) return;
+        syncFmtRoving(fmt, btns[next]);
+        btns[next].focus();
+      });
       fmt.addEventListener("click", e => {
         const btn = e.target.closest("[data-fmt]");
         if (!btn || !fmt.contains(btn)) return;
         e.preventDefault();
         applyFmt(btn.getAttribute("data-fmt"));
+        syncFmtRoving(fmt, btn);
       });
       fmt.addEventListener("mousedown", e => {
         if (e.target.closest("[data-fmt]")) e.preventDefault();
@@ -8888,21 +9250,139 @@ const LORE = (() => {
       const camp = activeCamp();
       if (!camp || !selectedPageId) return;
       if (!window.BOARD || !BOARD.addLorePage){
-        if (typeof announceLive === "function") announceLive("Board unavailable.");
+        announce("Board unavailable — open Board mode once, then try Pin again.");
         return;
       }
       const res = BOARD.addLorePage(camp.id, selectedPageId);
-      if (typeof announceLive === "function")
-        announceLive(res.ok
-          ? "Added to board: " + (res.name || "page")
-          : (res.error || "Couldn’t add to board."));
+      announce(res.ok
+        ? "Pinned to Board: " + (res.name || "page")
+        : (res.error || "Couldn’t pin to Board."));
     };
+
+    // Tree drag reorder / reparent (handle-only; keyboard is Alt+Arrow on title)
+    const tree = document.getElementById("loreTree");
+    let dragId = null, dropSlot = null; // { row, where: "before"|"after"|"into" }
+    function clearTreeDrop(){
+      tree.querySelectorAll(".drop-before,.drop-after,.drop-into").forEach(el => {
+        el.classList.remove("drop-before", "drop-after", "drop-into");
+      });
+      dropSlot = null;
+    }
+    function slotFromY(clientY){
+      const rows = [...tree.querySelectorAll(".lore-tree-row")];
+      if (!rows.length) return null;
+      for (const row of rows){
+        if (row.dataset.id === dragId) continue;
+        const r = row.getBoundingClientRect();
+        if (clientY < r.top || clientY > r.bottom) continue;
+        const y = clientY - r.top;
+        const h = r.height || 1;
+        if (y < h * 0.28) return { row, where: "before" };
+        if (y > h * 0.72) return { row, where: "after" };
+        return { row, where: "into" };
+      }
+      for (const row of rows){
+        if (row.dataset.id === dragId) continue;
+        const r = row.getBoundingClientRect();
+        if (clientY < r.top + r.height / 2) return { row, where: "before" };
+      }
+      const last = rows.filter(rw => rw.dataset.id !== dragId).pop() || rows[rows.length - 1];
+      return { row: last, where: "after" };
+    }
+    function markTreeDrop(slot){
+      if (!slot){ clearTreeDrop(); return; }
+      if (dropSlot && dropSlot.row === slot.row && dropSlot.where === slot.where) return;
+      clearTreeDrop();
+      slot.row.classList.add(
+        slot.where === "before" ? "drop-before"
+          : slot.where === "after" ? "drop-after" : "drop-into"
+      );
+      dropSlot = slot;
+    }
+    function applyTreeDrop(slot, id){
+      if (!slot || !id) return;
+      const camp = activeCamp();
+      if (!camp) return;
+      const targetId = slot.row.dataset.id;
+      const target = pageById(camp, targetId);
+      if (!target) return;
+      let res;
+      if (slot.where === "into"){
+        if (targetId === id || isDescendant(camp, id, targetId)){
+          announce("Can’t nest a page under its own child.");
+          return;
+        }
+        res = reorderPage(id, null, targetId);
+      } else {
+        const newParent = target.parentId || null;
+        if (newParent === id || (newParent && isDescendant(camp, id, newParent))){
+          announce("Can’t nest a page under its own child.");
+          return;
+        }
+        const beforeId = slot.where === "before"
+          ? targetId
+          : (() => {
+              const sibs = siblingsOf(camp, newParent).filter(p => p.id !== id);
+              const i = sibs.findIndex(p => p.id === targetId);
+              const next = i >= 0 ? sibs[i + 1] : null;
+              return next ? next.id : null;
+            })();
+        res = reorderPage(id, beforeId, newParent);
+      }
+      if (res && !res.ok && res.reason && res.reason !== "noop")
+        announce(res.reason);
+    }
+    tree.addEventListener("dragstart", e => {
+      const handle = e.target.closest(".lore-tree-drag");
+      if (!handle || handle.getAttribute("aria-disabled") === "true"){
+        e.preventDefault();
+        return;
+      }
+      if (treeFilterActive()){
+        e.preventDefault();
+        announce("Clear page filter to reorder.");
+        return;
+      }
+      const row = handle.closest(".lore-tree-row");
+      if (!row){ e.preventDefault(); return; }
+      dragId = row.dataset.id;
+      e.dataTransfer.setData("text/plain", dragId);
+      e.dataTransfer.effectAllowed = "move";
+      row.classList.add("drag");
+    });
+    tree.addEventListener("dragover", e => {
+      if (!dragId) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+      markTreeDrop(slotFromY(e.clientY));
+    });
+    tree.addEventListener("drop", e => {
+      if (!dragId) return;
+      e.preventDefault();
+      const slot = dropSlot;
+      const id = dragId;
+      clearTreeDrop();
+      tree.querySelectorAll(".lore-tree-row.drag").forEach(el => el.classList.remove("drag"));
+      applyTreeDrop(slot, id);
+      dragId = null;
+      focusTreeItem(id);
+    });
+    tree.addEventListener("dragend", () => {
+      clearTreeDrop();
+      dragId = null;
+      tree.querySelectorAll(".lore-tree-row.drag").forEach(el => el.classList.remove("drag"));
+    });
   }
   bind();
 
   return {
     setActive, getExport, applyUserSave, getPage,
-    _test: { vLoreState, vCampaign, vPage, seedLore, visiblePages, depthOf, wrapSel, prefixLine, setBlockPrefix, insertFence, insertTable, stripBlockPrefix, commitBody },
+    _test: {
+      vLoreState, vCampaign, vPage, seedLore, visiblePages, depthOf,
+      isDescendant, reorderPage, moveSibling, indentPage, outdentPage, siblingsOf,
+      wrapSel, prefixLine, setBlockPrefix, insertFence, insertTable, stripBlockPrefix,
+      commitBody, syncFmtRoving, fmtButtons
+    },
   };
 })();
 window.LORE = LORE;
