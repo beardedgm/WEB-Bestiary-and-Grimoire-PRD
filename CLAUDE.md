@@ -64,13 +64,14 @@ One HTML file, no framework, no dependencies. `app.template.html` holds sequenti
 |---|---|
 | 1 (`~1370–2930`) | Corpus load, custom library, portable save, filters/`SCALES`, search, stat-block + spell rendering, spell peek |
 | `TRK` | Initiative tracker, dice, party/presets, player display, undo ring, column resize, mode chrome |
+| `CAMPAIGN` | Campaign container: `bg.campaign.v1` (party, presets, lore pages, empty `maps[]`); header picker; one-shot migration from lore/party/presets; portable `campaigns` bag |
 | `BUILD` | Encounter Builder: draft `bg.builder.v1`, PF2e / 5e 2014 / 5e 2024 budgets, roster, Save/Load bridges |
 | `BOARD` | Session boards: markdown / image / audio / counter / dice / timer / checklist / random / record / encounter cards (`BOARD.addRecord` / `BOARD.addEncounter`; Send to Board from Library (Script 1 `addSendToBoard`), Table, Builder) |
 | `FORGE` | Creature forge: inlined 5e CR + PF2e level tables, dual-system forms, preview via `monsterHTML`, Save to Custom |
-| `LORE` | Campaign notebook: `bg.lore.v1` campaigns + nested markdown pages/tags, preview, Pin to Board, portable merge by campaign/page id |
+| `LORE` | Campaign notebook UI: pages for the active campaign (`CAMPAIGN`), nested tree/tags, preview, Pin to Board |
 
-**Module boundary.** `TRK`, `BUILD`, `BOARD`, `FORGE`, and `LORE` are IIFEs assigned to `window.TRK` /
-`window.BUILD` / `window.BOARD` / `window.FORGE` / `window.LORE` at the end of their block (`const` bindings don't become
+**Module boundary.** `TRK`, `CAMPAIGN`, `BUILD`, `BOARD`, `FORGE`, and `LORE` are IIFEs assigned to `window.TRK` /
+`window.CAMPAIGN` / `window.BUILD` / `window.BOARD` / `window.FORGE` / `window.LORE` at the end of their block (`const` bindings don't become
 window properties). Script 1 guards every cross-module call with `if (window.TRK)` /
 `if (window.BUILD)` so each block stays independently removable.
 Script 1 publishes `window.refresh`, `window.setSide`, `window.openSpellPeek`, etc. for the
@@ -86,10 +87,12 @@ treated as untrusted (hand-edited, older schema, truncated write): every read go
 `vCustomRecords`) that copies and clamps recognised fields and drops everything else. Follow
 that pattern for any new persisted state, and never re-sort arrays whose order carries user
 intent (combatant tie order). Keys: `bg.trk.{enc,party,presets,dice,ui,pd}.v1`,
-`bg.custom.records.v1`, `bg.board.v1`, `bg.builder.v1`, `bg.lore.v1`. Presets may include optional
-`builder` metadata (validated by `vBuilderMeta`). The portable export is `bg-user-save/1`,
-merged by id (local kept on conflict for non-encounter data; the encounter is replaced after
-confirmation).
+`bg.custom.records.v1`, `bg.board.v1`, `bg.builder.v1`, `bg.campaign.v1` (party / presets /
+lore pages / maps meta; migrates once from `bg.lore.v1` + `bg.trk.party.v1` +
+`bg.trk.presets.v1`). Presets may include optional `builder` metadata (validated by
+`vBuilderMeta`). The portable export is `bg-user-save/1`, merged by id (campaigns:
+incoming wins same id; local kept for other non-encounter bags; the encounter is replaced
+after confirmation).
 
 **Per-system rules live in one place.** `initModOf()` is the only place the initiative rule
 branches: PF2e rolls on Perception, 5e on DEX, except 2025-SRD monsters which print
