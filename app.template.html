@@ -64,6 +64,21 @@ header h1{
 header h1 .amp{color:var(--brick); font-variant:normal; font-style:italic; padding:0 1px}
 #header-actions{display:flex; align-items:center; gap:8px; flex-wrap:wrap; justify-content:flex-end}
 #mode{display:flex; flex-wrap:wrap; gap:5px}
+#hdrCamp{display:flex; flex-wrap:wrap; align-items:center; gap:5px; min-width:0}
+#hdrCamp .hdr-camp-label{
+  color:var(--dim); font:600 10px/1 var(--mono); text-transform:uppercase; letter-spacing:.08em;
+}
+#hdrCampaign{
+  max-width:min(220px, 42vw); min-width:0; padding:6px 8px; border-radius:var(--radius);
+  border:1px solid var(--hair); background:var(--paper); color:var(--ink);
+  font:13px/1.2 var(--sans);
+}
+#hdrCampaign:focus{outline:none; border-color:var(--ink); box-shadow:0 0 0 3px color-mix(in srgb, var(--gilt) 48%, transparent)}
+#hdrCampTitle{
+  max-width:min(220px, 42vw); min-width:7rem; padding:6px 8px; border-radius:var(--radius);
+  border:1px solid var(--hair); background:var(--paper); color:var(--ink);
+  font:13px/1.2 var(--sans);
+}
 #user-save{flex:none}
 main{flex:1; display:flex; min-height:0}
 
@@ -409,6 +424,8 @@ kbd{
     width:100%; justify-content:flex-start; max-width:100%;
   }
   #mode{min-width:0; max-width:100%}
+  #hdrCamp{min-width:0; max-width:100%}
+  #hdrCampaign,#hdrCampTitle{max-width:min(280px, 90vw)}
   main{flex-direction:column}
   #side{width:100%; border-right:none; border-bottom:1px solid var(--hair); max-height:46vh; overflow-y:auto}
   .col-resize{display:none !important}
@@ -940,22 +957,11 @@ body.forge #lore{display:none !important}
   flex:1; min-width:0; overflow:auto; padding:16px 18px 28px; background:var(--stone-2)
 }
 #lore .lore-rail h2{margin:0; font:600 15px/1.2 var(--serif); color:var(--ink)}
-#lore .lore-campaign-row{display:flex; flex-wrap:wrap; gap:6px; align-items:flex-end}
-#lore .lore-campaign-row label.grow{
-  flex:1 1 100%; min-width:0; display:flex; flex-direction:column; gap:3px;
-  font:11px/1.2 var(--sans); color:var(--dim)
-}
-#lore .lore-campaign-row select{
-  min-width:0; max-width:100%;
-  text-overflow:ellipsis; overflow:hidden; white-space:nowrap
-}
-#lore .lore-campaign-row .chip{flex:none}
-#lore .lore-campaign-row select,
-#lore #loreCampTitle, #lore #loreQ, #lore #loreTitle, #lore #loreTags, #lore #loreBody{
+.lore-camp-hint{margin:0 0 8px; color:var(--dim); font:12.5px/1.35 var(--sans)}
+#lore #loreQ, #lore #loreTitle, #lore #loreTags, #lore #loreBody{
   font:13px/1.3 var(--sans); color:var(--ink); background:var(--paper);
   border:1px solid var(--hair); border-radius:3px; padding:6px 8px; width:100%; box-sizing:border-box
 }
-#lore #loreCampTitle{flex-basis:100%}
 #lore #loreTree{display:flex; flex-direction:column; gap:2px; margin-top:4px}
 #lore .lore-tree-row{
   position:relative; display:flex; align-items:stretch; gap:2px; min-width:0;
@@ -1438,6 +1444,14 @@ body.forge #lore{display:none !important}
       <button type="button" id="m-forge" class="chip" aria-pressed="false">Forge</button>
       <button type="button" id="m-lore" class="chip" aria-pressed="false">Lore</button>
     </span>
+    <span id="hdrCamp" role="group" aria-label="Active campaign">
+      <label class="hdr-camp-label" for="hdrCampaign">Campaign</label>
+      <select id="hdrCampaign" aria-label="Active campaign"></select>
+      <button type="button" class="chip" id="hdrCampNew" title="New campaign">New</button>
+      <button type="button" class="chip" id="hdrCampRename" title="Rename campaign">Rename</button>
+      <button type="button" class="chip" id="hdrCampDel" title="Delete campaign">Delete</button>
+      <input id="hdrCampTitle" type="text" aria-label="Campaign title" maxlength="80" hidden>
+    </span>
     <button type="button" class="chip" id="user-save"
             title="Export or import portable save"
             aria-label="Export or import save file">Export</button>
@@ -1717,18 +1731,10 @@ body.forge #lore{display:none !important}
 </section>
 
 <section id="lore" aria-label="Campaign lore" hidden>
-  <button type="button" class="lore-rail-scrim" id="loreRailScrim" aria-label="Close campaigns and pages" tabindex="-1"></button>
-  <aside class="lore-rail" id="loreRail" aria-label="Campaigns and pages">
+  <button type="button" class="lore-rail-scrim" id="loreRailScrim" aria-label="Close pages" tabindex="-1"></button>
+  <aside class="lore-rail" id="loreRail" aria-label="Campaign pages">
     <h2>Lore</h2>
-    <div class="lore-campaign-row">
-      <label class="grow">Campaign
-        <select id="loreCampaign" aria-label="Active campaign"></select>
-      </label>
-      <button type="button" class="chip" id="loreCampNew" title="New campaign">New</button>
-      <button type="button" class="chip" id="loreCampRename" title="Rename campaign">Rename</button>
-      <button type="button" class="chip" id="loreCampDel" title="Delete campaign">Delete</button>
-      <input id="loreCampTitle" type="text" aria-label="Campaign title" maxlength="80" hidden>
-    </div>
+    <p class="lore-camp-hint" id="loreCampHint" hidden></p>
     <div class="frow" id="lorePageOps">
       <button type="button" class="chip" id="lorePageNew">New page</button>
       <button type="button" class="chip" id="lorePageChild" title="Add a nested page under the selected page">New child</button>
@@ -1776,7 +1782,7 @@ body.forge #lore{display:none !important}
       <p id="loreSize" class="lore-hint" role="status"></p>
     </div>
   </div>
-  <button type="button" class="lore-rail-toggle" id="loreRailToggle" aria-expanded="false" aria-controls="loreRail">Campaigns &amp; pages</button>
+  <button type="button" class="lore-rail-toggle" id="loreRailToggle" aria-expanded="false" aria-controls="loreRail">Pages</button>
 </section>
 
 </main>
@@ -2413,11 +2419,32 @@ function buildUserSave(){
     boards: null,
     activeBoardId: null,
     lore: null,
+    campaigns: null,
+    activeCampaignId: null,
   };
-  if (window.TRK){
+  if (window.CAMPAIGN && CAMPAIGN.getExport){
+    const c = CAMPAIGN.getExport();
+    bag.campaigns = c.campaigns;
+    bag.activeCampaignId = c.activeCampaignId;
+    const active = (c.campaigns || []).find(x => x.id === c.activeCampaignId) || (c.campaigns || [])[0];
+    if (active){
+      bag.party = JSON.parse(JSON.stringify(active.party || []));
+      bag.presets = JSON.parse(JSON.stringify(active.presets || []));
+      bag.lore = {
+        activeCampaignId: c.activeCampaignId,
+        campaigns: (c.campaigns || []).map(camp => ({
+          id: camp.id, title: camp.title, updatedAt: camp.updatedAt,
+          pages: (camp.lore && camp.lore.pages) || [],
+        })),
+      };
+    }
+  } else if (window.TRK){
     const s = TRK.state;
     bag.party = JSON.parse(JSON.stringify(s.party || []));
     bag.presets = JSON.parse(JSON.stringify(s.presets || []));
+  }
+  if (window.TRK){
+    const s = TRK.state;
     bag.enc = JSON.parse(JSON.stringify(s.enc || null));
     bag.dice = JSON.parse(JSON.stringify(s.dice || null));
     bag.ui = JSON.parse(JSON.stringify(s.ui || null));
@@ -2427,7 +2454,7 @@ function buildUserSave(){
     bag.boards = JSON.parse(JSON.stringify(b.boards || []));
     bag.activeBoardId = b.activeBoardId || null;
   }
-  if (window.LORE && LORE.getExport){
+  if (!bag.lore && window.LORE && LORE.getExport){
     bag.lore = LORE.getExport();
   }
   return bag;
@@ -2466,24 +2493,41 @@ function applyUserSaveBag(bag){
   mergeCustomsIntoData(mergedCustoms);
 
   let partyAdd = 0, presetAdd = 0, encReplaced = false, boardUpserts = 0, loreUpserts = 0;
+  let campaignUpserts = 0;
   let storageOk = true;
-  if (window.TRK && TRK.applyUserSave){
-    const stats = TRK.applyUserSave({
-      party: bag.party,
-      presets: bag.presets,
-      enc: bag.enc,
-      dice: bag.dice,
-      ui: bag.ui,
-    });
-    partyAdd = stats.partyAdd || 0;
-    presetAdd = stats.presetAdd || 0;
-    encReplaced = !!stats.encReplaced;
-    if (stats.ok === false) storageOk = false;
-  }
-  if (window.LORE && LORE.applyUserSave && bag.lore){
-    const st = LORE.applyUserSave(bag.lore);
-    loreUpserts = st.loreUpserts || 0;
+  if (window.CAMPAIGN && CAMPAIGN.applyUserSave && (bag.campaigns || bag.lore)){
+    const st = CAMPAIGN.applyUserSave(bag);
+    campaignUpserts = st.campaignUpserts || 0;
+    loreUpserts = campaignUpserts;
     if (st.ok === false) storageOk = false;
+    if (window.TRK && TRK.applyUserSave){
+      const stats = TRK.applyUserSave({
+        enc: bag.enc,
+        dice: bag.dice,
+        ui: bag.ui,
+      });
+      encReplaced = !!stats.encReplaced;
+      if (stats.ok === false) storageOk = false;
+    }
+  } else {
+    if (window.TRK && TRK.applyUserSave){
+      const stats = TRK.applyUserSave({
+        party: bag.party,
+        presets: bag.presets,
+        enc: bag.enc,
+        dice: bag.dice,
+        ui: bag.ui,
+      });
+      partyAdd = stats.partyAdd || 0;
+      presetAdd = stats.presetAdd || 0;
+      encReplaced = !!stats.encReplaced;
+      if (stats.ok === false) storageOk = false;
+    }
+    if (window.LORE && LORE.applyUserSave && bag.lore){
+      const st = LORE.applyUserSave(bag.lore);
+      loreUpserts = st.loreUpserts || 0;
+      if (st.ok === false) storageOk = false;
+    }
   }
   if (window.BOARD && BOARD.applyUserSave && Array.isArray(bag.boards)){
     const st = BOARD.applyUserSave({ boards: bag.boards, activeBoardId: bag.activeBoardId });
@@ -2496,11 +2540,12 @@ function applyUserSaveBag(bag){
   if (customUpserts) bits.push("+" + customUpserts + " custom");
   bits.push(mergedCustoms.length + " customs total");
   if (dropped) bits.push(dropped + " custom skipped (invalid)");
+  if (campaignUpserts) bits.push("+" + campaignUpserts + " campaigns");
   if (partyAdd) bits.push("+" + partyAdd + " party");
   if (presetAdd) bits.push("+" + presetAdd + " presets");
   if (encReplaced) bits.push("encounter replaced");
   if (boardUpserts) bits.push("+" + boardUpserts + " boards");
-  if (loreUpserts) bits.push("+" + loreUpserts + " lore");
+  if (loreUpserts && !campaignUpserts) bits.push("+" + loreUpserts + " lore");
   if (!storageOk)
     return { ok: false, message: "Import partially applied but browser storage failed — some changes may not persist. Free space and try again." };
   return { ok: true, message: bits.join(" · ") || "Save imported" };
@@ -3713,6 +3758,25 @@ const TRK = (() => {
     pd:      vPd(load(LS.pd, null)),
   };
 
+  /* Party/presets live on the active campaign once CAMPAIGN is loaded. */
+  function persistPartyPresets(){
+    if (window.CAMPAIGN && typeof CAMPAIGN.syncPartyPresets === "function")
+      return CAMPAIGN.syncPartyPresets(state.party, state.presets);
+    let ok = saveOrWarn(LS.party, state.party);
+    if (!saveOrWarn(LS.presets, state.presets)) ok = false;
+    return ok;
+  }
+  function persistParty(){
+    if (window.CAMPAIGN && typeof CAMPAIGN.syncPartyPresets === "function")
+      return CAMPAIGN.syncPartyPresets(state.party, state.presets);
+    return saveOrWarn(LS.party, state.party);
+  }
+  function persistPresets(){
+    if (window.CAMPAIGN && typeof CAMPAIGN.syncPartyPresets === "function")
+      return CAMPAIGN.syncPartyPresets(state.party, state.presets);
+    return saveOrWarn(LS.presets, state.presets);
+  }
+
   /* ---------------- shared helpers ---------------- */
   const announce = m => { const el = $("#trklive"); el.textContent = ""; el.textContent = m; };
   const byId = id => state.enc.combatants.find(c => c.id === id);
@@ -4534,7 +4598,7 @@ const TRK = (() => {
       } else if (e.target.closest("[data-pdel]")){
         confirmSwap(e.target.closest("[data-pdel]"), "Delete " + p.name + "?", () => {
           state.party = state.party.filter(x => x.id !== p.id);
-          saveOrWarn(LS.party, state.party);
+          persistParty();
           openPartyOvl();
           if (window.refresh) refresh();
         });
@@ -4562,7 +4626,7 @@ const TRK = (() => {
                   mod: Math.min(50, Math.max(-10, int(fd.get("mod"), 0))) };
       if (editing) state.party = state.party.map(x => x.id === editing.id ? m : x);
       else state.party.push(m);
-      saveOrWarn(LS.party, state.party);
+      persistParty();
       openPartyOvl();
       if (window.refresh) refresh();
     };
@@ -4597,7 +4661,7 @@ const TRK = (() => {
     const prev = state.presets;
     if (existing) state.presets = state.presets.map(p => p.id === existing.id ? snap : p);
     else state.presets = state.presets.concat(snap);
-    if (!saveOrWarn(LS.presets, state.presets)){
+    if (!persistPresets()){
       state.presets = prev;
       return { ok: false, created: false, preset: null };
     }
@@ -4623,7 +4687,7 @@ const TRK = (() => {
     const prev = state.presets;
     if (existing) state.presets = state.presets.map(p => p.id === existing.id ? out : p);
     else state.presets = state.presets.concat(out);
-    if (!saveOrWarn(LS.presets, state.presets)){
+    if (!persistPresets()){
       state.presets = prev;
       return { ok: false, error: "storage", preset: null };
     }
@@ -4802,7 +4866,7 @@ const TRK = (() => {
       } else if (e.target.closest("[data-sdel]")){
         confirmSwap(e.target.closest("[data-sdel]"), "Delete " + p.name + "?", () => {
           state.presets = state.presets.filter(x => x.id !== id);
-          saveOrWarn(LS.presets, state.presets);
+          persistPresets();
           openPresetsOvl();
         });
       }
@@ -5135,7 +5199,7 @@ const TRK = (() => {
         const p = state.party.find(x => x.id === row.dataset.id);
         confirmSwap(e.target.closest("[data-pdel]"), "Delete " + (p ? p.name : "") + "?", () => {
           state.party = state.party.filter(x => x.id !== row.dataset.id);
-          saveOrWarn(LS.party, state.party);
+          persistParty();
           if (window.refresh) refresh();
         });
         return;
@@ -5158,7 +5222,7 @@ const TRK = (() => {
         const p = state.presets.find(x => x.id === row.dataset.id);
         confirmSwap(e.target.closest("[data-sdel]"), "Delete " + (p ? p.name : "") + "?", () => {
           state.presets = state.presets.filter(x => x.id !== row.dataset.id);
-          saveOrWarn(LS.presets, state.presets);
+          persistPresets();
           if (window.refresh) refresh();
         });
         return;
@@ -5500,8 +5564,7 @@ const TRK = (() => {
       state.ui.diceOpen = u.diceOpen;
     }
     let storageOk = true;
-    if (!saveOrWarn(LS.party, state.party)) storageOk = false;
-    if (!saveOrWarn(LS.presets, state.presets)) storageOk = false;
+    if (!persistPartyPresets()) storageOk = false;
     if (!saveOrWarn(LS.enc, state.enc)) storageOk = false;
     if (!saveOrWarn(LS.dice, state.dice)) storageOk = false;
     if (!saveOrWarn(LS.ui, state.ui)) storageOk = false;
@@ -5533,6 +5596,421 @@ const TRK = (() => {
 /* const bindings don't become window properties; the start()/keydown hooks in
    the first script test window.TRK so they stay no-ops if this block is absent */
 window.TRK = TRK;
+</script>
+
+<script>
+"use strict";
+/* Campaign container: owns party, presets, lore pages, maps[] meta (phase 1). */
+const CAMPAIGN = (() => {
+  const STORE = "bg.campaign.v1";
+  const LEGACY_LORE = "bg.lore.v1";
+  const LEGACY_PARTY = "bg.trk.party.v1";
+  const LEGACY_PRESETS = "bg.trk.presets.v1";
+  const MAX_CAMPAIGNS = 20;
+  const MAX_PAGES = 200;
+  const MAX_TAGS = 24;
+  const MD_HARD = 120000;
+  const uid = () => "c" + Math.random().toString(36).slice(2, 10);
+  const vStr = (v, max, fb) => {
+    if (typeof v !== "string") return fb;
+    return v.length > max ? v.slice(0, max) : v;
+  };
+  function vParty(raw){
+    if (window.TRK && TRK._test && TRK._test.vParty) return TRK._test.vParty(raw);
+    return Array.isArray(raw) ? raw : [];
+  }
+  function vPresets(raw){
+    if (window.TRK && TRK._test && TRK._test.vPresets) return TRK._test.vPresets(raw);
+    return Array.isArray(raw) ? raw : [];
+  }
+  function vPage(raw, knownIds){
+    if (!raw || typeof raw !== "object") return null;
+    const id = (typeof raw.id === "string" && raw.id) ? raw.id.slice(0, 64) : ("page-" + uid());
+    let parentId = (typeof raw.parentId === "string" && raw.parentId) ? raw.parentId.slice(0, 64) : null;
+    if (parentId && knownIds && !knownIds.has(parentId)) parentId = null;
+    const tagsIn = Array.isArray(raw.tags) ? raw.tags : [];
+    const tags = [];
+    for (const t of tagsIn.slice(0, MAX_TAGS)){
+      if (typeof t !== "string") continue;
+      const s = t.trim().slice(0, 40);
+      if (s && !tags.includes(s)) tags.push(s);
+    }
+    return {
+      id,
+      title: vStr((typeof raw.title === "string" && raw.title.trim() ? raw.title.trim() : "Untitled"), 80, "Untitled"),
+      parentId, tags,
+      body: vStr(raw.body, MD_HARD, ""),
+      updatedAt: (typeof raw.updatedAt === "number" && Number.isFinite(raw.updatedAt))
+        ? raw.updatedAt : Date.now(),
+    };
+  }
+  function vPages(raw){
+    const pagesIn = Array.isArray(raw) ? raw : [];
+    const known = new Set();
+    for (const p of pagesIn.slice(0, MAX_PAGES))
+      if (p && typeof p.id === "string" && p.id) known.add(p.id.slice(0, 64));
+    const pages = [];
+    for (const p of pagesIn.slice(0, MAX_PAGES)){
+      const vp = vPage(p, known);
+      if (vp) pages.push(vp);
+    }
+    return pages;
+  }
+  function vMapMeta(raw){
+    if (!raw || typeof raw !== "object") return null;
+    if (typeof raw.id !== "string" || !raw.id) return null;
+    return {
+      id: raw.id.slice(0, 64),
+      name: vStr((typeof raw.name === "string" && raw.name.trim() ? raw.name.trim() : "Map"), 80, "Map"),
+      updatedAt: (typeof raw.updatedAt === "number" && Number.isFinite(raw.updatedAt))
+        ? raw.updatedAt : Date.now(),
+    };
+  }
+  function vCampaign(raw){
+    if (!raw || typeof raw !== "object") return null;
+    if (typeof raw.id !== "string" || !raw.id) return null;
+    const system = raw.system === "dnd5e" || raw.system === "pf2e" ? raw.system : null;
+    const loreRaw = raw.lore && typeof raw.lore === "object" ? raw.lore : null;
+    const pages = vPages(loreRaw ? loreRaw.pages : raw.pages);
+    const mapsIn = Array.isArray(raw.maps) ? raw.maps : [];
+    const maps = [];
+    for (const m of mapsIn.slice(0, 100)){
+      const vm = vMapMeta(m);
+      if (vm) maps.push(vm);
+    }
+    return {
+      id: raw.id.slice(0, 64),
+      title: vStr((typeof raw.title === "string" && raw.title.trim() ? raw.title.trim() : "My Campaign"), 80, "My Campaign"),
+      system,
+      updatedAt: (typeof raw.updatedAt === "number" && Number.isFinite(raw.updatedAt))
+        ? raw.updatedAt : Date.now(),
+      party: vParty(raw.party),
+      presets: vPresets(raw.presets),
+      lore: { pages },
+      maps,
+    };
+  }
+  function seedCampaigns(){
+    const id = "camp-" + uid();
+    return {
+      activeCampaignId: id,
+      campaigns: [{
+        id, title: "My Campaign", system: null, updatedAt: Date.now(),
+        party: [], presets: [], lore: { pages: [] }, maps: [],
+      }],
+    };
+  }
+  function vCampaignState(raw){
+    if (!raw || !Array.isArray(raw.campaigns) || !raw.campaigns.length) return seedCampaigns();
+    const campaigns = [];
+    for (const c of raw.campaigns.slice(0, MAX_CAMPAIGNS)){
+      const vc = vCampaign(c);
+      if (vc) campaigns.push(vc);
+    }
+    if (!campaigns.length) return seedCampaigns();
+    let activeCampaignId = typeof raw.activeCampaignId === "string"
+      ? raw.activeCampaignId : campaigns[0].id;
+    if (!campaigns.some(c => c.id === activeCampaignId)) activeCampaignId = campaigns[0].id;
+    return { activeCampaignId, campaigns };
+  }
+  function lsGet(key){
+    try{
+      const raw = localStorage.getItem(key);
+      if (!raw) return null;
+      return JSON.parse(raw);
+    }catch(_){ return null; }
+  }
+  function migrateFromLegacy(){
+    const lore = lsGet(LEGACY_LORE);
+    const party = vParty(lsGet(LEGACY_PARTY));
+    const presets = vPresets(lsGet(LEGACY_PRESETS));
+    if (lore && Array.isArray(lore.campaigns) && lore.campaigns.length){
+      const campaigns = [];
+      let activeId = typeof lore.activeCampaignId === "string" ? lore.activeCampaignId : null;
+      for (const lc of lore.campaigns.slice(0, MAX_CAMPAIGNS)){
+        if (!lc || typeof lc.id !== "string" || !lc.id) continue;
+        const isActive = lc.id === activeId || (!activeId && !campaigns.length);
+        campaigns.push({
+          id: lc.id.slice(0, 64),
+          title: vStr((lc.title && String(lc.title).trim()) || "Campaign", 80, "Campaign"),
+          system: null,
+          updatedAt: (typeof lc.updatedAt === "number" && Number.isFinite(lc.updatedAt))
+            ? lc.updatedAt : Date.now(),
+          party: isActive ? party : [],
+          presets: isActive ? presets : [],
+          lore: { pages: vPages(lc.pages) },
+          maps: [],
+        });
+      }
+      if (!campaigns.length) return seedCampaigns();
+      if (!activeId || !campaigns.some(c => c.id === activeId)) activeId = campaigns[0].id;
+      return { activeCampaignId: activeId, campaigns };
+    }
+    const id = "camp-" + uid();
+    return {
+      activeCampaignId: id,
+      campaigns: [{
+        id, title: "My Campaign", system: null, updatedAt: Date.now(),
+        party, presets, lore: { pages: [] }, maps: [],
+      }],
+    };
+  }
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORE);
+      if (raw) return vCampaignState(JSON.parse(raw));
+    }catch(_){}
+    const migrated = migrateFromLegacy();
+    try{ localStorage.setItem(STORE, JSON.stringify(vCampaignState(migrated))); }
+    catch(_){}
+    return vCampaignState(migrated);
+  }
+  let state = load();
+  function save(){
+    try{
+      localStorage.setItem(STORE, JSON.stringify(vCampaignState(state)));
+      return true;
+    }catch(_){
+      if (typeof announceLive === "function")
+        announceLive("Could not save campaign — browser storage may be full");
+      return false;
+    }
+  }
+  function active(){
+    return state.campaigns.find(c => c.id === state.activeCampaignId) || state.campaigns[0];
+  }
+  function syncTrkFromActive(){
+    if (!window.TRK) return;
+    const c = active();
+    if (!c) return;
+    TRK.state.party = JSON.parse(JSON.stringify(c.party || []));
+    TRK.state.presets = JSON.parse(JSON.stringify(c.presets || []));
+  }
+  function syncPartyPresets(party, presets){
+    const c = active();
+    if (!c) return false;
+    c.party = vParty(party);
+    c.presets = vPresets(presets);
+    c.updatedAt = Date.now();
+    return save();
+  }
+  function pushActiveToTrkAndRefresh(){
+    syncTrkFromActive();
+    if (window.TRK){
+      if (typeof TRK.renderTrk === "function") TRK.renderTrk();
+      if (window.refresh) refresh();
+      if (window.applySideChrome) applySideChrome();
+    }
+    if (window.LORE && typeof LORE.onCampaignChanged === "function")
+      LORE.onCampaignChanged();
+  }
+  function switchCampaign(id){
+    if (!state.campaigns.some(c => c.id === id)) return false;
+    const prev = active();
+    // flush current TRK mirrors into prev before switch
+    if (window.TRK && prev){
+      prev.party = vParty(TRK.state.party);
+      prev.presets = vPresets(TRK.state.presets);
+      prev.updatedAt = Date.now();
+    }
+    state.activeCampaignId = id;
+    const ok = save();
+    pushActiveToTrkAndRefresh();
+    const encN = window.TRK && TRK.state.enc && Array.isArray(TRK.state.enc.combatants)
+      ? TRK.state.enc.combatants.length : 0;
+    if (typeof announceLive === "function"){
+      announceLive(encN
+        ? "Switched campaign — party list updated; active encounter kept"
+        : "Switched campaign");
+    }
+    renderHeader();
+    return ok;
+  }
+  function newCampaign(){
+    if (state.campaigns.length >= MAX_CAMPAIGNS){
+      if (typeof announceLive === "function")
+        announceLive("Campaign limit reached (" + MAX_CAMPAIGNS + ")");
+      return null;
+    }
+    if (window.TRK){
+      const cur = active();
+      if (cur){
+        cur.party = vParty(TRK.state.party);
+        cur.presets = vPresets(TRK.state.presets);
+      }
+    }
+    const id = "camp-" + uid();
+    const camp = {
+      id, title: "Campaign " + (state.campaigns.length + 1), system: null,
+      updatedAt: Date.now(), party: [], presets: [], lore: { pages: [] }, maps: [],
+    };
+    state.campaigns.push(camp);
+    state.activeCampaignId = id;
+    save();
+    pushActiveToTrkAndRefresh();
+    renderHeader();
+    return camp;
+  }
+  function renameCampaign(title){
+    const c = active();
+    if (!c) return false;
+    c.title = vStr((title || "").trim() || "My Campaign", 80, "My Campaign");
+    c.updatedAt = Date.now();
+    const ok = save();
+    renderHeader();
+    if (window.LORE && typeof LORE.onCampaignChanged === "function") LORE.onCampaignChanged();
+    return ok;
+  }
+  function deleteCampaign(){
+    if (state.campaigns.length <= 1){
+      state = seedCampaigns();
+      save();
+      pushActiveToTrkAndRefresh();
+      renderHeader();
+      return true;
+    }
+    const id = state.activeCampaignId;
+    state.campaigns = state.campaigns.filter(c => c.id !== id);
+    state.activeCampaignId = state.campaigns[0].id;
+    save();
+    pushActiveToTrkAndRefresh();
+    renderHeader();
+    return true;
+  }
+  function saveActiveLorePages(pages){
+    const c = active();
+    if (!c) return false;
+    c.lore = { pages: vPages(pages) };
+    c.updatedAt = Date.now();
+    return save();
+  }
+  function touchActive(){
+    const c = active();
+    if (c) c.updatedAt = Date.now();
+    return save();
+  }
+  function getExport(){
+    return JSON.parse(JSON.stringify(vCampaignState(state)));
+  }
+  function applyUserSave(parts){
+    if (!parts) return { campaignUpserts: 0, ok: true };
+    // New format: campaigns bag
+    if (Array.isArray(parts.campaigns) && parts.campaigns.length){
+      const map = new Map(state.campaigns.map(c => [c.id, c]));
+      let upserts = 0;
+      for (const raw of parts.campaigns.slice(0, MAX_CAMPAIGNS)){
+        const incoming = vCampaign(raw);
+        if (!incoming) continue;
+        if (!map.has(incoming.id)) upserts++;
+        map.set(incoming.id, incoming);
+      }
+      state.campaigns = [...map.values()].slice(0, MAX_CAMPAIGNS);
+      if (typeof parts.activeCampaignId === "string"
+          && state.campaigns.some(c => c.id === parts.activeCampaignId))
+        state.activeCampaignId = parts.activeCampaignId;
+      else if (!state.campaigns.some(c => c.id === state.activeCampaignId))
+        state.activeCampaignId = state.campaigns[0].id;
+      const ok = save();
+      pushActiveToTrkAndRefresh();
+      renderHeader();
+      return { campaignUpserts: upserts, ok };
+    }
+    // Legacy: lore + party + presets
+    if (parts.lore && Array.isArray(parts.lore.campaigns)){
+      const fake = {
+        campaigns: (parts.lore.campaigns || []).map(lc => ({
+          id: lc.id,
+          title: lc.title,
+          updatedAt: lc.updatedAt,
+          pages: lc.pages,
+          party: parts.party,
+          presets: parts.presets,
+          maps: [],
+          system: null,
+          lore: { pages: lc.pages },
+        })),
+        activeCampaignId: parts.lore.activeCampaignId,
+      };
+      // Re-run through migrate-like attach: party/presets only on active
+      const migrated = { activeCampaignId: fake.activeCampaignId, campaigns: [] };
+      const party = vParty(parts.party);
+      const presets = vPresets(parts.presets);
+      for (const lc of parts.lore.campaigns.slice(0, MAX_CAMPAIGNS)){
+        if (!lc || typeof lc.id !== "string") continue;
+        const isActive = lc.id === parts.lore.activeCampaignId;
+        migrated.campaigns.push(vCampaign({
+          id: lc.id, title: lc.title, updatedAt: lc.updatedAt,
+          party: isActive ? party : [], presets: isActive ? presets : [],
+          lore: { pages: lc.pages }, maps: [],
+        }));
+      }
+      if (!migrated.campaigns.length) return { campaignUpserts: 0, ok: true };
+      return applyUserSave(migrated);
+    }
+    return { campaignUpserts: 0, ok: true };
+  }
+  function renderHeader(){
+    const pick = document.getElementById("hdrCampaign");
+    if (!pick) return;
+    const cur = state.activeCampaignId;
+    pick.innerHTML = state.campaigns.map(c =>
+      `<option value="${c.id.replace(/"/g, "&quot;")}"${c.id === cur ? " selected" : ""}>${
+        String(c.title || "Campaign").replace(/[&<>]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[ch]))
+      }</option>`).join("");
+  }
+  function bindHeader(){
+    const pick = document.getElementById("hdrCampaign");
+    const btnNew = document.getElementById("hdrCampNew");
+    const btnRen = document.getElementById("hdrCampRename");
+    const btnDel = document.getElementById("hdrCampDel");
+    const title = document.getElementById("hdrCampTitle");
+    if (pick) pick.onchange = () => switchCampaign(pick.value);
+    if (btnNew) btnNew.onclick = () => newCampaign();
+    if (btnRen) btnRen.onclick = () => {
+      if (!title) return;
+      const c = active();
+      title.hidden = false;
+      title.value = c ? c.title : "";
+      title.focus();
+      title.select();
+    };
+    if (title){
+      const commit = () => {
+        renameCampaign(title.value);
+        title.hidden = true;
+      };
+      title.onchange = commit;
+      title.onkeydown = e => {
+        if (e.key === "Enter"){ e.preventDefault(); commit(); }
+        else if (e.key === "Escape"){ e.preventDefault(); title.hidden = true; }
+      };
+    }
+    if (btnDel) btnDel.onclick = e => {
+      const c = active();
+      if (!c) return;
+      const go = () => deleteCampaign();
+      if (window.TRK && typeof TRK.confirmSwap === "function")
+        TRK.confirmSwap(e.currentTarget, "Delete “" + c.title + "”?", go);
+      else go();
+    };
+    renderHeader();
+  }
+
+  // Initial sync into TRK after both modules exist
+  syncTrkFromActive();
+  if (document.readyState === "loading")
+    document.addEventListener("DOMContentLoaded", bindHeader);
+  else bindHeader();
+
+  return {
+    STORE, MAX_CAMPAIGNS, state, active, save, switchCampaign, newCampaign,
+    renameCampaign, deleteCampaign, syncPartyPresets, syncTrkFromActive,
+    saveActiveLorePages, touchActive, getExport, applyUserSave, renderHeader,
+    bindHeader,
+    _test: { vCampaign, vCampaignState, vPages, migrateFromLegacy },
+  };
+})();
+window.CAMPAIGN = CAMPAIGN;
 </script>
 
 <script>
@@ -8550,7 +9028,21 @@ const LORE = (() => {
     if (!campaigns.some(c => c.id === activeCampaignId)) activeCampaignId = campaigns[0].id;
     return { activeCampaignId, campaigns };
   }
+  function pullStateFromCampaign(){
+    if (!window.CAMPAIGN || !CAMPAIGN.state) return seedLore();
+    const camps = CAMPAIGN.state.campaigns.map(c => ({
+      id: c.id,
+      title: c.title,
+      updatedAt: c.updatedAt,
+      pages: (c.lore && c.lore.pages) ? c.lore.pages : [],
+    }));
+    let activeCampaignId = CAMPAIGN.state.activeCampaignId;
+    if (!camps.some(c => c.id === activeCampaignId))
+      activeCampaignId = camps[0] ? camps[0].id : null;
+    return { activeCampaignId, campaigns: camps };
+  }
   function load(){
+    if (window.CAMPAIGN) return pullStateFromCampaign();
     try{
       const raw = localStorage.getItem(STORE);
       if (!raw) return seedLore();
@@ -8558,6 +9050,11 @@ const LORE = (() => {
     }catch(_){ return seedLore(); }
   }
   function save(){
+    if (window.CAMPAIGN && typeof CAMPAIGN.save === "function"){
+      const c = CAMPAIGN.active();
+      if (c) c.updatedAt = Date.now();
+      return CAMPAIGN.save();
+    }
     try{
       localStorage.setItem(STORE, JSON.stringify(vLoreState(state)));
       return true;
@@ -8573,6 +9070,14 @@ const LORE = (() => {
   let renamingCampaign = false;
   let saveTimer = null;
 
+  function onCampaignChanged(){
+    state = pullStateFromCampaign();
+    selectedPageId = null;
+    previewing = false;
+    renamingCampaign = false;
+    clearCampaignFilters();
+    if (active) renderAll();
+  }
   function activeCamp(){
     return state.campaigns.find(c => c.id === state.activeCampaignId) || state.campaigns[0];
   }
@@ -8584,8 +9089,26 @@ const LORE = (() => {
   function wantPreview(page){
     return !!(page && String(page.body || "").trim());
   }
-  function getExport(){ return JSON.parse(JSON.stringify(vLoreState(state))); }
+  function getExport(){
+    if (window.CAMPAIGN && CAMPAIGN.getExport){
+      const c = CAMPAIGN.getExport();
+      return {
+        activeCampaignId: c.activeCampaignId,
+        campaigns: (c.campaigns || []).map(camp => ({
+          id: camp.id, title: camp.title, updatedAt: camp.updatedAt,
+          pages: (camp.lore && camp.lore.pages) || [],
+        })),
+      };
+    }
+    return JSON.parse(JSON.stringify(vLoreState(state)));
+  }
   function applyUserSave(parts){
+    if (window.CAMPAIGN && CAMPAIGN.applyUserSave){
+      const st = CAMPAIGN.applyUserSave({ lore: parts });
+      state = pullStateFromCampaign();
+      if (active) renderAll();
+      return { loreUpserts: st.campaignUpserts || 0, ok: st.ok !== false };
+    }
     if (!parts || !Array.isArray(parts.campaigns)) return { loreUpserts: 0, ok: true };
     const map = new Map(state.campaigns.map(c => [c.id, c]));
     let upserts = 0;
@@ -8595,8 +9118,6 @@ const LORE = (() => {
       const local = map.get(incoming.id);
       if (!local){ map.set(incoming.id, incoming); upserts++; continue; }
       const pmap = new Map(local.pages.map(p => [p.id, p]));
-      for (const p of incoming.pages) if (!pmap.has(p.id)){ pmap.set(p.id, p); upserts++; }
-      // incoming overwrites same-id pages (portable import semantics: merge ids, prefer incoming body for shared ids — match boards' replace-same-id)
       for (const p of incoming.pages) pmap.set(p.id, p);
       map.set(incoming.id, {
         ...incoming,
@@ -8918,27 +9439,13 @@ const LORE = (() => {
     }
   }
   function renderCampaigns(){
-    const pick = document.getElementById("loreCampaign");
-    const title = document.getElementById("loreCampTitle");
+    const hint = document.getElementById("loreCampHint");
     const camp = activeCamp();
-    if (!pick || !camp) return;
-    pick.innerHTML = "";
-    for (const c of state.campaigns){
-      const opt = document.createElement("option");
-      opt.value = c.id;
-      opt.textContent = c.title;
-      opt.title = c.title;
-      pick.appendChild(opt);
-    }
-    pick.value = camp.id;
-    pick.title = camp.title;
-    pick.setAttribute("aria-label", "Active campaign: " + camp.title);
-    if (title){
-      title.value = camp.title;
-      title.hidden = !renamingCampaign;
-    }
-    const rename = document.getElementById("loreCampRename");
-    if (rename) rename.setAttribute("aria-pressed", String(renamingCampaign));
+    if (!hint) return;
+    if (!camp){ hint.hidden = true; return; }
+    hint.hidden = false;
+    hint.textContent = "Pages for “" + (camp.title || "Campaign") + "”";
+    hint.title = camp.title || "Campaign";
   }
   function campaignTags(camp){
     const tags = [];
@@ -9186,22 +9693,6 @@ const LORE = (() => {
     if (q) q.value = "";
     if (nav) delete nav.dataset.tagFilter;
   }
-  function newCampaign(){
-    if (state.campaigns.length >= MAX_CAMPAIGNS){
-      announce("Lore campaign limit reached (" + MAX_CAMPAIGNS + ").");
-      return;
-    }
-    const id = "camp-" + uid();
-    const n = state.campaigns.length + 1;
-    state.campaigns.push({ id, title: "Campaign " + n, updatedAt: Date.now(), pages: [] });
-    state.activeCampaignId = id;
-    selectedPageId = null;
-    previewing = false;
-    renamingCampaign = false;
-    clearCampaignFilters();
-    save();
-    renderAll();
-  }
   function newPage(parentId){
     const camp = activeCamp();
     if (!camp) return;
@@ -9223,74 +9714,11 @@ const LORE = (() => {
     const title = document.getElementById("loreTitle");
     if (title){ title.focus(); title.select(); }
   }
-  function commitCampaignTitle(){
-    if (!renamingCampaign) return;
-    const camp = activeCamp();
-    const input = document.getElementById("loreCampTitle");
-    if (!camp || !input) return;
-    camp.title = input.value.trim().slice(0, 80) || "Campaign";
-    camp.updatedAt = Date.now();
-    renamingCampaign = false;
-    save();
-    renderAll();
-  }
   function bind(){
     const railToggle = document.getElementById("loreRailToggle");
     const railScrim = document.getElementById("loreRailScrim");
     if (railToggle) railToggle.onclick = () => setLoreRailOpen(true);
     if (railScrim) railScrim.onclick = () => setLoreRailOpen(false);
-    const campaign = document.getElementById("loreCampaign");
-    campaign.onchange = () => {
-      state.activeCampaignId = campaign.value;
-      selectedPageId = null;
-      previewing = false;
-      renamingCampaign = false;
-      clearCampaignFilters();
-      setLoreRailOpen(false);
-      save();
-      renderAll();
-    };
-    document.getElementById("loreCampNew").onclick = newCampaign;
-    document.getElementById("loreCampRename").onclick = () => {
-      renamingCampaign = !renamingCampaign;
-      renderCampaigns();
-      if (renamingCampaign){
-        const input = document.getElementById("loreCampTitle");
-        input.focus();
-        input.select();
-      }
-    };
-    const campTitle = document.getElementById("loreCampTitle");
-    campTitle.onchange = commitCampaignTitle;
-    campTitle.onkeydown = e => {
-      if (e.key === "Enter"){
-        e.preventDefault();
-        commitCampaignTitle();
-      } else if (e.key === "Escape"){
-        e.preventDefault();
-        renamingCampaign = false;
-        renderCampaigns();
-        document.getElementById("loreCampRename").focus();
-      }
-    };
-    document.getElementById("loreCampDel").onclick = e => {
-      const camp = activeCamp();
-      if (!camp) return;
-      const go = () => {
-        state.campaigns = state.campaigns.filter(c => c.id !== camp.id);
-        if (!state.campaigns.length) state = seedLore();
-        else state.activeCampaignId = state.campaigns[0].id;
-        selectedPageId = null;
-        previewing = false;
-        renamingCampaign = false;
-        clearCampaignFilters();
-        save();
-        renderAll();
-      };
-      if (window.TRK && typeof TRK.confirmSwap === "function")
-        TRK.confirmSwap(e.currentTarget, "Delete “" + camp.title + "”?", go);
-      else announce("Delete unavailable.");
-    };
     document.getElementById("lorePageNew").onclick = () => newPage(null);
     document.getElementById("loreEmptyNew").onclick = () => newPage(null);
     document.getElementById("lorePageChild").onclick = () => newPage(selectedPageId);
@@ -9299,7 +9727,8 @@ const LORE = (() => {
       const pageId = selectedPageId;
       if (!camp || !pageId) return;
       const go = () => {
-        camp.pages = camp.pages.filter(page => page.id !== pageId);
+        for (let i = camp.pages.length - 1; i >= 0; i--)
+          if (camp.pages[i].id === pageId) camp.pages.splice(i, 1);
         for (const page of camp.pages) if (page.parentId === pageId) page.parentId = null;
         camp.updatedAt = Date.now();
         if (selectedPageId === pageId) selectedPageId = null;
@@ -9538,7 +9967,7 @@ const LORE = (() => {
   bind();
 
   return {
-    setActive, getExport, applyUserSave, getPage,
+    setActive, getExport, applyUserSave, getPage, onCampaignChanged,
     _test: {
       vLoreState, vCampaign, vPage, seedLore, visiblePages, depthOf,
       isDescendant, reorderPage, moveSibling, indentPage, outdentPage, siblingsOf,

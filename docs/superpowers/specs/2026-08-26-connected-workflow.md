@@ -40,15 +40,16 @@ knowledge base rots and users drift back to external note tools.
 |---|---|---|
 | **Library** | Reusable game content: corpus monsters/spells + customs, keyed by id | Campaign plot, session layout |
 | **Forge** | Creating custom content that lands in the Library | Editing content in place elsewhere |
-| **Builder** | Encounter drafts and difficulty budgets | Live combat state |
-| **Tracker** | Live encounter: initiative, HP, rounds, markers | Adventure text, long-term notes |
+| **Campaign** | Durable campaign bag (`bg.campaign.v1`): party, encounter presets, Lore pages, maps meta | Live initiative, Board layout, custom library |
+| **Builder** | Encounter drafts and difficulty budgets (Save writes presets into active campaign) | Live combat state |
+| **Tracker** | Live encounter: initiative, HP, rounds, markers (party/presets mirror active campaign) | Adventure text, long-term notes |
 | **Board** | Tonight's session surface — ephemeral, spatial, disposable | Being the permanent campaign archive |
-| **Lore** | Durable campaign truth: adventures, NPCs, locations, history, session logs | Live initiative, rules corpus |
-| **Export** | Portability — the user owns their files (`bg-user-save/1`) | Cloud identity, sync |
+| **Lore** | UI for durable campaign pages under the active Campaign | Campaign create/rename/delete (header picker); live initiative; rules corpus |
+| **Export** | Portability — the user owns their files (`bg-user-save/1`, includes `campaigns`) | Cloud identity, sync |
 
-The load-bearing sentence: **Lore is where the campaign lives; the Board is where tonight's
-game lives.** If the Board starts absorbing permanent campaign notes, or Lore grows session
-chrome, the ownership contract is broken.
+The load-bearing sentence: **Campaign is where durable prep lives (party, encounters, lore,
+maps); the Board is where tonight's game lives.** If the Board starts absorbing permanent
+campaign notes, or Lore grows session chrome, the ownership contract is broken.
 
 ## Integration contract
 
