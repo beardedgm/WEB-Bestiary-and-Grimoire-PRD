@@ -163,6 +163,7 @@ Density favors scanability at the table — monospace labels, tight chips, book-
 - Book-spine left accents on list rows and combatant cards (3px system color)
 - Chips as the universal control primitive (filters, modes, dice, actions)
 - Operate mode: task completion over decoration; brand lives in precise material choices
+- Motion is sparse and functional (stat-block enter, disclosure carets, column-resize cue, toasts); `prefers-reduced-motion` disables those transitions/animations individually — never a global `animation-duration` kill
 
 ## Colors
 
@@ -187,7 +188,7 @@ Warm neutrals on stone, system colors lifted from printed stat blocks.
 
 ### Named Rules
 
-**The Gilt Border Rule.** Gilt may outline, focus, or underline; it must not carry readable text smaller than large display type. Use `brick`, `olive`, or `ink` for labels users read at a glance.
+**The Gilt Border Rule.** Gilt may decorate borders, underlines, and the outer glow of focus rings; it must not carry readable text smaller than large display type. Focus rings pair an `ink` outline (contrast) with a soft gilt glow (brand). Use `brick`, `olive`, or `ink` for labels users read at a glance.
 
 **The Spine Rule.** List items and combatant cards mark game system with a 3px left border in `brick`, `olive`, or `gilt` (party). Selected rows preview their paper stock (`vellum` or `paper`).
 
@@ -232,11 +233,11 @@ Exclusive app modes via header chips: **Library** (`browse`), **Tracker** (`trac
 - **Builder chrome:** System / ruleset / party size+level / threat chips, live XP meter, roster with qty 1–20, Save to Encounters + Load into Tracker. Catalog is monsters-only for the draft system; Table → Encounters keeps Load + Builder open actions.
 - **Board:** Full-height `#board` shell replaces the three columns (rail + snap-grid stage). Leaving Board stops audio and freezes running timers. Library search is unavailable with `#side` (by design).
 - **Forge:** Full-bleed `#forge` shell (controls rail | live preview) with stone/paper tokens; system chips D&D 5e | Pathfinder; Apply benchmarks + Save to Custom. No Monster Forge leather/gold theme import.
-- **Lore:** Full-bleed `#lore` shell pairs a stone campaign/page rail with the main markdown editor/preview surface; nested pages remain visibly indented and tags filter the tree. The editor includes a chip format toolbar (`#loreFmt`, `role="toolbar"`) covering inline wraps (bold / italic / code), block prefixes (H1–H3, bullet / numbered lists, quote — toggle or swap without stacking), and inserts (fenced block, two-column table scaffold); Preview hides the toolbar and mirrors Board `.md-view` typography (including olive read-aloud blockquotes).
+- **Lore:** Full-bleed `#lore` shell pairs a stone campaign/page rail with the main markdown editor/preview surface; nested pages remain visibly indented and tags filter the tree. Each tree row is handle (`⋮⋮`) | title | **`+`** (add child under that row); drag uses Tracker-style gap lines (before/after) plus an into highlight to reparent, with Alt+↑/↓ among siblings and Alt+→/← indent/outdent; handles disable while a page filter or tag is active. The campaign picker sits on its own full-width rail row (New/Rename/Delete wrap below) with native `title` / live `aria-label` carrying the full campaign name when the closed `<select>` truncates. The editor includes a grouped chip format toolbar (`#loreFmt`, `role="toolbar"`) — inline | block | insert separators — covering bold / italic / code, H1–H3, bullet / numbered lists, **Read-aloud** quotes, fenced blocks, and a table scaffold; Preview hides the toolbar and mirrors Board `.md-view` typography (including olive read-aloud blockquotes). **Pin to Board** uses `chip.go`; Pin / save notices reuse the Board toast (`#boardToast`) plus the live region. At **≤760px**, the campaign rail collapses into a **Campaigns & pages** bottom sheet (scrim + sheet), matching Board’s mobile pattern; Lore chips (including tree `+`) use 44px min-height on coarse/narrow layouts.
 - Header: brand + mode chips + **Export** (`#user-save`, far right) for portable save export/import; library-list search (`#q` + `#count` in `#sidesearch`) sits under Catalog/Table nav, above Filters / Table bar — not inside Filters
 - Column defaults: side 340px, tracker/builder 380px; drag gutters 6px
-- Mobile breakpoint **760px**: stack Library/Tracker/Builder columns, hide resize handles; Board collapses the add rail into a **Cards & sessions** bottom sheet (scrim + sheet) so add/session actions stay reachable; Forge stacks rail above preview
-- Touch/coarse pointer: 44px minimum on tracker damage/heal/remove, catalog add, and Board card ops / primary card controls
+- Mobile breakpoint **760px**: stack Library/Tracker/Builder columns, hide resize handles; Board collapses the add rail into a **Cards & sessions** bottom sheet (scrim + sheet) so add/session actions stay reachable; Lore collapses the campaign rail into a **Campaigns & pages** bottom sheet; Forge stacks rail above preview
+- Touch/coarse pointer: 44px minimum on tracker damage/heal/remove, catalog add, Board card ops / primary card controls, and Lore editor / format / tree-add chips on the narrow breakpoint
 - Body scrolls when zoom or content exceeds viewport (`overflow: auto`)
 
 ## Elevation & Depth
@@ -272,7 +273,7 @@ Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes
 - **Default:** stone fill, dim text, hair border
 - **Selected:** ink fill, stone-3 text; system variants use brick/olive fill with `#FBF6EA` text
 - **Primary action (`go`):** brick fill
-- **Focus:** gilt border + soft gilt glow (box-shadow), never gilt text
+- **Focus:** dual ring — `ink` outline (AA non-text contrast) plus soft gilt outer glow; never gilt text or gilt-only rings on stone/paper
 
 ### List items
 
@@ -295,7 +296,7 @@ Snap-grid cards on the Board stage. Markdown notes use vellum stock; blockquotes
 
 ### Inputs
 
-- Paper or stone fill, hair border, gilt focus ring
+- Paper or stone fill, hair border; focus uses ink border + gilt glow (same dual-ring as chips)
 - Search field (`#q`) is the primary **library-column** input (Catalog monsters/spells and Table party/encounters); `/` focuses it; filter range selects use compact mono styling
 - Result count (`#count`) sits under the search field in `#sidesearch`
 
