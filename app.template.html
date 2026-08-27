@@ -957,11 +957,35 @@ body.forge #lore{display:none !important}
 #lore .lore-tree-item.on{background:color-mix(in srgb, var(--gilt) 22%, var(--paper)); font-weight:600}
 #lore .lore-editor-bar{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom:8px}
 #lore .lore-editor-bar #loreTitle{flex:1; min-width:10em; font:600 18px/1.2 var(--serif)}
+#lore .lore-fmt{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:8px 0 6px}
+#lore .lore-fmt[hidden]{display:none !important}
 #lore #loreBody{min-height:18em; resize:vertical; font:15px/1.5 var(--serif)}
 #lore .lore-preview{
   min-height:18em; padding:14px 16px; background:var(--paper); border:1px solid var(--hair);
-  border-radius:2px; font:15px/1.55 var(--serif)
+  border-radius:2px; font:15px/1.55 var(--serif); color:var(--ink)
 }
+#lore .lore-preview h1,#lore .lore-preview h2,#lore .lore-preview h3{
+  font-family:var(--serif); margin:.15em 0 .4em; line-height:1.2
+}
+#lore .lore-preview h1{font-size:1.4em}
+#lore .lore-preview h2{font-size:1.2em}
+#lore .lore-preview h3{font-size:1.08em}
+#lore .lore-preview p{margin:0 0 .7em}
+#lore .lore-preview ul,#lore .lore-preview ol{margin:0 0 .7em; padding-left:1.2em}
+#lore .lore-preview code{font:12px/1.4 var(--mono); background:var(--stone-2); padding:1px 4px; border-radius:2px}
+#lore .lore-preview pre{font:12px/1.45 var(--mono); background:var(--stone-2); padding:8px; overflow:auto; border-radius:2px}
+#lore .lore-preview blockquote{
+  margin:0 0 .7em; padding:8px 10px 8px 12px;
+  border-left:3px solid var(--olive);
+  background:color-mix(in srgb, var(--olive) 10%, var(--vellum));
+  color:var(--olive);
+  font:italic 15px/1.5 var(--serif)
+}
+#lore .lore-preview table{width:100%; border-collapse:collapse; margin:0 0 .7em; font:13px/1.4 var(--sans)}
+#lore .lore-preview th,#lore .lore-preview td{border:1px solid var(--hair); padding:6px 8px; vertical-align:top; text-align:left}
+#lore .lore-preview th{background:var(--stone-2); font-weight:600}
+#lore .lore-preview td.num,#lore .lore-preview th.num{text-align:right; font-variant-numeric:tabular-nums}
+#lore .lore-preview td.ctr,#lore .lore-preview th.ctr{text-align:center}
 #lore .lore-hint{margin:6px 0 0; font:12px/1.4 var(--sans); color:var(--dim)}
 #lore .lore-empty{max-width:28rem; margin:3rem auto; text-align:center; color:var(--dim)}
 #lore .lore-tagchip{font:11px/1 var(--sans)}
@@ -1609,6 +1633,19 @@ body.forge #lore{display:none !important}
         <button type="button" class="chip" id="lorePageDel">Delete page</button>
       </div>
       <input id="loreTags" type="text" aria-label="Tags" placeholder="tags, comma, separated" autocomplete="off">
+      <div class="lore-fmt" role="toolbar" aria-label="Markdown formatting" id="loreFmt">
+        <button type="button" class="chip" data-fmt="bold" title="Bold (Ctrl+B)">Bold</button>
+        <button type="button" class="chip" data-fmt="italic" title="Italic (Ctrl+I)">Italic</button>
+        <button type="button" class="chip" data-fmt="code" title="Inline code (Ctrl+E)">Code</button>
+        <button type="button" class="chip" data-fmt="h1" title="Heading 1">H1</button>
+        <button type="button" class="chip" data-fmt="h2" title="Heading 2">H2</button>
+        <button type="button" class="chip" data-fmt="h3" title="Heading 3">H3</button>
+        <button type="button" class="chip" data-fmt="ul" title="Bullet list">• List</button>
+        <button type="button" class="chip" data-fmt="ol" title="Numbered list">1. List</button>
+        <button type="button" class="chip" data-fmt="quote" title="Read-aloud quote">Quote</button>
+        <button type="button" class="chip" data-fmt="fence" title="Code / boxed block">Block</button>
+        <button type="button" class="chip" data-fmt="table" title="Insert table">Table</button>
+      </div>
       <textarea id="loreBody" aria-label="Page markdown"></textarea>
       <div id="lorePreview" class="lore-preview md-view" hidden></div>
       <p id="loreSize" class="lore-hint" role="status"></p>
@@ -8468,6 +8505,146 @@ const LORE = (() => {
     if (n >= MD_SOFT) return n + " chars · growing";
     return n + " chars";
   }
+  function commitBody(el, next, selStart, selEnd){
+    if (!el) return false;
+    if (next.length > MD_HARD){
+      announce("Page is at the size limit — formatting would cut text.");
+      return false;
+    }
+    el.value = next;
+    el.focus();
+    const a = Math.max(0, Math.min(selStart|0, next.length));
+    const b = Math.max(0, Math.min(selEnd|0, next.length));
+    el.setSelectionRange(a, b);
+    return true;
+  }
+  function wrapSel(el, before, after){
+    if (!el) return false;
+    const start = el.selectionStart|0;
+    const end = el.selectionEnd|0;
+    const val = el.value;
+    const selected = val.slice(start, end);
+    const next = val.slice(0, start) + before + selected + after + val.slice(end);
+    const innerStart = start + before.length;
+    const innerEnd = innerStart + selected.length;
+    return commitBody(el, next, innerStart, innerEnd);
+  }
+  const BLOCK_PREFIX_RE = /^(#{1,3}\s+|>\s+|[-*]\s+|\d+\.\s+)/;
+  function stripBlockPrefix(line){
+    return String(line || "").replace(BLOCK_PREFIX_RE, "");
+  }
+  function lineHasPrefix(line, kind){
+    if (kind === "h1") return /^#\s+/.test(line) && !/^##/.test(line);
+    if (kind === "h2") return /^##\s+/.test(line) && !/^###/.test(line);
+    if (kind === "h3") return /^###\s+/.test(line);
+    if (kind === "quote") return /^>\s?/.test(line);
+    if (kind === "ul") return /^[-*]\s+/.test(line);
+    if (kind === "ol") return /^\d+\.\s+/.test(line);
+    return false;
+  }
+  function prefixFor(kind, index){
+    if (kind === "h1") return "# ";
+    if (kind === "h2") return "## ";
+    if (kind === "h3") return "### ";
+    if (kind === "quote") return "> ";
+    if (kind === "ul") return "- ";
+    if (kind === "ol") return (index + 1) + ". ";
+    return "";
+  }
+  function setBlockPrefix(el, kind){
+    if (!el) return false;
+    const start = el.selectionStart|0;
+    const end = el.selectionEnd|0;
+    const val = el.value;
+    let effEnd = end;
+    if (effEnd > start && val[effEnd - 1] === "\n") effEnd--;
+    let lineStart = val.lastIndexOf("\n", start - 1) + 1;
+    let lineEnd = val.indexOf("\n", effEnd);
+    if (lineEnd < 0) lineEnd = val.length;
+    const block = val.slice(lineStart, lineEnd);
+    const lines = block.length || start !== end ? block.split("\n") : [""];
+    const allMatch = lines.every(line => lineHasPrefix(line, kind));
+    const out = lines.map((line, i) => {
+      const bare = stripBlockPrefix(line);
+      if (allMatch) return bare;
+      return prefixFor(kind, i) + bare;
+    }).join("\n");
+    const next = val.slice(0, lineStart) + out + val.slice(lineEnd);
+    return commitBody(el, next, lineStart, lineStart + out.length);
+  }
+  /** @deprecated kept as thin wrapper for LORE._test / callers expecting prefix string */
+  function prefixLine(el, prefix){
+    if (!el) return false;
+    if (prefix === "# ") return setBlockPrefix(el, "h1");
+    if (prefix === "## ") return setBlockPrefix(el, "h2");
+    if (prefix === "### ") return setBlockPrefix(el, "h3");
+    if (prefix === "> ") return setBlockPrefix(el, "quote");
+    if (prefix === "- " || prefix === "* ") return setBlockPrefix(el, "ul");
+    const start = el.selectionStart|0;
+    const end = el.selectionEnd|0;
+    const val = el.value;
+    let effEnd = end;
+    if (effEnd > start && val[effEnd - 1] === "\n") effEnd--;
+    let lineStart = val.lastIndexOf("\n", start - 1) + 1;
+    let lineEnd = val.indexOf("\n", effEnd);
+    if (lineEnd < 0) lineEnd = val.length;
+    const block = val.slice(lineStart, lineEnd);
+    const lines = block.split("\n");
+    const out = lines.map(line => line.startsWith(prefix) ? line : prefix + line).join("\n");
+    const next = val.slice(0, lineStart) + out + val.slice(lineEnd);
+    return commitBody(el, next, lineStart, lineStart + out.length);
+  }
+  function insertFence(el){
+    if (!el) return false;
+    const start = el.selectionStart|0;
+    const end = el.selectionEnd|0;
+    const val = el.value;
+    const selected = val.slice(start, end);
+    const before = (start > 0 && val[start - 1] !== "\n") ? "\n```\n" : "```\n";
+    let after = "\n```";
+    if (end < val.length && val[end] !== "\n") after += "\n";
+    const mid = selected || "";
+    const next = val.slice(0, start) + before + mid + after + val.slice(end);
+    const innerStart = start + before.length;
+    const innerEnd = innerStart + mid.length;
+    return commitBody(el, next, innerStart, innerEnd);
+  }
+  function insertTable(el){
+    if (!el) return false;
+    const start = el.selectionStart|0;
+    const val = el.value;
+    const scaffold = "| Name | Notes |\n| --- | --- |\n|  |  |";
+    const needLead = start > 0 && val[start - 1] !== "\n" ? "\n\n" : (start > 0 ? "\n" : "");
+    const needTrail = start < val.length && val[start] !== "\n" ? "\n" : "";
+    const insert = needLead + scaffold + needTrail;
+    const next = val.slice(0, start) + insert + val.slice(start);
+    const caret = start + needLead.length + "| Name | Notes |\n| --- | --- |\n| ".length;
+    return commitBody(el, next, caret, caret);
+  }
+  function syncBodyFromEditor(){
+    const body = document.getElementById("loreBody");
+    const page = getPage(state.activeCampaignId, selectedPageId);
+    if (!body || !page) return;
+    page.body = body.value.slice(0, MD_HARD);
+    if (body.value !== page.body) body.value = page.body;
+    document.getElementById("loreSize").textContent = sizeLabel(page.body.length);
+    touch(page);
+  }
+  function applyFmt(kind){
+    if (previewing || !selectedPageId) return;
+    const body = document.getElementById("loreBody");
+    if (!body) return;
+    let ok = false;
+    if (kind === "bold") ok = wrapSel(body, "**", "**");
+    else if (kind === "italic") ok = wrapSel(body, "*", "*");
+    else if (kind === "code") ok = wrapSel(body, "`", "`");
+    else if (kind === "h1" || kind === "h2" || kind === "h3" || kind === "ul" || kind === "ol" || kind === "quote")
+      ok = setBlockPrefix(body, kind);
+    else if (kind === "fence") ok = insertFence(body);
+    else if (kind === "table") ok = insertTable(body);
+    else return;
+    if (ok) syncBodyFromEditor();
+  }
   function renderPreview(page){
     const view = document.getElementById("lorePreview");
     if (!view) return;
@@ -8495,8 +8672,10 @@ const LORE = (() => {
     const body = document.getElementById("loreBody");
     const view = document.getElementById("lorePreview");
     const toggle = document.getElementById("lorePreviewToggle");
+    const fmt = document.getElementById("loreFmt");
     body.value = page.body || "";
     body.hidden = previewing;
+    if (fmt) fmt.hidden = previewing;
     view.hidden = !previewing;
     toggle.setAttribute("aria-pressed", String(previewing));
     toggle.textContent = previewing ? "Edit" : "Preview";
@@ -8679,6 +8858,27 @@ const LORE = (() => {
       document.getElementById("loreSize").textContent = sizeLabel(page.body.length);
       touch(page);
     };
+    body.addEventListener("keydown", e => {
+      if (previewing) return;
+      const mod = e.metaKey || e.ctrlKey;
+      if (!mod || e.altKey) return;
+      const k = e.key.toLowerCase();
+      if (k === "b"){ e.preventDefault(); applyFmt("bold"); }
+      else if (k === "i"){ e.preventDefault(); applyFmt("italic"); }
+      else if (k === "e"){ e.preventDefault(); applyFmt("code"); }
+    });
+    const fmt = document.getElementById("loreFmt");
+    if (fmt){
+      fmt.addEventListener("click", e => {
+        const btn = e.target.closest("[data-fmt]");
+        if (!btn || !fmt.contains(btn)) return;
+        e.preventDefault();
+        applyFmt(btn.getAttribute("data-fmt"));
+      });
+      fmt.addEventListener("mousedown", e => {
+        if (e.target.closest("[data-fmt]")) e.preventDefault();
+      });
+    }
     document.getElementById("lorePreviewToggle").onclick = () => {
       if (!selectedPageId) return;
       previewing = !previewing;
@@ -8702,7 +8902,7 @@ const LORE = (() => {
 
   return {
     setActive, getExport, applyUserSave, getPage,
-    _test: { vLoreState, vCampaign, vPage, seedLore, visiblePages, depthOf },
+    _test: { vLoreState, vCampaign, vPage, seedLore, visiblePages, depthOf, wrapSel, prefixLine, setBlockPrefix, insertFence, insertTable, stripBlockPrefix, commitBody },
   };
 })();
 window.LORE = LORE;
