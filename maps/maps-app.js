@@ -51,6 +51,22 @@
     yellow: { color: "#f0d78c", outlineColor: "#241f1c", outlineWidth: 3, outlineOpacity: 1 },
   };
 
+  const MEASURE_REF_HEX = 40;
+  function scaleForMap(basePx, settings) {
+    const base = basePx > 0 ? basePx : 1;
+    const hex = settings && settings.hexSize > 0 ? settings.hexSize : MEASURE_REF_HEX;
+    const scale = settings && settings.mapScale > 0 ? settings.mapScale : 100;
+    return Math.max(1, Math.round(base * (hex / MEASURE_REF_HEX) * (scale / 100)));
+  }
+  function measurementTotalLabel(hexCount, settings) {
+    if (hexCount <= 0) return "";
+    const segments = hexCount - 1;
+    if (segments <= 0) return hexCount + " hex";
+    const distance = segments * Number((settings && settings.hexDistanceValue) || 0);
+    const unit = ((settings && settings.hexDistanceUnit) || "").trim();
+    return segments + " hex · " + distance + (unit ? " " + unit : "");
+  }
+
   function announce(m) {
     if (typeof announceLive === "function") announceLive(m);
     else if (window.TRK && TRK._test) { /* noop */ }
@@ -548,6 +564,209 @@
       toast._t = setTimeout(() => { el.hidden = true; }, 2800);
     }
 
+    function updateMeasureDisplay() {
+      const el = $("mapsMeasureLive");
+      if (!el) return;
+      if (tool !== "measure" || !measurePath.length) {
+        el.hidden = true;
+        return;
+      }
+      const label = measurementTotalLabel(measurePath.length, state.settings);
+      el.textContent = label || (measurePath.length + " hex");
+      el.hidden = !label && measurePath.length < 1;
+    }
+
+    function cancelActiveMeasurement() {
+      if (!measurePath.length) return;
+      measurePath = [];
+      updateMeasureDisplay();
+      renderDraft();
+    }
+
+    function finalizeActiveMeasurement() {
+      if (!measurePath.length) return;
+      if (measurePath.length >= 2) {
+        pushUndo();
+        readToolSettingsLive();
+        state.measurements.push({
+          hexIds: measurePath.slice(), color: state.settings.measureColor, createdAt: Date.now(),
+        });
+        if (state.measurements.length > MAX_ANNOT) state.measurements.shift();
+        scheduleSave();
+        toast("Measurement saved");
+      }
+      measurePath = [];
+      updateMeasureDisplay();
+      renderAll();
+    }
+
+    function appendHexToMeasurement(hex) {
+      if (!hex) return;
+      if (!measurePath.length) {
+        measurePath = [hex.id];
+        updateMeasureDisplay();
+        renderAll();
+        return;
+      }
+      if (measurePath.includes(hex.id)) {
+        toast("Hex already in path");
+        return;
+      }
+      const last = grid.byId.get(measurePath[measurePath.length - 1]);
+      if (!last || !cellNeighbors(last, grid.byId, state.settings).some((n) => n.id === hex.id)) {
+        toast("Pick an adjacent hex");
+        return;
+      }
+      measurePath.push(hex.id);
+      updateMeasureDisplay();
+      renderAll();
+    }
+
+    function popLastMeasurementHex() {
+      if (!measurePath.length) return;
+      measurePath.pop();
+      if (!measurePath.length) cancelActiveMeasurement();
+      else { updateMeasureDisplay(); renderAll(); }
+    }
+
+    function paintMeasurementGraphics(PIXI, layer, hexIds, colorHex, alpha, selected, settings) {
+      if (!hexIds || !hexIds.length || !grid) return;
+      const points = [];
+      for (const id of hexIds) {
+        const h = grid.byId.get(id);
+        if (h) points.push(h);
+      }
+      if (!points.length) return;
+      const lineW = scaleForMap(selected ? 4 : 3, settings);
+      const dotR = scaleForMap(5, settings);
+      const g = new PIXI.Graphics();
+      if (points.length >= 2) {
+        g.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++) g.lineTo(points[i].x, points[i].y);
+        g.stroke({ width: lineW, color: colorHex, alpha, cap: "round", join: "round" });
+      }
+      for (const p of points) {
+        g.circle(p.x, p.y, dotR);
+        g.fill({ color: colorHex, alpha });
+        g.stroke({ width: 1, color: 0x241f1c, alpha: 0.6 });
+      }
+      layer.addChild(g);
+      const label = measurementTotalLabel(points.length, settings);
+      if (label) {
+        const last = points[points.length - 1];
+        const fontSize = scaleForMap(14, settings);
+        const off = scaleForMap(10, settings);
+        const tx = new PIXI.Text({
+          text: label,
+          style: new PIXI.TextStyle({
+            fontFamily: "IBM Plex Sans, sans-serif",
+            fontSize,
+            fill: "#ffffff",
+            fontWeight: "600",
+            stroke: { color: "#241f1c", width: Math.max(1, Math.round(fontSize * 0.15)) },
+          }),
+        });
+        tx.x = last.x + off;
+        tx.y = last.y - off;
+        layer.addChild(tx);
+      }
+    }
+
+    function clearSelectionTray() {
+      const toolSec = $("mapsToolSettings");
+      if (toolSec) {
+        delete toolSec.dataset.selectionKind;
+        delete toolSec.dataset.selectionShape;
+      }
+    }
+
+    function shapeTypeLabel(type) {
+      const labels = { rect: "Rectangle", circle: "Ellipse", arrow: "Arrow", line: "Line" };
+      return labels[type] || "Shape";
+    }
+
+    function syncSelectionFormFromObject() {
+      const kind = $("mapsToolSettings") && $("mapsToolSettings").dataset.selectionKind;
+      if (kind === "stroke" && selectedStroke >= 0 && state.strokes[selectedStroke]) {
+        const s = state.strokes[selectedStroke];
+        const set = (id, v) => { const el = $(id); if (el) el.value = v; };
+        set("mapsSelStrokeColor", s.color || state.settings.drawColor);
+        set("mapsSelStrokeThick", s.thickness || 3);
+        set("mapsSelStrokeOpacity", s.opacity ?? 1);
+        const strokePanel = $("mapsSelStrokePanel");
+        const shapePanel = $("mapsSelShapePanel");
+        if (strokePanel) strokePanel.hidden = false;
+        if (shapePanel) shapePanel.hidden = true;
+      } else if (kind === "shape" && selectedShape >= 0 && state.shapes[selectedShape]) {
+        const sh = state.shapes[selectedShape];
+        const set = (id, v) => { const el = $(id); if (el) el.value = v; };
+        set("mapsSelShapeColor", sh.color || state.settings.drawColor);
+        set("mapsSelShapeThick", sh.thickness || 3);
+        set("mapsSelShapeOpacity", sh.opacity ?? 1);
+        const fillOn = $("mapsSelShapeFillOn");
+        if (fillOn) fillOn.checked = !!sh.fill;
+        set("mapsSelShapeFillColor", sh.fill || sh.color || "#ff4444");
+        set("mapsSelShapeFillOpacity", sh.fillOpacity ?? 0.5);
+        const strokePanel = $("mapsSelStrokePanel");
+        const shapePanel = $("mapsSelShapePanel");
+        if (strokePanel) strokePanel.hidden = true;
+        if (shapePanel) shapePanel.hidden = false;
+        const fillRow = $("mapsSelShapeFillRow");
+        if (fillRow) fillRow.hidden = sh.type !== "rect" && sh.type !== "circle";
+        const toolSec = $("mapsToolSettings");
+        if (toolSec) toolSec.dataset.selectionShape = sh.type;
+      }
+    }
+
+    function readSelectionFormLive() {
+      const kind = $("mapsToolSettings") && $("mapsToolSettings").dataset.selectionKind;
+      if (kind === "stroke" && selectedStroke >= 0 && state.strokes[selectedStroke]) {
+        const s = state.strokes[selectedStroke];
+        const col = $("mapsSelStrokeColor");
+        if (col) s.color = col.value || s.color;
+        const th = $("mapsSelStrokeThick");
+        if (th) s.thickness = clamp(num(th.value, s.thickness), 1, 40);
+        const op = $("mapsSelStrokeOpacity");
+        if (op) s.opacity = clamp(num(op.value, s.opacity), 0, 1);
+        drawAnnotations();
+        scheduleSave();
+      } else if (kind === "shape" && selectedShape >= 0 && state.shapes[selectedShape]) {
+        const sh = state.shapes[selectedShape];
+        const col = $("mapsSelShapeColor");
+        if (col) sh.color = col.value || sh.color;
+        const th = $("mapsSelShapeThick");
+        if (th) sh.thickness = clamp(num(th.value, sh.thickness), 1, 40);
+        const op = $("mapsSelShapeOpacity");
+        if (op) sh.opacity = clamp(num(op.value, sh.opacity), 0, 1);
+        const fillOn = $("mapsSelShapeFillOn");
+        if (fillOn && fillOn.checked) {
+          const fc = $("mapsSelShapeFillColor");
+          sh.fill = fc ? (fc.value || sh.fill) : sh.fill;
+        } else if (fillOn) sh.fill = null;
+        const fo = $("mapsSelShapeFillOpacity");
+        if (fo) sh.fillOpacity = clamp(num(fo.value, sh.fillOpacity), 0, 1);
+        drawAnnotations();
+        scheduleSave();
+      }
+    }
+
+    function openSelectionTray(kind, index) {
+      const toolSec = $("mapsToolSettings");
+      const drawer = $("mapsDrawer");
+      if (!toolSec) return;
+      toolSec.dataset.selectionKind = kind;
+      toolSec.dataset.activeTool = "";
+      const hd = $("mapsDrawerToolHd");
+      if (hd) {
+        if (kind === "stroke") hd.textContent = "Brush stroke";
+        else if (kind === "shape" && state.shapes[index]) hd.textContent = shapeTypeLabel(state.shapes[index].type);
+        else hd.textContent = "Selection";
+      }
+      syncSelectionFormFromObject();
+      if (drawer) drawer.dataset.drawerView = "tool";
+      setDrawerOpen(true, "tool");
+    }
+
     function scheduleSave() {
       dirty = true;
       clearTimeout(saveTimer);
@@ -731,6 +950,7 @@
 
     function clearSelection() {
       selectedToken = selectedText = selectedMeasurement = selectedStroke = selectedShape = -1;
+      clearSelectionTray();
     }
 
     function selectKind(kind, index) {
@@ -742,6 +962,7 @@
       else if (kind === "shape") selectedShape = index;
       drawAnnotations();
       drawTokens();
+      if (tool === "pan" && (kind === "shape" || kind === "stroke")) openSelectionTray(kind, index);
     }
 
     function pickPanTarget(wx, wy) {
@@ -910,7 +1131,6 @@
     }
 
     function activeToolKey() {
-      if (tool === "reveal" || tool === "hide") return tool;
       if (tool === "brush") return "brush";
       if (tool === "shape") return shapeKind === "ellipse" ? "circle" : shapeKind;
       if (tool === "measure") return "measure";
@@ -989,6 +1209,10 @@
       if (dv) s.hexDistanceValue = clamp(num(dv.value, s.hexDistanceValue), 0.01, 1e6);
       const du = $("mapsDistUnit");
       if (du) s.hexDistanceUnit = (du.value || s.hexDistanceUnit).slice(0, 24);
+      if (tool === "measure") {
+        updateMeasureDisplay();
+        if (measurePath.length || state.measurements.length) renderAll();
+      }
       const fc = $("mapsFogColor");
       if (fc) s.fogColor = fc.value || s.fogColor;
       const fo = $("mapsFogOpacity");
@@ -1050,13 +1274,14 @@
       const drawer = $("mapsDrawer");
       const toolSec = $("mapsToolSettings");
       if (key) {
+        clearSelectionTray();
         drawerView = "tool";
         if (drawer) drawer.dataset.drawerView = "tool";
         if (toolSec) toolSec.dataset.activeTool = key;
         const hd = $("mapsDrawerToolHd");
         if (hd) hd.textContent = toolLabel(key);
         setDrawerOpen(true, "tool");
-      } else if (drawer && drawer.dataset.drawerView === "tool") {
+      } else if (drawer && drawer.dataset.drawerView === "tool" && !(toolSec && toolSec.dataset.selectionKind)) {
         if (toolSec) toolSec.dataset.activeTool = "";
         setDrawerOpen(false);
       }
@@ -1165,6 +1390,30 @@
       selectKind("text", index);
       pushUndo();
       drag = { kind: "text", index, ox: wx - t.x, oy: wy - t.y };
+      return true;
+    }
+
+    function startShapeDrag(index, wx, wy) {
+      const sh = state.shapes[index];
+      if (!sh) return false;
+      selectKind("shape", index);
+      pushUndo();
+      drag = {
+        kind: "shapeMove", index, sx: wx, sy: wy,
+        ox1: sh.x1, oy1: sh.y1, ox2: sh.x2, oy2: sh.y2,
+      };
+      return true;
+    }
+
+    function startStrokeDrag(index, wx, wy) {
+      const s = state.strokes[index];
+      if (!s || !s.points.length) return false;
+      selectKind("stroke", index);
+      pushUndo();
+      drag = {
+        kind: "strokeMove", index, sx: wx, sy: wy,
+        origPts: s.points.map((p) => [p[0], p[1]]),
+      };
       return true;
     }
 
@@ -1379,18 +1628,8 @@
       }
       for (let mi = 0; mi < state.measurements.length; mi++) {
         const m = state.measurements[mi];
-        const g = new PIXI.Graphics();
         const col = selectedMeasurement === mi ? 0xf0d78c : hexToRgb(m.color || state.settings.measureColor);
-        const lw = selectedMeasurement === mi ? 5 : 3;
-        let first = true;
-        for (const id of m.hexIds) {
-          const h = grid && grid.byId.get(id);
-          if (!h) continue;
-          if (first) { g.moveTo(h.x, h.y); first = false; }
-          else g.lineTo(h.x, h.y);
-        }
-        g.stroke({ width: lw, color: col, alpha: 0.95 });
-        layers.annot.addChild(g);
+        paintMeasurementGraphics(PIXI, layers.annot, m.hexIds, col, 0.95, selectedMeasurement === mi, state.settings);
       }
     }
 
@@ -1470,18 +1709,8 @@
         layers.draft.addChild(g);
       }
       if (measurePath.length) {
-        const g = new PIXI.Graphics();
         const col = hexToRgb(state.settings.measureColor);
-        let first = true;
-        for (const id of measurePath) {
-          const h = grid.byId.get(id);
-          if (!h) continue;
-          if (first) { g.moveTo(h.x, h.y); first = false; }
-          else g.lineTo(h.x, h.y);
-          g.circle(h.x, h.y, 4); g.fill({ color: col });
-        }
-        g.stroke({ width: 2, color: col, alpha: 0.8 });
-        layers.draft.addChild(g);
+        paintMeasurementGraphics(PIXI, layers.draft, measurePath, col, 0.7, false, state.settings);
       }
     }
 
@@ -1762,12 +1991,16 @@
     }
 
     function setTool(t) {
+      if (tool === "measure" && t !== "measure") finalizeActiveMeasurement();
+      else if (t !== "measure") measurePath = [];
+      if (t === "measure" && tool !== "measure") measurePath = [];
       tool = t;
-      measurePath = [];
       strokePts = null;
       shapeDraft = null;
+      if (t !== "pan") clearSelectionTray();
       syncToolChrome();
       syncDrawerContext();
+      updateMeasureDisplay();
       renderDraft();
     }
 
@@ -1887,6 +2120,8 @@
           if (hit) {
             if (hit.kind === "text" && startTextDrag(hit.index, w.x, w.y)) return;
             if (hit.kind === "token" && startTokenDrag(hit.index)) return;
+            if (hit.kind === "shape" && startShapeDrag(hit.index, w.x, w.y)) return;
+            if (hit.kind === "stroke" && startStrokeDrag(hit.index, w.x, w.y)) return;
             selectKind(hit.kind, hit.index);
             return;
           }
@@ -1918,23 +2153,15 @@
           scheduleSave();
           if (!tokenMultiPlace) openTokenEditor(selectedToken);
         } else if (tool === "measure") {
+          if (e.button === 2) {
+            e.preventDefault();
+            finalizeActiveMeasurement();
+            return;
+          }
+          if (e.button !== 0) return;
           const h = findCellAt(w.x, w.y, grid);
           if (!h) return;
-          if (!measurePath.length) measurePath = [h.id];
-          else {
-            const last = grid.byId.get(measurePath[measurePath.length - 1]);
-            const neigh = cellNeighbors(last, grid.byId, state.settings).some((n) => n.id === h.id);
-            if (neigh && !measurePath.includes(h.id)) measurePath.push(h.id);
-            else if (measurePath[measurePath.length - 1] === h.id && measurePath.length >= 2) {
-              pushUndo();
-              readToolSettingsLive();
-              state.measurements.push({ hexIds: measurePath.slice(), color: state.settings.measureColor, createdAt: Date.now() });
-              if (state.measurements.length > MAX_ANNOT) state.measurements.shift();
-              measurePath = [];
-              scheduleSave();
-            }
-          }
-          renderAll();
+          appendHexToMeasurement(h);
         } else if (tool === "text") {
           if (hitText >= 0 && startTextDrag(hitText, w.x, w.y)) return;
           pendingText = { x: w.x, y: w.y };
@@ -1998,6 +2225,21 @@
             sh.x1 = mod.x1; sh.y1 = mod.y1; sh.x2 = mod.x2; sh.y2 = mod.y2;
             drawAnnotations();
           }
+        } else if (drag.kind === "shapeMove" && drag.index >= 0) {
+          const sh = state.shapes[drag.index];
+          if (sh) {
+            const dx = w.x - drag.sx, dy = w.y - drag.sy;
+            sh.x1 = drag.ox1 + dx; sh.y1 = drag.oy1 + dy;
+            sh.x2 = drag.ox2 + dx; sh.y2 = drag.oy2 + dy;
+            drawAnnotations();
+          }
+        } else if (drag.kind === "strokeMove" && drag.index >= 0) {
+          const s = state.strokes[drag.index];
+          if (s && drag.origPts) {
+            const dx = w.x - drag.sx, dy = w.y - drag.sy;
+            s.points = drag.origPts.map((p) => [p[0] + dx, p[1] + dy]);
+            drawAnnotations();
+          }
         } else if (drag.kind === "brush" && strokePts) {
           strokePts.push([w.x, w.y]);
           renderDraft();
@@ -2048,7 +2290,8 @@
           scheduleSave();
           renderAll();
         }
-        if (drag && (drag.kind === "pan" || drag.kind === "token" || drag.kind === "text" || drag.kind === "shapeResize")) {
+        if (drag && (drag.kind === "pan" || drag.kind === "token" || drag.kind === "text"
+          || drag.kind === "shapeResize" || drag.kind === "shapeMove" || drag.kind === "strokeMove")) {
           scheduleSave();
         }
         drag = null;
@@ -2070,6 +2313,10 @@
       }, { passive: true });
       canvas.addEventListener("touchend", () => { pinching = null; });
 
+      canvas.addEventListener("contextmenu", (e) => {
+        if (tool === "measure" && openMapId) e.preventDefault();
+      });
+
       canvas.addEventListener("dblclick", (e) => {
         if (!openMapId) return;
         e.preventDefault();
@@ -2080,10 +2327,30 @@
         const hitMeas = pickMeasurementAt(w.x, w.y);
         if (hitMeas >= 0) { selectKind("measurement", hitMeas); openMeasurementEditor(hitMeas); return; }
         const hitShape = pickShapeAt(w.x, w.y);
-        if (hitShape >= 0) { selectKind("shape", hitShape); openShapeEditor(hitShape); return; }
+        if (hitShape >= 0) { selectKind("shape", hitShape); return; }
         const hitStroke = pickStrokeAt(w.x, w.y);
-        if (hitStroke >= 0) { selectKind("stroke", hitStroke); openStrokeEditor(hitStroke); return; }
+        if (hitStroke >= 0) { selectKind("stroke", hitStroke); return; }
       });
+    }
+
+    function deleteSelectionFromTray() {
+      if (selectedStroke >= 0) {
+        pushUndo();
+        state.strokes.splice(selectedStroke, 1);
+        clearSelection();
+        setDrawerOpen(false);
+        renderAll();
+        scheduleSave();
+        toast("Stroke deleted");
+      } else if (selectedShape >= 0) {
+        pushUndo();
+        state.shapes.splice(selectedShape, 1);
+        clearSelection();
+        setDrawerOpen(false);
+        renderAll();
+        scheduleSave();
+        toast("Shape deleted");
+      }
     }
 
     function openTokenEditor(idx) {
@@ -2466,7 +2733,11 @@
       }       else if (e.key === "Escape") {
         const shortcutOv = $("mapsShortcutOvl");
         if (shortcutOv && !shortcutOv.hidden) { closeShortcutHelp(); return; }
-        if (measurePath.length) { measurePath = []; renderAll(); return; }
+        if (tool === "measure" && measurePath.length) {
+          if (measurePath.length >= 2) finalizeActiveMeasurement();
+          else cancelActiveMeasurement();
+          return;
+        }
         setTool("pan");
         closeTokenEditor(false);
         closeTextEditor(false);
@@ -2476,8 +2747,7 @@
       }
       else if (tool === "measure" && measurePath.length && e.key === "Backspace" && !e.ctrlKey && !e.metaKey) {
         e.preventDefault();
-        measurePath.pop();
-        renderAll();
+        popLastMeasurementHex();
       }
       else if (e.key === "Delete" || e.key === "Backspace") {
         if (deleteSelection()) e.preventDefault();
@@ -2579,6 +2849,18 @@
           if (id === "mapsTextSize") syncTextSizeRow();
         };
       });
+      const selLiveIds = [
+        "mapsSelStrokeColor", "mapsSelStrokeThick", "mapsSelStrokeOpacity",
+        "mapsSelShapeColor", "mapsSelShapeThick", "mapsSelShapeOpacity",
+        "mapsSelShapeFillOn", "mapsSelShapeFillColor", "mapsSelShapeFillOpacity",
+      ];
+      selLiveIds.forEach((id) => {
+        const el = $(id);
+        if (!el) return;
+        const ev = el.type === "range" || el.type === "color" ? "input" : "change";
+        el[ev] = () => readSelectionFormLive();
+      });
+      on("mapsSelDelete", "onclick", deleteSelectionFromTray);
       on("mapsTextPresetWhite", "onclick", () => applyTextPreset("white"));
       on("mapsTextPresetBlack", "onclick", () => applyTextPreset("black"));
       on("mapsTextPresetYellow", "onclick", () => applyTextPreset("yellow"));
