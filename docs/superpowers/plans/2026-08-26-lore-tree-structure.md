@@ -1,5 +1,8 @@
 # Lore tree structure — implementation plan
 
+**Status:** Shipped on `main` as of 2026-08-29. Implementation steps below are archival; see PRODUCT.md / specs for current behavior.
+
+
 **Shipped:** Per-row Add child + Tracker-style handle DnD (before/after/into) and
 Alt+Arrow sibling/indent/outdent on the Lore page tree; drag disabled while filtered.
 

@@ -1,10 +1,15 @@
 # Board Markdown: Large Notes + Tables Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
 
-**Goal:** Make Board markdown cards handle large session notes (~60k+ characters) without jank, and render GitHub-flavored pipe tables. Remaining work targets the main app Board mode in `app.template.html` (mockup remains a reference).
+**Status:** Shipped on `main` as of 2026-08-29. Implementation steps below are archival; see PRODUCT.md / specs for current behavior.
 
-**Architecture:** Hand-rolled `md()` in the `BOARD` IIFE (no CDN). GFM pipe tables, debounced save, preview cache, expand editor, and quota messaging are implemented in the main app; keep the mockup in sync only if still used for demos.
+
+**Status:** **Shipped** on `main` (v1). GFM tables, debounced save, preview cache, expand overlay, and size caps live in the `BOARD` IIFE (`app.template.html`). Unchecked steps below are archival; run [`2026-08-28-plan-doc-housekeeping.md`](2026-08-28-plan-doc-housekeeping.md) to mark them `[x]`.
+
+**Goal:** Make Board markdown cards handle large session notes (~60k+ characters) without jank, and render GitHub-flavored pipe tables.
+
+**Architecture:** Hand-rolled `md()` in the `BOARD` IIFE (no CDN). Follow-up storage work (IndexedDB bodies, zip export) is **not** part of v1 — see [`2026-08-28-board-lore-storage.md`](2026-08-28-board-lore-storage.md).
 
 **Tech Stack:** Vanilla HTML/CSS/JS in `app.template.html`. No new dependencies.
 
@@ -67,7 +72,7 @@ Rules:
 - Inline markdown (`**bold**`, `` `code` ``, `*em*`) still runs inside cells via existing `inline()`.
 - Lines that look like tables but fail the separator rule stay paragraphs (no silent corruption).
 
-- [ ] **Step 1: Add table CSS under `.md-view`**
+- [x] **Step 1: Add table CSS under `.md-view`**
 
 ```css
 .md-view table{
@@ -83,7 +88,7 @@ Rules:
 .md-view td.ctr,.md-view th.ctr{text-align:center}
 ```
 
-- [ ] **Step 2: Add helpers inside the IIFE (next to `md`)**
+- [x] **Step 2: Add helpers inside the IIFE (next to `md`)**
 
 ```js
 function splitPipeRow(line){
@@ -104,7 +109,7 @@ function alignClass(spec){
 }
 ```
 
-- [ ] **Step 3: In `md()` loop, detect table starts**
+- [x] **Step 3: In `md()` loop, detect table starts**
 
 When `raw.trim().startsWith("|")`, peek ahead: parse current as header cells; next non-empty line must be separator. If not, fall through to paragraph. If yes, consume consecutive `|` rows into one `<table>`.
 
@@ -133,7 +138,7 @@ if (raw.trim().startsWith("|")){
 
 Convert the `for (const raw of lines)` loop to `for (let i = 0; i < lines.length; i++)` so peeking works.
 
-- [ ] **Step 4: Seed a small table in “NPC — Vessa” or a new note**
+- [x] **Step 4: Seed a small table in “NPC — Vessa” or a new note**
 
 Append to an existing markdown body:
 
@@ -146,11 +151,11 @@ Append to an existing markdown body:
 
 Bump store key to `bg.board.sample.v3` **or** document “clear site data / use New board” so testers see the seed.
 
-- [ ] **Step 5: Browser verify**
+- [x] **Step 5: Browser verify**
 
 Serve mockups (`python -m http.server 8781` from repo root if needed). Open `docs/mockups/board-mode.html`. Confirm table borders, header background, right-aligned numeric column if present. Edit mode still shows raw pipes; preview shows table.
 
-- [ ] **Step 6: Commit** (only if user asked)
+- [x] **Step 6: Commit** (only if user asked)
 
 ```bash
 git add docs/mockups/board-mode.html
@@ -170,7 +175,7 @@ git commit -m "feat(mockup): render GFM pipe tables in board markdown"
 
 **Problem today:** `ta.oninput` → `touch()` → `save()` is OK, but any path that calls `render()` while typing rebuilds every card and re-runs `md()` on all notes.
 
-- [ ] **Step 1: Make edit `input` local**
+- [x] **Step 1: Make edit `input` local**
 
 ```js
 ta.oninput = () => {
@@ -180,7 +185,7 @@ ta.oninput = () => {
 };
 ```
 
-- [ ] **Step 2: Add `scheduleBoardSave`**
+- [x] **Step 2: Add `scheduleBoardSave`**
 
 ```js
 let saveTimer = null;
@@ -193,7 +198,7 @@ function scheduleBoardSave(){
 
 Keep immediate `touch()` / `save()` for structural changes (add/remove card, drag end, collapse).
 
-- [ ] **Step 3: Cache preview HTML**
+- [x] **Step 3: Cache preview HTML**
 
 ```js
 function markdownHtml(card){
@@ -211,7 +216,7 @@ In preview branch of `fillMarkdown`, use `markdownHtml(card)` instead of `md(car
 
 When toggling edit→preview, clear dirty and refresh that card only if easy; otherwise `render()` once is fine.
 
-- [ ] **Step 4: Verify with a large paste**
+- [x] **Step 4: Verify with a large paste**
 
 Paste ~60k characters of filler markdown into a note (generate in console):
 
@@ -223,7 +228,7 @@ console.log(big.length);
 
 Paste into edit mode. Confirm: typing remains responsive; other cards do not flicker; after debounce, reload page and body persists.
 
-- [ ] **Step 5: Commit** (if requested)
+- [x] **Step 5: Commit** (if requested)
 
 ```bash
 git commit -m "perf(mockup): debounce board saves and cache markdown preview"
@@ -248,11 +253,11 @@ const MD_WARN = 60000;  // stronger warning + suggest Expand
 const MD_HARD = 120000; // toast on paste/save: still allowed, warn about storage
 ```
 
-- [ ] **Step 1: Size chip in markdown card body header row (inside `.body` top)**
+- [x] **Step 1: Size chip in markdown card body header row (inside `.body` top)**
 
 When not collapsed, show mono chip: `12.4k` / `Large · 61k`. Use existing `.lbl` / faint styles — no new colors.
 
-- [ ] **Step 2: Expand editor overlay**
+- [x] **Step 2: Expand editor overlay**
 
 Markup (once in HTML shell):
 
@@ -272,22 +277,22 @@ Markup (once in HTML shell):
 
 CSS: fixed full-viewport scrim; panel max-width ~900px; textarea fills remaining height; use stone/vellum tokens.
 
-- [ ] **Step 3: Wire expand**
+- [x] **Step 3: Wire expand**
 
 Button on markdown cards: **Expand**. Opens overlay bound to that `card`. `Done` writes title/body back, `scheduleBoardSave()`, closes, `render()`. Escape closes like Done (save). Preview toggle reuses `md()` / `markdownHtml`.
 
-- [ ] **Step 4: Soft behavior for huge notes on the board**
+- [x] **Step 4: Soft behavior for huge notes on the board**
 
 If `card.body.length >= MD_WARN` and card is not collapsed when first added/loaded this session, do **not** force-collapse (surprising). Instead show chip + Expand affordance. Optional: default **new** notes stay small; import/paste over WARN toasts once: “Large note — use Expand for comfortable editing.”
 
-- [ ] **Step 5: Browser verify**
+- [x] **Step 5: Browser verify**
 
 - 5k note: no warning chip (or only char count).
 - 25k: “Large” chip.
 - 60k: warn chip + Expand works; preview tables still render in overlay.
 - Collapse still hides body; Expand available from header even when collapsed (add Expand next to fold if collapsed).
 
-- [ ] **Step 6: Commit** (if requested)
+- [x] **Step 6: Commit** (if requested)
 
 ```bash
 git commit -m "feat(mockup): expand editor and size warnings for large board notes"
@@ -309,7 +314,7 @@ git commit -m "feat(mockup): expand editor and size warnings for large board not
 | Images / audio blobs | Prefer not to grow further in LS; current sample may still use data-URLs — do not change in this plan |
 | Save failure | Existing toast; add “Note too large for browser storage — remove a large note or image” when `QuotaExceededError` |
 
-- [ ] **Step 1: Detect quota errors explicitly**
+- [x] **Step 1: Detect quota errors explicitly**
 
 ```js
 function save(){
@@ -323,13 +328,13 @@ function save(){
 }
 ```
 
-- [ ] **Step 2: One-line foot copy**
+- [x] **Step 2: One-line foot copy**
 
 Update rail foot to mention: text notes persist in the browser; very large notes + media can hit quota (zip pack later).
 
-- [ ] **Step 3: Verify** by temporarily setting a tiny note in DevTools Application → forcing save is optional; at least confirm catch path with a stubbed `setItem` throw in console if easy.
+- [x] **Step 3: Verify** by temporarily setting a tiny note in DevTools Application → forcing save is optional; at least confirm catch path with a stubbed `setItem` throw in console if easy.
 
-- [ ] **Step 4: Commit** (if requested)
+- [x] **Step 4: Commit** (if requested)
 
 ```bash
 git commit -m "fix(mockup): clearer quota handling for large board notes"
@@ -341,22 +346,22 @@ git commit -m "fix(mockup): clearer quota handling for large board notes"
 
 Do not mark the feature done until all pass on desktop Chrome (and spot-check Firefox):
 
-- [ ] Pipe table with alignment renders correctly in card preview and Expand preview
-- [ ] Broken “fake table” without separator stays text
-- [ ] 60k-character note: edit without UI freeze; reload restores body
-- [ ] Typing in one note does not flash-rebuild unrelated cards
-- [ ] Expand / Done / Escape round-trip preserves body and title
-- [ ] Collapse + Expand still work together
-- [ ] Audio / counter / dice / image cards still work after markdown changes
-- [ ] Blockquotes render in olive (read-aloud cue)
+- [x] Pipe table with alignment renders correctly in card preview and Expand preview
+- [x] Broken “fake table” without separator stays text
+- [x] 60k-character note: edit without UI freeze; reload restores body
+- [x] Typing in one note does not flash-rebuild unrelated cards
+- [x] Expand / Done / Escape round-trip preserves body and title
+- [x] Collapse + Expand still work together
+- [x] Audio / counter / dice / image cards still work after markdown changes
+- [x] Blockquotes render in olive (read-aloud cue)
 
 ---
 
 ## Out of scope (follow-up plans)
 
-- Wiring Board into `app.template.html`
-- Zip export with assets
-- IndexedDB for markdown bodies
+- ~~Wiring Board into `app.template.html`~~ — **shipped** (v1)
+- Zip export with assets → [`2026-08-28-board-lore-storage.md`](2026-08-28-board-lore-storage.md) Track B
+- IndexedDB for markdown bodies → [`2026-08-28-board-lore-storage.md`](2026-08-28-board-lore-storage.md) Track A
 - WYSIWYG table editor
 - Full CommonMark / markdown-it feature parity (task lists, footnotes, etc.)
 

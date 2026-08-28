@@ -1,5 +1,8 @@
 # Linked Board cards (connected workflow, Phase 1)
 
+**Status:** Shipped on `main` as of 2026-08-29. Implementation steps below are archival; see PRODUCT.md / specs for current behavior.
+
+
 Shipped: **record** Board card that references a Library monster/spell by id and renders the
 live stat block via `monsterHTML` / `spellHTML`. **Send to Board** chip under the reading-pane
 header calls `BOARD.addRecord(id)` without switching modes. First slice of the connected

@@ -1,5 +1,8 @@
 # Forge mode (5e + PF2e)
 
+**Status:** Shipped on `main` as of 2026-08-29. Implementation steps below are archival; see PRODUCT.md / specs for current behavior.
+
+
 Shipped: dedicated **Forge** header mode with separate D&D 5e (CR 0–30) and Pathfinder (levels −1…25 + damage band) creature builders. Live preview uses `monsterHTML`; **Save to Custom** goes through `normalizeCustomRecord` / `validateCustomRecord` / `upsertCustomRecord` with `TRK.confirmSwap` on id replace.
 
 ## Decisions

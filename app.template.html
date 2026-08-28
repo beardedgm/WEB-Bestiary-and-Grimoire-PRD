@@ -1051,6 +1051,14 @@ body.maps-drawer-open .maps-body .maps-drawer-scrim{display:block}
   display:flex; align-items:center; justify-content:center
 }
 #mapsTokenOvl[hidden]{display:none !important}
+#mapsShortcutOvl{
+  position:fixed; inset:0; z-index:80; background:rgba(36,33,28,.45);
+  display:flex; align-items:center; justify-content:center
+}
+#mapsShortcutOvl[hidden]{display:none !important}
+.maps-shortcut-table{width:100%; border-collapse:collapse; font:13px/1.4 var(--sans)}
+.maps-shortcut-table th{text-align:left; font-weight:600; color:var(--ink); padding:4px 12px 4px 0; white-space:nowrap}
+.maps-shortcut-table td{color:var(--dim); padding:4px 0}
 .maps-token-panel{width:min(360px, 92vw); background:var(--paper); border:1px solid var(--hair); border-radius:3px; padding:12px}
 .maps-token-panel label{display:flex; flex-direction:column; gap:3px; margin:8px 0; font:12px/1.2 var(--sans); color:var(--dim)}
 .maps-token-panel input, .maps-token-panel textarea, .maps-token-panel select{
@@ -1955,6 +1963,7 @@ body.forge #lore{display:none !important}
     <span class="sp"></span>
     <button type="button" class="chip" id="mapsUndo">Undo</button>
     <button type="button" class="chip" id="mapsRedo">Redo</button>
+    <button type="button" class="chip" id="mapsShortcuts" title="Keyboard shortcuts (?)" aria-keyshortcuts="?">Shortcuts</button>
   </div>
   <div class="maps-body">
     <button type="button" class="maps-drawer-scrim" id="mapsDrawerScrim" aria-label="Close panel" tabindex="-1"></button>
@@ -1976,12 +1985,15 @@ body.forge #lore{display:none !important}
         <section class="maps-drawer-section" aria-labelledby="mapsDrawerGridHd">
           <h3 id="mapsDrawerGridHd">Grid settings</h3>
           <div class="maps-settings-grid">
-            <label>Hex size <input id="mapsHexSize" type="number" min="8" max="400"></label>
+            <label><span id="mapsHexSizeLabel">Hex size</span> <input id="mapsHexSize" type="number" min="8" max="400"></label>
             <label>Offset X <input id="mapsOffsetX" type="number"></label>
             <label>Offset Y <input id="mapsOffsetY" type="number"></label>
             <label>Columns <input id="mapsCols" type="number" min="1" max="200"></label>
             <label>Rows <input id="mapsRows" type="number" min="1" max="200"></label>
-            <label>Orientation
+            <label>Grid kind
+              <select id="mapsGridKind"><option value="hex">Hex</option><option value="square">Square</option></select>
+            </label>
+            <label id="mapsOrientRow">Orientation
               <select id="mapsOrient"><option value="pointy">Pointy</option><option value="flat">Flat</option></select>
             </label>
             <label>Map scale % <input id="mapsScale" type="number" min="10" max="400"></label>
@@ -2095,12 +2107,7 @@ body.forge #lore{display:none !important}
         </div>
         <div class="maps-tool-fields" data-tool="token">
           <div class="maps-settings-grid">
-            <label>Icon <select id="mapsTokIconDrawer">
-              <option value="">(none)</option>
-              <option value="★">★</option><option value="⌂">⌂</option><option value="☠">☠</option>
-              <option value="⚑">⚑</option><option value="⚔">⚔</option><option value="◇">◇</option>
-              <option value="●">●</option><option value="▲">▲</option><option value="✚">✚</option>
-            </select></label>
+            <label>Icon <select id="mapsTokIconDrawer"></select></label>
             <label>Color <input id="mapsTokenColor" type="color"></label>
             <label>Size
               <select id="mapsTokenSize"><option value="small">S</option><option value="medium">M</option><option value="large">L</option></select>
@@ -2161,12 +2168,7 @@ body.forge #lore{display:none !important}
     <div class="panel-hd"><strong>Edit token</strong></div>
     <div class="panel-body">
       <label>Label <input id="mapsTokLabel" type="text" maxlength="100"></label>
-      <label>Icon <select id="mapsTokIcon">
-        <option value="">(none)</option>
-        <option value="★">★</option><option value="⌂">⌂</option><option value="☠">☠</option>
-        <option value="⚑">⚑</option><option value="⚔">⚔</option><option value="◇">◇</option>
-        <option value="●">●</option><option value="▲">▲</option><option value="✚">✚</option>
-      </select></label>
+      <label>Icon <select id="mapsTokIcon"></select></label>
       <label>Color <input id="mapsTokColor" type="color"></label>
       <label>Notes <textarea id="mapsTokNotes" rows="4" maxlength="2000"></textarea></label>
     </div>
@@ -2220,6 +2222,31 @@ body.forge #lore{display:none !important}
       <button type="button" class="chip danger" id="mapsMeasEditDelete">Delete</button>
       <button type="button" class="chip" id="mapsMeasEditCancel">Cancel</button>
       <button type="button" class="chip go" id="mapsMeasEditSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="mapsShortcutOvl" hidden role="dialog" aria-modal="true" aria-label="Map keyboard shortcuts">
+  <div class="panel maps-token-panel maps-shortcut-panel">
+    <div class="panel-hd"><strong>Keyboard shortcuts</strong></div>
+    <div class="panel-body">
+      <table class="maps-shortcut-table">
+        <tbody>
+          <tr><th scope="row">Pan</th><td>Space (hold)</td></tr>
+          <tr><th scope="row">Reveal fog</th><td>R</td></tr>
+          <tr><th scope="row">Hide fog</th><td>H</td></tr>
+          <tr><th scope="row">Token tool</th><td>T</td></tr>
+          <tr><th scope="row">Undo / Redo</th><td>Ctrl+Z / Ctrl+Y</td></tr>
+          <tr><th scope="row">Delete selection</th><td>Delete or Backspace</td></tr>
+          <tr><th scope="row">Duplicate token</th><td>Ctrl+D</td></tr>
+          <tr><th scope="row">Measure undo hex</th><td>Backspace (measure tool)</td></tr>
+          <tr><th scope="row">Cancel / close</th><td>Esc</td></tr>
+          <tr><th scope="row">This help</th><td>?</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-ft">
+      <button type="button" class="chip go" id="mapsShortcutClose">Close</button>
     </div>
   </div>
 </div>
@@ -6712,6 +6739,12 @@ const BUILD = (() => {
     if (draft.system === "pf2e"){
       if (r.gameSystem !== "pf2e") return { ok: false, reason: "wrong-system", unit: 0, total: 0, name: r.name };
       const c = pf2eCreatureCost(draft.partyLevel, creatureLevel(r));
+      if (!c.ok && c.reason === "out-of-range"){
+        return {
+          ok: true, reason: "out-of-range", unpriced: true,
+          unit: 0, total: 0, name: r.name, delta: c.delta,
+        };
+      }
       if (!c.ok) return { ok: false, reason: c.reason, unit: 0, total: 0, name: r.name, delta: c.delta };
       return { ok: true, reason: null, unit: c.cost, total: c.cost * n, name: r.name, delta: c.delta };
     }
@@ -6815,10 +6848,7 @@ const BUILD = (() => {
     }
     if (draft.system === "pf2e"){
       const c = pf2eCreatureCost(draft.partyLevel, creatureLevel(r));
-      if (!c.ok && c.reason === "out-of-range"){
-        status("Outside party level ±4 — can’t add “" + r.name + "”.", true); return false;
-      }
-      if (!c.ok){
+      if (!c.ok && c.reason !== "out-of-range"){
         status("Missing level — can’t add “" + r.name + "”.", true); return false;
       }
     } else if (creatureXp(r) == null){
@@ -6961,7 +6991,9 @@ const BUILD = (() => {
     ul.innerHTML = draft.lines.map(ln => {
       const c = lineCost(ln.ref, ln.qty);
       const meta = c.ok
-        ? (c.unit.toLocaleString() + " XP × " + ln.qty)
+        ? (c.unpriced
+          ? ("Outside ±4 · 0 XP × " + ln.qty)
+          : (c.unit.toLocaleString() + " XP × " + ln.qty))
         : (c.reason || "invalid");
       return `<li data-ref="${esc(ln.ref)}">
         <span class="br-name">${esc(c.name)}</span>
@@ -7169,7 +7201,7 @@ const BUILD = (() => {
     _test: {
       vBuilder, pf2eBudget, pf2eCreatureCost, pf2eClassify,
       dnd2014Thresholds, dnd2014Multiplier, dnd2014Classify, dnd2014Budget,
-      dnd2024Budget, dnd2024Classify, budgetFor, combatantsFromLines,
+      dnd2024Budget, dnd2024Classify, budgetFor, combatantsFromLines, lineCost,
     },
   };
 })();
@@ -10450,7 +10482,8 @@ window.LORE = LORE;
 </script>
 
 <script src="maps/maps-pixi.bundle.js"></script>
-<script src="maps/maps-app.js?v=20260828c"></script>
+<script src="maps/token-icons.manifest.js"></script>
+<script src="maps/maps-app.js?v=20260829a"></script>
 
 
 </body>
