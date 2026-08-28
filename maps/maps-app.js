@@ -386,6 +386,25 @@
     let selectedText = -1;
     let pinching = null;
     let nextZ = 1;
+    let editClick = null;
+
+    function hitEditKey(hitText, hitToken) {
+      if (hitText >= 0) return "t:" + hitText;
+      if (hitToken >= 0) return "k:" + hitToken;
+      return null;
+    }
+
+    function tryEditOnDblHit(hitText, hitToken) {
+      const key = hitEditKey(hitText, hitToken);
+      if (!key) { editClick = null; return false; }
+      const now = Date.now();
+      if (editClick && editClick.key === key && now - editClick.t < 450) {
+        editClick = null;
+        return openHitEditor(hitText, hitToken);
+      }
+      editClick = { key, t: now };
+      return false;
+    }
 
     function $(id) { return document.getElementById(id); }
     function metas() {
@@ -468,6 +487,106 @@
       const sy = (e.clientY - rect.top) * (app.screen.height / rect.height);
       const z = state.view.zoomLevel;
       return { x: (sx - state.view.panX) / z, y: (sy - state.view.panY) / z };
+    }
+
+    function textStyleFor(t) {
+      const PIXI = window.PIXI;
+      if (!PIXI) return null;
+      return new PIXI.TextStyle({
+        fontFamily: "Source Serif 4, Georgia, serif",
+        fontSize: t.fontSize || 18,
+        fill: t.color || "#241f1c",
+        stroke: { color: t.outlineColor || "#f4f0e8", width: t.outlineWidth || 0 },
+      });
+    }
+
+    function textBounds(t) {
+      const fs = t.fontSize || 18;
+      const pad = 6 + Math.ceil((t.outlineWidth || 0) / 2);
+      const anchor = { x: t.x - pad, y: t.y - pad, w: pad * 2, h: pad * 2 };
+      const PIXI = window.PIXI;
+      if (PIXI) {
+        try {
+          const tx = new PIXI.Text({ text: t.text || "", style: textStyleFor(t) });
+          const b = tx.getLocalBounds();
+          tx.destroy(true);
+          const visual = {
+            x: t.x + b.x - pad,
+            y: t.y + b.y - pad,
+            w: b.width + pad * 2,
+            h: b.height + pad * 2,
+          };
+          const x = Math.min(anchor.x, visual.x);
+          const y = Math.min(anchor.y, visual.y);
+          const r = Math.max(anchor.x + anchor.w, visual.x + visual.w);
+          const bot = Math.max(anchor.y + anchor.h, visual.y + visual.h);
+          return { x, y, w: r - x, h: bot - y };
+        } catch (_) { /* fall through */ }
+      }
+      const w = Math.max(fs * 1.5, (t.text || "").length * fs * 0.55) + pad * 2;
+      const h = fs * 1.4 + pad * 2;
+      return { x: t.x - pad, y: t.y - pad, w, h };
+    }
+
+    function pickTextAt(wx, wy) {
+      for (let i = state.texts.length - 1; i >= 0; i--) {
+        const b = textBounds(state.texts[i]);
+        if (wx >= b.x && wx <= b.x + b.w && wy >= b.y && wy <= b.y + b.h) return i;
+      }
+      return -1;
+    }
+
+    function pickTokenAt(wx, wy) {
+      const base = state.settings.hexSize * 0.55;
+      const mul = TOKEN_SIZES[state.settings.tokenSize] || 1;
+      const r = base * mul * 1.15;
+      for (let i = state.tokens.length - 1; i >= 0; i--) {
+        const t = state.tokens[i];
+        if (Math.hypot(wx - t.x, wy - t.y) <= r) return i;
+      }
+      return -1;
+    }
+
+    function startTextDrag(index, wx, wy) {
+      const t = state.texts[index];
+      if (!t) return false;
+      selectedText = index;
+      selectedToken = -1;
+      pushUndo();
+      drag = { kind: "text", index, ox: wx - t.x, oy: wy - t.y };
+      drawAnnotations();
+      return true;
+    }
+
+    function startTokenDrag(index) {
+      const t = state.tokens[index];
+      if (!t) return false;
+      selectedToken = index;
+      selectedText = -1;
+      pushUndo();
+      drag = { kind: "token", index, sx: t.x, sy: t.y };
+      drawTokens();
+      return true;
+    }
+
+    function openHitEditor(hitText, hitToken) {
+      drag = null;
+      pendingText = null;
+      if (hitText >= 0) {
+        selectedText = hitText;
+        selectedToken = -1;
+        drawAnnotations();
+        drawTokens();
+        openTextEditor();
+        return true;
+      }
+      if (hitToken >= 0) {
+        openTokenEditor(hitToken);
+        drawAnnotations();
+        drawTokens();
+        return true;
+      }
+      return false;
     }
 
     function applyViewTransform() {
@@ -627,22 +746,15 @@
       }
       for (let i = 0; i < state.texts.length; i++) {
         const t = state.texts[i];
-        const style = new PIXI.TextStyle({
-          fontFamily: "Source Serif 4, Georgia, serif",
-          fontSize: t.fontSize,
-          fill: t.color,
-          stroke: { color: t.outlineColor, width: t.outlineWidth },
-        });
-        const tx = new PIXI.Text({ text: t.text, style });
+        const b = textBounds(t);
+        if (selectedText === i) {
+          const sel = new PIXI.Graphics();
+          sel.rect(b.x - 3, b.y - 3, b.w + 6, b.h + 6);
+          sel.stroke({ width: 2, color: 0xf0d78c, alpha: 0.95 });
+          layers.annot.addChild(sel);
+        }
+        const tx = new PIXI.Text({ text: t.text, style: textStyleFor(t) });
         tx.x = t.x; tx.y = t.y;
-        tx.eventMode = "static";
-        tx.cursor = "pointer";
-        tx.on("pointerdown", (ev) => {
-          if (tool !== "pan" && tool !== "text") return;
-          selectedText = i;
-          drag = { kind: "text", index: i, ox: ev.global.x, oy: ev.global.y, sx: t.x, sy: t.y };
-          pushUndo();
-        });
         layers.annot.addChild(tx);
       }
       for (const m of state.measurements) {
@@ -688,15 +800,7 @@
           tx.anchor.set(0.5);
           g.addChild(tx);
         }
-        g.eventMode = "static";
-        g.cursor = "pointer";
-        g.on("pointerdown", (ev) => {
-          if (tool !== "pan" && tool !== "token") return;
-          selectedToken = i;
-          drag = { kind: "token", index: i, ox: ev.global.x, oy: ev.global.y, sx: t.x, sy: t.y };
-          pushUndo();
-          drawTokens();
-        });
+        g.eventMode = "none";
         g.on("pointerover", () => {
           if (t.notes) showNotesTip(t.notes);
         });
@@ -1101,9 +1205,22 @@
 
       canvas.addEventListener("pointerdown", (e) => {
         if (!openMapId) return;
-        canvas.setPointerCapture(e.pointerId);
         const w = worldFromEvent(e);
+        const hitText = pickTextAt(w.x, w.y);
+        const hitToken = pickTokenAt(w.x, w.y);
+
+        if (tryEditOnDblHit(hitText, hitToken)) return;
+        if (e.detail >= 2 && openHitEditor(hitText, hitToken)) return;
+
+        try { canvas.setPointerCapture(e.pointerId); } catch (_) { /* synthetic / unsupported */ }
+
         if (tool === "pan") {
+          if (hitText >= 0 && startTextDrag(hitText, w.x, w.y)) return;
+          if (hitToken >= 0 && startTokenDrag(hitToken)) return;
+          selectedText = -1;
+          selectedToken = -1;
+          drawAnnotations();
+          drawTokens();
           drag = { kind: "pan", ox: e.clientX, oy: e.clientY, px: state.view.panX, py: state.view.panY };
         } else if (tool === "reveal" || tool === "hide") {
           pushUndo();
@@ -1112,6 +1229,7 @@
           drawGridFog();
           scheduleSave();
         } else if (tool === "token") {
+          if (hitToken >= 0 && startTokenDrag(hitToken)) return;
           if (state.tokens.length >= MAX_TOKENS) { toast("Token limit reached"); return; }
           pushUndo();
           state.tokens.push({
@@ -1140,7 +1258,9 @@
           }
           renderAll();
         } else if (tool === "text") {
+          if (hitText >= 0 && startTextDrag(hitText, w.x, w.y)) return;
           pendingText = { x: w.x, y: w.y };
+          selectedText = -1;
           openTextEditor();
         } else if (tool === "brush") {
           pushUndo();
@@ -1186,14 +1306,9 @@
           drawTokens();
           scheduleSave();
         } else if (drag.kind === "text" && drag.index >= 0) {
-          const z = state.view.zoomLevel;
-          const rect = canvas.getBoundingClientRect();
-          const sx = (e.clientX - rect.left) * (app.screen.width / rect.width);
-          const sy = (e.clientY - rect.top) * (app.screen.height / rect.height);
-          state.texts[drag.index].x = (sx - state.view.panX) / z;
-          state.texts[drag.index].y = (sy - state.view.panY) / z;
+          state.texts[drag.index].x = w.x - drag.ox;
+          state.texts[drag.index].y = w.y - drag.oy;
           drawAnnotations();
-          scheduleSave();
         } else if (drag.kind === "brush" && strokePts) {
           strokePts.push([w.x, w.y]);
           renderDraft();
@@ -1240,7 +1355,9 @@
           scheduleSave();
           renderAll();
         }
-        if (drag && (drag.kind === "pan" || drag.kind === "token" || drag.kind === "text")) scheduleSave();
+        if (drag && (drag.kind === "pan" || drag.kind === "token" || drag.kind === "text")) {
+          scheduleSave();
+        }
         drag = null;
       });
 
@@ -1259,11 +1376,20 @@
         }
       }, { passive: true });
       canvas.addEventListener("touchend", () => { pinching = null; });
+
+      canvas.addEventListener("dblclick", (e) => {
+        if (!openMapId) return;
+        e.preventDefault();
+        const w = worldFromEvent(e);
+        openHitEditor(pickTextAt(w.x, w.y), pickTokenAt(w.x, w.y));
+      });
     }
 
     function openTokenEditor(idx) {
       const t = state.tokens[idx];
       if (!t) return;
+      selectedToken = idx;
+      selectedText = -1;
       const ov = $("mapsTokenOvl");
       if (!ov) return;
       $("mapsTokLabel").value = t.label;
@@ -1285,6 +1411,43 @@
         scheduleSave();
         drawTokens();
       }
+      ov.hidden = true;
+      if (typeof setAppInert === "function") setAppInert(false);
+    }
+
+    function openTextEditor() {
+      const ov = $("mapsTextOvl");
+      const input = $("mapsTextInput");
+      if (!ov || !input) return;
+      input.value = (selectedText >= 0 && state.texts[selectedText]) ? state.texts[selectedText].text : "";
+      ov.hidden = false;
+      if (typeof setAppInert === "function") setAppInert(true);
+      input.focus();
+    }
+
+    function closeTextEditor(save) {
+      const ov = $("mapsTextOvl");
+      const input = $("mapsTextInput");
+      if (!ov) return;
+      const text = input ? (input.value || "").trim().slice(0, 500) : "";
+      if (save && text) {
+        if (selectedText >= 0 && state.texts[selectedText]) {
+          state.texts[selectedText].text = text;
+        } else if (pendingText) {
+          pushUndo();
+          state.texts.push({
+            text, x: pendingText.x, y: pendingText.y,
+            fontSize: 18, color: "#241f1c", outlineColor: "#f4f0e8",
+            outlineWidth: 3, outlineOpacity: 1,
+          });
+          if (state.texts.length > MAX_ANNOT) state.texts.shift();
+          selectedText = state.texts.length - 1;
+        }
+        scheduleSave();
+        drawAnnotations();
+      }
+      pendingText = null;
+      if (!save) selectedText = -1;
       ov.hidden = true;
       if (typeof setAppInert === "function") setAppInert(false);
     }
@@ -1395,7 +1558,11 @@
       if (e.key === "z" && (e.ctrlKey || e.metaKey) && !e.shiftKey) { e.preventDefault(); undo(); }
       else if ((e.key === "y" && (e.ctrlKey || e.metaKey)) || (e.key === "z" && e.shiftKey && (e.ctrlKey || e.metaKey))) {
         e.preventDefault(); redo();
-      } else if (e.key === "Escape") { setTool("pan"); closeTokenEditor(false); }
+      } else if (e.key === "Escape") {
+        setTool("pan");
+        closeTokenEditor(false);
+        closeTextEditor(false);
+      }
       else if (e.key === "Delete" || e.key === "Backspace") {
         if (selectedToken >= 0) {
           pushUndo();
