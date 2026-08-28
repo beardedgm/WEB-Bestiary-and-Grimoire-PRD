@@ -423,11 +423,10 @@ Add: `Encounter cards list the linked preset’s roster on paper stock with chip
 Mark:
 
 ```
-- [x] An encounter (Builder draft or Tracker state) can appear on the Board as a linked
-      card — *Phase 2 (saved preset; live Tracker mirroring deferred)*
+- [x] A saved encounter preset can appear on the Board as a linked card — *Phase 2, shipped*
 ```
 
-(Keep wording honest: Phase 2 ships **saved preset** cards, not live Tracker state.)
+(Phase 2 ships **saved preset** cards; live Tracker mirroring is a closed non-goal.)
 
 - [ ] **Step 5: Browser smoke** (serve `python3 -m http.server 8000 --bind 127.0.0.1` → `http://127.0.0.1:8000/index.html`)
 

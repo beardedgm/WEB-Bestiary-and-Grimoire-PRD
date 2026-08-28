@@ -66,9 +66,9 @@ One HTML file, no framework, no dependencies. `app.template.html` holds sequenti
 | `TRK` | Initiative tracker, dice, party/presets, player display, undo ring, column resize, mode chrome |
 | `CAMPAIGN` | Campaign container: `bg.campaign.v1` (party, presets, lore pages, maps meta); header picker; one-shot migration from lore/party/presets; portable `campaigns` bag |
 | `BUILD` | Encounter Builder: draft `bg.builder.v1`, PF2e / 5e 2014 / 5e 2024 budgets, roster, Save/Load bridges |
-| `BOARD` | Session boards: markdown / image / audio / counter / dice / timer / checklist / random / record / encounter cards (`BOARD.addRecord` / `BOARD.addEncounter`; Send to Board from Library (Script 1 `addSendToBoard`), Table, Builder) |
+| `BOARD` | Session boards / session notes: markdown / image / audio / counter / dice / timer / checklist / random / record / encounter cards (`BOARD.addRecord` / `BOARD.addEncounter`; Send to Board from Library (Script 1 `addSendToBoard`), Table, Builder) |
 | `FORGE` | Creature forge: inlined 5e CR + PF2e level tables, dual-system forms, preview via `monsterHTML`, Save to Custom |
-| `LORE` | Campaign notebook UI: pages for the active campaign (`CAMPAIGN`), nested tree/tags, preview, Pin to Board |
+| `LORE` | Adventure text UI: module pages for the active campaign (`CAMPAIGN`), nested tree/tags, preview, Pin to Board |
 | `MAPS` | Campaign hex maps: `#maps` mode, Pixi editor (`maps/maps-pixi.bundle.js` + `maps/maps-app.js`), IndexedDB `bg-maps`, bundled `maps/starter.hexplora`, HexPlora import/export |
 
 **Module boundary.** `TRK`, `CAMPAIGN`, `BUILD`, `BOARD`, `FORGE`, `LORE`, and `MAPS` are IIFEs assigned to `window.TRK` /
