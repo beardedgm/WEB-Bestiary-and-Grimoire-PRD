@@ -360,8 +360,8 @@ Do not mark the feature done until all pass on desktop Chrome (and spot-check Fi
 ## Out of scope (follow-up plans)
 
 - ~~Wiring Board into `app.template.html`~~ — **shipped** (v1)
-- Zip export with assets → [`2026-08-28-board-lore-storage.md`](2026-08-28-board-lore-storage.md) Track B
-- IndexedDB for markdown bodies → [`2026-08-28-board-lore-storage.md`](2026-08-28-board-lore-storage.md) Track A
+- Zip export with assets → **shipped** [`2026-08-29-board-zip-export.md`](../specs/2026-08-29-board-zip-export.md)
+- IndexedDB for markdown bodies → **shipped** [`2026-08-29-board-markdown-idb.md`](../specs/2026-08-29-board-markdown-idb.md)
 - WYSIWYG table editor
 - Full CommonMark / markdown-it feature parity (task lists, footnotes, etc.)
 

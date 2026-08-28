@@ -1,43 +1,34 @@
 # Post–Maps backlog roadmap — 2026-08-28
 
-Phases 0–3 of the **connected workflow** and **Maps phase 2** are shipped on `main`. This document prioritizes **unbuilt** work.
+**Status:** Backlog complete as of 2026-08-29. Further work is user-driven improvements.
 
-**Maps phase 3 spec:** [`2026-08-29-maps-tokens-and-grid.md`](../specs/2026-08-29-maps-tokens-and-grid.md) · **Plan:** [`2026-08-29-maps-phase3-tokens-grid.md`](2026-08-29-maps-phase3-tokens-grid.md)
-
----
-
-## Already shipped (do not re-plan)
-
-| Area | Shipped behavior |
-|------|------------------|
-| Connected workflow Phases 0–3 | Forge, linked Board cards, encounter cards, Lore + Pin |
-| Campaign + Maps phase 2 | HexPlora interaction parity, drawer trays |
-| Board markdown v1 | GFM tables, debounced save, preview cache, expand overlay |
-| Lore format bar + tree | Grouped toolbar, DnD, mobile Pages sheet |
-| Maps keyboard (partial) | Undo, r/h/t, Space, Delete, measure Backspace |
+Phases 0–3 of the **connected workflow**, **Maps phase 2–3**, **Board storage v2**, and **PF2e 0 XP** are shipped on `main`.
 
 ---
 
-## Priority order (remaining work)
+## Shipped (final milestone)
 
-| P | Track | Plan | Status |
-|---|--------|------|--------|
-| **1** | Maps: token SVGs + layout | phase3-tokens-grid Track A | Shipped |
-| **2** | Maps: square grid | phase3-tokens-grid Track B | Shipped |
-| **3** | PF2e out-of-±4 at 0 XP | `2026-08-28-pf2e-out-of-band-zero-xp.md` | Shipped |
-| **4** | Maps: `?` + Ctrl+D | phase3-tokens-grid Track C | Shipped |
-| **5** | Board: IndexedDB bodies | `2026-08-28-board-lore-storage.md` | Planned |
-| **6** | Maps: shape resize handles | `2026-08-28-maps-phase3-deferred.md` C | Deferred |
-| **7** | Board: zip with assets | board-lore-storage Track B | Planned |
-| **8** | Plan doc housekeeping | `2026-08-28-plan-doc-housekeeping.md` | Shipped |
-
-**Removed:** Library-linked map tokens.
+| Area | Spec / plan |
+|------|-------------|
+| Maps token SVGs + layout | [`2026-08-29-maps-tokens-and-grid.md`](../specs/2026-08-29-maps-tokens-and-grid.md) |
+| Maps square grid | same |
+| Maps shortcuts + Ctrl+D | [`2026-08-29-maps-phase3-tokens-grid.md`](2026-08-29-maps-phase3-tokens-grid.md) Track C |
+| Maps shape resize | [`2026-08-29-maps-shape-resize.md`](../specs/2026-08-29-maps-shape-resize.md) |
+| PF2e out-of-±4 at 0 XP | [`2026-08-28-pf2e-out-of-band-zero-xp.md`](2026-08-28-pf2e-out-of-band-zero-xp.md) |
+| Board IDB markdown bodies | [`2026-08-29-board-markdown-idb.md`](../specs/2026-08-29-board-markdown-idb.md) |
+| Board zip export/import | [`2026-08-29-board-zip-export.md`](../specs/2026-08-29-board-zip-export.md) |
 
 ---
 
-## Suggested merge order
+## Explicit non-goals (no plan unless requested)
 
-1. Maps phase 3 (tokens → square grid → polish) — one or more PRs
-2. PF2e 0 XP
-3. Board IDB → zip
-4. Doc housekeeping + shape resize (optional)
+- Library-linked map tokens
+- Lore pages in IndexedDB
+- Quest / Audio / share / QR
+- Map blobs in portable `bg-user-save/1`
+
+---
+
+## Improvement mode
+
+New work should be ad-hoc specs or small plans per user feedback (UX polish, corpus gaps, performance), not phase-2/3 pipeline items.

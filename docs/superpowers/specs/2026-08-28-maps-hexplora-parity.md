@@ -44,9 +44,7 @@ Only one `#mapsToolSettings[data-active-tool]` group visible at a time (CSS mirr
 
 ## Explicit non-goals (deferred)
 
-- Shape resize handles after placement
-
-**Shipped (phase 3):** SVG token icons + HexPlora layout; `?` shortcut help; Ctrl+D duplicate; square grid mode (`2026-08-29-maps-tokens-and-grid.md`).
+**Shipped (phase 3):** SVG token icons + HexPlora layout; `?` shortcut help; Ctrl+D duplicate; square grid mode; shape resize handles (`2026-08-29-maps-tokens-and-grid.md`, `2026-08-29-maps-shape-resize.md`).
 
 ## Verification
 

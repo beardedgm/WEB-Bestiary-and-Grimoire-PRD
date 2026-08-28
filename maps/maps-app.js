@@ -772,6 +772,64 @@
       return { x1, y1, x2: nx, y2: ny };
     }
 
+    function shapeHandles(sh) {
+      if (!sh) return [];
+      if (sh.type === "line" || sh.type === "arrow") {
+        return [
+          { id: "p1", x: sh.x1, y: sh.y1 },
+          { id: "p2", x: sh.x2, y: sh.y2 },
+        ];
+      }
+      const minX = Math.min(sh.x1, sh.x2), maxX = Math.max(sh.x1, sh.x2);
+      const minY = Math.min(sh.y1, sh.y2), maxY = Math.max(sh.y1, sh.y2);
+      return [
+        { id: "nw", x: minX, y: minY },
+        { id: "ne", x: maxX, y: minY },
+        { id: "se", x: maxX, y: maxY },
+        { id: "sw", x: minX, y: maxY },
+      ];
+    }
+
+    function shapeGeomAnchor(sh) {
+      return {
+        x1: sh.x1, y1: sh.y1, x2: sh.x2, y2: sh.y2,
+        minX: Math.min(sh.x1, sh.x2), maxX: Math.max(sh.x1, sh.x2),
+        minY: Math.min(sh.y1, sh.y2), maxY: Math.max(sh.y1, sh.y2),
+      };
+    }
+
+    function resizeShapeFromHandle(sh, handle, anchor, wx, wy, shiftKey, altKey) {
+      if (sh.type === "line" || sh.type === "arrow") {
+        if (handle === "p1") {
+          return applyShapeModifiers(wx, wy, anchor.x2, anchor.y2, sh.type, shiftKey, altKey);
+        }
+        return applyShapeModifiers(anchor.x1, anchor.y1, wx, wy, sh.type, shiftKey, altKey);
+      }
+      let n1x = anchor.minX, n1y = anchor.minY, n2x = anchor.maxX, n2y = anchor.maxY;
+      if (handle === "nw") { n1x = wx; n1y = wy; }
+      else if (handle === "ne") { n2x = wx; n1y = wy; }
+      else if (handle === "se") { n2x = wx; n2y = wy; }
+      else if (handle === "sw") { n1x = wx; n2y = wy; }
+      const modType = sh.type === "circle" ? "circle" : "rect";
+      if (altKey) {
+        const cx = (anchor.minX + anchor.maxX) / 2;
+        const cy = (anchor.minY + anchor.maxY) / 2;
+        return applyShapeModifiers(cx, cy, wx, wy, modType, shiftKey, true);
+      }
+      return applyShapeModifiers(n1x, n1y, n2x, n2y, modType, shiftKey, false);
+    }
+
+    function pickShapeHandleAt(wx, wy) {
+      if (selectedShape < 0 || tool !== "pan") return null;
+      const sh = state.shapes[selectedShape];
+      if (!sh) return null;
+      const hitR = 10;
+      for (const h of shapeHandles(sh)) {
+        if (Math.hypot(wx - h.x, wy - h.y) <= hitR) return { index: selectedShape, handle: h.id };
+      }
+      return null;
+    }
+
     function eraseAlongPath(path) {
       if (!path || path.length < 2) return;
       state.strokes = state.strokes.filter((s) => {
@@ -1294,6 +1352,18 @@
         }
         layers.annot.addChild(g);
       }
+      if (selectedShape >= 0 && tool === "pan") {
+        const shSel = state.shapes[selectedShape];
+        if (shSel) {
+          const hg = new PIXI.Graphics();
+          for (const h of shapeHandles(shSel)) {
+            hg.rect(h.x - 5, h.y - 5, 10, 10);
+            hg.fill({ color: 0xf0d78c, alpha: 0.95 });
+            hg.stroke({ width: 1, color: 0x241f1c, alpha: 1 });
+          }
+          layers.annot.addChild(hg);
+        }
+      }
       for (let i = 0; i < state.texts.length; i++) {
         const t = state.texts[i];
         const b = textBounds(t);
@@ -1799,6 +1869,20 @@
         try { canvas.setPointerCapture(e.pointerId); } catch (_) { /* synthetic / unsupported */ }
 
         if (tool === "pan") {
+          const handleHit = pickShapeHandleAt(w.x, w.y);
+          if (handleHit) {
+            const sh = state.shapes[handleHit.index];
+            if (sh) {
+              pushUndo();
+              drag = {
+                kind: "shapeResize",
+                index: handleHit.index,
+                handle: handleHit.handle,
+                anchor: shapeGeomAnchor(sh),
+              };
+              return;
+            }
+          }
           const hit = pickPanTarget(w.x, w.y);
           if (hit) {
             if (hit.kind === "text" && startTextDrag(hit.index, w.x, w.y)) return;
@@ -1907,6 +1991,13 @@
           state.texts[drag.index].x = w.x - drag.ox;
           state.texts[drag.index].y = w.y - drag.oy;
           drawAnnotations();
+        } else if (drag.kind === "shapeResize" && drag.index >= 0) {
+          const sh = state.shapes[drag.index];
+          if (sh) {
+            const mod = resizeShapeFromHandle(sh, drag.handle, drag.anchor, w.x, w.y, e.shiftKey, e.altKey);
+            sh.x1 = mod.x1; sh.y1 = mod.y1; sh.x2 = mod.x2; sh.y2 = mod.y2;
+            drawAnnotations();
+          }
         } else if (drag.kind === "brush" && strokePts) {
           strokePts.push([w.x, w.y]);
           renderDraft();
@@ -1957,7 +2048,7 @@
           scheduleSave();
           renderAll();
         }
-        if (drag && (drag.kind === "pan" || drag.kind === "token" || drag.kind === "text")) {
+        if (drag && (drag.kind === "pan" || drag.kind === "token" || drag.kind === "text" || drag.kind === "shapeResize")) {
           scheduleSave();
         }
         drag = null;
