@@ -1,6 +1,9 @@
 # Level, CR and Rank Range Filters Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
+
+**Status:** Shipped on `main` as of 2026-08-29. Implementation steps below are archival; see PRODUCT.md / specs for current behavior.
+
 
 **Goal:** Add from/to range filtering by CR, creature level, spell level and spell rank to the Bestiary & Grimoire browser, without conflating the corpus's four separate numeric scales.
 
@@ -58,7 +61,7 @@ Adds the `SCALES` table, the filter state, and `passRange()`. No UI yet — this
   - `passRange(r) => boolean`
   - `scaleFor(r) => scale|null`
 
-- [ ] **Step 1: Establish the oracle — expected counts computed from the data**
+- [x] **Step 1: Establish the oracle — expected counts computed from the data**
 
 Run:
 
@@ -84,7 +87,7 @@ pf2e spells rank 3      : 274
 
 Write these three numbers down. Every later task checks against them.
 
-- [ ] **Step 2: Add the SCALES table and filter state**
+- [x] **Step 2: Add the SCALES table and filter state**
 
 In `app.template.html`, find this line (~370):
 
@@ -136,7 +139,7 @@ function passRange(r){
 }
 ```
 
-- [ ] **Step 3: Apply the range filter in refresh()**
+- [x] **Step 3: Apply the range filter in refresh()**
 
 Find `refresh()` (~line 421):
 
@@ -177,12 +180,12 @@ function refresh(){
 
 Leave the rest of `refresh()` (the sort, the count, `renderList()`) exactly as it is.
 
-- [ ] **Step 4: Rebuild**
+- [x] **Step 4: Rebuild**
 
 Run: `python build_bundles.py`
 Expected: last line reads `index.html   9339 records  5.4 MB  written`
 
-- [ ] **Step 5: Verify the logic against the oracle**
+- [x] **Step 5: Verify the logic against the oracle**
 
 **Read this before asserting.** A range on one scale deliberately leaves every
 other scale untouched, so setting a CR range alone does *not* reduce the
@@ -238,7 +241,7 @@ Reset before moving on:
 F.range = {}; refresh();
 ```
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add app.template.html index.html
@@ -260,7 +263,7 @@ Builds the from/to selects, populated from the data, with clamping.
   - `buildRangeControls()` — called from `buildFilters()`; populates `#f-range` and initialises `F.range`
   - DOM: one `<div class="rng" data-scale="<key>">` per scale that has records
 
-- [ ] **Step 1: Add the container to the markup**
+- [x] **Step 1: Add the container to the markup**
 
 Find (~line 280):
 
@@ -277,7 +280,7 @@ Replace with:
       <div class="frow">
 ```
 
-- [ ] **Step 2: Write buildRangeControls()**
+- [x] **Step 2: Write buildRangeControls()**
 
 Find the end of `buildFilters()` — it closes right before `function passExtra(r){` (~line 393). Insert this new function immediately after the closing `}` of `buildFilters()`:
 
@@ -327,7 +330,7 @@ function buildRangeControls(){
 }
 ```
 
-- [ ] **Step 3: Call it from buildFilters()**
+- [x] **Step 3: Call it from buildFilters()**
 
 At the very end of `buildFilters()`, immediately before its closing `}`, add:
 
@@ -335,12 +338,12 @@ At the very end of `buildFilters()`, immediately before its closing `}`, add:
   buildRangeControls();
 ```
 
-- [ ] **Step 4: Rebuild**
+- [x] **Step 4: Rebuild**
 
 Run: `python build_bundles.py`
 Expected: last line reads `index.html   9339 records  5.4 MB  written`
 
-- [ ] **Step 5: Verify against the oracle through the UI**
+- [x] **Step 5: Verify against the oracle through the UI**
 
 Reload the page. In the console — note the chips are set first, so the headline
 count isolates the 5e monster scale (a range alone leaves other scales
@@ -381,7 +384,7 @@ Check clamping — set `from` above `to` and confirm `to` follows:
 
 Expected: `to` equals `"20"`, and the count is non-zero (not an empty range).
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add app.template.html index.html
@@ -399,7 +402,7 @@ git commit -m "Add from/to range controls built from the data"
 - Consumes: `SCALES`, the `chipped` array from `refresh()` (Task 1), the `.rng[data-scale]` elements from Task 2
 - Produces: `updateRangeVisibility(chipped)`
 
-- [ ] **Step 1: Write the visibility function**
+- [x] **Step 1: Write the visibility function**
 
 Immediately after `buildRangeControls()`, add:
 
@@ -415,7 +418,7 @@ function updateRangeVisibility(chipped){
 }
 ```
 
-- [ ] **Step 2: Call it from refresh()**
+- [x] **Step 2: Call it from refresh()**
 
 In `refresh()`, immediately after the `const chipped = DATA.filter(...)` block and before `view = chipped.filter(...)`, add:
 
@@ -423,12 +426,12 @@ In `refresh()`, immediately after the `const chipped = DATA.filter(...)` block a
   updateRangeVisibility(chipped);
 ```
 
-- [ ] **Step 3: Rebuild**
+- [x] **Step 3: Rebuild**
 
 Run: `python build_bundles.py`
 Expected: last line reads `index.html   9339 records  5.4 MB  written`
 
-- [ ] **Step 4: Verify visibility follows the chips**
+- [x] **Step 4: Verify visibility follows the chips**
 
 Reload. With no chips selected, all four controls should be visible:
 
@@ -449,7 +452,7 @@ Now select Monsters + D&D 5e and re-check:
 
 Expected: `[["cr5e",false],["lvlPf",true],["spl5e",true],["rankPf",true]]` — only the CR control shows.
 
-- [ ] **Step 5: Verify a zero-match range keeps its control**
+- [x] **Step 5: Verify a zero-match range keeps its control**
 
 ```js
 (() => {
@@ -470,7 +473,7 @@ Reset:
 F.kind = new Set(); F.sys = new Set(); F.range.spl5e = {from:0, to:9}; $("#q").value = ""; refresh();
 ```
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add app.template.html index.html
@@ -488,7 +491,7 @@ git commit -m "Show each range control only when its scale is in play"
 **Interfaces:**
 - Consumes: the `.rng`, `.rng .lbl`, `.rng .row`, `.rng .to` DOM from Task 2
 
-- [ ] **Step 1: Add the CSS**
+- [x] **Step 1: Add the CSS**
 
 Find this rule in the `<style>` block:
 
@@ -524,13 +527,13 @@ outranks user-agent origin in the cascade. Without this line, adding so much as
 mechanism: `box.hidden = true` would be set, and the control would stay on
 screen anyway.
 
-- [ ] **Step 2: Rebuild and check it looks right**
+- [x] **Step 2: Rebuild and check it looks right**
 
 Run: `python build_bundles.py`
 
 Reload the page. Confirm by eye: labels are uppercase mono in the faint tone matching the chips above them, the two selects sit on one line with `to` between, and nothing overflows the 340px sidebar.
 
-- [ ] **Step 3: Check the mobile breakpoint**
+- [x] **Step 3: Check the mobile breakpoint**
 
 Resize the browser to 375px wide and reload. Confirm the controls still fit on one line each and the sidebar remains usable.
 
@@ -540,7 +543,7 @@ If they overflow, add this inside the existing `@media (max-width:760px){ ... }`
   .rng select{font-size:11px; padding:4px}
 ```
 
-- [ ] **Step 4: Verify the build is intact**
+- [x] **Step 4: Verify the build is intact**
 
 Run:
 
@@ -562,7 +565,7 @@ for a in ['<title>Bestiary &amp; Grimoire</title>','<p id=\"lmsg\">Loading data 
 
 Expected: four `OK` lines.
 
-- [ ] **Step 5: Document the filters in the README**
+- [x] **Step 5: Document the filters in the README**
 
 In `README.md`, find this paragraph in section 1:
 
@@ -580,7 +583,7 @@ filters its own system's records. There is deliberately no CR-to-level
 conversion — see §13.
 ```
 
-- [ ] **Step 6: Final end-to-end verification against the oracle**
+- [x] **Step 6: Final end-to-end verification against the oracle**
 
 Reload the page and drive the real UI with no console state-poking:
 
@@ -597,7 +600,7 @@ Reload the page and drive the real UI with no console state-poking:
 
 Expected: `"274 of 9,339"` — the third oracle number, including focus spells as designed.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add app.template.html index.html README.md

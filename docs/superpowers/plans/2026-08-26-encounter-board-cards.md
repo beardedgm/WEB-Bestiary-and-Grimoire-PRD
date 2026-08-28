@@ -1,6 +1,9 @@
 # Encounter Board Cards Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax for tracking.
+
+**Status:** Shipped on `main` as of 2026-08-29. Implementation steps below are archival; see PRODUCT.md / specs for current behavior.
+
 
 **Goal:** Add a Board `encounter` card that references a saved encounter preset by id, with Send to Board from Table and Builder, roster summary, Load/Open actions, and combatant → linked `record` card.
 
@@ -43,14 +46,14 @@ Spec: `docs/superpowers/specs/2026-08-26-encounter-board-cards-design.md`
 - Consumes: `TRK.getPreset(id)` → preset or null; `TRK.loadPreset` / `TRK.confirmSwap` / `TRK.setMode`; `BUILD.openPreset(id)`; `BOARD.addRecord(ref)`
 - Produces: `BOARD.addEncounter(presetId)` → `{ ok: boolean, name?: string, error?: string }`; card field `presetId: string`
 
-- [ ] **Step 1: Branch from current main**
+- [x] **Step 1: Branch from current main**
 
 ```bash
 git checkout main && git pull
 git checkout -b cursor/encounter-board-cards
 ```
 
-- [ ] **Step 2: Extend CARD_TYPES and vCard**
+- [x] **Step 2: Extend CARD_TYPES and vCard**
 
 In BOARD, change:
 
@@ -66,7 +69,7 @@ In `vCard`, after the `record` branch:
 }
 ```
 
-- [ ] **Step 3: Extend addCard defaults and cardHasSubstance**
+- [x] **Step 3: Extend addCard defaults and cardHasSubstance**
 
 In `addCard`, after the `record` default:
 
@@ -92,7 +95,7 @@ In body dispatch:
 else if (card.type === "encounter") fillEncounter(body, card);
 ```
 
-- [ ] **Step 4: Add CSS for encounter roster**
+- [x] **Step 4: Add CSS for encounter roster**
 
 After `#board .record-missing` rules:
 
@@ -114,7 +117,7 @@ After `#board .record-missing` rules:
   margin:0; font:italic 14px/1.5 var(--serif); color:var(--dim)}
 ```
 
-- [ ] **Step 5: Implement fillEncounter + addEncounter**
+- [x] **Step 5: Implement fillEncounter + addEncounter**
 
 Place after `addRecord`:
 
@@ -221,7 +224,7 @@ Export it:
 return { setActive, getExport, applyUserSave, addRecord, addEncounter };
 ```
 
-- [ ] **Step 6: Syntax-check BOARD script and rebuild**
+- [x] **Step 6: Syntax-check BOARD script and rebuild**
 
 ```bash
 python3 - <<'EOF'
@@ -242,7 +245,7 @@ python3 build_bundles.py
 
 Expected: all blocks `ok`; `index.html` written/unchanged accordingly.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add app.template.html index.html
@@ -266,7 +269,7 @@ EOF
 - Consumes: `BOARD.addEncounter(presetId)` → `{ ok, name?, error? }`; `announceLive(msg)`
 - Produces: Send to Board chip in Table encounter reading pane
 
-- [ ] **Step 1: Add chip markup and handler in renderEncPane**
+- [x] **Step 1: Add chip markup and handler in renderEncPane**
 
 Replace the btns block and handlers so they include Send to Board:
 
@@ -307,7 +310,7 @@ function renderEncPane(p){
 }
 ```
 
-- [ ] **Step 2: Rebuild and commit**
+- [x] **Step 2: Rebuild and commit**
 
 ```bash
 python3 build_bundles.py
@@ -331,7 +334,7 @@ EOF
 - Consumes: `draft.editingPresetId`; `BOARD.addEncounter`
 - Produces: `#buildBoard` chip; enabled iff `draft.editingPresetId` is a non-empty string
 
-- [ ] **Step 1: Add toolbar button in HTML**
+- [x] **Step 1: Add toolbar button in HTML**
 
 Next to `#buildLoad`:
 
@@ -339,7 +342,7 @@ Next to `#buildLoad`:
 <button type="button" class="chip" id="buildBoard" disabled title="Save to Encounters first">Send to Board</button>
 ```
 
-- [ ] **Step 2: Wire enable/disable + click**
+- [x] **Step 2: Wire enable/disable + click**
 
 Add helper inside BUILD (near `saveToEncounters`):
 
@@ -376,7 +379,7 @@ if (boardBtn) boardBtn.onclick = () => {
 
 Also call `syncBoardChip()` from `setActive(true)` / `openPreset` / `hydrateFromBuilderMeta` / `hydrateFromEnc` paths that change `editingPresetId` (wherever `render()` already runs is enough if sync is inside `render`).
 
-- [ ] **Step 3: Rebuild, syntax-check, commit**
+- [x] **Step 3: Rebuild, syntax-check, commit**
 
 ```bash
 python3 build_bundles.py
@@ -398,7 +401,7 @@ EOF
 - Modify: `PRODUCT.md`, `DESIGN.md`, `CLAUDE.md`, `docs/superpowers/specs/2026-08-26-connected-workflow.md`
 - Create/update: `docs/superpowers/plans/2026-08-26-encounter-board-cards.md` (this file — add Shipped blurb when done)
 
-- [ ] **Step 1: Update PRODUCT.md**
+- [x] **Step 1: Update PRODUCT.md**
 
 In the Board capability bullet, after record cards, add encounter cards:
 
@@ -408,17 +411,17 @@ Load into Tracker / Open in Builder, combatant names spawn record cards; "Send t
 from Table and from Builder when the draft is saved)
 ```
 
-- [ ] **Step 2: Update DESIGN.md Board cards section**
+- [x] **Step 2: Update DESIGN.md Board cards section**
 
 Add: `Encounter cards list the linked preset’s roster on paper stock with chip actions in the footer; missing presets use the same italic dim notice pattern as missing record refs.`
 
-- [ ] **Step 3: Update CLAUDE.md BOARD row**
+- [x] **Step 3: Update CLAUDE.md BOARD row**
 
 ```
 | `BOARD` | Session boards: … / record / encounter cards (`BOARD.addRecord` / `BOARD.addEncounter`; Send to Board from Library, Table, Builder) |
 ```
 
-- [ ] **Step 4: Update connected-workflow integration checklist**
+- [x] **Step 4: Update connected-workflow integration checklist**
 
 Mark:
 
@@ -428,7 +431,7 @@ Mark:
 
 (Phase 2 ships **saved preset** cards; live Tracker mirroring is a closed non-goal.)
 
-- [ ] **Step 5: Browser smoke** (serve `python3 -m http.server 8000 --bind 127.0.0.1` → `http://127.0.0.1:8000/index.html`)
+- [x] **Step 5: Browser smoke** (serve `python3 -m http.server 8000 --bind 127.0.0.1` → `http://127.0.0.1:8000/index.html`)
 
 Checklist:
 
@@ -450,7 +453,7 @@ const card = exp.boards.flatMap(b => b.cards).find(c => c.type === "encounter");
 // expect: card.presetId string, no card.enc / card.combatants
 ```
 
-- [ ] **Step 6: Final build check and commit**
+- [x] **Step 6: Final build check and commit**
 
 ```bash
 python3 build_bundles.py --check
@@ -466,7 +469,7 @@ EOF
 )"
 ```
 
-- [ ] **Step 7: Push and open PR**
+- [x] **Step 7: Push and open PR**
 
 ```bash
 git push -u origin cursor/encounter-board-cards
@@ -478,9 +481,9 @@ gh pr create --title "Add linked encounter Board cards (connected workflow, Phas
 
 ## Test plan
 - [x] `build_bundles.py --check`; script `node --check`
-- [ ] Table + Builder pin paths; disabled Builder chip when unsaved
-- [ ] Roster → record card + dice roll; Load / Open Builder
-- [ ] Reload + missing presetId + portable save shape
+- [x] Table + Builder pin paths; disabled Builder chip when unsaved
+- [x] Roster → record card + dice roll; Load / Open Builder
+- [x] Reload + missing presetId + portable save shape
 EOF
 )"
 ```

@@ -1,5 +1,8 @@
 # Encounter Builder mode (2026-08-24)
 
+**Status:** Shipped on `main` as of 2026-08-29. Implementation steps below are archival; see PRODUCT.md / specs for current behavior.
+
+
 ## Goal
 
 Add a fifth app mode, **Builder**, that computes PF2e / 5e 2014 / 5e 2024 encounter budgets from party size + shared level, assembles a monster roster from the corpus, and saves into existing Table → Encounters presets (with round-trip `builder` metadata) plus Load into Tracker now.
@@ -11,7 +14,7 @@ Add a fifth app mode, **Builder**, that computes PF2e / 5e 2014 / 5e 2024 encoun
 - Party: **size + one shared level** only
 - Exits: **Save to Encounters** and **Load into Tracker now**
 - Round-trip: reopen a saved Encounter in Builder
-- PF2e creature outside party level ±4: **block**
+- PF2e creature outside party level ±4: **add at 0 XP** with roster label **Outside ±4** (shipped via `2026-08-28-pf2e-out-of-band-zero-xp.md`)
 - Missing HP / incomplete combatant fields: **block add** with a clear status message
 
 Out of v1: adventuring-day XP, situational ±1, mixed PC levels, auto-fill remaining budget, cross-system comparison.
@@ -33,7 +36,7 @@ Out of v1: adventuring-day XP, situational ±1, mixed PC levels, auto-fill remai
 
 ## Manual acceptance
 
-- PF2e: 4×L5 Severe → budget 120; PL+2 (80) + two PL−2 (20) = 120; PL+5 blocked
+- PF2e: 4×L5 Severe → budget 120; PL+2 (80) + two PL−2 (20) = 120; PL+5 adds at 0 XP (Outside ±4)
 - 5e 2014: 4×L3 Medium thresholds; 2 monsters apply ×1.5; difficulty label correct
 - 5e 2024: 5×L5 Moderate = 3750; spend without multiplier
 - System switch with roster asks confirm; wrong-system catalog add blocked

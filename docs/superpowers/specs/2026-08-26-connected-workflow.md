@@ -86,6 +86,10 @@ Phases 0–3 are **complete**:
 - **Phase 3 — Lore v1.** Markdown adventure pages (tree + tags), local-first and portable;
   "Pin to Board" turns a whole Lore page into a linked card.
 
+## Post-phase backlog
+
+Unbuilt work after Maps phase 2: see `docs/superpowers/plans/2026-08-28-backlog-roadmap.md`.
+
 ## Closed non-goals
 
 These were considered and **will not be implemented**:

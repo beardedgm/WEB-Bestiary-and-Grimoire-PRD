@@ -1,5 +1,8 @@
 # Lore markdown format bar (2026-08-26)
 
+**Status:** Shipped on `main` as of 2026-08-29. Implementation steps below are archival; see PRODUCT.md / specs for current behavior.
+
+
 ## Goal
 
 Quick on-the-fly styling for Lore pages without a block editor: keep `page.body` as

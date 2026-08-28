@@ -1,5 +1,8 @@
 # Critique engineering fixes (2026-08-27)
 
+**Status:** Shipped on `main` as of 2026-08-29. Implementation steps below are archival; see PRODUCT.md / specs for current behavior.
+
+
 Hardening pass from the adversarial review at `87b218b3`.
 
 ## Shipped

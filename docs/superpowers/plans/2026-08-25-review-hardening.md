@@ -1,5 +1,8 @@
 # Review hardening (2026-08-25)
 
+**Status:** Shipped on `main` as of 2026-08-29. Implementation steps below are archival; see PRODUCT.md / specs for current behavior.
+
+
 ## Changes
 
 - Board `vCard` / `vBoard` on load, import, and export; strip `_preview*` and clamp media/`body`

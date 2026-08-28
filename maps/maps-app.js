@@ -13,8 +13,18 @@
   const MAX_MEASURE_HEXES = 10000;
   const MAX_IMAGE_B64 = 30 * 1024 * 1024;
   const UNDO_MAX = 80;
-  const TOKEN_ICONS = ["", "★", "⌂", "☠", "⚑", "⚔", "◇", "●", "▲", "✚"];
+  const TOKEN_ICON_ALIASES = {
+    "★": "star", "⌂": "home", "☠": "skull", "⚑": "flag", "⚔": "sword",
+    "◇": "question", "●": "person", "▲": "exclamation", "✚": "check",
+    star_rate: "star", swords: "sword", groups: "group", person_pin: "person",
+    location_on: "location", help: "question", warning: "exclamation",
+    check_circle: "check", bolt: "bolt", castle: "castle", fort: "fort",
+    camping: "camp", grass: "grass", village: "village", shield: "shield",
+    flag: "flag", skull: "skull", home: "home", star: "star", sword: "sword",
+  };
   const TOKEN_SIZES = { small: 0.55, medium: 1, large: 1.55 };
+  const iconTextures = new Map();
+  let iconsLoadPromise = null;
   const TEXT_SIZES = { small: 14, medium: 20, large: 32 };
   const STARTER_MAP_URL = "maps/starter.hexplora";
   const STARTER_MAP_NAME = "Starter map";
@@ -32,6 +42,7 @@
     textToolColor: "#241f1c", textToolSize: "medium",
     textToolOutlineColor: "#f4f0e8", textToolOutlineWidth: 3, textToolOutlineOpacity: 1,
     textToolCustomPx: 20,
+    gridKind: "hex",
   };
 
   const TEXT_PRESETS = {
@@ -194,15 +205,44 @@
         index.insert(hex, { xMin, xMax, yMin, yMax });
       }
     }
-    return { hexes, index, byId, hexWidth, hexHeight };
+    return { kind: "hex", hexes, cells: hexes, index, byId, hexWidth, hexHeight, cellWidth: hexWidth, cellHeight: hexHeight };
   }
 
-  function findHexAt(wx, wy, grid) {
-    for (const h of grid.index.queryPoint(wx, wy)) {
+  function generateSquareGrid(settings, revealedCells) {
+    const cellSize = settings.hexSize;
+    const index = new SpatialHashGrid(cellSize);
+    const cells = [];
+    const byId = new Map();
+    for (let row = 0; row < settings.rowCount; row++) {
+      for (let col = 0; col < settings.columnCount; col++) {
+        const x = col * cellSize + cellSize / 2 + settings.offsetX;
+        const y = row * cellSize + cellSize / 2 + settings.offsetY;
+        const id = col + "-" + row;
+        const half = cellSize / 2;
+        const verts = [
+          { x: x - half, y: y - half }, { x: x + half, y: y - half },
+          { x: x + half, y: y + half }, { x: x - half, y: y + half },
+        ];
+        const cell = {
+          id, x, y, row, col, revealed: revealedCells[id] === true, vertices: verts,
+        };
+        cells.push(cell);
+        byId.set(id, cell);
+        index.insert(cell, { xMin: x - half, xMax: x + half, yMin: y - half, yMax: y + half });
+      }
+    }
+    return { kind: "square", cells, index, byId, cellWidth: cellSize, cellHeight: cellSize };
+  }
+
+  function findCellAt(wx, wy, g) {
+    if (!g) return null;
+    for (const h of g.index.queryPoint(wx, wy)) {
       if (pointInPoly(wx, wy, h.vertices)) return h;
     }
     return null;
   }
+
+  function findHexAt(wx, wy, g) { return findCellAt(wx, wy, g); }
 
   function hexNeighbors(hex, byId, orientation) {
     const { col, row } = hex;
@@ -222,6 +262,69 @@
     return out;
   }
 
+  function cellNeighbors(cell, byId, settings) {
+    if (settings.gridKind === "square") {
+      const { col, row } = cell;
+      const out = [];
+      for (const [dc, dr] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const n = byId.get((col + dc) + "-" + (row + dr));
+        if (n) out.push(n);
+      }
+      return out;
+    }
+    return hexNeighbors(cell, byId, settings.orientation);
+  }
+
+  function tokenIconSlugs() {
+    const m = window.MAPS_TOKEN_ICON_MANIFEST;
+    if (!m) return new Set([""]);
+    return new Set(m.map((e) => e.id));
+  }
+
+  function normalizeTokenIcon(raw) {
+    const s = typeof raw === "string" ? raw.trim() : "";
+    if (!s) return "";
+    if (TOKEN_ICON_ALIASES[s]) return TOKEN_ICON_ALIASES[s];
+    const slugs = tokenIconSlugs();
+    if (slugs.has(s)) return s.slice(0, 32);
+    return "";
+  }
+
+  async function textureFromSvgUrl(url, PIXI) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("fetch failed");
+    const svg = await res.text();
+    const blob = new Blob([svg], { type: "image/svg+xml" });
+    const urlObj = URL.createObjectURL(blob);
+    try {
+      const img = await new Promise((resolve, reject) => {
+        const el = new Image();
+        el.onload = () => resolve(el);
+        el.onerror = reject;
+        el.src = urlObj;
+      });
+      return PIXI.Texture.from(img);
+    } finally {
+      URL.revokeObjectURL(urlObj);
+    }
+  }
+
+  async function loadTokenIcons() {
+    const PIXI = window.PIXI;
+    if (!PIXI || !window.MAPS_TOKEN_ICON_MANIFEST) return;
+    if (iconsLoadPromise) return iconsLoadPromise;
+    iconsLoadPromise = (async () => {
+      for (const entry of MAPS_TOKEN_ICON_MANIFEST) {
+        if (!entry.id || iconTextures.has(entry.id)) continue;
+        try {
+          const tex = await textureFromSvgUrl("maps/token-icons/" + entry.id + ".svg", PIXI);
+          iconTextures.set(entry.id, tex);
+        } catch (_) { /* fail soft if fetch blocked */ }
+      }
+    })();
+    return iconsLoadPromise;
+  }
+
   /* ---------- validators ---------- */
   function vSettings(raw) {
     const s = Object.assign({}, DEFAULT_SETTINGS);
@@ -232,6 +335,7 @@
     s.columnCount = clamp(Math.round(num(raw.columnCount, s.columnCount)), 1, 200);
     s.rowCount = clamp(Math.round(num(raw.rowCount, s.rowCount)), 1, 200);
     s.orientation = raw.orientation === "flat" ? "flat" : "pointy";
+    s.gridKind = raw.gridKind === "square" ? "square" : "hex";
     s.mapScale = clamp(num(raw.mapScale, 100), 10, 400);
     for (const k of ["fogColor", "gridColor", "tokenColor", "measureColor", "drawColor",
       "rectColor", "ellipseColor", "arrowColor", "lineColor", "textToolColor", "textToolOutlineColor"]) {
@@ -239,7 +343,7 @@
     }
     s.fogOpacity = clamp(num(raw.fogOpacity, s.fogOpacity), 0, 1);
     s.gridThickness = clamp(num(raw.gridThickness, 1), 0.5, 8);
-    s.tokenIcon = vStr(raw.tokenIcon, 8, "");
+    s.tokenIcon = normalizeTokenIcon(vStr(raw.tokenIcon, 32, ""));
     s.tokenSize = raw.tokenSize === "small" || raw.tokenSize === "large" ? raw.tokenSize : "medium";
     s.hexDistanceValue = clamp(num(raw.hexDistanceValue, 8), 0.01, 1e6);
     s.hexDistanceUnit = vStr(raw.hexDistanceUnit, 24, "miles");
@@ -279,7 +383,7 @@
       x: num(raw.x, 0), y: num(raw.y, 0),
       color: (typeof raw.color === "string" && /^#[0-9a-fA-F]{3,8}$/.test(raw.color)) ? raw.color : "#c0392b",
       label: vStr(raw.label, 100, ""),
-      icon: vStr(raw.icon, 8, ""),
+      icon: normalizeTokenIcon(vStr(raw.icon, 32, "")),
       notes: vStr(raw.notes, 2000, ""),
       zIndex: num(raw.zIndex, i + 1),
     };
@@ -495,7 +599,11 @@
     }
 
     function rebuildGrid() {
-      grid = generateHexGrid(state.settings, state.revealedHexes);
+      if (state.settings.gridKind === "square") {
+        grid = generateSquareGrid(state.settings, state.revealedHexes);
+      } else {
+        grid = generateHexGrid(state.settings, state.revealedHexes);
+      }
     }
 
     function worldFromEvent(e) {
@@ -555,9 +663,9 @@
     }
 
     function pickTokenAt(wx, wy) {
-      const base = state.settings.hexSize * 0.55;
+      const hexSize = state.settings.hexSize;
       const mul = TOKEN_SIZES[state.settings.tokenSize] || 1;
-      const r = base * mul * 1.15;
+      const r = hexSize * 0.4 * mul * 1.15;
       for (let i = state.tokens.length - 1; i >= 0; i--) {
         const t = state.tokens[i];
         if (Math.hypot(wx - t.x, wy - t.y) <= r) return i;
@@ -844,7 +952,7 @@
       const toks = $("mapsTokenSize");
       if (toks) s.tokenSize = toks.value;
       const toki = $("mapsTokIconDrawer");
-      if (toki) s.tokenIcon = toki.value || "";
+      if (toki) s.tokenIcon = normalizeTokenIcon(toki.value || "");
       const tm = $("mapsTokMulti");
       if (tm) tokenMultiPlace = !!tm.checked;
       readShapeSettingsFromForm();
@@ -1118,7 +1226,7 @@
       const fogA = state.settings.fogOpacity;
       const gc = hexToRgb(state.settings.gridColor);
       const gt = state.settings.gridThickness;
-      for (const h of grid.hexes) {
+      for (const h of grid.cells) {
         const pts = h.vertices;
         if (!h.revealed) {
           g.moveTo(pts[0].x, pts[0].y);
@@ -1216,39 +1324,60 @@
       }
     }
 
+    function createTokenGroup(token, index, hexSize, PIXI) {
+      const sizeScale = TOKEN_SIZES[state.settings.tokenSize] || 1;
+      const radius = hexSize * 0.4 * sizeScale;
+      const g = new PIXI.Container();
+      g.x = token.x; g.y = token.y;
+      const circle = new PIXI.Graphics();
+      circle.circle(0, 0, radius);
+      circle.fill({ color: hexToRgb(token.color), alpha: 0.95 });
+      circle.stroke({
+        width: selectedToken === index ? 3 : 1.5,
+        color: selectedToken === index ? 0xf0d78c : 0x241f1c,
+        alpha: 1,
+      });
+      g.addChild(circle);
+      const slug = normalizeTokenIcon(token.icon);
+      if (slug && iconTextures.has(slug)) {
+        const spr = new PIXI.Sprite(iconTextures.get(slug));
+        const iconSize = radius * 1.1;
+        spr.anchor.set(0.5);
+        spr.width = iconSize;
+        spr.height = iconSize;
+        g.addChild(spr);
+      }
+      if (token.label) {
+        const fontSize = Math.max(10, hexSize * 0.22 * sizeScale);
+        const tx = new PIXI.Text({
+          text: token.label.slice(0, 100),
+          style: new PIXI.TextStyle({
+            fontFamily: "IBM Plex Sans, sans-serif",
+            fontSize,
+            fill: "#ffffff",
+            fontWeight: "600",
+            stroke: { color: "#241f1c", width: Math.max(2, fontSize * 0.15) },
+          }),
+        });
+        tx.anchor.set(0.5, 0);
+        tx.y = hexSize * 0.5 * sizeScale;
+        g.addChild(tx);
+      }
+      g.eventMode = "none";
+      g.on("pointerover", () => {
+        if (token.notes) showNotesTip(token.notes);
+      });
+      return g;
+    }
+
     function drawTokens() {
       const PIXI = window.PIXI;
       layers.tokens.removeChildren();
       if (!PIXI) return;
       const sorted = state.tokens.map((t, i) => ({ t, i })).sort((a, b) => a.t.zIndex - b.t.zIndex);
-      const base = state.settings.hexSize * 0.55;
+      const hexSize = state.settings.hexSize;
       for (const { t, i } of sorted) {
-        const mul = TOKEN_SIZES[state.settings.tokenSize] || 1;
-        const r = base * mul;
-        const g = new PIXI.Container();
-        g.x = t.x; g.y = t.y;
-        const circle = new PIXI.Graphics();
-        circle.circle(0, 0, r);
-        circle.fill({ color: hexToRgb(t.color), alpha: 0.95 });
-        circle.stroke({ width: selectedToken === i ? 3 : 1.5, color: selectedToken === i ? 0xf0d78c : 0x241f1c, alpha: 1 });
-        g.addChild(circle);
-        const label = (t.icon || "") + (t.label ? (t.icon ? " " : "") + t.label : "");
-        if (label) {
-          const tx = new PIXI.Text({
-            text: label.slice(0, 16),
-            style: new PIXI.TextStyle({
-              fontFamily: "IBM Plex Sans, sans-serif", fontSize: Math.max(10, r * 0.7),
-              fill: "#f4f0e8", fontWeight: "600",
-            }),
-          });
-          tx.anchor.set(0.5);
-          g.addChild(tx);
-        }
-        g.eventMode = "none";
-        g.on("pointerover", () => {
-          if (t.notes) showNotesTip(t.notes);
-        });
-        layers.tokens.addChild(g);
+        layers.tokens.addChild(createTokenGroup(t, i, hexSize, PIXI));
       }
     }
 
@@ -1318,6 +1447,7 @@
       $("mapsEditor").hidden = false;
       const host = $("mapsStage");
       await ensurePixi(host);
+      await loadTokenIcons();
       await loadMapTexture();
       renderAll();
       resize();
@@ -1451,7 +1581,7 @@
             hexSize: 40, offsetX: 80, offsetY: 48, columnCount: 20, rowCount: 15,
             orientation: "pointy", mapScale: 100,
             fogColor: "#1a3d24", fogOpacity: 0.88, gridColor: "#f4f0e8", gridThickness: 1.25,
-            tokenColor: "#8b3a2a", tokenIcon: "⌂", tokenSize: "medium",
+            tokenColor: "#8b3a2a", tokenIcon: "home", tokenSize: "medium",
             hexDistanceValue: 6, hexDistanceUnit: "miles",
           },
           view: { zoomLevel: 1, panX: 0, panY: 0 },
@@ -1592,8 +1722,10 @@
       set("mapsOffsetY", s.offsetY);
       set("mapsCols", s.columnCount);
       set("mapsRows", s.rowCount);
+      set("mapsGridKind", s.gridKind);
       set("mapsOrient", s.orientation);
       set("mapsScale", s.mapScale);
+      syncGridKindUI();
       set("mapsFogColor", s.fogColor);
       set("mapsFogOpacity", s.fogOpacity);
       set("mapsGridColor", s.gridColor);
@@ -1609,6 +1741,8 @@
       s.offsetY = num($("mapsOffsetY").value, 0);
       s.columnCount = clamp(Math.round(num($("mapsCols").value, s.columnCount)), 1, 200);
       s.rowCount = clamp(Math.round(num($("mapsRows").value, s.rowCount)), 1, 200);
+      const gk = $("mapsGridKind");
+      s.gridKind = gk && gk.value === "square" ? "square" : "hex";
       s.orientation = $("mapsOrient").value === "flat" ? "flat" : "pointy";
       s.mapScale = clamp(num($("mapsScale").value, 100), 10, 400);
       s.gridColor = $("mapsGridColor").value || s.gridColor;
@@ -1618,14 +1752,24 @@
       scheduleSave();
     }
 
-    function paintHex(wx, wy, reveal) {
-      const h = findHexAt(wx, wy, grid);
+    function syncGridKindUI() {
+      const sq = state.settings.gridKind === "square";
+      const row = $("mapsOrientRow");
+      if (row) row.hidden = sq;
+      const lbl = $("mapsHexSizeLabel");
+      if (lbl) lbl.textContent = sq ? "Cell size" : "Hex size";
+    }
+
+    function paintCell(wx, wy, reveal) {
+      const h = findCellAt(wx, wy, grid);
       if (!h) return false;
       const was = !!state.revealedHexes[h.id];
       if (reveal && !was) { state.revealedHexes[h.id] = true; h.revealed = true; return true; }
       if (!reveal && was) { delete state.revealedHexes[h.id]; h.revealed = false; return true; }
       return false;
     }
+
+    function paintHex(wx, wy, reveal) { return paintCell(wx, wy, reveal); }
 
     function bindPointer(canvas) {
       canvas.addEventListener("wheel", (e) => {
@@ -1678,24 +1822,24 @@
           pushUndo();
           let tx = w.x, ty = w.y;
           if (!e.altKey) {
-            const h = findHexAt(w.x, w.y, grid);
+            const h = findCellAt(w.x, w.y, grid);
             if (h) { tx = h.x; ty = h.y; }
           }
           readToolSettingsLive();
           state.tokens.push({
             x: tx, y: ty, color: state.settings.tokenColor,
-            label: "", icon: state.settings.tokenIcon || "", notes: "", zIndex: nextZ++,
+            label: "", icon: normalizeTokenIcon(state.settings.tokenIcon || ""), notes: "", zIndex: nextZ++,
           });
           selectKind("token", state.tokens.length - 1);
           scheduleSave();
           if (!tokenMultiPlace) openTokenEditor(selectedToken);
         } else if (tool === "measure") {
-          const h = findHexAt(w.x, w.y, grid);
+          const h = findCellAt(w.x, w.y, grid);
           if (!h) return;
           if (!measurePath.length) measurePath = [h.id];
           else {
             const last = grid.byId.get(measurePath[measurePath.length - 1]);
-            const neigh = hexNeighbors(last, grid.byId, state.settings.orientation).some((n) => n.id === h.id);
+            const neigh = cellNeighbors(last, grid.byId, state.settings).some((n) => n.id === h.id);
             if (neigh && !measurePath.includes(h.id)) measurePath.push(h.id);
             else if (measurePath[measurePath.length - 1] === h.id && measurePath.length >= 2) {
               pushUndo();
@@ -1874,7 +2018,7 @@
         t.label = ($("mapsTokLabel").value || "").slice(0, 100);
         t.notes = ($("mapsTokNotes").value || "").slice(0, 2000);
         t.color = $("mapsTokColor").value || t.color;
-        t.icon = $("mapsTokIcon").value || "";
+        t.icon = normalizeTokenIcon($("mapsTokIcon").value || "");
         scheduleSave();
         drawTokens();
       }
@@ -2173,13 +2317,64 @@
       a.click();
     }
 
+    function duplicateSelection() {
+      if (selectedToken < 0) return false;
+      if (state.tokens.length >= MAX_TOKENS) { toast("Token limit reached"); return true; }
+      const src = state.tokens[selectedToken];
+      if (!src) return false;
+      pushUndo();
+      state.tokens.push({
+        x: src.x + 12, y: src.y + 12,
+        color: src.color, label: src.label, icon: src.icon, notes: src.notes,
+        zIndex: nextZ++,
+      });
+      selectKind("token", state.tokens.length - 1);
+      scheduleSave();
+      return true;
+    }
+
+    function openShortcutHelp() {
+      const ov = $("mapsShortcutOvl");
+      if (!ov) return;
+      ov.hidden = false;
+      if (typeof setAppInert === "function") setAppInert(true);
+    }
+
+    function closeShortcutHelp() {
+      const ov = $("mapsShortcutOvl");
+      if (!ov) return;
+      ov.hidden = true;
+      if (typeof setAppInert === "function") setAppInert(false);
+    }
+
+    function populateTokenIconSelects() {
+      const m = window.MAPS_TOKEN_ICON_MANIFEST;
+      if (!m) return;
+      for (const id of ["mapsTokIconDrawer", "mapsTokIcon"]) {
+        const sel = $(id);
+        if (!sel) continue;
+        const cur = sel.value;
+        sel.innerHTML = "";
+        for (const entry of m) {
+          const opt = document.createElement("option");
+          opt.value = entry.id;
+          opt.textContent = entry.label;
+          sel.appendChild(opt);
+        }
+        if ([...sel.options].some((o) => o.value === cur)) sel.value = cur;
+        else sel.value = "";
+      }
+    }
+
     function onKey(e) {
       if (!active || !openMapId) return;
       if (e.target && /INPUT|TEXTAREA|SELECT/.test(e.target.tagName)) return;
       if (e.key === "z" && (e.ctrlKey || e.metaKey) && !e.shiftKey) { e.preventDefault(); undo(); }
       else if ((e.key === "y" && (e.ctrlKey || e.metaKey)) || (e.key === "z" && e.shiftKey && (e.ctrlKey || e.metaKey))) {
         e.preventDefault(); redo();
-      } else if (e.key === "Escape") {
+      }       else if (e.key === "Escape") {
+        const shortcutOv = $("mapsShortcutOvl");
+        if (shortcutOv && !shortcutOv.hidden) { closeShortcutHelp(); return; }
         if (measurePath.length) { measurePath = []; renderAll(); return; }
         setTool("pan");
         closeTokenEditor(false);
@@ -2195,9 +2390,18 @@
       }
       else if (e.key === "Delete" || e.key === "Backspace") {
         if (deleteSelection()) e.preventDefault();
-      } else if (e.key === "r") setTool("reveal");
+      }       else if (e.key === "r") setTool("reveal");
       else if (e.key === "h") setTool("hide");
       else if (e.key === "t") setTool("token");
+      else if (e.key === "?" && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        const ov = $("mapsShortcutOvl");
+        if (ov && !ov.hidden) closeShortcutHelp();
+        else openShortcutHelp();
+      }
+      else if ((e.key === "d" || e.key === "D") && (e.ctrlKey || e.metaKey)) {
+        if (duplicateSelection()) e.preventDefault();
+      }
       else if (e.key === " ") { e.preventDefault(); setTool("pan"); }
     }
 
@@ -2207,6 +2411,7 @@
     }
     function bind() {
       if (!$("maps")) return;
+      populateTokenIconSelects();
       on("mapsNew", "onclick", () => $("mapsFile") && $("mapsFile").click());
       on("mapsFile", "onchange", (e) => {
         const f = e.target.files && e.target.files[0];
@@ -2303,6 +2508,8 @@
       on("mapsMeasEditSave", "onclick", () => closeMeasurementEditor(true));
       on("mapsMeasEditCancel", "onclick", () => closeMeasurementEditor(false));
       on("mapsMeasEditDelete", "onclick", deleteMeasurementFromModal);
+      on("mapsShortcuts", "onclick", () => openShortcutHelp());
+      on("mapsShortcutClose", "onclick", () => closeShortcutHelp());
       on("mapsTextInput", "onkeydown", (e) => {
         if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); closeTextEditor(true); }
         if (e.key === "Escape") { e.preventDefault(); closeTextEditor(false); }
@@ -2323,6 +2530,7 @@
       if (on) {
         renderList();
         idb.open().catch(() => toast("IndexedDB unavailable"));
+        loadTokenIcons().then(() => { if (openMapId) drawTokens(); }).catch(() => {});
         if (!openMapId) openPreferredMap().catch(() => {});
         requestAnimationFrame(resize);
       }
@@ -2337,7 +2545,11 @@
     bind();
 
     return {
-      setActive, onCampaignChanged, idb, vState, _test: { vState, generateHexGrid, findHexAt, vSettings },
+      setActive, onCampaignChanged, idb, vState,
+      _test: {
+        vState, generateHexGrid, generateSquareGrid, findCellAt, findHexAt, vSettings,
+        normalizeTokenIcon,
+      },
     };
   })();
 
