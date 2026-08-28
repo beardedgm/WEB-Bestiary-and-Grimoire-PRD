@@ -86,7 +86,7 @@ On the preset reading pane (alongside Open in Builder): **Send to Board** chip â
 
 ## Non-goals
 
-- Live Tracker mirroring / HP on the Board card
+- Live Tracker mirroring / HP on the Board card â€” **closed / won't do** (use Tracker for live combat)
 - Pinning an unsaved Builder draft
 - Drag-and-drop from Table onto the Board
 - Editing the preset roster from the Board

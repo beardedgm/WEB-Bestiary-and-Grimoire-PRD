@@ -20,19 +20,20 @@ These extend, and never override, the existing product principles in `PRODUCT.md
 ## Campaign lifecycle
 
 1. Create or import a campaign.
-2. Write campaign material into **Lore**.
+2. Load **adventure text** into **Lore** (chapters, scenes, read-alouds from the module).
 3. Reference monsters, spells, and rules in the **Library** (corpus ships built-in;
    customs extend it).
 4. Create homebrew material in the **Forge** when the corpus doesn't fit.
 5. Build encounters in the **Builder**.
-6. Prepare the next session by pulling relevant material onto the **Board**.
+6. Prepare the next session by pulling relevant material onto the **Board** (pin Lore
+   scenes, Send to Board from Library / Table / Builder).
 7. Run encounters through the **Tracker**.
-8. Take session notes and update Lore afterward (future capture loop).
+8. Keep **session notes** on the **Board** (what happened tonight, scratch, timers, handouts).
+   Update Lore only when you edit adventure text during prep — not auto-imported from play.
 9. Repeat for the next session.
 
 The Library is not a step you finish — it is always available; Forge and import fill gaps
-as prep reveals them. After-session capture (step 8) is a first-class path, or the campaign
-knowledge base rots and users drift back to external note tools.
+as prep reveals them.
 
 ## Area ownership
 
@@ -43,14 +44,14 @@ knowledge base rots and users drift back to external note tools.
 | **Campaign** | Durable campaign bag (`bg.campaign.v1`): party, encounter presets, Lore pages, maps meta | Live initiative, Board layout, custom library |
 | **Maps** | Hex-crawl editor for active campaign (IndexedDB blobs + Pixi); import/export map files | Live initiative, Board handouts, cloud share |
 | **Builder** | Encounter drafts and difficulty budgets (Save writes presets into active campaign) | Live combat state |
-| **Tracker** | Live encounter: initiative, HP, rounds, markers (party/presets mirror active campaign) | Adventure text, long-term notes |
-| **Board** | Tonight's session surface — ephemeral, spatial, disposable | Being the permanent campaign archive |
-| **Lore** | UI for durable campaign pages under the active Campaign | Campaign create/rename/delete (header picker); live initiative; rules corpus |
+| **Tracker** | Live encounter: initiative, HP, rounds, markers (party/presets mirror active campaign) | Adventure text, session notes |
+| **Board** | Session notes and tonight's spatial layout (`bg.board.v1`; multi-session boards supported) | The adventure manuscript (canonical module text) |
+| **Lore** | Adventure/module text for the active campaign (tree of pages: chapters, scenes, read-alouds) | Session log, live initiative; campaign create/rename/delete (header picker) |
 | **Export** | Portability — the user owns their files (`bg-user-save/1`, includes `campaigns`) | Cloud identity, sync |
 
-The load-bearing sentence: **Campaign is where durable prep lives (party, encounters, lore,
-maps); the Board is where tonight's game lives.** If the Board starts absorbing permanent
-campaign notes, or Lore grows session chrome, the ownership contract is broken.
+The load-bearing sentence: **Lore is where the adventure text lives; the Board is where
+session notes and tonight's table live.** If Lore absorbs session history, or the Board
+becomes the canonical module archive, the ownership contract is broken.
 
 ## Integration contract
 
@@ -64,12 +65,10 @@ idea. Status as of this writing:
       (reading pane) — *shipped*
 - [x] A monster or spell in the Library can be sent to the Board as a **linked card**
       (reference by id, live render, not pasted text) — *Phase 1, shipped*
-- [x] An encounter (Builder draft or Tracker state) can appear on the Board as a linked
-      card — *Phase 2 (saved preset; live Tracker mirroring deferred)*
-- [x] A whole Lore page can be pinned to tonight's Board as a linked card — *Phase 3, shipped;
-      excerpt/read-aloud pinning deferred*
-- [ ] Something that happened during the session (Board note, Tracker outcome) can be added
-      back into Lore in one action — *Phase 4*
+- [x] A saved encounter preset can appear on the Board as a linked card — *Phase 2, shipped*
+- [x] A whole Lore page can be pinned to tonight's Board as a linked card — *Phase 3, shipped*
+- [x] Board or Tracker → Lore capture automation — *closed / won't do; session notes belong
+      on the Board; Lore holds adventure source text*
 
 Linked means: the card stores `{ ref: "<record id>" }` and renders from the live record at
 view time. Deleting the underlying custom yields an honest missing-record notice, never a
@@ -77,15 +76,23 @@ stale embedded copy (mirrors the `parse.status` honesty philosophy).
 
 ## Phased roadmap
 
+Phases 0–3 are **complete**:
+
 - **Phase 0 — Land Forge.** Merge the Forge mode branch (PR #16).
 - **Phase 1 — Linked Board cards.** `record` card type on the Board referencing Library
   monsters/spells by id; "Send to Board" from the Library reading pane.
-- **Phase 2 — Encounter on the Board.** Builder/Tracker encounter as a linked Board card;
-  stat blocks from Tracker without mode thrash.
-- **Phase 3 — Lore v1 (shipped).** New mode: markdown campaign pages (tree + tags),
-  local-first and portable; "Pin to Board" turns a whole Lore page into a linked card.
-  Excerpt/read-aloud pinning is deferred.
-- **Phase 4 — Capture loop.** Session residue flows back into Lore with one action.
+- **Phase 2 — Encounter on the Board.** Saved encounter preset as a linked Board card;
+  Load into Tracker / Open in Builder from the card.
+- **Phase 3 — Lore v1.** Markdown adventure pages (tree + tags), local-first and portable;
+  "Pin to Board" turns a whole Lore page into a linked card.
+
+## Closed non-goals
+
+These were considered and **will not be implemented**:
+
+- Live Tracker mirroring on Board encounter cards (use Tracker for live combat)
+- Lore excerpt / read-aloud block pinning (whole-page Pin is shipped; cut/paste to Board if needed)
+- Board or Tracker → Lore capture automation (session notes stay on the Board)
 
 ## Non-goals
 
@@ -93,3 +100,6 @@ stale embedded copy (mirrors the `parse.status` honesty philosophy).
 - Out-templating dedicated worldbuilding tools (heavy template engines, mirrored fields)
 - Cross-system power conversion (CR↔level) — unchanged, by design
 - Cloud accounts or sync — local-first with portable export remains the trust model
+- Live Tracker mirroring on Board encounter cards
+- Lore excerpt / read-aloud block pinning
+- Board or Tracker → Lore capture automation

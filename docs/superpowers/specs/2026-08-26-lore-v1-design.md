@@ -1,6 +1,6 @@
 # Lore v1 (connected workflow, Phase 3)
 
-Durable campaign knowledge base as a first-class mode. Extends the connected workflow so
+Durable adventure text as a first-class mode. Extends the connected workflow so
 prep can live in Lore and pin whole pages onto tonight’s Board as linked cards.
 
 Parent: `docs/superpowers/specs/2026-08-26-connected-workflow.md`.
@@ -11,10 +11,10 @@ the existing portable `bg-user-save/1` path.
 
 ## Problem
 
-Board markdown cards are session chrome, not a campaign archive. Without Lore, durable
+Board markdown cards are session notes, not the adventure manuscript. Without Lore, durable
 adventure text stays in Notion/external wikis and the “create once, use everywhere” loop
-breaks between prep and play. Phase 3 adds the home for campaign truth; Phase 4 will close
-the capture loop back into it.
+breaks between prep and play. Phase 3 adds the home for adventure source text (module
+chapters and scenes).
 
 ## Decisions (locked)
 
@@ -99,11 +99,11 @@ New Board card type `lore`:
 
 ## Non-goals (v1)
 
-- Excerpt / block-level pin
-- Capture from Board/Tracker into Lore (Phase 4)
+- Excerpt / block-level pin — **closed / won't do** (whole-page Pin is shipped)
+- Capture from Board/Tracker into Lore — **closed / won't do** (session notes belong on the Board)
 - File System Access API, cloud sync, multiplayer
 - Wiki `[[backlinks]]`, templates, live Library widgets inside pages
-- Live Tracker mirroring on the Board (still deferred from Phase 2)
+- Live Tracker mirroring on the Board — **closed / won't do** (see encounter-board-cards spec)
 
 ## Acceptance criteria
 
