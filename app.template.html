@@ -936,7 +936,7 @@ body.trk #forge{display:none !important}
 
 
 /* ==== maps mode =========================================================== */
-#maps{display:none; flex:1; min-width:0; min-height:0; background:var(--stone-2); position:relative}
+#maps{display:none; flex:1; min-width:0; min-height:0; background:var(--stone-2); position:relative; flex-direction:column}
 body.maps #maps{display:flex}
 body.maps #side,
 body.maps #trk,
@@ -946,18 +946,39 @@ body.maps #forge,
 body.maps #lore,
 body.maps #pane,
 body.maps .col-resize{display:none !important}
-body.maps main{display:flex}
+body.maps main{display:flex; flex:1; min-height:0}
 body.board #maps,
 body.build #maps,
 body.trk #maps,
 body.forge #maps,
 body.lore #maps{display:none !important}
-#maps .maps-rail{
-  width:min(280px, 36vw); flex-shrink:0; overflow:auto; border-right:1px solid var(--hair);
-  background:var(--stone-3); padding:12px 14px 24px; display:flex; flex-direction:column; gap:10px
+.maps-body{flex:1; min-width:0; min-height:0; display:flex; flex-direction:row; position:relative}
+#maps .maps-drawer{
+  flex-shrink:0; align-self:stretch; width:260px; min-width:260px; max-height:100%;
+  overflow:auto; border-right:1px solid var(--hair); background:var(--stone-3);
+  padding:12px 14px 24px; display:flex; flex-direction:column; gap:14px;
+  transition:width 280ms ease, min-width 280ms ease, opacity 280ms ease, padding 280ms ease
 }
-#maps .maps-main{flex:1; min-width:0; display:flex; flex-direction:column; min-height:0; background:var(--stone-2)}
-#maps .maps-rail h2{margin:0; font:600 15px/1.2 var(--serif); color:var(--ink)}
+#maps .maps-drawer.closed{
+  width:0; min-width:0; opacity:0; overflow:hidden; pointer-events:none;
+  border-right-color:transparent; padding-left:0; padding-right:0
+}
+.maps-drawer-scrim{
+  display:none; position:absolute; inset:0; z-index:2; background:rgba(36,33,28,.4);
+  border:0; padding:0; cursor:pointer
+}
+body.maps-drawer-open .maps-body .maps-drawer-scrim{display:block}
+@media (min-width:761px){
+  body.maps-drawer-open .maps-body .maps-drawer-scrim{display:none}
+}
+#mapsToolSettings[data-active-tool=""] .maps-tool-empty,
+#mapsToolSettings:not([data-active-tool]) .maps-tool-empty{display:block}
+#mapsToolSettings[data-active-tool]:not([data-active-tool=""]) .maps-tool-empty{display:none}
+#maps .maps-main{flex:1; min-width:0; min-height:0; display:flex; flex-direction:column; background:var(--stone-2)}
+.maps-drawer h2, .maps-drawer h3{margin:0; font:600 14px/1.2 var(--serif); color:var(--ink)}
+.maps-drawer h3{font-size:11px; font-family:var(--mono); text-transform:uppercase; letter-spacing:.08em; color:var(--dim)}
+.maps-drawer-section{display:flex; flex-direction:column; gap:8px}
+.maps-drawer-body{display:flex; flex-direction:column; gap:14px; flex:1; min-height:0; overflow:auto}
 .maps-camp-hint{margin:0; color:var(--dim); font:12.5px/1.35 var(--sans)}
 #mapsList{display:flex; flex-direction:column; gap:4px}
 .maps-list-item{
@@ -968,26 +989,61 @@ body.lore #maps{display:none !important}
 .maps-empty{margin:auto; max-width:28rem; text-align:center; padding:2rem; color:var(--dim)}
 #mapsEditor{flex:1; display:flex; flex-direction:column; min-height:0}
 #mapsEditor[hidden], #mapsEmpty[hidden]{display:none !important}
-.maps-toolbar{display:flex; flex-wrap:wrap; gap:5px; padding:8px 10px; border-bottom:1px solid var(--hair); background:var(--stone-3); align-items:center}
+.maps-toolbar{display:flex; flex-wrap:wrap; gap:5px; padding:6px 8px; border-bottom:1px solid var(--hair); background:var(--stone-3); align-items:center; flex-shrink:0}
 .maps-toolbar .sp{flex:1}
-.maps-workspace{flex:1; display:flex; min-height:0}
+.maps-shape-group{display:inline-flex; flex-wrap:wrap; gap:4px}
+.maps-shape-group[hidden]{display:none !important}
+.maps-workspace{flex:1; display:flex; min-height:0; min-width:0}
 .maps-stage{flex:1; min-width:0; min-height:0; position:relative; background:#2a2622}
 .maps-stage canvas{display:block; width:100%; height:100%}
-.maps-settings{width:min(240px, 32vw); flex:none; border-left:1px solid var(--hair); background:var(--stone-3); overflow:auto; padding:8px 10px}
-.maps-settings summary{cursor:pointer; font:600 10px/1 var(--mono); text-transform:uppercase; letter-spacing:.08em; color:var(--dim)}
-.maps-settings-grid{display:flex; flex-direction:column; gap:6px; margin:8px 0}
+.maps-settings-grid{display:flex; flex-direction:column; gap:6px}
 .maps-settings-grid label{display:flex; flex-direction:column; gap:2px; font:11px/1.2 var(--sans); color:var(--dim)}
 .maps-settings-grid input, .maps-settings-grid select{
   font:13px/1.3 var(--sans); color:var(--ink); background:var(--paper);
   border:1px solid var(--hair); border-radius:3px; padding:5px 7px
 }
+.maps-tool-fields{display:none; flex-direction:column; gap:6px}
+.maps-tool-hint{margin:0; font:11.5px/1.35 var(--sans); color:var(--dim)}
+.maps-tool-empty{margin:0; font:12px/1.4 var(--sans); color:var(--dim); padding:8px 10px; border:1px dashed var(--hair); border-radius:var(--radius)}
+.maps-drawer .frow{flex-wrap:wrap}
+.maps-danger-entry{margin-top:8px; padding-top:10px; border-top:1px solid var(--hair)}
+.maps-text-presets{display:flex; flex-wrap:wrap; gap:4px}
+#mapsTextFontSizeRow{display:none}
 .maps-notes-tip{margin:0; padding:6px 10px; font:12px/1.35 var(--sans); color:var(--dim); border-top:1px solid var(--hair)}
 .maps-toast{
   position:absolute; left:50%; bottom:16px; transform:translateX(-50%);
   background:var(--ink); color:var(--stone-3); padding:8px 14px; border-radius:3px;
   font:13px/1.3 var(--sans); z-index:5; pointer-events:none
 }
-.maps-rail-toggle, .maps-rail-scrim{display:none}
+.maps-drawer-fab{display:none}
+.chip.danger{color:#8b2e2e; border-color:color-mix(in srgb, #8b2e2e 35%, var(--hair))}
+/* drawer view switching */
+#mapsDrawer[data-drawer-view=maps] #mapsDrawerSettings,
+#mapsDrawer[data-drawer-view=maps] #mapsToolSettings,
+#mapsDrawer[data-drawer-view=maps] #mapsDrawerDanger{display:none}
+#mapsDrawer[data-drawer-view=settings] #mapsDrawerMaps,
+#mapsDrawer[data-drawer-view=settings] #mapsToolSettings,
+#mapsDrawer[data-drawer-view=settings] #mapsDrawerDanger{display:none}
+#mapsDrawer[data-drawer-view=tool] #mapsDrawerMaps,
+#mapsDrawer[data-drawer-view=tool] #mapsDrawerSettings,
+#mapsDrawer[data-drawer-view=tool] #mapsDrawerDanger{display:none}
+#mapsDrawer[data-drawer-view=danger] #mapsDrawerMaps,
+#mapsDrawer[data-drawer-view=danger] #mapsDrawerSettings,
+#mapsDrawer[data-drawer-view=danger] #mapsToolSettings{display:none}
+/* tool field groups */
+#mapsToolSettings .maps-tool-fields{display:none}
+#mapsToolSettings[data-active-tool=brush] .maps-tool-fields[data-tool=brush],
+#mapsToolSettings[data-active-tool=rect] .maps-tool-fields[data-tool=rect],
+#mapsToolSettings[data-active-tool=circle] .maps-tool-fields[data-tool=circle],
+#mapsToolSettings[data-active-tool=arrow] .maps-tool-fields[data-tool=arrow],
+#mapsToolSettings[data-active-tool=line] .maps-tool-fields[data-tool=line],
+#mapsToolSettings[data-active-tool=measure] .maps-tool-fields[data-tool=measure],
+#mapsToolSettings[data-active-tool=token] .maps-tool-fields[data-tool=token],
+#mapsToolSettings[data-active-tool=text] .maps-tool-fields[data-tool=text],
+#mapsToolSettings[data-active-tool=reveal] .maps-tool-fields[data-tool=fog],
+#mapsToolSettings[data-active-tool=hide] .maps-tool-fields[data-tool=fog]{display:flex}
+#mapsToolSettings[data-active-tool=reveal] .maps-hint-hide,
+#mapsToolSettings[data-active-tool=hide] .maps-hint-reveal{display:none}
 #mapsTextOvl{position:fixed;inset:0;z-index:80;background:rgba(36,33,28,.45);display:flex;align-items:center;justify-content:center}
 #mapsTextOvl[hidden]{display:none !important}
 #mapsTokenOvl{
@@ -1002,24 +1058,23 @@ body.lore #maps{display:none !important}
 }
 .maps-token-panel .panel-ft{display:flex; gap:8px; justify-content:flex-end; margin-top:8px}
 @media (max-width:760px){
-  body.maps #maps{flex-direction:column}
-  body.maps #maps .maps-rail{
-    display:none; position:fixed; left:0; right:0; bottom:0; z-index:40;
-    width:100%; max-height:70vh; border-right:none; border-top:1px solid var(--hair);
-    border-radius:10px 10px 0 0
+  .maps-body{flex-direction:column}
+  #maps .maps-drawer{
+    position:fixed; left:0; right:0; bottom:0; z-index:45;
+    width:100%; min-width:100%; max-height:78vh;
+    border-right:none; border-top:1px solid var(--hair); border-radius:10px 10px 0 0;
+    transition:transform 280ms ease
   }
-  body.maps.maps-rail-open #maps .maps-rail{display:flex}
-  body.maps #maps .maps-rail-scrim{
-    display:none; position:fixed; inset:0; z-index:35; background:rgba(36,33,28,.4); border:0; padding:0
+  #maps .maps-drawer.closed{transform:translateY(100%); opacity:1; width:100%; min-width:100%}
+  body.maps-drawer-open .maps-drawer-scrim{
+    display:block; position:absolute; inset:0; z-index:2; background:rgba(36,33,28,.4);
+    border:0; padding:0; cursor:pointer
   }
-  body.maps.maps-rail-open #maps .maps-rail-scrim{display:block}
-  body.maps #maps .maps-rail-toggle{
+  body.maps-drawer-open .maps-drawer-fab{display:none}
+  .maps-drawer-fab{
     display:block; position:fixed; left:12px; bottom:12px; z-index:30;
     min-height:44px; padding:10px 14px
   }
-  body.maps.maps-rail-open #maps .maps-rail-toggle{display:none}
-  .maps-settings{width:100%; max-height:28vh; border-left:none; border-top:1px solid var(--hair)}
-  .maps-workspace{flex-direction:column}
   #mapsTools .chip{min-height:44px}
 }
 
@@ -1876,56 +1931,50 @@ body.forge #lore{display:none !important}
 </section>
 
 <section id="maps" aria-label="Campaign maps" hidden>
-  <button type="button" class="maps-rail-scrim" id="mapsRailScrim" aria-label="Close map list" tabindex="-1"></button>
-  <aside class="maps-rail" id="mapsRail" aria-label="Campaign maps">
-    <h2>Maps</h2>
-    <p class="maps-camp-hint" id="mapsCampHint" hidden></p>
-    <div class="frow" id="mapsOps">
-      <button type="button" class="chip go" id="mapsNew">New map</button>
-      <button type="button" class="chip" id="mapsImport" title="Import .hexplora / JSON">Import</button>
-      <input id="mapsFile" type="file" accept="image/*" hidden>
-      <input id="mapsImportFile" type="file" accept=".json,.hexplora,application/json" hidden>
-    </div>
-    <nav id="mapsList" aria-label="Map list"></nav>
-  </aside>
-  <div class="maps-main">
-    <div id="mapsEmpty" class="maps-empty">
-      <p>Upload a map image to start a hex crawl under this campaign. Fog, tokens, and annotations stay on this device.</p>
-      <button type="button" class="chip go" id="mapsEmptyNew">New map</button>
-    </div>
-    <div id="mapsEditor" hidden>
-      <div class="maps-toolbar" id="mapsTools" role="toolbar" aria-label="Map tools">
-        <button type="button" class="chip" data-tool="pan" aria-pressed="true">Pan</button>
-        <button type="button" class="chip" data-tool="reveal" aria-pressed="false">Reveal</button>
-        <button type="button" class="chip" data-tool="hide" aria-pressed="false">Hide</button>
-        <button type="button" class="chip" data-tool="token" aria-pressed="false">Token</button>
-        <button type="button" class="chip" data-tool="measure" aria-pressed="false">Measure</button>
-        <button type="button" class="chip" data-tool="text" aria-pressed="false">Text</button>
-        <button type="button" class="chip" data-tool="brush" aria-pressed="false">Brush</button>
-        <button type="button" class="chip" data-tool="shape" aria-pressed="false">Shape</button>
-        <select id="mapsShapeKind" aria-label="Shape kind" hidden>
-          <option value="rect">Rect</option>
-          <option value="ellipse">Ellipse</option>
-          <option value="arrow">Arrow</option>
-          <option value="line">Line</option>
-        </select>
-        <span class="sp"></span>
-        <button type="button" class="chip" id="mapsUndo">Undo</button>
-        <button type="button" class="chip" id="mapsRedo">Redo</button>
-        <button type="button" class="chip" id="mapsResetFog">Reset fog</button>
-        <button type="button" class="chip" id="mapsClearTokens">Clear tokens</button>
-        <button type="button" class="chip" id="mapsClearAnnot">Clear notes</button>
-        <button type="button" class="chip" id="mapsResetView">Reset view</button>
-        <button type="button" class="chip" id="mapsScreenshot">PNG</button>
-        <button type="button" class="chip" id="mapsExport">Export</button>
-        <button type="button" class="chip" id="mapsRename">Rename</button>
-        <button type="button" class="chip" id="mapsDelete">Delete</button>
-        <input id="mapsRenameInput" type="text" maxlength="80" aria-label="Map name" hidden>
+  <div class="maps-toolbar" id="mapsTools" role="toolbar" aria-label="Map tools">
+    <button type="button" class="chip" id="mapsDrawerToggle" aria-expanded="false" aria-controls="mapsDrawer">Maps</button>
+    <button type="button" class="chip" id="mapsSettingsToggle" aria-expanded="false" aria-controls="mapsDrawer">Settings</button>
+    <button type="button" class="chip" data-tool="pan" aria-pressed="true">Pan</button>
+    <button type="button" class="chip" data-tool="reveal" aria-pressed="false">Reveal</button>
+    <button type="button" class="chip" data-tool="hide" aria-pressed="false">Hide</button>
+    <button type="button" class="chip" data-tool="token" aria-pressed="false">Token</button>
+    <button type="button" class="chip" data-tool="measure" aria-pressed="false">Measure</button>
+    <button type="button" class="chip" data-tool="text" aria-pressed="false">Text</button>
+    <button type="button" class="chip" data-tool="brush" aria-pressed="false">Brush</button>
+    <button type="button" class="chip" data-tool="shape" aria-pressed="false">Shape</button>
+    <span class="maps-shape-group" id="mapsShapeGroup" hidden>
+      <button type="button" class="chip" data-shape="rect" aria-pressed="true">Rect</button>
+      <button type="button" class="chip" data-shape="ellipse" aria-pressed="false">Ellipse</button>
+      <button type="button" class="chip" data-shape="arrow" aria-pressed="false">Arrow</button>
+      <button type="button" class="chip" data-shape="line" aria-pressed="false">Line</button>
+    </span>
+    <select id="mapsShapeKind" aria-label="Shape kind" hidden>
+      <option value="rect">Rect</option><option value="ellipse">Ellipse</option>
+      <option value="arrow">Arrow</option><option value="line">Line</option>
+    </select>
+    <span class="sp"></span>
+    <button type="button" class="chip" id="mapsUndo">Undo</button>
+    <button type="button" class="chip" id="mapsRedo">Redo</button>
+  </div>
+  <div class="maps-body">
+    <button type="button" class="maps-drawer-scrim" id="mapsDrawerScrim" aria-label="Close panel" tabindex="-1"></button>
+    <aside class="maps-drawer closed" id="mapsDrawer" aria-label="Map panel" data-drawer-view="maps">
+      <div class="maps-drawer-body" id="mapsDrawerMaps">
+        <section class="maps-drawer-section" aria-labelledby="mapsDrawerMapsHd">
+          <h2 id="mapsDrawerMapsHd">Maps</h2>
+          <p class="maps-camp-hint" id="mapsCampHint" hidden></p>
+          <div class="frow" id="mapsOps">
+            <button type="button" class="chip go" id="mapsNew">New map</button>
+            <button type="button" class="chip" id="mapsImport" title="Import .hexplora / JSON">Import</button>
+            <input id="mapsFile" type="file" accept="image/*" hidden>
+            <input id="mapsImportFile" type="file" accept=".json,.hexplora,application/json" hidden>
+          </div>
+          <nav id="mapsList" aria-label="Map list"></nav>
+        </section>
       </div>
-      <div class="maps-workspace">
-        <div id="mapsStage" class="maps-stage" aria-label="Map canvas"></div>
-        <details class="maps-settings" id="mapsSettings">
-          <summary>Grid &amp; fog</summary>
+      <div class="maps-drawer-body" id="mapsDrawerSettings">
+        <section class="maps-drawer-section" aria-labelledby="mapsDrawerGridHd">
+          <h3 id="mapsDrawerGridHd">Grid settings</h3>
           <div class="maps-settings-grid">
             <label>Hex size <input id="mapsHexSize" type="number" min="8" max="400"></label>
             <label>Offset X <input id="mapsOffsetX" type="number"></label>
@@ -1936,24 +1985,159 @@ body.forge #lore{display:none !important}
               <select id="mapsOrient"><option value="pointy">Pointy</option><option value="flat">Flat</option></select>
             </label>
             <label>Map scale % <input id="mapsScale" type="number" min="10" max="400"></label>
-            <label>Fog <input id="mapsFogColor" type="color"></label>
-            <label>Fog opacity <input id="mapsFogOpacity" type="number" min="0" max="1" step="0.05"></label>
+          </div>
+          <button type="button" class="chip go" id="mapsApplySettings">Apply grid</button>
+        </section>
+        <section class="maps-drawer-section" aria-labelledby="mapsDrawerAppearHd">
+          <h3 id="mapsDrawerAppearHd">Grid appearance</h3>
+          <div class="maps-settings-grid">
             <label>Grid <input id="mapsGridColor" type="color"></label>
             <label>Grid thick <input id="mapsGridThick" type="number" min="0.5" max="8" step="0.5"></label>
-            <label>Token color <input id="mapsTokenColor" type="color"></label>
-            <label>Token size
-              <select id="mapsTokenSize"><option value="small">S</option><option value="medium">M</option><option value="large">L</option></select>
-            </label>
+          </div>
+        </section>
+        <section class="maps-drawer-section" aria-labelledby="mapsDrawerSessHd">
+          <h3 id="mapsDrawerSessHd">Session</h3>
+          <div class="frow">
+            <button type="button" class="chip" id="mapsResetView">Reset view</button>
+            <button type="button" class="chip" id="mapsScreenshot">PNG</button>
+            <button type="button" class="chip" id="mapsExport">Export</button>
+            <button type="button" class="chip" id="mapsRename">Rename</button>
+            <button type="button" class="chip" id="mapsDelete">Delete map</button>
+            <input id="mapsRenameInput" type="text" maxlength="80" aria-label="Map name" hidden>
+          </div>
+        </section>
+        <div class="maps-danger-entry">
+          <button type="button" class="chip" id="mapsDangerEntry">Destructive actions…</button>
+        </div>
+      </div>
+      <div class="maps-drawer-body" id="mapsToolSettings" data-active-tool="">
+        <h3 id="mapsDrawerToolHd">Tool settings</h3>
+        <p class="maps-tool-empty" id="mapsToolEmpty">Select a tool to see its settings.</p>
+        <div class="maps-tool-fields" data-tool="fog">
+          <div class="maps-settings-grid">
+            <label>Fog <input id="mapsFogColor" type="color"></label>
+            <label>Fog opacity <input id="mapsFogOpacity" type="number" min="0" max="1" step="0.05"></label>
+          </div>
+          <p class="maps-tool-hint maps-hint-reveal">Click or drag hexes to reveal hidden areas.</p>
+          <p class="maps-tool-hint maps-hint-hide">Click or drag revealed hexes to re-fog them.</p>
+        </div>
+        <div class="maps-tool-fields" data-tool="brush">
+          <div class="maps-settings-grid">
+            <label>Color <input id="mapsDrawColor" type="color"></label>
+            <label>Thickness <input id="mapsDrawThick" type="range" min="1" max="20" step="1"></label>
+            <label>Opacity <input id="mapsDrawOpacity" type="range" min="0" max="1" step="0.05"></label>
+            <label><input id="mapsEraser" type="checkbox"> Eraser</label>
+          </div>
+        </div>
+        <div class="maps-tool-fields" data-tool="rect">
+          <div class="maps-settings-grid">
+            <label>Stroke <input id="mapsRectColor" type="color"></label>
+            <label>Thickness <input id="mapsRectThick" type="range" min="1" max="20" step="1"></label>
+            <label>Opacity <input id="mapsRectOpacity" type="range" min="0" max="1" step="0.05"></label>
+            <label><input id="mapsRectFillOn" type="checkbox"> Fill</label>
+            <label>Fill color <input id="mapsRectFillColor" type="color"></label>
+            <label>Fill opacity <input id="mapsRectFillOpacity" type="range" min="0" max="1" step="0.05"></label>
+          </div>
+          <p class="maps-tool-hint">Shift constrains square; Alt draws from center.</p>
+        </div>
+        <div class="maps-tool-fields" data-tool="circle">
+          <div class="maps-settings-grid">
+            <label>Stroke <input id="mapsEllipseColor" type="color"></label>
+            <label>Thickness <input id="mapsEllipseThick" type="range" min="1" max="20" step="1"></label>
+            <label>Opacity <input id="mapsEllipseOpacity" type="range" min="0" max="1" step="0.05"></label>
+            <label><input id="mapsEllipseFillOn" type="checkbox"> Fill</label>
+            <label>Fill color <input id="mapsEllipseFillColor" type="color"></label>
+            <label>Fill opacity <input id="mapsEllipseFillOpacity" type="range" min="0" max="1" step="0.05"></label>
+          </div>
+          <p class="maps-tool-hint">Shift constrains circle; Alt draws from center.</p>
+        </div>
+        <div class="maps-tool-fields" data-tool="arrow">
+          <div class="maps-settings-grid">
+            <label>Stroke <input id="mapsArrowColor" type="color"></label>
+            <label>Thickness <input id="mapsArrowThick" type="range" min="1" max="20" step="1"></label>
+            <label>Opacity <input id="mapsArrowOpacity" type="range" min="0" max="1" step="0.05"></label>
+          </div>
+        </div>
+        <div class="maps-tool-fields" data-tool="line">
+          <div class="maps-settings-grid">
+            <label>Stroke <input id="mapsLineColor" type="color"></label>
+            <label>Thickness <input id="mapsLineThick" type="range" min="1" max="20" step="1"></label>
+            <label>Opacity <input id="mapsLineOpacity" type="range" min="0" max="1" step="0.05"></label>
+          </div>
+        </div>
+        <div class="maps-tool-fields" data-tool="measure">
+          <div class="maps-settings-grid">
+            <label>Line color <input id="mapsMeasureColor" type="color"></label>
             <label>Hex = <input id="mapsDistVal" type="number" step="any"></label>
             <label>Unit <input id="mapsDistUnit" type="text" maxlength="24"></label>
           </div>
-          <button type="button" class="chip go" id="mapsApplySettings">Apply</button>
-        </details>
+          <p class="maps-tool-hint">Click hex centers; Backspace undoes last hex.</p>
+        </div>
+        <div class="maps-tool-fields" data-tool="text">
+          <div class="maps-settings-grid">
+            <label>Color <input id="mapsTextColor" type="color"></label>
+            <label>Size
+              <select id="mapsTextSize">
+                <option value="small">Small</option><option value="medium" selected>Medium</option>
+                <option value="large">Large</option><option value="custom">Custom</option>
+              </select>
+            </label>
+            <label id="mapsTextFontSizeRow">Font px <input id="mapsTextFontSize" type="number" min="8" max="128" step="1"></label>
+            <label>Outline <input id="mapsTextOutlineColor" type="color"></label>
+            <label>Outline width <input id="mapsTextOutlineWidth" type="range" min="0" max="8" step="0.5"></label>
+            <label>Outline opacity <input id="mapsTextOutlineOpacity" type="range" min="0" max="1" step="0.05"></label>
+          </div>
+          <div class="maps-text-presets">
+            <button type="button" class="chip" id="mapsTextPresetWhite">White on dark</button>
+            <button type="button" class="chip" id="mapsTextPresetBlack">Black on light</button>
+            <button type="button" class="chip" id="mapsTextPresetYellow">Yellow label</button>
+          </div>
+        </div>
+        <div class="maps-tool-fields" data-tool="token">
+          <div class="maps-settings-grid">
+            <label>Icon <select id="mapsTokIconDrawer">
+              <option value="">(none)</option>
+              <option value="★">★</option><option value="⌂">⌂</option><option value="☠">☠</option>
+              <option value="⚑">⚑</option><option value="⚔">⚔</option><option value="◇">◇</option>
+              <option value="●">●</option><option value="▲">▲</option><option value="✚">✚</option>
+            </select></label>
+            <label>Color <input id="mapsTokenColor" type="color"></label>
+            <label>Size
+              <select id="mapsTokenSize"><option value="small">S</option><option value="medium">M</option><option value="large">L</option></select>
+            </label>
+            <label><input id="mapsTokMulti" type="checkbox"> Multi-place mode</label>
+          </div>
+          <p class="maps-tool-hint">Snap to hex; hold Alt for free placement.</p>
+        </div>
       </div>
-      <p id="mapsNotesTip" class="maps-notes-tip" hidden></p>
+      <div class="maps-drawer-body" id="mapsDrawerDanger">
+        <section class="maps-drawer-section">
+          <button type="button" class="chip" id="mapsDangerBack">Back</button>
+          <h3>Destructive actions</h3>
+          <p class="maps-tool-hint">These cannot be undone easily.</p>
+          <div class="frow">
+            <button type="button" class="chip" id="mapsResetFog">Reset fog</button>
+            <button type="button" class="chip" id="mapsClearTokens">Clear tokens</button>
+            <button type="button" class="chip" id="mapsClearMeas">Clear measures</button>
+            <button type="button" class="chip" id="mapsClearAnnot">Clear annotations</button>
+          </div>
+        </section>
+      </div>
+    </aside>
+    <div class="maps-main">
+      <div id="mapsEmpty" class="maps-empty">
+        <p>Upload a map image to start a hex crawl under this campaign. Fog, tokens, and annotations stay on this device.</p>
+        <button type="button" class="chip go" id="mapsEmptyNew">New map</button>
+      </div>
+      <div id="mapsEditor" hidden>
+        <div class="maps-workspace">
+          <div id="mapsStage" class="maps-stage" aria-label="Map canvas"></div>
+        </div>
+        <p id="mapsNotesTip" class="maps-notes-tip" hidden></p>
+      </div>
     </div>
   </div>
-  <button type="button" class="maps-rail-toggle" id="mapsRailToggle" aria-expanded="false" aria-controls="mapsRail">Maps</button>
+  <button type="button" class="chip maps-drawer-fab" id="mapsDrawerFab" aria-expanded="false" aria-controls="mapsDrawer">Maps</button>
   <div id="mapsToast" class="maps-toast" hidden role="status"></div>
 </section>
 
@@ -1963,9 +2147,10 @@ body.forge #lore{display:none !important}
   <div class="panel maps-token-panel">
     <div class="panel-hd"><strong>Text label</strong></div>
     <div class="panel-body">
-      <label>Text <input id="mapsTextInput" type="text" maxlength="500"></label>
+      <label>Text <textarea id="mapsTextInput" rows="4" maxlength="500"></textarea></label>
     </div>
     <div class="panel-ft">
+      <button type="button" class="chip danger" id="mapsTextDelete" hidden>Delete</button>
       <button type="button" class="chip" id="mapsTextCancel">Cancel</button>
       <button type="button" class="chip go" id="mapsTextSave">Add</button>
     </div>
@@ -1986,8 +2171,55 @@ body.forge #lore{display:none !important}
       <label>Notes <textarea id="mapsTokNotes" rows="4" maxlength="2000"></textarea></label>
     </div>
     <div class="panel-ft">
+      <button type="button" class="chip danger" id="mapsTokDelete" hidden>Delete</button>
       <button type="button" class="chip" id="mapsTokCancel">Cancel</button>
       <button type="button" class="chip go" id="mapsTokSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<div id="mapsStrokeOvl" hidden>
+  <div class="panel maps-token-panel">
+    <div class="panel-hd"><strong>Edit stroke</strong></div>
+    <div class="panel-body">
+      <label>Color <input id="mapsStrokeColor" type="color"></label>
+      <label>Thickness <input id="mapsStrokeThick" type="range" min="1" max="20" step="1"></label>
+    </div>
+    <div class="panel-ft">
+      <button type="button" class="chip danger" id="mapsStrokeDelete">Delete</button>
+      <button type="button" class="chip" id="mapsStrokeCancel">Cancel</button>
+      <button type="button" class="chip go" id="mapsStrokeSave">Save</button>
+    </div>
+  </div>
+</div>
+<div id="mapsShapeOvl" hidden>
+  <div class="panel maps-token-panel">
+    <div class="panel-hd"><strong>Edit shape</strong></div>
+    <div class="panel-body">
+      <label>Stroke <input id="mapsShapeEditColor" type="color"></label>
+      <label>Thickness <input id="mapsShapeEditThick" type="range" min="1" max="20" step="1"></label>
+      <label>Opacity <input id="mapsShapeEditOpacity" type="range" min="0" max="1" step="0.05"></label>
+      <label><input id="mapsShapeEditFillOn" type="checkbox"> Fill</label>
+      <label>Fill color <input id="mapsShapeEditFillColor" type="color"></label>
+      <label>Fill opacity <input id="mapsShapeEditFillOpacity" type="range" min="0" max="1" step="0.05"></label>
+    </div>
+    <div class="panel-ft">
+      <button type="button" class="chip danger" id="mapsShapeEditDelete">Delete</button>
+      <button type="button" class="chip" id="mapsShapeEditCancel">Cancel</button>
+      <button type="button" class="chip go" id="mapsShapeEditSave">Save</button>
+    </div>
+  </div>
+</div>
+<div id="mapsMeasOvl" hidden>
+  <div class="panel maps-token-panel">
+    <div class="panel-hd"><strong>Edit measurement</strong></div>
+    <div class="panel-body">
+      <label>Line color <input id="mapsMeasEditColor" type="color"></label>
+    </div>
+    <div class="panel-ft">
+      <button type="button" class="chip danger" id="mapsMeasEditDelete">Delete</button>
+      <button type="button" class="chip" id="mapsMeasEditCancel">Cancel</button>
+      <button type="button" class="chip go" id="mapsMeasEditSave">Save</button>
     </div>
   </div>
 </div>
@@ -5240,7 +5472,7 @@ const TRK = (() => {
     document.body.classList.toggle("forge", mode === "forge");
     document.body.classList.toggle("lore", mode === "lore");
     document.body.classList.toggle("maps", mode === "maps");
-    if (mode !== "maps") document.body.classList.remove("maps-rail-open");
+    if (mode !== "maps") document.body.classList.remove("maps-drawer-open");
     const boardEl = document.getElementById("board");
     if (boardEl) boardEl.hidden = mode !== "board";
     const forgeEl = document.getElementById("forge");
@@ -10218,7 +10450,7 @@ window.LORE = LORE;
 </script>
 
 <script src="maps/maps-pixi.bundle.js"></script>
-<script src="maps/maps-app.js?v=20260827i"></script>
+<script src="maps/maps-app.js?v=20260828c"></script>
 
 
 </body>

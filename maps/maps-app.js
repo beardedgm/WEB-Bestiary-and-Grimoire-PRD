@@ -15,6 +15,7 @@
   const UNDO_MAX = 80;
   const TOKEN_ICONS = ["", "★", "⌂", "☠", "⚑", "⚔", "◇", "●", "▲", "✚"];
   const TOKEN_SIZES = { small: 0.55, medium: 1, large: 1.55 };
+  const TEXT_SIZES = { small: 14, medium: 20, large: 32 };
   const STARTER_MAP_URL = "maps/starter.hexplora";
   const STARTER_MAP_NAME = "Starter map";
 
@@ -28,7 +29,15 @@
     rectColor: "#ff4444", rectThickness: 3, rectOpacity: 1, rectFill: null, rectFillOpacity: 0.5,
     ellipseColor: "#ff4444", ellipseThickness: 3, ellipseOpacity: 1, ellipseFill: null, ellipseFillOpacity: 0.5,
     arrowColor: "#ff4444", arrowThickness: 3, arrowOpacity: 1,
-    lineColor: "#ff4444", lineThickness: 3, lineOpacity: 1,
+    textToolColor: "#241f1c", textToolSize: "medium",
+    textToolOutlineColor: "#f4f0e8", textToolOutlineWidth: 3, textToolOutlineOpacity: 1,
+    textToolCustomPx: 20,
+  };
+
+  const TEXT_PRESETS = {
+    white: { color: "#f4f0e8", outlineColor: "#241f1c", outlineWidth: 3, outlineOpacity: 1 },
+    black: { color: "#241f1c", outlineColor: "#f4f0e8", outlineWidth: 3, outlineOpacity: 1 },
+    yellow: { color: "#f0d78c", outlineColor: "#241f1c", outlineWidth: 3, outlineOpacity: 1 },
   };
 
   function announce(m) {
@@ -225,7 +234,7 @@
     s.orientation = raw.orientation === "flat" ? "flat" : "pointy";
     s.mapScale = clamp(num(raw.mapScale, 100), 10, 400);
     for (const k of ["fogColor", "gridColor", "tokenColor", "measureColor", "drawColor",
-      "rectColor", "ellipseColor", "arrowColor", "lineColor"]) {
+      "rectColor", "ellipseColor", "arrowColor", "lineColor", "textToolColor", "textToolOutlineColor"]) {
       if (typeof raw[k] === "string" && /^#[0-9a-fA-F]{3,8}$/.test(raw[k])) s[k] = raw[k];
     }
     s.fogOpacity = clamp(num(raw.fogOpacity, s.fogOpacity), 0, 1);
@@ -247,6 +256,11 @@
     s.arrowOpacity = clamp(num(raw.arrowOpacity, 1), 0, 1);
     s.lineThickness = clamp(num(raw.lineThickness, 3), 1, 40);
     s.lineOpacity = clamp(num(raw.lineOpacity, 1), 0, 1);
+    s.textToolSize = raw.textToolSize === "small" || raw.textToolSize === "large" || raw.textToolSize === "custom"
+      ? raw.textToolSize : "medium";
+    s.textToolOutlineWidth = clamp(num(raw.textToolOutlineWidth, s.textToolOutlineWidth), 0, 12);
+    s.textToolOutlineOpacity = clamp(num(raw.textToolOutlineOpacity, s.textToolOutlineOpacity), 0, 1);
+    s.textToolCustomPx = clamp(num(raw.textToolCustomPx, s.textToolCustomPx), 8, 128);
     return s;
   }
   function vRevealed(raw) {
@@ -384,6 +398,10 @@
     let shapeDraft = null;
     let selectedToken = -1;
     let selectedText = -1;
+    let selectedMeasurement = -1;
+    let selectedStroke = -1;
+    let selectedShape = -1;
+    let tokenMultiPlace = false;
     let pinching = null;
     let nextZ = 1;
     let editClick = null;
@@ -547,22 +565,447 @@
       return -1;
     }
 
+    function distPointToSegment(px, py, ax, ay, bx, by) {
+      const dx = bx - ax, dy = by - ay;
+      const lenSq = dx * dx + dy * dy;
+      if (lenSq === 0) return Math.hypot(px - ax, py - ay);
+      const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / lenSq));
+      return Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
+    }
+
+    function pathNearPoint(path, x, y, radius) {
+      if (!path || path.length < 1) return false;
+      if (path.length === 1) return Math.hypot(path[0][0] - x, path[0][1] - y) <= radius;
+      for (let i = 0; i < path.length - 1; i++) {
+        const [ax, ay] = path[i], [bx, by] = path[i + 1];
+        if (distPointToSegment(x, y, ax, ay, bx, by) <= radius) return true;
+      }
+      return false;
+    }
+
+    function pickStrokeAt(wx, wy) {
+      for (let i = state.strokes.length - 1; i >= 0; i--) {
+        const s = state.strokes[i];
+        const hitR = Math.max((s.thickness || 3) / 2, 8);
+        if (pathNearPoint(s.points, wx, wy, hitR)) return i;
+      }
+      return -1;
+    }
+
+    function pickShapeAt(wx, wy) {
+      const pad = 8;
+      for (let i = state.shapes.length - 1; i >= 0; i--) {
+        const sh = state.shapes[i];
+        if (sh.type === "line" || sh.type === "arrow") {
+          if (distPointToSegment(wx, wy, sh.x1, sh.y1, sh.x2, sh.y2) <= pad + (sh.thickness || 3)) return i;
+        } else {
+          const minX = Math.min(sh.x1, sh.x2) - pad, maxX = Math.max(sh.x1, sh.x2) + pad;
+          const minY = Math.min(sh.y1, sh.y2) - pad, maxY = Math.max(sh.y1, sh.y2) + pad;
+          if (wx >= minX && wx <= maxX && wy >= minY && wy <= maxY) return i;
+        }
+      }
+      return -1;
+    }
+
+    function pickMeasurementAt(wx, wy) {
+      let best = -1, bestD = Infinity;
+      for (let i = 0; i < state.measurements.length; i++) {
+        const m = state.measurements[i];
+        for (const id of m.hexIds) {
+          const h = grid && grid.byId.get(id);
+          if (!h) continue;
+          const d = Math.hypot(wx - h.x, wy - h.y);
+          if (d < 18 && d < bestD) { bestD = d; best = i; }
+        }
+      }
+      return best;
+    }
+
+    function clearSelection() {
+      selectedToken = selectedText = selectedMeasurement = selectedStroke = selectedShape = -1;
+    }
+
+    function selectKind(kind, index) {
+      clearSelection();
+      if (kind === "token") selectedToken = index;
+      else if (kind === "text") selectedText = index;
+      else if (kind === "measurement") selectedMeasurement = index;
+      else if (kind === "stroke") selectedStroke = index;
+      else if (kind === "shape") selectedShape = index;
+      drawAnnotations();
+      drawTokens();
+    }
+
+    function pickPanTarget(wx, wy) {
+      const hitToken = pickTokenAt(wx, wy);
+      if (hitToken >= 0) return { kind: "token", index: hitToken };
+      const hitText = pickTextAt(wx, wy);
+      if (hitText >= 0) return { kind: "text", index: hitText };
+      const hitMeas = pickMeasurementAt(wx, wy);
+      if (hitMeas >= 0) return { kind: "measurement", index: hitMeas };
+      const hitShape = pickShapeAt(wx, wy);
+      if (hitShape >= 0) return { kind: "shape", index: hitShape };
+      const hitStroke = pickStrokeAt(wx, wy);
+      if (hitStroke >= 0) return { kind: "stroke", index: hitStroke };
+      return null;
+    }
+
+    function applyShapeModifiers(x1, y1, x2, y2, type, shiftKey, altKey) {
+      let nx = x2, ny = y2;
+      if (shiftKey && (type === "rect" || type === "circle")) {
+        const side = Math.max(Math.abs(nx - x1), Math.abs(ny - y1));
+        nx = x1 + (nx >= x1 ? side : -side);
+        ny = y1 + (ny >= y1 ? side : -side);
+      }
+      if (altKey) {
+        nx = x1 + (nx - x1) * 2;
+        ny = y1 + (ny - y1) * 2;
+      }
+      return { x1, y1, x2: nx, y2: ny };
+    }
+
+    function eraseAlongPath(path) {
+      if (!path || path.length < 2) return;
+      state.strokes = state.strokes.filter((s) => {
+        const hitR = Math.max((s.thickness || 3) / 2, 8);
+        for (const [x, y] of path) {
+          if (pathNearPoint(s.points, x, y, hitR)) return false;
+        }
+        return true;
+      });
+      state.shapes = state.shapes.filter((sh) => {
+        const pad = 8;
+        const minX = Math.min(sh.x1, sh.x2) - pad, maxX = Math.max(sh.x1, sh.x2) + pad;
+        const minY = Math.min(sh.y1, sh.y2) - pad, maxY = Math.max(sh.y1, sh.y2) + pad;
+        for (const [x, y] of path) {
+          if (x >= minX && x <= maxX && y >= minY && y <= maxY) return false;
+        }
+        return true;
+      });
+    }
+
+    function deleteSelection() {
+      if (selectedToken >= 0) {
+        pushUndo();
+        state.tokens.splice(selectedToken, 1);
+        clearSelection();
+        renderAll(); scheduleSave();
+        toast("Token deleted");
+        return true;
+      }
+      if (selectedMeasurement >= 0) {
+        pushUndo();
+        state.measurements.splice(selectedMeasurement, 1);
+        clearSelection();
+        renderAll(); scheduleSave();
+        toast("Measurement deleted");
+        return true;
+      }
+      if (selectedText >= 0) {
+        pushUndo();
+        state.texts.splice(selectedText, 1);
+        clearSelection();
+        renderAll(); scheduleSave();
+        toast("Text deleted");
+        return true;
+      }
+      if (selectedStroke >= 0) {
+        pushUndo();
+        state.strokes.splice(selectedStroke, 1);
+        clearSelection();
+        renderAll(); scheduleSave();
+        toast("Stroke deleted");
+        return true;
+      }
+      if (selectedShape >= 0) {
+        pushUndo();
+        state.shapes.splice(selectedShape, 1);
+        clearSelection();
+        renderAll(); scheduleSave();
+        toast("Shape deleted");
+        return true;
+      }
+      return false;
+    }
+
+    let drawerView = "maps";
+
+    const SHAPE_FIELDS = {
+      rect: ["mapsRectColor", "mapsRectThick", "mapsRectOpacity", "mapsRectFillOn", "mapsRectFillColor", "mapsRectFillOpacity"],
+      ellipse: ["mapsEllipseColor", "mapsEllipseThick", "mapsEllipseOpacity", "mapsEllipseFillOn", "mapsEllipseFillColor", "mapsEllipseFillOpacity"],
+      arrow: ["mapsArrowColor", "mapsArrowThick", "mapsArrowOpacity"],
+      line: ["mapsLineColor", "mapsLineThick", "mapsLineOpacity"],
+    };
+
+    function shapeSettingsPrefix() {
+      if (shapeKind === "ellipse") return "ellipse";
+      if (shapeKind === "rect") return "rect";
+      return shapeKind;
+    }
+
+    function activeToolKey() {
+      if (tool === "reveal" || tool === "hide") return tool;
+      if (tool === "brush") return "brush";
+      if (tool === "shape") return shapeKind === "ellipse" ? "circle" : shapeKind;
+      if (tool === "measure") return "measure";
+      if (tool === "token") return "token";
+      if (tool === "text") return "text";
+      return "";
+    }
+
+    function toolLabel(key) {
+      const labels = {
+        brush: "Brush", rect: "Rectangle", circle: "Ellipse", arrow: "Arrow", line: "Line",
+        measure: "Measure", reveal: "Reveal", hide: "Hide", token: "Token", text: "Text",
+      };
+      return (labels[key] || "Tool") + " settings";
+    }
+
+    function syncTextSizeRow() {
+      const row = $("mapsTextFontSizeRow");
+      const sz = $("mapsTextSize");
+      if (row) row.style.display = (sz && sz.value === "custom") ? "flex" : "none";
+    }
+
+    function readShapeSettingsFromForm() {
+      const s = state.settings;
+      const p = shapeSettingsPrefix();
+      const ids = SHAPE_FIELDS[p];
+      if (!ids) return;
+      const col = $(ids[0]);
+      if (col) s[p + "Color"] = col.value || s[p + "Color"];
+      const th = $(ids[1]);
+      if (th) s[p + "Thickness"] = clamp(num(th.value, 3), 1, 40);
+      const op = $(ids[2]);
+      if (op) s[p + "Opacity"] = clamp(num(op.value, 1), 0, 1);
+      if (p === "rect" || p === "ellipse") {
+        const fillOn = $(ids[3]);
+        const fillCol = $(ids[4]);
+        const fillOp = $(ids[5]);
+        if (fillOn && fillOn.checked && fillCol) s[p + "Fill"] = fillCol.value;
+        else if (fillOn) s[p + "Fill"] = null;
+        if (fillOp) s[p + "FillOpacity"] = clamp(num(fillOp.value, 0.5), 0, 1);
+      }
+    }
+
+    function syncShapeSettingsForm() {
+      const s = state.settings;
+      const p = shapeSettingsPrefix();
+      const ids = SHAPE_FIELDS[p];
+      if (!ids) return;
+      const set = (id, v) => { const el = $(id); if (el && document.activeElement !== el) el.value = v; };
+      set(ids[0], s[p + "Color"] || s.drawColor);
+      set(ids[1], s[p + "Thickness"] || 3);
+      set(ids[2], s[p + "Opacity"] ?? 1);
+      if (p === "rect" || p === "ellipse") {
+        const fillOn = $(ids[3]);
+        const fillCol = $(ids[4]);
+        const fillOp = $(ids[5]);
+        if (fillOn) fillOn.checked = !!s[p + "Fill"];
+        if (fillCol) fillCol.value = s[p + "Fill"] || s[p + "Color"] || "#ff4444";
+        if (fillOp) fillOp.value = s[p + "FillOpacity"] ?? 0.5;
+      }
+    }
+
+    function readToolSettingsLive() {
+      const s = state.settings;
+      const dc = $("mapsDrawColor");
+      if (dc) s.drawColor = dc.value || s.drawColor;
+      const dt = $("mapsDrawThick");
+      if (dt) s.drawThickness = clamp(num(dt.value, 3), 1, 40);
+      const dop = $("mapsDrawOpacity");
+      if (dop) s.drawOpacity = clamp(num(dop.value, 1), 0, 1);
+      const er = $("mapsEraser");
+      if (er) brushErasing = !!er.checked;
+      const mc = $("mapsMeasureColor");
+      if (mc) s.measureColor = mc.value || s.measureColor;
+      const dv = $("mapsDistVal");
+      if (dv) s.hexDistanceValue = clamp(num(dv.value, s.hexDistanceValue), 0.01, 1e6);
+      const du = $("mapsDistUnit");
+      if (du) s.hexDistanceUnit = (du.value || s.hexDistanceUnit).slice(0, 24);
+      const fc = $("mapsFogColor");
+      if (fc) s.fogColor = fc.value || s.fogColor;
+      const fo = $("mapsFogOpacity");
+      if (fo) s.fogOpacity = clamp(num(fo.value, s.fogOpacity), 0, 1);
+      const tc = $("mapsTextColor");
+      if (tc) s.textToolColor = tc.value;
+      const ts = $("mapsTextSize");
+      if (ts) s.textToolSize = ts.value;
+      const toc = $("mapsTextOutlineColor");
+      if (toc) s.textToolOutlineColor = toc.value;
+      const tow = $("mapsTextOutlineWidth");
+      if (tow) s.textToolOutlineWidth = clamp(num(tow.value, 3), 0, 12);
+      const too = $("mapsTextOutlineOpacity");
+      if (too) s.textToolOutlineOpacity = clamp(num(too.value, 1), 0, 1);
+      const tfs = $("mapsTextFontSize");
+      if (tfs) s.textToolCustomPx = clamp(num(tfs.value, s.textToolCustomPx), 8, 128);
+      const tokc = $("mapsTokenColor");
+      if (tokc) s.tokenColor = tokc.value || s.tokenColor;
+      const toks = $("mapsTokenSize");
+      if (toks) s.tokenSize = toks.value;
+      const toki = $("mapsTokIconDrawer");
+      if (toki) s.tokenIcon = toki.value || "";
+      const tm = $("mapsTokMulti");
+      if (tm) tokenMultiPlace = !!tm.checked;
+      readShapeSettingsFromForm();
+    }
+
+    function syncToolSettingsForm() {
+      const s = state.settings;
+      const set = (id, v) => { const el = $(id); if (el && document.activeElement !== el) el.value = v; };
+      set("mapsDrawColor", s.drawColor);
+      set("mapsDrawThick", s.drawThickness);
+      set("mapsDrawOpacity", s.drawOpacity);
+      set("mapsMeasureColor", s.measureColor);
+      set("mapsDistVal", s.hexDistanceValue);
+      set("mapsDistUnit", s.hexDistanceUnit);
+      set("mapsTextColor", s.textToolColor || "#241f1c");
+      set("mapsTextSize", s.textToolSize || "medium");
+      set("mapsTextOutlineColor", s.textToolOutlineColor || "#f4f0e8");
+      set("mapsTextOutlineWidth", s.textToolOutlineWidth ?? 3);
+      set("mapsTextOutlineOpacity", s.textToolOutlineOpacity ?? 1);
+      set("mapsTextFontSize", s.textToolCustomPx ?? 20);
+      set("mapsFogColor", s.fogColor);
+      set("mapsFogOpacity", s.fogOpacity);
+      set("mapsTokenColor", s.tokenColor);
+      set("mapsTokenSize", s.tokenSize);
+      const toki = $("mapsTokIconDrawer");
+      if (toki) toki.value = s.tokenIcon || "";
+      const er = $("mapsEraser");
+      if (er) er.checked = brushErasing;
+      const tm = $("mapsTokMulti");
+      if (tm) tm.checked = tokenMultiPlace;
+      syncShapeSettingsForm();
+      syncTextSizeRow();
+    }
+
+    function syncDrawerContext() {
+      const key = activeToolKey();
+      const drawer = $("mapsDrawer");
+      const toolSec = $("mapsToolSettings");
+      if (key) {
+        drawerView = "tool";
+        if (drawer) drawer.dataset.drawerView = "tool";
+        if (toolSec) toolSec.dataset.activeTool = key;
+        const hd = $("mapsDrawerToolHd");
+        if (hd) hd.textContent = toolLabel(key);
+        setDrawerOpen(true, "tool");
+      } else if (drawer && drawer.dataset.drawerView === "tool") {
+        if (toolSec) toolSec.dataset.activeTool = "";
+        setDrawerOpen(false);
+      }
+      syncToolSettingsForm();
+    }
+
+    function setDrawerOpen(on, view) {
+      const drawer = $("mapsDrawer");
+      if (!drawer) return;
+      if (view) {
+        drawerView = view;
+        drawer.dataset.drawerView = view;
+      }
+      drawer.classList.toggle("closed", !on);
+      document.body.classList.toggle("maps-drawer-open", !!on);
+      const dt = $("mapsDrawerToggle");
+      const st = $("mapsSettingsToggle");
+      const fab = $("mapsDrawerFab");
+      const mapsOpen = on && drawer.dataset.drawerView === "maps";
+      const settingsOpen = on && drawer.dataset.drawerView === "settings";
+      if (dt) {
+        dt.setAttribute("aria-expanded", mapsOpen ? "true" : "false");
+        dt.setAttribute("aria-pressed", mapsOpen ? "true" : "false");
+      }
+      if (st) {
+        st.setAttribute("aria-expanded", settingsOpen ? "true" : "false");
+        st.setAttribute("aria-pressed", settingsOpen ? "true" : "false");
+      }
+      if (fab) fab.setAttribute("aria-expanded", on ? "true" : "false");
+      clearTimeout(setDrawerOpen._rt);
+      setDrawerOpen._rt = setTimeout(() => { if (active) resize(); }, on ? 300 : 50);
+    }
+
+    function openMapsTray() {
+      const drawer = $("mapsDrawer");
+      if (!drawer) return;
+      if (!drawer.classList.contains("closed") && drawer.dataset.drawerView === "maps") {
+        setDrawerOpen(false);
+        return;
+      }
+      tool = "pan";
+      measurePath = [];
+      strokePts = null;
+      shapeDraft = null;
+      syncToolChrome();
+      setDrawerOpen(true, "maps");
+    }
+
+    function openSettingsTray() {
+      const drawer = $("mapsDrawer");
+      if (!drawer) return;
+      if (!drawer.classList.contains("closed") && drawer.dataset.drawerView === "settings") {
+        setDrawerOpen(false);
+        return;
+      }
+      tool = "pan";
+      measurePath = [];
+      strokePts = null;
+      shapeDraft = null;
+      syncToolChrome();
+      const toolSec = $("mapsToolSettings");
+      if (toolSec) toolSec.dataset.activeTool = "";
+      setDrawerOpen(true, "settings");
+    }
+
+    function openDangerTray() {
+      tool = "pan";
+      syncToolChrome();
+      setDrawerOpen(true, "danger");
+    }
+
+    function backToSettingsTray() {
+      setDrawerOpen(true, "settings");
+    }
+
+    function applyTextPreset(name) {
+      const p = TEXT_PRESETS[name];
+      if (!p) return;
+      const s = state.settings;
+      s.textToolColor = p.color;
+      s.textToolOutlineColor = p.outlineColor;
+      s.textToolOutlineWidth = p.outlineWidth;
+      s.textToolOutlineOpacity = p.outlineOpacity;
+      syncToolSettingsForm();
+      readToolSettingsLive();
+    }
+
+    function textDefaultsForNew() {
+      const s = state.settings;
+      readToolSettingsLive();
+      const sizeKey = s.textToolSize || "medium";
+      let fontSize = TEXT_SIZES[sizeKey];
+      if (sizeKey === "custom") fontSize = s.textToolCustomPx || 20;
+      return {
+        fontSize: fontSize || TEXT_SIZES.medium,
+        color: s.textToolColor || "#241f1c",
+        outlineColor: s.textToolOutlineColor || "#f4f0e8",
+        outlineWidth: s.textToolOutlineWidth ?? 3,
+        outlineOpacity: s.textToolOutlineOpacity ?? 1,
+      };
+    }
+
     function startTextDrag(index, wx, wy) {
       const t = state.texts[index];
       if (!t) return false;
-      selectedText = index;
-      selectedToken = -1;
+      selectKind("text", index);
       pushUndo();
       drag = { kind: "text", index, ox: wx - t.x, oy: wy - t.y };
-      drawAnnotations();
       return true;
     }
 
     function startTokenDrag(index) {
       const t = state.tokens[index];
       if (!t) return false;
-      selectedToken = index;
-      selectedText = -1;
+      selectKind("token", index);
       pushUndo();
       drag = { kind: "token", index, sx: t.x, sy: t.y };
       drawTokens();
@@ -573,17 +1016,12 @@
       drag = null;
       pendingText = null;
       if (hitText >= 0) {
-        selectedText = hitText;
-        selectedToken = -1;
-        drawAnnotations();
-        drawTokens();
+        selectKind("text", hitText);
         openTextEditor();
         return true;
       }
       if (hitToken >= 0) {
         openTokenEditor(hitToken);
-        drawAnnotations();
-        drawTokens();
         return true;
       }
       return false;
@@ -706,32 +1144,36 @@
       const PIXI = window.PIXI;
       layers.annot.removeChildren();
       if (!PIXI) return;
-      for (const s of state.strokes) {
+      for (let si = 0; si < state.strokes.length; si++) {
+        const s = state.strokes[si];
         if (s.points.length < 2) continue;
         const g = new PIXI.Graphics();
         g.moveTo(s.points[0][0], s.points[0][1]);
         for (let i = 1; i < s.points.length; i++) g.lineTo(s.points[i][0], s.points[i][1]);
-        g.stroke({ width: s.thickness, color: hexToRgb(s.color), alpha: s.opacity });
+        const sel = selectedStroke === si;
+        g.stroke({ width: s.thickness + (sel ? 2 : 0), color: sel ? 0xf0d78c : hexToRgb(s.color), alpha: s.opacity });
         layers.annot.addChild(g);
       }
-      for (const sh of state.shapes) {
+      for (let shi = 0; shi < state.shapes.length; shi++) {
+        const sh = state.shapes[shi];
         const g = new PIXI.Graphics();
-        const col = hexToRgb(sh.color);
+        const col = selectedShape === shi ? 0xf0d78c : hexToRgb(sh.color);
+        const th = sh.thickness + (selectedShape === shi ? 2 : 0);
         if (sh.type === "rect") {
           const x = Math.min(sh.x1, sh.x2), y = Math.min(sh.y1, sh.y2);
           const w = Math.abs(sh.x2 - sh.x1), h = Math.abs(sh.y2 - sh.y1);
           g.rect(x, y, w, h);
           if (sh.fill) g.fill({ color: hexToRgb(sh.fill), alpha: sh.fillOpacity });
-          g.stroke({ width: sh.thickness, color: col, alpha: sh.opacity });
+          g.stroke({ width: th, color: col, alpha: sh.opacity });
         } else if (sh.type === "circle") {
           const cx = (sh.x1 + sh.x2) / 2, cy = (sh.y1 + sh.y2) / 2;
           const rx = Math.abs(sh.x2 - sh.x1) / 2, ry = Math.abs(sh.y2 - sh.y1) / 2;
           g.ellipse(cx, cy, Math.max(rx, 1), Math.max(ry, 1));
           if (sh.fill) g.fill({ color: hexToRgb(sh.fill), alpha: sh.fillOpacity });
-          g.stroke({ width: sh.thickness, color: col, alpha: sh.opacity });
+          g.stroke({ width: th, color: col, alpha: sh.opacity });
         } else if (sh.type === "line" || sh.type === "arrow") {
           g.moveTo(sh.x1, sh.y1); g.lineTo(sh.x2, sh.y2);
-          g.stroke({ width: sh.thickness, color: col, alpha: sh.opacity });
+          g.stroke({ width: th, color: col, alpha: sh.opacity });
           if (sh.type === "arrow") {
             const ang = Math.atan2(sh.y2 - sh.y1, sh.x2 - sh.x1);
             const ah = 12 + sh.thickness;
@@ -739,7 +1181,7 @@
             g.lineTo(sh.x2 - ah * Math.cos(ang - 0.4), sh.y2 - ah * Math.sin(ang - 0.4));
             g.moveTo(sh.x2, sh.y2);
             g.lineTo(sh.x2 - ah * Math.cos(ang + 0.4), sh.y2 - ah * Math.sin(ang + 0.4));
-            g.stroke({ width: sh.thickness, color: col, alpha: sh.opacity });
+            g.stroke({ width: th, color: col, alpha: sh.opacity });
           }
         }
         layers.annot.addChild(g);
@@ -757,9 +1199,11 @@
         tx.x = t.x; tx.y = t.y;
         layers.annot.addChild(tx);
       }
-      for (const m of state.measurements) {
+      for (let mi = 0; mi < state.measurements.length; mi++) {
+        const m = state.measurements[mi];
         const g = new PIXI.Graphics();
-        const col = hexToRgb(m.color || state.settings.measureColor);
+        const col = selectedMeasurement === mi ? 0xf0d78c : hexToRgb(m.color || state.settings.measureColor);
+        const lw = selectedMeasurement === mi ? 5 : 3;
         let first = true;
         for (const id of m.hexIds) {
           const h = grid && grid.byId.get(id);
@@ -767,7 +1211,7 @@
           if (first) { g.moveTo(h.x, h.y); first = false; }
           else g.lineTo(h.x, h.y);
         }
-        g.stroke({ width: 3, color: col, alpha: 0.95 });
+        g.stroke({ width: lw, color: col, alpha: 0.95 });
         layers.annot.addChild(g);
       }
     }
@@ -1122,8 +1566,8 @@
       measurePath = [];
       strokePts = null;
       shapeDraft = null;
-      brushErasing = false;
       syncToolChrome();
+      syncDrawerContext();
       renderDraft();
     }
 
@@ -1131,8 +1575,13 @@
       document.querySelectorAll("#mapsTools [data-tool]").forEach((b) => {
         b.setAttribute("aria-pressed", String(b.getAttribute("data-tool") === tool));
       });
+      const sg = $("mapsShapeGroup");
+      if (sg) sg.hidden = tool !== "shape";
+      document.querySelectorAll("#mapsShapeGroup [data-shape]").forEach((b) => {
+        b.setAttribute("aria-pressed", String(b.getAttribute("data-shape") === shapeKind));
+      });
       const sk = $("mapsShapeKind");
-      if (sk) sk.hidden = tool !== "shape";
+      if (sk) { sk.hidden = tool !== "shape"; sk.value = shapeKind; }
     }
 
     function updateSettingsForm() {
@@ -1149,10 +1598,7 @@
       set("mapsFogOpacity", s.fogOpacity);
       set("mapsGridColor", s.gridColor);
       set("mapsGridThick", s.gridThickness);
-      set("mapsTokenColor", s.tokenColor);
-      set("mapsTokenSize", s.tokenSize);
-      set("mapsDistVal", s.hexDistanceValue);
-      set("mapsDistUnit", s.hexDistanceUnit);
+      syncToolSettingsForm();
     }
 
     function readSettingsFromForm() {
@@ -1165,14 +1611,8 @@
       s.rowCount = clamp(Math.round(num($("mapsRows").value, s.rowCount)), 1, 200);
       s.orientation = $("mapsOrient").value === "flat" ? "flat" : "pointy";
       s.mapScale = clamp(num($("mapsScale").value, 100), 10, 400);
-      s.fogColor = $("mapsFogColor").value || s.fogColor;
-      s.fogOpacity = clamp(num($("mapsFogOpacity").value, s.fogOpacity), 0, 1);
       s.gridColor = $("mapsGridColor").value || s.gridColor;
       s.gridThickness = clamp(num($("mapsGridThick").value, 1), 0.5, 8);
-      s.tokenColor = $("mapsTokenColor").value || s.tokenColor;
-      s.tokenSize = $("mapsTokenSize").value;
-      s.hexDistanceValue = clamp(num($("mapsDistVal").value, 8), 0.01, 1e6);
-      s.hexDistanceUnit = ($("mapsDistUnit").value || "miles").slice(0, 24);
       rebuildGrid();
       loadMapTexture().then(() => renderAll());
       scheduleSave();
@@ -1215,10 +1655,14 @@
         try { canvas.setPointerCapture(e.pointerId); } catch (_) { /* synthetic / unsupported */ }
 
         if (tool === "pan") {
-          if (hitText >= 0 && startTextDrag(hitText, w.x, w.y)) return;
-          if (hitToken >= 0 && startTokenDrag(hitToken)) return;
-          selectedText = -1;
-          selectedToken = -1;
+          const hit = pickPanTarget(w.x, w.y);
+          if (hit) {
+            if (hit.kind === "text" && startTextDrag(hit.index, w.x, w.y)) return;
+            if (hit.kind === "token" && startTokenDrag(hit.index)) return;
+            selectKind(hit.kind, hit.index);
+            return;
+          }
+          clearSelection();
           drawAnnotations();
           drawTokens();
           drag = { kind: "pan", ox: e.clientX, oy: e.clientY, px: state.view.panX, py: state.view.panY };
@@ -1232,14 +1676,19 @@
           if (hitToken >= 0 && startTokenDrag(hitToken)) return;
           if (state.tokens.length >= MAX_TOKENS) { toast("Token limit reached"); return; }
           pushUndo();
+          let tx = w.x, ty = w.y;
+          if (!e.altKey) {
+            const h = findHexAt(w.x, w.y, grid);
+            if (h) { tx = h.x; ty = h.y; }
+          }
+          readToolSettingsLive();
           state.tokens.push({
-            x: w.x, y: w.y, color: state.settings.tokenColor,
+            x: tx, y: ty, color: state.settings.tokenColor,
             label: "", icon: state.settings.tokenIcon || "", notes: "", zIndex: nextZ++,
           });
-          selectedToken = state.tokens.length - 1;
-          drawTokens();
+          selectKind("token", state.tokens.length - 1);
           scheduleSave();
-          openTokenEditor(selectedToken);
+          if (!tokenMultiPlace) openTokenEditor(selectedToken);
         } else if (tool === "measure") {
           const h = findHexAt(w.x, w.y, grid);
           if (!h) return;
@@ -1250,6 +1699,7 @@
             if (neigh && !measurePath.includes(h.id)) measurePath.push(h.id);
             else if (measurePath[measurePath.length - 1] === h.id && measurePath.length >= 2) {
               pushUndo();
+              readToolSettingsLive();
               state.measurements.push({ hexIds: measurePath.slice(), color: state.settings.measureColor, createdAt: Date.now() });
               if (state.measurements.length > MAX_ANNOT) state.measurements.shift();
               measurePath = [];
@@ -1263,18 +1713,22 @@
           selectedText = -1;
           openTextEditor();
         } else if (tool === "brush") {
-          pushUndo();
+          readToolSettingsLive();
+          if (!brushErasing) pushUndo();
           strokePts = [[w.x, w.y]];
           drag = { kind: "brush" };
         } else if (tool === "shape") {
           pushUndo();
+          readToolSettingsLive();
+          const p = shapeSettingsPrefix();
           shapeDraft = {
             type: shapeKind === "ellipse" ? "circle" : shapeKind,
             x1: w.x, y1: w.y, x2: w.x, y2: w.y,
-            color: state.settings[shapeKind === "ellipse" ? "ellipseColor" : shapeKind + "Color"] || state.settings.drawColor,
-            thickness: 3, opacity: 1,
-            fill: shapeKind === "rect" ? state.settings.rectFill : (shapeKind === "ellipse" ? state.settings.ellipseFill : null),
-            fillOpacity: 0.5,
+            color: state.settings[p + "Color"] || state.settings.drawColor,
+            thickness: state.settings[p + "Thickness"] || 3,
+            opacity: state.settings[p + "Opacity"] ?? 1,
+            fill: (p === "rect" || p === "ellipse") && state.settings[p + "Fill"] ? state.settings[p + "Fill"] : null,
+            fillOpacity: state.settings[p + "FillOpacity"] ?? 0.5,
           };
           drag = { kind: "shape" };
         }
@@ -1313,7 +1767,8 @@
           strokePts.push([w.x, w.y]);
           renderDraft();
         } else if (drag.kind === "shape" && shapeDraft) {
-          shapeDraft.x2 = w.x; shapeDraft.y2 = w.y;
+          const mod = applyShapeModifiers(shapeDraft.x1, shapeDraft.y1, w.x, w.y, shapeDraft.type, e.shiftKey, e.altKey);
+          shapeDraft.x2 = mod.x2; shapeDraft.y2 = mod.y2;
           layers.draft.removeChildren();
           // temp draw
           const PIXI = window.PIXI;
@@ -1334,16 +1789,19 @@
         }
       });
 
-      canvas.addEventListener("pointerup", () => {
+      canvas.addEventListener("pointerup", (e) => {
         if (drag && drag.kind === "brush" && strokePts && strokePts.length > 1) {
+          readToolSettingsLive();
           if (brushErasing) {
-            // simple: drop strokes near path — skip, just add stroke
+            pushUndo();
+            eraseAlongPath(strokePts);
+          } else {
+            state.strokes.push({
+              points: strokePts, color: state.settings.drawColor,
+              thickness: state.settings.drawThickness, opacity: state.settings.drawOpacity,
+            });
+            if (state.strokes.length > MAX_ANNOT) state.strokes.shift();
           }
-          state.strokes.push({
-            points: strokePts, color: state.settings.drawColor,
-            thickness: state.settings.drawThickness, opacity: state.settings.drawOpacity,
-          });
-          if (state.strokes.length > MAX_ANNOT) state.strokes.shift();
           strokePts = null;
           scheduleSave();
           renderAll();
@@ -1381,21 +1839,30 @@
         if (!openMapId) return;
         e.preventDefault();
         const w = worldFromEvent(e);
-        openHitEditor(pickTextAt(w.x, w.y), pickTokenAt(w.x, w.y));
+        const hitText = pickTextAt(w.x, w.y);
+        const hitToken = pickTokenAt(w.x, w.y);
+        if (openHitEditor(hitText, hitToken)) return;
+        const hitMeas = pickMeasurementAt(w.x, w.y);
+        if (hitMeas >= 0) { selectKind("measurement", hitMeas); openMeasurementEditor(hitMeas); return; }
+        const hitShape = pickShapeAt(w.x, w.y);
+        if (hitShape >= 0) { selectKind("shape", hitShape); openShapeEditor(hitShape); return; }
+        const hitStroke = pickStrokeAt(w.x, w.y);
+        if (hitStroke >= 0) { selectKind("stroke", hitStroke); openStrokeEditor(hitStroke); return; }
       });
     }
 
     function openTokenEditor(idx) {
       const t = state.tokens[idx];
       if (!t) return;
-      selectedToken = idx;
-      selectedText = -1;
+      selectKind("token", idx);
       const ov = $("mapsTokenOvl");
       if (!ov) return;
       $("mapsTokLabel").value = t.label;
       $("mapsTokNotes").value = t.notes;
       $("mapsTokColor").value = t.color;
       $("mapsTokIcon").value = t.icon;
+      const del = $("mapsTokDelete");
+      if (del) del.hidden = false;
       ov.hidden = false;
       if (typeof setAppInert === "function") setAppInert(true);
     }
@@ -1415,11 +1882,27 @@
       if (typeof setAppInert === "function") setAppInert(false);
     }
 
+    function deleteTokenFromModal() {
+      if (selectedToken < 0) return;
+      pushUndo();
+      state.tokens.splice(selectedToken, 1);
+      clearSelection();
+      closeTokenEditor(false);
+      renderAll();
+      scheduleSave();
+      toast("Token deleted");
+    }
+
     function openTextEditor() {
       const ov = $("mapsTextOvl");
       const input = $("mapsTextInput");
       if (!ov || !input) return;
-      input.value = (selectedText >= 0 && state.texts[selectedText]) ? state.texts[selectedText].text : "";
+      const editing = selectedText >= 0 && state.texts[selectedText];
+      input.value = editing ? state.texts[selectedText].text : "";
+      const del = $("mapsTextDelete");
+      const saveBtn = $("mapsTextSave");
+      if (del) del.hidden = !editing;
+      if (saveBtn) saveBtn.textContent = editing ? "Save" : "Add";
       ov.hidden = false;
       if (typeof setAppInert === "function") setAppInert(true);
       input.focus();
@@ -1431,17 +1914,20 @@
       if (!ov) return;
       const text = input ? (input.value || "").trim().slice(0, 500) : "";
       if (save && text) {
+        readToolSettingsLive();
+        const defs = textDefaultsForNew();
         if (selectedText >= 0 && state.texts[selectedText]) {
           state.texts[selectedText].text = text;
         } else if (pendingText) {
           pushUndo();
           state.texts.push({
             text, x: pendingText.x, y: pendingText.y,
-            fontSize: 18, color: "#241f1c", outlineColor: "#f4f0e8",
-            outlineWidth: 3, outlineOpacity: 1,
+            fontSize: defs.fontSize, color: defs.color,
+            outlineColor: defs.outlineColor, outlineWidth: defs.outlineWidth,
+            outlineOpacity: defs.outlineOpacity,
           });
           if (state.texts.length > MAX_ANNOT) state.texts.shift();
-          selectedText = state.texts.length - 1;
+          selectKind("text", state.texts.length - 1);
         }
         scheduleSave();
         drawAnnotations();
@@ -1450,6 +1936,130 @@
       if (!save) selectedText = -1;
       ov.hidden = true;
       if (typeof setAppInert === "function") setAppInert(false);
+    }
+
+    function deleteTextFromModal() {
+      if (selectedText < 0) return;
+      pushUndo();
+      state.texts.splice(selectedText, 1);
+      clearSelection();
+      closeTextEditor(false);
+      renderAll();
+      scheduleSave();
+      toast("Text deleted");
+    }
+
+    function openStrokeEditor(idx) {
+      const s = state.strokes[idx];
+      if (!s) return;
+      selectKind("stroke", idx);
+      const ov = $("mapsStrokeOvl");
+      if (!ov) return;
+      $("mapsStrokeColor").value = s.color || state.settings.drawColor;
+      $("mapsStrokeThick").value = s.thickness || 3;
+      ov.hidden = false;
+      if (typeof setAppInert === "function") setAppInert(true);
+    }
+    function closeStrokeEditor(save) {
+      const ov = $("mapsStrokeOvl");
+      if (!ov) return;
+      if (save && selectedStroke >= 0 && state.strokes[selectedStroke]) {
+        const s = state.strokes[selectedStroke];
+        s.color = $("mapsStrokeColor").value || s.color;
+        s.thickness = clamp(num($("mapsStrokeThick").value, s.thickness), 1, 40);
+        scheduleSave();
+        drawAnnotations();
+      }
+      ov.hidden = true;
+      if (typeof setAppInert === "function") setAppInert(false);
+    }
+    function deleteStrokeFromModal() {
+      if (selectedStroke < 0) return;
+      pushUndo();
+      state.strokes.splice(selectedStroke, 1);
+      clearSelection();
+      closeStrokeEditor(false);
+      renderAll();
+      scheduleSave();
+      toast("Stroke deleted");
+    }
+
+    function openShapeEditor(idx) {
+      const sh = state.shapes[idx];
+      if (!sh) return;
+      selectKind("shape", idx);
+      const ov = $("mapsShapeOvl");
+      if (!ov) return;
+      $("mapsShapeEditColor").value = sh.color || state.settings.drawColor;
+      $("mapsShapeEditThick").value = sh.thickness || 3;
+      $("mapsShapeEditOpacity").value = sh.opacity ?? 1;
+      const fillOn = $("mapsShapeEditFillOn");
+      if (fillOn) fillOn.checked = !!sh.fill;
+      $("mapsShapeEditFillColor").value = sh.fill || sh.color || "#ff4444";
+      $("mapsShapeEditFillOpacity").value = sh.fillOpacity ?? 0.5;
+      ov.hidden = false;
+      if (typeof setAppInert === "function") setAppInert(true);
+    }
+    function closeShapeEditor(save) {
+      const ov = $("mapsShapeOvl");
+      if (!ov) return;
+      if (save && selectedShape >= 0 && state.shapes[selectedShape]) {
+        const sh = state.shapes[selectedShape];
+        sh.color = $("mapsShapeEditColor").value || sh.color;
+        sh.thickness = clamp(num($("mapsShapeEditThick").value, sh.thickness), 1, 40);
+        sh.opacity = clamp(num($("mapsShapeEditOpacity").value, sh.opacity), 0, 1);
+        const fillOn = $("mapsShapeEditFillOn");
+        if (fillOn && fillOn.checked) sh.fill = $("mapsShapeEditFillColor").value || sh.fill;
+        else sh.fill = null;
+        sh.fillOpacity = clamp(num($("mapsShapeEditFillOpacity").value, sh.fillOpacity), 0, 1);
+        scheduleSave();
+        drawAnnotations();
+      }
+      ov.hidden = true;
+      if (typeof setAppInert === "function") setAppInert(false);
+    }
+    function deleteShapeFromModal() {
+      if (selectedShape < 0) return;
+      pushUndo();
+      state.shapes.splice(selectedShape, 1);
+      clearSelection();
+      closeShapeEditor(false);
+      renderAll();
+      scheduleSave();
+      toast("Shape deleted");
+    }
+
+    function openMeasurementEditor(idx) {
+      const m = state.measurements[idx];
+      if (!m) return;
+      selectKind("measurement", idx);
+      const ov = $("mapsMeasOvl");
+      if (!ov) return;
+      $("mapsMeasEditColor").value = m.color || state.settings.measureColor;
+      ov.hidden = false;
+      if (typeof setAppInert === "function") setAppInert(true);
+    }
+    function closeMeasurementEditor(save) {
+      const ov = $("mapsMeasOvl");
+      if (!ov) return;
+      if (save && selectedMeasurement >= 0 && state.measurements[selectedMeasurement]) {
+        state.measurements[selectedMeasurement].color = $("mapsMeasEditColor").value
+          || state.measurements[selectedMeasurement].color;
+        scheduleSave();
+        drawAnnotations();
+      }
+      ov.hidden = true;
+      if (typeof setAppInert === "function") setAppInert(false);
+    }
+    function deleteMeasurementFromModal() {
+      if (selectedMeasurement < 0) return;
+      pushUndo();
+      state.measurements.splice(selectedMeasurement, 1);
+      clearSelection();
+      closeMeasurementEditor(false);
+      renderAll();
+      scheduleSave();
+      toast("Measurement deleted");
     }
 
     function resetFog() {
@@ -1473,14 +2083,25 @@
       if (window.TRK && TRK.confirmSwap) TRK.confirmSwap($("mapsClearTokens"), "Clear all tokens?", go);
       else go();
     }
-    function clearAnnot() {
+    function clearMeasurements() {
       const go = () => {
         pushUndo();
-        state.strokes = []; state.shapes = []; state.texts = []; state.measurements = [];
+        state.measurements = [];
+        measurePath = [];
         renderAll();
         scheduleSave();
       };
-      if (window.TRK && TRK.confirmSwap) TRK.confirmSwap($("mapsClearAnnot"), "Clear all annotations?", go);
+      if (window.TRK && TRK.confirmSwap) TRK.confirmSwap($("mapsClearMeas"), "Clear all measurements?", go);
+      else go();
+    }
+    function clearAnnot() {
+      const go = () => {
+        pushUndo();
+        state.strokes = []; state.shapes = []; state.texts = [];
+        renderAll();
+        scheduleSave();
+      };
+      if (window.TRK && TRK.confirmSwap) TRK.confirmSwap($("mapsClearAnnot"), "Clear strokes, shapes, and text?", go);
       else go();
     }
 
@@ -1559,18 +2180,21 @@
       else if ((e.key === "y" && (e.ctrlKey || e.metaKey)) || (e.key === "z" && e.shiftKey && (e.ctrlKey || e.metaKey))) {
         e.preventDefault(); redo();
       } else if (e.key === "Escape") {
+        if (measurePath.length) { measurePath = []; renderAll(); return; }
         setTool("pan");
         closeTokenEditor(false);
         closeTextEditor(false);
+        closeStrokeEditor(false);
+        closeShapeEditor(false);
+        closeMeasurementEditor(false);
+      }
+      else if (tool === "measure" && measurePath.length && e.key === "Backspace" && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        measurePath.pop();
+        renderAll();
       }
       else if (e.key === "Delete" || e.key === "Backspace") {
-        if (selectedToken >= 0) {
-          pushUndo();
-          state.tokens.splice(selectedToken, 1);
-          selectedToken = -1;
-          renderAll();
-          scheduleSave();
-        }
+        if (deleteSelection()) e.preventDefault();
       } else if (e.key === "r") setTool("reveal");
       else if (e.key === "h") setTool("hide");
       else if (e.key === "t") setTool("token");
@@ -1609,6 +2233,7 @@
       on("mapsRedo", "onclick", redo);
       on("mapsResetFog", "onclick", resetFog);
       on("mapsClearTokens", "onclick", clearTokens);
+      on("mapsClearMeas", "onclick", clearMeasurements);
       on("mapsClearAnnot", "onclick", clearAnnot);
       on("mapsResetView", "onclick", () => {
         state.view = { zoomLevel: 1, panX: 0, panY: 0 };
@@ -1619,19 +2244,76 @@
       document.querySelectorAll("#mapsTools [data-tool]").forEach((b) => {
         b.onclick = () => setTool(b.getAttribute("data-tool"));
       });
-      on("mapsShapeKind", "onchange", (e) => { shapeKind = e.target.value; });
+      document.querySelectorAll("#mapsShapeGroup [data-shape]").forEach((b) => {
+        b.onclick = () => {
+          shapeKind = b.getAttribute("data-shape");
+          syncToolChrome();
+          syncShapeSettingsForm();
+          if (tool === "shape") {
+            const toolSec = $("mapsToolSettings");
+            const ak = shapeKind === "ellipse" ? "circle" : shapeKind;
+            if (toolSec) toolSec.dataset.activeTool = ak;
+            const hd = $("mapsDrawerToolHd");
+            if (hd) hd.textContent = toolLabel(ak);
+          }
+        };
+      });
+      on("mapsShapeKind", "onchange", (e) => {
+        shapeKind = e.target.value;
+        syncToolChrome();
+        syncShapeSettingsForm();
+      });
+      const toolLiveIds = [
+        "mapsDrawColor", "mapsDrawThick", "mapsDrawOpacity", "mapsEraser",
+        "mapsFogColor", "mapsFogOpacity",
+        "mapsRectColor", "mapsRectThick", "mapsRectOpacity", "mapsRectFillOn", "mapsRectFillColor", "mapsRectFillOpacity",
+        "mapsEllipseColor", "mapsEllipseThick", "mapsEllipseOpacity", "mapsEllipseFillOn", "mapsEllipseFillColor", "mapsEllipseFillOpacity",
+        "mapsArrowColor", "mapsArrowThick", "mapsArrowOpacity",
+        "mapsLineColor", "mapsLineThick", "mapsLineOpacity",
+        "mapsMeasureColor", "mapsDistVal", "mapsDistUnit",
+        "mapsTextColor", "mapsTextSize", "mapsTextFontSize", "mapsTextOutlineColor", "mapsTextOutlineWidth", "mapsTextOutlineOpacity",
+        "mapsTokenColor", "mapsTokenSize", "mapsTokIconDrawer", "mapsTokMulti",
+      ];
+      toolLiveIds.forEach((id) => {
+        const el = $(id);
+        if (!el) return;
+        const ev = el.type === "range" || el.type === "color" || el.type === "number" ? "input" : "change";
+        el[ev] = () => {
+          readToolSettingsLive();
+          if (id === "mapsTextSize") syncTextSizeRow();
+        };
+      });
+      on("mapsTextPresetWhite", "onclick", () => applyTextPreset("white"));
+      on("mapsTextPresetBlack", "onclick", () => applyTextPreset("black"));
+      on("mapsTextPresetYellow", "onclick", () => applyTextPreset("yellow"));
+      on("mapsDangerEntry", "onclick", openDangerTray);
+      on("mapsDangerBack", "onclick", backToSettingsTray);
       on("mapsTokSave", "onclick", () => closeTokenEditor(true));
       on("mapsTokCancel", "onclick", () => closeTokenEditor(false));
+      on("mapsTokDelete", "onclick", deleteTokenFromModal);
       on("mapsTextSave", "onclick", () => closeTextEditor(true));
       on("mapsTextCancel", "onclick", () => closeTextEditor(false));
+      on("mapsTextDelete", "onclick", deleteTextFromModal);
+      on("mapsStrokeSave", "onclick", () => closeStrokeEditor(true));
+      on("mapsStrokeCancel", "onclick", () => closeStrokeEditor(false));
+      on("mapsStrokeDelete", "onclick", deleteStrokeFromModal);
+      on("mapsShapeEditSave", "onclick", () => closeShapeEditor(true));
+      on("mapsShapeEditCancel", "onclick", () => closeShapeEditor(false));
+      on("mapsShapeEditDelete", "onclick", deleteShapeFromModal);
+      on("mapsMeasEditSave", "onclick", () => closeMeasurementEditor(true));
+      on("mapsMeasEditCancel", "onclick", () => closeMeasurementEditor(false));
+      on("mapsMeasEditDelete", "onclick", deleteMeasurementFromModal);
       on("mapsTextInput", "onkeydown", (e) => {
-        if (e.key === "Enter") { e.preventDefault(); closeTextEditor(true); }
+        if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { e.preventDefault(); closeTextEditor(true); }
         if (e.key === "Escape") { e.preventDefault(); closeTextEditor(false); }
       });
-      const scrim = $("mapsRailScrim");
-      const toggle = $("mapsRailToggle");
-      if (toggle) toggle.onclick = () => document.body.classList.add("maps-rail-open");
-      if (scrim) scrim.onclick = () => document.body.classList.remove("maps-rail-open");
+      on("mapsDrawerToggle", "onclick", openMapsTray);
+      on("mapsSettingsToggle", "onclick", openSettingsTray);
+      on("mapsDrawerFab", "onclick", openMapsTray);
+      const scrim = $("mapsDrawerScrim");
+      if (scrim) scrim.onclick = () => setDrawerOpen(false);
+      const drawer = $("mapsDrawer");
+      if (drawer) drawer.classList.add("closed");
       window.addEventListener("keydown", onKey);
       window.addEventListener("resize", () => { if (active) resize(); });
     }
