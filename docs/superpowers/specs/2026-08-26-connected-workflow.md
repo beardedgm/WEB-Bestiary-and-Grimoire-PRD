@@ -41,6 +41,7 @@ knowledge base rots and users drift back to external note tools.
 | **Library** | Reusable game content: corpus monsters/spells + customs, keyed by id | Campaign plot, session layout |
 | **Forge** | Creating custom content that lands in the Library | Editing content in place elsewhere |
 | **Campaign** | Durable campaign bag (`bg.campaign.v1`): party, encounter presets, Lore pages, maps meta | Live initiative, Board layout, custom library |
+| **Maps** | Hex-crawl editor for active campaign (IndexedDB blobs + Pixi); import/export map files | Live initiative, Board handouts, cloud share |
 | **Builder** | Encounter drafts and difficulty budgets (Save writes presets into active campaign) | Live combat state |
 | **Tracker** | Live encounter: initiative, HP, rounds, markers (party/presets mirror active campaign) | Adventure text, long-term notes |
 | **Board** | Tonight's session surface — ephemeral, spatial, disposable | Being the permanent campaign archive |

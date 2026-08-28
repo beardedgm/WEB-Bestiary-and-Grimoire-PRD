@@ -934,6 +934,95 @@ body.trk #forge{display:none !important}
   #forge .forge-rail{width:100%; max-height:48vh; border-right:none; border-bottom:1px solid var(--hair)}
 }
 
+
+/* ==== maps mode =========================================================== */
+#maps{display:none; flex:1; min-width:0; min-height:0; background:var(--stone-2); position:relative}
+body.maps #maps{display:flex}
+body.maps #side,
+body.maps #trk,
+body.maps #builder,
+body.maps #board,
+body.maps #forge,
+body.maps #lore,
+body.maps #pane,
+body.maps .col-resize{display:none !important}
+body.maps main{display:flex}
+body.board #maps,
+body.build #maps,
+body.trk #maps,
+body.forge #maps,
+body.lore #maps{display:none !important}
+#maps .maps-rail{
+  width:min(280px, 36vw); flex-shrink:0; overflow:auto; border-right:1px solid var(--hair);
+  background:var(--stone-3); padding:12px 14px 24px; display:flex; flex-direction:column; gap:10px
+}
+#maps .maps-main{flex:1; min-width:0; display:flex; flex-direction:column; min-height:0; background:var(--stone-2)}
+#maps .maps-rail h2{margin:0; font:600 15px/1.2 var(--serif); color:var(--ink)}
+.maps-camp-hint{margin:0; color:var(--dim); font:12.5px/1.35 var(--sans)}
+#mapsList{display:flex; flex-direction:column; gap:4px}
+.maps-list-item{
+  text-align:left; padding:8px 10px; border:1px solid var(--hair); border-radius:var(--radius);
+  background:var(--paper); color:var(--ink); font:13px/1.3 var(--sans); cursor:pointer
+}
+.maps-list-item.on{border-color:var(--ink); box-shadow:0 0 0 2px color-mix(in srgb, var(--gilt) 40%, transparent)}
+.maps-empty{margin:auto; max-width:28rem; text-align:center; padding:2rem; color:var(--dim)}
+#mapsEditor{flex:1; display:flex; flex-direction:column; min-height:0}
+#mapsEditor[hidden], #mapsEmpty[hidden]{display:none !important}
+.maps-toolbar{display:flex; flex-wrap:wrap; gap:5px; padding:8px 10px; border-bottom:1px solid var(--hair); background:var(--stone-3); align-items:center}
+.maps-toolbar .sp{flex:1}
+.maps-workspace{flex:1; display:flex; min-height:0}
+.maps-stage{flex:1; min-width:0; min-height:0; position:relative; background:#2a2622}
+.maps-stage canvas{display:block; width:100%; height:100%}
+.maps-settings{width:min(240px, 32vw); flex:none; border-left:1px solid var(--hair); background:var(--stone-3); overflow:auto; padding:8px 10px}
+.maps-settings summary{cursor:pointer; font:600 10px/1 var(--mono); text-transform:uppercase; letter-spacing:.08em; color:var(--dim)}
+.maps-settings-grid{display:flex; flex-direction:column; gap:6px; margin:8px 0}
+.maps-settings-grid label{display:flex; flex-direction:column; gap:2px; font:11px/1.2 var(--sans); color:var(--dim)}
+.maps-settings-grid input, .maps-settings-grid select{
+  font:13px/1.3 var(--sans); color:var(--ink); background:var(--paper);
+  border:1px solid var(--hair); border-radius:3px; padding:5px 7px
+}
+.maps-notes-tip{margin:0; padding:6px 10px; font:12px/1.35 var(--sans); color:var(--dim); border-top:1px solid var(--hair)}
+.maps-toast{
+  position:absolute; left:50%; bottom:16px; transform:translateX(-50%);
+  background:var(--ink); color:var(--stone-3); padding:8px 14px; border-radius:3px;
+  font:13px/1.3 var(--sans); z-index:5; pointer-events:none
+}
+.maps-rail-toggle, .maps-rail-scrim{display:none}
+#mapsTextOvl{position:fixed;inset:0;z-index:80;background:rgba(36,33,28,.45);display:flex;align-items:center;justify-content:center}
+#mapsTextOvl[hidden]{display:none !important}
+#mapsTokenOvl{
+  position:fixed; inset:0; z-index:80; background:rgba(36,33,28,.45);
+  display:flex; align-items:center; justify-content:center
+}
+#mapsTokenOvl[hidden]{display:none !important}
+.maps-token-panel{width:min(360px, 92vw); background:var(--paper); border:1px solid var(--hair); border-radius:3px; padding:12px}
+.maps-token-panel label{display:flex; flex-direction:column; gap:3px; margin:8px 0; font:12px/1.2 var(--sans); color:var(--dim)}
+.maps-token-panel input, .maps-token-panel textarea, .maps-token-panel select{
+  font:13px/1.3 var(--sans); color:var(--ink); background:var(--stone-3); border:1px solid var(--hair); border-radius:3px; padding:6px 8px
+}
+.maps-token-panel .panel-ft{display:flex; gap:8px; justify-content:flex-end; margin-top:8px}
+@media (max-width:760px){
+  body.maps #maps{flex-direction:column}
+  body.maps #maps .maps-rail{
+    display:none; position:fixed; left:0; right:0; bottom:0; z-index:40;
+    width:100%; max-height:70vh; border-right:none; border-top:1px solid var(--hair);
+    border-radius:10px 10px 0 0
+  }
+  body.maps.maps-rail-open #maps .maps-rail{display:flex}
+  body.maps #maps .maps-rail-scrim{
+    display:none; position:fixed; inset:0; z-index:35; background:rgba(36,33,28,.4); border:0; padding:0
+  }
+  body.maps.maps-rail-open #maps .maps-rail-scrim{display:block}
+  body.maps #maps .maps-rail-toggle{
+    display:block; position:fixed; left:12px; bottom:12px; z-index:30;
+    min-height:44px; padding:10px 14px
+  }
+  body.maps.maps-rail-open #maps .maps-rail-toggle{display:none}
+  .maps-settings{width:100%; max-height:28vh; border-left:none; border-top:1px solid var(--hair)}
+  .maps-workspace{flex-direction:column}
+  #mapsTools .chip{min-height:44px}
+}
+
 /* ==== lore mode =========================================================== */
 #lore{display:none; flex:1; min-width:0; min-height:0; background:var(--stone-2)}
 body.lore #lore{display:flex}
@@ -1443,6 +1532,7 @@ body.forge #lore{display:none !important}
       <button type="button" id="m-build" class="chip" aria-pressed="false">Builder</button>
       <button type="button" id="m-forge" class="chip" aria-pressed="false">Forge</button>
       <button type="button" id="m-lore" class="chip" aria-pressed="false">Lore</button>
+      <button type="button" id="m-maps" class="chip" aria-pressed="false">Maps</button>
     </span>
     <span id="hdrCamp" role="group" aria-label="Active campaign">
       <label class="hdr-camp-label" for="hdrCampaign">Campaign</label>
@@ -1785,7 +1875,123 @@ body.forge #lore{display:none !important}
   <button type="button" class="lore-rail-toggle" id="loreRailToggle" aria-expanded="false" aria-controls="loreRail">Pages</button>
 </section>
 
+<section id="maps" aria-label="Campaign maps" hidden>
+  <button type="button" class="maps-rail-scrim" id="mapsRailScrim" aria-label="Close map list" tabindex="-1"></button>
+  <aside class="maps-rail" id="mapsRail" aria-label="Campaign maps">
+    <h2>Maps</h2>
+    <p class="maps-camp-hint" id="mapsCampHint" hidden></p>
+    <div class="frow" id="mapsOps">
+      <button type="button" class="chip go" id="mapsNew">New map</button>
+      <button type="button" class="chip" id="mapsImport" title="Import .hexplora / JSON">Import</button>
+      <input id="mapsFile" type="file" accept="image/*" hidden>
+      <input id="mapsImportFile" type="file" accept=".json,.hexplora,application/json" hidden>
+    </div>
+    <nav id="mapsList" aria-label="Map list"></nav>
+  </aside>
+  <div class="maps-main">
+    <div id="mapsEmpty" class="maps-empty">
+      <p>Upload a map image to start a hex crawl under this campaign. Fog, tokens, and annotations stay on this device.</p>
+      <button type="button" class="chip go" id="mapsEmptyNew">New map</button>
+    </div>
+    <div id="mapsEditor" hidden>
+      <div class="maps-toolbar" id="mapsTools" role="toolbar" aria-label="Map tools">
+        <button type="button" class="chip" data-tool="pan" aria-pressed="true">Pan</button>
+        <button type="button" class="chip" data-tool="reveal" aria-pressed="false">Reveal</button>
+        <button type="button" class="chip" data-tool="hide" aria-pressed="false">Hide</button>
+        <button type="button" class="chip" data-tool="token" aria-pressed="false">Token</button>
+        <button type="button" class="chip" data-tool="measure" aria-pressed="false">Measure</button>
+        <button type="button" class="chip" data-tool="text" aria-pressed="false">Text</button>
+        <button type="button" class="chip" data-tool="brush" aria-pressed="false">Brush</button>
+        <button type="button" class="chip" data-tool="shape" aria-pressed="false">Shape</button>
+        <select id="mapsShapeKind" aria-label="Shape kind" hidden>
+          <option value="rect">Rect</option>
+          <option value="ellipse">Ellipse</option>
+          <option value="arrow">Arrow</option>
+          <option value="line">Line</option>
+        </select>
+        <span class="sp"></span>
+        <button type="button" class="chip" id="mapsUndo">Undo</button>
+        <button type="button" class="chip" id="mapsRedo">Redo</button>
+        <button type="button" class="chip" id="mapsResetFog">Reset fog</button>
+        <button type="button" class="chip" id="mapsClearTokens">Clear tokens</button>
+        <button type="button" class="chip" id="mapsClearAnnot">Clear notes</button>
+        <button type="button" class="chip" id="mapsResetView">Reset view</button>
+        <button type="button" class="chip" id="mapsScreenshot">PNG</button>
+        <button type="button" class="chip" id="mapsExport">Export</button>
+        <button type="button" class="chip" id="mapsRename">Rename</button>
+        <button type="button" class="chip" id="mapsDelete">Delete</button>
+        <input id="mapsRenameInput" type="text" maxlength="80" aria-label="Map name" hidden>
+      </div>
+      <div class="maps-workspace">
+        <div id="mapsStage" class="maps-stage" aria-label="Map canvas"></div>
+        <details class="maps-settings" id="mapsSettings">
+          <summary>Grid &amp; fog</summary>
+          <div class="maps-settings-grid">
+            <label>Hex size <input id="mapsHexSize" type="number" min="8" max="400"></label>
+            <label>Offset X <input id="mapsOffsetX" type="number"></label>
+            <label>Offset Y <input id="mapsOffsetY" type="number"></label>
+            <label>Columns <input id="mapsCols" type="number" min="1" max="200"></label>
+            <label>Rows <input id="mapsRows" type="number" min="1" max="200"></label>
+            <label>Orientation
+              <select id="mapsOrient"><option value="pointy">Pointy</option><option value="flat">Flat</option></select>
+            </label>
+            <label>Map scale % <input id="mapsScale" type="number" min="10" max="400"></label>
+            <label>Fog <input id="mapsFogColor" type="color"></label>
+            <label>Fog opacity <input id="mapsFogOpacity" type="number" min="0" max="1" step="0.05"></label>
+            <label>Grid <input id="mapsGridColor" type="color"></label>
+            <label>Grid thick <input id="mapsGridThick" type="number" min="0.5" max="8" step="0.5"></label>
+            <label>Token color <input id="mapsTokenColor" type="color"></label>
+            <label>Token size
+              <select id="mapsTokenSize"><option value="small">S</option><option value="medium">M</option><option value="large">L</option></select>
+            </label>
+            <label>Hex = <input id="mapsDistVal" type="number" step="any"></label>
+            <label>Unit <input id="mapsDistUnit" type="text" maxlength="24"></label>
+          </div>
+          <button type="button" class="chip go" id="mapsApplySettings">Apply</button>
+        </details>
+      </div>
+      <p id="mapsNotesTip" class="maps-notes-tip" hidden></p>
+    </div>
+  </div>
+  <button type="button" class="maps-rail-toggle" id="mapsRailToggle" aria-expanded="false" aria-controls="mapsRail">Maps</button>
+  <div id="mapsToast" class="maps-toast" hidden role="status"></div>
+</section>
+
 </main>
+
+<div id="mapsTextOvl" hidden>
+  <div class="panel maps-token-panel">
+    <div class="panel-hd"><strong>Text label</strong></div>
+    <div class="panel-body">
+      <label>Text <input id="mapsTextInput" type="text" maxlength="500"></label>
+    </div>
+    <div class="panel-ft">
+      <button type="button" class="chip" id="mapsTextCancel">Cancel</button>
+      <button type="button" class="chip go" id="mapsTextSave">Add</button>
+    </div>
+  </div>
+</div>
+<div id="mapsTokenOvl" hidden>
+  <div class="panel maps-token-panel">
+    <div class="panel-hd"><strong>Edit token</strong></div>
+    <div class="panel-body">
+      <label>Label <input id="mapsTokLabel" type="text" maxlength="100"></label>
+      <label>Icon <select id="mapsTokIcon">
+        <option value="">(none)</option>
+        <option value="★">★</option><option value="⌂">⌂</option><option value="☠">☠</option>
+        <option value="⚑">⚑</option><option value="⚔">⚔</option><option value="◇">◇</option>
+        <option value="●">●</option><option value="▲">▲</option><option value="✚">✚</option>
+      </select></label>
+      <label>Color <input id="mapsTokColor" type="color"></label>
+      <label>Notes <textarea id="mapsTokNotes" rows="4" maxlength="2000"></textarea></label>
+    </div>
+    <div class="panel-ft">
+      <button type="button" class="chip" id="mapsTokCancel">Cancel</button>
+      <button type="button" class="chip go" id="mapsTokSave">Save</button>
+    </div>
+  </div>
+</div>
+
 <div id="boardExpand" role="dialog" aria-modal="true" aria-label="Expanded note editor" hidden>
   <div class="panel">
     <div class="panel-hd">
@@ -3743,6 +3949,7 @@ const TRK = (() => {
     else if (raw.mode === "build") u.mode = "build";
     else if (raw.mode === "forge") u.mode = "forge";
     else if (raw.mode === "lore") u.mode = "lore";
+    else if (raw.mode === "maps") u.mode = "maps";
     u.qty = Math.min(10, Math.max(1, int(raw.qty, 1)));
     if (typeof raw.diceOpen === "boolean") u.diceOpen = raw.diceOpen;
     if (typeof raw.viewingId === "string") u.viewingId = raw.viewingId;
@@ -5051,7 +5258,8 @@ const TRK = (() => {
       : m === "board" ? "board"
       : m === "build" ? "build"
       : m === "forge" ? "forge"
-      : m === "lore" ? "lore" : "browse";
+      : m === "lore" ? "lore"
+      : m === "maps" ? "maps" : "browse";
     const prev = state.ui.mode;
     state.ui.mode = mode;
     saveOrWarn(LS.ui, state.ui);
@@ -5060,12 +5268,16 @@ const TRK = (() => {
     document.body.classList.toggle("build", mode === "build");
     document.body.classList.toggle("forge", mode === "forge");
     document.body.classList.toggle("lore", mode === "lore");
+    document.body.classList.toggle("maps", mode === "maps");
+    if (mode !== "maps") document.body.classList.remove("maps-rail-open");
     const boardEl = document.getElementById("board");
     if (boardEl) boardEl.hidden = mode !== "board";
     const forgeEl = document.getElementById("forge");
     if (forgeEl) forgeEl.hidden = mode !== "forge";
     const loreEl = document.getElementById("lore");
     if (loreEl) loreEl.hidden = mode !== "lore";
+    const mapsEl = document.getElementById("maps");
+    if (mapsEl) mapsEl.hidden = mode !== "maps";
     $("#m-browse").classList.toggle("on", mode === "browse");
     $("#m-browse").setAttribute("aria-pressed", String(mode === "browse"));
     $("#m-track").classList.toggle("on", mode === "track");
@@ -5093,7 +5305,13 @@ const TRK = (() => {
     if (prev === "board" && mode !== "board" && window.BOARD) BOARD.setActive(false);
     if (prev === "build" && mode !== "build" && window.BUILD) BUILD.setActive(false);
     if (prev === "forge" && mode !== "forge" && window.FORGE) FORGE.setActive(false);
+    const mmaps = $("#m-maps");
+    if (mmaps){
+      mmaps.classList.toggle("on", mode === "maps");
+      mmaps.setAttribute("aria-pressed", String(mode === "maps"));
+    }
     if (prev === "lore" && mode !== "lore" && window.LORE) LORE.setActive(false);
+    if (prev === "maps" && mode !== "maps" && window.MAPS) MAPS.setActive(false);
     if (mode === "track"){ $("#dice").open = state.ui.diceOpen; renderTrk(); renderDice(); }
     if (mode === "board" && window.BOARD) BOARD.setActive(true);
     if (mode === "build"){
@@ -5102,8 +5320,9 @@ const TRK = (() => {
     }
     if (mode === "forge" && window.FORGE) FORGE.setActive(true);
     if (mode === "lore" && window.LORE) LORE.setActive(true);
+    if (mode === "maps" && window.MAPS) MAPS.setActive(true);
     if (window.applySideChrome) applySideChrome();
-    if (window.refresh && mode !== "board" && mode !== "forge" && mode !== "lore") refresh();
+    if (window.refresh && mode !== "board" && mode !== "forge" && mode !== "lore" && mode !== "maps") refresh();
   }
 
   function setSide(side){
@@ -5165,6 +5384,7 @@ const TRK = (() => {
     else if (state.ui.mode === "build") setMode("build");
     else if (state.ui.mode === "forge") setMode("forge");
     else if (state.ui.mode === "lore") setMode("lore");
+    else if (state.ui.mode === "maps") setMode("maps");
     else if (window.refresh) refresh();
   }
 
@@ -5183,6 +5403,8 @@ const TRK = (() => {
   if (mForge) mForge.onclick = () => setMode("forge");
   const mLore = $("#m-lore");
   if (mLore) mLore.onclick = () => setMode("lore");
+  const mMaps = $("#m-maps");
+  if (mMaps) mMaps.onclick = () => setMode("maps");
   $("#sg-catalog").onclick = () => { setSide("catalog"); if (window.refresh) refresh(); };
   $("#sg-table").onclick = () => { setSide("table"); if (window.refresh) refresh(); };
   $("#side-inner").addEventListener("click", e => {
@@ -5832,6 +6054,8 @@ const CAMPAIGN = (() => {
     }
     if (window.LORE && typeof LORE.onCampaignChanged === "function")
       LORE.onCampaignChanged();
+    if (window.MAPS && typeof MAPS.onCampaignChanged === "function")
+      MAPS.onCampaignChanged();
   }
   function switchCampaign(id){
     if (!state.campaigns.some(c => c.id === id)) return false;
@@ -5888,6 +6112,7 @@ const CAMPAIGN = (() => {
     const ok = save();
     renderHeader();
     if (window.LORE && typeof LORE.onCampaignChanged === "function") LORE.onCampaignChanged();
+    if (window.MAPS && typeof MAPS.onCampaignChanged === "function") MAPS.onCampaignChanged();
     return ok;
   }
   function deleteCampaign(){
@@ -5910,6 +6135,19 @@ const CAMPAIGN = (() => {
     const c = active();
     if (!c) return false;
     c.lore = { pages: vPages(pages) };
+    c.updatedAt = Date.now();
+    return save();
+  }
+  function saveActiveMaps(maps){
+    const c = active();
+    if (!c) return false;
+    const out = [];
+    const arr = Array.isArray(maps) ? maps : [];
+    for (const m of arr.slice(0, 100)){
+      const vm = vMapMeta(m);
+      if (vm) out.push(vm);
+    }
+    c.maps = out;
     c.updatedAt = Date.now();
     return save();
   }
@@ -6034,7 +6272,7 @@ const CAMPAIGN = (() => {
   return {
     STORE, MAX_CAMPAIGNS, state, active, save, switchCampaign, newCampaign,
     renameCampaign, deleteCampaign, syncPartyPresets, syncTrkFromActive,
-    saveActiveLorePages, touchActive, getExport, applyUserSave, renderHeader,
+    saveActiveLorePages, saveActiveMaps, touchActive, getExport, applyUserSave, renderHeader,
     bindHeader,
     _test: { vCampaign, vCampaignState, vPages, migrateFromLegacy },
   };
@@ -10007,6 +10245,10 @@ const LORE = (() => {
 })();
 window.LORE = LORE;
 </script>
+
+<script src="maps/maps-pixi.bundle.js"></script>
+<script src="maps/maps-app.js?v=20260827"></script>
+
 
 </body>
 </html>
