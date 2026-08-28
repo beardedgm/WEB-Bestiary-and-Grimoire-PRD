@@ -27,20 +27,22 @@ Bring B&G **Maps** mode to HexPlora-class interaction and per-tool settings pari
 | Shape modifiers | `applyShapeModifiers` Shift/Alt | Same during shape drag |
 | Token hex snap | `mouse.js` ~892 | Snap to `findHexAt` unless Alt |
 | Token multi-place | Drawer checkbox | `#mapsTokMulti` |
-| Edit modals | stroke/shape/measurement modals in `MapPage.jsx` | `#mapsStrokeOvl`, `#mapsShapeOvl`, `#mapsMeasOvl` on double-click |
+| Edit modals | stroke/shape/measurement modals in `MapPage.jsx` | Measurement: `#mapsMeasOvl`; shape/stroke: **selection tray** (`2026-08-30-maps-drawer-settings.md`); text/token overlays unchanged |
 
 ## Per-tool settings (tool tray)
 
 Only one `#mapsToolSettings[data-active-tool]` group visible at a time (CSS mirrors HexPlora `style.css` L876–897). Synced live via `readToolSettingsLive` / `syncToolSettingsForm`:
 
-- **Reveal/Hide** — fog color + opacity (not in Settings tray)
+- **Reveal/Hide** — paint-only; no tool tray auto-open
 - **Brush** — color, thickness, opacity, eraser
 - **Rect / Ellipse / Arrow / Line** — separate panels per shape kind
-- **Measure** — line color, hex distance, unit
+- **Measure** — line color, hex distance, unit; distance labels on canvas (`2026-08-30-maps-measure-parity.md`)
 - **Text** — color, S/M/L/custom px, outline color/width/opacity, contrast presets
 - **Token** — icon, color, size, multi-place
 
-**Settings tray** (`#mapsDrawerSettings`): grid structural fields + grid appearance + session export/rename + link to danger tray. Grid batch edits use **Apply grid** (`#mapsApplySettings`).
+**Settings tray** (`#mapsDrawerSettings`): grid structural fields + grid appearance + **fog appearance** + session export/rename + link to danger tray. Grid batch edits use **Apply grid** (`#mapsApplySettings`).
+
+**Selection tray** (pan mode): shape/stroke properties in `#mapsSelectionSettings` when an annotation is selected.
 
 ## Explicit non-goals (deferred)
 
