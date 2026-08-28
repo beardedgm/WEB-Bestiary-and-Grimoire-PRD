@@ -1773,6 +1773,9 @@ body.forge #lore{display:none !important}
         <button type="button" class="chip" id="boardDup">Duplicate</button>
         <button type="button" class="chip" id="boardRen">Rename</button>
         <button type="button" class="chip" id="boardDel">Delete</button>
+        <button type="button" class="chip" id="boardExportZip">Export board…</button>
+        <button type="button" class="chip" id="boardImportZip">Import board zip…</button>
+        <input id="boardImportZipFile" type="file" accept=".zip,.bgboard.zip,application/zip" hidden>
       </div>
     </div>
     <h2>Add to board</h2>
@@ -2239,6 +2242,7 @@ body.forge #lore{display:none !important}
           <tr><th scope="row">Undo / Redo</th><td>Ctrl+Z / Ctrl+Y</td></tr>
           <tr><th scope="row">Delete selection</th><td>Delete or Backspace</td></tr>
           <tr><th scope="row">Duplicate token</th><td>Ctrl+D</td></tr>
+          <tr><th scope="row">Resize shape</th><td>Pan → select → drag handles</td></tr>
           <tr><th scope="row">Measure undo hex</th><td>Backspace (measure tool)</td></tr>
           <tr><th scope="row">Cancel / close</th><td>Esc</td></tr>
           <tr><th scope="row">This help</th><td>?</td></tr>
@@ -2872,6 +2876,9 @@ function mergeById(localArr, incomingArr, idKey){
   return [...map.values()];
 }
 function buildUserSave(){
+  return buildUserSaveAsync();
+}
+async function buildUserSaveAsync(){
   const bag = {
     schema: USER_SAVE_SCHEMA,
     exportedAt: new Date().toISOString(),
@@ -2915,7 +2922,7 @@ function buildUserSave(){
     bag.ui = JSON.parse(JSON.stringify(s.ui || null));
   }
   if (window.BOARD && BOARD.getExport){
-    const b = BOARD.getExport();
+    const b = await BOARD.getExport();
     bag.boards = JSON.parse(JSON.stringify(b.boards || []));
     bag.activeBoardId = b.activeBoardId || null;
   }
@@ -2925,7 +2932,7 @@ function buildUserSave(){
   return bag;
 }
 function downloadUserSave(){
-  const bag = buildUserSave();
+  buildUserSaveAsync().then(bag => {
   const blob = new Blob([JSON.stringify(bag, null, 2)], { type: "application/json" });
   if (blob.size > USER_SAVE_MAX){
     announceLive("Warning: save is " + (blob.size / (1024 * 1024)).toFixed(1) +
@@ -2938,8 +2945,12 @@ function downloadUserSave(){
   a.download = "bestiary-grimoire-save.json";
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }).catch(() => announceLive("Could not build save file"));
 }
 function applyUserSaveBag(bag){
+  return applyUserSaveBagAsync(bag);
+}
+async function applyUserSaveBagAsync(bag){
   if (!bag || bag.schema !== USER_SAVE_SCHEMA)
     return { ok: false, message: 'Save file must have schema "' + USER_SAVE_SCHEMA + '".' };
   const { records: incomingCustoms, dropped } = vCustomRecords(bag.customs || [], { normalize: true });
@@ -2995,7 +3006,7 @@ function applyUserSaveBag(bag){
     }
   }
   if (window.BOARD && BOARD.applyUserSave && Array.isArray(bag.boards)){
-    const st = BOARD.applyUserSave({ boards: bag.boards, activeBoardId: bag.activeBoardId });
+    const st = await BOARD.applyUserSave({ boards: bag.boards, activeBoardId: bag.activeBoardId });
     boardUpserts = st.boardUpserts || 0;
     if (st.ok === false) storageOk = false;
   }
@@ -3148,8 +3159,8 @@ function openUserSaveDialog(){
         `<button type="button" class="chip" data-save-abort>Cancel</button>` +
         `<button type="button" class="chip yes" data-save-confirm>Import</button>`;
       btns.querySelector("[data-save-abort]").onclick = () => TRK.closeOvl();
-      btns.querySelector("[data-save-confirm]").onclick = () => {
-        const res = applyUserSaveBag(bag);
+      btns.querySelector("[data-save-confirm]").onclick = async () => {
+        const res = await applyUserSaveBagAsync(bag);
         if (!res.ok){
           saveErr.hidden = false;
           saveErr.textContent = res.message;
@@ -7208,6 +7219,7 @@ const BUILD = (() => {
 window.BUILD = BUILD;
 </script>
 
+<script src="lib/board-zip.js"></script>
 <script>
 "use strict";
 "use strict";
@@ -7375,6 +7387,10 @@ const BOARD = (() => {
 
 
   const MD_SOFT = 20000, MD_WARN = 60000, MD_HARD = 120000;
+  const BODY_INLINE_MAX = 8000;
+  const IDB_NAME = "bg-board-bodies";
+  const IDB_VER = 1;
+  const IDB_STORE = "bodies";
   const CARD_TYPES = new Set(["markdown","image","audio","counter","dice","timer","checklist","random","record","encounter","lore"]);
   const MAX_BOARD_CARDS = 200;
   const MAX_BOARDS = 40;
@@ -7429,7 +7445,15 @@ const BOARD = (() => {
       card.expandedH = snap(clamp(vNum(raw.expandedH, card.h), GRID * 4, GRID * 40));
 
     if (type === "markdown"){
-      card.body = vStr(raw.body, MD_HARD, "");
+      const inline = vStr(raw.body, MD_HARD, "");
+      if (inline.length) {
+        card.body = inline;
+      } else if (raw.bodyRef === "idb") {
+        card.body = "";
+        card.bodyRef = "idb";
+      } else {
+        card.body = "";
+      }
       card.editing = !!raw.editing;
     } else if (type === "image"){
       card.src = mediaSrc(raw.src, "image");
@@ -7537,6 +7561,89 @@ const BOARD = (() => {
     return { activeBoardId, boards };
   }
 
+  let boardDbPromise = null;
+  const boardIdb = {
+    open() {
+      if (boardDbPromise) return boardDbPromise;
+      boardDbPromise = new Promise((resolve, reject) => {
+        const req = indexedDB.open(IDB_NAME, IDB_VER);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains(IDB_STORE)) {
+            db.createObjectStore(IDB_STORE, { keyPath: "id" });
+          }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+      return boardDbPromise;
+    },
+    withStore(type, fn) {
+      return this.open().then((db) => new Promise((resolve, reject) => {
+        const tx = db.transaction(IDB_STORE, type);
+        const store = tx.objectStore(IDB_STORE);
+        let request;
+        try { request = fn(store); }
+        catch (err) { reject(err); return; }
+        const rp = request && typeof request === "object" && "onsuccess" in request
+          ? new Promise((res, rej) => { request.onsuccess = () => res(request.result); request.onerror = () => rej(request.error); })
+          : Promise.resolve(request);
+        tx.oncomplete = () => rp.then(resolve, reject);
+        tx.onerror = () => reject(tx.error);
+        tx.onabort = () => reject(tx.error);
+      }));
+    },
+    get(id) { return this.withStore("readonly", (s) => s.get(id)); },
+    put(rec) { return this.withStore("readwrite", (s) => s.put(rec)); },
+    del(id) { return this.withStore("readwrite", (s) => s.delete(id)); },
+  };
+
+  async function hydrateCardBody(card) {
+    if (!card || card.type !== "markdown") return;
+    if (card.body && card.body.length) {
+      if (card.bodyRef) delete card.bodyRef;
+      return;
+    }
+    if (card.bodyRef !== "idb") return;
+    try {
+      const row = await boardIdb.get(card.id);
+      if (row && typeof row.body === "string") card.body = row.body.slice(0, MD_HARD);
+      else card.body = "";
+    } catch (_) {
+      card.body = "";
+    }
+  }
+
+  async function hydrateBoard(board) {
+    if (!board || !board.cards) return;
+    for (const c of board.cards) await hydrateCardBody(c);
+  }
+
+  async function hydrateAllBoards() {
+    for (const b of state.boards) await hydrateBoard(b);
+  }
+
+  async function externalizeCardBody(card, boardId) {
+    if (!card || card.type !== "markdown") return;
+    const body = String(card.body || "");
+    if (body.length > BODY_INLINE_MAX) {
+      await boardIdb.put({ id: card.id, boardId, body: body.slice(0, MD_HARD), updated: Date.now() });
+      card.body = "";
+      card.bodyRef = "idb";
+    } else {
+      if (card.bodyRef === "idb") {
+        try { await boardIdb.del(card.id); } catch (_) {}
+        delete card.bodyRef;
+      }
+    }
+  }
+
+  async function deleteCardBodies(cardIds) {
+    for (const id of cardIds) {
+      try { await boardIdb.del(id); } catch (_) {}
+    }
+  }
+
   function load(){
     try{
       const raw = localStorage.getItem(STORE);
@@ -7544,12 +7651,16 @@ const BOARD = (() => {
       return vBoardsState(JSON.parse(raw));
     }catch(_){ return seedBoards(); }
   }
-  function save(){
+  async function save(){
     try{
+      await boardIdb.open();
       const boards = [];
       for (const b of state.boards){
+        await hydrateBoard(b);
         const vb = vBoard(b, { live: true });
-        if (vb) boards.push(vb);
+        if (!vb) continue;
+        for (const card of vb.cards) await externalizeCardBody(card, vb.id);
+        boards.push(vb);
       }
       const payload = {
         activeBoardId: state.activeBoardId,
@@ -7558,6 +7669,7 @@ const BOARD = (() => {
       if (!boards.some(b => b.id === payload.activeBoardId))
         payload.activeBoardId = payload.boards[0].id;
       localStorage.setItem(STORE, JSON.stringify(payload));
+      for (const b of state.boards) await hydrateBoard(b);
       return true;
     }catch(err){
       const quota = err && (err.name === "QuotaExceededError" || err.code === 22);
@@ -7581,7 +7693,10 @@ const BOARD = (() => {
   let saveTimer = null;
   function scheduleBoardSave(){
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(() => { saveTimer = null; save(); }, 400);
+    saveTimer = setTimeout(() => {
+      saveTimer = null;
+      save().catch(() => toast("Could not save board"));
+    }, 400);
   }
   function touch(persist = true){
     active().updatedAt = Date.now();
@@ -7611,7 +7726,8 @@ const BOARD = (() => {
     return [...panel.querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex=\"-1\"])")]
       .filter(el => !el.disabled && el.getAttribute("aria-hidden") !== "true");
   }
-  function openMdExpand(card){
+  async function openMdExpand(card){
+    await hydrateCardBody(card);
     expandCardId = card.id;
     expandReturn = document.activeElement;
     const overlay = document.getElementById("boardExpand");
@@ -7718,17 +7834,29 @@ const BOARD = (() => {
     selectedId = null;
     save(); render(); setBoardRailOpen(false); toast("Created empty board");
   };
-  document.getElementById("boardDup").onclick = () => {
+  document.getElementById("boardDup").onclick = async () => {
     if (state.boards.length >= MAX_BOARDS){
       toast("Board limit reached (" + MAX_BOARDS + ").");
       return;
     }
     const src = active();
+    await hydrateBoard(src);
     const copy = JSON.parse(JSON.stringify(src));
     copy.id = "board-" + uid();
     copy.title = src.title.replace(/\s*\(copy\)\s*$/,"") + " (copy)";
     copy.updatedAt = Date.now();
-    copy.cards.forEach(c => { c.id = uid(); });
+    for (const c of copy.cards) {
+      const oldId = c.id;
+      c.id = uid();
+      if (c.type === "markdown" && c.bodyRef === "idb") {
+        try {
+          const row = await boardIdb.get(oldId);
+          if (row && typeof row.body === "string") {
+            await boardIdb.put({ id: c.id, boardId: copy.id, body: row.body, updated: Date.now() });
+          }
+        } catch (_) {}
+      }
+    }
     if (copy.cards.length > MAX_BOARD_CARDS){
       toast("Board is full (" + MAX_BOARD_CARDS + " cards) — cannot duplicate.");
       return;
@@ -7780,7 +7908,9 @@ const BOARD = (() => {
     if (state.boards.length < 2){ toast("Keep at least one board"); return; }
     const b = active();
     const btn = e.currentTarget;
-    const go = () => {
+    const go = async () => {
+      const ids = b.cards.filter(c => c.type === "markdown").map(c => c.id);
+      await deleteCardBodies(ids);
       state.boards = state.boards.filter(x => x.id !== b.id);
       state.activeBoardId = state.boards[0].id;
       selectedId = null;
@@ -7789,9 +7919,10 @@ const BOARD = (() => {
     if (window.TRK && TRK.confirmSwap) TRK.confirmSwap(btn, "Delete “" + b.title + "”?", go);
     else go();
   };
-  boardPick.onchange = () => {
+  boardPick.onchange = async () => {
     state.activeBoardId = boardPick.value;
     selectedId = null;
+    await hydrateBoard(active());
     save(); render(); setBoardRailOpen(false);
   };
 
@@ -7857,7 +7988,8 @@ const BOARD = (() => {
     }
   }
 
-  function render(){
+  async function render(){
+    await hydrateBoard(active());
     refreshPicker();
     const b = active();
     zTop = Math.max(10, ...b.cards.map(c => c.z || 1), 10);
@@ -7905,7 +8037,8 @@ const BOARD = (() => {
 
   function removeCardById(id, triggerBtn){
     const card = active().cards.find(c => c.id === id);
-    const go = () => {
+    const go = async () => {
+      if (card && card.type === "markdown") await deleteCardBodies([id]);
       active().cards = active().cards.filter(c => c.id !== id);
       if (selectedId === id) selectedId = null;
       const el = stage.querySelector(`.board-card[data-id="${CSS.escape(id)}"]`);
@@ -8906,7 +9039,7 @@ const BOARD = (() => {
         freezeTimer(card);
       }
     }
-    save();
+    save().catch(() => {});
   }
 
   function setActive(on){
@@ -8926,21 +9059,35 @@ const BOARD = (() => {
       if (typeof closeMdExpand === "function") closeMdExpand(false);
       return;
     }
-    refreshPicker();
-    render();
-    timerIv = setInterval(tickTimers, 250);
+    boardIdb.open()
+      .then(() => hydrateAllBoards())
+      .catch(() => {})
+      .finally(() => {
+        refreshPicker();
+        render();
+        timerIv = setInterval(tickTimers, 250);
+      });
   }
 
-  function getExport(){
+  async function getExport(){
+    await boardIdb.open().catch(() => {});
+    await hydrateAllBoards();
     const boards = [];
     for (const b of state.boards){
       const vb = vBoard(b, { live: true });
-      if (vb) boards.push(vb);
+      if (!vb) continue;
+      for (const card of vb.cards) {
+        if (card.type === "markdown" && card.bodyRef === "idb") {
+          card.body = String(card.body || "");
+          delete card.bodyRef;
+        }
+      }
+      boards.push(vb);
     }
     return { activeBoardId: state.activeBoardId, boards };
   }
 
-  function applyUserSave(parts){
+  async function applyUserSave(parts){
     if (!parts || !Array.isArray(parts.boards)) return { boardUpserts: 0, ok: true };
     const map = new Map(state.boards.map(b => [b.id, b]));
     let upserts = 0;
@@ -8965,14 +9112,132 @@ const BOARD = (() => {
     for (const b of state.boards)
       for (const c of b.cards)
         if (c.z > zTop) zTop = c.z;
-    const saved = save();
+    const saved = await save();
     if (trimmed > 0)
       toast("Import skipped or trimmed some Board content");
     if (activeMode){ refreshPicker(); render(); }
     return { boardUpserts: upserts, ok: saved };
   }
 
-  return { setActive, getExport, applyUserSave, addRecord, addEncounter, addLorePage, mdHtml };
+  function bytesToDataUrl(mime, u8) {
+    let bin = "";
+    const chunk = 0x8000;
+    for (let i = 0; i < u8.length; i += chunk) {
+      bin += String.fromCharCode.apply(null, u8.subarray(i, i + chunk));
+    }
+    return "data:" + mime + ";base64," + btoa(bin);
+  }
+
+  async function exportBoardZip(boardId) {
+    if (!window.BOARD_ZIP) { toast("Zip helper unavailable"); return; }
+    const src = state.boards.find((x) => x.id === boardId) || active();
+    await hydrateBoard(src);
+    const boardJson = JSON.parse(JSON.stringify(src));
+    const files = [];
+    let assetN = 0;
+    for (const card of boardJson.cards) {
+      const live = src.cards.find((c) => c.id === card.id);
+      if (card.type === "markdown" && live) {
+        card.body = live.body || "";
+        delete card.bodyRef;
+      }
+      if ((card.type === "image" || card.type === "audio") && card.src && card.src.startsWith("data:")) {
+        const m = card.src.match(/^data:([^;]+);base64,(.+)$/s);
+        if (m) {
+          const mime = m[1];
+          const ext = (mime.split("/")[1] || "bin").replace(/[^a-z0-9]/gi, "") || "bin";
+          const path = "assets/a" + (assetN++) + "." + ext;
+          const bin = atob(m[2]);
+          const u8 = new Uint8Array(bin.length);
+          for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+          files.push({ name: path, data: u8 });
+          card._mime = mime;
+          card.src = path;
+        }
+      }
+    }
+    const manifest = {
+      schema: "bg-board-zip/1",
+      title: src.title || "Session",
+      exportedAt: new Date().toISOString(),
+    };
+    files.unshift(
+      { name: "board.json", data: JSON.stringify(boardJson, null, 2) },
+      { name: "manifest.json", data: JSON.stringify(manifest, null, 2) },
+    );
+    const zip = BOARD_ZIP.packZip(files);
+    const blob = new Blob([zip], { type: "application/zip" });
+    if (blob.size > 50 * 1024 * 1024) toast("Warning: zip exceeds 50 MB");
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = (src.title || "board").replace(/[^\w\-]+/g, "_") + ".bgboard.zip";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast("Board exported");
+  }
+
+  async function importBoardZip(file) {
+    if (!file || !window.BOARD_ZIP) { toast("Invalid zip file"); return; }
+    if (state.boards.length >= MAX_BOARDS) {
+      toast("Board limit reached (" + MAX_BOARDS + ").");
+      return;
+    }
+    try {
+      const buf = new Uint8Array(await file.arrayBuffer());
+      const entries = BOARD_ZIP.unpackZip(buf);
+      const manRaw = entries["manifest.json"];
+      if (!manRaw) throw new Error("missing manifest");
+      const manifest = JSON.parse(new TextDecoder().decode(manRaw));
+      if (manifest.schema !== "bg-board-zip/1") throw new Error("bad schema");
+      const boardRaw = entries["board.json"];
+      if (!boardRaw) throw new Error("missing board");
+      const board = JSON.parse(new TextDecoder().decode(boardRaw));
+      const vb = vBoard(board);
+      if (!vb) throw new Error("invalid board");
+      vb.id = "board-" + uid();
+      vb.title = (manifest.title || vb.title || "Imported session").slice(0, 80);
+      vb.updatedAt = Date.now();
+      for (const card of vb.cards) {
+        const oldId = card.id;
+        card.id = uid();
+        if ((card.type === "image" || card.type === "audio") && card.src && card.src.startsWith("assets/")) {
+          const data = entries[card.src];
+          if (data) {
+            const ext = card.src.split(".").pop() || "bin";
+            const mime = card._mime || ((card.type === "image" ? "image/" : "audio/") + ext);
+            card.src = bytesToDataUrl(mime, data);
+          }
+          delete card._mime;
+        }
+      }
+      if (vb.cards.length > MAX_BOARD_CARDS) {
+        toast("Import trimmed cards to board cap");
+        vb.cards = vb.cards.slice(0, MAX_BOARD_CARDS);
+      }
+      state.boards.push(vb);
+      state.activeBoardId = vb.id;
+      selectedId = null;
+      await save();
+      render();
+      setBoardRailOpen(false);
+      toast("Board imported");
+    } catch (_) {
+      toast("Could not import board zip");
+    }
+  }
+
+  document.getElementById("boardExportZip").onclick = () => exportBoardZip(state.activeBoardId);
+  document.getElementById("boardImportZip").onclick = () => {
+    const inp = document.getElementById("boardImportZipFile");
+    if (inp) inp.click();
+  };
+  document.getElementById("boardImportZipFile").onchange = (e) => {
+    const f = e.target.files && e.target.files[0];
+    e.target.value = "";
+    if (f) importBoardZip(f);
+  };
+
+  return { setActive, getExport, applyUserSave, exportBoardZip, importBoardZip, addRecord, addEncounter, addLorePage, mdHtml };
 })();
 window.BOARD = BOARD;
 </script>
@@ -10483,7 +10748,7 @@ window.LORE = LORE;
 
 <script src="maps/maps-pixi.bundle.js"></script>
 <script src="maps/token-icons.manifest.js"></script>
-<script src="maps/maps-app.js?v=20260829a"></script>
+<script src="maps/maps-app.js?v=20260829b"></script>
 
 
 </body>
