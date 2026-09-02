@@ -23,8 +23,22 @@
     flag: "flag", skull: "skull", home: "home", star: "star", sword: "sword",
   };
   const TOKEN_SIZES = { small: 0.55, medium: 1, large: 1.55 };
-  const iconTextures = new Map();
-  let iconsLoadPromise = null;
+  /** Icon glyph size as a fraction of token radius (disc diameter = 2× radius). */
+  const TOKEN_ICON_SCALE = 1.28;
+  const MATERIAL_SYMBOLS_FAMILY = "Material Symbols Outlined";
+  const MATERIAL_SYMBOLS_CSS =
+    "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=block";
+  /** token slug → Material Symbols PUA codepoint (hex); canvas needs glyphs, not ligature names */
+  const MATERIAL_SYMBOL_CODEPOINTS = {
+    star: "f09a", home: "e9b2", skull: "f89a", sword: "f889", shield: "e9e0",
+    flag: "f0c6", person: "f0d3", group: "ea21", castle: "eab1", village: "e587",
+    bolt: "ea0b", location: "f1db", check: "e668", question: "e8fd",
+    exclamation: "f083", grass: "f205", fort: "eaad", camp: "f8a2",
+  };
+  let materialSymbolsReady = false;
+  let materialSymbolsLoadPromise = null;
+  let tokenIconFontRedraw = null;
+  const tokenIconSpriteCache = new Map();
   const TEXT_SIZES = { small: 14, medium: 20, large: 32 };
   const STARTER_MAP_URL = "maps/starter.hexplora";
   const STARTER_MAP_NAME = "Starter map";
@@ -306,39 +320,107 @@
     return "";
   }
 
-  async function textureFromSvgUrl(url, PIXI) {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("fetch failed");
-    const svg = await res.text();
-    const blob = new Blob([svg], { type: "image/svg+xml" });
-    const urlObj = URL.createObjectURL(blob);
-    try {
-      const img = await new Promise((resolve, reject) => {
-        const el = new Image();
-        el.onload = () => resolve(el);
-        el.onerror = reject;
-        el.src = urlObj;
-      });
-      return PIXI.Texture.from(img);
-    } finally {
-      URL.revokeObjectURL(urlObj);
-    }
+  function materialSymbolChar(slug) {
+    const s = normalizeTokenIcon(slug);
+    const hex = s && MATERIAL_SYMBOL_CODEPOINTS[s];
+    return hex ? String.fromCodePoint(parseInt(hex, 16)) : "";
   }
 
-  async function loadTokenIcons() {
-    const PIXI = window.PIXI;
-    if (!PIXI || !window.MAPS_TOKEN_ICON_MANIFEST) return;
-    if (iconsLoadPromise) return iconsLoadPromise;
-    iconsLoadPromise = (async () => {
-      for (const entry of MAPS_TOKEN_ICON_MANIFEST) {
-        if (!entry.id || iconTextures.has(entry.id)) continue;
-        try {
-          const tex = await textureFromSvgUrl("maps/token-icons/" + entry.id + ".svg", PIXI);
-          iconTextures.set(entry.id, tex);
-        } catch (_) { /* fail soft if fetch blocked */ }
+  function probeMaterialSymbolsFont() {
+    const ch = materialSymbolChar("star");
+    if (!ch) return false;
+    const canvas = document.createElement("canvas");
+    canvas.width = 64;
+    canvas.height = 64;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return false;
+    ctx.font = `48px "${MATERIAL_SYMBOLS_FAMILY}"`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#000";
+    ctx.fillText(ch, 32, 32);
+    const px = ctx.getImageData(28, 28, 8, 8).data;
+    for (let i = 3; i < px.length; i += 4) if (px[i] > 0) return true;
+    return false;
+  }
+
+  function tokenIconSprite(PIXI, glyph, radius) {
+    const iconPx = Math.max(8, Math.round(radius * TOKEN_ICON_SCALE));
+    const key = glyph.codePointAt(0) + "@" + iconPx;
+    let entry = tokenIconSpriteCache.get(key);
+    if (entry) return entry;
+    const pad = 2;
+    const size = iconPx + pad * 2;
+    const canvas = document.createElement("canvas");
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return null;
+    ctx.font = `${iconPx}px "${MATERIAL_SYMBOLS_FAMILY}"`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#ffffff";
+    ctx.fillText(glyph, size / 2, size / 2);
+    let ax = 0.5;
+    let ay = 0.5;
+    const img = ctx.getImageData(0, 0, size, size);
+    const { data, width, height } = img;
+    let minX = width;
+    let minY = height;
+    let maxX = -1;
+    let maxY = -1;
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        if (data[(y * width + x) * 4 + 3] > 8) {
+          if (x < minX) minX = x;
+          if (y < minY) minY = y;
+          if (x > maxX) maxX = x;
+          if (y > maxY) maxY = y;
+        }
       }
+    }
+    if (maxX >= minX) {
+      ax = (minX + maxX + 1) / 2 / width;
+      ay = (minY + maxY + 1) / 2 / height;
+    }
+    const spr = new PIXI.Sprite(PIXI.Texture.from(canvas));
+    spr.anchor.set(ax, ay);
+    entry = spr;
+    tokenIconSpriteCache.set(key, entry);
+    return entry;
+  }
+
+  async function ensureMaterialSymbolsFont() {
+    if (materialSymbolsReady) return true;
+    if (materialSymbolsLoadPromise) return materialSymbolsLoadPromise;
+    materialSymbolsLoadPromise = (async () => {
+      let link = document.getElementById("maps-material-symbols-font");
+      if (!link) {
+        link = document.createElement("link");
+        link.id = "maps-material-symbols-font";
+        link.rel = "stylesheet";
+        link.href = MATERIAL_SYMBOLS_CSS;
+        document.head.appendChild(link);
+        await new Promise((resolve) => {
+          link.addEventListener("load", resolve, { once: true });
+          link.addEventListener("error", resolve, { once: true });
+          setTimeout(resolve, 8000);
+        });
+      }
+      const probe = `48px "${MATERIAL_SYMBOLS_FAMILY}"`;
+      const glyph = materialSymbolChar("star");
+      for (let attempt = 0; attempt < 6 && !materialSymbolsReady; attempt++) {
+        if (attempt) await new Promise((r) => setTimeout(r, 250));
+        try {
+          if (glyph) await document.fonts.load(probe, glyph);
+          await document.fonts.ready;
+        } catch (_) { /* continue */ }
+        materialSymbolsReady = probeMaterialSymbolsFont();
+      }
+      if (materialSymbolsReady && tokenIconFontRedraw) tokenIconFontRedraw();
+      return materialSymbolsReady;
     })();
-    return iconsLoadPromise;
+    return materialSymbolsLoadPromise;
   }
 
   /* ---------- validators ---------- */
@@ -1649,14 +1731,10 @@
         alpha: 1,
       });
       g.addChild(circle);
-      const slug = normalizeTokenIcon(token.icon);
-      if (slug && iconTextures.has(slug)) {
-        const spr = new PIXI.Sprite(iconTextures.get(slug));
-        const iconSize = radius * 1.25;
-        spr.anchor.set(0.5);
-        spr.width = iconSize;
-        spr.height = iconSize;
-        g.addChild(spr);
+      const glyph = materialSymbolChar(token.icon);
+      if (glyph && materialSymbolsReady) {
+        const icon = tokenIconSprite(PIXI, glyph, radius);
+        if (icon) g.addChild(icon);
       }
       if (token.label) {
         const fontSize = Math.max(10, hexSize * 0.22 * sizeScale);
@@ -1671,7 +1749,7 @@
           }),
         });
         tx.anchor.set(0.5, 0);
-        tx.y = hexSize * 0.5 * sizeScale;
+        tx.y = radius + Math.max(1, fontSize * 0.08);
         g.addChild(tx);
       }
       g.eventMode = "none";
@@ -1748,7 +1826,7 @@
       $("mapsEditor").hidden = false;
       const host = $("mapsStage");
       await ensurePixi(host);
-      await loadTokenIcons();
+      await ensureMaterialSymbolsFont();
       await loadMapTexture();
       renderAll();
       resize();
@@ -2722,7 +2800,8 @@
         for (const entry of m) {
           const opt = document.createElement("option");
           opt.value = entry.id;
-          opt.textContent = entry.label;
+          const sym = materialSymbolChar(entry.id);
+          opt.textContent = sym ? sym + "  " + entry.label : entry.label;
           sel.appendChild(opt);
         }
         if ([...sel.options].some((o) => o.value === cur)) sel.value = cur;
@@ -2778,7 +2857,9 @@
     }
     function bind() {
       if (!$("maps")) return;
+      tokenIconFontRedraw = () => { if (openMapId) drawTokens(); };
       populateTokenIconSelects();
+      ensureMaterialSymbolsFont().then(() => populateTokenIconSelects()).catch(() => {});
       on("mapsNew", "onclick", () => $("mapsFile") && $("mapsFile").click());
       on("mapsFile", "onchange", (e) => {
         const f = e.target.files && e.target.files[0];
@@ -2909,7 +2990,10 @@
       if (on) {
         renderList();
         idb.open().catch(() => toast("IndexedDB unavailable"));
-        loadTokenIcons().then(() => { if (openMapId) drawTokens(); }).catch(() => {});
+        ensureMaterialSymbolsFont().then(() => {
+          populateTokenIconSelects();
+          if (openMapId) drawTokens();
+        }).catch(() => {});
         if (!openMapId) openPreferredMap().catch(() => {});
         requestAnimationFrame(resize);
       }
@@ -2927,7 +3011,7 @@
       setActive, onCampaignChanged, idb, vState,
       _test: {
         vState, generateHexGrid, generateSquareGrid, findCellAt, findHexAt, hexNeighbors, vSettings,
-        normalizeTokenIcon,
+        normalizeTokenIcon, materialSymbolChar,
       },
     };
   })();
