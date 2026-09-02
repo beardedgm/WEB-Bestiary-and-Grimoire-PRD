@@ -265,11 +265,11 @@
     const odd = orientation === "pointy" ? (row % 2 === 1) : (col % 2 === 1);
     const deltas = orientation === "pointy"
       ? (odd
-        ? [[1, 0], [0, -1], [-1, -1], [-1, 0], [-1, 1], [0, 1]]
-        : [[1, 0], [1, -1], [0, -1], [-1, 0], [0, 1], [1, 1]])
-      : (odd
         ? [[1, 0], [1, -1], [0, -1], [-1, 0], [0, 1], [1, 1]]
-        : [[1, 0], [0, -1], [-1, -1], [-1, 0], [-1, 1], [0, 1]]);
+        : [[1, 0], [0, -1], [-1, -1], [-1, 0], [-1, 1], [0, 1]])
+      : (odd
+        ? [[-1, 0], [-1, 1], [0, -1], [0, 1], [1, 0], [1, 1]]
+        : [[-1, -1], [-1, 0], [0, -1], [0, 1], [1, -1], [1, 0]]);
     const out = [];
     for (const [dc, dr] of deltas) {
       const n = byId.get((col + dc) + "-" + (row + dr));
@@ -1304,10 +1304,12 @@
       const settingsOpen = on && drawer.dataset.drawerView === "settings";
       if (dt) {
         dt.setAttribute("aria-expanded", mapsOpen ? "true" : "false");
+        dt.classList.toggle("on", mapsOpen);
         dt.setAttribute("aria-pressed", mapsOpen ? "true" : "false");
       }
       if (st) {
         st.setAttribute("aria-expanded", settingsOpen ? "true" : "false");
+        st.classList.toggle("on", settingsOpen);
         st.setAttribute("aria-pressed", settingsOpen ? "true" : "false");
       }
       if (fab) fab.setAttribute("aria-expanded", on ? "true" : "false");
@@ -1650,7 +1652,7 @@
       const slug = normalizeTokenIcon(token.icon);
       if (slug && iconTextures.has(slug)) {
         const spr = new PIXI.Sprite(iconTextures.get(slug));
-        const iconSize = radius * 1.1;
+        const iconSize = radius * 1.25;
         spr.anchor.set(0.5);
         spr.width = iconSize;
         spr.height = iconSize;
@@ -2006,12 +2008,16 @@
 
     function syncToolChrome() {
       document.querySelectorAll("#mapsTools [data-tool]").forEach((b) => {
-        b.setAttribute("aria-pressed", String(b.getAttribute("data-tool") === tool));
+        const on = b.getAttribute("data-tool") === tool;
+        b.classList.toggle("on", on);
+        b.setAttribute("aria-pressed", String(on));
       });
       const sg = $("mapsShapeGroup");
       if (sg) sg.hidden = tool !== "shape";
       document.querySelectorAll("#mapsShapeGroup [data-shape]").forEach((b) => {
-        b.setAttribute("aria-pressed", String(b.getAttribute("data-shape") === shapeKind));
+        const on = b.getAttribute("data-shape") === shapeKind;
+        b.classList.toggle("on", on);
+        b.setAttribute("aria-pressed", String(on));
       });
       const sk = $("mapsShapeKind");
       if (sk) { sk.hidden = tool !== "shape"; sk.value = shapeKind; }
@@ -2920,7 +2926,7 @@
     return {
       setActive, onCampaignChanged, idb, vState,
       _test: {
-        vState, generateHexGrid, generateSquareGrid, findCellAt, findHexAt, vSettings,
+        vState, generateHexGrid, generateSquareGrid, findCellAt, findHexAt, hexNeighbors, vSettings,
         normalizeTokenIcon,
       },
     };

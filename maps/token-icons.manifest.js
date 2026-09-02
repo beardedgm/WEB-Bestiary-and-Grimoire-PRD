@@ -1,6 +1,7 @@
 /* global window */
 "use strict";
-/** Token icon manifest — ids align with HexPlora Material slug names where possible. */
+/** Token icon manifest — ids align with HexPlora Material slug names where possible.
+ *  SVGs: Material Symbols Outlined (w400) via `npm run build:icons` in maps/. */
 window.MAPS_TOKEN_ICON_MANIFEST = [
   { id: "", label: "None" },
   { id: "star", label: "Star" },

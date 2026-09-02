@@ -150,7 +150,7 @@ def _sub_once(text, old, new, label):
 def build_page(bundle_bytes, total_records):
     """template + inline gzipped bundles = one self-contained page."""
     with open(os.path.join(ROOT, TEMPLATE), encoding="utf-8", newline="") as fh:
-        html = fh.read()
+        html = fh.read().replace("\r\n", "\n")
 
     html = _sub_once(html,
                      '<p id="lmsg">Loading data files%s</p>' % ELLIPSIS,
