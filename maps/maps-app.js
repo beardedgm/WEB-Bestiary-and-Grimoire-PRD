@@ -66,6 +66,7 @@
   };
 
   const MEASURE_REF_HEX = 40;
+  const RIGHT_PAN_THRESHOLD = 4;
   function scaleForMap(basePx, settings) {
     const base = basePx > 0 ? basePx : 1;
     const hex = settings && settings.hexSize > 0 ? settings.hexSize : MEASURE_REF_HEX;
@@ -2185,6 +2186,17 @@
 
         try { canvas.setPointerCapture(e.pointerId); } catch (_) { /* synthetic / unsupported */ }
 
+        if (e.button === 2) {
+          e.preventDefault();
+          drag = {
+            kind: "rightPanPending",
+            ox: e.clientX, oy: e.clientY,
+            px: state.view.panX, py: state.view.panY,
+          };
+          return;
+        }
+        if (e.button !== 0) return;
+
         if (tool === "pan") {
           const handleHit = pickShapeHandleAt(w.x, w.y);
           if (handleHit) {
@@ -2237,12 +2249,6 @@
           scheduleSave();
           if (!tokenMultiPlace) openTokenEditor(selectedToken);
         } else if (tool === "measure") {
-          if (e.button === 2) {
-            e.preventDefault();
-            finalizeActiveMeasurement();
-            return;
-          }
-          if (e.button !== 0) return;
           const h = findCellAt(w.x, w.y, grid);
           if (!h) return;
           appendHexToMeasurement(h);
@@ -2274,6 +2280,12 @@
       });
 
       canvas.addEventListener("pointermove", (e) => {
+        if (drag && drag.kind === "rightPanPending") {
+          const dx = e.clientX - drag.ox;
+          const dy = e.clientY - drag.oy;
+          if (Math.hypot(dx, dy) < RIGHT_PAN_THRESHOLD) return;
+          drag = { kind: "pan", ox: drag.ox, oy: drag.oy, px: drag.px, py: drag.py };
+        }
         if (!drag) return;
         const w = worldFromEvent(e);
         if (drag.kind === "pan") {
@@ -2351,6 +2363,11 @@
       });
 
       canvas.addEventListener("pointerup", (e) => {
+        if (drag && drag.kind === "rightPanPending" && e.button === 2) {
+          if (tool === "measure") finalizeActiveMeasurement();
+          drag = null;
+          return;
+        }
         if (drag && drag.kind === "brush" && strokePts && strokePts.length > 1) {
           readToolSettingsLive();
           if (brushErasing) {
@@ -2398,7 +2415,7 @@
       canvas.addEventListener("touchend", () => { pinching = null; });
 
       canvas.addEventListener("contextmenu", (e) => {
-        if (tool === "measure" && openMapId) e.preventDefault();
+        if (openMapId) e.preventDefault();
       });
 
       canvas.addEventListener("dblclick", (e) => {
