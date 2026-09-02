@@ -64,7 +64,7 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 - Board media (images/audio) stored as data URLs in localStorage for v1 — large assets can hit quota; use **Export board zip** or portable save; portable saves with big media may exceed the 8 MB import limit
 - Large Board markdown bodies may live in IndexedDB (`bg-board-bodies`); portable JSON export inlines them
 - Maps images and editor state live in IndexedDB (`bg-maps`) — not in the 8 MB portable JSON; use Maps Export for map backups
-- Maps is the only mode that loads PixiJS (`maps/maps-pixi.bundle.js`); rebuild with `npm run build:pixi` in `maps/`. Token SVGs are official **Material Symbols Outlined** (w400); regenerate with `npm run build:icons` in `maps/` after changing the icon set.
+- Maps is the only mode that loads PixiJS (`maps/maps-pixi.bundle.js`); rebuild with `npm run build:pixi` in `maps/`. Map token icons render via the **Material Symbols Outlined** web font (Google Fonts; network required in Maps mode). SVGs under `maps/token-icons/` are build artifacts from `npm run build:icons` for reference/export; regenerate after changing the icon set.
 - Render free-tier hosting constraints apply if deployed to Render (ephemeral FS, bind `0.0.0.0:$PORT` for any future server)
 
 **Terminology:** Catalog, Table, Library, Tracker, Board (session notes), Builder, Forge, Lore (adventure pages / module text), Campaign (owns party / presets / lore / maps meta), Maps, party, encounter preset, threat/difficulty budget, stat block, spine (system color mark on list rows), custom library, user save, counter, random table.
