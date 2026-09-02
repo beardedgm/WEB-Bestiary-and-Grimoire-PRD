@@ -2800,8 +2800,7 @@
         for (const entry of m) {
           const opt = document.createElement("option");
           opt.value = entry.id;
-          const sym = materialSymbolChar(entry.id);
-          opt.textContent = sym ? sym + "  " + entry.label : entry.label;
+          opt.textContent = entry.label;
           sel.appendChild(opt);
         }
         if ([...sel.options].some((o) => o.value === cur)) sel.value = cur;
@@ -2859,7 +2858,6 @@
       if (!$("maps")) return;
       tokenIconFontRedraw = () => { if (openMapId) drawTokens(); };
       populateTokenIconSelects();
-      ensureMaterialSymbolsFont().then(() => populateTokenIconSelects()).catch(() => {});
       on("mapsNew", "onclick", () => $("mapsFile") && $("mapsFile").click());
       on("mapsFile", "onchange", (e) => {
         const f = e.target.files && e.target.files[0];
@@ -2991,7 +2989,6 @@
         renderList();
         idb.open().catch(() => toast("IndexedDB unavailable"));
         ensureMaterialSymbolsFont().then(() => {
-          populateTokenIconSelects();
           if (openMapId) drawTokens();
         }).catch(() => {});
         if (!openMapId) openPreferredMap().catch(() => {});
