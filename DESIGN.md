@@ -23,6 +23,7 @@ colors:
   mark-blue: "#3B6EA5"
   mark-green: "#54632A"
   mark-yellow: "#C4A035"
+  maps-stage: "#2A2622"
 typography:
   display:
     fontFamily: '"Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif'
@@ -33,6 +34,11 @@ typography:
   title:
     fontFamily: '"Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif'
     fontSize: "28px"
+    fontWeight: 600
+    lineHeight: "1.2"
+  title-card:
+    fontFamily: '"Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif'
+    fontSize: "21px"
     fontWeight: 600
     lineHeight: "1.2"
   section-5e:
@@ -123,6 +129,7 @@ typography:
 rounded:
   sm: "2px"
   md: "3px"
+  sheet: "10px"
   em-sm: ".25em"
 spacing:
   sm: "5px"
@@ -185,6 +192,7 @@ Warm neutrals on stone, system colors lifted from printed stat blocks.
 - **Ink / Dim / Faint** (#24211C / #5F594F / #645D51): Primary, secondary, and metadata text — `faint` is tuned to pass 4.5:1 on all stone grounds
 - **Vellum / Paper** (#FBF6EA / #FFFFFF): Reading-pane stocks for 5e and PF2e respectively
 - **Danger** (#9C3020): Errors, damage actions, nat-1, unconscious emphasis
+- **Maps stage** (#2A2622): Hex map canvas behind the grid — dark tabletop, not chrome stone
 
 ### Named Rules
 
@@ -208,6 +216,7 @@ Documented size steps (use these literals in CSS; do not invent ad-hoc values):
 |------|------|-------|
 | Display | 18px serif small-caps | App title, encounter name |
 | Title | ~28px (25px mobile) | Stat block name in reading pane |
+| Title card | 21px serif | Record name on a Board record card |
 | Section 5e | 17px serif small-caps | D&D ability block headings |
 | Section PF2e | 11px mono uppercase | Pathfinder section labels |
 | Body chrome | 15px sans | UI chrome, search, forms |
@@ -234,8 +243,8 @@ Exclusive app modes via header chips: **Library** (`browse`), **Tracker** (`trac
 - **Board:** Full-height `#board` shell replaces the three columns (rail + snap-grid stage) for **session notes** and tonight's spatial layout. Leaving Board stops audio and freezes running timers. Library search is unavailable with `#side` (by design).
 - **Forge:** Full-bleed `#forge` shell (controls rail | live preview) with stone/paper tokens; system chips D&D 5e | Pathfinder; Apply benchmarks + Save to Custom. No Monster Forge leather/gold theme import.
 - **Lore:** Full-bleed `#lore` shell pairs a stone **adventure page** rail (active campaign only) with the main markdown editor/preview surface for module text (chapters, scenes); nested pages remain visibly indented and tags filter the tree. Each tree row is handle (`⋮⋮`) | title | **`+`** (add child under that row); drag uses Tracker-style gap lines (before/after) plus an into highlight to reparent, with Alt+↑/↓ among siblings and Alt+→/← indent/outdent; handles disable while a page filter or tag is active. Campaign create/rename/delete lives in the **header** picker — the Lore rail shows a short “Pages for …” hint and page ops only (no second campaign chrome). Selecting a page with body text opens **Preview** (read) by default; **Edit** is opt-in (new or empty pages still open in Edit). The editor includes a grouped chip format toolbar (`#loreFmt`, `role="toolbar"`) — inline | block | insert separators — covering bold / italic / code, H1–H3, bullet / numbered lists, **Read-aloud** quotes, fenced blocks, and a table scaffold; Preview hides the toolbar and mirrors Board `.md-view` typography (including olive read-aloud blockquotes). **Pin to Board** uses `chip.go`; Pin / save notices reuse the Board toast (`#boardToast`) plus the live region. At **≤760px**, the page rail collapses into a **Pages** bottom sheet (scrim + sheet), matching Board’s mobile pattern; Lore chips (including tree `+`) use 44px min-height on coarse/narrow layouts.
-- **Maps:** Map-first `#maps` shell — **Maps** / **Settings** toolbar chips open mutually exclusive drawer trays (`maps` | `settings` | `tool` | `danger` views on `#mapsDrawer`); tool chips auto-open the tool tray. Toolbar spans full width **above** the drawer/canvas row so neither the app header nor the maps tool bar is covered. Desktop: drawer is an in-flow flex sibling that **pushes** the canvas aside (260px / collapsed); mobile: bottom sheet + scrim scoped to `.maps-body` only. Pixi stage fills remaining space. Tokens: disc + centered SVG icon (`maps/token-icons/`) + label below (HexPlora layout). Edit overlays sit outside `<main>`. At **≤760px**, **Maps** FAB + scrim.
-- Header: brand + mode chips + **Campaign** picker (`#hdrCamp`: `<select>` + New / Rename / Delete; Delete uses `TRK.confirmSwap`) + **Export** (`#user-save`, far right) for portable save export/import; library-list search (`#q` + `#count` in `#sidesearch`) sits under Catalog/Table nav, above Filters / Table bar — not inside Filters. At ≤760px, `#header-actions` is full-width and left-aligned so `#mode` / `#hdrCamp` wrap (`min-width: 0`) and every primary mode stays reachable without page-level horizontal scrolling.
+- **Maps:** Map-first `#maps` shell — **Maps** / **Settings** toolbar chips open mutually exclusive drawer trays (`maps` | `settings` | `tool` | `danger` views on `#mapsDrawer`); tool chips auto-open the tool tray. Toolbar spans full width **above** the drawer/canvas row so neither the app header nor the maps tool bar is covered. Desktop: drawer is an in-flow flex sibling that **pushes** the canvas aside (260px / collapsed); open/close **snaps** width and animates only `opacity`/`transform` (no width/padding transition). Mobile: bottom sheet + scrim scoped to `.maps-body` only (`transform: translateY`). Pixi stage fills remaining space. Tokens: disc + centered SVG icon (`maps/token-icons/`) + label below (HexPlora layout). Edit overlays sit outside `<main>`. At **≤760px**, **Maps** FAB + scrim.
+- Header: brand + mode chips + **Campaign** picker (`#hdrCamp`: `<select>` + New / Rename / Delete; Delete uses `TRK.confirmSwap`) + **Save** (`#user-save`, far right) for portable save download/import; library-list search (`#q` + `#count` in `#sidesearch`) sits under Catalog/Table nav, above Filters / Table bar — not inside Filters. At ≤760px, `#header-actions` is full-width and left-aligned so `#mode` / `#hdrCamp` wrap (`min-width: 0`) and every primary mode stays reachable without page-level horizontal scrolling.
 - Column defaults: side 340px, tracker/builder 380px; drag gutters 6px
 - Mobile breakpoint **760px**: stack Library/Tracker/Builder columns, hide resize handles; Board collapses the add rail into a **Cards & sessions** bottom sheet (scrim + sheet) so add/session actions stay reachable — mobile overrides use `body.board #board …` / `body.lore #lore …` specificity so toggles are not left `display:none` by the desktop base rules; Lore collapses the page rail into a **Pages** bottom sheet; Maps collapses the drawer into a **Maps** bottom sheet (FAB + scrim inside `.maps-body`); Forge stacks rail above preview. At ≤760px those rails **slide up from the bottom** (280ms drawer ease) with a scrim fade; `prefers-reduced-motion` drops the slide.
 - Touch/coarse pointer: 44px minimum on tracker damage/heal/remove, catalog add, Board card ops / primary card controls, and Lore editor / format / tree-add chips on the narrow breakpoint
@@ -254,7 +263,7 @@ Flat-by-default stone surfaces. Depth is tonal layering (`stone` → `stone-3` t
 
 ## Shapes
 
-- **Radius:** 2px chips and micro-controls; 3px (`--radius`) search field and loader drop zone
+- **Radius:** 2px chips and micro-controls; 3px (`--radius`) search field and loader drop zone; 10px (`--radius-sheet`) top corners of the Maps mobile bottom sheet
 - **Borders:** 1px `hair` default; 2px dashed for file-drop; 3px left spine on list/card rows
 - **Stat block rule:** 2px tapered gradient (5e) or 1px hairline (PF2e) under the title
 
@@ -273,7 +282,7 @@ Snap-grid cards on the Board stage for session notes. Markdown cards use vellum 
 - **Shape:** 2px radius, 6×9px padding (24px tall — WCAG 2.5.8 target)
 - **Default:** stone fill, dim text, hair border
 - **Selected:** ink fill, stone-3 text; system variants use brick/olive fill with `#FBF6EA` text
-- **Primary action (`go`):** brick fill
+- **Primary action (`go`):** brick fill with vellum text — used in the Tracker bar, overlays, and Save **Download save…**; dialog confirm uses ink `yes`
 - **Focus:** dual ring — `ink` outline (AA non-text contrast) plus soft gilt outer glow; never gilt text or gilt-only rings on stone/paper
 
 ### List items
@@ -320,8 +329,9 @@ Snap-grid cards on the Board stage for session notes. Markdown cards use vellum 
 
 ### Portable save dialog
 
-- Normal-width overlay from header **Export**: Export, Download backup first, Import (`bg-user-save/1`)
-- Import confirms encounter replace + same-id overwrites; merge-keep-local for other ids; invalid customs skipped with a count
+- Normal-width overlay from header **Save**: **Download save…** and **Import save…** (`bg-user-save/1`)
+- Hint names what the JSON includes (campaigns, boards, live encounter) and what it does not (map images → Maps Export; large board media → Board zip; 8 MB import cap)
+- Import confirms: updates matching ids, keeps device-only records, **replaces the live encounter**; Cancel import returns to the dialog
 - Customs store writes are atomic (failed write leaves previous data); invalid rows dropped on load with a live announcement
 
 ### Spell links (`.slink`)
