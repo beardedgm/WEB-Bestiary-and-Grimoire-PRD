@@ -41,11 +41,11 @@ as prep reveals them.
 |---|---|---|
 | **Library** | Reusable game content: corpus monsters/spells + customs, keyed by id | Campaign plot, session layout |
 | **Forge** | Creating custom content that lands in the Library | Editing content in place elsewhere |
-| **Campaign** | Durable campaign bag (`bg.campaign.v1`): party, encounter presets, Lore pages, maps meta | Live initiative, Board layout, custom library |
+| **Campaign** | Durable campaign bag (`bg.campaign.v1`): party, encounter presets, Lore pages, maps meta; session boards keyed by `campaignId` in `bg.board.v1` | Live initiative, custom library |
 | **Maps** | Hex-crawl editor for active campaign (IndexedDB blobs + Pixi); import/export map files | Live initiative, Board handouts, cloud share |
 | **Builder** | Encounter drafts and difficulty budgets (Save writes presets into active campaign) | Live combat state |
 | **Tracker** | Live encounter: initiative, HP, rounds, markers (party/presets mirror active campaign) | Adventure text, session notes |
-| **Board** | Session notes and tonight's spatial layout (`bg.board.v1`; multi-session boards supported) | The adventure manuscript (canonical module text) |
+| **Board** | Session notes and tonight's spatial layout (`bg.board.v1`; multi-session boards per campaign) | The adventure manuscript (canonical module text); boards for other campaigns |
 | **Lore** | Adventure/module text for the active campaign (tree of pages: chapters, scenes, read-alouds) | Session log, live initiative; campaign create/rename/delete (header picker) |
 | **Export** | Portability — the user owns their files (`bg-user-save/1`, includes `campaigns`) | Cloud identity, sync |
 

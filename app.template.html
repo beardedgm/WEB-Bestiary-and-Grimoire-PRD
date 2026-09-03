@@ -1208,6 +1208,7 @@ body.forge #lore{display:none !important}
   margin:0; padding:14px 12px 6px; font:600 11px/1 var(--mono);
   letter-spacing:.12em; text-transform:uppercase; color:var(--faint)}
 #board .board-hint{padding:0 12px 12px; color:var(--dim); font-size:12.5px; line-height:1.45}
+#board .board-camp-hint{margin:0; padding:0 12px 8px; color:var(--dim); font:12.5px/1.35 var(--sans)}
 #board .board-session{padding:0 10px 12px; border-bottom:1px solid var(--hair); margin-bottom:4px}
 #board .board-pick{
   width:100%; margin-bottom:8px; padding:8px 10px; border:1px solid var(--hair); border-radius:3px;
@@ -1780,6 +1781,7 @@ body.forge #lore{display:none !important}
   <button type="button" class="board-rail-scrim" id="boardRailScrim" aria-label="Close board tools" tabindex="-1"></button>
   <aside class="board-rail" id="boardRail">
     <h2>Session</h2>
+    <p class="board-camp-hint" id="boardCampHint" hidden></p>
     <div class="board-session" id="boardSession">
       <select class="board-pick" id="boardPick" aria-label="Active session board"></select>
       <div class="board-session-actions" id="boardSessionActions">
@@ -3042,7 +3044,11 @@ async function applyUserSaveBagAsync(bag){
     }
   }
   if (window.BOARD && BOARD.applyUserSave && Array.isArray(bag.boards)){
-    const st = await BOARD.applyUserSave({ boards: bag.boards, activeBoardId: bag.activeBoardId });
+    const st = await BOARD.applyUserSave({
+      boards: bag.boards,
+      activeBoardId: bag.activeBoardId,
+      activeCampaignId: bag.activeCampaignId,
+    });
     boardUpserts = st.boardUpserts || 0;
     if (st.ok === false) storageOk = false;
   }
@@ -6128,7 +6134,7 @@ window.TRK = TRK;
 
 <script>
 "use strict";
-/* Campaign container: owns party, presets, lore pages, maps[] meta (phase 1). */
+/* Campaign container: owns party, presets, lore pages, maps[] meta; Board sessions tagged by campaignId. */
 const CAMPAIGN = (() => {
   const STORE = "bg.campaign.v1";
   const LEGACY_LORE = "bg.lore.v1";
@@ -6333,6 +6339,8 @@ const CAMPAIGN = (() => {
       LORE.onCampaignChanged();
     if (window.MAPS && typeof MAPS.onCampaignChanged === "function")
       MAPS.onCampaignChanged();
+    if (window.BOARD && typeof BOARD.onCampaignChanged === "function")
+      BOARD.onCampaignChanged();
   }
   function switchCampaign(id){
     if (!state.campaigns.some(c => c.id === id)) return false;
@@ -6390,12 +6398,15 @@ const CAMPAIGN = (() => {
     renderHeader();
     if (window.LORE && typeof LORE.onCampaignChanged === "function") LORE.onCampaignChanged();
     if (window.MAPS && typeof MAPS.onCampaignChanged === "function") MAPS.onCampaignChanged();
+    if (window.BOARD && typeof BOARD.onCampaignChanged === "function") BOARD.onCampaignChanged();
     return ok;
   }
   function deleteCampaign(){
     if (state.campaigns.length <= 1){
       state = seedCampaigns();
       save();
+      if (window.BOARD && typeof BOARD.reattachBoardsToCampaign === "function")
+        BOARD.reattachBoardsToCampaign(state.activeCampaignId);
       pushActiveToTrkAndRefresh();
       renderHeader();
       return true;
@@ -6404,6 +6415,8 @@ const CAMPAIGN = (() => {
     state.campaigns = state.campaigns.filter(c => c.id !== id);
     state.activeCampaignId = state.campaigns[0].id;
     save();
+    if (window.BOARD && typeof BOARD.dropCampaignBoards === "function")
+      BOARD.dropCampaignBoards(id);
     pushActiveToTrkAndRefresh();
     renderHeader();
     return true;
@@ -7264,6 +7277,7 @@ const BOARD = (() => {
 
   const GRID = 24;
   const STORE = "bg.board.v1";
+  const LAST_KEY = "bg.board.lastOpen.v1";
   const stage = document.getElementById("boardStage");
   const stageWrap = document.getElementById("boardStageWrap");
   const boardEmpty = document.getElementById("boardEmpty");
@@ -7430,15 +7444,24 @@ const BOARD = (() => {
   const CARD_TYPES = new Set(["markdown","image","audio","counter","dice","timer","checklist","random","record","encounter","lore"]);
   const MAX_BOARD_CARDS = 200;
   const MAX_BOARDS = 40;
+  const MAX_BOARDS_PER_CAMPAIGN = 20;
   const MAX_CHECKLIST = 200;
   const MAX_DICE_HIST = 20;
   const MAX_RANDOM_LINES = 50000;
+
+  function currentCampaignId(){
+    const c = window.CAMPAIGN && CAMPAIGN.active && CAMPAIGN.active();
+    return (c && typeof c.id === "string" && c.id) ? c.id.slice(0, 64) : "";
+  }
 
   function seedBoards(){
     const id = "board-" + uid();
     return {
       activeBoardId: id,
-      boards: [{ id, title: "Session 1", updatedAt: Date.now(), cards: [] }]
+      boards: [{
+        id, title: "Session 1", updatedAt: Date.now(), cards: [],
+        campaignId: currentCampaignId(),
+      }]
     };
   }
 
@@ -7575,6 +7598,7 @@ const BOARD = (() => {
     }
     return {
       id: raw.id.slice(0, 64),
+      campaignId: vStr(raw.campaignId, 64, ""),
       title: vStr(
         (typeof raw.title === "string" && raw.title.trim() ? raw.title.trim() : "Session"),
         80, "Session"),
@@ -7582,6 +7606,49 @@ const BOARD = (() => {
         ? raw.updatedAt : Date.now(),
       cards,
     };
+  }
+
+  function stampMissingCampaignIds(fallbackId){
+    const cid = (typeof fallbackId === "string" && fallbackId) ? fallbackId.slice(0, 64) : currentCampaignId();
+    if (!cid) return;
+    for (const b of state.boards){
+      if (!b.campaignId) b.campaignId = cid;
+    }
+  }
+
+  function campaignBoards(cid){
+    const id = cid || currentCampaignId();
+    if (!id) return state.boards.slice();
+    return state.boards.filter(b => b.campaignId === id);
+  }
+
+  function rememberLast(boardId){
+    try {
+      const raw = JSON.parse(localStorage.getItem(LAST_KEY) || "{}") || {};
+      const cid = currentCampaignId();
+      if (cid && boardId) raw[cid] = boardId;
+      localStorage.setItem(LAST_KEY, JSON.stringify(raw));
+    } catch (_) {}
+  }
+
+  function lastOpenFor(cid){
+    try {
+      const raw = JSON.parse(localStorage.getItem(LAST_KEY) || "{}") || {};
+      const id = raw && cid ? raw[cid] : "";
+      return typeof id === "string" ? id : "";
+    } catch (_) { return ""; }
+  }
+
+  function boardLimitToast(list){
+    if (state.boards.length >= MAX_BOARDS){
+      toast("Board limit reached (" + MAX_BOARDS + ").");
+      return true;
+    }
+    if ((list || campaignBoards()).length >= MAX_BOARDS_PER_CAMPAIGN){
+      toast("Campaign board limit reached (" + MAX_BOARDS_PER_CAMPAIGN + ").");
+      return true;
+    }
+    return false;
   }
 
   function vBoardsState(raw){
@@ -7592,6 +7659,10 @@ const BOARD = (() => {
       if (vb) boards.push(vb);
     }
     if (!boards.length) return seedBoards();
+    const cid = currentCampaignId();
+    if (cid){
+      for (const b of boards) if (!b.campaignId) b.campaignId = cid;
+    }
     let activeBoardId = typeof raw.activeBoardId === "string" ? raw.activeBoardId : boards[0].id;
     if (!boards.some(b => b.id === activeBoardId)) activeBoardId = boards[0].id;
     return { activeBoardId, boards };
@@ -7717,13 +7788,15 @@ const BOARD = (() => {
   }
 
   let state = load();
+  stampMissingCampaignIds();
   let selectedId = null;
   let zTop = 10;
   for (const b of state.boards)
     for (const c of b.cards)
       if (c.z > zTop) zTop = c.z;
   function active(){
-    return state.boards.find(b => b.id === state.activeBoardId) || state.boards[0];
+    const list = campaignBoards();
+    return list.find(b => b.id === state.activeBoardId) || list[0] || state.boards[0];
   }
   function bumpZ(card){ zTop += 1; card.z = zTop; }
   let saveTimer = null;
@@ -7850,35 +7923,108 @@ const BOARD = (() => {
     touch();
   };
 
+  function refreshCampHint(){
+    const hint = document.getElementById("boardCampHint");
+    if (!hint) return;
+    const c = window.CAMPAIGN && CAMPAIGN.active && CAMPAIGN.active();
+    if (!c){ hint.hidden = true; return; }
+    hint.hidden = false;
+    hint.textContent = "Boards for “" + (c.title || "Campaign") + "”";
+    hint.title = c.title || "Campaign";
+  }
+
   function refreshPicker(){
     const cur = state.activeBoardId;
-    boardPick.innerHTML = state.boards
+    const list = campaignBoards();
+    boardPick.innerHTML = list
       .slice()
       .sort((a,b) => (b.updatedAt||0) - (a.updatedAt||0))
       .map(b => `<option value="${b.id}"${b.id===cur?" selected":""}>${esc(b.title)}</option>`)
       .join("");
+    refreshCampHint();
+  }
+
+  function ensureCampaignBoard(){
+    stampMissingCampaignIds();
+    const cid = currentCampaignId();
+    if (!cid) return;
+    let list = campaignBoards(cid);
+    if (!list.length){
+      if (state.boards.length >= MAX_BOARDS){
+        toast("Board limit reached (" + MAX_BOARDS + ").");
+        return;
+      }
+      const b = {
+        id: "board-" + uid(), title: "Session 1", updatedAt: Date.now(),
+        cards: [], campaignId: cid,
+      };
+      state.boards.push(b);
+      list = [b];
+    }
+    const last = lastOpenFor(cid);
+    if (last && list.some(b => b.id === last)) state.activeBoardId = last;
+    else if (!list.some(b => b.id === state.activeBoardId)) state.activeBoardId = list[0].id;
+    rememberLast(state.activeBoardId);
+  }
+
+  function onCampaignChanged(){
+    ensureCampaignBoard();
+    selectedId = null;
+    save().then(() => {
+      if (activeMode){ refreshPicker(); render(); }
+      else refreshPicker();
+    }).catch(() => {});
+  }
+
+  function dropCampaignBoards(campaignId){
+    if (typeof campaignId !== "string" || !campaignId) return;
+    const gone = state.boards.filter(b => b.campaignId === campaignId);
+    const ids = [];
+    for (const b of gone)
+      for (const c of b.cards)
+        if (c.type === "markdown") ids.push(c.id);
+    state.boards = state.boards.filter(b => b.campaignId !== campaignId);
+    deleteCardBodies(ids).catch(() => {});
+    try {
+      const raw = JSON.parse(localStorage.getItem(LAST_KEY) || "{}") || {};
+      delete raw[campaignId];
+      localStorage.setItem(LAST_KEY, JSON.stringify(raw));
+    } catch (_) {}
+  }
+
+  function reattachBoardsToCampaign(campaignId){
+    const cid = (typeof campaignId === "string" && campaignId) ? campaignId.slice(0, 64) : "";
+    if (!cid) return;
+    for (const b of state.boards) b.campaignId = cid;
+    if (!state.boards.length){
+      const seeded = seedBoards();
+      seeded.boards[0].campaignId = cid;
+      state.boards = seeded.boards;
+      state.activeBoardId = seeded.activeBoardId;
+    }
+    rememberLast(state.activeBoardId);
+    save().catch(() => {});
   }
 
   document.getElementById("boardNew").onclick = () => {
-    if (state.boards.length >= MAX_BOARDS){
-      toast("Board limit reached (" + MAX_BOARDS + ").");
-      return;
-    }
-    const b = { id: "board-" + uid(), title: "New session", updatedAt: Date.now(), cards: [] };
+    if (boardLimitToast()) return;
+    const b = {
+      id: "board-" + uid(), title: "New session", updatedAt: Date.now(),
+      cards: [], campaignId: currentCampaignId(),
+    };
     state.boards.push(b);
     state.activeBoardId = b.id;
+    rememberLast(b.id);
     selectedId = null;
     save(); render(); setBoardRailOpen(false); toast("Created empty board");
   };
   document.getElementById("boardDup").onclick = async () => {
-    if (state.boards.length >= MAX_BOARDS){
-      toast("Board limit reached (" + MAX_BOARDS + ").");
-      return;
-    }
+    if (boardLimitToast()) return;
     const src = active();
     await hydrateBoard(src);
     const copy = JSON.parse(JSON.stringify(src));
     copy.id = "board-" + uid();
+    copy.campaignId = src.campaignId || currentCampaignId();
     copy.title = src.title.replace(/\s*\(copy\)\s*$/,"") + " (copy)";
     copy.updatedAt = Date.now();
     for (const c of copy.cards) {
@@ -7899,6 +8045,7 @@ const BOARD = (() => {
     }
     state.boards.push(copy);
     state.activeBoardId = copy.id;
+    rememberLast(copy.id);
     selectedId = null;
     save(); render(); setBoardRailOpen(false); toast("Duplicated board");
   };
@@ -7941,14 +8088,16 @@ const BOARD = (() => {
     inp.select();
   };
   document.getElementById("boardDel").onclick = e => {
-    if (state.boards.length < 2){ toast("Keep at least one board"); return; }
+    if (campaignBoards().length < 2){ toast("Keep at least one board"); return; }
     const b = active();
     const btn = e.currentTarget;
     const go = async () => {
       const ids = b.cards.filter(c => c.type === "markdown").map(c => c.id);
       await deleteCardBodies(ids);
       state.boards = state.boards.filter(x => x.id !== b.id);
-      state.activeBoardId = state.boards[0].id;
+      const next = campaignBoards()[0];
+      state.activeBoardId = next ? next.id : "";
+      rememberLast(state.activeBoardId);
       selectedId = null;
       save(); render(); setBoardRailOpen(false); toast("Deleted board");
     };
@@ -7957,6 +8106,7 @@ const BOARD = (() => {
   };
   boardPick.onchange = async () => {
     state.activeBoardId = boardPick.value;
+    rememberLast(state.activeBoardId);
     selectedId = null;
     await hydrateBoard(active());
     save(); render(); setBoardRailOpen(false);
@@ -9099,6 +9249,7 @@ const BOARD = (() => {
       .then(() => hydrateAllBoards())
       .catch(() => {})
       .finally(() => {
+        ensureCampaignBoard();
         refreshPicker();
         render();
         timerIv = setInterval(tickTimers, 250);
@@ -9125,25 +9276,51 @@ const BOARD = (() => {
 
   async function applyUserSave(parts){
     if (!parts || !Array.isArray(parts.boards)) return { boardUpserts: 0, ok: true };
+    const fallbackCamp = (typeof parts.activeCampaignId === "string" && parts.activeCampaignId)
+      ? parts.activeCampaignId.slice(0, 64)
+      : currentCampaignId();
     const map = new Map(state.boards.map(b => [b.id, b]));
     let upserts = 0;
     let trimmed = 0;
     const incoming = parts.boards;
     if (incoming.length > MAX_BOARDS) trimmed += incoming.length - MAX_BOARDS;
+    const perCamp = new Map();
+    for (const b of map.values()){
+      const c = b.campaignId || fallbackCamp || "";
+      perCamp.set(c, (perCamp.get(c) || 0) + 1);
+    }
     for (const raw of incoming.slice(0, MAX_BOARDS)){
       const before = Array.isArray(raw.cards) ? raw.cards.length : 0;
-      const board = vBoard(raw);
+      const stamped = Object.assign({}, raw);
+      if (!stamped.campaignId && fallbackCamp) stamped.campaignId = fallbackCamp;
+      const board = vBoard(stamped);
       if (!board){ trimmed++; continue; }
+      if (!board.campaignId && fallbackCamp) board.campaignId = fallbackCamp;
       if (before > board.cards.length) trimmed += before - board.cards.length;
-      if (!map.has(board.id)) upserts++;
+      const campKey = board.campaignId || fallbackCamp || "";
+      const isNew = !map.has(board.id);
+      if (isNew && (perCamp.get(campKey) || 0) >= MAX_BOARDS_PER_CAMPAIGN){
+        trimmed++;
+        continue;
+      }
+      if (isNew){
+        upserts++;
+        perCamp.set(campKey, (perCamp.get(campKey) || 0) + 1);
+      }
       map.set(board.id, board);
     }
     state.boards = [...map.values()];
+    stampMissingCampaignIds(fallbackCamp);
     if (!state.boards.length) state = seedBoards();
     if (typeof parts.activeBoardId === "string" && map.has(parts.activeBoardId))
       state.activeBoardId = parts.activeBoardId;
     else if (!map.has(state.activeBoardId))
       state.activeBoardId = state.boards[0].id;
+    ensureCampaignBoard();
+    if (typeof parts.activeBoardId === "string"
+        && campaignBoards().some(b => b.id === parts.activeBoardId))
+      state.activeBoardId = parts.activeBoardId;
+    rememberLast(state.activeBoardId);
     zTop = 10;
     for (const b of state.boards)
       for (const c of b.cards)
@@ -9214,10 +9391,7 @@ const BOARD = (() => {
 
   async function importBoardZip(file) {
     if (!file || !window.BOARD_ZIP) { toast("Invalid zip file"); return; }
-    if (state.boards.length >= MAX_BOARDS) {
-      toast("Board limit reached (" + MAX_BOARDS + ").");
-      return;
-    }
+    if (boardLimitToast()) return;
     try {
       const buf = new Uint8Array(await file.arrayBuffer());
       const entries = BOARD_ZIP.unpackZip(buf);
@@ -9231,6 +9405,7 @@ const BOARD = (() => {
       const vb = vBoard(board);
       if (!vb) throw new Error("invalid board");
       vb.id = "board-" + uid();
+      vb.campaignId = currentCampaignId();
       vb.title = (manifest.title || vb.title || "Imported session").slice(0, 80);
       vb.updatedAt = Date.now();
       for (const card of vb.cards) {
@@ -9252,6 +9427,7 @@ const BOARD = (() => {
       }
       state.boards.push(vb);
       state.activeBoardId = vb.id;
+      rememberLast(vb.id);
       selectedId = null;
       await save();
       render();
@@ -9273,7 +9449,11 @@ const BOARD = (() => {
     if (f) importBoardZip(f);
   };
 
-  return { setActive, getExport, applyUserSave, exportBoardZip, importBoardZip, addRecord, addEncounter, addLorePage, mdHtml };
+  return {
+    setActive, getExport, applyUserSave, exportBoardZip, importBoardZip,
+    addRecord, addEncounter, addLorePage, mdHtml,
+    onCampaignChanged, dropCampaignBoards, reattachBoardsToCampaign,
+  };
 })();
 window.BOARD = BOARD;
 </script>

@@ -88,7 +88,7 @@ treated as untrusted (hand-edited, older schema, truncated write): every read go
 `vCustomRecords`) that copies and clamps recognised fields and drops everything else. Follow
 that pattern for any new persisted state, and never re-sort arrays whose order carries user
 intent (combatant tie order). Keys: `bg.trk.{enc,party,presets,dice,ui,pd}.v1`,
-`bg.custom.records.v1`, `bg.board.v1`, `bg.builder.v1`, `bg.campaign.v1` (party / presets /
+`bg.custom.records.v1`, `bg.board.v1` (session boards tagged with `campaignId`; last-open `bg.board.lastOpen.v1`), `bg.builder.v1`, `bg.campaign.v1` (party / presets /
 lore pages / maps meta; migrates once from `bg.lore.v1` + `bg.trk.party.v1` +
 `bg.trk.presets.v1`). Presets may include optional `builder` metadata (validated by
 `vBuilderMeta`). The portable export is `bg-user-save/1`, merged by id (campaigns:
