@@ -3332,6 +3332,41 @@ async function applyUserSaveBagAsync(bag){
 function plural(n, word){
   return n + " " + word + (n === 1 ? "" : "s");
 }
+/* Per-map outcomes are one list rendered in one place. Every skip reason used to be its own
+   counter with its own string in three places, and the map's name was thrown away at the
+   moment it became a count — so the GM read "2 maps over the limit" with no way to know
+   which two, and the next reason cost four edits. A note is { reason, name?, path?, id? };
+   whichever of name, path, or id is known is what the GM sees. */
+function mapNoteText(reason){
+  switch (reason){
+    case "oversize":   return "over the " + (ARCHIVE_SIDECAR_MAX / (1024 * 1024)) + " MB editor-state limit — simplify and re-export";
+    case "broken":     return "unreadable or missing in the archive";
+    case "unjoined":   return "matched no campaign map, skipped";
+    case "pruned":     return "left off the campaign's list — no image would have arrived";
+    case "kept-local": return "kept this device's existing image";
+    case "missing":    return "had no image data on this device and was left out";
+    default:           return "skipped";
+  }
+}
+function noteLabel(n){
+  return n.name || n.path || n.id || "a map";
+}
+/* Up to three names, then a count — this is a notice line, not a table. `escape` is for the
+   one caller that renders into innerHTML. */
+function nameList(names, escape){
+  const shown = names.slice(0, 3).map(s => "“" + (escape ? esc(s) : s) + "”").join(", ");
+  return names.length > 3 ? shown + " and " + (names.length - 3) + " more" : shown;
+}
+function mapNotesText(notes, escape){
+  const byReason = new Map();
+  for (const n of notes){
+    if (!byReason.has(n.reason)) byReason.set(n.reason, []);
+    byReason.get(n.reason).push(noteLabel(n));
+  }
+  const out = [];
+  for (const [reason, names] of byReason) out.push(nameList(names, escape) + ": " + mapNoteText(reason));
+  return out;
+}
 /* One save operation at a time, tracked here rather than in the DOM. The buttons alone were
    not enough: Escape and the backdrop still dismiss the dialog mid-operation (kept, so a hung
    build never traps anyone), and a reopened dialog rendered fully enabled while the old
@@ -3340,6 +3375,7 @@ function plural(n, word){
    and says why, and a completion only closes the dialog that started it. */
 let saveOpBusy = false;
 let saveDialogGen = 0;
+let saveBusyFocus = null;
 /* Cancel import and Close are disabled too, not just the chips that start work: neither a
    download build nor an archive apply can actually be stopped once it is running, and a
    Cancel that tears down the row while the apply keeps going, commits, and closes the dialog
@@ -3349,11 +3385,22 @@ function setSaveBusy(on){
   saveOpBusy = !!on;
   const root = document.getElementById("trkovl");
   if (!root) return;
+  /* Disabling the focused control drops focus to <body>, where the overlay's Tab trap finds
+     nothing enabled and Escape becomes the only key that works. Remember what had focus
+     before the controls lock and hand it back when they unlock; if that control is gone by
+     then (a reset row, a reopened dialog), the first live control in the dialog takes it. */
+  if (on) saveBusyFocus = root.contains(document.activeElement) ? document.activeElement : null;
   const sel = "[data-save-export],[data-save-archive],[data-save-import]," +
     "[data-save-confirm],[data-save-abort],[data-save-close]";
   for (const b of root.querySelectorAll(sel)){
     b.disabled = !!on;
     if (on) b.setAttribute("aria-busy", "true"); else b.removeAttribute("aria-busy");
+  }
+  if (!on){
+    const back = saveBusyFocus;
+    saveBusyFocus = null;
+    const target = (back && back.isConnected && !back.disabled) ? back : root.querySelector("button:not([disabled])");
+    if (target) target.focus();
   }
 }
 function vArchiveManifest(raw){
@@ -3412,12 +3459,24 @@ async function buildCampaignArchiveAsync(){
   for (const b of (Array.isArray(bag.boards) ? bag.boards : []))
     if (b && Array.isArray(b.cards)) media += await BOARD_ZIP.detachMedia(b.cards, files, "board-media/");
   const ids = plannedMapIds(bag);
+  const nameOf = new Map();
+  for (const c of (Array.isArray(bag.campaigns) ? bag.campaigns : []))
+    for (const m of (c && Array.isArray(c.maps) ? c.maps : []))
+      if (m && typeof m.id === "string") nameOf.set(m.id.slice(0, 64), m.name);
   const sidecars = [];
-  let missing = ids.length;
-  let oversize = 0;
-  if (ids.length && window.MAPS && typeof MAPS.exportRecords === "function"){
+  const notes = [];
+  let mapsSkipped = "";
+  if (!ids.length){
+    /* nothing to pack */
+  } else if (!window.MAPS || typeof MAPS.exportRecords !== "function"){
+    /* Say what happened. Reporting these as "no image data on this device" sent the GM
+       looking for lost data that is sitting intact in IndexedDB. */
+    mapsSkipped = "Maps unavailable";
+  } else {
     const recs = await MAPS.exportRecords(ids);
+    const got = new Set();
     for (const rec of recs){
+      got.add(rec.id);
       const n = sidecars.length;
       const mime = (rec.blob && rec.blob.type) || "application/octet-stream";
       const image = "maps/m" + n + "." + BOARD_ZIP.extOf(mime);
@@ -3433,7 +3492,7 @@ async function buildCampaignArchiveAsync(){
            tens of MB of it, and the image was a blob read for nothing. A tombstone the size
            of a sentence keeps the reason, so the importing device can say "over the limit"
            rather than only "no image arrived". */
-        oversize++;
+        notes.push({ reason: "oversize", id: rec.id, name: rec.name });
         files.push({ name: side, data: JSON.stringify({
           id: rec.id, name: rec.name, skipped: "oversize", stateBytes: sideBytes.length,
         }) });
@@ -3444,7 +3503,7 @@ async function buildCampaignArchiveAsync(){
       files.push({ name: side, data: sideBytes });
       sidecars.push(side);
     }
-    missing = ids.length - recs.length;
+    for (const id of ids) if (!got.has(id)) notes.push({ reason: "missing", id, name: nameOf.get(id) });
   }
   /* Encode once: packZipParts would otherwise re-encode the same string, and measuring with
      a throwaway Blob made a third copy of something that runs to megabytes. */
@@ -3457,7 +3516,7 @@ async function buildCampaignArchiveAsync(){
   return {
     blob: new Blob(BOARD_ZIP.packZipParts(files), { type: "application/zip" }),
     saveBytes: saveBytes.length,
-    maps: sidecars.length, media, missing, oversize,
+    maps: sidecars.length, media, notes, mapsSkipped,
   };
 }
 function downloadCampaignArchive(){
@@ -3481,14 +3540,8 @@ function downloadCampaignArchive(){
     if (res.blob.size > ARCHIVE_MAX)
       warn.push("Warning: archive is " + mbOf(res.blob.size) + " MB — over the " +
         (ARCHIVE_MAX / (1024 * 1024)) + " MB import limit; re-import may fail.");
-    if (res.missing)
-      warn.push(plural(res.missing, "map") + " had no image data on this device and " +
-        (res.missing === 1 ? "was" : "were") + " left out.");
-    if (res.oversize)
-      warn.push(plural(res.oversize, "map") + " " + (res.oversize === 1 ? "has" : "have") +
-        " editor state over the " + (ARCHIVE_SIDECAR_MAX / (1024 * 1024)) +
-        " MB import limit and " + (res.oversize === 1 ? "was" : "were") + " left out of the archive — simplify the drawings or measurements on " +
-        (res.oversize === 1 ? "it" : "them") + ".");
+    for (const line of mapNotesText(res.notes)) warn.push(line + ".");
+    if (res.mapsSkipped) warn.push("Map images skipped (" + res.mapsSkipped + ").");
     if (warn.length) saveNotice(warn.join(" "));
     if (stampPortableExport()) renderSaveStamp();
   }).catch(() => saveNotice("Could not build the archive — nothing was downloaded."))
@@ -3541,8 +3594,7 @@ async function readCampaignArchive(file){
   const bag = decodeJsonEntry(saveRaw, "save.json");
   if (!bag || typeof bag !== "object" || bag.schema !== USER_SAVE_SCHEMA)
     throw new Error("The save.json inside this archive isn't a Bestiary & Grimoire save (needs schema " + USER_SAVE_SCHEMA + ").");
-  const counts = { mediaAttached: 0, mediaMissing: 0, maps: 0, broken: 0, oversize: 0, unjoined: 0,
-    pruned: 0, keptLocal: 0, mapsSkipped: "" };
+  const counts = { mediaAttached: 0, mediaMissing: 0, maps: 0, notes: [], mapsSkipped: "" };
   for (const b of (Array.isArray(bag.boards) ? bag.boards : [])){
     if (!b || !Array.isArray(b.cards)) continue;
     const r = await BOARD_ZIP.attachMedia(b.cards, entries);
@@ -3562,26 +3614,32 @@ async function readCampaignArchive(file){
     if (manifest.maps.length) counts.mapsSkipped = "Maps unavailable";
   } else {
     const wanted = new Set(plannedMapIds(bag));
+    const nameOf = new Map();
+    for (const c of bag.campaigns)
+      for (const m of (c && Array.isArray(c.maps) ? c.maps : []))
+        if (m && typeof m.id === "string") nameOf.set(m.id.slice(0, 64), m.name);
+    const note = (reason, extra) => counts.notes.push(Object.assign({ reason }, extra));
     const seen = new Set();
     for (const path of manifest.maps){
       const raw = entries[path];
-      if (!(raw instanceof Uint8Array)){ counts.broken++; continue; }
-      /* Counted apart from `broken`: this file is present and probably fine, just larger
-         than we will parse. Telling the GM it was "unreadable" would send them looking for
-         a corrupt archive instead of a map they can simplify. */
-      if (raw.length > ARCHIVE_SIDECAR_MAX){ counts.oversize++; continue; }
+      if (!(raw instanceof Uint8Array)){ note("broken", { path }); continue; }
+      /* Noted apart from `broken`: this file is present and probably fine, just larger than
+         we will parse. Telling the GM it was "unreadable" would send them looking for a
+         corrupt archive instead of a map they can simplify. */
+      if (raw.length > ARCHIVE_SIDECAR_MAX){ note("oversize", { path }); continue; }
       let side;
-      try{ side = decodeJsonEntry(raw, path); }catch(_){ counts.broken++; continue; }
-      if (!side || typeof side !== "object" || typeof side.id !== "string" || !side.id){ counts.broken++; continue; }
+      try{ side = decodeJsonEntry(raw, path); }catch(_){ note("broken", { path }); continue; }
+      if (!side || typeof side !== "object" || typeof side.id !== "string" || !side.id){ note("broken", { path }); continue; }
       const id = side.id.slice(0, 64);
-      if (!wanted.has(id) || seen.has(id)){ counts.unjoined++; continue; }
+      const name = (typeof side.name === "string" && side.name) ? side.name : nameOf.get(id);
+      if (!wanted.has(id) || seen.has(id)){ note("unjoined", { id, name }); continue; }
       if (side.skipped === "oversize"){
-        /* Export left this map out on purpose and said why. Count it as oversize so the
+        /* Export left this map out on purpose and said why. Note it as oversize so the
            result names the reason, and let the prune below take the meta off the list. */
-        counts.oversize++; seen.add(id); continue;
+        note("oversize", { id, name }); seen.add(id); continue;
       }
       const bytes = (typeof side.image === "string") ? entries[side.image] : null;
-      if (!(bytes instanceof Uint8Array)){ counts.broken++; continue; }
+      if (!(bytes instanceof Uint8Array)){ note("broken", { id, name, path }); continue; }
       seen.add(id);
       const mime = (typeof side.mime === "string" && /^[\w.+-]+\/[\w.+-]{1,60}$/.test(side.mime))
         ? side.mime : "application/octet-stream";
@@ -3600,8 +3658,7 @@ async function readCampaignArchive(file){
       const held = new Set(typeof MAPS.exportRecords === "function"
         ? (await MAPS.exportRecords(orphans)).map(r => r.id) : []);
       const drop = new Set(orphans.filter(id => !held.has(id)));
-      counts.keptLocal = orphans.length - drop.size;
-      counts.pruned = drop.size;
+      for (const id of orphans) note(drop.has(id) ? "pruned" : "kept-local", { id, name: nameOf.get(id) });
       if (drop.size){
         for (const c of bag.campaigns){
           if (!c || !Array.isArray(c.maps)) continue;
@@ -3616,9 +3673,11 @@ function archiveConfirmCopy(c){
   let s = "Import updates matching ids, <b>replaces the live encounter</b>, and adds or updates <b>" +
     plural(c.maps, "map image") + "</b> and <b>" + plural(c.mediaAttached, "board media file") +
     "</b>. A campaign in the archive replaces this device's copy, including its map list.";
-  if (c.pruned) s += " <b>" + plural(c.pruned, "map") + "</b> in that list " + (c.pruned === 1 ? "has" : "have") +
-    " no image in the archive and none on this device, and will be left off it.";
-  if (c.keptLocal) s += " " + plural(c.keptLocal, "map") + " will keep this device's existing image.";
+  const pruned = c.notes.filter(n => n.reason === "pruned").map(noteLabel);
+  const kept = c.notes.filter(n => n.reason === "kept-local").map(noteLabel);
+  if (pruned.length) s += " <b>" + nameList(pruned, true) + "</b> " + (pruned.length === 1 ? "has" : "have") +
+    " no image in the archive and none on this device, and will be left off that list.";
+  if (kept.length) s += " " + nameList(kept, true) + " will keep this device's existing image.";
   return s + " Records that exist only on this device are kept.";
 }
 /* Map blobs land in IndexedDB first, through MAPS.replaceRecords: CAMPAIGN.applyUserSave
@@ -3663,17 +3722,11 @@ async function applyCampaignArchiveAsync(parsed){
   }
   const bits = [res.message];
   if (wrote && st.put) bits.push("+" + plural(st.put, "map image"));
-  if (counts.broken) bits.push(plural(counts.broken, "map file") + " in the archive unreadable or missing");
-  if (counts.oversize) bits.push(plural(counts.oversize, "map") + " over the " +
-    (ARCHIVE_SIDECAR_MAX / (1024 * 1024)) + " MB editor-state limit — simplify and re-export");
-  if (counts.unjoined) bits.push(plural(counts.unjoined, "map file") + " matched no campaign map, skipped");
+  bits.push(...mapNotesText(counts.notes));
   if (counts.mapsSkipped) bits.push("map images skipped (" + counts.mapsSkipped + ")");
-  if (counts.pruned) bits.push(plural(counts.pruned, "map") + " left off the campaign's list — no image would have arrived");
-  if (counts.keptLocal) bits.push(plural(counts.keptLocal, "map") + " kept this device's existing image");
   if (counts.mediaMissing) bits.push(plural(counts.mediaMissing, "board media file") + " missing from archive");
   /* Anything past the first bit is something the GM should read before the dialog goes. */
-  const warn = !!(res.warn || counts.broken || counts.oversize || counts.unjoined || counts.mapsSkipped
-    || counts.pruned || counts.keptLocal || counts.mediaMissing);
+  const warn = !!(res.warn || counts.notes.length || counts.mapsSkipped || counts.mediaMissing);
   return { ok: true, warn, message: bits.join(" · ") };
 }
 
@@ -3787,7 +3840,11 @@ function openUserSaveDialog(){
      still commits the earlier file the GM believes was refused. */
   const resetSaveBtns = () => {
     btns.innerHTML = `<button type="button" class="chip" data-save-close>Close</button>`;
-    btns.querySelector("[data-save-close]").onclick = () => TRK.closeOvl();
+    const close = btns.querySelector("[data-save-close]");
+    close.onclick = () => TRK.closeOvl();
+    /* Whatever was focused in the old row is gone with it; the one control left is the
+       natural home, and it is where a keyboard user is heading anyway. */
+    close.focus();
   };
   const rejectFile = msg => {
     resetSaveBtns();

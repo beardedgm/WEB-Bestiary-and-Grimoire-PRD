@@ -139,7 +139,11 @@ Rules:
   (never name or type — Windows reports `application/x-zip-compressed` or nothing). Every
   rejection goes through `rejectFile`, so an earlier confirm row is always torn down; the
   archive confirm row states the exact map-image and board-media counts and that a campaign
-  in the file replaces this device's copy, map list included. Chips go `aria-busy` while a
+  in the file replaces this device's copy, map list included. Every per-map outcome —
+  oversize, unreadable, unjoined, pruned, kept-local on import; oversize or missing on export
+  — is one note `{ reason, name?, path?, id? }` on a single list rendered by one function, so
+  messages name the maps concerned ("“Northern Reach”: over the 64 MB editor-state limit")
+  rather than counting them, and a new reason is one `case`, not a counter and four strings. Chips go `aria-busy` while a
   download builds or an import reads/applies. **An import with anything to report stays
   open** — skipped, pruned, or locally-kept maps, dropped customs, missing media — with the
   result in the notice line; only a clean import closes the dialog, and only the dialog it
