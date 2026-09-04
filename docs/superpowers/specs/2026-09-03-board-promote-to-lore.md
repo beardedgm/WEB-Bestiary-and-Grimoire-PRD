@@ -3,7 +3,7 @@
 **Filename note:** Path kept as `2026-09-03-board-promote-to-lore.md` for stable links;
 canonical product name is **Copy to Lore…** (not Promote).
 
-**Status:** Stub (revised). Implementation not started.
+**Status:** Implemented.
 **Roadmap:** [`../plans/2026-09-03-connected-improvements-roadmap.md`](../plans/2026-09-03-connected-improvements-roadmap.md)
 **Depends on:** Board + Lore stable (campaign lore pages)
 **Amended 2026-09-03:** a plan review found the "real LORE creation API" this spec depends on
@@ -109,3 +109,37 @@ of the copy is async even though `createPage` is not.
 ## Primary files
 
 - `app.template.html` — BOARD + LORE / CAMPAIGN lore pages
+
+## As shipped
+
+`LORE.createPage(campaignId, { title, body, parentId, tags }) → { ok: true, id }` /
+`{ ok: false, error }` is the single write path for a new page. It announces nothing, moves
+no focus, refuses past `MAX_PAGES`, runs the record through the LORE block's own `vPage`
+(which drops a `parentId` no page owns, so an unknown parent lands at top level rather than
+orphaning the page) and persists through `save()` → `CAMPAIGN.save()`. If that write fails it
+**rolls the page back out of memory** and returns the error, so a full quota can never leave a
+page that exists on screen but not in storage. `newPage(parentId)` is now a thin UI wrapper:
+create, then select / repaint / focus the title. No third `vPage` was added.
+
+`LORE.listPages(campaignId)` was needed too — a parent-chapter picker cannot exist without
+the chapter list, and Board must not read `camp.pages`. It returns the tree order flat as
+`{ id, title, depth }` **copies**, following the `window.recordRef` rule that a reference
+holder can never edit the source through the answer.
+
+**Board side.** Markdown cards mount one action chip in the `.md-meta` row from
+`actionsFor({ kind: "board-markdown", cardId }, { surface: "board-card", run: { copy } })` —
+a new subject kind, and the `Copy` verb the P1 matrix reserved for P8, labelled
+**Copy to Lore…**. It is the one verb whose label names its destination, because it is the
+only one that copies rather than routes. Like `builder-draft` and `lore`, the subject lives
+inside a module IIFE, so the operation arrives as `context.run.copy`; `actionsFor` still owns
+the label and omits the verb entirely when `LORE.createPage` is absent, keeping LORE
+removable. The chip is a plain chip, not `go`: it is a lone verb on a reading surface.
+
+Clicking it hydrates the body (`hydrateCardBody`) before anything else, then swaps an inline
+**Copy to Lore under [parent ▾] · Copy · Cancel** picker into the chip, the way
+`TRK.confirmSwap` swaps its Yes/No — the picker *is* the confirm, so there is no
+`window.confirm` and no modal over the stage. Escape or Cancel restores the chip and its
+focus. Refusals are honest and distinct: an unresolved `bodyRef: "idb"` says the text could
+not be read, a genuinely empty note says there is nothing to copy, and a failed
+`createPage` leaves the picker open with the error in a toast. On success the Board card is
+untouched and unlinked — nothing syncs afterwards.

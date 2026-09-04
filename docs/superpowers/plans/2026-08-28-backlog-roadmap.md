@@ -28,13 +28,12 @@ Phases 0–3 of the **connected workflow**, **Maps phase 2–3**, **Board storag
 - Quest / Audio / share / QR
 - Map blobs in portable `bg-user-save/1`
 
-**Intentional scope expansion (P6):** Library-linked map tokens were an explicit non-goal
-here and in the Maps token/grid spec. They are **reopened** as **P6** in
-[`2026-09-03-connected-improvements-roadmap.md`](2026-09-03-connected-improvements-roadmap.md)
-because the connected-object model now makes the benefit worth the coupling. Until P6
-ships, treat linked tokens as still deferred; when P6 ships, update this section and
-[`2026-08-29-maps-tokens-and-grid.md`](../specs/2026-08-29-maps-tokens-and-grid.md) in the
-same change.
+**Intentional scope expansion (P6, shipped):** Library-linked map tokens were an explicit
+non-goal here and in the Maps token/grid spec. They were **reopened and shipped** as **P6**
+in [`2026-09-03-connected-improvements-roadmap.md`](2026-09-03-connected-improvements-roadmap.md)
+because the connected-object model made the benefit worth the coupling. A map token may now
+carry an optional Library `ref` (an id, never copied monster state). What stays closed: Maps
+as a VTT — no fog of war, multiplayer, initiative on the canvas, or rules automation.
 
 ---
 

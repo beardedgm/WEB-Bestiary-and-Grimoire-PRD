@@ -1,6 +1,6 @@
 # P3 — Builder remaining → Library fit — 2026-09-03
 
-**Status:** Stub (revised). Implementation not started.
+**Status:** Implemented 2026-09-03.
 **Roadmap:** [`../plans/2026-09-03-connected-improvements-roadmap.md`](../plans/2026-09-03-connected-improvements-roadmap.md)
 **Depends on:** P1 recommended (shared verbs / Library chrome)
 **Amended 2026-09-03:** a plan review against the code found two gaps — the Builder math the
@@ -86,6 +86,39 @@ not a per-row badge. That is precisely why the budget above is binding.
 - Per-refresh work is computed once, not per candidate; typing in `#q` with the chip on stays
   responsive against a full system-scoped monster list.
 - The new entry point is a real `BUILD` method, not a promoted `_test` export.
+
+## As shipped
+
+**Spend math takes its state.** `budgetFor(st)`, `lineCost(ref, qty, st)` and
+`spendSummary(st)` all default to the live `draft`, so every existing call site is unchanged;
+the fit filter passes a hypothetical state instead. The draft is never mutated to simulate.
+Two helpers were split out of `spendSummary` so the meter and the filter run the *same* code
+rather than two copies: `rosterTotals(st)` (the only walk over `draft.lines`) and
+`spendOf(base, monsters, st)` (the 2014 multiplier and rounding).
+
+**Two-part API.** `BUILD.fitContext(st?)` pays the O(lines) half once and returns
+`{ state, base, monsters, budget, qty, fits(ref) }`; `BUILD.fits(ref, ctx?)` is one
+`lineCost` plus `spendOf` plus `spent <= budget`, and builds a throwaway context only when
+called without one. `computeCatalogView` builds exactly one context per pass, so a Library
+refresh is O(records + lines). `rosterTotals` / `spendOf` / `spendSummary` joined `_test`;
+`fits` / `fitContext` are on the public `BUILD` object.
+
+A candidate fails the fit when `lineCost` is not `ok` (wrong system, missing XP, missing
+level, unknown id), when it is `unpriced` (PF2e outside ±4 — priced 0 XP, so naive
+arithmetic would call it free), or when its line already sits at `tryAdd`'s quantity cap of
+20, where "fits" would promise an add that cannot happen.
+
+**Chip.** `#f-fit` holds one `Fits remaining` chip built by `buildFilters` only when
+`BUILD.fits` exists, backed by `F.fit` through the shared `chip()` helper. `applySideChrome`
+shows it only for `body.build` on the monster side and **clears `F.fit`** otherwise, so a
+hidden chip can never keep narrowing the list. It filters inside the `chipped` pass next to
+Custom, counts in `activeFilterCount`, and respects `CAP` untouched.
+
+`refresh()` no longer rebuilds its own `chipped` set — `computeCatalogView` returns it — so
+the corpus is walked once per refresh instead of twice, which with the chip on halves the
+simulated adds. Script 1 publishes `window.fitFilterActive()`; `BUILD.render()` calls a
+guarded `refresh()` through it so a changed roster, party size or threat repaints the list,
+and costs nothing whenever the chip is off.
 
 ## Non-goals
 
