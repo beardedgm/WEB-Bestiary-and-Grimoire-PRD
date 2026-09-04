@@ -76,7 +76,8 @@ Rules:
   save's own pair). The zip: export warns over 256 MB, import rejects over it (`unpackZip`
   needs the whole file in memory; re-inlining data URLs peaks near 2.5×). No cap on a map
   **image**: a map you could create from a file must restore. A map's **editor state** is
-  capped at `ARCHIVE_SIDECAR_MAX` (64 MB of JSON), sized to hold anything `vState` accepts —
+  capped at `ARCHIVE_SIDECAR_MAX` (64 MB of JSON) — a warn/reject threshold, **not** a bound
+  on what `vState` accepts, which runs far past any size worth parsing in one go:
   `MAX_STROKE_PTS` (100,000) is *per stroke* and `MAX_ANNOT` allows 1,000 of them, so legal
   state runs far larger than it looks. That cap is the same warn/reject pair as `save.json`:
   export warns when a sidecar exceeds it, import refuses it. A sidecar skipped for size is
