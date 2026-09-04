@@ -68,8 +68,13 @@ Rules:
   counted and skipped. Map ids never become file names (`vMapMeta` accepts any 64-char string).
 - **A meta whose blob is missing on the exporting device stays in `save.json`.** Another
   device may still hold that blob, and incoming-wins would otherwise strip the meta there. The
-  download notice reports the count; on a device without the blob, Maps keeps its existing
-  "Map data missing from local storage" behaviour.
+  download notice reports the count. **On import the rule inverts:** a meta whose blob will
+  not arrive — no sidecar, or one skipped as oversize, broken, or unjoined — is kept only when
+  the importing device already holds that map (the meta then joins that copy, reported as
+  "kept this device's existing image"); otherwise it is taken off the incoming campaign's
+  list before the merge sees it, reported as "left off the campaign's list". A meta with no
+  blob is a row that can neither open nor be deleted, which is the state the map phase exists
+  to prevent.
 - **`save.json` alone is a valid `bg-user-save/1`.** Imported through the JSON path, media
   cards come back empty — a documented degrade, not corruption.
 - **Sizes.** `save.json` ≤ 8 MB on both sides (warn on export, reject on import — the JSON
@@ -130,7 +135,11 @@ Rules:
   rejection goes through `rejectFile`, so an earlier confirm row is always torn down; the
   archive confirm row states the exact map-image and board-media counts and that a campaign
   in the file replaces this device's copy, map list included. Chips go `aria-busy` while a
-  download builds or an import reads/applies.
+  download builds or an import reads/applies. **An import with anything to report stays
+  open** — skipped, pruned, or locally-kept maps, dropped customs, missing media — with the
+  result in the notice line; only a clean import closes the dialog, and only the dialog it
+  started from. Closing on a message the hidden live region alone carried was how every skip
+  warning went unread.
 - **Same-id campaign.** Incoming wins for `maps[]` exactly as for lore / party / presets;
   device-only maps of that campaign leave the list (their blobs stay as orphans, the class
   `deleteCampaign` already leaves).

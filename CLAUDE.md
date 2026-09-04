@@ -127,7 +127,10 @@ re-inlines board media **before** any validator sees the bag (`mediaSrc` admits 
 `applyUserSaveBagAsync` (the campaign merge reopens Maps from whatever is stored at that
 instant). `replaceRecords` owns the whole map phase — flush, snapshot, write, and an undo
 that puts back exactly the written prefix, added ids deleted first — because every ordering
-rule in it is a property of that store; Script 1 never sequences those steps itself. Both
+rule in it is a property of that store; Script 1 never sequences those steps itself. A meta
+whose blob will not arrive is kept only when the device already holds that map and is
+otherwise taken off the incoming list — a meta with no blob is a row that can neither open
+nor be deleted. Both
 downloads stamp `lastPortableExportAt`. The Save dialog runs one operation at a time
 (`saveOpBusy` / `saveDialogGen`): a dialog reopened mid-operation comes up locked, and a
 completion closes only the dialog that started it.
