@@ -1,6 +1,10 @@
 # P2 — Save finishing polish — 2026-09-03
 
 **Status:** Stub (revised). Scope honesty already shipped; timestamp polish remains.
+**Amended 2026-09-03:** a code review of the shipped dialog found that the import confirm
+row stayed armed after a later file was rejected (Import then committed the earlier bag),
+and that the over-limit download warning was never cleared. Both were fixed as maintenance,
+so the Problem statement below is now accurate and P2's scope is unchanged.
 **Roadmap:** [`../plans/2026-09-03-connected-improvements-roadmap.md`](../plans/2026-09-03-connected-improvements-roadmap.md)
 
 ## Problem
