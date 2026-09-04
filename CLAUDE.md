@@ -191,7 +191,8 @@ rejects a partly filled object.
   or `prompt`.
 - Gilt (`--gilt`) may outline, focus, or underline; it must never carry readable text
   (fails 4.5:1 on paper and stone).
-- Chips are the universal control primitive; use `aria-pressed` so state isn't colour alone.
+- Chips are the universal control primitive; use `aria-pressed` on toggles, or a native `<details>`
+  disclosure, so state isn't colour alone.
 - Object verbs come from `actionsFor` + `mountActionChips` and use the canonical labels
  `Open` / `Board` / `Builder` / `Tracker` — plus `Copy to Lore…` on Board markdown, the one
  label that names its destination because it is the one verb that copies instead of routing
