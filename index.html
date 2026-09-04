@@ -2768,8 +2768,7 @@ const ARCHIVE_MANIFEST_MAX = 1024 * 1024;
    refuses past it — the same warn/reject pair save.json has, so the app cannot quietly write
    an archive it will not read back. */
 const ARCHIVE_SIDECAR_MAX = 64 * 1024 * 1024;
-const ARCHIVE_MAPS_MAX = 2000;   // MAX_CAMPAIGNS (20) × MAP_META_MAX
-const MAP_META_MAX = 100;        // mirrors vCampaign / CAMPAIGN.saveActiveMaps
+const ARCHIVE_MAPS_MAX = 2000;   // CAMPAIGN.MAX_CAMPAIGNS × CAMPAIGN.MAX_MAPS_META
 const ABIL_KEYS = ["str", "dex", "con", "int", "wis", "cha"];
 let CORPUS_IDS = new Set();
 let pendingCustomDrops = 0;
@@ -3246,6 +3245,7 @@ function mbOf(bytes){
 }
 function downloadUserSave(){
   saveNotice("");
+  setSaveBusy(true);
   buildUserSaveAsync().then(bag => {
     const blob = new Blob([JSON.stringify(bag, null, 2)], { type: "application/json" });
     if (blob.size > USER_SAVE_MAX){
@@ -3260,14 +3260,18 @@ function downloadUserSave(){
     /* Stamp only after the blob reached the browser. The timestamp is the GM's only
        evidence a download happened, so a build or handoff that threw must leave no mark. */
     if (stampPortableExport()) renderSaveStamp();
-  }).catch(() => saveNotice("Could not build the save file — nothing was downloaded."));
+  }).catch(() => saveNotice("Could not build the save file — nothing was downloaded."))
+    .finally(() => setSaveBusy(false));
 }
 function applyUserSaveBag(bag){
   return applyUserSaveBagAsync(bag);
 }
+/* Every return that changed nothing carries `changed: false`. The archive path writes map
+   blobs before calling this and keys its rollback on that marker, so a no-op return without
+   it would leave those blobs committed under a message saying the import failed. */
 async function applyUserSaveBagAsync(bag){
   if (!bag || bag.schema !== USER_SAVE_SCHEMA)
-    return { ok: false, message: "This isn't a Bestiary & Grimoire save file (needs schema " + USER_SAVE_SCHEMA + ")." };
+    return { ok: false, changed: false, message: "This isn't a Bestiary & Grimoire save file (needs schema " + USER_SAVE_SCHEMA + ")." };
   const { records: incomingCustoms, dropped } = vCustomRecords(bag.customs || [], { normalize: true });
   const localCustoms = loadCustomStore();
   const cmap = new Map();
@@ -3383,10 +3387,11 @@ function vArchiveManifest(raw){
 }
 /* Ids of the incoming maps CAMPAIGN.applyUserSave will actually keep. It merges by id in
    insertion order — local campaigns first, then new incoming ones — and slices at
-   MAX_CAMPAIGNS; vCampaign keeps only the first MAP_META_MAX metas. A blob written for
+   MAX_CAMPAIGNS; vCampaign keeps only the first MAX_MAPS_META metas. A blob written for
    anything past those cuts would be an orphan nothing can reach. */
 function plannedMapIds(bag){
   const max = (window.CAMPAIGN && CAMPAIGN.MAX_CAMPAIGNS) || 20;
+  const maxMaps = (window.CAMPAIGN && CAMPAIGN.MAX_MAPS_META) || 100;
   const incoming = (Array.isArray(bag && bag.campaigns) ? bag.campaigns : []).slice(0, max);
   const local = (window.CAMPAIGN && CAMPAIGN.state && Array.isArray(CAMPAIGN.state.campaigns))
     ? CAMPAIGN.state.campaigns : [];
@@ -3402,7 +3407,7 @@ function plannedMapIds(bag){
   const seen = new Set();
   for (const c of incoming){
     if (!c || typeof c.id !== "string" || !kept.has(c.id)) continue;
-    for (const m of (Array.isArray(c.maps) ? c.maps : []).slice(0, MAP_META_MAX)){
+    for (const m of (Array.isArray(c.maps) ? c.maps : []).slice(0, maxMaps)){
       if (!m || typeof m.id !== "string" || !m.id) continue;
       const id = m.id.slice(0, 64);
       if (seen.has(id)) continue;
@@ -3441,15 +3446,17 @@ async function buildCampaignArchiveAsync(){
     }
     missing = ids.length - recs.length;
   }
-  const saveJson = JSON.stringify(bag, null, 2);
+  /* Encode once: packZipParts would otherwise re-encode the same string, and measuring with
+     a throwaway Blob made a third copy of something that runs to megabytes. */
+  const saveBytes = new TextEncoder().encode(JSON.stringify(bag, null, 2));
   const manifest = { schema: ARCHIVE_SCHEMA, exportedAt: bag.exportedAt, maps: sidecars, media };
   files.unshift(
-    { name: "save.json", data: saveJson },
+    { name: "save.json", data: saveBytes },
     { name: "manifest.json", data: JSON.stringify(manifest, null, 2) },
   );
   return {
     blob: new Blob(BOARD_ZIP.packZipParts(files), { type: "application/zip" }),
-    saveBytes: new Blob([saveJson]).size,
+    saveBytes: saveBytes.length,
     maps: sidecars.length, media, missing, oversize,
   };
 }
@@ -3603,9 +3610,14 @@ async function applyCampaignArchiveAsync(parsed){
     if (typeof MAPS.onCampaignChanged === "function") MAPS.onCampaignChanged();
     return !!(st && st.ok && st.put === prev.length);
   };
+  let mapsPut = 0;
   if (wrote){
     prev = await MAPS.exportRecords(ids);
     const st = await MAPS.importRecords(recs);
+    /* Report what was actually stored, not what we handed over: importRecords skips records
+       failing its own id/blob guard, and a count that outran the writes would send the GM
+       looking for a map that is not there. */
+    mapsPut = st.put || 0;
     if (!st.ok){
       const undone = await rollback();
       const why = st.quota
@@ -3623,7 +3635,7 @@ async function applyCampaignArchiveAsync(parsed){
     return { ok: false, message: res.message + (wrote ? " Map images were written." : "") };
   }
   const bits = [res.message];
-  if (wrote) bits.push("+" + plural(recs.length, "map image"));
+  if (mapsPut) bits.push("+" + plural(mapsPut, "map image"));
   if (counts.broken) bits.push(plural(counts.broken, "map file") + " in the archive unreadable or missing");
   if (counts.oversize) bits.push(plural(counts.oversize, "map") + " skipped — editor state over the " +
     (ARCHIVE_SIDECAR_MAX / (1024 * 1024)) + " MB limit");
@@ -7136,6 +7148,10 @@ const CAMPAIGN = (() => {
   const LEGACY_PARTY = "bg.trk.party.v1";
   const LEGACY_PRESETS = "bg.trk.presets.v1";
   const MAX_CAMPAIGNS = 20;
+  /* Exported so Script 1's archive planner can ask what will survive a merge instead of
+     keeping its own copy of this number — a copy that would silently write orphan map
+     blobs, or skip valid ones, the day this changes. */
+  const MAX_MAPS_META = 100;
   const MAX_PAGES = 200;
   const MAX_TAGS = 24;
   const MD_HARD = 120000;
@@ -7203,7 +7219,7 @@ const CAMPAIGN = (() => {
     const pages = vPages(loreRaw ? loreRaw.pages : raw.pages);
     const mapsIn = Array.isArray(raw.maps) ? raw.maps : [];
     const maps = [];
-    for (const m of mapsIn.slice(0, 100)){
+    for (const m of mapsIn.slice(0, MAX_MAPS_META)){
       const vm = vMapMeta(m);
       if (vm) maps.push(vm);
     }
@@ -7430,7 +7446,7 @@ const CAMPAIGN = (() => {
     if (!c) return false;
     const out = [];
     const arr = Array.isArray(maps) ? maps : [];
-    for (const m of arr.slice(0, 100)){
+    for (const m of arr.slice(0, MAX_MAPS_META)){
       const vm = vMapMeta(m);
       if (vm) out.push(vm);
     }
@@ -7592,7 +7608,7 @@ const CAMPAIGN = (() => {
   else bindHeader();
 
   return {
-    STORE, MAX_CAMPAIGNS, state, active, save, switchCampaign, newCampaign,
+    STORE, MAX_CAMPAIGNS, MAX_MAPS_META, state, active, save, switchCampaign, newCampaign,
     renameCampaign, deleteCampaign, syncPartyPresets, syncTrkFromActive,
     saveActiveLorePages, saveActiveMaps, touchActive, getExport, applyUserSave, renderHeader,
     bindHeader, renderResumeCue,
