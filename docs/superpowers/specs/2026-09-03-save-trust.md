@@ -123,6 +123,41 @@ Rules:
   device-only maps of that campaign leave the list (their blobs stay as orphans, the class
   `deleteCampaign` already leaves).
 
+#### Known limitations
+
+Found by the code review of the shipped archive (PRs
+[#44](https://github.com/beardedgm/WEB-Bestiary-and-Grimoire-PRD/pull/44),
+[#46](https://github.com/beardedgm/WEB-Bestiary-and-Grimoire-PRD/pull/46) and
+[#47](https://github.com/beardedgm/WEB-Bestiary-and-Grimoire-PRD/pull/47) fixed the rest).
+These three are **open and deliberate** — each is recorded here rather than fixed because the
+fix costs something the archive was built to avoid. Do not close one without deciding that
+trade.
+
+1. **A zip past 4 GB is written silently corrupt.** `packZipParts` stores central-directory and
+   end-record offsets as `u32` and the entry count as `u16` (`lib/board-zip.js`), and export
+   only *warns* above `ARCHIVE_MAX` (256 MB) — it never refuses. Beyond 4 GB of entry bytes the
+   offsets wrap and the central directory points at garbage; the file still downloads, the
+   stamp still updates, and the GM believes they hold a backup no unzipper can open. The fix is
+   a hard export cap, which means refusing to export for a GM whose maps genuinely are that
+   large — the opposite of what an archive is for. Zip64 support in `lib/board-zip.js` is the
+   fix that costs nothing at the GM's end, and is the better answer if this ever bites.
+2. **A failed pre-import flush discards unsaved map edits.** `importRecords`
+   (`maps/maps-app.js`) does `await saveOpen().catch(() => {})`, closes the editor, then sets
+   `dirty = false` unconditionally — so a flush that failed on quota is recorded as if it had
+   succeeded, and nothing will retry it. `saveOpen`'s own toast fires but is easy to miss under
+   the inert overlay. Fixing it needs a product decision the review could not make: block the
+   import until the GM frees space, or proceed and tell them plainly that unsaved map edits
+   were lost. Blocking is safer and more annoying; proceeding is the current behaviour minus
+   the honesty.
+3. **The confirm row can promise board media the caps will drop.** `counts.mediaAttached` sums
+   re-inlined media across every board in the bag, but `BOARD.applyUserSave` then enforces
+   `MAX_BOARDS` (40) and `MAX_BOARDS_PER_CAMPAIGN` (20). An archive with 25 boards for one
+   campaign arms a row promising 25 media files and delivers 20. This is the one dialog whose
+   whole purpose is stating exactly what an import will do, so the overstatement matters — but
+   an exact count means simulating the board merge during parse, which is the kind of
+   second-guessing of another module's rules that P1 Principle 7 exists to prevent. The honest
+   cheap alternative is to say "up to N" and let the post-import message report the truth.
+
 ## Acceptance criteria
 
 **P2**
