@@ -81,7 +81,7 @@ One HTML file, no framework, no dependencies. `app.template.html` holds sequenti
 | `BOARD` | Session boards / session notes: markdown / image / audio / counter / dice / timer / checklist / random / record / encounter cards (`BOARD.addRecord` / `BOARD.addEncounter`; the Board chip from Library (Script 1 `addSendToBoard`), Table, Builder); `BOARD.lastOpen` / `BOARD.openBoard` back the header's **Continue Board** cue; markdown cards carry the **Copy to Lore…** chip (`startCopyToLore` → `pickLoreParent` → `LORE.createPage`) |
 | `FORGE` | Creature forge: inlined 5e CR + PF2e level tables, role chips + band strip (`ROLES` / `BANDS` / `PF_STEP` / `D5_STEP`), dual-system forms, preview via `monsterHTML`, Save to Custom |
 | `LORE` | Adventure text UI: module pages for the active campaign (`CAMPAIGN`), nested tree/tags, preview, Board (pin) chip; headless `LORE.createPage` / `LORE.listPages` for other surfaces |
-| `MAPS` | Campaign hex maps: `#maps` mode, Pixi editor (`maps/maps-pixi.bundle.js` + `maps/maps-app.js`), IndexedDB `bg-maps`, bundled `maps/starter.hexplora`, HexPlora import/export, optional Library `ref` id on a token (`vRef` in `vToken`; Open / Tracker / Board chips from `actionsFor`); `exportRecords` / `importRecords` / `removeRecords` record bridge for the campaign archive |
+| `MAPS` | Campaign hex maps: `#maps` mode, Pixi editor (`maps/maps-pixi.bundle.js` + `maps/maps-app.js`), IndexedDB `bg-maps`, bundled `maps/starter.hexplora`, HexPlora import/export, optional Library `ref` id on a token (`vRef` in `vToken`; Open / Tracker / Board chips from `actionsFor`); `exportRecords` / `importRecords` / `removeRecords` record bridge for the campaign archive, plus transactional `replaceRecords` (flush → snapshot → write → prefix-exact undo) as the archive's only write path |
 
 **Module boundary.** `TRK`, `CAMPAIGN`, `BUILD`, `BOARD`, `FORGE`, `LORE`, and `MAPS` are IIFEs assigned to `window.TRK` /
 `window.CAMPAIGN` / `window.BUILD` / `window.BOARD` / `window.FORGE` / `window.LORE` / `window.MAPS` at the end of their block (`const` bindings don't become
@@ -123,10 +123,14 @@ holding that same bag as `save.json` — still under the 8 MB rule — plus
 the mime stashed on `_mime`) and `maps/m<n>.json` + `maps/m<n>.<ext>` (the `bg-maps` record
 with its blob as a file; the sidecar carries the id, which never becomes a file name). Import
 re-inlines board media **before** any validator sees the bag (`mediaSrc` admits only
-`data:` URLs), writes map blobs through `MAPS.importRecords` **before**
+`data:` URLs), writes map blobs through `MAPS.replaceRecords` **before**
 `applyUserSaveBagAsync` (the campaign merge reopens Maps from whatever is stored at that
-instant), and treats the map phase as all-or-nothing with rollback. Both downloads stamp
-`lastPortableExportAt`.
+instant). `replaceRecords` owns the whole map phase — flush, snapshot, write, and an undo
+that puts back exactly the written prefix, added ids deleted first — because every ordering
+rule in it is a property of that store; Script 1 never sequences those steps itself. Both
+downloads stamp `lastPortableExportAt`. The Save dialog runs one operation at a time
+(`saveOpBusy` / `saveDialogGen`): a dialog reopened mid-operation comes up locked, and a
+completion closes only the dialog that started it.
 
 **Encounter spend math is one path.** `rosterTotals` → `spendOf` → `budgetFor` in `BUILD`,
 each taking the state to price and defaulting to the live `draft`. The budget meter and the

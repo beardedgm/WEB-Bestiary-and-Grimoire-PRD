@@ -2032,6 +2032,10 @@
        a debounced autosave firing mid-import would clobber one with stale in-memory state.
        Puts are sequential and stop at the first failure so the caller can roll back. */
     async function exportRecords(ids) {
+      /* Flush first: the archive reads these as "what is on this device", and a pending
+         edit that has not reached the store is exactly what a rescue export would lose.
+         The editor stays open. */
+      if (dirty && openMapId) await saveOpen().catch(() => {});
       const out = [];
       for (const id of Array.isArray(ids) ? ids : []) {
         if (typeof id !== "string" || !id) continue;
@@ -2065,6 +2069,67 @@
         if (typeof id !== "string" || !id) continue;
         await idb.del(id).catch(() => {});
       }
+    }
+    /* Transactional write for the campaign archive, owned here because every ordering
+       rule it enforces is a property of this store. In order: flush the open editor so
+       the snapshot is of what is actually stored — taken before the flush it would
+       restore a record older than the one this module itself just wrote; snapshot what
+       these ids will overwrite, treating a read failure as fatal rather than as absence,
+       since "could not read" mistaken for "does not exist" would make the undo delete the
+       GM's own map; write sequentially; on the first failure undo exactly the written
+       prefix, deleting the ids this call added before re-putting the ones it overwrote,
+       because the failure being unwound is usually quota and the new blobs are the space
+       the re-puts need. No campaign changed, so undo re-renders the list and reopens only
+       when there is a map to open — never the campaign-change path, which seeds a starter
+       map. Returns { ok, put, quota, error, undone, undo }; on success `undo` unwinds the
+       whole write for a caller whose later phase turned out to change nothing. */
+    async function replaceRecords(recs) {
+      clearTimeout(saveTimer);
+      if (dirty && openMapId) await saveOpen().catch(() => {});
+      closeEditor();
+      dirty = false;
+      const list = [];
+      for (const r of Array.isArray(recs) ? recs : []) {
+        if (r && typeof r.id === "string" && r.id && r.blob instanceof Blob) list.push(r);
+      }
+      const prev = new Map();
+      for (const r of list) {
+        const id = r.id.slice(0, 64);
+        if (prev.has(id)) continue;
+        try { prev.set(id, (await idb.get(id)) || null); }
+        catch (_) { return { ok: false, put: 0, quota: false, error: "read", undone: true, undo: null }; }
+      }
+      let put = 0;
+      let failure = null;
+      for (const r of list) {
+        try {
+          await idb.put({
+            id: r.id.slice(0, 64), name: vStr(r.name, 80, "Map"), blob: r.blob,
+            state: snapshotState(vState(r.state)), updated: num(r.updated, Date.now()),
+          });
+          put++;
+        } catch (e) { failure = e; break; }
+      }
+      const undo = async () => {
+        const written = list.slice(0, put).map((r) => r.id.slice(0, 64));
+        let all = true;
+        for (const id of written) {
+          if (prev.get(id) === null) { try { await idb.del(id); } catch (_) { all = false; } }
+        }
+        for (const id of written) {
+          const old = prev.get(id);
+          if (old) { try { await idb.put(old); } catch (_) { all = false; } }
+        }
+        renderList();
+        if (metas().length) openPreferredMap().catch(() => {});
+        return all;
+      };
+      if (failure) {
+        const undone = await undo();
+        return { ok: false, put, quota: String(failure && failure.message) === "QUOTA_EXCEEDED",
+          error: "write", undone, undo: null };
+      }
+      return { ok: true, put, quota: false, error: null, undone: false, undo };
     }
 
     async function ensureDefaultMap(opts) {
@@ -3195,7 +3260,7 @@
 
     return {
       setActive, onCampaignChanged, idb, vState,
-      exportRecords, importRecords, removeRecords,
+      exportRecords, importRecords, removeRecords, replaceRecords,
       _test: {
         vState, generateHexGrid, generateSquareGrid, findCellAt, findHexAt, hexNeighbors, vSettings,
         normalizeTokenIcon, materialSymbolChar, vToken, vRef,

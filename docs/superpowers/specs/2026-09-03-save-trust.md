@@ -76,7 +76,8 @@ Rules:
   save's own pair). The zip: export warns over 256 MB, import rejects over it (`unpackZip`
   needs the whole file in memory; re-inlining data URLs peaks near 2.5×). No cap on a map
   **image**: a map you could create from a file must restore. A map's **editor state** is
-  capped at `ARCHIVE_SIDECAR_MAX` (64 MB of JSON), sized to hold anything `vState` accepts —
+  capped at `ARCHIVE_SIDECAR_MAX` (64 MB of JSON) — a warn/reject threshold, **not** a bound
+  on what `vState` accepts, which runs far past any size worth parsing in one go:
   `MAX_STROKE_PTS` (100,000) is *per stroke* and `MAX_ANNOT` allows 1,000 of them, so legal
   state runs far larger than it looks. That cap is the same warn/reject pair as `save.json`:
   export warns when a sidecar exceeds it, import refuses it. A sidecar skipped for size is
@@ -102,17 +103,28 @@ Rules:
   (`mediaSrc` admits only `data:image/` / `data:audio/`). Map blobs are written **before**
   `applyUserSaveBagAsync`: `CAMPAIGN.applyUserSave` → `pushActiveToTrkAndRefresh` →
   `MAPS.onCampaignChanged` reopens Maps from whatever is stored at that instant, and writing
-  first lets a quota failure abort before any localStorage write. `importRecords` first flushes
-  a pending map edit and closes the editor so a debounced autosave cannot clobber an imported
-  record; the campaign merge reopens it. No extra `onCampaignChanged` on the success path.
-- **All-or-nothing map phase.** The first put failure rolls back every put made so far and
-  rejects; a meta whose blob failed would be a list row that can neither open nor be deleted.
-  If the bag apply then returns `changed: false` (the customs-store abort), the same rollback
-  runs. Rollback **removes the ids the import added before restoring the ones it overwrote** —
-  the failure being unwound is usually quota, and those new blobs are the space the restore
-  needs. It reports whether every record actually came back, and only then does the message
-  say "Nothing was changed"; a rollback that fell short says so and names re-importing a
-  known-good archive as the next move.
+  first lets a quota failure abort before any localStorage write. `replaceRecords` flushes a
+  pending map edit and closes the editor before it snapshots, so a debounced autosave cannot
+  clobber an imported record and the snapshot is of what is truly stored; the campaign merge
+  reopens it. `exportRecords` flushes too, without closing, so a rescue export of a map whose
+  autosave failed on quota carries the edit on screen rather than the last successful save.
+  No extra `onCampaignChanged` on the success path.
+- **All-or-nothing map phase, owned by MAPS.** `MAPS.replaceRecords(recs)` is the archive's
+  only write path and owns every ordering rule, because each is a property of that store and
+  the two times Script 1 sequenced them itself it got them wrong. In order: **flush the open
+  editor, then snapshot** (a snapshot taken before the flush restored a record older than
+  the one MAPS had just written); **a read failure while snapshotting aborts before any
+  write** — "could not read" mistaken for "does not exist" would make the undo delete the
+  GM's own map; write sequentially; on the first failure **undo exactly the written prefix**,
+  added ids deleted first because the failure is usually quota and those blobs are the space
+  the re-puts need — re-putting records the failed import never reached had produced a
+  spurious "could not be put back" on the very store that just refused a write. Undo
+  re-renders the list and reopens only if there is a map to open, **never the
+  campaign-change path**, which seeds a starter map — the old rollback did, and wrote a
+  starter map after saying "Nothing was changed." On success it hands back `undo` for a bag
+  phase that then returns `changed: false` or throws (the throw path used to leave the map
+  phase committed with no rollback and no mention). "Nothing was changed" is said only when
+  undo reports every record came back; a shortfall names re-importing a known-good archive.
 - **Dialog.** One **Import save…** chip for both formats, branching on the `PK` signature
   (never name or type — Windows reports `application/x-zip-compressed` or nothing). Every
   rejection goes through `rejectFile`, so an earlier confirm row is always torn down; the
@@ -141,7 +153,7 @@ trade.
    a hard export cap, which means refusing to export for a GM whose maps genuinely are that
    large — the opposite of what an archive is for. Zip64 support in `lib/board-zip.js` is the
    fix that costs nothing at the GM's end, and is the better answer if this ever bites.
-2. **A failed pre-import flush discards unsaved map edits.** `importRecords`
+2. **A failed pre-import flush discards unsaved map edits.** `replaceRecords`
    (`maps/maps-app.js`) does `await saveOpen().catch(() => {})`, closes the editor, then sets
    `dirty = false` unconditionally — so a flush that failed on quota is recorded as if it had
    succeeded, and nothing will retry it. `saveOpen`'s own toast fires but is easy to miss under
