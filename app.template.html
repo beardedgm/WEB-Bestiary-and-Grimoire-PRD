@@ -2729,6 +2729,13 @@ const CUSTOM_ID_RE = /^(dnd5e|pf2e):custom:[a-z0-9-]+$/;
 const CUSTOM_PASTE_MAX = 512 * 1024;
 const USER_SAVE_MAX = 8 * 1024 * 1024;
 const USER_SAVE_META_LS = "bg.userSave.meta.v1";
+const ARCHIVE_SCHEMA = "bg-campaign-archive/1";
+const ARCHIVE_FILENAME = "bestiary-grimoire-archive.zip";
+const ARCHIVE_MAX = 256 * 1024 * 1024;
+const ARCHIVE_MANIFEST_MAX = 1024 * 1024;
+const ARCHIVE_SIDECAR_MAX = 16 * 1024 * 1024;
+const ARCHIVE_MAPS_MAX = 2000;   // MAX_CAMPAIGNS (20) × MAP_META_MAX
+const MAP_META_MAX = 100;        // mirrors vCampaign / CAMPAIGN.saveActiveMaps
 const ABIL_KEYS = ["str", "dex", "con", "int", "wis", "cha"];
 let CORPUS_IDS = new Set();
 let pendingCustomDrops = 0;
@@ -3183,27 +3190,39 @@ function renderSaveStamp(){
     ? "Last downloaded save: " + when + " — this device's record of the download, not proof the file is still where you put it."
     : "No save downloaded from this device yet.";
 }
+/* Anchor + object URL is the app's only download path. Returns false when the click threw,
+   so a caller can leave no stamp; the URL is revoked either way. */
+function handOffDownload(blob, filename){
+  const a = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  try{
+    a.href = url;
+    a.download = filename;
+    a.click();
+  }catch(_){
+    URL.revokeObjectURL(url);
+    return false;
+  }
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  return true;
+}
+const HANDOFF_FAILED = "Could not hand the file to the browser — nothing was downloaded.";
+function mbOf(bytes){
+  return (bytes / (1024 * 1024)).toFixed(1);
+}
 function downloadUserSave(){
   saveNotice("");
   buildUserSaveAsync().then(bag => {
     const blob = new Blob([JSON.stringify(bag, null, 2)], { type: "application/json" });
     if (blob.size > USER_SAVE_MAX){
-      saveNotice("Warning: save is " + (blob.size / (1024 * 1024)).toFixed(1) +
+      saveNotice("Warning: save is " + mbOf(blob.size) +
         " MB — over the " + (USER_SAVE_MAX / (1024 * 1024)) +
-        " MB import limit; re-import may fail. Remove large Board images/audio or shrink notes.");
+        " MB import limit; re-import may fail. Remove large Board images/audio or shrink notes, or use Download archive….");
     }
-    const a = document.createElement("a");
-    const url = URL.createObjectURL(blob);
-    try{
-      a.href = url;
-      a.download = "bestiary-grimoire-save.json";
-      a.click();
-    }catch(_){
-      URL.revokeObjectURL(url);
-      saveNotice("Could not hand the file to the browser — nothing was downloaded.");
+    if (!handOffDownload(blob, "bestiary-grimoire-save.json")){
+      saveNotice(HANDOFF_FAILED);
       return;
     }
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
     /* Stamp only after the blob reached the browser. The timestamp is the GM's only
        evidence a download happened, so a build or handoff that threw must leave no mark. */
     if (stampPortableExport()) renderSaveStamp();
@@ -3227,7 +3246,7 @@ async function applyUserSaveBagAsync(bag){
   }
   const mergedCustoms = [...cmap.values()];
   if (!saveCustomStore(mergedCustoms))
-    return { ok: false, message: "Could not save customs — browser storage may be full. Nothing was changed." };
+    return { ok: false, changed: false, message: "Could not save customs — browser storage may be full. Nothing was changed." };
   mergeCustomsIntoData(mergedCustoms);
 
   let partyAdd = 0, presetAdd = 0, encReplaced = false, boardUpserts = 0, loreUpserts = 0;
@@ -3291,6 +3310,255 @@ async function applyUserSaveBagAsync(bag){
   if (!storageOk)
     return { ok: false, message: "Import partially applied but browser storage failed — some changes may not persist. Free space and try again." };
   return { ok: true, message: bits.join(" · ") || "Save imported" };
+}
+
+/* ---------------- campaign archive (bg-campaign-archive/1) ----------------
+   The portable save plus map images and board media as files, in a STORE-only zip from
+   lib/board-zip.js. save.json inside it is the same bg-user-save/1 bag and keeps the same
+   8 MB rule; media and maps ride beside it, never inside it. Map records join
+   campaigns[].maps[] by id — ids are never used as file names; the maps/m<n>.json sidecar
+   carries the id. */
+function plural(n, word){
+  return n + " " + word + (n === 1 ? "" : "s");
+}
+function setSaveBusy(on){
+  const root = document.getElementById("trkovl");
+  if (!root) return;
+  const sel = "[data-save-export],[data-save-archive],[data-save-import],[data-save-confirm]";
+  for (const b of root.querySelectorAll(sel)){
+    b.disabled = !!on;
+    if (on) b.setAttribute("aria-busy", "true"); else b.removeAttribute("aria-busy");
+  }
+}
+function vArchiveManifest(raw){
+  const m = { schema: "", exportedAt: null, maps: [], media: 0 };
+  if (!raw || typeof raw !== "object") return m;
+  if (typeof raw.schema === "string") m.schema = raw.schema.slice(0, 40);
+  if (typeof raw.exportedAt === "string" && raw.exportedAt.length <= 40) m.exportedAt = raw.exportedAt;
+  if (Array.isArray(raw.maps))
+    for (const p of raw.maps.slice(0, ARCHIVE_MAPS_MAX))
+      if (typeof p === "string" && p && p.length <= 200) m.maps.push(p);
+  if (Number.isFinite(+raw.media)) m.media = Math.max(0, Math.round(+raw.media));
+  return m;
+}
+/* Ids of the incoming maps CAMPAIGN.applyUserSave will actually keep. It merges by id in
+   insertion order — local campaigns first, then new incoming ones — and slices at
+   MAX_CAMPAIGNS; vCampaign keeps only the first MAP_META_MAX metas. A blob written for
+   anything past those cuts would be an orphan nothing can reach. */
+function plannedMapIds(bag){
+  const max = (window.CAMPAIGN && CAMPAIGN.MAX_CAMPAIGNS) || 20;
+  const incoming = (Array.isArray(bag && bag.campaigns) ? bag.campaigns : []).slice(0, max);
+  const local = (window.CAMPAIGN && CAMPAIGN.state && Array.isArray(CAMPAIGN.state.campaigns))
+    ? CAMPAIGN.state.campaigns : [];
+  const order = [];
+  const seenCamp = new Set();
+  for (const c of local.concat(incoming)){
+    if (!c || typeof c.id !== "string" || !c.id || seenCamp.has(c.id)) continue;
+    seenCamp.add(c.id);
+    order.push(c.id);
+  }
+  const kept = new Set(order.slice(0, max));
+  const ids = [];
+  const seen = new Set();
+  for (const c of incoming){
+    if (!c || typeof c.id !== "string" || !kept.has(c.id)) continue;
+    for (const m of (Array.isArray(c.maps) ? c.maps : []).slice(0, MAP_META_MAX)){
+      if (!m || typeof m.id !== "string" || !m.id) continue;
+      const id = m.id.slice(0, 64);
+      if (seen.has(id)) continue;
+      seen.add(id);
+      ids.push(id);
+    }
+  }
+  return ids;
+}
+async function buildCampaignArchiveAsync(){
+  const bag = await buildUserSaveAsync();
+  const files = [];
+  let media = 0;
+  for (const b of (Array.isArray(bag.boards) ? bag.boards : []))
+    if (b && Array.isArray(b.cards)) media += await BOARD_ZIP.detachMedia(b.cards, files, "board-media/");
+  const ids = plannedMapIds(bag);
+  const sidecars = [];
+  let missing = ids.length;
+  if (ids.length && window.MAPS && typeof MAPS.exportRecords === "function"){
+    const recs = await MAPS.exportRecords(ids);
+    for (const rec of recs){
+      const n = sidecars.length;
+      const mime = (rec.blob && rec.blob.type) || "application/octet-stream";
+      const image = "maps/m" + n + "." + BOARD_ZIP.extOf(mime);
+      const side = "maps/m" + n + ".json";
+      files.push({ name: image, data: new Uint8Array(await rec.blob.arrayBuffer()) });
+      files.push({ name: side, data: JSON.stringify({
+        id: rec.id, name: rec.name, updated: rec.updated, mime, image, state: rec.state,
+      }) });
+      sidecars.push(side);
+    }
+    missing = ids.length - recs.length;
+  }
+  const saveJson = JSON.stringify(bag, null, 2);
+  const manifest = { schema: ARCHIVE_SCHEMA, exportedAt: bag.exportedAt, maps: sidecars, media };
+  files.unshift(
+    { name: "save.json", data: saveJson },
+    { name: "manifest.json", data: JSON.stringify(manifest, null, 2) },
+  );
+  return {
+    blob: new Blob(BOARD_ZIP.packZipParts(files), { type: "application/zip" }),
+    saveBytes: new Blob([saveJson]).size,
+    maps: sidecars.length, media, missing,
+  };
+}
+function downloadCampaignArchive(){
+  saveNotice("");
+  if (!window.BOARD_ZIP){
+    saveNotice("Zip helper unavailable — nothing was downloaded.");
+    return;
+  }
+  setSaveBusy(true);
+  buildCampaignArchiveAsync().then(res => {
+    if (!handOffDownload(res.blob, ARCHIVE_FILENAME)){
+      saveNotice(HANDOFF_FAILED);
+      return;
+    }
+    const warn = [];
+    if (res.saveBytes > USER_SAVE_MAX)
+      warn.push("Warning: the save.json inside the archive is " + mbOf(res.saveBytes) +
+        " MB — over the " + (USER_SAVE_MAX / (1024 * 1024)) +
+        " MB import limit; re-import may fail. Shrink notes or lore.");
+    if (res.blob.size > ARCHIVE_MAX)
+      warn.push("Warning: archive is " + mbOf(res.blob.size) + " MB — over the " +
+        (ARCHIVE_MAX / (1024 * 1024)) + " MB import limit; re-import may fail.");
+    if (res.missing)
+      warn.push(plural(res.missing, "map") + " had no image data on this device and " +
+        (res.missing === 1 ? "was" : "were") + " left out.");
+    if (warn.length) saveNotice(warn.join(" "));
+    if (stampPortableExport()) renderSaveStamp();
+  }).catch(() => saveNotice("Could not build the archive — nothing was downloaded."))
+    .finally(() => setSaveBusy(false));
+}
+function decodeJsonEntry(bytes, what){
+  let text;
+  try{ text = new TextDecoder("utf-8", { fatal: true }).decode(bytes); }
+  catch(_){ throw new Error("Could not read " + what + " in that archive — it isn't valid UTF-8."); }
+  try{ return JSON.parse(text); }
+  catch(e){
+    throw new Error("Could not parse " + what + " in that archive as JSON" + (e.message ? " (" + e.message + ")." : "."));
+  }
+}
+const NOT_ARCHIVE = "This isn't a Bestiary & Grimoire archive (needs a manifest.json with schema " + ARCHIVE_SCHEMA + ").";
+/* Throws an Error whose message is the GM-facing rejection, so the dialog can route every
+   failure through rejectFile and disarm any earlier confirm row. Board media is re-inlined
+   here, before any validator sees the bag. */
+async function readCampaignArchive(file){
+  if (!window.BOARD_ZIP) throw new Error("Zip helper unavailable — nothing was imported.");
+  let entries;
+  try{
+    entries = BOARD_ZIP.unpackZip(new Uint8Array(await file.arrayBuffer()), { verify: true });
+  }catch(_){
+    throw new Error("Could not read that archive — it may be truncated or re-zipped with compression. Re-download it, or re-zip it with store / no compression.");
+  }
+  const manRaw = entries["manifest.json"];
+  if (!(manRaw instanceof Uint8Array) || manRaw.length > ARCHIVE_MANIFEST_MAX) throw new Error(NOT_ARCHIVE);
+  let manifest;
+  try{ manifest = vArchiveManifest(decodeJsonEntry(manRaw, "manifest.json")); }
+  catch(_){ throw new Error(NOT_ARCHIVE); }
+  if (manifest.schema === "bg-board-zip/1")
+    throw new Error("That's a Board export — import it from Board → Import board zip… instead.");
+  if (manifest.schema !== ARCHIVE_SCHEMA){
+    if (manifest.schema.startsWith("bg-campaign-archive/"))
+      throw new Error("This archive was made by a newer version of this app (" + manifest.schema +
+        "); this version reads " + ARCHIVE_SCHEMA + ".");
+    throw new Error(NOT_ARCHIVE);
+  }
+  const saveRaw = entries["save.json"];
+  if (!(saveRaw instanceof Uint8Array)) throw new Error("This archive has no save.json inside it.");
+  if (saveRaw.length > USER_SAVE_MAX)
+    throw new Error("The save.json inside this archive is too large (max " + (USER_SAVE_MAX / (1024 * 1024)) + " MB).");
+  const bag = decodeJsonEntry(saveRaw, "save.json");
+  if (!bag || typeof bag !== "object" || bag.schema !== USER_SAVE_SCHEMA)
+    throw new Error("The save.json inside this archive isn't a Bestiary & Grimoire save (needs schema " + USER_SAVE_SCHEMA + ").");
+  const counts = { mediaAttached: 0, mediaMissing: 0, maps: 0, broken: 0, unjoined: 0, mapsSkipped: "" };
+  for (const b of (Array.isArray(bag.boards) ? bag.boards : [])){
+    if (!b || !Array.isArray(b.cards)) continue;
+    const r = await BOARD_ZIP.attachMedia(b.cards, entries);
+    counts.mediaAttached += r.attached;
+    counts.mediaMissing += r.missing;
+  }
+  const recs = [];
+  const hasCampaigns = Array.isArray(bag.campaigns) && bag.campaigns.length > 0;
+  if (!hasCampaigns){
+    if (manifest.maps.length) counts.mapsSkipped = "save has no campaigns";
+  } else if (!window.MAPS || typeof MAPS.importRecords !== "function"){
+    if (manifest.maps.length) counts.mapsSkipped = "Maps unavailable";
+  } else {
+    const wanted = new Set(plannedMapIds(bag));
+    const seen = new Set();
+    for (const path of manifest.maps){
+      const raw = entries[path];
+      if (!(raw instanceof Uint8Array) || raw.length > ARCHIVE_SIDECAR_MAX){ counts.broken++; continue; }
+      let side;
+      try{ side = decodeJsonEntry(raw, path); }catch(_){ counts.broken++; continue; }
+      if (!side || typeof side !== "object" || typeof side.id !== "string" || !side.id){ counts.broken++; continue; }
+      const id = side.id.slice(0, 64);
+      if (!wanted.has(id) || seen.has(id)){ counts.unjoined++; continue; }
+      const bytes = (typeof side.image === "string") ? entries[side.image] : null;
+      if (!(bytes instanceof Uint8Array)){ counts.broken++; continue; }
+      seen.add(id);
+      const mime = (typeof side.mime === "string" && /^[\w.+-]+\/[\w.+-]{1,60}$/.test(side.mime))
+        ? side.mime : "application/octet-stream";
+      recs.push({ id, name: side.name, updated: side.updated, state: side.state,
+        blob: new Blob([bytes], { type: mime }) });
+    }
+    counts.maps = recs.length;
+  }
+  return { bag, recs, counts };
+}
+function archiveConfirmCopy(c){
+  return "Import updates matching ids, <b>replaces the live encounter</b>, and adds or updates <b>" +
+    plural(c.maps, "map image") + "</b> and <b>" + plural(c.mediaAttached, "board media file") +
+    "</b>. A campaign in the archive replaces this device's copy, including its map list. Records that exist only on this device are kept.";
+}
+/* Map blobs land in IndexedDB first: CAMPAIGN.applyUserSave reopens Maps from whatever is
+   stored at that instant, and a quota failure here can still abort before any localStorage
+   write. The map phase is all-or-nothing — a meta whose blob failed would be a list row that
+   can neither open nor be deleted — and it is rolled back if the bag apply then changes
+   nothing, so "Nothing was changed" stays true. */
+async function applyCampaignArchiveAsync(parsed){
+  const { bag, recs, counts } = parsed;
+  const bridge = !!(window.MAPS && typeof MAPS.importRecords === "function"
+    && typeof MAPS.exportRecords === "function" && typeof MAPS.removeRecords === "function");
+  const wrote = recs.length > 0 && bridge;
+  const ids = wrote ? recs.map(r => r.id) : [];
+  let prev = null;
+  const rollback = async () => {
+    if (!prev) return;
+    const had = new Set(prev.map(r => r.id));
+    await MAPS.importRecords(prev);
+    await MAPS.removeRecords(ids.filter(id => !had.has(id)));
+    if (typeof MAPS.onCampaignChanged === "function") MAPS.onCampaignChanged();
+  };
+  if (wrote){
+    prev = await MAPS.exportRecords(ids);
+    const st = await MAPS.importRecords(recs);
+    if (!st.ok){
+      await rollback();
+      return { ok: false, message: st.quota
+        ? "Could not store the archive's map images — browser storage may be full. Nothing was changed."
+        : "Could not store the archive's map images. Nothing was changed." };
+    }
+  }
+  const res = await applyUserSaveBagAsync(bag);
+  if (!res.ok){
+    if (res.changed === false){ await rollback(); return res; }
+    return { ok: false, message: res.message + (wrote ? " Map images were written." : "") };
+  }
+  const bits = [res.message];
+  if (wrote) bits.push("+" + plural(recs.length, "map image"));
+  if (counts.broken) bits.push(plural(counts.broken, "map file") + " in the archive unreadable or missing");
+  if (counts.unjoined) bits.push(plural(counts.unjoined, "map file") + " matched no campaign map, skipped");
+  if (counts.mapsSkipped) bits.push("map images skipped (" + counts.mapsSkipped + ")");
+  if (counts.mediaMissing) bits.push(plural(counts.mediaMissing, "board media file") + " missing from archive");
+  return { ok: true, message: bits.join(" · ") };
 }
 
 function commitImportedCustom(v, errEl){
@@ -3371,27 +3639,29 @@ function openUserSaveDialog(){
   }
   TRK.openOvl(`
     <h3>Save file</h3>
-    <p class="libhint">Download includes customs, campaigns (party, presets, lore, map names), boards, the live encounter, dice, and UI. Map images are not in this file — use Maps → Export. Large board media: Board → Export board… (import max 8 MB).</p>
-    <p class="libhint">Import updates matching ids, keeps records only this device has, and replaces the live encounter.</p>
+    <p class="libhint"><b>Download save…</b> is JSON: customs, campaigns (party, presets, lore, map names), boards, the live encounter, dice, and UI — no map images, and board media count against its 8 MB import limit. <b>Download archive…</b> is a zip of that same save plus every map image and board image/audio clip (zip import limit 256 MB; the save.json inside must still stay under 8 MB).</p>
+    <p class="libhint"><b>Import save…</b> takes either file. It updates matching ids, keeps records only this device has, and replaces the live encounter; an archive also overwrites map images with matching ids, and a campaign in the file replaces this device's copy, map list included.</p>
     <p class="libhint" id="user-save-when"></p>
     <div class="btns btns-lead">
       <button type="button" class="chip go" data-save-export>Download save…</button>
+      <button type="button" class="chip" data-save-archive>Download archive…</button>
       <button type="button" class="chip" data-save-import>Import save…</button>
-      <input type="file" id="user-save-file" accept="application/json,.json" hidden>
+      <input type="file" id="user-save-file" accept=".json,.zip,application/json,application/zip,application/x-zip-compressed" hidden>
     </div>
     <div class="liberr" id="user-save-err" role="alert" aria-live="assertive" hidden></div>
-    <div class="btns" id="save-btns"><button type="button" class="chip" data-save-close>Close</button></div>
+    <div class="btns" id="save-btns" style="align-items:center"><button type="button" class="chip" data-save-close>Close</button></div>
   `);
   const root = $("#trkovl");
   renderSaveStamp();
   root.querySelector("[data-save-close]").onclick = () => TRK.closeOvl();
   root.querySelector("[data-save-export]").onclick = () => downloadUserSave();
+  root.querySelector("[data-save-archive]").onclick = () => downloadCampaignArchive();
   const saveErr = root.querySelector("#user-save-err");
   const fileInp = root.querySelector("#user-save-file");
   const btns = root.querySelector("#save-btns");
-  /* The confirm row is armed with one specific bag. Every rejection path has to disarm it
+  /* The confirm row is armed with one specific file. Every rejection path has to disarm it
      first — otherwise picking a bad file after a good one leaves an Import button that
-     still commits the earlier bag the GM believes was refused. */
+     still commits the earlier file the GM believes was refused. */
   const resetSaveBtns = () => {
     btns.innerHTML = `<button type="button" class="chip" data-save-close>Close</button>`;
     btns.querySelector("[data-save-close]").onclick = () => TRK.closeOvl();
@@ -3401,13 +3671,65 @@ function openUserSaveDialog(){
     saveErr.hidden = false;
     saveErr.textContent = msg;
   };
+  /* One confirm row serves both formats. The copy names exactly what this file will do and
+     the run closure is the only holder of the parsed file, so tearing the row down is what
+     forgets it. A failed apply keeps the row: the merge is idempotent, so Import is a retry. */
+  const armConfirm = (copyHtml, run) => {
+    saveErr.hidden = true;
+    btns.innerHTML =
+      `<span style="flex:1;min-width:12em;color:var(--dim);font-size:12.5px">${copyHtml}</span>` +
+      `<button type="button" class="chip" data-save-abort>Cancel import</button>` +
+      `<button type="button" class="chip yes" data-save-confirm>Import</button>`;
+    btns.querySelector("[data-save-abort]").onclick = resetSaveBtns;
+    btns.querySelector("[data-save-confirm]").onclick = async () => {
+      setSaveBusy(true);
+      let res;
+      try{ res = await run(); }
+      catch(_){ res = { ok: false, message: "Import failed partway — check browser storage space and try again." }; }
+      finally{ setSaveBusy(false); }
+      if (!res.ok){
+        saveErr.hidden = false;
+        saveErr.textContent = res.message;
+        return;
+      }
+      TRK.closeOvl();
+      announceLive(res.message);
+    };
+  };
   root.querySelector("[data-save-import]").onclick = () => fileInp.click();
-  fileInp.onchange = () => {
+  fileInp.onchange = async () => {
     const f = fileInp.files && fileInp.files[0];
+    fileInp.value = "";
     if (!f) return;
+    /* Branch on the zip signature, not the name or type: Windows reports zips as
+       application/x-zip-compressed or nothing at all, and a misnamed file should still
+       reach the right reader. The 8 MB gate belongs to the JSON file; the archive has its own. */
+    let isZip = false;
+    try{
+      const head = new Uint8Array(await f.slice(0, 4).arrayBuffer());
+      isZip = head[0] === 0x50 && head[1] === 0x4b && (head[2] === 0x03 || head[2] === 0x05);
+    }catch(_){
+      rejectFile("Could not read that file.");
+      return;
+    }
+    if (isZip){
+      if (f.size > ARCHIVE_MAX){
+        rejectFile("Archive is too large (max " + (ARCHIVE_MAX / (1024 * 1024)) + " MB).");
+        return;
+      }
+      setSaveBusy(true);
+      let parsed;
+      try{ parsed = await readCampaignArchive(f); }
+      catch(e){
+        rejectFile(e && e.message ? e.message : "Could not read that archive.");
+        return;
+      }
+      finally{ setSaveBusy(false); }
+      armConfirm(archiveConfirmCopy(parsed.counts), () => applyCampaignArchiveAsync(parsed));
+      return;
+    }
     if (f.size > USER_SAVE_MAX){
-      rejectFile("Save file is too large (max 8 MB). For media-heavy boards, use Board → Export board… instead.");
-      fileInp.value = "";
+      rejectFile("Save file is too large (max 8 MB). For media-heavy boards, use Download archive… instead.");
       return;
     }
     const fr = new FileReader();
@@ -3423,25 +3745,11 @@ function openUserSaveDialog(){
         rejectFile("This isn't a Bestiary & Grimoire save file (needs schema " + USER_SAVE_SCHEMA + ").");
         return;
       }
-      saveErr.hidden = true;
-      btns.innerHTML =
-        `<span style="flex:1;min-width:12em;color:var(--dim);font-size:12.5px">Import updates matching ids and <b>replaces the live encounter</b>. Records that exist only on this device are kept.</span>` +
-        `<button type="button" class="chip" data-save-abort>Cancel import</button>` +
-        `<button type="button" class="chip yes" data-save-confirm>Import</button>`;
-      btns.querySelector("[data-save-abort]").onclick = resetSaveBtns;
-      btns.querySelector("[data-save-confirm]").onclick = async () => {
-        const res = await applyUserSaveBagAsync(bag);
-        if (!res.ok){
-          saveErr.hidden = false;
-          saveErr.textContent = res.message;
-          return;
-        }
-        TRK.closeOvl();
-        announceLive(res.message);
-      };
+      armConfirm(
+        `Import updates matching ids and <b>replaces the live encounter</b>. Records that exist only on this device are kept.`,
+        () => applyUserSaveBagAsync(bag));
     };
     fr.readAsText(f);
-    fileInp.value = "";
   };
 }
 
@@ -10150,43 +10458,20 @@ const BOARD = (() => {
     return { boardUpserts: upserts, ok: saved };
   }
 
-  function bytesToDataUrl(mime, u8) {
-    let bin = "";
-    const chunk = 0x8000;
-    for (let i = 0; i < u8.length; i += chunk) {
-      bin += String.fromCharCode.apply(null, u8.subarray(i, i + chunk));
-    }
-    return "data:" + mime + ";base64," + btoa(bin);
-  }
-
   async function exportBoardZip(boardId) {
     if (!window.BOARD_ZIP) { toast("Zip helper unavailable"); return; }
     const src = state.boards.find((x) => x.id === boardId) || active();
     await hydrateBoard(src);
     const boardJson = JSON.parse(JSON.stringify(src));
     const files = [];
-    let assetN = 0;
     for (const card of boardJson.cards) {
       const live = src.cards.find((c) => c.id === card.id);
       if (card.type === "markdown" && live) {
         card.body = live.body || "";
         delete card.bodyRef;
       }
-      if ((card.type === "image" || card.type === "audio") && card.src && card.src.startsWith("data:")) {
-        const m = card.src.match(/^data:([^;]+);base64,(.+)$/s);
-        if (m) {
-          const mime = m[1];
-          const ext = (mime.split("/")[1] || "bin").replace(/[^a-z0-9]/gi, "") || "bin";
-          const path = "assets/a" + (assetN++) + "." + ext;
-          const bin = atob(m[2]);
-          const u8 = new Uint8Array(bin.length);
-          for (let i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
-          files.push({ name: path, data: u8 });
-          card._mime = mime;
-          card.src = path;
-        }
-      }
     }
+    await BOARD_ZIP.detachMedia(boardJson.cards, files, "assets/a");
     const manifest = {
       schema: "bg-board-zip/1",
       title: src.title || "Session",
@@ -10220,25 +10505,17 @@ const BOARD = (() => {
       const boardRaw = entries["board.json"];
       if (!boardRaw) throw new Error("missing board");
       const board = JSON.parse(new TextDecoder().decode(boardRaw));
+      /* Media files go back to data: URLs before vBoard runs — its mediaSrc admits only
+         data:image/ and data:audio/, so validating first blanked every asset path and the
+         import silently dropped the media it was made for. */
+      if (board && Array.isArray(board.cards)) await BOARD_ZIP.attachMedia(board.cards, entries);
       const vb = vBoard(board);
       if (!vb) throw new Error("invalid board");
       vb.id = "board-" + uid();
       vb.campaignId = currentCampaignId();
       vb.title = (manifest.title || vb.title || "Imported session").slice(0, 80);
       vb.updatedAt = Date.now();
-      for (const card of vb.cards) {
-        const oldId = card.id;
-        card.id = uid();
-        if ((card.type === "image" || card.type === "audio") && card.src && card.src.startsWith("assets/")) {
-          const data = entries[card.src];
-          if (data) {
-            const ext = card.src.split(".").pop() || "bin";
-            const mime = card._mime || ((card.type === "image" ? "image/" : "audio/") + ext);
-            card.src = bytesToDataUrl(mime, data);
-          }
-          delete card._mime;
-        }
-      }
+      for (const card of vb.cards) card.id = uid();
       if (vb.cards.length > MAX_BOARD_CARDS) {
         toast("Import trimmed cards to board cap");
         vb.cards = vb.cards.slice(0, MAX_BOARD_CARDS);
@@ -11972,7 +12249,7 @@ window.LORE = LORE;
 
 <script src="maps/maps-pixi.bundle.js"></script>
 <script src="maps/token-icons.manifest.js"></script>
-<script src="maps/maps-app.js?v=20260901g"></script>
+<script src="maps/maps-app.js?v=20260904a"></script>
 
 
 </body>

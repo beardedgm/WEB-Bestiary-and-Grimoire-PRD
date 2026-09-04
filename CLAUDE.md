@@ -18,6 +18,9 @@ python3 validate_schemas.py
 # Syntax-check every inline <script> in app.template.html (needs node)
 python3 check_inline_scripts.py
 
+# The external scripts are not covered by CI — check them by hand after editing them
+node --check lib/board-zip.js maps/maps-app.js
+
 # Bundles only, leave index.html alone
 python3 build_bundles.py --no-page
 
@@ -62,14 +65,14 @@ One HTML file, no framework, no dependencies. `app.template.html` holds sequenti
 
 | Block | Scope |
 |---|---|
-| 1 (`~1370–2930`) | Corpus load, custom library, portable save, filters/`SCALES`, search, stat-block + spell rendering, spell peek, object → action chips (`actionsFor` / `mountActionChips`) |
+| 1 (`~1370–2930`) | Corpus load, custom library, portable save, campaign archive (`bg-campaign-archive/1`: `buildCampaignArchiveAsync` / `readCampaignArchive` / `applyCampaignArchiveAsync` over `BOARD_ZIP` from `lib/board-zip.js`), filters/`SCALES`, search, stat-block + spell rendering, spell peek, object → action chips (`actionsFor` / `mountActionChips`) |
 | `TRK` | Initiative tracker, dice, party/presets, player display, undo ring, glance strip (`#trkglance`: Now/Next + ephemeral `events` ring), column resize, mode chrome |
 | `CAMPAIGN` | Campaign container: `bg.campaign.v1` (party, presets, lore pages, maps meta); header picker + `renderResumeCue` (`#hdrResume`); one-shot migration from lore/party/presets; portable `campaigns` bag |
 | `BUILD` | Encounter Builder: draft `bg.builder.v1`, PF2e / 5e 2014 / 5e 2024 budgets, roster, Save/Load bridges, `fitContext` / `fits` behind the Library's **Fits remaining** chip |
 | `BOARD` | Session boards / session notes: markdown / image / audio / counter / dice / timer / checklist / random / record / encounter cards (`BOARD.addRecord` / `BOARD.addEncounter`; the Board chip from Library (Script 1 `addSendToBoard`), Table, Builder); `BOARD.lastOpen` / `BOARD.openBoard` back the header's **Continue Board** cue; markdown cards carry the **Copy to Lore…** chip (`startCopyToLore` → `pickLoreParent` → `LORE.createPage`) |
 | `FORGE` | Creature forge: inlined 5e CR + PF2e level tables, role chips + band strip (`ROLES` / `BANDS` / `PF_STEP` / `D5_STEP`), dual-system forms, preview via `monsterHTML`, Save to Custom |
 | `LORE` | Adventure text UI: module pages for the active campaign (`CAMPAIGN`), nested tree/tags, preview, Board (pin) chip; headless `LORE.createPage` / `LORE.listPages` for other surfaces |
-| `MAPS` | Campaign hex maps: `#maps` mode, Pixi editor (`maps/maps-pixi.bundle.js` + `maps/maps-app.js`), IndexedDB `bg-maps`, bundled `maps/starter.hexplora`, HexPlora import/export, optional Library `ref` id on a token (`vRef` in `vToken`; Open / Tracker / Board chips from `actionsFor`) |
+| `MAPS` | Campaign hex maps: `#maps` mode, Pixi editor (`maps/maps-pixi.bundle.js` + `maps/maps-app.js`), IndexedDB `bg-maps`, bundled `maps/starter.hexplora`, HexPlora import/export, optional Library `ref` id on a token (`vRef` in `vToken`; Open / Tracker / Board chips from `actionsFor`); `exportRecords` / `importRecords` / `removeRecords` record bridge for the campaign archive |
 
 **Module boundary.** `TRK`, `CAMPAIGN`, `BUILD`, `BOARD`, `FORGE`, `LORE`, and `MAPS` are IIFEs assigned to `window.TRK` /
 `window.CAMPAIGN` / `window.BUILD` / `window.BOARD` / `window.FORGE` / `window.LORE` / `window.MAPS` at the end of their block (`const` bindings don't become
@@ -94,7 +97,7 @@ rings in `TRK`, which are module-scoped and deliberately die with the page: `his
 to `mutate(fn, meta)`, never inferred by diffing `hist.past`). Stored data is
 treated as untrusted (hand-edited, older schema, truncated write): every read goes through a
 `v*` validator (`vEnc`, `vParty`, `vPresets`, `vDice`, `vUi`, `vPd`, `vMarkers`,
-`vCustomRecords`, `vUserSaveMeta`) that copies and clamps recognised fields and drops everything else. Follow
+`vCustomRecords`, `vUserSaveMeta`, `vArchiveManifest`) that copies and clamps recognised fields and drops everything else. Follow
 that pattern for any new persisted state, and never re-sort arrays whose order carries user
 intent (combatant tie order). Keys: `bg.trk.{enc,party,presets,dice,ui,pd}.v1`,
 `bg.custom.records.v1`, `bg.board.v1` (session boards tagged with `campaignId`; last-open `bg.board.lastOpen.v1`), `bg.builder.v1`, `bg.campaign.v1` (party / presets /
@@ -105,6 +108,16 @@ incoming wins same id; local kept for other non-encounter bags; the encounter is
 after confirmation). `bg.userSave.meta.v1` records `lastPortableExportAt`, stamped only
 after a Download actually reaches the browser and shown in the Save dialog as "Last
 downloaded save" — never "backup", since the stamp cannot prove the file still exists.
+The campaign archive `bg-campaign-archive/1` is a STORE-only zip (`lib/board-zip.js`)
+holding that same bag as `save.json` — still under the 8 MB rule — plus
+`board-media/<n>.<ext>` (image/audio cards' data URLs as files; `src` becomes the path with
+the mime stashed on `_mime`) and `maps/m<n>.json` + `maps/m<n>.<ext>` (the `bg-maps` record
+with its blob as a file; the sidecar carries the id, which never becomes a file name). Import
+re-inlines board media **before** any validator sees the bag (`mediaSrc` admits only
+`data:` URLs), writes map blobs through `MAPS.importRecords` **before**
+`applyUserSaveBagAsync` (the campaign merge reopens Maps from whatever is stored at that
+instant), and treats the map phase as all-or-nothing with rollback. Both downloads stamp
+`lastPortableExportAt`.
 
 **Encounter spend math is one path.** `rosterTotals` → `spendOf` → `budgetFor` in `BUILD`,
 each taking the state to price and defaulting to the live `draft`. The budget meter and the
