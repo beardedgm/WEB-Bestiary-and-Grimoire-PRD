@@ -1,7 +1,7 @@
 # Connected improvements roadmap — 2026-09-03
 
-**Status:** Specs stubbed (revised after second code review). **P1, P2, P3, P4, P5, P6, P7 and
-P8 shipped**; P2b not started. Ship phases as separate PRs.
+**Status:** All phases shipped — **P1, P2, P2b, P3, P4, P5, P6, P7 and P8**. Ship phases as
+separate PRs.
 
 **Amended 2026-09-03:** P3, P7 and P8 specs revised after a plan review against the code.
 Each named a helper or API that does not exist in the shape the spec assumed; the required
@@ -39,7 +39,7 @@ Parent backlog pointer: [`2026-08-28-backlog-roadmap.md`](2026-08-28-backlog-roa
 | Primary UI | Contextual primary chip + secondary actions in a consistent overflow (`⋯`) or same chip row when ≤2 actions |
 | Verb vocabulary | `Open` · `Board` · `Builder` · `Tracker` · `Maps` · `Copy` (P8 only: “Copy to Lore…”) |
 | Action layer | Thin `actionsFor(subject, context)` → UI descriptors; no event bus, DI, or giant dispatcher |
-| Save archive | Map/media stay out of `bg-user-save/1`; full campaign zip is **P2b**, not stuffing the 8 MB JSON |
+| Save archive | Map/media stay out of `bg-user-save/1`; the full campaign zip is **P2b** (`bg-campaign-archive/1`, shipped), not stuffing the 8 MB JSON |
 
 ## Object → verb matrix (P1 target)
 
@@ -72,7 +72,7 @@ Context picks **one** primary (e.g. in Builder, monster primary = Builder).
 
 ### Suggested ship order
 
-**P1 → P2 → P3 → P4 → P5 → P7 → P6 → P8** (P2b when archive format is fully specified).
+**P1 → P2 → P3 → P4 → P5 → P7 → P6 → P8 → P2b**.
 
 P7 ships before P6: Forge improves an existing core workflow; linked map tokens reopen a
 documented Maps non-goal and add coupling.
@@ -105,8 +105,11 @@ warning; partial persistence honesty). Remaining work:
 - Brief Maps-images-exported-separately reminder if useful. Already carried by the shipped
   scope copy; not duplicated.
 
-**P2b (later):** Full campaign archive (JSON + map/media blobs)—new format; do not enlarge
-`bg-user-save/1` past 8 MB.
+**P2b (shipped):** `bg-campaign-archive/1` — a STORE-only zip holding the unchanged
+`bg-user-save/1` bag as `save.json` (same 8 MB rule) beside `board-media/` files and
+`maps/m<n>.json` + image pairs; one **Import save…** chip reads either format. Map blobs are
+written before the campaign merge and rolled back if nothing else changed. Detail in the spec's
+**As shipped**.
 
 **Primary files:** `app.template.html` (`openUserSaveDialog`, `downloadUserSave`).
 
@@ -259,7 +262,7 @@ are one step. Detail in the spec's **As shipped**.
 
 - [x] P1 Action consistency (`actionsFor`)
 - [x] P2 Save finishing polish (last downloaded save)
-- [ ] P2b Campaign archive
+- [x] P2b Campaign archive (`bg-campaign-archive/1`; `BOARD_ZIP.detachMedia` / `attachMedia`; `MAPS.importRecords` bridge)
 - [x] P3 Builder ↔ Library fit (`BUILD.fits` simulation)
 - [x] P4 Recent combat events (semantic, ephemeral)
 - [x] P5 Resume Board (`BOARD.lastOpen` / `openBoard` + `#hdrResume`)

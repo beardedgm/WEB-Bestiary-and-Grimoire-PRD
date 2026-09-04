@@ -17,6 +17,11 @@ Filename: `*.bgboard.zip`
 ## Zip library
 
 [`lib/board-zip.js`](../../lib/board-zip.js) — minimal STORE-method zip pack/unpack (no npm deps).
+It also holds the shared media helpers `detachMedia` / `attachMedia` (data: URL ⇄ file) used by
+this format and by the campaign archive (`bg-campaign-archive/1`,
+[`2026-09-03-save-trust.md`](2026-09-03-save-trust.md)). `_mime` on a media card is part of
+the format: the stashed mime of the extracted file. `unpackZip` checks local headers and entry
+bounds and, with `{ verify: true }`, CRC-32.
 
 ## UI
 
@@ -28,3 +33,8 @@ Warn if zip blob > 50 MB before download.
 
 - Board with image + 60k markdown round-trips on clean profile
 - Portable `bg-user-save/1` JSON path unchanged
+
+**Amended 2026-09-04:** the shipped import validated the board before re-inlining assets, so
+`vCard`'s `mediaSrc` blanked every `assets/…` path and media never survived a round-trip.
+`attachMedia` now runs before `vBoard`, which is what the first acceptance line always
+required.

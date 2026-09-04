@@ -351,11 +351,12 @@ The verbs a GM can run on an object are painted by `mountActionChips` from `acti
 
 ### Portable save dialog
 
-- Normal-width overlay from header **Save**: **Download save…** and **Import save…** (`bg-user-save/1`)
-- Hint names what the JSON includes (campaigns, boards, live encounter) and what it does not (map images → Maps Export; large board media → Board zip; 8 MB import cap)
-- Import confirms: updates matching ids, keeps device-only records, **replaces the live encounter**; Cancel import returns to the dialog
-- A rejected pick (too large, unreadable, unparseable, wrong schema) tears down any pending confirm row, so Import can never commit an earlier file
-- One notice line (`#user-save-err`) carries both download warnings and import errors, and clears at the start of every download so a stale warning cannot outlive its save
+- Normal-width overlay from header **Save**: **Download save…** (`go`, `bg-user-save/1` JSON), **Download archive…** (`bg-campaign-archive/1` zip: the same save plus map images and board media as files) and one **Import save…** that takes either — the zip is recognised by its signature, never by name or type
+- Hint names what each download includes: the JSON has no map images and its board media count against the 8 MB import cap; the archive carries both, has a 256 MB cap of its own, and its inner `save.json` still obeys the 8 MB rule
+- Import confirms: updates matching ids, keeps device-only records, **replaces the live encounter**; the archive row also states the exact map-image and board-media counts and that a campaign in the file replaces this device's copy, map list included; Cancel import returns to the dialog
+- A rejected pick (too large, unreadable, unparseable, wrong schema, truncated or compressed zip, a Board zip picked here) tears down any pending confirm row, so Import can never commit an earlier file; a failed apply keeps the row, since the merge is idempotent and Import is a retry
+- The three chips go `aria-busy` + disabled while a download builds or an import reads/applies
+- One notice line (`#user-save-err`) carries both download warnings and import errors, and clears at the start of every download so a stale warning cannot outlive its save; both downloads stamp the single **Last downloaded save** line
 - Customs store writes are atomic (failed write leaves previous data); invalid rows dropped on load with a live announcement
 
 ### Spell links (`.slink`)

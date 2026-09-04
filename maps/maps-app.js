@@ -2024,6 +2024,49 @@
       return id;
     }
 
+    /* Campaign archive bridge. Script 1 owns the zip; this file owns the record shape and
+       its validators, so an archive cannot drift from what openMap reads back.
+       exportRecords never throws and omits ids with no record. importRecords first
+       suspends the open editor — flushing a pending edit, then closing without reopening —
+       because the caller's campaign merge reopens Maps from the freshly written records and
+       a debounced autosave firing mid-import would clobber one with stale in-memory state.
+       Puts are sequential and stop at the first failure so the caller can roll back. */
+    async function exportRecords(ids) {
+      const out = [];
+      for (const id of Array.isArray(ids) ? ids : []) {
+        if (typeof id !== "string" || !id) continue;
+        const rec = await idb.get(id).catch(() => null);
+        if (rec && rec.blob) out.push(rec);
+      }
+      return out;
+    }
+    async function importRecords(recs) {
+      clearTimeout(saveTimer);
+      if (dirty && openMapId) await saveOpen().catch(() => {});
+      closeEditor();
+      dirty = false;
+      let put = 0;
+      for (const r of Array.isArray(recs) ? recs : []) {
+        if (!r || typeof r.id !== "string" || !r.id || !(r.blob instanceof Blob)) continue;
+        try {
+          await idb.put({
+            id: r.id.slice(0, 64), name: vStr(r.name, 80, "Map"), blob: r.blob,
+            state: snapshotState(vState(r.state)), updated: num(r.updated, Date.now()),
+          });
+          put++;
+        } catch (e) {
+          return { ok: false, put, quota: String(e && e.message) === "QUOTA_EXCEEDED" };
+        }
+      }
+      return { ok: true, put, quota: false };
+    }
+    async function removeRecords(ids) {
+      for (const id of Array.isArray(ids) ? ids : []) {
+        if (typeof id !== "string" || !id) continue;
+        await idb.del(id).catch(() => {});
+      }
+    }
+
     async function ensureDefaultMap(opts) {
       if (!window.CAMPAIGN || !CAMPAIGN.active || !CAMPAIGN.active()) return null;
       if (metas().length > 0) return null;
@@ -3152,6 +3195,7 @@
 
     return {
       setActive, onCampaignChanged, idb, vState,
+      exportRecords, importRecords, removeRecords,
       _test: {
         vState, generateHexGrid, generateSquareGrid, findCellAt, findHexAt, hexNeighbors, vSettings,
         normalizeTokenIcon, materialSymbolChar, vToken, vRef,
