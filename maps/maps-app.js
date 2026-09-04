@@ -2161,11 +2161,33 @@
       return { ok: true, put, quota: false, error: null, undone: false, undo };
     }
 
+    /* One seed in flight per campaign. Several callers reach this between the emptiness
+       check and the install — setActive and onCampaignChanged both open the preferred map
+       around boot, and openMap retries through it for a missing record — and each used to
+       seed its own starter (three overlapping calls, three "Starter map" rows; verified
+       2026-09-04). Later callers now wait on the first call's install and get its id. The
+       re-check after the pack load covers a map that arrived while the pack was loading,
+       and a campaign switch mid-seed: a seed for a campaign that is no longer active is
+       dropped rather than written into whichever campaign is active by then. */
+    let seeding = null;
     async function ensureDefaultMap(opts) {
       if (!window.CAMPAIGN || !CAMPAIGN.active || !CAMPAIGN.active()) return null;
       if (metas().length > 0) return null;
-      const data = await loadStarterPack();
-      return installMapPack(data, { open: opts && opts.open === true });
+      const cid = CAMPAIGN.state && CAMPAIGN.state.activeCampaignId;
+      if (!seeding || seeding.cid !== cid) {
+        const run = (async () => {
+          const data = await loadStarterPack();
+          const now = window.CAMPAIGN && CAMPAIGN.state && CAMPAIGN.state.activeCampaignId;
+          if (now !== cid || !CAMPAIGN.active() || metas().length > 0) return null;
+          return installMapPack(data, { open: false });
+        })();
+        const entry = { cid, promise: run };
+        seeding = entry;
+        run.finally(() => { if (seeding === entry) seeding = null; }).catch(() => {});
+      }
+      const id = await seeding.promise;
+      if (id && opts && opts.open === true && openMapId !== id) await openMap(id);
+      return id;
     }
 
     async function openPreferredMap() {
