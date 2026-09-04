@@ -2,6 +2,15 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Before planning a feature
+
+Run a substantial new feature past the **Product decision test** in `INTENT.md` before designing
+it, and say what it scored. The load-bearing question is whether the feature moves the GM from
+"I need this" to "I am using it" with less searching, copying, re-entry, or context switching;
+the seven follow-ups cover ownership, reuse, table speed, system fidelity, and the local-first
+trust model. A feature that cannot clearly support that intent does not belong here just because
+another product has it — say so rather than building it. Small fixes and maintenance skip this.
+
 ## Commands
 
 ```bash
@@ -193,6 +202,10 @@ Keep these current in the same change that alters the behaviour they describe:
 
 - `README.md` — the data model, schema reasoning, `parse` semantics, §13 traps, regeneration.
 - `PRODUCT.md` — scope, users, capabilities/constraints, localStorage keys, terminology.
+- `INTENT.md` — why the product exists and the **Product decision test**. The exception to the
+  rule above: it changes when the product's purpose or boundaries change, not when behaviour
+  does. It deliberately points at the docs that own each principle rather than restating them —
+  keep it that way, and fix the pointer rather than copying the rule across.
 - `DESIGN.md` — design tokens (YAML frontmatter) and the named visual rules.
 - `docs/superpowers/{specs,plans}/` — dated design specs and implementation plans for
   shipped features; the precedent for how substantial work is planned here.
