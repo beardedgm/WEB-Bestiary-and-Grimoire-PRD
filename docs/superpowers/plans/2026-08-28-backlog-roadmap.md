@@ -1,6 +1,8 @@
 # Post–Maps backlog roadmap — 2026-08-28
 
-**Status:** Backlog complete as of 2026-08-29. Further work is user-driven improvements.
+**Status:** Post–Maps backlog complete as of 2026-08-29. Sequenced improvement work lives in
+[`2026-09-03-connected-improvements-roadmap.md`](2026-09-03-connected-improvements-roadmap.md)
+(P1–P8).
 
 Phases 0–3 of the **connected workflow**, **Maps phase 2–3**, **Board storage v2**, and **PF2e 0 XP** are shipped on `main`.
 
@@ -22,13 +24,24 @@ Phases 0–3 of the **connected workflow**, **Maps phase 2–3**, **Board storag
 
 ## Explicit non-goals (no plan unless requested)
 
-- Library-linked map tokens
 - Lore pages in IndexedDB
 - Quest / Audio / share / QR
 - Map blobs in portable `bg-user-save/1`
+
+**Intentional scope expansion (P6):** Library-linked map tokens were an explicit non-goal
+here and in the Maps token/grid spec. They are **reopened** as **P6** in
+[`2026-09-03-connected-improvements-roadmap.md`](2026-09-03-connected-improvements-roadmap.md)
+because the connected-object model now makes the benefit worth the coupling. Until P6
+ships, treat linked tokens as still deferred; when P6 ships, update this section and
+[`2026-08-29-maps-tokens-and-grid.md`](../specs/2026-08-29-maps-tokens-and-grid.md) in the
+same change.
 
 ---
 
 ## Improvement mode
 
-New work should be ad-hoc specs or small plans per user feedback (UX polish, corpus gaps, performance), not phase-2/3 pipeline items.
+Prefer the connected improvements roadmap (P1–P8) over ad-hoc mode chrome.
+See [`2026-09-03-connected-improvements-roadmap.md`](2026-09-03-connected-improvements-roadmap.md).
+
+Small UX polish, corpus gaps, and performance fixes may still ship as one-off specs outside
+that sequence when they do not conflict with the locked verb matrix or ownership rules.

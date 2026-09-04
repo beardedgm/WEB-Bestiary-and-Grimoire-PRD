@@ -104,7 +104,12 @@ When `selectedToken >= 0`: `pushUndo()`, clone token with `x/y + 12`, `zIndex: n
 
 ## Track E — Library-linked tokens
 
-**Requires:** Product + spec for cross-mode ref (`{ type: "record", ref: monsterId }` on map token).
+**Status:** Specced as connected-improvements **P6** (intentional reopen of the Maps
+non-goal). See [`../specs/2026-09-03-maps-linked-tokens.md`](../specs/2026-09-03-maps-linked-tokens.md)
+and [`2026-09-03-connected-improvements-roadmap.md`](2026-09-03-connected-improvements-roadmap.md)
+(ships after P7).
+
+**Requires:** Product + spec for cross-mode ref (optional `ref` Library id on map token — not copied monster state).
 
 **Scope sketch:**
 - Token carries optional `ref` id
@@ -112,7 +117,7 @@ When `selectedToken >= 0`: `pushUndo()`, clone token with `x/y + 12`, `zIndex: n
 - Render: badge or name from `ID_INDEX`
 - Pin from Library → Maps (new chip?) — ties to connected workflow
 
-**Effort:** Large — blocked on spec.
+**Effort:** Large — do not combine with unrelated Maps chrome.
 
 ---
 
