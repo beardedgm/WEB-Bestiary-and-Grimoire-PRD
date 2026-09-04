@@ -16,8 +16,9 @@ this phase shipped it.
 
 | Criterion | Acceptance |
 |-----------|------------|
-| Icon storage | `token.icon` is a slug (`skull`, `home`, `""`) validated ≤32 chars |
-| Legacy import | Unicode icons (`★`, `⌂`, `☠`, …) migrate to slugs in `vToken` |
+| Icon storage | `token.icon` is a picker slug (`skull`, `home`, `""`) or, since 2026-09-04, any well-formed Material Symbols name (`/^[a-z][a-z0-9_]{0,31}$/`) a `.hexplora` file carried in — kept, not dropped to `""` |
+| Legacy import | Unicode icons (`★`, `⌂`, `☠`, …) migrate to slugs in `vToken`; a foreign Material name renders by ligature from the same font, appears in the token editor as "*name* (imported)" so Save round-trips it, and is named in the import toast. A name the font does not ligate is dropped at draw time, never painted as letters |
+| Icon sprites | One cached **texture** per glyph-and-size, a new `PIXI.Sprite` per token — a cached sprite has one parent and was hopping between every token that shared an icon, so only the last drawn kept it |
 | Assets | `maps/token-icons/*.svg` + `maps/token-icons.manifest.js` |
 | Render | Pixi `Container`: filled disc; white-tinted SVG sprite centered; label `Text` below disc |
 | Sizing | `radius = hexSize * 0.4 * TOKEN_SIZES[size]`; label at `y = hexSize * 0.5 * sizeScale`, anchor `(0.5, 0)`, white fill + dark stroke |
