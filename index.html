@@ -2762,7 +2762,12 @@ const ARCHIVE_SCHEMA = "bg-campaign-archive/1";
 const ARCHIVE_FILENAME = "bestiary-grimoire-archive.zip";
 const ARCHIVE_MAX = 256 * 1024 * 1024;
 const ARCHIVE_MANIFEST_MAX = 1024 * 1024;
-const ARCHIVE_SIDECAR_MAX = 16 * 1024 * 1024;
+/* One map's editor state as JSON. Sized to hold anything vState will accept rather than to
+   a round number: MAX_STROKE_PTS (100,000) is per stroke and MAX_ANNOT allows 1,000 of them,
+   so legal state runs far larger than it looks. Export warns at this threshold and import
+   refuses past it — the same warn/reject pair save.json has, so the app cannot quietly write
+   an archive it will not read back. */
+const ARCHIVE_SIDECAR_MAX = 64 * 1024 * 1024;
 const ARCHIVE_MAPS_MAX = 2000;   // MAX_CAMPAIGNS (20) × MAP_META_MAX
 const MAP_META_MAX = 100;        // mirrors vCampaign / CAMPAIGN.saveActiveMaps
 const ABIL_KEYS = ["str", "dex", "con", "int", "wis", "cha"];
@@ -3416,6 +3421,7 @@ async function buildCampaignArchiveAsync(){
   const ids = plannedMapIds(bag);
   const sidecars = [];
   let missing = ids.length;
+  let oversize = 0;
   if (ids.length && window.MAPS && typeof MAPS.exportRecords === "function"){
     const recs = await MAPS.exportRecords(ids);
     for (const rec of recs){
@@ -3423,10 +3429,14 @@ async function buildCampaignArchiveAsync(){
       const mime = (rec.blob && rec.blob.type) || "application/octet-stream";
       const image = "maps/m" + n + "." + BOARD_ZIP.extOf(mime);
       const side = "maps/m" + n + ".json";
-      files.push({ name: image, data: new Uint8Array(await rec.blob.arrayBuffer()) });
-      files.push({ name: side, data: JSON.stringify({
+      /* Encode once and measure the bytes the zip will actually carry, so this count is
+         exactly what the importer's own length check will see. */
+      const sideBytes = new TextEncoder().encode(JSON.stringify({
         id: rec.id, name: rec.name, updated: rec.updated, mime, image, state: rec.state,
-      }) });
+      }));
+      if (sideBytes.length > ARCHIVE_SIDECAR_MAX) oversize++;
+      files.push({ name: image, data: new Uint8Array(await rec.blob.arrayBuffer()) });
+      files.push({ name: side, data: sideBytes });
       sidecars.push(side);
     }
     missing = ids.length - recs.length;
@@ -3440,7 +3450,7 @@ async function buildCampaignArchiveAsync(){
   return {
     blob: new Blob(BOARD_ZIP.packZipParts(files), { type: "application/zip" }),
     saveBytes: new Blob([saveJson]).size,
-    maps: sidecars.length, media, missing,
+    maps: sidecars.length, media, missing, oversize,
   };
 }
 function downloadCampaignArchive(){
@@ -3466,6 +3476,11 @@ function downloadCampaignArchive(){
     if (res.missing)
       warn.push(plural(res.missing, "map") + " had no image data on this device and " +
         (res.missing === 1 ? "was" : "were") + " left out.");
+    if (res.oversize)
+      warn.push(plural(res.oversize, "map") + " " + (res.oversize === 1 ? "has" : "have") +
+        " editor state over the " + (ARCHIVE_SIDECAR_MAX / (1024 * 1024)) +
+        " MB import limit and will be skipped on re-import — simplify the drawings or measurements on " +
+        (res.oversize === 1 ? "it" : "them") + ".");
     if (warn.length) saveNotice(warn.join(" "));
     if (stampPortableExport()) renderSaveStamp();
   }).catch(() => saveNotice("Could not build the archive — nothing was downloaded."))
@@ -3518,7 +3533,7 @@ async function readCampaignArchive(file){
   const bag = decodeJsonEntry(saveRaw, "save.json");
   if (!bag || typeof bag !== "object" || bag.schema !== USER_SAVE_SCHEMA)
     throw new Error("The save.json inside this archive isn't a Bestiary & Grimoire save (needs schema " + USER_SAVE_SCHEMA + ").");
-  const counts = { mediaAttached: 0, mediaMissing: 0, maps: 0, broken: 0, unjoined: 0, mapsSkipped: "" };
+  const counts = { mediaAttached: 0, mediaMissing: 0, maps: 0, broken: 0, oversize: 0, unjoined: 0, mapsSkipped: "" };
   for (const b of (Array.isArray(bag.boards) ? bag.boards : [])){
     if (!b || !Array.isArray(b.cards)) continue;
     const r = await BOARD_ZIP.attachMedia(b.cards, entries);
@@ -3536,7 +3551,11 @@ async function readCampaignArchive(file){
     const seen = new Set();
     for (const path of manifest.maps){
       const raw = entries[path];
-      if (!(raw instanceof Uint8Array) || raw.length > ARCHIVE_SIDECAR_MAX){ counts.broken++; continue; }
+      if (!(raw instanceof Uint8Array)){ counts.broken++; continue; }
+      /* Counted apart from `broken`: this file is present and probably fine, just larger
+         than we will parse. Telling the GM it was "unreadable" would send them looking for
+         a corrupt archive instead of a map they can simplify. */
+      if (raw.length > ARCHIVE_SIDECAR_MAX){ counts.oversize++; continue; }
       let side;
       try{ side = decodeJsonEntry(raw, path); }catch(_){ counts.broken++; continue; }
       if (!side || typeof side !== "object" || typeof side.id !== "string" || !side.id){ counts.broken++; continue; }
@@ -3606,6 +3625,8 @@ async function applyCampaignArchiveAsync(parsed){
   const bits = [res.message];
   if (wrote) bits.push("+" + plural(recs.length, "map image"));
   if (counts.broken) bits.push(plural(counts.broken, "map file") + " in the archive unreadable or missing");
+  if (counts.oversize) bits.push(plural(counts.oversize, "map") + " skipped — editor state over the " +
+    (ARCHIVE_SIDECAR_MAX / (1024 * 1024)) + " MB limit");
   if (counts.unjoined) bits.push(plural(counts.unjoined, "map file") + " matched no campaign map, skipped");
   if (counts.mapsSkipped) bits.push("map images skipped (" + counts.mapsSkipped + ")");
   if (counts.mediaMissing) bits.push(plural(counts.mediaMissing, "board media file") + " missing from archive");
