@@ -6,6 +6,9 @@ canonical product name is **Copy to Lore…** (not Promote).
 **Status:** Stub (revised). Implementation not started.
 **Roadmap:** [`../plans/2026-09-03-connected-improvements-roadmap.md`](../plans/2026-09-03-connected-improvements-roadmap.md)
 **Depends on:** Board + Lore stable (campaign lore pages)
+**Amended 2026-09-03:** a plan review found the "real LORE creation API" this spec depends on
+does not exist — `LORE` exposes no page-creation entry point. Building it is P8 work, and its
+shape is specified below rather than left to the implementer.
 
 ## Problem
 
@@ -38,10 +41,46 @@ Properties:
 - **Copies**, never moves; Board original stays
 - No synchronization afterward; new Lore page is canonical adventure material
 - Hydrate large markdown bodies from IndexedDB before copying
-- Board calls a real **LORE creation API** — does not mutate Lore internals
+- Board calls a real **LORE creation API** — does not mutate Lore internals (that API does
+  not exist yet; see below)
 
 Framing: “This session note turned out to be useful adventure material,” not “Archive
 tonight’s session into Lore.”
+
+## Required LORE API (P8 work)
+
+`LORE`'s public surface today is `{ setActive, getExport, applyUserSave, getPage,
+onCampaignChanged }`. There is no creation entry point. The nearest internal is
+`newPage(parentId)` in the LORE block, which is a **UI action, not a data API**: it pushes the
+page, sets `selectedPageId`, clears `previewing`, calls `renderAll()`, then focuses and selects
+the title input. Board must not call that — copying a note from the Board stage would yank
+focus into a Lore field the GM cannot see.
+
+Add a headless creator alongside it:
+
+```js
+LORE.createPage(campaignId, { title, body, parentId })
+  // → { ok: true, id }  |  { ok: false, error }
+```
+
+- **Result object, no announcements.** Matches the `BOARD.addRecord` / `BOARD.addEncounter`
+  convention Builder already consumes (`{ ok, name }` / `{ ok: false, error }`). The caller
+  decides what the GM sees; the API must not call `announce()` or steal focus.
+- **Enforces `MAX_PAGES` (200)** and returns `{ ok: false, error }` at the limit rather than
+  announcing, as `newPage` does today.
+- **Validates through the existing `vPage`**, then persists with the LORE block's `save()`,
+  which already delegates to `CAMPAIGN.save()` — so `bg.campaign.v1` stays the single owner
+  of lore pages and P8 adds no new storage key.
+- **Refactor `newPage` to call it**, so the UI path and the Board path cannot drift. Note
+  there are already **two near-duplicate `vPage` implementations** (one in `CAMPAIGN`, one in
+  `LORE`); do not add a third.
+- **Rejects an unknown `parentId`** the way `newPage` does (falls back to top level) rather
+  than creating an orphan.
+
+Body length needs no truncation policy: `MD_HARD` is 120,000 in both `BOARD` and `LORE`, so
+any Board markdown already fits. Hydration is still required — an IDB-backed card carries
+`bodyRef: "idb"` and an empty `body` until `hydrateCardBody(card)` resolves, so the Board side
+of the copy is async even though `createPage` is not.
 
 ## Acceptance criteria
 
@@ -49,7 +88,12 @@ tonight’s session into Lore.”
 - Flow creates a new Lore page under the active campaign with parent-chapter choice.
 - Confirm before write; failures surface inline (no `window.confirm` / `alert`).
 - Board card remains; no live sync between card and page.
-- Large IDB-backed bodies are hydrated before copy.
+- Large IDB-backed bodies are hydrated before copy (`bodyRef: "idb"` cards resolve first —
+  copying an unhydrated card must never write an empty page).
+- `LORE.createPage` exists as a headless API: returns a result object, announces nothing,
+  moves no focus, enforces `MAX_PAGES`, validates through `vPage`, persists via
+  `CAMPAIGN.save()`.
+- `newPage` is refactored onto it, so the Lore UI and Board follow one code path.
 - **Not** automatic capture from Board or Tracker.
 
 ## Non-goals
@@ -59,6 +103,8 @@ tonight’s session into Lore.”
 - “Promote” / archive semantics that encourage dumping session logs into Lore
 - Copying non-markdown card types in v1
 - Moving Lore into IndexedDB
+- A new storage key for lore pages (`bg.campaign.v1` stays the owner)
+- Board reaching into LORE internals (`activeCamp`, `camp.pages`, `selectedPageId`)
 
 ## Primary files
 

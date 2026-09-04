@@ -3,6 +3,12 @@
 **Status:** Specs stubbed (revised after second code review); implementation not started.
 Ship phases as separate PRs.
 
+**Amended 2026-09-03:** P3, P7 and P8 specs revised after a plan review against the code.
+Each named a helper or API that does not exist in the shape the spec assumed; the required
+work is now scoped in the spec rather than left to be discovered mid-implementation. P2's
+Problem statement was also amended after a code review found two live defects in the Save
+dialog it described as already shipped (fixed separately; P2 scope unchanged).
+
 Extends the connected workflow ([`2026-08-26-connected-workflow.md`](../specs/2026-08-26-connected-workflow.md)).
 Replaces ad-hoc post-Maps improvement mode with a sequenced program: **one campaign, many
 verbs on the same objects**. Competitors inform metrics and one lesson each — not feature
@@ -108,6 +114,12 @@ simulate draft + one candidate → run **existing** Builder spend math → `spen
 Never independent Library XP ≤ remaining arithmetic (breaks 2014 multipliers; mis-fits
 PF2e outside-±4 at 0 XP).
 
+Two constraints now locked in the spec: `spendSummary()` takes no arguments and reads the
+module-scoped `draft`, so P3 first gives it an explicit state parameter (simulating by
+mutating and restoring the live draft is out); and because `refresh()` filters all 9,339
+records per keystroke, the per-refresh half of the math must be hoisted out of the
+per-candidate loop.
+
 **Primary files:** `app.template.html` (BUILD + Library filters).
 
 ### P4 — Recent combat events
@@ -132,6 +144,11 @@ Role presets as Extreme/High/Moderate/Low distributions across defenses/offense;
 chips primary, numbers secondary; 5e translated carefully (no fake PF2e identity). Ships
 before P6.
 
+Now carries a hard rule: the PF2e branch fabricates `abilityMods` (five zeros plus a
+`wisGuess` derived from Perception) on records whose own `parse.warnings` say ability scores
+are unstated. That breaks the "never compute a value the source didn't state" invariant, and
+the schema already allows `null`. P7 fixes it — the 5e branch is honest and stays as is.
+
 **Primary files:** `app.template.html` (FORGE).
 
 ### P6 — Maps linked tokens (intentional scope expansion)
@@ -152,6 +169,10 @@ User-initiated **Copy to Lore…** on Board markdown: hydrate IDB body if needed
 page under active campaign → choose parent chapter → copy title + markdown. Board original
 stays; no sync afterward. Uses a real `LORE` creation API (Board does not mutate Lore
 internals). **Not** auto capture; **not** “Promote” / session archive into Lore.
+
+That API does not exist yet — `LORE` exposes no page creation, and the internal `newPage`
+focuses the title field, so Board cannot call it. P8 adds a headless `LORE.createPage`
+returning a `BOARD.addRecord`-style result object, and refactors `newPage` onto it.
 
 **Primary files:** `app.template.html` (BOARD + LORE / CAMPAIGN lore pages).
 
