@@ -3349,7 +3349,7 @@ async function applyUserSaveBagAsync(bag){
   if (loreUpserts && !campaignUpserts) bits.push("+" + loreUpserts + " lore");
   if (!storageOk)
     return { ok: false, message: "Import partially applied but browser storage failed — some changes may not persist. Free space and try again." };
-  return { ok: true, message: bits.join(" · ") || "Save imported" };
+  return { ok: true, warn: dropped > 0, message: bits.join(" · ") || "Save imported" };
 }
 
 /* ---------------- campaign archive (bg-campaign-archive/1) ----------------
@@ -3558,7 +3558,8 @@ async function readCampaignArchive(file){
   const bag = decodeJsonEntry(saveRaw, "save.json");
   if (!bag || typeof bag !== "object" || bag.schema !== USER_SAVE_SCHEMA)
     throw new Error("The save.json inside this archive isn't a Bestiary & Grimoire save (needs schema " + USER_SAVE_SCHEMA + ").");
-  const counts = { mediaAttached: 0, mediaMissing: 0, maps: 0, broken: 0, oversize: 0, unjoined: 0, mapsSkipped: "" };
+  const counts = { mediaAttached: 0, mediaMissing: 0, maps: 0, broken: 0, oversize: 0, unjoined: 0,
+    pruned: 0, keptLocal: 0, mapsSkipped: "" };
   for (const b of (Array.isArray(bag.boards) ? bag.boards : [])){
     if (!b || !Array.isArray(b.cards)) continue;
     const r = await BOARD_ZIP.attachMedia(b.cards, entries);
@@ -3600,13 +3601,37 @@ async function readCampaignArchive(file){
         blob: new Blob([bytes], { type: mime }) });
     }
     counts.maps = recs.length;
+    /* A meta whose blob will not arrive would land as a row that can neither open nor be
+       deleted — the exact state the map phase exists to prevent. The kept-meta rule on
+       export (another device may hold the blob) does not apply here: THIS device either
+       already holds the map, in which case the meta joins that copy, or it does not, in
+       which case the meta comes off the incoming list before the merge ever sees it. */
+    const arriving = new Set(recs.map(r => r.id));
+    const orphans = [...wanted].filter(id => !arriving.has(id));
+    if (orphans.length){
+      const held = new Set(typeof MAPS.exportRecords === "function"
+        ? (await MAPS.exportRecords(orphans)).map(r => r.id) : []);
+      const drop = new Set(orphans.filter(id => !held.has(id)));
+      counts.keptLocal = orphans.length - drop.size;
+      counts.pruned = drop.size;
+      if (drop.size){
+        for (const c of bag.campaigns){
+          if (!c || !Array.isArray(c.maps)) continue;
+          c.maps = c.maps.filter(m => !(m && typeof m.id === "string" && drop.has(m.id.slice(0, 64))));
+        }
+      }
+    }
   }
   return { bag, recs, counts };
 }
 function archiveConfirmCopy(c){
-  return "Import updates matching ids, <b>replaces the live encounter</b>, and adds or updates <b>" +
+  let s = "Import updates matching ids, <b>replaces the live encounter</b>, and adds or updates <b>" +
     plural(c.maps, "map image") + "</b> and <b>" + plural(c.mediaAttached, "board media file") +
-    "</b>. A campaign in the archive replaces this device's copy, including its map list. Records that exist only on this device are kept.";
+    "</b>. A campaign in the archive replaces this device's copy, including its map list.";
+  if (c.pruned) s += " <b>" + plural(c.pruned, "map") + "</b> in that list " + (c.pruned === 1 ? "has" : "have") +
+    " no image in the archive and none on this device, and will be left off it.";
+  if (c.keptLocal) s += " " + plural(c.keptLocal, "map") + " will keep this device's existing image.";
+  return s + " Records that exist only on this device are kept.";
 }
 /* Map blobs land in IndexedDB first, through MAPS.replaceRecords: CAMPAIGN.applyUserSave
    reopens Maps from whatever is stored at that instant, and a quota failure here can still
@@ -3651,12 +3676,17 @@ async function applyCampaignArchiveAsync(parsed){
   const bits = [res.message];
   if (wrote && st.put) bits.push("+" + plural(st.put, "map image"));
   if (counts.broken) bits.push(plural(counts.broken, "map file") + " in the archive unreadable or missing");
-  if (counts.oversize) bits.push(plural(counts.oversize, "map") + " skipped — editor state over the " +
-    (ARCHIVE_SIDECAR_MAX / (1024 * 1024)) + " MB limit");
+  if (counts.oversize) bits.push(plural(counts.oversize, "map") + " over the " +
+    (ARCHIVE_SIDECAR_MAX / (1024 * 1024)) + " MB editor-state limit — simplify and re-export");
   if (counts.unjoined) bits.push(plural(counts.unjoined, "map file") + " matched no campaign map, skipped");
   if (counts.mapsSkipped) bits.push("map images skipped (" + counts.mapsSkipped + ")");
+  if (counts.pruned) bits.push(plural(counts.pruned, "map") + " left off the campaign's list — no image would have arrived");
+  if (counts.keptLocal) bits.push(plural(counts.keptLocal, "map") + " kept this device's existing image");
   if (counts.mediaMissing) bits.push(plural(counts.mediaMissing, "board media file") + " missing from archive");
-  return { ok: true, message: bits.join(" · ") };
+  /* Anything past the first bit is something the GM should read before the dialog goes. */
+  const warn = !!(res.warn || counts.broken || counts.oversize || counts.unjoined || counts.mapsSkipped
+    || counts.pruned || counts.keptLocal || counts.mediaMissing);
+  return { ok: true, warn, message: bits.join(" · ") };
 }
 
 function commitImportedCustom(v, errEl){
@@ -3798,8 +3828,16 @@ function openUserSaveDialog(){
         saveErr.textContent = res.message;
         return;
       }
-      /* Close only the dialog this import started from. If the GM dismissed it and opened
-         another Save dialog, leave that one up with the result where they can see it. */
+      /* An import with anything to report — skipped or pruned maps, dropped customs, missing
+         media — stays up with the result in the one notice line a sighted GM can see. Closing
+         on a message only the hidden live region carried was how every skip warning went
+         unread. A clean import closes as before, but only the dialog it started from; if the
+         GM dismissed it and opened another Save dialog, that one stays up with the result. */
+      if (res.warn){
+        resetSaveBtns();
+        saveNotice("Imported — " + res.message);
+        return;
+      }
       if (gen === saveDialogGen) TRK.closeOvl();
       else saveNotice(res.message);
       announceLive(res.message);
