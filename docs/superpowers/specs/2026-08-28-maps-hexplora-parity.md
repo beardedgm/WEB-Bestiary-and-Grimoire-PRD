@@ -9,7 +9,7 @@ Bring B&G **Maps** mode to HexPlora-class interaction and per-tool settings pari
 | Concern | HexPlora source | B&G implementation |
 | --- | --- | --- |
 | Drawer trays | `data-drawer-view` on `.side-drawer` (`map` / `tool` / `danger`) | `#mapsDrawer[data-drawer-view]` — `maps` \| `settings` \| `tool` \| `danger` |
-| Toolbar entry | Settings cog → grid tray; tools → tool tray | **Maps** chip → map list (rows: open · Rename · ✕ delete); **Settings** chip → grid/session; tool chips → tool tray; Reset view / PNG follow the shape cluster in `#mapsTools` |
+| Toolbar entry | Settings cog → grid tray; tools → tool tray | **Maps** chip → map list (rows: open · Rename · ✕ delete); **Settings** chip → grid/session; tool chips → tool tray; Reset view / PNG / Export follow the shape cluster in `#mapsTools` |
 | Push-aside (desktop) | `.side-drawer` flex sibling; `width: 0` when closed | `.maps-drawer` in `.maps-body` row; `.closed` collapses to 0 width; Pixi `resize()` on toggle |
 | No header overlap | HexPlora has no app header | `#mapsTools` toolbar **above** `.maps-body`; drawer never covers global header or maps toolbar |
 | No permanent right panel | Canvas is hero in `MapPage.jsx` | Removed `.maps-settings` right column |
@@ -40,7 +40,7 @@ Only one `#mapsToolSettings[data-active-tool]` group visible at a time (CSS mirr
 - **Text** — color, S/M/L/custom px, outline color/width/opacity, contrast presets
 - **Token** — icon, color, size, multi-place
 
-**Settings tray** (`#mapsDrawerSettings`): grid structural fields + grid appearance + **fog appearance** + session **Export** + link to danger tray (rename/delete live on the map-list rows; Reset view / PNG in the toolbar). Grid batch edits use **Apply grid** (`#mapsApplySettings`).
+**Settings tray** (`#mapsDrawerSettings`): grid structural fields + grid appearance + **fog appearance** + link to danger tray (rename/delete live on the map-list rows; Reset view / PNG / Export in the toolbar). Grid batch edits use **Apply grid** (`#mapsApplySettings`).
 
 **Selection tray** (pan mode): shape/stroke properties in `#mapsSelectionSettings` when an annotation is selected.
 
