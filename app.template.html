@@ -3427,7 +3427,19 @@ async function buildCampaignArchiveAsync(){
       const sideBytes = new TextEncoder().encode(JSON.stringify({
         id: rec.id, name: rec.name, updated: rec.updated, mime, image, state: rec.state,
       }));
-      if (sideBytes.length > ARCHIVE_SIDECAR_MAX) oversize++;
+      if (sideBytes.length > ARCHIVE_SIDECAR_MAX){
+        /* Neither the sidecar nor its image is packed: the importer would refuse the sidecar
+           and, with no image arriving, take the meta off the list — so both were dead weight,
+           tens of MB of it, and the image was a blob read for nothing. A tombstone the size
+           of a sentence keeps the reason, so the importing device can say "over the limit"
+           rather than only "no image arrived". */
+        oversize++;
+        files.push({ name: side, data: JSON.stringify({
+          id: rec.id, name: rec.name, skipped: "oversize", stateBytes: sideBytes.length,
+        }) });
+        sidecars.push(side);
+        continue;
+      }
       files.push({ name: image, data: new Uint8Array(await rec.blob.arrayBuffer()) });
       files.push({ name: side, data: sideBytes });
       sidecars.push(side);
@@ -3475,7 +3487,7 @@ function downloadCampaignArchive(){
     if (res.oversize)
       warn.push(plural(res.oversize, "map") + " " + (res.oversize === 1 ? "has" : "have") +
         " editor state over the " + (ARCHIVE_SIDECAR_MAX / (1024 * 1024)) +
-        " MB import limit and will be skipped on re-import — simplify the drawings or measurements on " +
+        " MB import limit and " + (res.oversize === 1 ? "was" : "were") + " left out of the archive — simplify the drawings or measurements on " +
         (res.oversize === 1 ? "it" : "them") + ".");
     if (warn.length) saveNotice(warn.join(" "));
     if (stampPortableExport()) renderSaveStamp();
@@ -3563,6 +3575,11 @@ async function readCampaignArchive(file){
       if (!side || typeof side !== "object" || typeof side.id !== "string" || !side.id){ counts.broken++; continue; }
       const id = side.id.slice(0, 64);
       if (!wanted.has(id) || seen.has(id)){ counts.unjoined++; continue; }
+      if (side.skipped === "oversize"){
+        /* Export left this map out on purpose and said why. Count it as oversize so the
+           result names the reason, and let the prune below take the meta off the list. */
+        counts.oversize++; seen.add(id); continue;
+      }
       const bytes = (typeof side.image === "string") ? entries[side.image] : null;
       if (!(bytes instanceof Uint8Array)){ counts.broken++; continue; }
       seen.add(id);

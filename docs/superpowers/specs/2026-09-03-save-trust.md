@@ -54,7 +54,9 @@ bestiary-grimoire-archive.zip        STORE only, no zip64 (lib/board-zip.js limi
 ├─ board-media/<n>.<ext>   raw bytes of one card's media; <n> decimal, <ext> = mime subtype
 │                          stripped to [a-z0-9], "bin" fallback (the bg-board-zip/1 rule)
 ├─ maps/m<n>.json  { "id", "name", "updated", "mime", "image": "maps/m<n>.<ext>", "state" }
-│                  = the bg-maps record with its blob replaced by image path + mime
+│                  = the bg-maps record with its blob replaced by image path + mime — OR, for
+│                  a map whose state exceeded ARCHIVE_SIDECAR_MAX, a sentence-sized tombstone
+│                  { "id", "name", "skipped": "oversize", "stateBytes" } with no image entry
 └─ maps/m<n>.<ext> raw image bytes (blob.type; "application/octet-stream" when empty —
                    createImageBitmap sniffs content, so no mime is ever invented)
 ```
@@ -85,7 +87,10 @@ Rules:
   on what `vState` accepts, which runs far past any size worth parsing in one go:
   `MAX_STROKE_PTS` (100,000) is *per stroke* and `MAX_ANNOT` allows 1,000 of them, so legal
   state runs far larger than it looks. That cap is the same warn/reject pair as `save.json`:
-  export warns when a sidecar exceeds it, import refuses it. A sidecar skipped for size is
+  export warns and leaves both the sidecar and its image out of the archive, packing a
+  sentence-sized tombstone (`skipped: "oversize"`) in the sidecar's place so the importing
+  device can still name the reason; import reads the tombstone as oversize and refuses any
+  full sidecar over the cap (older or hand-edited archives). A sidecar skipped for size is
   counted and reported apart from an unreadable one — the file is fine, and the fix is to
   simplify that map's drawings, not to hunt for a corrupt archive.
 - Bump to `/2` only for layout or manifest changes; the inner bag versions independently and
