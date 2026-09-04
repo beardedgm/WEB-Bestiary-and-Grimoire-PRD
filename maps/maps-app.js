@@ -1906,19 +1906,56 @@
       } catch (_) {}
     }
 
+    /* One row per map: title | Rename | ✕. Every action names its map and works on any
+       row, open or not, so nothing here reads openMapId except the "on" mark. The delete
+       confirm swaps into the row's own ✕ (TRK.confirmSwap); a re-render while it is live
+       simply drops it, which revert() tolerates. Ids never go into a selector string — a
+       portable save can carry any text — so focusRow walks the rows instead. */
     function renderList() {
       const nav = $("mapsList");
       if (!nav) return;
       const list = metas();
       nav.innerHTML = "";
       for (const m of list) {
+        const name = m.name || "Map";
+        const open = m.id === openMapId;
+        const row = document.createElement("div");
+        row.className = "maps-list-row";
+        row.dataset.id = m.id;
         const btn = document.createElement("button");
         btn.type = "button";
-        btn.className = "maps-list-item" + (m.id === openMapId ? " on" : "");
-        btn.textContent = m.name || "Map";
-        btn.title = m.name || "Map";
+        btn.className = "maps-list-item" + (open ? " on" : "");
+        if (open) btn.setAttribute("aria-current", "true");
         btn.onclick = () => openMap(m.id);
-        nav.appendChild(btn);
+        const ren = document.createElement("button");
+        ren.type = "button";
+        ren.className = "chip maps-list-act";
+        ren.textContent = "Rename";
+        ren.onclick = (e) => { e.stopPropagation(); startRowRename(row, m.id); };
+        const del = document.createElement("button");
+        del.type = "button";
+        del.className = "chip maps-list-act";
+        del.textContent = "✕";
+        del.onclick = (e) => {
+          e.stopPropagation();
+          const go = async () => {
+            const rows = metas();
+            const i = rows.findIndex((x) => x.id === m.id);
+            const next = rows[i + 1] || rows[i - 1] || null;
+            await deleteMap(m.id);
+            const after = next || metas()[0];
+            focusRow(after ? after.id : null);
+          };
+          const label = (metas().find((x) => x.id === m.id) || {}).name || name;
+          if (window.TRK && typeof TRK.confirmSwap === "function")
+            TRK.confirmSwap(del, "Delete “" + label + "”?", go);
+          else go();
+        };
+        row.appendChild(btn);
+        row.appendChild(ren);
+        row.appendChild(del);
+        labelRow(row, name);
+        nav.appendChild(row);
       }
       const hint = $("mapsCampHint");
       const c = window.CAMPAIGN && CAMPAIGN.active && CAMPAIGN.active();
@@ -2204,48 +2241,103 @@
       await openMap(id);
     }
 
-    function renameOpen() {
-      if (!openMapId) return;
-      const input = $("mapsRenameInput");
-      const meta = metas().find((m) => m.id === openMapId);
-      if (!input || !meta) return;
-      input.hidden = false;
-      input.value = meta.name;
+    /* The three controls of a row carry the map's name (text, title, aria-label); a rename
+       re-labels them in place so a live confirm on another row survives the commit. */
+    function labelRow(row, name) {
+      const btn = row.querySelector(".maps-list-item");
+      const acts = row.querySelectorAll(".maps-list-act");
+      if (btn) { btn.textContent = name; btn.title = name; }
+      if (acts[0]) { acts[0].title = "Rename “" + name + "”"; acts[0].setAttribute("aria-label", "Rename " + name); }
+      if (acts[1]) { acts[1].title = "Delete “" + name + "”"; acts[1].setAttribute("aria-label", "Delete " + name); }
+    }
+
+    function focusRow(id) {
+      const nav = $("mapsList");
+      const row = nav && id ? Array.from(nav.children).find((r) => r.dataset.id === id) : null;
+      const el = row && row.querySelector(".maps-list-item");
+      if (el) el.focus();
+      else if ($("mapsNew")) $("mapsNew").focus();
+    }
+
+    /* Inline rename in the row: the title swaps for an input; Enter or blur commits, Escape
+       restores. A list re-render while it is live (another map opened, an import, a delete)
+       detaches the input, and finish() then drops the edit rather than writing a name the
+       GM never confirmed. */
+    function startRowRename(row, id) {
+      const meta = metas().find((m) => m.id === id);
+      const title = row.querySelector(".maps-list-item");
+      if (!meta || !title || row.querySelector(".maps-list-rename")) return;
+      const input = document.createElement("input");
+      input.type = "text";
+      input.className = "maps-list-rename";
+      input.maxLength = 80;
+      input.value = meta.name || "Map";
+      input.setAttribute("aria-label", "Map name");
+      let done = false;
+      const finish = async (commit) => {
+        if (done) return;
+        done = true;
+        if (!input.isConnected) return;
+        const value = input.value;
+        input.replaceWith(title);
+        if (commit) {
+          const name = await renameMap(id, value, { rerender: false });
+          if (name) labelRow(row, name);
+        }
+        focusRow(id);
+      };
+      input.onkeydown = (e) => {
+        if (e.key === "Enter") { e.preventDefault(); finish(true); }
+        else if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); finish(false); }
+      };
+      input.onblur = () => finish(true);
+      title.replaceWith(input);
       input.focus();
       input.select();
     }
 
-    async function commitRename() {
-      const input = $("mapsRenameInput");
-      if (!input || !openMapId) return;
-      const name = (input.value || "").trim().slice(0, 80) || "Map";
-      input.hidden = true;
-      const list = metas().map((m) => m.id === openMapId ? { ...m, name, updatedAt: Date.now() } : m);
-      persistMetas(list);
-      const rec = await idb.get(openMapId);
-      if (rec) {
-        rec.name = name;
-        rec.updated = Date.now();
-        await idb.put(rec);
+    /* The one rename path, for any map: the campaign meta carries the name the list shows,
+       the record carries the name an archive or export reads back, and both get one stamp.
+       Returns the stored name, or null for an id the campaign no longer lists. The row
+       editor passes { rerender: false } and re-labels its own row instead, because a full
+       re-render would throw away a delete confirm the GM had just opened on another row. */
+    async function renameMap(id, raw, opts) {
+      const rerender = !(opts && opts.rerender === false);
+      const meta = metas().find((m) => m.id === id);
+      if (!meta) { if (rerender) renderList(); return null; }
+      const name = String(raw == null ? "" : raw).trim().slice(0, 80) || "Map";
+      if (name !== meta.name) {
+        const now = Date.now();
+        persistMetas(metas().map((m) => m.id === id ? { ...m, name, updatedAt: now } : m));
+        try {
+          const rec = await idb.get(id);
+          if (rec) { rec.name = name; rec.updated = now; await idb.put(rec); }
+        } catch (_) { /* the meta already carries the name the list and the archive planner read */ }
       }
-      renderList();
+      if (rerender) renderList();
+      return name;
     }
 
-    function deleteOpen(btn) {
-      if (!openMapId) return;
-      const meta = metas().find((m) => m.id === openMapId);
-      const go = async () => {
-        const id = openMapId;
-        await idb.del(id);
-        persistMetas(metas().filter((m) => m.id !== id));
-        closeEditor();
-        renderList();
-        const seeded = await ensureDefaultMap({ open: true });
-        toast(seeded ? "Map deleted — starter map loaded" : "Map deleted");
-      };
-      if (window.TRK && typeof TRK.confirmSwap === "function")
-        TRK.confirmSwap(btn, "Delete “" + ((meta && meta.name) || "Map") + "”?", go);
-      else go();
+    /* The one delete path, for any map. Deleting the open map first cancels its debounced
+       autosave — a save landing after the del would re-put the record as an orphan blob —
+       then closes the editor; deleting any other map never touches the editor at all. The
+       starter reseeds only when the campaign is left with no maps. */
+    async function deleteMap(id) {
+      if (!metas().some((m) => m.id === id)) return false;
+      const wasOpen = id === openMapId;
+      if (wasOpen) clearTimeout(saveTimer);
+      try { await idb.del(id); }
+      catch (_) {
+        if (wasOpen && dirty) scheduleSave();
+        toast("Could not delete map");
+        return false;
+      }
+      persistMetas(metas().filter((m) => m.id !== id));
+      if (wasOpen) { dirty = false; closeEditor(); }
+      renderList();
+      const seeded = await ensureDefaultMap({ open: true });
+      toast(seeded ? "Map deleted — starter map loaded" : "Map deleted");
+      return true;
     }
 
     function setTool(t) {
@@ -3056,8 +3148,15 @@
       else toast("Import failed");
     }
 
+    function resetView() {
+      if (!openMapId) { toast("Open a map first"); return; }
+      state.view = { zoomLevel: 1, panX: 0, panY: 0 };
+      applyViewTransform();
+      scheduleSave();
+    }
+
     async function screenshot() {
-      if (!app || !openMapId) return;
+      if (!app || !openMapId) { toast("Open a map first"); return; }
       const url = await app.renderer.extract.base64(app.stage);
       const a = document.createElement("a");
       a.href = url;
@@ -3196,13 +3295,6 @@
         if (f) createMapFromFile(f);
       });
       on("mapsEmptyNew", "onclick", () => $("mapsFile") && $("mapsFile").click());
-      on("mapsRename", "onclick", renameOpen);
-      on("mapsRenameInput", "onchange", commitRename);
-      on("mapsRenameInput", "onkeydown", (e) => {
-        if (e.key === "Enter") { e.preventDefault(); commitRename(); }
-        if (e.key === "Escape") { e.preventDefault(); $("mapsRenameInput").hidden = true; }
-      });
-      on("mapsDelete", "onclick", (e) => deleteOpen(e.currentTarget));
       on("mapsImport", "onclick", () => $("mapsImportFile") && $("mapsImportFile").click());
       on("mapsImportFile", "onchange", (e) => {
         const f = e.target.files && e.target.files[0];
@@ -3217,11 +3309,7 @@
       on("mapsClearTokens", "onclick", clearTokens);
       on("mapsClearMeas", "onclick", clearMeasurements);
       on("mapsClearAnnot", "onclick", clearAnnot);
-      on("mapsResetView", "onclick", () => {
-        state.view = { zoomLevel: 1, panX: 0, panY: 0 };
-        applyViewTransform();
-        scheduleSave();
-      });
+      on("mapsResetView", "onclick", resetView);
       on("mapsApplySettings", "onclick", readSettingsFromForm);
       document.querySelectorAll("#mapsTools [data-tool]").forEach((b) => {
         b.onclick = () => setTool(b.getAttribute("data-tool"));

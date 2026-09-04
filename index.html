@@ -1078,11 +1078,26 @@ body.maps-drawer-open .maps-body .maps-drawer-scrim{display:block}
 .maps-drawer-body{display:flex; flex-direction:column; gap:14px; flex:1; min-height:0; overflow:auto}
 .maps-camp-hint{margin:0; color:var(--dim); font:12.5px/1.35 var(--sans)}
 #mapsList{display:flex; flex-direction:column; gap:4px}
+/* one row per map: title | Rename | ✕ — actions live on the row, never in a Settings tray */
+.maps-list-row{display:flex; align-items:stretch; gap:2px; min-width:0}
 .maps-list-item{
-  text-align:left; padding:8px 10px; border:1px solid var(--hair); border-radius:var(--radius);
-  background:var(--paper); color:var(--ink); font:13px/1.3 var(--sans); cursor:pointer
+  flex:1; min-width:0; text-align:left; padding:8px 10px; border:1px solid var(--hair); border-radius:var(--radius);
+  background:var(--paper); color:var(--ink); font:13px/1.3 var(--sans); cursor:pointer;
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap
 }
+.maps-list-item:hover{border-color:var(--gilt)}
 .maps-list-item.on{border-color:var(--ink); box-shadow:0 0 0 2px color-mix(in srgb, var(--gilt) 40%, transparent)}
+.maps-list-act{flex:none; align-self:center; display:inline-flex; align-items:center; min-height:28px; padding:0 7px; background:var(--paper)}
+.maps-list-rename{
+  flex:1; min-width:0; font:13px/1.3 var(--sans); color:var(--ink); background:var(--paper);
+  border:1px solid var(--ink); border-radius:var(--radius); padding:7px 9px
+}
+/* a live Delete confirm takes the whole row for its five seconds: the label names the map, so the
+   title and Rename step aside rather than squeeze to a letter beside it */
+.maps-list-row:has(.cfm) > .maps-list-item, .maps-list-row:has(.cfm) > .maps-list-act{display:none}
+.maps-list-row .cfm{flex:1 1 auto; min-width:0; flex-wrap:wrap; min-height:35px; padding-left:4px}
+/* tools toggle (aria-pressed); Reset view / PNG act — a hairline keeps the two groups readable */
+.maps-toolbar .maps-tool-sep{width:1px; height:18px; background:var(--hair); align-self:center; margin:0 3px}
 .maps-empty{margin:auto; max-width:28rem; text-align:center; padding:2rem; color:var(--dim)}
 #mapsEditor{flex:1; display:flex; flex-direction:column; min-height:0}
 #mapsEditor[hidden], #mapsEmpty[hidden]{display:none !important}
@@ -1211,6 +1226,9 @@ body.maps-drawer-open .maps-body .maps-drawer-scrim{display:block}
     min-height:44px; padding:10px 14px
   }
   #mapsTools .chip{min-height:44px}
+  .maps-tool-sep{display:none}
+  .maps-list-item, .maps-list-rename, .maps-list-row .cfm{min-height:44px}
+  .maps-list-act{min-height:44px; min-width:44px}
 }
 
 /* ==== lore mode =========================================================== */
@@ -2127,6 +2145,9 @@ body.forge #lore{display:none !important}
       <option value="rect">Rect</option><option value="ellipse">Ellipse</option>
       <option value="arrow">Arrow</option><option value="line">Line</option>
     </select>
+    <span class="maps-tool-sep" role="separator" aria-orientation="vertical"></span>
+    <button type="button" class="chip" id="mapsResetView">Reset view</button>
+    <button type="button" class="chip" id="mapsScreenshot" title="Download a PNG of the map">PNG</button>
     <span class="sp"></span>
     <button type="button" class="chip" id="mapsUndo">Undo</button>
     <button type="button" class="chip" id="mapsRedo">Redo</button>
@@ -2184,12 +2205,7 @@ body.forge #lore{display:none !important}
         <section class="maps-drawer-section" aria-labelledby="mapsDrawerSessHd">
           <h3 id="mapsDrawerSessHd">Session</h3>
           <div class="frow">
-            <button type="button" class="chip" id="mapsResetView">Reset view</button>
-            <button type="button" class="chip" id="mapsScreenshot">PNG</button>
             <button type="button" class="chip" id="mapsExport">Export</button>
-            <button type="button" class="chip" id="mapsRename">Rename</button>
-            <button type="button" class="chip" id="mapsDelete">Delete map</button>
-            <input id="mapsRenameInput" type="text" maxlength="80" aria-label="Map name" hidden>
           </div>
         </section>
         <div class="maps-danger-entry">
@@ -12474,7 +12490,7 @@ window.LORE = LORE;
 
 <script src="maps/maps-pixi.bundle.js"></script>
 <script src="maps/token-icons.manifest.js"></script>
-<script src="maps/maps-app.js?v=20260904e"></script>
+<script src="maps/maps-app.js?v=20260904f"></script>
 
 
 </body>
