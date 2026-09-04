@@ -312,19 +312,31 @@
     return new Set(m.map((e) => e.id));
   }
 
+  /* A foreign icon is any well-formed Material Symbols name that is not in this app's
+     picker — what a .hexplora file from the original HexPlora carries (holiday_village,
+     question_mark, …). The font ligates every name it knows, so these render; they are kept
+     through validation rather than dropped to "", which drew a blank disc that read as
+     "no icon" and lost the GM's choice without a word. */
+  const MATERIAL_NAME_RE = /^[a-z][a-z0-9_]{0,31}$/;
+  function isPickerIcon(slug) {
+    return !!slug && tokenIconSlugs().has(slug);
+  }
   function normalizeTokenIcon(raw) {
     const s = typeof raw === "string" ? raw.trim() : "";
     if (!s) return "";
     if (TOKEN_ICON_ALIASES[s]) return TOKEN_ICON_ALIASES[s];
-    const slugs = tokenIconSlugs();
-    if (slugs.has(s)) return s.slice(0, 32);
+    if (tokenIconSlugs().has(s)) return s.slice(0, 32);
+    if (MATERIAL_NAME_RE.test(s)) return s;
     return "";
   }
 
+  /* What to draw for an icon: the PUA codepoint for a picker slug, or the name itself for a
+     foreign one — Material Symbols ligates names, so the same font paints both. */
   function materialSymbolChar(slug) {
     const s = normalizeTokenIcon(slug);
-    const hex = s && MATERIAL_SYMBOL_CODEPOINTS[s];
-    return hex ? String.fromCodePoint(parseInt(hex, 16)) : "";
+    if (!s) return "";
+    const hex = MATERIAL_SYMBOL_CODEPOINTS[s];
+    return hex ? String.fromCodePoint(parseInt(hex, 16)) : s;
   }
 
   function probeMaterialSymbolsFont() {
@@ -345,50 +357,62 @@
     return false;
   }
 
+  /* One texture per glyph-and-size, but a NEW sprite per token. A Pixi display object has
+     exactly one parent, so the cached sprite this used to return was handed to every token
+     with that icon and hopped from container to container — eight skulls on a map, one
+     skull drawn, the last one. Foreign names are drawn as ligatures; if the font did not
+     ligate one (it painted letters instead), the result is far wider than an em and is
+     dropped, cached as unrenderable — a blank disc beats a smear of tofu. */
   function tokenIconSprite(PIXI, glyph, radius) {
     const iconPx = Math.max(8, Math.round(radius * TOKEN_ICON_SCALE));
-    const key = glyph.codePointAt(0) + "@" + iconPx;
+    const key = glyph + "@" + iconPx;
     let entry = tokenIconSpriteCache.get(key);
-    if (entry) return entry;
-    const pad = 2;
-    const size = iconPx + pad * 2;
-    const canvas = document.createElement("canvas");
-    canvas.width = size;
-    canvas.height = size;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return null;
-    ctx.font = `${iconPx}px "${MATERIAL_SYMBOLS_FAMILY}"`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillStyle = "#ffffff";
-    ctx.fillText(glyph, size / 2, size / 2);
-    let ax = 0.5;
-    let ay = 0.5;
-    const img = ctx.getImageData(0, 0, size, size);
-    const { data, width, height } = img;
-    let minX = width;
-    let minY = height;
-    let maxX = -1;
-    let maxY = -1;
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
-        if (data[(y * width + x) * 4 + 3] > 8) {
-          if (x < minX) minX = x;
-          if (y < minY) minY = y;
-          if (x > maxX) maxX = x;
-          if (y > maxY) maxY = y;
+    if (entry === null) return null;
+    if (!entry) {
+      const pad = 2;
+      const size = iconPx + pad * 2;
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return null;
+      ctx.font = `${iconPx}px "${MATERIAL_SYMBOLS_FAMILY}"`;
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "#ffffff";
+      if (glyph.length > 1 && ctx.measureText(glyph).width > iconPx * 1.6) {
+        tokenIconSpriteCache.set(key, null);
+        return null;
+      }
+      ctx.fillText(glyph, size / 2, size / 2);
+      let ax = 0.5;
+      let ay = 0.5;
+      const img = ctx.getImageData(0, 0, size, size);
+      const { data, width, height } = img;
+      let minX = width;
+      let minY = height;
+      let maxX = -1;
+      let maxY = -1;
+      for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+          if (data[(y * width + x) * 4 + 3] > 8) {
+            if (x < minX) minX = x;
+            if (y < minY) minY = y;
+            if (x > maxX) maxX = x;
+            if (y > maxY) maxY = y;
+          }
         }
       }
+      if (maxX >= minX) {
+        ax = (minX + maxX + 1) / 2 / width;
+        ay = (minY + maxY + 1) / 2 / height;
+      }
+      entry = { texture: PIXI.Texture.from(canvas), ax, ay };
+      tokenIconSpriteCache.set(key, entry);
     }
-    if (maxX >= minX) {
-      ax = (minX + maxX + 1) / 2 / width;
-      ay = (minY + maxY + 1) / 2 / height;
-    }
-    const spr = new PIXI.Sprite(PIXI.Texture.from(canvas));
-    spr.anchor.set(ax, ay);
-    entry = spr;
-    tokenIconSpriteCache.set(key, entry);
-    return entry;
+    const spr = new PIXI.Sprite(entry.texture);
+    spr.anchor.set(entry.ax, entry.ay);
+    return spr;
   }
 
   async function ensureMaterialSymbolsFont() {
@@ -1352,7 +1376,7 @@
       set("mapsTokenColor", s.tokenColor);
       set("mapsTokenSize", s.tokenSize);
       const toki = $("mapsTokIconDrawer");
-      if (toki) toki.value = s.tokenIcon || "";
+      if (toki) setIconSelect(toki, s.tokenIcon);
       const er = $("mapsEraser");
       if (er) er.checked = brushErasing;
       const tm = $("mapsTokMulti");
@@ -2691,7 +2715,7 @@
       $("mapsTokLabel").value = t.label;
       $("mapsTokNotes").value = t.notes;
       $("mapsTokColor").value = t.color;
-      $("mapsTokIcon").value = t.icon;
+      setIconSelect($("mapsTokIcon"), t.icon);
       pendingRef = t.ref;
       const search = $("mapsTokRefSearch");
       if (search) search.value = "";
@@ -2989,7 +3013,8 @@
         rebuildGrid();
         renderAll();
         scheduleSave();
-        toast("State imported");
+        const foreign = foreignIconNotice(state);
+        toast(foreign ? "State imported — " + foreign : "State imported");
         return;
       }
       const img = data.mapImageData || data.mapData;
@@ -2998,8 +3023,9 @@
         return;
       }
       if (img.length > MAX_IMAGE_B64) { toast("Image exceeds size limit"); return; }
+      const foreign = foreignIconNotice(vState(data.state || data));
       const id = await installMapPack(data, { open: true });
-      if (id) toast("Map imported");
+      if (id) toast(foreign ? "Map imported — " + foreign : "Map imported");
       else toast("Import failed");
     }
 
@@ -3056,9 +3082,34 @@
           opt.textContent = entry.label;
           sel.appendChild(opt);
         }
-        if ([...sel.options].some((o) => o.value === cur)) sel.value = cur;
-        else sel.value = "";
+        setIconSelect(sel, cur);
       }
+    }
+    /* A foreign icon name has no picker option. Give it a temporary one so the form shows
+       what the token actually has and Save hands it back unchanged — a <select> set to a
+       value it does not hold falls to "", and Save then wiped an icon the GM never touched. */
+    function setIconSelect(sel, value) {
+      if (!sel) return;
+      for (const o of [...sel.options]) if (o.dataset.foreign) o.remove();
+      if (value && ![...sel.options].some((o) => o.value === value)) {
+        const opt = document.createElement("option");
+        opt.value = value;
+        opt.textContent = value + " (imported)";
+        opt.dataset.foreign = "1";
+        sel.appendChild(opt);
+      }
+      sel.value = value || "";
+    }
+    /* Names the icons an imported map carries that are outside this app's picker. They render
+       (the font ligates any name it knows) and survive Save, but the GM should hear that the
+       picker cannot offer them back once cleared. */
+    function foreignIconNotice(st) {
+      const names = [];
+      for (const t of st.tokens) if (t.icon && !isPickerIcon(t.icon) && !names.includes(t.icon)) names.push(t.icon);
+      if (!names.length) return "";
+      const shown = names.slice(0, 3).join(", ") + (names.length > 3 ? " and " + (names.length - 3) + " more" : "");
+      return names.length + " token icon" + (names.length === 1 ? "" : "s") +
+        " outside this app's picker (" + shown + ") — kept and drawn from the icon font";
     }
 
     function onKey(e) {
