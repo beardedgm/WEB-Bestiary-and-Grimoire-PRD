@@ -341,13 +341,13 @@ The verbs a GM can run on an object are painted by `mountActionChips` from `acti
 
 ### Custom library dialog
 
-- Wide overlay (`#trkovl` `.dlg.wide`): stub toggle (Spell | D&D 5e | PF2e), JSON textarea, Import only
+- Wide overlay (`#trkovl` `.dlg.wide`), three modes in one dialog: **Add** (stub toggle Spell | D&D 5e | PF2e, JSON textarea, Import), **Edit custom** (stub chips hidden, system and kind locked to the record, textarea seeded with its authoring JSON, **Save** re-stamps plumbing around the same id with no replace prompt; a `gameSystem` that disagrees with the locked id is an error, never coerced), **Edit a copy** (any record's authoring JSON as the seed of a new custom; a custom source seeds " (copy)" so the default id never overwrites its source; Import as Add)
 - **Authoring JSON ≠ stored JSON:** four stub chips (5e/PF2e spell Fireball, 5e/PF2e Lich) with `schema` / `id` / `gameSystem` / `source` / `variant` / `parse` stripped; Import stamps plumbing from the selected toggle’s system
 - Import **stamps** plumbing (`{sys}:custom:{slug(name)}`, custom source, parse) then deep-validates; safe as an AI/notes fill-in template
 - Confirm before replacing an existing custom with the same id
 - `#trkovl` / `#dpop` / `#pdisp` sit **outside** `<main>` so `setAppInert` does not make overlays unclickable
 - The live region `#trklive` sits outside `<main>` too, and outside `#trk`: `#trk` is `display:none` in every mode but Tracker, and an inert `<main>` is hidden from assistive tech, so a region nested in either is silent
-- Remove from library control on custom pane meta (confirm via `confirmSwap`)
+- One control row (`.meta-acts`) at the foot of the sheet under the meta line, injected by the pane and never by the renderers: the `actionsFor` verb first (**Board**, mounted by `addSendToBoard` — it no longer sits under the title), then **Edit** (customs), **Edit a copy** (every record), **Remove from library** (customs, confirm via `confirmSwap`), and last a native `<details>` **JSON** disclosure — summary styled as a chip, inline while closed, ink-filled and on its own line when open — showing the stored record in 12px mono on `--cell` with **Copy** (flashes "Copied" and speaks it) and **Download** (`<id>.json` through `handOffDownload`, never stamps "Last downloaded save"); the disclosure collapses on every paint
 
 ### Portable save dialog
 

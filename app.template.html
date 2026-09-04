@@ -524,7 +524,24 @@ body.trk #trk{
 #trkglance[hidden], #trkturn[hidden]{display:none}
 
 /* clickable dice in stat blocks — inherit the stock's ink and font */
-.pane-actions{display:flex; gap:6px; margin:2px 0 14px}
+/* reading-pane record management: a chip row under the meta line, and the JSON disclosure.
+   Native <details> so keyboard and open/closed state come free; the summary is the chip */
+.meta-acts{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; align-items:center}
+/* closed: the summary chip sits inline at the end of the row; open: the disclosure takes a full
+   line of its own so the panel lands directly under its chip */
+.rjson-wrap{display:inline-flex; flex-wrap:wrap; max-width:100%}
+.rjson-wrap[open]{flex:1 1 100%}
+.rjson-wrap > summary{list-style:none; cursor:pointer; flex:none}
+.rjson-wrap > summary::-webkit-details-marker{display:none}
+.rjson-wrap[open] > summary.chip{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
+.rjson-body{flex:1 1 100%; margin-top:4px}
+.rjson-body .meta-acts{margin:0 0 8px}
+.rjson{
+  margin:0; padding:10px 12px; max-height:50vh; overflow:auto;
+  border:1px solid var(--hair); border-radius:var(--radius); background:var(--cell);
+  color:var(--ink); font:12px/1.45 var(--mono); white-space:pre-wrap; overflow-wrap:anywhere
+}
+.rjson:focus-visible{border-color:var(--gilt)}
 /* object → action chips (actionsFor / mountActionChips) */
 .act-row{display:flex; flex-wrap:wrap; gap:6px}
 .act-overflow{position:relative; display:inline-flex}
@@ -2871,12 +2888,20 @@ function requireArray(obj, key, errors, label){
   if (!Array.isArray(obj[key])) errors.push((label || key) + " must be an array.");
 }
 
-function normalizeCustomRecord(raw, hintKind){
+/* opts.keepId re-stamps plumbing around an existing custom id (Edit): id, system and
+   source path stay what they were whatever the name became — Board cards, Maps token refs,
+   Builder rosters and presets hold the id, not the name. opts.kind locks the kind so a stray
+   `level` key cannot turn a creature into a spell. A gameSystem that disagrees with a kept
+   id is an error, never a coercion: the record's system is part of its identity. */
+function normalizeCustomRecord(raw, hintKind, opts){
+  const o = opts || {};
   if (!raw || typeof raw !== "object" || Array.isArray(raw))
     return { ok: false, errors: ["Root value must be a JSON object."], record: null, kind: null };
   const r = JSON.parse(JSON.stringify(raw));
+  const keepId = (typeof o.keepId === "string" && CUSTOM_ID_RE.test(o.keepId)) ? o.keepId : null;
   let kind = null;
-  if (r.schema === "ttrpg-monster/0.2") kind = "monster";
+  if (o.kind === "monster" || o.kind === "spell") kind = o.kind;
+  else if (r.schema === "ttrpg-monster/0.2") kind = "monster";
   else if (r.schema === "ttrpg-spell/0.1") kind = "spell";
   else if (hintKind === "spell5e" || hintKind === "spellPf" || hintKind === "spell") kind = "spell";
   else if (r.challenge && !r.level) kind = "monster";
@@ -2885,7 +2910,14 @@ function normalizeCustomRecord(raw, hintKind){
 
   r.schema = kind === "spell" ? "ttrpg-spell/0.1" : "ttrpg-monster/0.2";
   let sys = r.gameSystem;
-  if (sys !== "dnd5e" && sys !== "pf2e"){
+  if (keepId){
+    const locked = keepId.split(":")[0];
+    if (sys != null && sys !== locked)
+      return { ok: false, errors: ["gameSystem is locked to " + locked +
+        " for this record — use Edit a copy to make a version for the other system."],
+        record: null, kind: null };
+    sys = locked;
+  } else if (sys !== "dnd5e" && sys !== "pf2e"){
     if (hintKind === "pf2e" || hintKind === "spellPf") sys = "pf2e";
     else sys = "dnd5e";
   }
@@ -2893,7 +2925,7 @@ function normalizeCustomRecord(raw, hintKind){
   if (typeof r.name !== "string" || !r.name.trim())
     return { ok: false, errors: ["name must be a non-empty string."], record: null, kind: null };
   r.name = r.name.trim();
-  const slug = slugName(r.name);
+  const slug = keepId ? keepId.split(":")[2] : slugName(r.name);
   r.id = sys + ":custom:" + slug;
   r.variant = "custom";
   r.source = { code: "custom", name: "Custom", page: null, path: "custom/" + sys + "/" + slug };
@@ -3005,8 +3037,8 @@ function validateCustomRecord(raw){
   return { ok: true, errors: [], record: JSON.parse(JSON.stringify(raw)), kind };
 }
 
-function acceptCustomRecord(raw, hintKind){
-  const n = normalizeCustomRecord(raw, hintKind);
+function acceptCustomRecord(raw, hintKind, opts){
+  const n = normalizeCustomRecord(raw, hintKind, opts);
   if (!n.ok) return n;
   return validateCustomRecord(n.record);
 }
@@ -3091,7 +3123,7 @@ function removeCustomRecord(id){
   mergeCustomsIntoData(store);
   return { ok: true };
 }
-function parseImportPayload(text, hintKind){
+function parseImportPayload(text, hintKind, opts){
   if (typeof text === "string" && text.length > CUSTOM_PASTE_MAX)
     return { ok: false, errors: ["JSON is too large (max 512 KB)."] };
   let data;
@@ -3102,7 +3134,7 @@ function parseImportPayload(text, hintKind){
       return { ok: false, errors: ["Paste a single object, or an array with exactly one record."] };
     data = data[0];
   }
-  return acceptCustomRecord(data, hintKind);
+  return acceptCustomRecord(data, hintKind, opts);
 }
 function findStoredCustom(id){
   return loadCustomStore().find(r => r.id === id) || null;
@@ -3228,6 +3260,31 @@ function handOffDownload(blob, filename){
   return true;
 }
 const HANDOFF_FAILED = "Could not hand the file to the browser — nothing was downloaded.";
+/* Clipboard with the legacy fallback; resolves to whether the text got there. */
+function copyText(text){
+  if (navigator.clipboard && navigator.clipboard.writeText)
+    return navigator.clipboard.writeText(text).then(() => true, () => copyTextLegacy(text));
+  return Promise.resolve(copyTextLegacy(text));
+}
+function copyTextLegacy(text){
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.setAttribute("readonly", "");
+  ta.style.cssText = "position:fixed;top:0;left:0;opacity:0;pointer-events:none";
+  document.body.appendChild(ta);
+  ta.select();
+  let ok = false;
+  try{ ok = document.execCommand("copy"); }catch(_){ ok = false; }
+  ta.remove();
+  return ok;
+}
+/* Sighted feedback for an action whose only other trace is the live region. */
+function flashLabel(btn, text){
+  const was = btn.textContent;
+  btn.textContent = text;
+  clearTimeout(btn._flash);
+  btn._flash = setTimeout(() => { if (btn.isConnected) btn.textContent = was; }, 1500);
+}
 function mbOf(bytes){
   return (bytes / (1024 * 1024)).toFixed(1);
 }
@@ -3746,7 +3803,7 @@ async function applyCampaignArchiveAsync(parsed){
   return { ok: true, warn, message: bits.join(" · ") };
 }
 
-function commitImportedCustom(v, errEl){
+function commitImportedCustom(v, errEl, opts){
   const res = upsertCustomRecord(v.record, v.kind);
   if (!res.ok){
     if (errEl){ errEl.hidden = false; errEl.textContent = res.error; }
@@ -3754,35 +3811,70 @@ function commitImportedCustom(v, errEl){
   }
   if (errEl) errEl.hidden = true;
   TRK.closeOvl();
-  announceLive("Imported " + res.record.name);
+  announceLive(((opts && opts.verb) || "Imported") + " " + res.record.name);
   setSide(v.kind === "spell" ? "spell" : "monster");
   pickById(res.record.id);
+  /* renderList skips a rebuild when the id signature is unchanged — a rename that keeps
+     its sort position would leave the row showing the old name. Force it. */
+  listSig = "";
   refresh();
+  /* closeOvl handed focus back to a chip that fillPane has just replaced */
+  if (document.activeElement === document.body){
+    const sh = $("#pane-sheet");
+    const again = sh && (sh.querySelector('.meta-acts [data-meta="edit"]') || sh.querySelector(".meta-acts .chip"));
+    if (again) again.focus({ preventScroll: true });
+  }
 }
 
-function openLibDialog(){
+/* One dialog, three modes. add: the four stubs, Import. edit: one custom's authoring JSON,
+   stub chips hidden, system and kind locked to the record, Save keeps its id. copy: any
+   record's authoring JSON as the seed of a new custom, Import exactly as add. */
+function openLibDialog(opts){
   if (!window.TRK || !TRK.openOvl){
     announceLive("Overlay is not ready yet — try again in a moment.");
     return;
   }
+  const o = opts || {};
+  const mode = o.mode === "edit" || o.mode === "copy" ? o.mode : "add";
+  const src = mode === "add" ? null : o.record;
+  if (mode !== "add" && (!src || typeof src.id !== "string")) return;
+  if (mode === "edit" && !src._custom) return;
+  const srcKind = src ? (src._kind === "spell" ? "spell" : "monster") : null;
+  const srcHint = src ? (srcKind === "spell"
+      ? (src.gameSystem === "pf2e" ? "spellPf" : "spell5e")
+      : (src.gameSystem === "pf2e" ? "pf2e" : "dnd5e")) : null;
+  const sysName = s => s === "pf2e" ? "Pathfinder 2e" : "D&D 5e";
+  const noun = srcKind === "spell" ? "spell" : "creature";
   let stubKind = "dnd5e";
+  const seedText = () => {
+    if (!src) return JSON.stringify(stubForKind(stubKind), null, 2);
+    const stub = toAuthoringStub(src);
+    /* a copy of a custom must not default to its source's id */
+    if (mode === "copy" && src._custom) stub.name = (stub.name || "Record") + " (copy)";
+    return JSON.stringify(stub, null, 2);
+  };
   const render = () => {
-    const stub = stubForKind(stubKind);
-    const stubText = JSON.stringify(stub, null, 2);
-    TRK.openOvl(`
-      <h3>Add custom record</h3>
-      <p class="libhint">Content-only examples: Fireball (spells) or Lich (creatures). Pick the system that matches what you are adding — safe to copy into a notes app or AI. Change the <b>name</b> and fields; Import adds <code>schema</code>, <code>id</code>, and custom <code>source</code> for that system.</p>
+    const title = mode === "edit" ? "Edit custom" : mode === "copy" ? "Edit a copy" : "Add custom record";
+    const hint = mode === "edit"
+      ? `Editing <b>${esc(src.name)}</b> as a ${sysName(src.gameSystem)} ${noun}. Its id <code>${esc(src.id)}</code> stays the same whatever you rename it, so Board cards, map tokens, rosters and presets that point at it keep working. Save adds <code>schema</code>, <code>id</code> and <code>source</code> back.`
+      : mode === "copy"
+      ? `A new ${sysName(src.gameSystem)} ${noun} seeded from <b>${esc(src.name)}</b>${src._custom ? "" : " — the original stays as it is"}. Give it a new <b>name</b>; Import derives the id from it and adds <code>schema</code>, <code>id</code>, and custom <code>source</code>.`
+      : `Content-only examples: Fireball (spells) or Lich (creatures). Pick the system that matches what you are adding — safe to copy into a notes app or AI. Change the <b>name</b> and fields; Import adds <code>schema</code>, <code>id</code>, and custom <code>source</code> for that system.`;
+    const chips = mode !== "add" ? "" : `
       <div class="frow" style="margin-bottom:8px;flex-wrap:wrap" role="group" aria-label="Stub type">
         <button type="button" class="chip${stubKind==="spell5e"?" on":""}" data-stub="spell5e">D&amp;D 5e spell</button>
         <button type="button" class="chip${stubKind==="spellPf"?" on":""}" data-stub="spellPf">Pathfinder 2e spell</button>
         <button type="button" class="chip${stubKind==="dnd5e"?" on":""}" data-stub="dnd5e">D&amp;D 5e creature</button>
         <button type="button" class="chip${stubKind==="pf2e"?" on":""}" data-stub="pf2e">Pathfinder 2e creature</button>
-      </div>
-      <label>JSON<textarea class="libjson" id="lib-json" spellcheck="false">${esc(stubText)}</textarea></label>
+      </div>`;
+    TRK.openOvl(`
+      <h3>${title}</h3>
+      <p class="libhint">${hint}</p>${chips}
+      <label>JSON<textarea class="libjson" id="lib-json" spellcheck="false">${esc(seedText())}</textarea></label>
       <div class="liberr" id="lib-err" hidden></div>
       <div class="btns" id="lib-btns">
         <button type="button" class="chip" data-lib-cancel>Cancel</button>
-        <button type="button" class="chip yes" data-lib-import>Import</button>
+        <button type="button" class="chip yes" data-lib-import>${mode === "edit" ? "Save" : "Import"}</button>
       </div>
     `, { wide: true });
     const root = $("#trkovl");
@@ -3793,12 +3885,17 @@ function openLibDialog(){
     const err = root.querySelector("#lib-err");
     root.querySelector("[data-lib-import]").onclick = () => {
       const text = root.querySelector("#lib-json").value;
-      const v = parseImportPayload(text, stubKind);
+      const v = mode === "edit"
+        ? parseImportPayload(text, srcHint, { keepId: src.id, kind: srcKind })
+        : parseImportPayload(text, src ? srcHint : stubKind);
       if (!v.ok){
         err.hidden = false;
         err.textContent = v.errors.slice(0, 8).join("\n");
         return;
       }
+      /* Edit never prompts: the GM opened it on this record, and the write is the same
+         whether or not the id still exists — a record removed meanwhile comes back. */
+      if (mode === "edit"){ commitImportedCustom(v, err, { verb: "Saved" }); return; }
       const existing = findStoredCustom(v.record.id);
       if (existing){
         err.hidden = true;
@@ -4438,38 +4535,102 @@ function renderRecord(r){
   }
   fillPane(html, sys);
   location.hash = encodeURIComponent(r.id);
-  addSendToBoard(r);
-  const rm = $("#pane-sheet") && $("#pane-sheet").querySelector("[data-rm-custom]");
-  if (rm){
+  addPaneMetaControls(r);
+}
+
+/* The reading pane's action chips belong to the Library pane, not to
+   monsterHTML/spellHTML — those renderers are reused by the Board, Forge preview,
+   and player display, where the chips would be wrong or inert. Verbs and labels
+   come from actionsFor, so they match the Table and Board wording. They mount into
+   the record-management row under the meta line, ahead of Edit and JSON. */
+function addSendToBoard(r, row){
+  const acts = actionsFor({ kind:"record", id:r.id, record:r }, { surface:"library" });
+  if (acts.length) mountActionChips(row, acts);
+}
+
+/* Library record-management controls — the JSON disclosure, Edit, Edit a copy, Remove —
+   belong to the reading pane exactly like addSendToBoard: monsterHTML/spellHTML also paint
+   Board cards, the Forge preview and the spell peek, where none of these may appear. They
+   are not actionsFor verbs: nothing here routes the record anywhere. The JSON shown is the
+   stored record (plumbing kept, runtime fields dropped), stringified on first open only;
+   the dialog seeds from the authoring form instead, as the + stubs do. */
+function addPaneMetaControls(r){
+  const sheet = $("#pane-sheet");
+  const meta = sheet && sheet.querySelector(".sb .meta");
+  if (!meta) return;
+  const chip = (label, title, key) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = label;
+    if (title) b.title = title;
+    b.dataset.meta = key;
+    return b;
+  };
+  const row = document.createElement("div");
+  row.className = "meta-acts";
+  /* Routing verbs first (Board today), then management: one row at the foot of the sheet,
+     where the GM reaches for every control on the record */
+  addSendToBoard(r, row);
+  const jsonText = () => JSON.stringify(stripRuntimeFields(r), null, 2);
+
+  const details = document.createElement("details");
+  details.className = "rjson-wrap";
+  const summary = document.createElement("summary");
+  summary.className = "chip";
+  summary.textContent = "JSON";
+  summary.title = "Show this record as JSON";
+  summary.dataset.meta = "json";
+  const body = document.createElement("div");
+  body.className = "rjson-body";
+  const tools = document.createElement("div");
+  tools.className = "meta-acts";
+  const copyBtn = chip("Copy", "Copy JSON to the clipboard", "copy");
+  copyBtn.onclick = () => copyText(jsonText()).then(ok => {
+    if (ok){ flashLabel(copyBtn, "Copied"); announceLive("JSON copied"); }
+    else announceLive("Couldn’t copy — select the text and copy it instead.");
+  });
+  const dlBtn = chip("Download", "Download as a .json file", "download");
+  dlBtn.onclick = () => {
+    const blob = new Blob([jsonText()], { type: "application/json" });
+    if (!handOffDownload(blob, r.id.replace(/:/g, "-") + ".json")) announceLive(HANDOFF_FAILED);
+  };
+  tools.append(copyBtn, dlBtn);
+  const pre = document.createElement("pre");
+  pre.className = "rjson";
+  pre.tabIndex = 0;
+  pre.setAttribute("aria-label", "Record JSON");
+  body.append(tools, pre);
+  details.append(summary, body);
+  details.addEventListener("toggle", () => {
+    if (details.open && !pre.textContent) pre.textContent = jsonText();
+  });
+
+  if (r._custom){
+    const edit = chip("Edit", "Edit this custom record as JSON", "edit");
+    edit.onclick = () => openLibDialog({ mode: "edit", record: r });
+    row.appendChild(edit);
+  }
+  const fork = chip("Edit a copy", "Start a new custom record from this one", "copy-record");
+  fork.onclick = () => openLibDialog({ mode: "copy", record: r });
+  row.appendChild(fork);
+
+  if (r._custom){
+    const rm = chip("Remove from library", null, "remove");
     rm.onclick = () => {
-      const id = rm.dataset.rmCustom;
       const doRm = () => {
-        const res = removeCustomRecord(id);
+        const res = removeCustomRecord(r.id);
         if (!res.ok){ announceLive(res.error); return; }
         fillPane("Select an entry", "empty");
+        listSig = "";
         refresh();
       };
       if (window.TRK && TRK.confirmSwap)
         TRK.confirmSwap(rm, "Remove " + (r.name || "this record") + " from library?", doRm);
       else if (confirm("Remove from library?")) doRm();
     };
+    row.appendChild(rm);
   }
-}
-
-/* The reading pane's action chips belong to the Library pane, not to
-   monsterHTML/spellHTML — those renderers are reused by the Board, Forge preview,
-   and player display, where the chips would be wrong or inert. Verbs and labels
-   come from actionsFor, so they match the Table and Board wording. */
-function addSendToBoard(r){
-  const acts = actionsFor({ kind:"record", id:r.id, record:r }, { surface:"library" });
-  if (!acts.length) return;
-  const sheet = $("#pane-sheet");
-  const rule = sheet && sheet.querySelector(".sb .rule");
-  if (!rule) return;
-  const row = document.createElement("div");
-  row.className = "pane-actions";
-  mountActionChips(row, acts);
-  rule.after(row);
+  row.appendChild(details);
+  meta.after(row);
 }
 
 function metaHTML(r){
@@ -4484,9 +4645,6 @@ function metaHTML(r){
   if (r.parse && r.parse.warnings && r.parse.warnings.length)
     m += `<div class="warn"><b>Parse notes (${r.parse.status})</b><br>` +
          r.parse.warnings.map(esc).join("<br>") + `</div>`;
-  if (r._custom)
-    m += `<div class="btns" style="margin-top:12px;justify-content:flex-start">` +
-         `<button type="button" class="chip" data-rm-custom="${esc(r.id)}">Remove from library</button></div>`;
   return m;
 }
 function glyph(a){
@@ -5040,7 +5198,7 @@ window.mountActionChips = mountActionChips;
 window.recordRef = recordRef;
 window.searchRecordRefs = searchRecordRefs;
 window.openRecordById = openRecordById;
-$("#custom-add").addEventListener("click", openLibDialog);
+$("#custom-add").addEventListener("click", () => openLibDialog());
 $("#user-save").addEventListener("click", openUserSaveDialog);
 </script>
 
