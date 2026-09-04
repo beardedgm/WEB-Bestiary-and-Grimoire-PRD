@@ -129,15 +129,20 @@
       const rp = request && typeof request === "object" && "onsuccess" in request
         ? new Promise((res, rej) => { request.onsuccess = () => res(request.result); request.onerror = () => rej(request.error); })
         : Promise.resolve(request);
+      /* The request's own rejection is only read on complete; when the transaction fails
+         the handlers below reject instead, so keep it from surfacing as unhandled. */
+      rp.catch(() => {});
+      /* Never reject with null: a caller testing `if (failure)` reads that as success. A
+         request's error event reaches the transaction before tx.error is set (Chrome 148,
+         verified), so read the failing request's own error first; a full disk arrives as a
+         commit-time abort with tx.error set, and is mapped the same way. */
+      const fail = (err) => {
+        const e = err || new Error("IDB_ERROR");
+        reject(e.name === "QuotaExceededError" ? new Error("QUOTA_EXCEEDED") : e);
+      };
       tx.oncomplete = () => rp.then(resolve, reject);
-      tx.onerror = () => {
-        const err = tx.error;
-        reject(err && err.name === "QuotaExceededError" ? new Error("QUOTA_EXCEEDED") : err);
-      };
-      tx.onabort = () => {
-        const err = tx.error;
-        reject(err && err.name === "QuotaExceededError" ? new Error("QUOTA_EXCEEDED") : err);
-      };
+      tx.onerror = (ev) => fail((ev && ev.target && ev.target.error) || tx.error);
+      tx.onabort = () => fail(tx.error);
     }));
   }
   const idb = {
@@ -2132,7 +2137,7 @@
             state: snapshotState(vState(r.state)), updated: num(r.updated, Date.now()),
           });
           put++;
-        } catch (e) { failure = e; break; }
+        } catch (e) { failure = e || new Error("write"); break; }
       }
       const undo = async () => {
         const written = list.slice(0, put).map((r) => r.id.slice(0, 64));

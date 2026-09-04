@@ -135,6 +135,21 @@ Rules:
   phase that then returns `changed: false` or throws (the throw path used to leave the map
   phase committed with no rollback and no mention). "Nothing was changed" is said only when
   undo reports every record came back; a shortfall names re-importing a known-good archive.
+- **A store failure is always an error, never `null`.** Proven 2026-09-04 by driving the real
+  dialog under a real `QuotaExceededError` (Chrome's quota forced to one byte through the
+  debugging protocol): the third write was refused, `replaceRecords` undid the two before it —
+  the added map deleted, the overwritten one re-put — and IndexedDB, the campaign bag, and the
+  last-open key matched the pre-import snapshot exactly, with no campaign-change hook and no
+  starter map seeded. The same run found that Chrome delivers a *request-level* failure to the
+  transaction's `error` event **before** `tx.error` is set, so `withStore` had been rejecting
+  with `null` there, and `replaceRecords`'s `if (failure)` read `null` as success: a
+  ConstraintError on the second write returned `ok: true, put: 1`, applied the bag, closed the
+  dialog on "+1 map image", and left a map row that opened to "Map data missing". `withStore`
+  now reads the failing request's own error when `tx.error` is empty, never rejects with a
+  falsy value, and swallows the request promise's duplicate rejection; the write loop treats
+  any rejection as a failure. A full disk arrives in Chrome as a commit-time abort with
+  `tx.error` set (the path that was already right); the spec's request-level path is how
+  Firefox reports quota, which is inferred from the spec, not run here.
 - **Dialog.** One **Import save…** chip for both formats, branching on the `PK` signature
   (never name or type — Windows reports `application/x-zip-compressed` or nothing). Every
   rejection goes through `rejectFile`, so an earlier confirm row is always torn down; the
