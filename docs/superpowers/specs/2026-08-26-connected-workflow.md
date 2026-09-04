@@ -88,7 +88,22 @@ Phases 0–3 are **complete**:
 
 ## Post-phase backlog
 
-Unbuilt work after Maps phase 2: see `docs/superpowers/plans/2026-08-28-backlog-roadmap.md`.
+Post–Maps backlog (shipped): [`2026-08-28-backlog-roadmap.md`](../plans/2026-08-28-backlog-roadmap.md).
+
+### Connected improvements (P1–P8)
+
+Program roadmap: [`2026-09-03-connected-improvements-roadmap.md`](../plans/2026-09-03-connected-improvements-roadmap.md).
+Ship order: **P1 → P2 → P3 → P4 → P5 → P7 → P6 → P8**.
+
+- [ ] **P1** Action consistency (`actionsFor`) — [`2026-09-03-object-action-matrix.md`](2026-09-03-object-action-matrix.md)
+- [ ] **P2** Save finishing polish (last downloaded save) — [`2026-09-03-save-trust.md`](2026-09-03-save-trust.md)
+- [ ] **P2b** Campaign archive zip — same spec
+- [ ] **P3** Builder remaining → Library fit (`BUILD.fits` simulation) — [`2026-09-03-builder-library-fit.md`](2026-09-03-builder-library-fit.md)
+- [ ] **P4** Recent combat events (semantic, ephemeral) — [`2026-09-03-tracker-glance.md`](2026-09-03-tracker-glance.md)
+- [ ] **P5** Resume Board — [`2026-09-03-campaign-resume.md`](2026-09-03-campaign-resume.md)
+- [ ] **P7** Forge roles / band-first UI — [`2026-09-03-forge-roles.md`](2026-09-03-forge-roles.md)
+- [ ] **P6** Maps linked tokens (intentional scope expansion) — [`2026-09-03-maps-linked-tokens.md`](2026-09-03-maps-linked-tokens.md)
+- [ ] **P8** Copy Board note to Lore — [`2026-09-03-board-promote-to-lore.md`](2026-09-03-board-promote-to-lore.md)
 
 ## Closed non-goals
 
@@ -96,7 +111,7 @@ These were considered and **will not be implemented**:
 
 - Live Tracker mirroring on Board encounter cards (use Tracker for live combat)
 - Lore excerpt / read-aloud block pinning (whole-page Pin is shipped; cut/paste to Board if needed)
-- Board or Tracker → Lore capture automation (session notes stay on the Board)
+- Board or Tracker → Lore capture **automation** (session notes stay on the Board; **explicit** user-initiated **Copy to Lore…** is P8 and allowed — copy, not archive/promote)
 
 ## Non-goals
 
@@ -106,4 +121,4 @@ These were considered and **will not be implemented**:
 - Cloud accounts or sync — local-first with portable export remains the trust model
 - Live Tracker mirroring on Board encounter cards
 - Lore excerpt / read-aloud block pinning
-- Board or Tracker → Lore capture automation
+- Board or Tracker → Lore capture automation (explicit Copy to Lore is P8; auto-capture remains closed)
