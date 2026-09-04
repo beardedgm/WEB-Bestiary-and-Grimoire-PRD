@@ -1,6 +1,6 @@
 # P1 — Action consistency — 2026-09-03
 
-**Status:** Stub (revised). Implementation not started.
+**Status:** Implemented.
 **Roadmap:** [`../plans/2026-09-03-connected-improvements-roadmap.md`](../plans/2026-09-03-connected-improvements-roadmap.md)
 
 ## Problem
@@ -45,3 +45,31 @@ Normalize **discoverability and action policy**, not application ownership.
 
 - `app.template.html` — Script 1 + TRK / BUILD / BOARD / LORE call sites
 - Update connected-workflow integration checklist when shipping
+
+## As shipped
+
+`actionsFor(subject, context)` and `mountActionChips(container, actions, opts)` live in
+Script 1 and are published on `window`. Subject kinds: `record`, `preset`, `builder-draft`,
+`lore`, and (P8) `board-markdown`. Verbs shipped: **Open · Board · Builder · Tracker**, plus
+**Copy to Lore…** once P8 spent the reserved `Copy`. `Maps` stayed unshipped (P6 links
+map-side).
+
+- Builder-draft and Lore subjects live inside their module's IIFE, so those call sites pass
+  their own run functions in `context.run`; `actionsFor` still owns label, primary and the
+  disabled policy.
+- `context` also takes `primary` (which verb wins the `.go` chip) and `omit` (the Board
+  encounter card omits `Board` — it is already on the board).
+- `mountActionChips` keeps everything on one row at ≤2 verbs and moves secondaries into a
+  `⋯` menu above that. A verb marked `confirms` leaves the menu open so `TRK.confirmSwap`
+  can swap its Yes/No prompt into the chip.
+- The reading pane's lone `Board` chip stays a plain chip: there is no competing verb for a
+  primary to win over, and reading is the point of that surface.
+- **P6 extended `record`, not the Library.** A `record` subject also yields `Open` and (for
+  creatures) `Tracker` when `context.surface !== "library"`, which is how a Maps token that
+  stores only an id gets verbs. The Library pane is deliberately excluded: there the pane
+  *is* the open record, and its list row already carries the add control. `Maps` itself
+  stayed unshipped as a verb — P6 links map-side only.
+- **P8 spent `Copy`.** A `board-markdown` subject yields one **Copy to Lore…** chip on Board
+  markdown cards — the only label that names its destination, because it is the only verb
+  that copies rather than routes. Like `builder-draft` and `lore` it passes `context.run`;
+  `actionsFor` omits the verb entirely when `LORE.createPage` is absent.

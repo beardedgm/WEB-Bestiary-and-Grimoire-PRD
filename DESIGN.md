@@ -239,15 +239,15 @@ Documented size steps (use these literals in CSS; do not invent ad-hoc values):
 Exclusive app modes via header chips: **Library** (`browse`), **Tracker** (`track` → `body.trk`), **Board** (`board` → `body.board`), **Builder** (`build` → `body.build`), **Forge** (`forge` → `body.forge`), **Lore** (`lore` → `body.lore`), **Maps** (`maps` → `body.maps`).
 
 - **Library / Tracker / Builder:** Three-column flex shell on desktop: library (`#side`, resizable), optional tracker (`#trk`) or builder (`#builder`) in the middle column slot (same `--col-trk` width), reading pane (`#pane`).
-- **Builder chrome:** System / ruleset / party size+level / threat chips, live XP meter, roster with qty 1–20, Save to Encounters + Load into Tracker. Catalog is monsters-only for the draft system; Table → Encounters keeps Load + Builder open actions.
+- **Builder chrome:** System / ruleset / party size+level / threat chips, live XP meter, roster with qty 1–20, Save to Encounters plus the shared **Tracker** / **Board** action chips (Board disabled until the draft is saved). Catalog is monsters-only for the draft system; Table → Encounters keeps **Tracker** + **Builder** actions. The Library gains one **Fits remaining** filter chip (`#f-fit`) while Builder is open on the monster catalog — a chip filter like Custom, not a per-row badge, so the answer never competes with the list row for space.
 - **Board:** Full-height `#board` shell replaces the three columns (rail + snap-grid stage) for **session notes** and tonight's spatial layout. Leaving Board stops audio and freezes running timers. Library search is unavailable with `#side` (by design).
-- **Forge:** Full-bleed `#forge` shell (controls rail | live preview) with stone/paper tokens; system chips D&D 5e | Pathfinder; Apply benchmarks + Save to Custom. No Monster Forge leather/gold theme import.
+- **Forge:** Full-bleed `#forge` shell (controls rail | live preview) with stone/paper tokens; system chips D&D 5e | Pathfinder; Apply benchmarks + Save to Custom. No Monster Forge leather/gold theme import. The rail is **band-first**: role chips (`#forgeRoleChips`, `aria-pressed`) sit directly under the system chips and set a whole band distribution; a strip of `.forge-band` buttons (`#forgeBands`) shows one stat per button (label + band name) and cycles Extreme → High → Moderate → Low on click, with the band spoken through `aria-label` since the rung is also carried by a `data-band` left border weight (`--ink` → `--dim` → `--hair` → `--stone-2`) that must never be the only signal. Numeric fields keep their place below as the secondary layer. `.forge-band` takes the 44px coarse-pointer minimum.
 - **Lore:** Full-bleed `#lore` shell pairs a stone **adventure page** rail (active campaign only) with the main markdown editor/preview surface for module text (chapters, scenes); nested pages remain visibly indented and tags filter the tree. Each tree row is handle (`⋮⋮`) | title | **`+`** (add child under that row); drag uses Tracker-style gap lines (before/after) plus an into highlight to reparent, with Alt+↑/↓ among siblings and Alt+→/← indent/outdent; handles disable while a page filter or tag is active. Campaign create/rename/delete lives in the **header** picker — the Lore rail shows a short “Pages for …” hint and page ops only (no second campaign chrome). Selecting a page with body text opens **Preview** (read) by default; **Edit** is opt-in (new or empty pages still open in Edit). The editor includes a grouped chip format toolbar (`#loreFmt`, `role="toolbar"`) — inline | block | insert separators — covering bold / italic / code, H1–H3, bullet / numbered lists, **Read-aloud** quotes, fenced blocks, and a table scaffold; Preview hides the toolbar and mirrors Board `.md-view` typography (including olive read-aloud blockquotes). **Pin to Board** uses `chip.go`; Pin / save notices reuse the Board toast (`#boardToast`) plus the live region. At **≤760px**, the page rail collapses into a **Pages** bottom sheet (scrim + sheet), matching Board’s mobile pattern; Lore chips (including tree `+`) use 44px min-height on coarse/narrow layouts.
 - **Maps:** Map-first `#maps` shell — **Maps** / **Settings** toolbar chips open mutually exclusive drawer trays (`maps` | `settings` | `tool` | `danger` views on `#mapsDrawer`); tool chips auto-open the tool tray. Toolbar spans full width **above** the drawer/canvas row so neither the app header nor the maps tool bar is covered. Desktop: drawer is an in-flow flex sibling that **pushes** the canvas aside (260px / collapsed); width **snaps** in both directions, so opening eases `opacity`/`transform` (280ms) while closing is instant — the zero-width clip lands first, so there is nothing left to fade. Mobile: bottom sheet + scrim scoped to `.maps-body` only (`transform: translateY`). A closed drawer is `inert` in every state, so its off-screen controls leave the tab order (`pointer-events:none` blocks the mouse but not Enter); closing while focus is inside hands focus back to the visible toggle, since `inert` does not blur what is already focused. Pixi stage fills remaining space. Tokens: disc + centered SVG icon (`maps/token-icons/`) + label below (HexPlora layout). Edit overlays sit outside `<main>`. At **≤760px**, **Maps** FAB + scrim.
-- Header: brand + mode chips + **Campaign** picker (`#hdrCamp`: `<select>` + New / Rename / Delete; Delete uses `TRK.confirmSwap`) + **Save** (`#user-save`, far right) for portable save download/import; library-list search (`#q` + `#count` in `#sidesearch`) sits under Catalog/Table nav, above Filters / Table bar — not inside Filters. At ≤760px, `#header-actions` is full-width and left-aligned so `#mode` / `#hdrCamp` wrap (`min-width: 0`) and every primary mode stays reachable without page-level horizontal scrolling.
+- Header: brand + mode chips + **Campaign** picker (`#hdrCamp`: `<select>` + New / Rename / Delete; Delete uses `TRK.confirmSwap`) + one **Continue Board: {title}** chip (`#hdrResume`, ellipsised) naming the last board opened in the active campaign — the only resume cue, Board-only, and absent rather than empty when nothing resolves + **Save** (`#user-save`, far right) for portable save download/import; library-list search (`#q` + `#count` in `#sidesearch`) sits under Catalog/Table nav, above Filters / Table bar — not inside Filters. At ≤760px, `#header-actions` is full-width and left-aligned so `#mode` / `#hdrCamp` wrap (`min-width: 0`) and every primary mode stays reachable without page-level horizontal scrolling.
 - Column defaults: side 340px, tracker/builder 380px; drag gutters 6px
 - Mobile breakpoint **760px**: stack Library/Tracker/Builder columns, hide resize handles; Board collapses the add rail into a **Cards & sessions** bottom sheet (scrim + sheet) so add/session actions stay reachable — mobile overrides use `body.board #board …` / `body.lore #lore …` specificity so toggles are not left `display:none` by the desktop base rules; Lore collapses the page rail into a **Pages** bottom sheet; Maps collapses the drawer into a **Maps** bottom sheet (FAB + scrim inside `.maps-body`); Forge stacks rail above preview. At ≤760px those rails **slide up from the bottom** (280ms drawer ease) with a scrim fade; `prefers-reduced-motion` drops the slide.
-- Touch/coarse pointer: 44px minimum on tracker damage/heal/remove, catalog add, Board card ops / primary card controls, and Lore editor / format / tree-add chips on the narrow breakpoint
+- Touch/coarse pointer: 44px minimum on tracker damage/heal/remove, catalog add, Board card ops / primary card controls, Forge band buttons, and Lore editor / format / tree-add chips on the narrow breakpoint
 - Body scrolls when zoom or content exceeds viewport (`overflow: auto`)
 
 ## Elevation & Depth
@@ -274,6 +274,7 @@ Flat-by-default stone surfaces. Depth is tonal layering (`stone` → `stone-3` t
 Snap-grid cards on the Board stage for session notes. Markdown cards use vellum stock; blockquotes render in olive as **read-aloud** cues. Shared Board/Lore `md()` Preview treats CommonMark backslash-escapes (e.g. `\.`, `\*`) by dropping the `\`, and collapses doubled `>` markers into one read-aloud quote (empty `>`-only lines are skipped). Card chrome may use the sheet shadow (interaction surfaces). Record cards render a linked Library stat block on paper stock with the sheet's own chrome suppressed (no inner border/shadow/max-width — the card is the sheet); a broken link shows an italic dim missing-record notice. Encounter cards list the linked preset's roster on paper stock with chip actions in the footer; missing presets use the same italic dim notice pattern as missing record refs. Lore cards resolve a linked campaign/page id and render the live body through the shared `.md-view`; a deleted campaign or page uses the same italic dim missing notice as a broken record link.
 
 - Session delete and non-empty card remove use Tracker `confirmSwap` (no `window.confirm` / `prompt`)
+- Markdown cards carry one **Copy to Lore…** chip in the `.md-meta` row; it swaps an inline **Copy to Lore under [parent ▾] · Copy · Cancel** picker into its own chip (`.md-copy`, `confirmSwap` pattern), so the parent-chapter choice *is* the confirm — no modal over the stage. Escape or Cancel restores the chip and its focus
 - Markdown Expand (`#boardExpand`, outside `<main>`): Tab focus trap, `setAppInert`, Escape/Done commit; counter wedges use `--brick` / `--stone-3` / `--hair` (Fill ± for keyboard)
 - Mobile: **Cards & sessions** toggle opens the rail as a bottom sheet over a scrim
 
@@ -285,6 +286,15 @@ Snap-grid cards on the Board stage for session notes. Markdown cards use vellum 
 - **Primary action (`go`):** brick fill with vellum text — used in the Tracker bar, overlays, and Save **Download save…**; dialog confirm uses ink `yes`
 - **Focus:** dual ring — `ink` outline (AA non-text contrast) plus soft gilt outer glow; never gilt text or gilt-only rings on stone/paper
 
+### Action chips
+
+The verbs a GM can run on an object are painted by `mountActionChips` from `actionsFor`, so the same object offers the same words everywhere.
+
+- **Vocabulary:** `Open` · `Board` · `Builder` · `Tracker` — never a surface-specific rewording ("Send to Board", "Load into Tracker", "Open in Builder" are retired). Titles carry the longer sentence. **`Copy to Lore…`** (Board markdown cards) is the one label that names its destination, because it is the one verb that *copies* instead of routing — the note stays on the Board and a second, independent page appears in Lore
+- **One primary:** at most one chip per group takes `go`; a lone verb on a reading surface stays a plain chip (nothing to win over)
+- **Overflow:** ≤2 verbs sit on one row; beyond that the primary stays inline and secondaries move into a `⋯` menu (`.act-menu`) on paper stock with the sheet shadow, closed by outside click or Escape
+- A verb that confirms (`TRK.confirmSwap`) leaves the overflow menu open so the Yes/No prompt can swap into its own chip
+
 ### List items
 
 - Spine-colored left border by system; hover `stone-2`; selection previews paper stock
@@ -295,6 +305,16 @@ Snap-grid cards on the Board stage for session notes. Markdown cards use vellum 
 - Reuse spine colors; initiative in bold mono; HP bar 4px with olive/gilt/brick fill by percentage
 - Inline confirm replaces destructive chip — never `window.confirm`
 - Marker swatches sit in the name row immediately before AC (see Markers)
+- **Turn order carries three cues, none of them colour alone:** a mono `Now` / `Next` badge (label sm; ink fill versus stone outline) after the name, a 6px spine on the active card (left padding compensates so the row never shifts), and a heavier name. Gilt stays on the active card's inset ring, never on its text. `Now` is `aria-hidden` — `aria-current` already says it; `Next` keeps its text because nothing else does
+
+### Tracker glance strip
+
+`#trkglance` sits between the toolbar and the combatant list: a `Now` / `Next` line (current combatant with HP, then the next name) over an ephemeral list of the last few things that happened. It answers the two questions the cards make a GM hunt for after looking away.
+
+- **Recency is the hierarchy:** newest line in `ink`, older lines `dim`; per-kind 2px left spine (brick damage, olive heal, gilt turn) reuses the Spine Rule rather than inventing badges
+- ~3 lines visible, scrollable for the rest; the strip hides entirely outside combat with nothing to report
+- **`aria-hidden` by design:** `#trklive` already speaks every line, so a second copy would double every announcement. The strip is a visual echo of the live region, not a second source
+- Ephemeral: no persistence, no export, no Board mirroring — it dies with the page, like undo
 
 ### Markers
 
@@ -315,6 +335,7 @@ Snap-grid cards on the Board stage for session notes. Markdown cards use vellum 
 - Segmented control (`Catalog | Table`) in stone-2 tray; inner chips for Monsters/Spells/Party/Encounters
 - Native `<details>` for Filters and Dice — keyboard and disclosure behavior come free
 - Spell-only filter chips live in `#f-extra`; `#f-extra[hidden]{display:none !important}` so `.frow` flex cannot leak them onto Catalog Monsters (same pattern as table-bar hidden overrides)
+- Builder-only **Fits remaining** chip lives in `#f-fit` under the same hidden override, starts hidden in the markup, and **clears its filter** whenever it hides — a chip that cannot be seen must not still narrow the list
 - **Custom** filter chip beside system chips; custom list rows use a dashed gilt spine (`.item.custom`)
 - List footer (`#listfoot`): overflow hint; `+` (`#custom-add`) for adding one custom creature/spell
 
@@ -346,7 +367,7 @@ Snap-grid cards on the Board stage for session notes. Markdown cards use vellum 
 ### Spell peek (`#spellpeek`)
 
 - Absolute overlay covering only `#pane`; monster sheet stays underneath with `aria-hidden`
-- Sticky toolbar: Close, Back to {monster}, optional “Listed under …”, Open in catalog
+- Sticky toolbar: Close, Back to {monster}, optional “Listed under …”, **Open** (titled “Open … in the catalog”)
 - Body reuses `spellHTML()` (full block, including clickable dice)
 - Escape closes after dice pop / tracker dialog; does not change URL hash or catalog selection
 - Do **not** set `inert` on header/main for spell peek — library search and tracker must stay usable

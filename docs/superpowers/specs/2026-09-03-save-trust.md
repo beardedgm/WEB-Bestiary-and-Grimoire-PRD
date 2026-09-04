@@ -1,6 +1,6 @@
 # P2 — Save finishing polish — 2026-09-03
 
-**Status:** Stub (revised). Scope honesty already shipped; timestamp polish remains.
+**Status:** Track A (P2) **Implemented** 2026-09-03. Track B (P2b campaign archive) not started.
 **Amended 2026-09-03:** a code review of the shipped dialog found that the import confirm
 row stayed armed after a later file was rejected (Import then committed the earlier bag),
 and that the over-limit download warning was never cleared. Both were fixed as maintenance,
@@ -20,12 +20,18 @@ GM can see last successful portable download time and still understand scope bou
 
 ## Tracks
 
-### P2 — Finishing polish (ship)
+### P2 — Finishing polish (shipped)
 
 - On successful Download, persist a timestamp (e.g. `lastPortableExportAt`).
+  Shipped: `bg.userSave.meta.v1` holds `lastPortableExportAt` (ISO string, validated by
+  `vUserSaveMeta`, dropped whole if unparseable). `downloadUserSave` stamps only after the
+  blob is handed to the browser, so a failed build or handoff leaves no mark.
 - Show **“Last downloaded save: …”** or **“Last portable export: …”** in the Save dialog.
   Never “Last backup” — a timestamp does not prove the file still exists on disk.
+  Shipped: `#user-save-when` renders local `dateStyle: medium` / `timeStyle: short` via
+  `renderSaveStamp`, with the caveat that it records the download, not the file's survival.
 - Keep / lightly reinforce the existing Maps-images-exported-separately reminder.
+  Shipped copy already states it once; deliberately not repeated.
 
 ### P2b — Campaign archive (later)
 

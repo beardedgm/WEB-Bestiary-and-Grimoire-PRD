@@ -1,6 +1,6 @@
 # P7 — Forge roles / band-first UI — 2026-09-03
 
-**Status:** Stub (revised). Implementation not started.
+**Status:** Implemented 2026-09-03.
 **Roadmap:** [`../plans/2026-09-03-connected-improvements-roadmap.md`](../plans/2026-09-03-connected-improvements-roadmap.md)
 **Ship order:** Before P6 (improves existing Forge without reopening Maps scope).
 **Amended 2026-09-03:** a plan review found the `wisGuess` note below was understating a
@@ -75,3 +75,39 @@ state.** `monster.schema.json` types `abilityMods` as `["object", "null"]`, so e
 ## Primary files
 
 - `app.template.html` — FORGE (tables already inlined)
+
+## What shipped
+
+**Bands are rungs relative to the benchmark row, and the row is the Moderate rung.** That is
+the decision the rest follows from: a Balanced creature is byte-for-byte what the Forge
+produced before P7, so the change adds intent rather than moving everyone's numbers. The
+offsets between rungs (`PF_STEP` / `D5_STEP`) are the Forge's own spacing, stated as such in
+the code — they are not a reproduction of a book table, and every number they produce lands
+in an editable field before it reaches a record.
+
+**Roles.** Seven chips — Balanced, Brute, Soldier, Skirmisher, Sniper, Caster, Mook — each a
+distribution over `hp`, `ac`, `fort`, `ref`, `will`, `per`, `attack`, `damage`, `spellDC`,
+plus (5e only) the primary/secondary ability pair fed to `suggestAbilities`.
+
+**Band strip.** Under the chips, one button per stat the active system actually has (four on
+5e, nine on PF2e), cycling Extreme → High → Moderate → Low. Cycling re-applies benchmarks
+when the form is already applied, so the numbers follow the bands live. A distribution that
+no longer matches any role drops the chip and reads "Custom mix — bands set by hand", which
+is how "GM can deviate afterward" is visible rather than implied. The PF2e **Damage band**
+`<select>` was removed; the strip owns that value and maps the inlined rows' older
+Low/Moderate/Severe/Extreme columns onto the four rungs, Severe being what High reads.
+
+**5e translation.** HP moves inside the range the CR row already states (`hpMin` … `hp` …
+midpoint … `hpMax`) rather than being scaled; damage rescaling moves only the flat bonus so
+the row's dice survive; AC and attack take flat offsets. `challenge.kind` stays `cr`, no
+PF2e-shaped fields appear, and nothing converts between CR and level.
+
+**The hard rule.** `wisGuess` is gone and PF2e forged records emit `abilityMods: null`
+alongside the existing `abilityScores: null`; the `parse` warning now says "ability
+modifiers and scores unstated". `monsterHTML` already guarded on `r.abilityMods`, so a
+forged PF2e block simply prints no ability row. `validateCustomRecord` had to be relaxed to
+match the schema it was supposedly enforcing — it rejected null outright — so it now accepts
+null while still rejecting a *partly* filled object. The 5e branch was untouched.
+
+Forge writes `systemExtras.forgeRole` and `systemExtras.forgeBands` on both systems: those
+are the GM's stated intent, not a value derived from another benchmark.

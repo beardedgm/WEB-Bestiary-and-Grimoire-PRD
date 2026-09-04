@@ -81,6 +81,8 @@ header h1 .amp{color:var(--brick); font-variant:normal; font-style:italic; paddi
   border:1px solid var(--hair); background:var(--paper); color:var(--ink);
   font:13px/1.2 var(--sans);
 }
+/* resume cue: session titles are free text, so clip rather than widen the header */
+#hdrResume{max-width:min(240px, 44vw); overflow:hidden; text-overflow:ellipsis}
 #user-save{flex:none}
 main{flex:1; display:flex; min-height:0}
 
@@ -127,7 +129,7 @@ body:not(.trk):not(.build) #resize-trk{display:none}
 #tablebar[hidden],#filters.table-off{display:none}
 #tbar-party[hidden],#side-save-enc[hidden]{display:none !important}
 /* .frow { display:flex } would otherwise defeat the UA [hidden] rule */
-#f-extra[hidden]{display:none !important}
+#f-extra[hidden],#f-fit[hidden]{display:none !important}
 #side-save-enc:not([hidden]){display:flex; gap:6px; align-items:center}
 #side-save-enc input{
   flex:1; min-width:0; padding:6px 9px; border-radius:2px;
@@ -518,10 +520,22 @@ body.trk #trk{
 #trklist:empty{flex:none}
 #trklist:empty + #trkempty{display:block}
 /* load-bearing: an author display rule on these would defeat the hidden attribute */
-#trkbar[hidden], #dice[hidden], #trkovl[hidden], #pdisp[hidden], #dpop[hidden]{display:none}
+#trkbar[hidden], #dice[hidden], #trkovl[hidden], #pdisp[hidden], #dpop[hidden],
+#trkglance[hidden], #trkturn[hidden]{display:none}
 
 /* clickable dice in stat blocks — inherit the stock's ink and font */
 .pane-actions{display:flex; gap:6px; margin:2px 0 14px}
+/* object → action chips (actionsFor / mountActionChips) */
+.act-row{display:flex; flex-wrap:wrap; gap:6px}
+.act-overflow{position:relative; display:inline-flex}
+.act-menu{
+  position:absolute; right:0; top:calc(100% + 4px); z-index:46;
+  display:flex; flex-direction:column; gap:5px; padding:6px;
+  background:var(--paper); border:1px solid var(--paper-edge); border-radius:2px;
+  box-shadow:0 2px 10px rgba(36,33,28,.22);
+}
+.act-menu[hidden]{display:none}   /* load-bearing: display:flex would defeat [hidden] */
+.act-menu .chip{white-space:nowrap; text-align:left}
 .droll{
   display:inline; padding:0 1px; border:none; background:none; cursor:pointer;
   font:inherit; color:var(--sysink, var(--ink));
@@ -550,6 +564,45 @@ body.trk #trk{
   background:var(--stone); color:var(--ink); font:11.5px/1.3 var(--mono);
 }
 #qty:focus{outline:none; border-color:var(--gilt); box-shadow:0 0 0 2px rgba(156,124,28,.18)}
+
+/* glance strip — whose turn / who is next, plus the recent-event ring.
+   The whole strip is aria-hidden in the markup: every line in it is already
+   spoken through #trklive, so a second copy would double every announcement. */
+#trkglance{
+  display:flex; flex-direction:column; gap:6px;
+  padding:8px 12px; border-bottom:1px solid var(--hair); background:var(--stone);
+}
+#trkturn{display:flex; align-items:baseline; gap:6px; min-width:0}
+.tg-k{
+  flex:none; font:600 9.5px/1 var(--mono); text-transform:uppercase;
+  letter-spacing:.1em; color:var(--faint);
+}
+.tg-now{
+  flex:1 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  font:700 15px/1.2 var(--mono); color:var(--ink);
+}
+.tg-next{
+  flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+  font:12px/1.4 var(--sans); color:var(--dim);
+}
+/* recency is the hierarchy: the newest line is ink, older lines dim */
+/* ~3 lines plus a sliver of the fourth: the clipped line is the only hint the
+   ring holds more, since a strip this thin has no room for a "show all" chip */
+#trkevt{
+  display:flex; flex-direction:column; gap:2px;
+  margin:0; padding:0; list-style:none; max-height:58px; overflow-y:auto;
+  scrollbar-color:var(--hair) transparent; scrollbar-width:thin;
+}
+#trkevt:empty{display:none}
+#trkevt li{
+  flex:none; padding-left:7px; border-left:2px solid var(--hair);
+  font:12px/1.4 var(--sans); color:var(--dim);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+}
+#trkevt li:first-child{color:var(--ink)}
+#trkevt li[data-k="dmg"]{border-left-color:var(--brick)}
+#trkevt li[data-k="heal"]{border-left-color:var(--olive)}
+#trkevt li[data-k="turn"], #trkevt li[data-k="start"]{border-left-color:var(--gilt)}
 
 /* add-to-encounter button on result rows (tracker mode only) */
 .item .add{
@@ -646,8 +699,22 @@ body:not(.trk):not(.build) .item .add{display:none}
   flex:1; min-width:0; padding:2px 5px; border-radius:2px; border:1px solid var(--gilt);
   background:var(--paper); color:var(--ink); font:600 13px/1.2 var(--sans);
 }
-.cbt.on{background:var(--stone-3); box-shadow:inset 0 0 0 2px var(--gilt)}
+/* Current and next carry three cues that are not colour: a mono badge with its
+   own word, a fatter spine on the active card (padding compensates so the row
+   does not shift), and a heavier name. Gilt stays on the border, never the text. */
+.cbt.on{
+  background:var(--stone-3); box-shadow:inset 0 0 0 2px var(--gilt);
+  border-left-width:6px; padding-left:6px;
+}
 .cbt.on .cbt-init{color:var(--ink)}
+.cbt.on .cbt-nm{font-weight:700}
+.cbt.nxt{background:var(--stone-3)}
+.cbt-turn{
+  flex:none; padding:2px 5px; border:1px solid var(--ink); border-radius:2px;
+  background:var(--ink); color:var(--stone-3);
+  font:600 9.5px/1 var(--mono); text-transform:uppercase; letter-spacing:.1em;
+}
+.cbt-turn.nxt{background:var(--stone); border-color:var(--hair); color:var(--dim)}
 .cbt.viewing{background:var(--stone-2); box-shadow:inset 0 0 0 1px var(--hair)}
 .cbt.on.viewing{box-shadow:inset 0 0 0 2px var(--gilt), inset 0 0 0 3px var(--hair)}
 .cbt.drag{opacity:.45}
@@ -922,6 +989,21 @@ body.trk #forge{display:none !important}
 }
 #forge .forge-abs label{min-width:0}
 #forge .forge-abs input{text-align:center; padding:6px 2px}
+#forge .forge-roles{display:flex; flex-wrap:wrap; gap:5px}
+#forge .forge-bands{display:grid; grid-template-columns:repeat(auto-fill, minmax(6.5em, 1fr)); gap:4px}
+#forge .forge-band{
+  display:flex; flex-direction:column; gap:2px; align-items:flex-start; text-align:left;
+  color:var(--dim); background:var(--paper);
+  border:1px solid var(--hair); border-left-width:3px; border-radius:3px; padding:5px 7px; cursor:pointer
+}
+#forge .forge-band .bk{font:600 10px/1 var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--faint)}
+#forge .forge-band .bv{font:13px/1.2 var(--sans); color:var(--ink)}
+#forge .forge-band:hover{border-color:var(--gilt)}
+#forge .forge-band:focus-visible{outline:2px solid var(--gilt); outline-offset:1px}
+#forge .forge-band[data-band=extreme]{border-left-color:var(--ink)}
+#forge .forge-band[data-band=high]{border-left-color:var(--dim)}
+#forge .forge-band[data-band=moderate]{border-left-color:var(--hair)}
+#forge .forge-band[data-band=low]{border-left-color:var(--stone-2)}
 #forge .forge-actions{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:4px}
 #forge #forgeSave{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
 #forge #forgeStatus{font:12.5px/1.35 var(--sans); color:var(--dim); min-height:1.2em}
@@ -937,6 +1019,9 @@ body.trk #forge{display:none !important}
 #forge .forge-sec{
   font:600 11px/1 var(--sans); letter-spacing:.04em; text-transform:uppercase; color:var(--faint);
   margin:8px 0 2px
+}
+@media (pointer:coarse){
+  #forge .forge-band{min-height:44px; justify-content:center}
 }
 @media (max-width:760px){
   body.forge #forge{flex-direction:column}
@@ -1088,6 +1173,25 @@ body.maps-drawer-open .maps-body .maps-drawer-scrim{display:block}
   font:13px/1.3 var(--sans); color:var(--ink); background:var(--stone-3); border:1px solid var(--hair); border-radius:3px; padding:6px 8px
 }
 .maps-token-panel .panel-ft{display:flex; gap:8px; justify-content:flex-end; margin-top:8px}
+.maps-tok-link{border-top:1px solid var(--hair); margin-top:10px; padding-top:2px}
+.maps-tok-results{
+  display:flex; flex-direction:column; gap:2px; max-height:168px; overflow:auto;
+  border:1px solid var(--hair); border-radius:3px; background:var(--stone-3); padding:3px
+}
+.maps-tok-results[hidden]{display:none !important}
+.maps-tok-results button{
+  display:block; width:100%; text-align:left; cursor:pointer;
+  font:13px/1.3 var(--sans); color:var(--ink);
+  background:none; border:0; border-radius:2px; padding:6px 7px
+}
+.maps-tok-results button:hover{background:var(--stone)}
+.maps-tok-results button:focus-visible{outline:2px solid var(--gilt); outline-offset:-2px}
+.maps-tok-results .maps-tok-rank{color:var(--dim); font:11px/1.3 var(--mono)}
+.maps-tok-linked{display:flex; flex-direction:column; gap:6px; margin-top:8px}
+.maps-tok-linked[hidden]{display:none !important}
+#mapsTokRefName{margin:0; font:13px/1.3 var(--sans); color:var(--ink)}
+#mapsTokRefName .maps-tok-rank{color:var(--dim); font:11px/1.3 var(--mono)}
+@media (pointer:coarse){ .maps-tok-results button{min-height:44px} }
 @media (max-width:760px){
   .maps-body{flex-direction:column}
   #maps .maps-drawer{
@@ -1342,6 +1446,14 @@ body.forge #lore{display:none !important}
   padding:5px 8px; border:1px solid var(--hair); border-radius:2px; background:var(--stone);
   font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; cursor:pointer; color:var(--dim)}
 #board .md-meta button:hover{border-color:var(--gilt); color:var(--ink)}
+/* Copy to Lore… parent picker, swapped into the chip it replaces */
+#board .md-copy{flex-wrap:wrap; gap:6px; max-width:100%}
+#board .md-copy label{
+  display:inline-flex; align-items:center; gap:5px; min-width:0;
+  font:600 10px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--dim)}
+#board .md-copy select{
+  max-width:150px; padding:4px 6px; border:1px solid var(--hair); border-radius:2px;
+  background:var(--paper); color:var(--ink); font:11px/1.2 var(--sans)}
 
 #board .img-body{padding:0 !important; display:flex; align-items:center; justify-content:center; background:var(--stone-2)}
 #board .img-body img{max-width:100%; max-height:100%; object-fit:contain; display:block}
@@ -1638,6 +1750,7 @@ body.forge #lore{display:none !important}
       <button type="button" class="chip" id="hdrCampRename" title="Rename campaign">Rename</button>
       <button type="button" class="chip" id="hdrCampDel" title="Delete campaign">Delete</button>
       <input id="hdrCampTitle" type="text" aria-label="Campaign title" maxlength="80" hidden>
+      <button type="button" class="chip" id="hdrResume" hidden></button>
     </span>
     <button type="button" class="chip" id="user-save"
             title="Download or import a portable save"
@@ -1668,6 +1781,7 @@ body.forge #lore{display:none !important}
       <summary>Filters<span id="fcount" hidden></span></summary>
       <div class="frow" id="f-sys"></div>
       <div class="frow" id="f-extra"></div>
+      <div class="frow" id="f-fit" hidden></div>
       <div id="f-range"></div>
       <div class="frow">
         <label class="tog"><input type="checkbox" id="deep"> also search description text</label>
@@ -1716,6 +1830,15 @@ body.forge #lore{display:none !important}
       <button type="button" class="chip" id="t-redo" disabled>Redo</button>
       <button type="button" class="chip" id="t-reset" title="Keep party members, remove monsters and NPCs">Reset</button>
       <button type="button" class="chip" id="t-clear" title="Remove everyone from the encounter">Clear</button>
+    </div>
+    <!-- glance strip: whose turn, who is next, and the last few things that happened.
+         aria-hidden because #trklive already speaks all of it (see the CSS note) -->
+    <div id="trkglance" hidden aria-hidden="true">
+      <div id="trkturn" hidden>
+        <span class="tg-k">Now</span><span class="tg-now" id="tg-now">—</span>
+        <span class="tg-k">Next</span><span class="tg-next" id="tg-next">—</span>
+      </div>
+      <ol id="trkevt"></ol>
     </div>
     <div id="trklist" role="list" aria-label="Combatants"></div>
     <div id="trkempty">No combatants yet — add monsters from Catalog, or party members from Table.</div>
@@ -1783,8 +1906,7 @@ body.forge #lore{display:none !important}
       <div id="buildStatus" role="status"></div>
       <div id="buildActs">
         <button type="button" class="chip go" id="buildSave">Save to Encounters</button>
-        <button type="button" class="chip" id="buildLoad">Load into Tracker</button>
-        <button type="button" class="chip" id="buildBoard" disabled title="Save to Encounters first">Send to Board</button>
+        <span id="buildObjActs" class="act-row"></span>
       </div>
     </div>
   </section>
@@ -1836,11 +1958,19 @@ body.forge #lore{display:none !important}
 <section id="forge" aria-label="Creature forge" hidden>
   <aside class="forge-rail">
     <h2>Forge</h2>
-    <p class="forge-hint">Build a custom creature from system benchmarks, then save it to your Custom library.</p>
+    <p class="forge-hint">Say what the creature is <em>for</em>, pick its rung, then adjust numbers. Save it to your Custom library when it reads right.</p>
     <div class="forge-row" id="forgeSysChips" role="group" aria-label="Game system">
       <button type="button" class="chip on" data-sys="dnd5e" aria-pressed="true">D&amp;D 5e</button>
       <button type="button" class="chip" data-sys="pf2e" aria-pressed="false">Pathfinder</button>
     </div>
+
+    <div class="forge-sec">Role</div>
+    <div class="forge-roles" id="forgeRoleChips" role="group" aria-label="Creature role"></div>
+    <p class="forge-hint" id="forgeRoleHint"></p>
+    <div class="forge-sec">Bands</div>
+    <div class="forge-bands" id="forgeBands" role="group" aria-label="Stat bands"></div>
+    <p class="forge-hint">Each band is a rung above or below this system's benchmark row — click one to change it. Numbers below stay editable.</p>
+
     <div class="forge-row">
       <label class="grow">Name <input type="text" id="forgeName" placeholder="Creature name" autocomplete="off"></label>
       <label>Size <select id="forgeSize"></select></label>
@@ -1882,7 +2012,6 @@ body.forge #lore{display:none !important}
       <div class="forge-sec">Pathfinder</div>
       <div class="forge-row">
         <label>Level <select id="forgePfLevel"></select></label>
-        <label>Damage band <select id="forgePfBand"></select></label>
         <label>Rarity <select id="forgeRarity"></select></label>
       </div>
       <div class="forge-row">
@@ -1916,7 +2045,7 @@ body.forge #lore{display:none !important}
     <div id="forgeStatus" role="status"></div>
   </aside>
   <div class="forge-preview" id="forgePreview">
-    <p class="forge-hint">Set CR or level, then <strong>Apply benchmarks</strong> to fill stats and preview.</p>
+    <p class="forge-hint">Pick a role and a CR or level, then <strong>Apply benchmarks</strong> to fill stats and preview.</p>
   </div>
 </section>
 
@@ -1942,7 +2071,7 @@ body.forge #lore{display:none !important}
       <div class="lore-editor-bar">
         <input id="loreTitle" type="text" aria-label="Page title" maxlength="80">
         <button type="button" class="chip" id="lorePreviewToggle" aria-pressed="false">Preview</button>
-        <button type="button" class="chip go" id="lorePin">Pin to Board</button>
+        <span class="act-row" id="loreActs"></span>
         <button type="button" class="chip" id="lorePageDel">Delete page</button>
       </div>
       <input id="loreTags" type="text" aria-label="Tags" placeholder="tags, comma, separated" autocomplete="off">
@@ -2228,6 +2357,20 @@ body.forge #lore{display:none !important}
       <label>Icon <select id="mapsTokIcon"></select></label>
       <label>Color <input id="mapsTokColor" type="color"></label>
       <label>Notes <textarea id="mapsTokNotes" rows="4" maxlength="2000"></textarea></label>
+      <!-- optional Library id on the token; the token never copies the record -->
+      <div class="maps-tok-link">
+        <label>Library link
+          <input id="mapsTokRefSearch" type="search" maxlength="80" autocomplete="off"
+                 placeholder="Search creatures by name…">
+        </label>
+        <div id="mapsTokRefResults" class="maps-tok-results" hidden></div>
+        <p id="mapsTokRefNone" class="maps-tool-hint" hidden>No creature matches that name.</p>
+        <div id="mapsTokRefLinked" class="maps-tok-linked" hidden>
+          <p id="mapsTokRefName"></p>
+          <p id="mapsTokRefTrk" class="maps-tool-hint" hidden></p>
+          <div id="mapsTokRefActs" class="act-row"></div>
+        </div>
+      </div>
     </div>
     <div class="panel-ft">
       <button type="button" class="chip danger" id="mapsTokDelete" hidden>Delete</button>
@@ -2424,7 +2567,8 @@ function openSpellPeek(id, opts){
       `<button type="button" class="chip" data-spk-close>Close</button>` +
       `<button type="button" class="chip" data-spk-close>Back to ${esc(backName)}</button>` +
       (under ? `<span class="spkunder">Listed under ${esc(under)}</span>` : `<span class="spkunder"></span>`) +
-      `<button type="button" class="chip" data-spk-catalog="${esc(r.id)}">Open in catalog</button>` +
+      `<button type="button" class="chip" data-spk-catalog="${esc(r.id)}"` +
+        ` title="Open ${esc(r.name || "this spell")} in the catalog">${esc(ACT.open)}</button>` +
     `</div>` +
     `<div class="spkbody">${spellHTML(r)}</div>`;
   peek.hidden = false;
@@ -2584,6 +2728,7 @@ const USER_SAVE_SCHEMA = "bg-user-save/1";
 const CUSTOM_ID_RE = /^(dnd5e|pf2e):custom:[a-z0-9-]+$/;
 const CUSTOM_PASTE_MAX = 512 * 1024;
 const USER_SAVE_MAX = 8 * 1024 * 1024;
+const USER_SAVE_META_LS = "bg.userSave.meta.v1";
 const ABIL_KEYS = ["str", "dex", "con", "int", "wis", "cha"];
 let CORPUS_IDS = new Set();
 let pendingCustomDrops = 0;
@@ -2775,9 +2920,13 @@ function validateCustomRecord(raw){
         errors.push("identity.alignment must be an object.");
     }
     const am = raw.abilityMods;
-    if (!am || typeof am !== "object") errors.push("abilityMods must be an object.");
-    else for (const k of ABIL_KEYS)
-      if (!isFiniteNum(am[k])) errors.push("abilityMods." + k + " must be a number (0 is fine).");
+    // null is the schema's way of saying the source never stated modifiers; only a
+    // half-filled object is an error.
+    if (am !== null){
+      if (!am || typeof am !== "object") errors.push("abilityMods must be an object or null.");
+      else for (const k of ABIL_KEYS)
+        if (!isFiniteNum(am[k])) errors.push("abilityMods." + k + " must be a number (0 is fine).");
+    }
     if (raw.gameSystem === "pf2e"){
       if (raw.abilityScores != null) errors.push("abilityScores must be null for Pathfinder creatures.");
     } else if (!raw.abilityScores || typeof raw.abilityScores !== "object")
@@ -3002,21 +3151,62 @@ function saveNotice(msg){
   el.hidden = !msg;
   el.textContent = msg || "";
 }
+function vUserSaveMeta(raw){
+  const m = { lastPortableExportAt: null };
+  if (!raw || typeof raw !== "object") return m;
+  const t = raw.lastPortableExportAt;
+  if (typeof t === "string" && t.length <= 40 && !Number.isNaN(Date.parse(t)))
+    m.lastPortableExportAt = t;
+  return m;
+}
+function loadUserSaveMeta(){
+  return vUserSaveMeta(lsGet(USER_SAVE_META_LS, null));
+}
+/* Returns the stamp only when it actually persisted, so the dialog line never claims
+   a history the browser refused to store. */
+function stampPortableExport(){
+  const meta = loadUserSaveMeta();
+  meta.lastPortableExportAt = new Date().toISOString();
+  return lsSet(USER_SAVE_META_LS, meta) ? meta.lastPortableExportAt : null;
+}
+function fmtSaveWhen(iso){
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+}
+function renderSaveStamp(){
+  const el = document.getElementById("user-save-when");
+  if (!el) return;
+  const when = fmtSaveWhen(loadUserSaveMeta().lastPortableExportAt);
+  el.textContent = when
+    ? "Last downloaded save: " + when + " — this device's record of the download, not proof the file is still where you put it."
+    : "No save downloaded from this device yet.";
+}
 function downloadUserSave(){
   saveNotice("");
   buildUserSaveAsync().then(bag => {
-  const blob = new Blob([JSON.stringify(bag, null, 2)], { type: "application/json" });
-  if (blob.size > USER_SAVE_MAX){
-    saveNotice("Warning: save is " + (blob.size / (1024 * 1024)).toFixed(1) +
-      " MB — over the " + (USER_SAVE_MAX / (1024 * 1024)) +
-      " MB import limit; re-import may fail. Remove large Board images/audio or shrink notes.");
-  }
-  const a = document.createElement("a");
-  const url = URL.createObjectURL(blob);
-  a.href = url;
-  a.download = "bestiary-grimoire-save.json";
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+    const blob = new Blob([JSON.stringify(bag, null, 2)], { type: "application/json" });
+    if (blob.size > USER_SAVE_MAX){
+      saveNotice("Warning: save is " + (blob.size / (1024 * 1024)).toFixed(1) +
+        " MB — over the " + (USER_SAVE_MAX / (1024 * 1024)) +
+        " MB import limit; re-import may fail. Remove large Board images/audio or shrink notes.");
+    }
+    const a = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    try{
+      a.href = url;
+      a.download = "bestiary-grimoire-save.json";
+      a.click();
+    }catch(_){
+      URL.revokeObjectURL(url);
+      saveNotice("Could not hand the file to the browser — nothing was downloaded.");
+      return;
+    }
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    /* Stamp only after the blob reached the browser. The timestamp is the GM's only
+       evidence a download happened, so a build or handoff that threw must leave no mark. */
+    if (stampPortableExport()) renderSaveStamp();
   }).catch(() => saveNotice("Could not build the save file — nothing was downloaded."));
 }
 function applyUserSaveBag(bag){
@@ -3183,6 +3373,7 @@ function openUserSaveDialog(){
     <h3>Save file</h3>
     <p class="libhint">Download includes customs, campaigns (party, presets, lore, map names), boards, the live encounter, dice, and UI. Map images are not in this file — use Maps → Export. Large board media: Board → Export board… (import max 8 MB).</p>
     <p class="libhint">Import updates matching ids, keeps records only this device has, and replaces the live encounter.</p>
+    <p class="libhint" id="user-save-when"></p>
     <div class="btns btns-lead">
       <button type="button" class="chip go" data-save-export>Download save…</button>
       <button type="button" class="chip" data-save-import>Import save…</button>
@@ -3192,6 +3383,7 @@ function openUserSaveDialog(){
     <div class="btns" id="save-btns"><button type="button" class="chip" data-save-close>Close</button></div>
   `);
   const root = $("#trkovl");
+  renderSaveStamp();
   root.querySelector("[data-save-close]").onclick = () => TRK.closeOvl();
   root.querySelector("[data-save-export]").onclick = () => downloadUserSave();
   const saveErr = root.querySelector("#user-save-err");
@@ -3279,7 +3471,8 @@ function start(){
 }
 
 /* ---------------- filters ---------------- */
-const F = { kind:new Set(), sys:new Set(), extra:new Set(), custom:new Set(), range:{} };
+const F = { kind:new Set(), sys:new Set(), extra:new Set(), custom:new Set(),
+            fit:new Set(), range:{} };
 
 /* The corpus carries four separate numeric scales. CR 15 is not Creature 15,
    so each scale filters only its own records and they never interact.
@@ -3382,8 +3575,27 @@ function applySideChrome(){
       });
     }
   }
+  /* The fit chip only means anything against a live Builder draft, so leaving Builder (or
+     the monster catalog) both hides it and drops the filter — a hidden chip that still
+     narrows the list is a trap. Callers refresh after applySideChrome. */
+  const fit = $("#f-fit");
+  if (fit){
+    const onFit = building && side === "monster" && !!(window.BUILD && BUILD.fits);
+    fit.hidden = !onFit;
+    if (!onFit && F.fit.size){
+      F.fit.clear();
+      fit.querySelectorAll(".chip").forEach(b => {
+        b.classList.remove("on");
+        b.setAttribute("aria-pressed", "false");
+      });
+    }
+  }
   const libBtn = $("#custom-add");
   if (libBtn) libBtn.hidden = isTableSide(side);
+}
+/* BUILD asks this before repainting the Library on a draft change. */
+function fitFilterActive(){
+  return F.fit.size > 0 && document.body.classList.contains("build") && getSide() === "monster";
 }
 function setSide(side){
   if (window.TRK) TRK.setSide(side);
@@ -3414,6 +3626,8 @@ function buildFilters(){
     chip("#f-extra","Has save",F.extra,"save");
     chip("#f-extra","Heightened",F.extra,"height");
   }
+  /* Builder-only, and only while BUILD is present — the answer is its spend math, not ours. */
+  if (window.BUILD && BUILD.fits) chip("#f-fit","Fits remaining",F.fit,"fit");
   buildRangeControls();
 }
 /* Options come from the loaded records, not hardcoded bounds, so a future book
@@ -3470,6 +3684,7 @@ function buildRangeControls(){
 function activeFilterCount(){
   let n = F.sys.size + F.custom.size;
   if (getSide() === "spell") n += F.extra.size;
+  if (fitFilterActive()) n += F.fit.size;
   for (const s of SCALES){
     const g = F.range[s.key];
     if (g && (g.from !== g.min || g.to !== g.max)) n++;
@@ -3527,12 +3742,17 @@ function computeCatalogView(){
   const deep = $("#deep").checked;
   const buildSys = document.body.classList.contains("build") && window.BUILD
     ? BUILD.draftSystem() : null;
+  /* One context for the whole pass: BUILD walks the roster once here, and each candidate
+     costs a single simulated add. Null when the chip is off, so nothing is paid for it. */
+  const fitCtx = fitFilterActive() && window.BUILD && BUILD.fitContext
+    ? BUILD.fitContext() : null;
   const chipped = DATA.filter(r => {
     if (r._kind !== side) return false;
     if (buildSys && r.gameSystem !== buildSys) return false;
     if (F.sys.size && !F.sys.has(r.gameSystem)) return false;
     if (F.custom.size && !r._custom) return false;
     if (side === "spell" && !passExtra(r)) return false;
+    if (fitCtx && !fitCtx.fits(r.id)) return false;
     return true;
   });
   const next = chipped.filter(r => {
@@ -3542,7 +3762,7 @@ function computeCatalogView(){
   });
   if (q) next.sort((a,b) => (a._search.startsWith(q)?0:1) - (b._search.startsWith(q)?0:1)
                             || a.name.localeCompare(b.name));
-  return { side, view: next, corpus: DATA.filter(r => r._kind === side
+  return { side, view: next, chipped, corpus: DATA.filter(r => r._kind === side
     && (!buildSys || r.gameSystem === buildSys)).length };
 }
 function updateCatalogCount(v, side, corpus){
@@ -3563,19 +3783,11 @@ function refresh(){
     }
     return;
   }
-  const chipped = DATA.filter(r => {
-    if (r._kind !== side) return false;
-    const buildSys = document.body.classList.contains("build") && window.BUILD
-      ? BUILD.draftSystem() : null;
-    if (buildSys && r.gameSystem !== buildSys) return false;
-    if (F.sys.size && !F.sys.has(r.gameSystem)) return false;
-    if (F.custom.size && !r._custom) return false;
-    if (side === "spell" && !passExtra(r)) return false;
-    return true;
-  });
+  /* The chipped set comes back from the one pass computeCatalogView already makes; with the
+     fit chip on, filtering the corpus twice would simulate every candidate twice. */
+  const { view: next, chipped, corpus } = computeCatalogView();
   updateRangeVisibility(chipped);
   updateFilterCount();
-  const { view: next, corpus } = computeCatalogView();
   view = next;
   updateCatalogCount(view, side, corpus);
   renderList();
@@ -3656,6 +3868,49 @@ function pickById(id){
   });
   renderRecord(r);
 }
+
+/* Surfaces that only hold a record *id* (a Maps token's `ref`) need three things
+   the Library owns: resolve an id, search for one, and open the result. Summaries
+   are flat copies — a surface holding a reference must not be able to reach into
+   DATA and edit the record it points at. */
+function recordSummary(r){
+  if (!r) return null;
+  return { id: r.id, name: r.name, kind: r._kind, sys: r.gameSystem,
+           rank: tag(r), custom: !!r._custom };
+}
+function recordRef(id){
+  return typeof id === "string" ? recordSummary(ID_INDEX.get(id)) : null;
+}
+function searchRecordRefs(q, opts){
+  const o = opts || {};
+  const needle = String(q == null ? "" : q).trim().toLowerCase();
+  if (needle.length < 2) return [];
+  const limit = Math.min(30, Math.max(1, o.limit || 8));
+  const kind = o.kind === "spell" || o.kind === "monster" ? o.kind : null;
+  const starts = [], holds = [];
+  for (const r of DATA){
+    if (kind && r._kind !== kind) continue;
+    const n = String(r.name || "").toLowerCase();
+    if (n.startsWith(needle)) starts.push(r);
+    else if (n.includes(needle)) holds.push(r);
+    if (starts.length >= limit) break;
+  }
+  return starts.concat(holds).slice(0, limit).map(recordSummary);
+}
+/* Open leaves whatever mode the caller was in: the reading pane lives under
+   Browse / Game Table, and Board / Forge / Lore / Maps each replace <main>. */
+function openRecordById(id){
+  const r = typeof id === "string" ? ID_INDEX.get(id) : null;
+  if (!r) return { ok:false, error:"That record is not in this library." };
+  if (window.TRK && TRK.state && TRK.setMode){
+    const m = TRK.state.ui.mode;
+    if (m !== "track" && m !== "browse") TRK.setMode("browse");
+  }
+  setSide(r._kind === "spell" ? "spell" : "monster");
+  pickById(r.id);
+  return { ok:true, name:r.name };
+}
+
 function renderRecord(r){
   let html, sys = r.gameSystem;
   try{
@@ -3685,27 +3940,19 @@ function renderRecord(r){
   }
 }
 
-/* "Send to Board" belongs to the Library pane, not to monsterHTML/spellHTML —
-   those renderers are reused by the Board, Forge preview, and player display,
-   where the chip would be wrong or inert. Guarded: Board block is removable. */
+/* The reading pane's action chips belong to the Library pane, not to
+   monsterHTML/spellHTML — those renderers are reused by the Board, Forge preview,
+   and player display, where the chips would be wrong or inert. Verbs and labels
+   come from actionsFor, so they match the Table and Board wording. */
 function addSendToBoard(r){
-  if (!window.BOARD || !BOARD.addRecord) return;
+  const acts = actionsFor({ kind:"record", id:r.id, record:r }, { surface:"library" });
+  if (!acts.length) return;
   const sheet = $("#pane-sheet");
   const rule = sheet && sheet.querySelector(".sb .rule");
   if (!rule) return;
   const row = document.createElement("div");
   row.className = "pane-actions";
-  const btn = document.createElement("button");
-  btn.type = "button";
-  btn.className = "chip";
-  btn.textContent = "Send to Board";
-  btn.onclick = () => {
-    const res = BOARD.addRecord(r.id);
-    announceLive(res.ok
-      ? "Added to board: " + (res.name || r.name || r.id)
-      : (res.error || "Couldn’t add to board."));
-  };
-  row.appendChild(btn);
+  mountActionChips(row, acts);
   rule.after(row);
 }
 
@@ -4031,6 +4278,215 @@ function entryHTML(e){
   return h + `</div>`;
 }
 
+/* ---------------- object → action matrix ----------------
+   One vocabulary for the verbs a GM runs on an object — Open · Board · Builder ·
+   Tracker — so the same object offers the same words on every surface. This layer
+   owns discoverability (label, which verb is primary, when a verb is unavailable)
+   and nothing else: every invoke() calls an existing module API behind the same
+   window.* guard the call site used before, so TRK / BUILD / BOARD / LORE keep
+   owning their operations and each block stays independently removable.
+   Not a bus, not a dispatcher — descriptors in, chips out. */
+const ACT = Object.freeze({ open:"Open", board:"Board", builder:"Builder", tracker:"Tracker",
+                            copy:"Copy to Lore…" });
+
+/* Subjects that only exist inside a module (a Builder draft, a Lore page under the
+   active campaign) can only be operated on from inside that module's IIFE, so those
+   call sites pass their own run functions in `context.run`. actionsFor still decides
+   the label, the primary, and the disabled policy. */
+function actionsFor(subject, context){
+  const s = subject || {}, ctx = context || {};
+  const isPrimary = id => ctx.primary === id;
+  const acts = [];
+
+  if (s.kind === "record"){
+    const r = s.record || ID_INDEX.get(s.id);
+    if (!r) return acts;
+    /* Away from the Library the record is a reference someone followed to get
+       here (a Maps token's `ref`), so it needs the two verbs the Library surface
+       already answers structurally: the pane *is* the open record, and its list
+       row already carries the add control. */
+    const away = ctx.surface !== "library";
+    if (away && window.openRecordById)
+      acts.push({ id:"open", label:ACT.open, primary:isPrimary("open") || ctx.primary == null,
+        title:"Open this record in the Library",
+        invoke(){
+          const res = openRecordById(r.id);
+          if (!res.ok) announceLive(res.error);
+        } });
+    if (away && r._kind === "monster" && window.TRK && TRK.addByRef)
+      acts.push({ id:"tracker", label:ACT.tracker, primary:isPrimary("tracker"),
+        title:"Add to the initiative tracker",
+        invoke(){
+          const res = TRK.addByRef(r.id);
+          if (!res.ok) announceLive(res.error);
+        } });
+    /* the reading pane's own verb stays a plain chip: reading is the point there,
+       and there is no competing verb for a primary to win over */
+    if (window.BOARD && BOARD.addRecord)
+      acts.push({ id:"board", label:ACT.board, primary:isPrimary("board"),
+        title:"Send to tonight’s Board",
+        invoke(){
+          const res = BOARD.addRecord(r.id);
+          announceLive(res.ok
+            ? "Added to board: " + (res.name || r.name || r.id)
+            : (res.error || "Couldn’t add to board."));
+        } });
+
+  } else if (s.kind === "preset"){
+    const id = s.id;
+    const named = () => {
+      const p = (window.TRK && TRK.getPreset) ? TRK.getPreset(id) : null;
+      return (p && p.name) || s.name || "encounter";
+    };
+    if (window.TRK && TRK.loadPreset)
+      acts.push({ id:"tracker", label:ACT.tracker, primary:isPrimary("tracker") || ctx.primary == null,
+        confirms:true, title:"Load into the initiative tracker",
+        invoke(btn){
+          const go = () => {
+            TRK.loadPreset(id);
+            if (TRK.setMode && TRK.state && TRK.state.ui.mode !== "track") TRK.setMode("track");
+            if (typeof ctx.afterTracker === "function") ctx.afterTracker();
+          };
+          if (btn && TRK.confirmSwap) TRK.confirmSwap(btn, "Replace the current encounter?", go);
+          else go();
+        } });
+    if (window.BUILD && BUILD.openPreset)
+      acts.push({ id:"builder", label:ACT.builder, primary:isPrimary("builder"),
+        title:"Open in the encounter builder",
+        invoke(){ BUILD.openPreset(id); } });
+    if (window.BOARD && BOARD.addEncounter)
+      acts.push({ id:"board", label:ACT.board, primary:isPrimary("board"),
+        title:"Send to tonight’s Board",
+        invoke(){
+          const res = BOARD.addEncounter(id);
+          announceLive(res.ok
+            ? "Added to board: " + (res.name || named())
+            : (res.error || "Couldn’t add to board."));
+        } });
+
+  } else if (s.kind === "builder-draft"){
+    const run = ctx.run || {};
+    if (run.tracker)
+      acts.push({ id:"tracker", label:ACT.tracker, primary:isPrimary("tracker"), confirms:true,
+        title:"Load this roster into the initiative tracker",
+        invoke(btn){ run.tracker(btn); } });
+    if (run.board){
+      const saved = !!s.presetId;
+      acts.push({ id:"board", label:ACT.board, primary:isPrimary("board"), disabled:!saved,
+        title:saved ? "Pin this saved encounter to the Board" : "Save to Encounters first",
+        invoke(btn){ run.board(btn); } });
+    }
+
+  } else if (s.kind === "lore"){
+    const say = typeof ctx.announce === "function" ? ctx.announce : announceLive;
+    acts.push({ id:"board", label:ACT.board, primary:isPrimary("board") || ctx.primary == null,
+      title:"Pin this page to tonight’s Board",
+      invoke(){
+        if (!window.BOARD || !BOARD.addLorePage){
+          say("Board unavailable — open Board mode once, then try Board again.");
+          return;
+        }
+        const res = BOARD.addLorePage(s.campaignId, s.pageId);
+        say(res.ok
+          ? "Pinned to Board: " + (res.name || "page")
+          : (res.error || "Couldn’t pin to Board."));
+      } });
+
+  } else if (s.kind === "board-markdown"){
+    /* The only verb whose label names its destination, because it is the only one
+       that copies rather than routes: the note stays on the Board and a second,
+       independent page appears in Lore. The card and its IndexedDB-backed body live
+       inside BOARD, so the copy itself arrives as a run function. */
+    const run = ctx.run || {};
+    if (run.copy && window.LORE && LORE.createPage)
+      acts.push({ id:"copy", label:ACT.copy, primary:isPrimary("copy"),
+        title:"Copy this note into the campaign’s adventure text",
+        invoke(btn){ run.copy(btn); } });
+  }
+
+  const omit = Array.isArray(ctx.omit) ? ctx.omit : null;
+  return omit ? acts.filter(a => !omit.includes(a.id)) : acts;
+}
+
+/* Paints descriptors as chips: primary carries .go, and once there are more than
+   two verbs the secondaries move into a ⋯ menu so no surface grows a button wall.
+   Replaces the container's contents, so it is safe to call on every re-render. */
+function mountActionChips(container, actions, opts){
+  if (!container) return null;
+  opts = opts || {};
+  container.textContent = "";
+  container.classList.add("act-row");
+  const list = (actions || []).filter(Boolean);
+  if (!list.length) return container;
+
+  const chip = (a, primary) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "chip" + (primary ? " go" : "");
+    b.textContent = a.label;
+    if (a.title) b.title = a.title;
+    if (a.disabled) b.disabled = true;
+    b.addEventListener("click", e => { e.stopPropagation(); a.invoke(b); });
+    return b;
+  };
+
+  const inlineMax = opts.inlineMax || 2;
+  if (list.length <= inlineMax){
+    for (const a of list) container.appendChild(chip(a, !!a.primary));
+    return container;
+  }
+
+  const pi = Math.max(0, list.findIndex(a => a.primary));
+  container.appendChild(chip(list[pi], true));
+
+  const wrap = document.createElement("div");
+  wrap.className = "act-overflow";
+  const more = document.createElement("button");
+  more.type = "button";
+  more.className = "chip";
+  more.textContent = "⋯";
+  more.setAttribute("aria-haspopup", "true");
+  more.setAttribute("aria-expanded", "false");
+  more.setAttribute("aria-label", opts.moreLabel || "More actions");
+  const menu = document.createElement("div");
+  menu.className = "act-menu";
+  menu.hidden = true;
+
+  const close = () => {
+    if (menu.hidden) return;
+    menu.hidden = true;
+    more.setAttribute("aria-expanded", "false");
+    document.removeEventListener("click", onDoc, true);
+    document.removeEventListener("keydown", onKey, true);
+  };
+  const onDoc = e => { if (!wrap.isConnected || !wrap.contains(e.target)) close(); };
+  const onKey = e => { if (e.key === "Escape"){ close(); more.focus(); } };
+
+  list.forEach((a, i) => {
+    if (i === pi) return;
+    const b = chip(a, false);
+    /* a confirming verb swaps a Yes/No prompt into its own button, so it has to
+       keep the menu open until the GM answers */
+    if (!a.confirms) b.addEventListener("click", close);
+    menu.appendChild(b);
+  });
+
+  more.addEventListener("click", e => {
+    e.stopPropagation();
+    if (!menu.hidden){ close(); return; }
+    menu.hidden = false;
+    more.setAttribute("aria-expanded", "true");
+    document.addEventListener("click", onDoc, true);
+    document.addEventListener("keydown", onKey, true);
+    const first = menu.querySelector("button:not([disabled])");
+    if (first) first.focus();
+  });
+
+  wrap.append(more, menu);
+  container.appendChild(wrap);
+  return container;
+}
+
 /* ---------------- events ---------------- */
 $("#q").addEventListener("input", scheduleRefresh);
 $("#deep").addEventListener("change", refresh);
@@ -4057,11 +4513,17 @@ document.addEventListener("keydown", e => {
 });
 boot();
 window.refresh = refresh;
+window.fitFilterActive = fitFilterActive;
 window.applySideChrome = applySideChrome;
 window.setSide = setSide;
 window.closeSpellPeek = closeSpellPeek;
 window.openSpellPeek = openSpellPeek;
 window.fillPane = fillPane;
+window.actionsFor = actionsFor;
+window.mountActionChips = mountActionChips;
+window.recordRef = recordRef;
+window.searchRecordRefs = searchRecordRefs;
+window.openRecordById = openRecordById;
 $("#custom-add").addEventListener("click", openLibDialog);
 $("#user-save").addEventListener("click", openUserSaveDialog);
 </script>
@@ -4136,6 +4598,11 @@ const TRK = (() => {
       const next = MARKER_NEXT[cur];
       if (next === "off") delete m[color];
       else m[color] = next;
+    }, e => {
+      const c = e.combatants.find(x => x.id === id);
+      if (!c) return null;
+      return { kind: "mark", name: c.name, color,
+               state: (c.markers || {})[color] || "cleared" };
     });
   }
 
@@ -4351,27 +4818,91 @@ const TRK = (() => {
   /* mutate() is the single choke point: every encounter change passes through
      it, so undo coverage is structural — reset and preset-load included. */
   const hist = { past: [], future: [] };
-  function mutate(fn){
+  function mutate(fn, meta){
     hist.past.push(JSON.stringify(state.enc));
     if (hist.past.length > 50) hist.past.shift();
     hist.future.length = 0;
     fn(state.enc);
     state.enc = vEnc(state.enc);             // self-heal after every mutation
     saveOrWarn(LS.enc, state.enc);
+    logEvent(meta);                          // before render: same paint as the cards
     renderTrk(); pdPush();
   }
   function undo(){
     if (!hist.past.length) return;
     hist.future.push(JSON.stringify(state.enc));
     state.enc = vEnc(JSON.parse(hist.past.pop()));
-    saveOrWarn(LS.enc, state.enc); renderTrk(); pdPush(); announce("Undone");
+    saveOrWarn(LS.enc, state.enc);
+    logEvent({ kind: "undo" });
+    renderTrk(); pdPush(); announce("Undone");
   }
   function redo(){
     if (!hist.future.length) return;
     hist.past.push(JSON.stringify(state.enc));
     state.enc = vEnc(JSON.parse(hist.future.pop()));
-    saveOrWarn(LS.enc, state.enc); renderTrk(); pdPush(); announce("Redone");
+    saveOrWarn(LS.enc, state.enc);
+    logEvent({ kind: "redo" });
+    renderTrk(); pdPush(); announce("Redone");
   }
+
+  /* ---------------- recent-event ring ---------------- */
+  /* Table-speed awareness, not a combat log: in-memory only, no localStorage key,
+     no portable-save field, gone on reload — same lifetime as the undo ring.
+     Events are DECLARED by the caller as the second argument to mutate(), never
+     inferred by diffing hist.past (which holds opaque encounter JSON and cannot
+     say whether 4 HP came off a hit, a heal, or a preset load). Pass an object,
+     or a function of the healed encounter when the line needs the outcome.
+     Undo does not rewind the ring: the ring records what the GM did, and undoing
+     is one of those things. */
+  const EVT_MAX = 14;
+  const events = [];                         // newest first
+  let evtSeq = 0;
+  /* kinds whose line replaces the whole ring — the roster they described is gone */
+  const EVT_CLEARS = { start: 1, reset: 1, clear: 1, load: 1 };
+  function evtLine(m){
+    const nm = m.name == null ? "" : String(m.name);
+    const amt = Math.abs(int(m.amount, 0));
+    const to = m.hp == null ? "" : " → " + m.hp + " HP";
+    switch (m.kind){
+      case "dmg":   return nm + " −" + amt + to + (m.down ? " · down" : "");
+      case "heal":  return nm + " +" + amt + to + (m.up ? " · up" : "");
+      case "turn":  return nm ? "Round " + int(m.round, 1) + " — " + nm : "";
+      case "start": return "Combat started";
+      case "end":   return "Combat ended";
+      case "add":   return nm + (int(m.count, 1) > 1 ? " ×" + int(m.count, 1) : "") + " added";
+      case "drop":  return nm + " removed";
+      case "reset": return "Reset — party kept";
+      case "clear": return "Encounter cleared";
+      case "load":  return nm ? "Loaded " + nm : "Encounter replaced";
+      case "mark":  return nm + " · " + m.color + " " + m.state;
+      case "undo":  return "Undone";
+      case "redo":  return "Redone";
+      default:      return "";
+    }
+  }
+  function logEvent(meta){
+    if (!meta) return;
+    const m = typeof meta === "function" ? meta(state.enc) : meta;
+    if (!m || typeof m !== "object") return;
+    const text = evtLine(m);
+    if (!text) return;                       // unknown kind: drop it, never render blank
+    if (EVT_CLEARS[m.kind]) events.length = 0;
+    events.unshift({ id: ++evtSeq, kind: m.kind, text });
+    if (events.length > EVT_MAX) events.length = EVT_MAX;
+  }
+  /* Whoever mutate() would make active next — the same walk nextTurn() does, so
+     the badge cannot promise a turn order the Next chip will not follow. It does
+     not skip the unconscious: that would be rules automation. */
+  function nextIdOf(e){
+    if (e.round < 1 || e.combatants.length < 2) return null;
+    const i = e.combatants.findIndex(c => c.id === e.activeId);
+    if (i < 0) return null;
+    return e.combatants[(i + 1) % e.combatants.length].id;
+  }
+  const nameOf = (e, id) => {
+    const c = e.combatants.find(x => x.id === id);
+    return c ? c.name : "";
+  };
   /* ---------------- player display ---------------- */
   /* One renderer, three surfaces: a fullscreen layer on this screen, a child
      window scripted directly from here (same-origin, no sync machinery), and
@@ -4630,22 +5161,40 @@ const TRK = (() => {
         });
       }
       if (e.round >= 1) sortEnc(e);
-    });
+    }, { kind: "add", name: spec.name, count: n });
     announce(n === 1 ? spec.name + " added" : spec.name + " ×" + n + " added");
   }
-  function addFromView(i){
-    const r = view[i];
-    if (!r || r._kind !== "monster") return;
+  function addFromRecord(r){
+    if (!r || r._kind !== "monster") return { ok:false, error:"Only creatures go on the tracker." };
     const hp = hpOf(r);
     if (hp == null){                 // ~95 PF2e hazard-like records: never fabricate HP
       openAddForm({ name: r.name, type: "monster", mod: initModOf(r),
                     ac: acOf(r), ref: r.id, sys: r.gameSystem });
-      return;
+      return { ok:true, name: r.name, form:true };
     }
     addMany({ name: r.name, type: "monster", hpMax: hp, ac: acOf(r),
               mod: initModOf(r), ref: r.id, sys: r.gameSystem }, state.ui.qty);
+    return { ok:true, name: r.name, form:false };
+  }
+  function addFromView(i){ addFromRecord(view[i]); }
+  /* Maps holds a Library id, not a record, and the HP-less branch above still has
+     to be able to open the add form — so both entry points run the same path. */
+  function addByRef(id){
+    const r = typeof id === "string" ? ID_INDEX.get(id) : null;
+    if (!r) return { ok:false, error:"That record is not in this library." };
+    return addFromRecord(r);
+  }
+  /* Read-only "who on the map is this?" lookup: the same Library id can be on a
+     token and on any number of combatants. Copies, so callers cannot edit the
+     encounter by holding the answer. */
+  function combatantsByRef(id){
+    if (typeof id !== "string" || !id) return [];
+    return state.enc.combatants
+      .filter(c => c.ref === id)
+      .map(c => ({ id: c.id, name: c.name, hp: c.hp.current, hpMax: c.hp.max, status: c.status }));
   }
   function removeCombatant(id){
+    const gone = byId(id);
     mutate(e => {
       const i = e.combatants.findIndex(c => c.id === id);
       if (i < 0) return;
@@ -4656,17 +5205,26 @@ const TRK = (() => {
         e.activeId = e.combatants.length
           ? e.combatants[Math.min(i, e.combatants.length - 1)].id : null;
       announce(nm + " removed");
-    });
+    }, gone ? { kind: "drop", name: gone.name } : null);
   }
   function applyHP(id, amount, kind){
     const amt = Math.abs(int(amount, 0));
     if (!amt) return false;
+    const before = byId(id);
+    const was = before ? before.hp.current : null;
     mutate(e => {
       const c = e.combatants.find(x => x.id === id);
       if (!c) return;
       c.hp.current = Math.min(c.hp.max, Math.max(0, c.hp.current + (kind === "heal" ? amt : -amt)));
       e.last = { kind: kind === "heal" ? "heal" : "dmg" };
       announce(c.name + (kind === "heal" ? " healed to " : " damaged to ") + c.hp.current + " HP");
+    }, e => {                                 // function form: the line needs the outcome
+      const c = e.combatants.find(x => x.id === id);
+      if (!c) return null;
+      return { kind: kind === "heal" ? "heal" : "dmg", name: c.name, amount: amt,
+               hp: c.hp.current,
+               down: c.hp.current === 0 && was !== 0,
+               up: c.hp.current > 0 && was === 0 };
     });
     return true;
   }
@@ -4678,10 +5236,10 @@ const TRK = (() => {
       sortEnc(e);
       e.round = 1;
       e.activeId = e.combatants[0]?.id ?? null;
-    });
+    }, { kind: "start" });                     // clears the ring: setup noise is over
   }
   function endCombat(){                        // back to setup; combatants and HP kept
-    mutate(e => { e.round = 0; e.activeId = null; });
+    mutate(e => { e.round = 0; e.activeId = null; }, { kind: "end" });
     announce("Combat ended");
   }
   function canPrev(){
@@ -4698,7 +5256,7 @@ const TRK = (() => {
       const n = i + 1;
       if (n >= x.combatants.length){ x.activeId = x.combatants[0].id; x.round++; }
       else x.activeId = x.combatants[n].id;
-    });
+    }, turnEvent);
     afterTurn();
   }
   function prevTurn(){
@@ -4707,9 +5265,12 @@ const TRK = (() => {
       const i = x.combatants.findIndex(c => c.id === x.activeId);
       if (i <= 0){ x.round--; x.activeId = x.combatants[x.combatants.length - 1].id; }
       else x.activeId = x.combatants[i - 1].id;
-    });
+    }, turnEvent);
     afterTurn();
   }
+  /* Both turn steps read the encounter mutate() already healed, so the line names
+     the combatant who actually holds the turn rather than the one we aimed at. */
+  const turnEvent = x => ({ kind: "turn", round: x.round, name: nameOf(x, x.activeId) });
   function afterTurn(){
     const c = byId(state.enc.activeId);
     if (c) announce("Round " + state.enc.round + " — " + c.name + "'s turn");
@@ -4724,11 +5285,11 @@ const TRK = (() => {
       e.combatants = e.combatants.filter(c => c.type === "player");
       e.combatants.forEach(c => { c.initiative = 0; });
       e.round = 0; e.activeId = null;
-    });
+    }, { kind: "reset" });
     announce("Encounter reset — players kept");
   }
   function clearAll(){
-    mutate(e => { e.combatants = []; e.round = 0; e.activeId = null; });
+    mutate(e => { e.combatants = []; e.round = 0; e.activeId = null; }, { kind: "clear" });
     announce("Encounter cleared");
   }
 
@@ -4937,9 +5498,11 @@ const TRK = (() => {
   function cardSig(c){
     const combat = state.enc.round >= 1;
     const active = combat && c.id === state.enc.activeId;
+    const upNext = c.id === nextIdOf(state.enc);
     const viewing = c.id === state.ui.viewingId;
     return [c.id, c.name, c.initiative, c.hp.current, c.hp.max, c.status, c.ac,
-            c.type, c.sys || "", active, viewing, markersSig(c.markers)].join("\0");
+            c.type, c.sys || "", active, upNext, viewing,
+            markersSig(c.markers)].join("\0");
   }
   function mountCard(c, amt){
     const wrap = document.createElement("div");
@@ -4954,17 +5517,23 @@ const TRK = (() => {
     const pct = Math.round(100 * c.hp.current / c.hp.max);
     const combat = state.enc.round >= 1;
     const active = combat && c.id === state.enc.activeId;
+    const upNext = c.id === nextIdOf(state.enc);
     const viewing = c.id === state.ui.viewingId;
     const shown = initDisplay(c);
     const init = `<button type="button" class="cbt-init" data-act="init"
            aria-label="Initiative ${esc(shown)} for ${esc(c.name)} — press Enter to edit">${esc(shown)}</button>`;
-    return `<div class="cbt ${spine}${c.status === "unconscious" ? " ko" : ""}${active ? " on" : ""}${viewing ? " viewing" : ""}"
+    /* aria-current already tells assistive tech who holds the turn, so the badge
+       is decorative there; "Next" has no aria equivalent and keeps its text. */
+    const turn = active ? '<span class="cbt-turn" aria-hidden="true">Now</span>'
+               : upNext ? '<span class="cbt-turn nxt">Next</span>' : "";
+    return `<div class="cbt ${spine}${c.status === "unconscious" ? " ko" : ""}${active ? " on" : ""}${upNext ? " nxt" : ""}${viewing ? " viewing" : ""}"
       role="listitem" data-id="${c.id}"
       ${active ? 'aria-current="true"' : ""}>
       <div class="cbt-r1">
         <span class="cbt-drag" draggable="true" aria-label="Drag to reorder ${esc(c.name)}" title="Drag to reorder">⋮⋮</span>
         ${init}
         <span class="cbt-nm">${esc(c.name)}</span>
+        ${turn}
         ${c.status === "unconscious" ? '<span class="kochip">unconscious</span>' : ""}
         ${marksHTML(c)}
         <span class="cbt-ac">${c.ac == null ? "AC —" : "AC " + esc(c.ac)}</span>
@@ -5201,7 +5770,7 @@ const TRK = (() => {
       return `<div class="prow" data-id="${esc(p.id)}">
         <span class="pnm">${esc(p.name)}</span>
         <span class="pmeta">${esc(meta)}</span>
-        <button type="button" class="chip" data-sload>Load</button>
+        <button type="button" class="chip" data-sload>Tracker</button>
         <button type="button" class="chip" data-sdel aria-label="Delete ${esc(p.name)}">✕</button>
       </div>`;
     }).join("");
@@ -5251,14 +5820,16 @@ const TRK = (() => {
   function loadPreset(id){
     const p = state.presets.find(x => x.id === id);
     if (!p) return;
-    mutate(e => { Object.assign(e, vEnc(p.enc)); });   // undoable, like everything
+    // undoable, like everything; the load wipes the ring the old roster described
+    mutate(e => { Object.assign(e, vEnc(p.enc)); }, { kind: "load", name: p.name });
     state.dice = vDice(p.dice);
     saveOrWarn(LS.dice, state.dice);
     renderDice();
     announce("Loaded " + p.name);
   }
   function replaceEncounter(enc, dice){
-    mutate(e => { Object.assign(e, vEnc(enc)); });
+    const inc = vEnc(enc);
+    mutate(e => { Object.assign(e, inc); }, { kind: "load", name: inc.name });
     if (dice !== undefined){
       state.dice = vDice(dice);
       saveOrWarn(LS.dice, state.dice);
@@ -5290,34 +5861,12 @@ const TRK = (() => {
     fillPane(`<div class="sb" style="max-width:420px"><h2><span>${esc(p.name)}</span>
       <span class="rank">${esc(p.enc.combatants.length)}</span></h2><div class="rule"></div>
       <p style="margin:0;color:var(--dim)">${esc(names)}</p>
-      <div class="btns" style="margin-top:14px">
-        <button type="button" class="chip go" data-sload-pane="${esc(p.id)}">Load</button>
-        <button type="button" class="chip" data-sbuild-pane="${esc(p.id)}">Open in Builder</button>
-        <button type="button" class="chip" data-sboard-pane="${esc(p.id)}">Send to Board</button>
-      </div></div>`, "");
-    const sheet = $("#pane-sheet");
-    const loadBtn = sheet.querySelector("[data-sload-pane]");
-    if (loadBtn) loadBtn.onclick = () => {
-      confirmSwap(loadBtn, "Replace the current encounter?", () => {
-        loadPreset(p.id);
-        if (state.ui.mode !== "track") setMode("track");
-      });
-    };
-    const buildBtn = sheet.querySelector("[data-sbuild-pane]");
-    if (buildBtn) buildBtn.onclick = () => {
-      if (window.BUILD) BUILD.openPreset(p.id);
-    };
-    const boardBtn = sheet.querySelector("[data-sboard-pane]");
-    if (boardBtn) boardBtn.onclick = () => {
-      if (!window.BOARD || !BOARD.addEncounter){
-        announceLive("Board unavailable.");
-        return;
-      }
-      const res = BOARD.addEncounter(p.id);
-      announceLive(res.ok
-        ? "Added to board: " + (res.name || p.name)
-        : (res.error || "Couldn’t add to board."));
-    };
+      <div class="btns" data-enc-acts style="margin-top:14px"></div></div>`, "");
+    const host = $("#pane-sheet").querySelector("[data-enc-acts]");
+    if (host && window.mountActionChips)
+      mountActionChips(host, actionsFor({ kind:"preset", id:p.id, name:p.name },
+                                        { surface:"table-pane", primary:"tracker" }),
+                       { moreLabel:"More actions for " + p.name });
   }
   function addPartyMember(p){
     if (p.hpMax == null){ openAddForm({ name: p.name, type: p.type, ac: p.ac, mod: p.mod }); return; }
@@ -5347,8 +5896,11 @@ const TRK = (() => {
              <button type="button" class="chip" data-pdel tabindex="-1" aria-label="Delete">✕</button>
            </span>`
         : `<span class="sideact">
-             <button type="button" class="chip" data-sload tabindex="-1">Load</button>
-             <button type="button" class="chip" data-sbuild tabindex="-1">Builder</button>
+             <button type="button" class="chip" data-sload tabindex="-1">Tracker</button>${
+               window.BUILD && BUILD.openPreset
+                 ? `<button type="button" class="chip" data-sbuild tabindex="-1">Builder</button>`
+                 : ""
+             }
              <button type="button" class="chip" data-sdel tabindex="-1" aria-label="Delete">✕</button>
            </span>`;
       return `<div class="item ${side === "party" ? "pc" : "enc"}" role="option" id="opt-${i}"
@@ -5660,11 +6212,36 @@ const TRK = (() => {
     if (window.applySideChrome) applySideChrome();
   }
 
+  /* The 30-second reacquire: round is in #trkround, HP and markers are on the
+     cards, and this strip carries the two answers the cards make you hunt for —
+     who acts now, who acts next — plus what just happened. */
+  function renderGlance(){
+    const glance = $("#trkglance");
+    if (!glance) return;
+    const e = state.enc, combat = e.round >= 1;
+    const cur = combat ? byId(e.activeId) : null;
+    const nxt = combat ? byId(nextIdOf(e)) : null;
+    $("#trkturn").hidden = !cur;
+    if (cur){
+      $("#tg-now").textContent = cur.name + " · " + cur.hp.current + "/" + cur.hp.max;
+      $("#tg-next").textContent = nxt ? nxt.name : "—";
+    }
+    const list = $("#trkevt");
+    list.replaceChildren(...events.map(ev => {
+      const li = document.createElement("li");
+      li.dataset.k = ev.kind;
+      li.textContent = ev.text;
+      return li;
+    }));
+    glance.hidden = !cur && !events.length;
+  }
+
   function renderTrk(){
     const e = state.enc, combat = e.round >= 1;
     const nameEl = $("#trkname");
     if (nameEl) nameEl.textContent = e.name;
     $("#trkround").textContent = combat ? "Round " + e.round : "Setup";
+    renderGlance();
     $("#qty").value = String(state.ui.qty);
     $("#t-undo").disabled = !hist.past.length;
     $("#t-redo").disabled = !hist.future.length;
@@ -6141,6 +6718,7 @@ const TRK = (() => {
     applyColWidths();
     hist.past.length = 0;
     hist.future.length = 0;
+    events.length = 0;                         // the roster those lines described is gone
     renderTrk();
     renderDice();
     pdPush();
@@ -6152,7 +6730,8 @@ const TRK = (() => {
   }
 
   return { state, setMode, setSide, onDataReady, renderTrk, renderSideList, key,
-           mutate, undo, redo, addMany, addFromView, removeCombatant, applyHP,
+           mutate, undo, redo, addMany, addFromView, addByRef, combatantsByRef,
+           removeCombatant, applyHP,
            startCombat, endCombat, nextTurn, prevTurn, canPrev,
            setInitiative, reorderTo, moveBy, resetEnc, clearAll,
            initModOf, acOf, hpOf, openAddForm, openStartModal, closeOvl, openOvl,
@@ -6161,7 +6740,7 @@ const TRK = (() => {
            getPreset, openPartyOvl, openPresetsOvl,
            pdHTML, openPdWindow, pickCombatant,
            _test: { vEnc, vParty, vPresets, vDice, vUi, vBuilderMeta, autoName, hpClass,
-                    midInit, badgeOf, scalePd } };
+                    midInit, badgeOf, scalePd, evtLine, nextIdOf, events, EVT_MAX } };
 })();
 /* const bindings don't become window properties; the start()/keydown hooks in
    the first script test window.TRK so they stay no-ops if this block is absent */
@@ -6336,12 +6915,14 @@ const CAMPAIGN = (() => {
     return vCampaignState(migrated);
   }
   let state = load();
-  function save(){
+  function save(opts){
     try{
       localStorage.setItem(STORE, JSON.stringify(vCampaignState(state)));
       return true;
     }catch(_){
-      if (typeof announceLive === "function")
+      /* Headless writers (e.g. LORE.createPage) pass { quiet:true } and surface the
+         failure via their own { ok:false, error } result — announcing here would double. */
+      if (!(opts && opts.quiet) && typeof announceLive === "function")
         announceLive("Could not save campaign — browser storage may be full");
       return false;
     }
@@ -6550,6 +7131,27 @@ const CAMPAIGN = (() => {
       `<option value="${c.id.replace(/"/g, "&quot;")}"${c.id === cur ? " selected" : ""}>${
         String(c.title || "Campaign").replace(/[&<>]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[ch]))
       }</option>`).join("");
+    renderResumeCue();
+  }
+  // "Continue Board: {title}" for the active campaign only. BOARD owns the
+  // last-open pointer and hands back null when it no longer resolves, so the
+  // cue disappears instead of naming a board that is gone.
+  function renderResumeCue(){
+    const btn = document.getElementById("hdrResume");
+    if (!btn) return;
+    const last = (window.BOARD && typeof BOARD.lastOpen === "function")
+      ? BOARD.lastOpen() : null;
+    if (!last || !last.id){
+      btn.hidden = true;
+      btn.textContent = "";
+      btn.removeAttribute("data-board");
+      btn.removeAttribute("title");
+      return;
+    }
+    btn.hidden = false;
+    btn.dataset.board = last.id;
+    btn.textContent = "Continue Board: " + last.title;
+    btn.title = "Open board “" + last.title + "”";
   }
   function bindHeader(){
     const pick = document.getElementById("hdrCampaign");
@@ -6557,7 +7159,21 @@ const CAMPAIGN = (() => {
     const btnRen = document.getElementById("hdrCampRename");
     const btnDel = document.getElementById("hdrCampDel");
     const title = document.getElementById("hdrCampTitle");
+    const resume = document.getElementById("hdrResume");
     if (pick) pick.onchange = () => switchCampaign(pick.value);
+    if (resume) resume.onclick = () => {
+      const id = resume.dataset.board || "";
+      const res = (id && window.BOARD && typeof BOARD.openBoard === "function")
+        ? BOARD.openBoard(id) : { ok: false, error: "Board unavailable." };
+      if (res && res.ok){
+        if (typeof announceLive === "function")
+          announceLive("Opened board " + res.title);
+      } else {
+        renderResumeCue();
+        if (typeof announceLive === "function")
+          announceLive((res && res.error) || "Could not open that board");
+      }
+    };
     if (btnNew) btnNew.onclick = () => newCampaign();
     if (btnRen) btnRen.onclick = () => {
       if (!title) return;
@@ -6599,7 +7215,7 @@ const CAMPAIGN = (() => {
     STORE, MAX_CAMPAIGNS, state, active, save, switchCampaign, newCampaign,
     renameCampaign, deleteCampaign, syncPartyPresets, syncTrkFromActive,
     saveActiveLorePages, saveActiveMaps, touchActive, getExport, applyUserSave, renderHeader,
-    bindHeader,
+    bindHeader, renderResumeCue,
     _test: { vCampaign, vCampaignState, vPages, migrateFromLegacy },
   };
 })();
@@ -6768,10 +7384,15 @@ const BUILD = (() => {
     return best;
   }
 
-  function budgetFor(draft){
-    const size = draft.partySize, lvl = draft.partyLevel, threat = draft.threat;
-    if (draft.ruleset === "pf2e") return pf2eBudget(threat, size);
-    if (draft.ruleset === "dnd5e-2024") return dnd2024Budget(threat, size, lvl);
+  /* The spend math takes the state it prices. The meter passes the live draft; the Library
+     fit filter passes a hypothetical "draft plus one more". Simulating by mutating `draft`
+     and restoring it is not an option — lineCost can throw, and saveDraft()/render() run
+     off the same object, so a phantom line would survive. */
+  function budgetFor(st){
+    const d = st || draft;
+    const size = d.partySize, lvl = d.partyLevel, threat = d.threat;
+    if (d.ruleset === "pf2e") return pf2eBudget(threat, size);
+    if (d.ruleset === "dnd5e-2024") return dnd2024Budget(threat, size, lvl);
     return dnd2014Budget(threat, size, lvl);
   }
 
@@ -6828,13 +7449,14 @@ const BUILD = (() => {
     return { ok: true, reason: null, hp, ac: TRK.acOf(r), mod: TRK.initModOf(r) };
   }
 
-  function lineCost(ref, qty){
+  function lineCost(ref, qty, st){
+    const d = st || draft;
     const r = recordOf(ref);
     if (!r) return { ok: false, reason: "missing-record", unit: 0, total: 0, name: ref };
     const n = clamp(int(qty, 1), 1, 20);
-    if (draft.system === "pf2e"){
+    if (d.system === "pf2e"){
       if (r.gameSystem !== "pf2e") return { ok: false, reason: "wrong-system", unit: 0, total: 0, name: r.name };
-      const c = pf2eCreatureCost(draft.partyLevel, creatureLevel(r));
+      const c = pf2eCreatureCost(d.partyLevel, creatureLevel(r));
       if (!c.ok && c.reason === "out-of-range"){
         return {
           ok: true, reason: "out-of-range", unpriced: true,
@@ -6850,32 +7472,72 @@ const BUILD = (() => {
     return { ok: true, reason: null, unit: xp, total: xp * n, name: r.name };
   }
 
-  function spendSummary(){
-    let base = 0, monsters = 0, warnings = [];
-    for (const ln of draft.lines){
-      const c = lineCost(ln.ref, ln.qty);
+  /* The only part of the spend math that walks the roster, split out so the fit filter can
+     run it once per Library refresh instead of once per candidate. */
+  function rosterTotals(st){
+    const d = st || draft;
+    let base = 0, monsters = 0;
+    const warnings = [];
+    for (const ln of d.lines){
+      const c = lineCost(ln.ref, ln.qty, d);
       if (!c.ok) warnings.push(c.name + ": " + (c.reason || "invalid"));
       else { base += c.total; monsters += ln.qty; }
     }
-    let spent = base, mult = 1;
-    if (draft.ruleset === "dnd5e-2014"){
-      mult = dnd2014Multiplier(monsters, draft.partySize);
-      spent = Math.round(base * mult);
-    }
-    const budget = budgetFor(draft);
+    return { base, monsters, warnings };
+  }
+
+  /* 2014 prices an encounter by its whole monster count, so spend is not additive per
+     creature. Both the meter and the fit filter go through here rather than reimplementing it. */
+  function spendOf(base, monsters, st){
+    const d = st || draft;
+    if (d.ruleset !== "dnd5e-2014") return { spent: base, mult: 1 };
+    const mult = dnd2014Multiplier(monsters, d.partySize);
+    return { spent: Math.round(base * mult), mult };
+  }
+
+  function spendSummary(st){
+    const d = st || draft;
+    const { base, monsters, warnings } = rosterTotals(d);
+    const { spent, mult } = spendOf(base, monsters, d);
+    const budget = budgetFor(d);
     let classified;
-    if (draft.ruleset === "pf2e") classified = pf2eClassify(spent, draft.partySize);
-    else if (draft.ruleset === "dnd5e-2024")
-      classified = dnd2024Classify(spent, draft.partySize, draft.partyLevel);
+    if (d.ruleset === "pf2e") classified = pf2eClassify(spent, d.partySize);
+    else if (d.ruleset === "dnd5e-2024")
+      classified = dnd2024Classify(spent, d.partySize, d.partyLevel);
     else {
-      const th = dnd2014Thresholds(draft.partySize, draft.partyLevel);
+      const th = dnd2014Thresholds(d.partySize, d.partyLevel);
       classified = dnd2014Classify(spent, th);
     }
-    if (draft.ruleset === "dnd5e-2024" && draft.partySize > 0
-        && monsters / draft.partySize > 2){
+    if (d.ruleset === "dnd5e-2024" && d.partySize > 0
+        && monsters / d.partySize > 2){
       warnings.push("More than 2 creatures per PC — 2024 rules tip: include fragile foes.");
     }
     return { budget, spent, remaining: budget - spent, base, mult, monsters, classified, warnings };
+  }
+
+  /* Fits remaining is a Library filter, so it is asked about every monster in the draft's
+     system on every keystroke. fitContext pays the O(lines) cost once and hands back a
+     context whose fits(ref) is one lineCost plus the same multiplier and comparison the
+     meter runs. Shaped this way so the roster walk cannot drift into the candidate loop. */
+  function fitContext(st){
+    const state = st || draft;
+    const { base, monsters } = rosterTotals(state);
+    const qty = new Map();
+    for (const ln of state.lines) qty.set(ln.ref, (qty.get(ln.ref) || 0) + ln.qty);
+    const ctx = { state, base, monsters, budget: budgetFor(state), qty };
+    ctx.fits = ref => fits(ref, ctx);
+    return ctx;
+  }
+
+  /* Simulated draft + one, never "creature XP <= remaining": that arithmetic drops the 2014
+     multiplier and would call PF2e's unpriced outside-±4 creatures free fits. */
+  function fits(ref, ctx){
+    const k = ctx || fitContext();
+    if ((k.qty.get(ref) || 0) >= 20) return false;   // at tryAdd's quantity cap — nothing to add
+    const c = lineCost(ref, 1, k.state);
+    if (!c.ok || c.unpriced) return false;           // wrong system, missing XP/level, outside ±4
+    const { spent } = spendOf(k.base + c.total, k.monsters + 1, k.state);
+    return spent <= k.budget;
   }
 
   function autoName(combatants, base, want){
@@ -7122,14 +7784,24 @@ const BUILD = (() => {
     renderMeter();
     renderRoster();
     syncBoardChip();
+    /* With Fits remaining on, the draft is an input to the Library list, so a changed
+       roster, party or threat has to repaint it. Costs nothing while the chip is off. */
+    if (window.fitFilterActive && window.refresh && fitFilterActive()) refresh();
   }
 
+  /* Repaints Tracker / Board from actionsFor. Board stays disabled until the draft
+     has been saved as a preset, so this runs on every render and after each save —
+     but only rebuilds when that answer changed, so a roster re-render can't yank a
+     confirmSwap prompt out from under the GM. */
   function syncBoardChip(){
-    const btn = document.getElementById("buildBoard");
-    if (!btn) return;
-    const can = !!(draft.editingPresetId);
-    btn.disabled = !can;
-    btn.title = can ? "Pin this saved encounter to the Board" : "Save to Encounters first";
+    const host = document.getElementById("buildObjActs");
+    if (!host || !window.actionsFor || !window.mountActionChips) return;
+    const key = draft.editingPresetId ? "saved" : "unsaved";
+    if (host.dataset.actKey === key && host.firstChild) return;
+    host.dataset.actKey = key;
+    mountActionChips(host, actionsFor(
+      { kind:"builder-draft", presetId: draft.editingPresetId },
+      { surface:"builder", run:{ tracker: loadIntoTracker, board: sendDraftToBoard } }));
   }
 
   function setActive(on){
@@ -7253,6 +7925,20 @@ const BUILD = (() => {
     else go();
   }
 
+  function sendDraftToBoard(){
+    if (!draft.editingPresetId){
+      status("Save to Encounters first.", true);
+      return;
+    }
+    if (!window.BOARD || !BOARD.addEncounter){
+      status("Board unavailable.", true);
+      return;
+    }
+    const res = BOARD.addEncounter(draft.editingPresetId);
+    if (res.ok) toast("Added to board: " + (res.name || draft.name || "Encounter"));
+    else status(res.error || "Couldn’t add to board.", true);
+  }
+
   function draftSystem(){ return draft.system; }
 
   // wire inputs once
@@ -7274,30 +7960,16 @@ const BUILD = (() => {
     saveDraft();
   });
   const saveBtn = document.getElementById("buildSave");
-  const loadBtn = document.getElementById("buildLoad");
   if (saveBtn) saveBtn.onclick = () => saveToEncounters(saveBtn);
-  if (loadBtn) loadBtn.onclick = () => loadIntoTracker(loadBtn);
-  const boardBtn = document.getElementById("buildBoard");
-  if (boardBtn) boardBtn.onclick = () => {
-    if (!draft.editingPresetId){
-      status("Save to Encounters first.", true);
-      return;
-    }
-    if (!window.BOARD || !BOARD.addEncounter){
-      status("Board unavailable.", true);
-      return;
-    }
-    const res = BOARD.addEncounter(draft.editingPresetId);
-    if (res.ok) toast("Added to board: " + (res.name || draft.name || "Encounter"));
-    else status(res.error || "Couldn’t add to board.", true);
-  };
+  syncBoardChip();
 
   return {
-    setActive, tryAdd, openPreset, draftSystem, render,
+    setActive, tryAdd, openPreset, draftSystem, render, fits, fitContext,
     _test: {
       vBuilder, pf2eBudget, pf2eCreatureCost, pf2eClassify,
       dnd2014Thresholds, dnd2014Multiplier, dnd2014Classify, dnd2014Budget,
       dnd2024Budget, dnd2024Classify, budgetFor, combatantsFromLines, lineCost,
+      rosterTotals, spendOf, spendSummary,
     },
   };
 })();
@@ -7665,6 +8337,7 @@ const BOARD = (() => {
       if (cid && boardId) raw[cid] = boardId;
       localStorage.setItem(LAST_KEY, JSON.stringify(raw));
     } catch (_) {}
+    syncResumeCue();
   }
 
   function lastOpenFor(cid){
@@ -7673,6 +8346,53 @@ const BOARD = (() => {
       const id = raw && cid ? raw[cid] : "";
       return typeof id === "string" ? id : "";
     } catch (_) { return ""; }
+  }
+
+  function forgetLast(cid){
+    if (typeof cid !== "string" || !cid) return;
+    try {
+      const raw = JSON.parse(localStorage.getItem(LAST_KEY) || "{}") || {};
+      delete raw[cid];
+      localStorage.setItem(LAST_KEY, JSON.stringify(raw));
+    } catch (_) {}
+  }
+
+  // Last-open board for the active campaign, or null. A pointer that no longer
+  // resolves to a board in this campaign is cleared, so callers cannot name a
+  // deleted session.
+  function lastOpen(){
+    const cid = currentCampaignId();
+    if (!cid) return null;
+    const id = lastOpenFor(cid);
+    if (!id) return null;
+    const b = campaignBoards(cid).find(x => x.id === id);
+    if (!b){ forgetLast(cid); return null; }
+    return { id: b.id, title: b.title || "Session" };
+  }
+
+  function openBoard(id){
+    if (typeof id !== "string" || !id) return { ok: false, error: "No board id." };
+    const cid = currentCampaignId();
+    const b = campaignBoards(cid).find(x => x.id === id);
+    if (!b) return { ok: false, error: "That board is no longer in this campaign." };
+    state.activeBoardId = b.id;
+    rememberLast(b.id);
+    selectedId = null;
+    save().catch(() => {});
+    if (activeMode){
+      refreshPicker();
+      hydrateBoard(b).catch(() => {}).finally(() => render());
+    } else if (window.TRK && typeof TRK.setMode === "function"){
+      // setActive(true) hydrates, calls ensureCampaignBoard (which honours the
+      // pointer just written) and renders.
+      TRK.setMode("board");
+    }
+    return { ok: true, title: b.title || "Session" };
+  }
+
+  function syncResumeCue(){
+    if (window.CAMPAIGN && typeof CAMPAIGN.renderResumeCue === "function")
+      CAMPAIGN.renderResumeCue();
   }
 
   function boardLimitToast(list){
@@ -8021,11 +8741,7 @@ const BOARD = (() => {
         if (c.type === "markdown") ids.push(c.id);
     state.boards = state.boards.filter(b => b.campaignId !== campaignId);
     deleteCardBodies(ids).catch(() => {});
-    try {
-      const raw = JSON.parse(localStorage.getItem(LAST_KEY) || "{}") || {};
-      delete raw[campaignId];
-      localStorage.setItem(LAST_KEY, JSON.stringify(raw));
-    } catch (_) {}
+    forgetLast(campaignId);
   }
 
   function reattachBoardsToCampaign(campaignId){
@@ -8105,7 +8821,7 @@ const BOARD = (() => {
         if (t){
           b.title = t.slice(0, 80);
           b.updatedAt = Date.now();
-          save(); refreshPicker(); toast("Renamed");
+          save(); refreshPicker(); syncResumeCue(); toast("Renamed");
         }
       }
       host.remove();
@@ -8399,6 +9115,12 @@ const BOARD = (() => {
       exp.onclick = e => { e.stopPropagation(); openMdExpand(card); };
       meta.appendChild(exp);
     }
+    if (window.actionsFor && window.mountActionChips){
+      const acts = document.createElement("div");
+      mountActionChips(acts, actionsFor({ kind:"board-markdown", cardId: card.id },
+        { surface:"board-card", run:{ copy: btn => startCopyToLore(card, btn) } }));
+      if (acts.firstChild) meta.appendChild(acts);
+    }
     body.appendChild(meta);
     if (card.editing){
       const ta = document.createElement("textarea");
@@ -8423,6 +9145,86 @@ const BOARD = (() => {
       view.innerHTML = markdownHtml(card);
       body.appendChild(view);
     }
+  }
+
+  /* Copy to Lore… — explicit, one-way, user-initiated. The card stays exactly where
+     it is and nothing syncs afterwards: from here the Lore page is adventure text,
+     not a mirror of tonight's note. Board never touches Lore state — it asks LORE
+     for the chapter list and hands the copy to LORE.createPage. */
+  async function startCopyToLore(card, btn){
+    if (!card || !btn) return;
+    if (!window.LORE || !LORE.createPage || !LORE.listPages){
+      toast("Lore is unavailable in this build.");
+      return;
+    }
+    const campaignId = currentCampaignId();
+    if (!campaignId){ toast("No active campaign to copy this note into."); return; }
+    /* An IndexedDB-backed card carries an empty body until it resolves, so the copy
+       waits rather than writing a blank page. */
+    btn.disabled = true;
+    await hydrateCardBody(card);
+    if (!btn.isConnected) return;
+    btn.disabled = false;
+    if (card.bodyRef === "idb" && !(card.body || "").length){
+      toast("Couldn’t read this note’s text — open it once, then try again.");
+      return;
+    }
+    if (!String(card.body || "").trim()){
+      toast("Nothing to copy — this note is empty.");
+      return;
+    }
+    pickLoreParent(card, btn, campaignId);
+  }
+
+  /* Parent chapter picker and confirm in one step, swapped into the chip the way
+     TRK.confirmSwap swaps its Yes/No — no window.confirm, no modal over the stage. */
+  function pickLoreParent(card, btn, campaignId){
+    const title = (card.title || "").trim() || "Untitled";
+    const host = document.createElement("span");
+    host.className = "cfm md-copy";
+    const lab = document.createElement("label");
+    lab.append("Copy to Lore under");
+    const sel = document.createElement("select");
+    const top = document.createElement("option");
+    top.value = "";
+    top.textContent = "Top level";
+    sel.appendChild(top);
+    for (const p of LORE.listPages(campaignId)){
+      const opt = document.createElement("option");
+      opt.value = p.id;
+      opt.textContent = "— ".repeat(Math.min(p.depth, 6)) + (p.title || "Untitled");
+      sel.appendChild(opt);
+    }
+    lab.appendChild(sel);
+    const go = document.createElement("button");
+    go.type = "button";
+    go.textContent = "Copy";
+    const no = document.createElement("button");
+    no.type = "button";
+    no.textContent = "Cancel";
+    let done = false;
+    function revert(){
+      if (done) return;
+      done = true;
+      if (host.isConnected) host.replaceWith(btn);
+      if (btn.isConnected) btn.focus();
+    }
+    go.onclick = () => {
+      const res = LORE.createPage(campaignId, {
+        title, body: card.body || "", parentId: sel.value || null,
+      });
+      if (!res.ok){ toast(res.error || "Couldn’t copy to Lore."); return; }
+      revert();
+      toast("Copied to Lore: " + title);
+    };
+    no.onclick = revert;
+    host.addEventListener("click", e => e.stopPropagation());
+    host.addEventListener("keydown", e => {
+      if (e.key === "Escape"){ e.stopPropagation(); revert(); }
+    });
+    host.append(lab, go, no);
+    btn.replaceWith(host);
+    sel.focus();
   }
 
   function fillImage(body, card){
@@ -9134,30 +9936,10 @@ const BOARD = (() => {
 
     const acts = document.createElement("div");
     acts.className = "encounter-actions";
-    const load = document.createElement("button");
-    load.type = "button";
-    load.className = "chip go";
-    load.textContent = "Load into Tracker";
-    load.onclick = e => {
-      e.stopPropagation();
-      if (!window.TRK || !TRK.loadPreset) return;
-      const go = () => {
-        TRK.loadPreset(card.presetId);
-        TRK.setMode("track");
-      };
-      if (TRK.confirmSwap)
-        TRK.confirmSwap(load, "Replace the current encounter?", go);
-      else go();
-    };
-    const open = document.createElement("button");
-    open.type = "button";
-    open.className = "chip";
-    open.textContent = "Open in Builder";
-    open.onclick = e => {
-      e.stopPropagation();
-      if (window.BUILD && BUILD.openPreset) BUILD.openPreset(card.presetId);
-    };
-    acts.append(load, open);
+    /* "Board" is omitted: the card is already on the board. */
+    if (window.actionsFor && window.mountActionChips)
+      mountActionChips(acts, actionsFor({ kind:"preset", id:card.presetId, name:preset.name },
+                                        { surface:"board-card", primary:"tracker", omit:["board"] }));
     body.appendChild(acts);
   }
 
@@ -9489,6 +10271,7 @@ const BOARD = (() => {
     setActive, getExport, applyUserSave, exportBoardZip, importBoardZip,
     addRecord, addEncounter, addLorePage, mdHtml,
     onCampaignChanged, dropCampaignBoards, reattachBoardsToCampaign,
+    lastOpen, openBoard,
   };
 })();
 window.BOARD = BOARD;
@@ -9520,14 +10303,80 @@ const FORGE = (() => {
   const ALIGNS = ["unaligned","lawful good","neutral good","chaotic good","lawful neutral","neutral",
     "chaotic neutral","lawful evil","neutral evil","chaotic evil"];
   const RARITIES = ["common","uncommon","rare","unique"];
+  /* Bands are rungs relative to the system's benchmark row, which is the Moderate rung —
+     so a Balanced creature is exactly the row the Forge has always produced. The offsets
+     below are the Forge's own spacing between rungs, not a reproduction of a book table;
+     every value they produce lands in an editable field the GM signs off on. */
   const BANDS = [
-    { id:"low", label:"Low" }, { id:"moderate", label:"Moderate" },
-    { id:"severe", label:"Severe" }, { id:"extreme", label:"Extreme" }
+    { id:"extreme", label:"Extreme" }, { id:"high", label:"High" },
+    { id:"moderate", label:"Moderate" }, { id:"low", label:"Low" }
   ];
+  const BAND_IDS = BANDS.map(b => b.id);
+  const bandLabel = id => (BANDS.find(b => b.id === id) || BANDS[2]).label;
+
+  const PF_STEP = {
+    hp:      { extreme:1.45, high:1.2, moderate:1, low:0.7 },
+    ac:      { extreme:3, high:1, moderate:0, low:-2 },
+    save:    { extreme:4, high:2, moderate:0, low:-3 },
+    per:     { extreme:4, high:2, moderate:0, low:-3 },
+    attack:  { extreme:3, high:1, moderate:0, low:-2 },
+    spellDC: { extreme:3, high:1, moderate:0, low:-2 }
+  };
+  // The inlined PF2e rows carry four damage columns under the older Low/Moderate/Severe/
+  // Extreme names; Severe is the column the High rung reads from.
+  const PF_DMG_COL = {
+    extreme:"extremeDamage", high:"severeDamage", moderate:"moderateDamage", low:"lowDamage"
+  };
+  const D5_STEP = {
+    ac:     { extreme:3, high:1, moderate:0, low:-2 },
+    attack: { extreme:3, high:1, moderate:0, low:-2 },
+    damage: { extreme:1.35, high:1.15, moderate:1, low:0.75 }
+  };
+
+  /* A role is a coherent distribution of bands plus, on 5e, which abilities carry the
+     creature. Nothing here is written to a record on its own — it fills the form. */
+  const ROLES = [
+    { id:"balanced", label:"Balanced", abilities:null,
+      hint:"Straight off the benchmark row — no emphasis anywhere.",
+      bands:{ hp:"moderate", ac:"moderate", fort:"moderate", ref:"moderate", will:"moderate",
+              per:"moderate", attack:"moderate", damage:"moderate", spellDC:"moderate" } },
+    { id:"brute", label:"Brute", abilities:["str","con"],
+      hint:"Soaks punishment and hits like a falling wall; easy to hit and to outmanoeuvre.",
+      bands:{ hp:"extreme", ac:"low", fort:"high", ref:"low", will:"moderate",
+              per:"moderate", attack:"high", damage:"extreme", spellDC:"low" } },
+    { id:"soldier", label:"Soldier", abilities:["str","con"],
+      hint:"Holds the front line: armoured, accurate, hard to walk past.",
+      bands:{ hp:"high", ac:"extreme", fort:"high", ref:"moderate", will:"moderate",
+              per:"moderate", attack:"extreme", damage:"high", spellDC:"moderate" } },
+    { id:"skirmisher", label:"Skirmisher", abilities:["dex","con"],
+      hint:"Fast and evasive, average staying power, poor discipline.",
+      bands:{ hp:"moderate", ac:"high", fort:"moderate", ref:"extreme", will:"low",
+              per:"high", attack:"high", damage:"moderate", spellDC:"low" } },
+    { id:"sniper", label:"Sniper", abilities:["dex","wis"],
+      hint:"Sees first and shoots true; folds once something reaches it.",
+      bands:{ hp:"low", ac:"moderate", fort:"low", ref:"high", will:"moderate",
+              per:"extreme", attack:"extreme", damage:"high", spellDC:"low" } },
+    { id:"caster", label:"Caster", abilities:["cha","int"],
+      hint:"Wins on saves and DCs, not on armour or a weapon.",
+      bands:{ hp:"low", ac:"moderate", fort:"low", ref:"moderate", will:"extreme",
+              per:"high", attack:"low", damage:"low", spellDC:"extreme" } },
+    { id:"mook", label:"Mook", abilities:["str","dex"],
+      hint:"Threatening in numbers only — every band on the bottom rung.",
+      bands:{ hp:"low", ac:"low", fort:"low", ref:"low", will:"low",
+              per:"low", attack:"low", damage:"low", spellDC:"low" } }
+  ];
+  const BAND_STATS = {
+    dnd5e: [["hp","HP"],["ac","AC"],["attack","Attack"],["damage","Damage"]],
+    pf2e: [["hp","HP"],["ac","AC"],["fort","Fort"],["ref","Ref"],["will","Will"],
+           ["per","Perception"],["attack","Attack"],["damage","Damage"],["spellDC","Spell DC"]]
+  };
+  const roleById = id => ROLES.find(r => r.id === id) || null;
 
   let active = false;
   let system = "dnd5e";
   let applied = false;
+  let roleId = "balanced";
+  let bands = Object.assign({}, ROLES[0].bands);
 
   const $ = (sel, root) => (root || document).querySelector(sel);
   const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
@@ -9548,12 +10397,13 @@ const FORGE = (() => {
   function crRow(cr){ return CR_DATA.find(d => d.cr === String(cr)) || CR_DATA[0]; }
   function pfRow(lv){ return PF2E_LEVEL_DATA.find(d => d.level === lv) || PF2E_LEVEL_DATA[1]; }
 
-  function suggestAbilities(data){
+  function suggestAbilities(data, role){
     const n = crNumeric(data.cr);
     const base = Math.max(8, Math.min(10 + Math.floor(n * 0.8), 22));
     const spread = Math.max(2, Math.floor(n / 3));
-    const primary = n < 8 ? "str" : n < 15 ? "dex" : "str";
-    const secondary = primary === "str" ? "con" : "dex";
+    const pick = role && role.abilities;
+    const primary = pick ? pick[0] : (n < 8 ? "str" : n < 15 ? "dex" : "str");
+    const secondary = pick ? pick[1] : (primary === "str" ? "con" : "dex");
     const scores = { str:10, dex:10, con:10, int:10, wis:10, cha:10 };
     scores[primary] = base + spread;
     scores[secondary] = base;
@@ -9576,6 +10426,23 @@ const FORGE = (() => {
     if (!m) return null;
     const n = +m[1], faces = +m[2], bonus = m[3] ? parseInt(m[3], 10) : 0;
     return Math.floor(n * (faces + 1) / 2) + bonus;
+  }
+  /* 5e HP bands stay inside the range the CR row already states; only the flat bonus on
+     the damage dice moves, so the dice the row prints survive a band change. */
+  function hpBand5e(row, band){
+    if (band === "low") return row.hpMin;
+    if (band === "high") return Math.round((row.hp + row.hpMax) / 2);
+    if (band === "extreme") return row.hpMax;
+    return row.hp;
+  }
+  function scaleDice(dice, mult){
+    const m = String(dice || "").replace(/\s+/g, "").match(/^(\d+)d(\d+)([+-]\d+)?$/i);
+    if (!m || mult === 1) return dice;
+    const n = +m[1], faces = +m[2], bonus = m[3] ? parseInt(m[3], 10) : 0;
+    const base = Math.floor(n * (faces + 1) / 2);
+    const target = Math.max(1, Math.round((base + bonus) * mult));
+    const nb = target - base;
+    return n + "d" + faces + (nb === 0 ? "" : nb > 0 ? " + " + nb : " - " + Math.abs(nb));
   }
   function parseDmgBand(str){
     const s = String(str || "").trim();
@@ -9600,6 +10467,72 @@ const FORGE = (() => {
     });
   }
 
+  function matchRole(b){
+    const hit = ROLES.find(r => Object.keys(r.bands).every(k => r.bands[k] === b[k]));
+    return hit ? hit.id : null;
+  }
+  function renderRoles(){
+    const box = $("#forgeRoleChips");
+    if (!box) return;
+    if (!box.children.length){
+      for (const r of ROLES){
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "chip";
+        b.dataset.role = r.id;
+        b.textContent = r.label;
+        b.title = r.hint;
+        box.appendChild(b);
+      }
+    }
+    for (const b of Array.from(box.children)){
+      const on = b.dataset.role === roleId;
+      b.classList.toggle("on", on);
+      b.setAttribute("aria-pressed", String(on));
+    }
+    const hint = $("#forgeRoleHint");
+    if (hint){
+      const r = roleById(roleId);
+      hint.textContent = r ? r.hint : "Custom mix — bands set by hand.";
+    }
+  }
+  function renderBands(){
+    const box = $("#forgeBands");
+    if (!box) return;
+    box.textContent = "";
+    for (const [key, label] of BAND_STATS[system]){
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "forge-band";
+      b.dataset.stat = key;
+      b.dataset.band = bands[key];
+      b.setAttribute("aria-label", label + " band: " + bandLabel(bands[key]) + ". Activate for the next rung.");
+      const k = document.createElement("span");
+      k.className = "bk"; k.textContent = label;
+      const v = document.createElement("span");
+      v.className = "bv"; v.textContent = bandLabel(bands[key]);
+      b.append(k, v);
+      box.appendChild(b);
+    }
+  }
+  function setRole(id){
+    const r = roleById(id);
+    if (!r) return;
+    roleId = r.id;
+    bands = Object.assign({}, r.bands);
+    renderRoles(); renderBands();
+    if (applied) applyBenchmarks();
+    else setStatus(r.label + " bands ready — Apply benchmarks to fill the numbers.", false);
+  }
+  function cycleBand(key){
+    if (!(key in bands)) return;
+    const i = BAND_IDS.indexOf(bands[key]);
+    bands[key] = BAND_IDS[(i + 1) % BAND_IDS.length];
+    roleId = matchRole(bands);
+    renderRoles(); renderBands();
+    if (applied) applyBenchmarks();
+  }
+
   function setStatus(msg, isErr){
     const el = $("#forgeStatus");
     if (!el) return;
@@ -9618,7 +10551,8 @@ const FORGE = (() => {
         type: (($("#forgePfType").value || "humanoid").trim().toLowerCase()) || "humanoid",
         rarity: $("#forgeRarity").value || "common",
         level: Number.isFinite(lv) ? lv : 1,
-        band: $("#forgePfBand").value || "moderate",
+        role: roleId, bands: Object.assign({}, bands),
+        band: bands.damage,
         traits: $("#forgeTraits").value || "",
         hp: Math.max(1, parseInt($("#forgePfHp").value, 10) || 10),
         ac: parseInt($("#forgePfAc").value, 10) || 10,
@@ -9642,6 +10576,7 @@ const FORGE = (() => {
       type: ($("#forgeType").value || "humanoid").toLowerCase(),
       alignment: $("#forgeAlign").value || "unaligned",
       cr: $("#forgeCr").value || "1",
+      role: roleId, bands: Object.assign({}, bands),
       ac: parseInt($("#forgeAc").value, 10) || 10,
       hp: Math.max(1, parseInt($("#forgeHp").value, 10) || 10),
       hpDice: ($("#forgeHpDice").value || "").trim() || null,
@@ -9672,7 +10607,6 @@ const FORGE = (() => {
         damage: [dmg],
         entries: []
       });
-      const wisGuess = Math.max(-5, Math.min(10, f.perception - 3));
       const display = f.level < 0 ? "Creature -1" : ("Creature " + f.level);
       return {
         schema: "ttrpg-monster/0.2",
@@ -9681,14 +10615,16 @@ const FORGE = (() => {
         gameSystem: "pf2e",
         variant: "custom",
         source: { code: "custom", name: "Custom", page: null, path: "custom/pf2e/pending" },
-        parse: { status: "ok", warnings: ["Forged from level benchmarks; ability scores unstated."], unmapped: [] },
+        parse: { status: "ok", warnings: ["Forged from level benchmarks; ability modifiers and scores unstated."], unmapped: [] },
         challenge: { kind: "level", value: f.level, xp: null, display },
         identity: {
           size: f.size, types: [f.type], subtypes: [], rarity: f.rarity,
           alignment: { raw: null, lawChaos: null, goodEvil: null },
           nativeTraits: [f.size.toLowerCase(), f.type, f.rarity]
         },
-        abilityMods: { str: 0, dex: 0, con: 0, int: 0, wis: wisGuess, cha: 0 },
+        // The level benchmarks state no ability modifiers and the GM entered none, so the
+        // record says so. Never derive them from Perception or any other benchmark.
+        abilityMods: null,
         abilityScores: null,
         perception: { mod: f.perception, passive: null },
         senses: [], languages: [], skills: [],
@@ -9706,7 +10642,10 @@ const FORGE = (() => {
         },
         speeds: { unit: "ft", modes: { walk: 25 }, special: [] },
         entries, spellcasting: [],
-        systemExtras: { forgeSpellDC: f.spellDC, forgeDamageBand: f.band }
+        systemExtras: {
+          forgeSpellDC: f.spellDC, forgeDamageBand: f.band,
+          forgeRole: f.role || "custom", forgeBands: Object.assign({}, f.bands)
+        }
       };
     }
     const scores = f.scores;
@@ -9768,7 +10707,10 @@ const FORGE = (() => {
       },
       speeds: { unit: "ft", modes: { walk: 30 }, special: [] },
       entries, spellcasting: [],
-      systemExtras: { proficiencyBonus: f.prof }
+      systemExtras: {
+        proficiencyBonus: f.prof,
+        forgeRole: f.role || "custom", forgeBands: Object.assign({}, f.bands)
+      }
     };
   }
 
@@ -9776,7 +10718,7 @@ const FORGE = (() => {
     const pane = $("#forgePreview");
     if (!pane) return;
     if (!applied){
-      pane.innerHTML = '<p class="forge-hint">Set CR or level, then <strong>Apply benchmarks</strong> to fill stats and preview.</p>';
+      pane.innerHTML = '<p class="forge-hint">Pick a role and a CR or level, then <strong>Apply benchmarks</strong> to fill stats and preview.</p>';
       return;
     }
     const rec = buildMonster(readForm());
@@ -9791,37 +10733,36 @@ const FORGE = (() => {
     if (system === "pf2e"){
       const lv = parseInt($("#forgePfLevel").value, 10);
       const row = pfRow(Number.isFinite(lv) ? lv : 1);
-      const band = $("#forgePfBand").value || "moderate";
-      const key = band === "low" ? "lowDamage" : band === "severe" ? "severeDamage"
-        : band === "extreme" ? "extremeDamage" : "moderateDamage";
-      $("#forgePfHp").value = row.hp;
-      $("#forgePfAc").value = row.ac;
-      $("#forgePfFort").value = row.fortitude;
-      $("#forgePfRef").value = row.reflex;
-      $("#forgePfWill").value = row.will;
-      $("#forgePfPer").value = row.perception;
-      $("#forgePfAtk").value = row.attackBonus;
-      $("#forgePfSpellDc").value = row.spellDC;
-      $("#forgePfDmg").value = row[key];
+      $("#forgePfHp").value = Math.max(1, Math.round(row.hp * PF_STEP.hp[bands.hp]));
+      $("#forgePfAc").value = row.ac + PF_STEP.ac[bands.ac];
+      $("#forgePfFort").value = row.fortitude + PF_STEP.save[bands.fort];
+      $("#forgePfRef").value = row.reflex + PF_STEP.save[bands.ref];
+      $("#forgePfWill").value = row.will + PF_STEP.save[bands.will];
+      $("#forgePfPer").value = row.perception + PF_STEP.per[bands.per];
+      $("#forgePfAtk").value = row.attackBonus + PF_STEP.attack[bands.attack];
+      $("#forgePfSpellDc").value = row.spellDC + PF_STEP.spellDC[bands.spellDC];
+      $("#forgePfDmg").value = row[PF_DMG_COL[bands.damage]];
       if (!$("#forgeAtkName").value.trim()) $("#forgeAtkName").value = "Strike";
     } else {
       const cr = $("#forgeCr").value || "1";
       const row = crRow(cr);
-      const scores = suggestAbilities(row);
-      $("#forgeAc").value = row.ac;
-      $("#forgeHp").value = row.hp;
+      const scores = suggestAbilities(row, roleById(roleId));
+      const hp = hpBand5e(row, bands.hp);
+      $("#forgeAc").value = row.ac + D5_STEP.ac[bands.ac];
+      $("#forgeHp").value = hp;
       $("#forgeProf").value = "+" + row.prof;
       $("#forgeAttacks").value = row.attacks;
-      $("#forgeDmgDice").value = row.dice;
+      $("#forgeDmgDice").value = scaleDice(row.dice, D5_STEP.damage[bands.damage]);
       for (const k of ["str","dex","con","int","wis","cha"]) $("#forgeAb-"+k).value = scores[k];
-      $("#forgeHpDice").value = suggestHitDice(row.hp, abMod(scores.con));
-      $("#forgeAtkBonus").value = fmtMod(suggestAttackBonus(row, scores));
+      $("#forgeHpDice").value = suggestHitDice(hp, abMod(scores.con));
+      $("#forgeAtkBonus").value = fmtMod(suggestAttackBonus(row, scores) + D5_STEP.attack[bands.attack]);
       const type = ($("#forgeType").value || "humanoid").toLowerCase();
       const names = ATTACK_NAMES[type] || ["Slam"];
       if (!$("#forgeAtkName").value.trim()) $("#forgeAtkName").value = names[0];
     }
     applied = true;
-    setStatus("Benchmarks applied.", false);
+    const r = roleById(roleId);
+    setStatus(r ? r.label + " bands applied." : "Custom bands applied.", false);
     refreshPreview();
   }
 
@@ -9837,6 +10778,7 @@ const FORGE = (() => {
     const p5 = $("#forgePanel5e"), pp = $("#forgePanelPf");
     if (p5) p5.hidden = system !== "dnd5e";
     if (pp) pp.hidden = system !== "pf2e";
+    renderRoles(); renderBands();
     applied = false;
     setStatus("", false);
     refreshPreview();
@@ -9929,20 +10871,21 @@ const FORGE = (() => {
         rar.appendChild(o);
       }
     }
-    const band = $("#forgePfBand");
-    if (band && !band.options.length){
-      for (const b of BANDS){
-        const o = document.createElement("option");
-        o.value = b.id; o.textContent = b.label;
-        if (b.id === "moderate") o.selected = true;
-        band.appendChild(o);
-      }
-    }
   }
 
   function bind(){
     fillSelects();
     $$("#forgeSysChips .chip").forEach(b => { b.onclick = () => setSystem(b.dataset.sys); });
+    const roles = $("#forgeRoleChips");
+    if (roles) roles.addEventListener("click", e => {
+      const b = e.target.closest("[data-role]");
+      if (b) setRole(b.dataset.role);
+    });
+    const bandBox = $("#forgeBands");
+    if (bandBox) bandBox.addEventListener("click", e => {
+      const b = e.target.closest("[data-stat]");
+      if (b) cycleBand(b.dataset.stat);
+    });
     const apply = $("#forgeApply");
     if (apply) apply.onclick = () => applyBenchmarks();
     const save = $("#forgeSave");
@@ -9959,14 +10902,18 @@ const FORGE = (() => {
     active = !!on;
     const el = $("#forge");
     if (el) el.hidden = !active;
-    if (active){ fillSelects(); refreshPreview(); }
+    if (active){ fillSelects(); renderRoles(); renderBands(); refreshPreview(); }
   }
 
   bind();
 
   return {
     setActive,
-    _test: { crNumeric, crValue, suggestAbilities, parseDmgBand, buildMonster, CR_DATA, PF2E_LEVEL_DATA, XP_BY_CR }
+    _test: {
+      crNumeric, crValue, suggestAbilities, parseDmgBand, buildMonster, hpBand5e, scaleDice,
+      matchRole, CR_DATA, PF2E_LEVEL_DATA, XP_BY_CR, ROLES, BANDS, PF_STEP, D5_STEP,
+      setRole, cycleBand, bandsNow: () => Object.assign({}, bands), roleNow: () => roleId
+    }
   };
 })();
 window.FORGE = FORGE;
@@ -10068,17 +11015,18 @@ const LORE = (() => {
       return vLoreState(JSON.parse(raw));
     }catch(_){ return seedLore(); }
   }
-  function save(){
+  function save(opts){
     if (window.CAMPAIGN && typeof CAMPAIGN.save === "function"){
       const c = CAMPAIGN.active();
       if (c) c.updatedAt = Date.now();
-      return CAMPAIGN.save();
+      return CAMPAIGN.save(opts);
     }
     try{
       localStorage.setItem(STORE, JSON.stringify(vLoreState(state)));
       return true;
     }catch(_){
-      announce("Could not save Lore — browser storage may be full.");
+      if (!(opts && opts.quiet))
+        announce("Could not save Lore — browser storage may be full.");
       return false;
     }
   }
@@ -10695,6 +11643,10 @@ const LORE = (() => {
     toggle.setAttribute("aria-pressed", String(previewing));
     toggle.textContent = previewing ? "Edit" : "Preview";
     document.getElementById("loreSize").textContent = sizeLabel((page.body || "").length);
+    const acts = document.getElementById("loreActs");
+    if (acts && window.actionsFor && window.mountActionChips)
+      mountActionChips(acts, actionsFor({ kind:"lore", campaignId: camp.id, pageId: page.id },
+                                        { surface:"lore", announce }));
     if (previewing) renderPreview(page);
   }
   function renderAll(){
@@ -10712,23 +11664,55 @@ const LORE = (() => {
     if (q) q.value = "";
     if (nav) delete nav.dataset.tagFilter;
   }
+  /* The one write path for a new page. Headless on purpose: it returns a result
+     object the way BOARD.addRecord does, announces nothing and moves no focus, so a
+     caller on another surface (a Board note being copied) cannot yank the GM into a
+     Lore field they cannot see. Selecting, repainting and focusing belong to newPage.
+     Modes are exclusive, so no other caller can be looking at the tree while it writes. */
+  function createPage(campaignId, opts){
+    const o = opts || {};
+    const camp = state.campaigns.find(c => c.id === campaignId);
+    if (!camp) return { ok: false, error: "Campaign not found." };
+    if (camp.pages.length >= MAX_PAGES)
+      return { ok: false, error: "Lore page limit reached (" + MAX_PAGES + ")." };
+    /* vPage drops a parentId no page owns, so an unknown parent lands at top level
+       instead of orphaning the page. */
+    const page = vPage({
+      id: "page-" + uid(),
+      title: o.title,
+      parentId: o.parentId,
+      tags: o.tags,
+      body: o.body,
+      updatedAt: Date.now(),
+    }, new Set(camp.pages.map(p => p.id)));
+    if (!page) return { ok: false, error: "Could not create the page." };
+    const wasUpdatedAt = camp.updatedAt;
+    camp.pages.push(page);
+    camp.updatedAt = page.updatedAt;
+    if (!save({ quiet: true })){
+      camp.pages.pop();
+      camp.updatedAt = wasUpdatedAt;
+      return { ok: false, error: "Could not save the page — browser storage may be full." };
+    }
+    return { ok: true, id: page.id };
+  }
+  /* Ordered, flat, copied view of a campaign's pages so another surface can offer a
+     parent-chapter picker without reading LORE state. Copies, like window.recordRef:
+     a picker can never edit lore through the answer. */
+  function listPages(campaignId){
+    const camp = state.campaigns.find(c => c.id === campaignId);
+    if (!camp) return [];
+    const byId = new Map(camp.pages.map(p => [p.id, p]));
+    return orderedVisible(camp, camp.pages, byId, new Set(byId.keys()))
+      .map(p => ({ id: p.id, title: p.title, depth: depthOf(p, byId) }));
+  }
   function newPage(parentId){
     const camp = activeCamp();
     if (!camp) return;
-    if (camp.pages.length >= MAX_PAGES){
-      announce("Lore page limit reached (" + MAX_PAGES + ").");
-      return;
-    }
-    if (parentId && !camp.pages.some(p => p.id === parentId)) parentId = null;
-    const page = {
-      id: "page-" + uid(), title: "Untitled", parentId: parentId || null,
-      tags: [], body: "", updatedAt: Date.now(),
-    };
-    camp.pages.push(page);
-    camp.updatedAt = page.updatedAt;
-    selectedPageId = page.id;
+    const res = createPage(camp.id, { parentId });
+    if (!res.ok){ announce(res.error); return; }
+    selectedPageId = res.id;
     previewing = false;
-    save();
     renderAll();
     const title = document.getElementById("loreTitle");
     if (title){ title.focus(); title.select(); }
@@ -10856,19 +11840,6 @@ const LORE = (() => {
       previewing = !previewing;
       renderEditor();
     };
-    document.getElementById("lorePin").onclick = () => {
-      const camp = activeCamp();
-      if (!camp || !selectedPageId) return;
-      if (!window.BOARD || !BOARD.addLorePage){
-        announce("Board unavailable — open Board mode once, then try Pin again.");
-        return;
-      }
-      const res = BOARD.addLorePage(camp.id, selectedPageId);
-      announce(res.ok
-        ? "Pinned to Board: " + (res.name || "page")
-        : (res.error || "Couldn’t pin to Board."));
-    };
-
     // Tree drag reorder / reparent (handle-only; keyboard is Alt+Arrow on title)
     const tree = document.getElementById("loreTree");
     let dragId = null, dropSlot = null; // { row, where: "before"|"after"|"into" }
@@ -10987,6 +11958,7 @@ const LORE = (() => {
 
   return {
     setActive, getExport, applyUserSave, getPage, onCampaignChanged,
+    createPage, listPages,
     _test: {
       vLoreState, vCampaign, vPage, seedLore, visiblePages, depthOf,
       isDescendant, reorderPage, moveSibling, indentPage, outdentPage, siblingsOf,

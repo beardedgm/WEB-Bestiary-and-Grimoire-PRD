@@ -2,14 +2,15 @@
 
 ## Purpose
 
-Maps phase 3: custom B&G token icons with HexPlora-class layout, plus optional square grid mode. Not Library-linked monsters.
+Maps phase 3: custom B&G token icons with HexPlora-class layout, plus optional square grid mode.
 
-**Scope note:** Library-linked tokens remain out of *this* shipped phase. Reopening that
-non-goal is an intentional product decision tracked as **P6** in
-[`../plans/2026-09-03-connected-improvements-roadmap.md`](../plans/2026-09-03-connected-improvements-roadmap.md)
-and [`2026-09-03-maps-linked-tokens.md`](2026-09-03-maps-linked-tokens.md). When P6 ships,
-revise this purpose line so the repo does not simultaneously say “not Library-linked” and
-“tokens reference Library records.”
+**Scope note:** Library-linked tokens were out of *this* phase and are now shipped separately
+as **P6** — an intentional reopen of that non-goal, specced in
+[`2026-09-03-maps-linked-tokens.md`](2026-09-03-maps-linked-tokens.md) and
+[`../plans/2026-09-03-connected-improvements-roadmap.md`](../plans/2026-09-03-connected-improvements-roadmap.md).
+A token may carry an optional Library `ref` id; everything in the table below (icon slug,
+label, layout, sizing) is unchanged by it, and a token without a `ref` renders exactly as
+this phase shipped it.
 
 ## Token icons and layout
 

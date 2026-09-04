@@ -476,6 +476,14 @@
     }
     return out;
   }
+  /* An optional Library record id, never copied monster state: an imported map may
+     name a record this install does not have, so `ref` is validated as an id and
+     resolved lazily at display time rather than trusted to exist. */
+  function vRef(raw) {
+    if (typeof raw !== "string") return null;
+    const id = raw.trim();
+    return id && id.length <= 120 ? id : null;
+  }
   function vToken(raw, i) {
     if (!raw || typeof raw !== "object") return null;
     return {
@@ -484,6 +492,7 @@
       label: vStr(raw.label, 100, ""),
       icon: normalizeTokenIcon(vStr(raw.icon, 32, "")),
       notes: vStr(raw.notes, 2000, ""),
+      ref: vRef(raw.ref),
       zIndex: num(raw.zIndex, i + 1),
     };
   }
@@ -2252,7 +2261,8 @@
           readToolSettingsLive();
           state.tokens.push({
             x: tx, y: ty, color: state.settings.tokenColor,
-            label: "", icon: normalizeTokenIcon(state.settings.tokenIcon || ""), notes: "", zIndex: nextZ++,
+            label: "", icon: normalizeTokenIcon(state.settings.tokenIcon || ""), notes: "",
+            ref: null, zIndex: nextZ++,
           });
           selectKind("token", state.tokens.length - 1);
           scheduleSave();
@@ -2463,6 +2473,107 @@
       }
     }
 
+    /* Linked tokens: the token stores a Library id and nothing else about the
+       record, so every name, rank and verb below is resolved from that id when the
+       modal opens. The pending link is held aside like every other field here, so
+       Cancel drops a link the GM just picked. */
+    let pendingRef = null;
+
+    function refSummary(id) {
+      return (id && window.recordRef) ? recordRef(id) : null;
+    }
+
+    function rankSpan(summary) {
+      const el = document.createElement("span");
+      el.className = "maps-tok-rank";
+      el.textContent = [summary.rank, summary.sys, summary.custom ? "custom" : null]
+        .filter(Boolean).join(" · ");
+      return el;
+    }
+
+    function renderTokenLinkResults(items) {
+      const box = $("mapsTokRefResults");
+      if (!box) return;
+      box.textContent = "";
+      box.hidden = !items.length;
+      for (const it of items) {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.appendChild(document.createTextNode(it.name + " "));
+        b.appendChild(rankSpan(it));
+        b.onclick = () => {
+          pendingRef = it.id;
+          const search = $("mapsTokRefSearch");
+          if (search) search.value = "";
+          // a starting label the GM can still edit before Save, not copied state
+          const label = $("mapsTokLabel");
+          if (label && !label.value) label.value = it.name.slice(0, 100);
+          renderTokenLinkResults([]);
+          renderTokenLink();
+        };
+        box.appendChild(b);
+      }
+    }
+
+    function searchTokenLink() {
+      const search = $("mapsTokRefSearch");
+      const none = $("mapsTokRefNone");
+      const q = search ? search.value.trim() : "";
+      if (!window.searchRecordRefs || q.length < 2) {
+        renderTokenLinkResults([]);
+        if (none) none.hidden = true;
+        return;
+      }
+      const hits = searchRecordRefs(q, { kind: "monster", limit: 8 });
+      renderTokenLinkResults(hits);
+      if (none) none.hidden = hits.length > 0;
+    }
+
+    function renderTokenLink() {
+      const wrap = $("mapsTokRefLinked");
+      const name = $("mapsTokRefName");
+      if (!wrap || !name) return;
+      if (!pendingRef) { wrap.hidden = true; return; }
+      wrap.hidden = false;
+      const sum = refSummary(pendingRef);
+      name.textContent = "";
+      if (sum) {
+        name.appendChild(document.createTextNode("Linked: " + sum.name + " "));
+        name.appendChild(rankSpan(sum));
+      } else {
+        // an imported map may name a record this install does not carry
+        name.textContent = "Linked to " + pendingRef + " — not in this library.";
+      }
+      const trk = $("mapsTokRefTrk");
+      if (trk) {
+        const inPlay = (window.TRK && TRK.combatantsByRef) ? TRK.combatantsByRef(pendingRef) : [];
+        trk.hidden = !inPlay.length;
+        if (inPlay.length) {
+          trk.textContent = "On the tracker: " +
+            inPlay.map((c) => c.name + " " + c.hp + "/" + c.hpMax + " HP").join(" · ");
+        }
+      }
+      const acts = $("mapsTokRefActs");
+      if (!acts) return;
+      acts.textContent = "";
+      if (sum && window.actionsFor && window.mountActionChips) {
+        /* actionsFor owns the verbs and their labels; Open is the only one that
+           leaves Maps, so it commits the modal first instead of navigating out
+           from under an inert page. */
+        const list = actionsFor({ kind: "record", id: sum.id }, { surface: "maps", primary: "open" })
+          .map((a) => (a.id !== "open" ? a : Object.assign({}, a, {
+            invoke(btn) { closeTokenEditor(true); a.invoke(btn); },
+          })));
+        mountActionChips(acts, list);
+      }
+      const unlink = document.createElement("button");
+      unlink.type = "button";
+      unlink.className = "chip";
+      unlink.textContent = "Unlink";
+      unlink.onclick = () => { pendingRef = null; renderTokenLink(); };
+      acts.appendChild(unlink);
+    }
+
     function openTokenEditor(idx) {
       const t = state.tokens[idx];
       if (!t) return;
@@ -2473,6 +2584,13 @@
       $("mapsTokNotes").value = t.notes;
       $("mapsTokColor").value = t.color;
       $("mapsTokIcon").value = t.icon;
+      pendingRef = t.ref;
+      const search = $("mapsTokRefSearch");
+      if (search) search.value = "";
+      renderTokenLinkResults([]);
+      const none = $("mapsTokRefNone");
+      if (none) none.hidden = true;
+      renderTokenLink();
       const del = $("mapsTokDelete");
       if (del) del.hidden = false;
       ov.hidden = false;
@@ -2487,6 +2605,7 @@
         t.notes = ($("mapsTokNotes").value || "").slice(0, 2000);
         t.color = $("mapsTokColor").value || t.color;
         t.icon = normalizeTokenIcon($("mapsTokIcon").value || "");
+        t.ref = vRef(pendingRef);
         scheduleSave();
         drawTokens();
       }
@@ -2794,7 +2913,7 @@
       state.tokens.push({
         x: src.x + 12, y: src.y + 12,
         color: src.color, label: src.label, icon: src.icon, notes: src.notes,
-        zIndex: nextZ++,
+        ref: src.ref, zIndex: nextZ++,
       });
       selectKind("token", state.tokens.length - 1);
       scheduleSave();
@@ -2980,6 +3099,7 @@
       on("mapsTokSave", "onclick", () => closeTokenEditor(true));
       on("mapsTokCancel", "onclick", () => closeTokenEditor(false));
       on("mapsTokDelete", "onclick", deleteTokenFromModal);
+      on("mapsTokRefSearch", "oninput", searchTokenLink);
       on("mapsTextSave", "onclick", () => closeTextEditor(true));
       on("mapsTextCancel", "onclick", () => closeTextEditor(false));
       on("mapsTextDelete", "onclick", deleteTextFromModal);
@@ -3034,7 +3154,7 @@
       setActive, onCampaignChanged, idb, vState,
       _test: {
         vState, generateHexGrid, generateSquareGrid, findCellAt, findHexAt, hexNeighbors, vSettings,
-        normalizeTokenIcon, materialSymbolChar,
+        normalizeTokenIcon, materialSymbolChar, vToken, vRef,
       },
     };
   })();
