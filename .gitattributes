@@ -1,0 +1,5 @@
+# index.html is a build artifact: build_bundles.py always writes it with LF endings.
+# Without this rule an autocrlf checkout stores CRLF in the working tree, and
+# `build_bundles.py --check` compares the page skeleton as text and reports a permanent
+# false STALE — which would hide a genuinely stale artifact in the noise.
+index.html text eol=lf

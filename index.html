@@ -1719,7 +1719,6 @@ body.forge #lore{display:none !important}
     </div>
     <div id="trklist" role="list" aria-label="Combatants"></div>
     <div id="trkempty">No combatants yet — add monsters from Catalog, or party members from Table.</div>
-    <span id="trklive" class="vh" role="status" aria-live="polite"></span>
     <details id="dice">
       <summary>Dice<span id="dlast" hidden></span></summary>
       <div class="dbody">
@@ -2006,7 +2005,7 @@ body.forge #lore{display:none !important}
   </div>
   <div class="maps-body">
     <button type="button" class="maps-drawer-scrim" id="mapsDrawerScrim" aria-label="Close panel" tabindex="-1"></button>
-    <aside class="maps-drawer closed" id="mapsDrawer" aria-label="Map panel" data-drawer-view="maps">
+    <aside class="maps-drawer closed" id="mapsDrawer" aria-label="Map panel" data-drawer-view="maps" inert>
       <div class="maps-drawer-body" id="mapsDrawerMaps">
         <section class="maps-drawer-section" aria-labelledby="mapsDrawerMapsHd">
           <h2 id="mapsDrawerMapsHd">Maps</h2>
@@ -2330,6 +2329,11 @@ body.forge #lore{display:none !important}
 <div id="boardToast" class="board-toast" role="status"></div>
 
 
+
+<!-- live region outside main and outside #trk: #trk is display:none in every mode but
+     Tracker, and an inert main is hidden from assistive tech, so an announcement made
+     from anywhere else in the app would never be spoken -->
+<span id="trklive" class="vh" role="status" aria-live="polite"></span>
 
 <!-- overlays outside main so setAppInert(main) does not make them unclickable -->
 <div id="trkovl" hidden></div>
@@ -3017,19 +3021,24 @@ async function buildUserSaveAsync(){
   }
   return bag;
 }
+/* The dialog's #user-save-err is the only channel a sighted GM can see, so every save
+   notice goes through here. Each run clears it first: a warning about one download must
+   never outlive the download it described. */
+function saveNotice(msg){
+  if (msg) announceLive(msg);
+  const el = document.getElementById("user-save-err");
+  if (!el) return;
+  el.hidden = !msg;
+  el.textContent = msg || "";
+}
 function downloadUserSave(){
+  saveNotice("");
   buildUserSaveAsync().then(bag => {
   const blob = new Blob([JSON.stringify(bag, null, 2)], { type: "application/json" });
   if (blob.size > USER_SAVE_MAX){
-    const warn = "Warning: save is " + (blob.size / (1024 * 1024)).toFixed(1) +
+    saveNotice("Warning: save is " + (blob.size / (1024 * 1024)).toFixed(1) +
       " MB — over the " + (USER_SAVE_MAX / (1024 * 1024)) +
-      " MB import limit; re-import may fail. Remove large Board images/audio or shrink notes.";
-    announceLive(warn);
-    const saveErr = document.getElementById("user-save-err");
-    if (saveErr){
-      saveErr.hidden = false;
-      saveErr.textContent = warn;
-    }
+      " MB import limit; re-import may fail. Remove large Board images/audio or shrink notes.");
   }
   const a = document.createElement("a");
   const url = URL.createObjectURL(blob);
@@ -3037,7 +3046,7 @@ function downloadUserSave(){
   a.download = "bestiary-grimoire-save.json";
   a.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }).catch(() => announceLive("Could not build save file"));
+  }).catch(() => saveNotice("Could not build the save file — nothing was downloaded."));
 }
 function applyUserSaveBag(bag){
   return applyUserSaveBagAsync(bag);
@@ -3216,44 +3225,47 @@ function openUserSaveDialog(){
   root.querySelector("[data-save-export]").onclick = () => downloadUserSave();
   const saveErr = root.querySelector("#user-save-err");
   const fileInp = root.querySelector("#user-save-file");
+  const btns = root.querySelector("#save-btns");
+  /* The confirm row is armed with one specific bag. Every rejection path has to disarm it
+     first — otherwise picking a bad file after a good one leaves an Import button that
+     still commits the earlier bag the GM believes was refused. */
+  const resetSaveBtns = () => {
+    btns.innerHTML = `<button type="button" class="chip" data-save-close>Close</button>`;
+    btns.querySelector("[data-save-close]").onclick = () => TRK.closeOvl();
+  };
+  const rejectFile = msg => {
+    resetSaveBtns();
+    saveErr.hidden = false;
+    saveErr.textContent = msg;
+  };
   root.querySelector("[data-save-import]").onclick = () => fileInp.click();
   fileInp.onchange = () => {
     const f = fileInp.files && fileInp.files[0];
     if (!f) return;
     if (f.size > USER_SAVE_MAX){
-      saveErr.hidden = false;
-      saveErr.textContent = "Save file is too large (max 8 MB). For media-heavy boards, use Board → Export board… instead.";
+      rejectFile("Save file is too large (max 8 MB). For media-heavy boards, use Board → Export board… instead.");
       fileInp.value = "";
       return;
     }
     const fr = new FileReader();
-    fr.onerror = () => {
-      saveErr.hidden = false;
-      saveErr.textContent = "Could not read that file.";
-    };
+    fr.onerror = () => rejectFile("Could not read that file.");
     fr.onload = () => {
       let bag;
       try{ bag = JSON.parse(fr.result); }
       catch(e){
-        saveErr.hidden = false;
-        saveErr.textContent = "Could not parse that file as JSON" + (e.message ? " (" + e.message + ")." : ".");
+        rejectFile("Could not parse that file as JSON" + (e.message ? " (" + e.message + ")." : "."));
         return;
       }
       if (!bag || bag.schema !== USER_SAVE_SCHEMA){
-        saveErr.hidden = false;
-        saveErr.textContent = "This isn't a Bestiary & Grimoire save file (needs schema " + USER_SAVE_SCHEMA + ").";
+        rejectFile("This isn't a Bestiary & Grimoire save file (needs schema " + USER_SAVE_SCHEMA + ").");
         return;
       }
       saveErr.hidden = true;
-      const btns = root.querySelector("#save-btns");
       btns.innerHTML =
         `<span style="flex:1;min-width:12em;color:var(--dim);font-size:12.5px">Import updates matching ids and <b>replaces the live encounter</b>. Records that exist only on this device are kept.</span>` +
         `<button type="button" class="chip" data-save-abort>Cancel import</button>` +
         `<button type="button" class="chip yes" data-save-confirm>Import</button>`;
-      btns.querySelector("[data-save-abort]").onclick = () => {
-        btns.innerHTML = `<button type="button" class="chip" data-save-close>Close</button>`;
-        btns.querySelector("[data-save-close]").onclick = () => TRK.closeOvl();
-      };
+      btns.querySelector("[data-save-abort]").onclick = resetSaveBtns;
       btns.querySelector("[data-save-confirm]").onclick = async () => {
         const res = await applyUserSaveBagAsync(bag);
         if (!res.ok){

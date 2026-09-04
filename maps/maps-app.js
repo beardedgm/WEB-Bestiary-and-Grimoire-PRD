@@ -1378,11 +1378,20 @@
         drawerView = view;
         drawer.dataset.drawerView = view;
       }
+      const hadFocus = !on && drawer.contains(document.activeElement);
       drawer.classList.toggle("closed", !on);
+      drawer.inert = !on;
       document.body.classList.toggle("maps-drawer-open", !!on);
       const dt = $("mapsDrawerToggle");
       const st = $("mapsSettingsToggle");
       const fab = $("mapsDrawerFab");
+      // inert stops new focus but does not blur what is already focused, so closing on a
+      // focused control would strand the caret off-screen — hand it back to the opener
+      if (hadFocus) {
+        const back = [dt, st, fab].find(el => el && el.offsetParent !== null);
+        if (back) back.focus();
+        else if (document.activeElement && document.activeElement.blur) document.activeElement.blur();
+      }
       const mapsOpen = on && drawer.dataset.drawerView === "maps";
       const settingsOpen = on && drawer.dataset.drawerView === "settings";
       if (dt) {
@@ -2995,7 +3004,7 @@
       const scrim = $("mapsDrawerScrim");
       if (scrim) scrim.onclick = () => setDrawerOpen(false);
       const drawer = $("mapsDrawer");
-      if (drawer) drawer.classList.add("closed");
+      if (drawer){ drawer.classList.add("closed"); drawer.inert = true; }
       window.addEventListener("keydown", onKey);
       window.addEventListener("resize", () => { if (active) resize(); });
     }
