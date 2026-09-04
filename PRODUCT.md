@@ -84,6 +84,9 @@ Unlike generic VTTs or single-system SRD viewers, this product combines **dual-s
 
 ## Product Principles
 
+These are the operative list. `INTENT.md` explains *why* the product exists and how to judge a
+proposed feature against it; it defers to this section for the principles themselves.
+
 1. **System fidelity over convenience** — never merge incompatible scales (CR vs creature level) or invent stats not in the source record.
 2. **One corpus, many surfaces** — the JSON is the product; the browser is the reference implementation built on it.
 3. **Table-speed interaction** — search, add, roll, and track HP in fewest clicks; keyboard shortcuts for search and combat.
