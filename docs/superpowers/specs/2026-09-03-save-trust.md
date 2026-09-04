@@ -99,10 +99,14 @@ Rules:
   first lets a quota failure abort before any localStorage write. `importRecords` first flushes
   a pending map edit and closes the editor so a debounced autosave cannot clobber an imported
   record; the campaign merge reopens it. No extra `onCampaignChanged` on the success path.
-- **All-or-nothing map phase.** The first put failure rolls back every put made so far
-  (previous records restored, new ids removed) and rejects with "Nothing was changed"; a meta
-  whose blob failed would be a list row that can neither open nor be deleted. If the bag apply
-  then returns `changed: false` (the customs-store abort), the same rollback runs.
+- **All-or-nothing map phase.** The first put failure rolls back every put made so far and
+  rejects; a meta whose blob failed would be a list row that can neither open nor be deleted.
+  If the bag apply then returns `changed: false` (the customs-store abort), the same rollback
+  runs. Rollback **removes the ids the import added before restoring the ones it overwrote** —
+  the failure being unwound is usually quota, and those new blobs are the space the restore
+  needs. It reports whether every record actually came back, and only then does the message
+  say "Nothing was changed"; a rollback that fell short says so and names re-importing a
+  known-good archive as the next move.
 - **Dialog.** One **Import save…** chip for both formats, branching on the `PK` signature
   (never name or type — Windows reports `application/x-zip-compressed` or nothing). Every
   rejection goes through `rejectFile`, so an earlier confirm row is always torn down; the

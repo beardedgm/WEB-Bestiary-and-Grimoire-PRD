@@ -3321,10 +3321,16 @@ async function applyUserSaveBagAsync(bag){
 function plural(n, word){
   return n + " " + word + (n === 1 ? "" : "s");
 }
+/* Cancel import and Close are disabled too, not just the chips that start work: neither a
+   download build nor an archive apply can actually be stopped once it is running, and a
+   Cancel that tears down the row while the apply keeps going, commits, and closes the dialog
+   is a button that lies. The overlay's backdrop click still dismisses it, so nobody is
+   trapped if a build hangs. */
 function setSaveBusy(on){
   const root = document.getElementById("trkovl");
   if (!root) return;
-  const sel = "[data-save-export],[data-save-archive],[data-save-import],[data-save-confirm]";
+  const sel = "[data-save-export],[data-save-archive],[data-save-import]," +
+    "[data-save-confirm],[data-save-abort],[data-save-close]";
   for (const b of root.querySelectorAll(sel)){
     b.disabled = !!on;
     if (on) b.setAttribute("aria-busy", "true"); else b.removeAttribute("aria-busy");
@@ -3446,6 +3452,12 @@ function decodeJsonEntry(bytes, what){
   }
 }
 const NOT_ARCHIVE = "This isn't a Bestiary & Grimoire archive (needs a manifest.json with schema " + ARCHIVE_SCHEMA + ").";
+/* A rollback that could not put every overwritten map image back has changed this device,
+   so neither of these may say "nothing changed" — the GM's next move is to re-import a
+   file they trust, and only an honest message tells them that. MAPS_EXCEPTED carves the
+   maps out of a bag-level "Nothing was changed." that is still true of everything else. */
+const ROLLBACK_FAILED = "Some map images on this device could not be put back — re-import a known-good archive before making more changes.";
+const MAPS_EXCEPTED = "Map images are the exception: some could not be put back — re-import a known-good archive before making more changes.";
 /* Throws an Error whose message is the GM-facing rejection, so the dialog can route every
    failure through rejectFile and disarm any earlier confirm row. Board media is re-inlined
    here, before any validator sees the bag. */
@@ -3530,26 +3542,36 @@ async function applyCampaignArchiveAsync(parsed){
   const wrote = recs.length > 0 && bridge;
   const ids = wrote ? recs.map(r => r.id) : [];
   let prev = null;
+  /* Returns whether the device is genuinely back where it started. Deleting the ids this
+     import ADDED comes first: the failure being unwound is usually quota, and those new
+     blobs are the very space restoring the overwritten records needs. Restoring first is
+     how a rollback fails at exactly the moment it matters, leaving the GM's own map images
+     replaced by the archive's under a message claiming nothing changed. */
   const rollback = async () => {
-    if (!prev) return;
+    if (!prev) return true;
     const had = new Set(prev.map(r => r.id));
-    await MAPS.importRecords(prev);
     await MAPS.removeRecords(ids.filter(id => !had.has(id)));
+    const st = await MAPS.importRecords(prev);
     if (typeof MAPS.onCampaignChanged === "function") MAPS.onCampaignChanged();
+    return !!(st && st.ok && st.put === prev.length);
   };
   if (wrote){
     prev = await MAPS.exportRecords(ids);
     const st = await MAPS.importRecords(recs);
     if (!st.ok){
-      await rollback();
-      return { ok: false, message: st.quota
-        ? "Could not store the archive's map images — browser storage may be full. Nothing was changed."
-        : "Could not store the archive's map images. Nothing was changed." };
+      const undone = await rollback();
+      const why = st.quota
+        ? "Could not store the archive's map images — browser storage may be full."
+        : "Could not store the archive's map images.";
+      return { ok: false, message: why + " " + (undone ? "Nothing was changed." : ROLLBACK_FAILED) };
     }
   }
   const res = await applyUserSaveBagAsync(bag);
   if (!res.ok){
-    if (res.changed === false){ await rollback(); return res; }
+    if (res.changed === false){
+      if (await rollback()) return res;
+      return { ok: false, message: res.message + " " + MAPS_EXCEPTED };
+    }
     return { ok: false, message: res.message + (wrote ? " Map images were written." : "") };
   }
   const bits = [res.message];
