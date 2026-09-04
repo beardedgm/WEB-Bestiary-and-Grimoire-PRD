@@ -109,7 +109,8 @@ warning; partial persistence honesty). Remaining work:
 `bg-user-save/1` bag as `save.json` (same 8 MB rule) beside `board-media/` files and
 `maps/m<n>.json` + image pairs; one **Import save…** chip reads either format. Map blobs are
 written before the campaign merge and rolled back if nothing else changed. Detail in the spec's
-**As shipped**.
+**As shipped**, and three open trade-offs in its **Known limitations** (zip > 4 GB, a failed
+pre-import map flush, and the confirm row's board-media count) — each left open on purpose.
 
 **Primary files:** `app.template.html` (`openUserSaveDialog`, `downloadUserSave`).
 
