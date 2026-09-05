@@ -446,47 +446,10 @@ kbd{
   .grid6{grid-template-columns:repeat(3,1fr)}
   .kv{display:block}                       /* no room for a label column */
   .kv b{margin-right:7px}
-  .chip{padding:10px 12px; min-height:44px}
-  .item .add{width:44px; height:44px; margin:-8px -6px -8px 0}
-  .cbt-x{width:44px; height:44px; font-size:16px}
-  .cbt .dmg,.cbt .heal{width:44px; height:44px; font-size:16px}
-  .cbt-amt{height:44px; width:52px}
-  .cbt-rv{min-height:44px; padding:0 10px}
-  .sre,.dre{min-width:44px; min-height:44px}
 }
-@media (hover:none){
-  .chip{padding:10px 12px; min-height:44px}
-  .item .add{width:44px; height:44px; margin:-8px -6px -6px 0}
-  .cbt-x{width:44px; height:44px; font-size:16px}
-  .cbt .dmg,.cbt .heal{width:44px; height:44px; font-size:16px}
-  .cbt-amt{height:44px; width:52px}
-  .cbt-rv{min-height:44px; padding:0 10px}
-}
-@media (pointer:coarse){
-  .chip{padding:10px 12px; min-height:44px}
-  .item .add{width:44px; height:44px; margin:-8px -6px -8px 0}
-  .cbt-x{width:44px; height:44px; font-size:16px}
-  .cbt .dmg,.cbt .heal{width:44px; height:44px; font-size:16px}
-  .cbt-amt{height:44px; width:52px}
-  .cbt-rv{min-height:44px; padding:0 10px}
-  .sre,.dre{min-width:44px; min-height:44px}
-  .cbt-drag{width:22px; font-size:13px}
-  #board .board-card .ops button{width:44px; height:44px; font-size:16px}
-  #board .board-card .resize{width:28px; height:28px}
-  #board .checklist li .x{width:44px; height:44px}
-  #board .counter .counter-ops button,
-  #board .md-meta button,
-  #board .dice .presets button,
-  #board .dice .roll-btn,
-  #board .clip .transport button,
-  #board .clip .file-row label,
-  #board .timer .modes button,
-  #board .timer .presets button,
-  #board .timer .ops-row button,
-  #board .checklist .add-row button,
-  #board .rand .roll-btn,
-  #board .board-add button{min-height:44px}
-}
+/* 44px touch targets live in one block at the END of this stylesheet — see
+   "coarse-pointer targets" — because they share specificity with the component
+   rules below and only source order lets them win. */
 
 /* ==== initiative tracker ==================================================
    Every rule is gated on body.trk (or a #trk descendant), so browse mode is
@@ -1694,7 +1657,6 @@ body.forge #lore{display:none !important}
     opacity:1; visibility:visible; pointer-events:auto;
     transition:opacity 200ms var(--ease-out), visibility 0s linear 0s}
   body.board.board-rail-open #board .board-rail-toggle{display:none}
-  #board .board-card .ops button{width:44px; height:44px; font-size:16px}
   #board .board-empty{padding:18px 16px; font-size:16px; width:min(360px, calc(100% - 32px))}
   #boardExpand .panel-body{grid-template-columns:1fr}
   #boardExpand textarea{border-right:0; border-bottom:1px solid var(--vellum-edge); max-height:45%}
@@ -1761,6 +1723,37 @@ body.forge #lore{display:none !important}
     visibility:hidden;
     pointer-events:none;
   }
+}
+
+/* ---- coarse-pointer targets ----
+   44px minimum targets for touch (and for narrow windows, where fingers are
+   likely). This block is LAST on purpose: every selector here shares its
+   specificity with a component rule above, so only source order lets it win.
+   Add new targets here, never beside the component they enlarge. */
+@media (max-width:760px), (hover:none), (pointer:coarse){
+  .chip{padding:10px 12px; min-height:44px}
+  .item .add{width:44px; height:44px; margin:-8px -6px -8px 0}
+  .cbt-x{width:44px; height:44px; font-size:16px}
+  .cbt .dmg,.cbt .heal{width:44px; height:44px; font-size:16px}
+  .cbt-amt{height:44px; width:52px}
+  .cbt-rv{min-height:44px; padding:0 10px}
+  .cbt-drag{width:22px; font-size:13px}
+  .sre,.dre{min-width:44px; min-height:44px}
+  #board .board-card .ops button{width:44px; height:44px; font-size:16px}
+  #board .board-card .resize{width:28px; height:28px}
+  #board .checklist li .x{width:44px; height:44px}
+  #board .counter .counter-ops button,
+  #board .md-meta button,
+  #board .dice .presets button,
+  #board .dice .roll-btn,
+  #board .clip .transport button,
+  #board .clip .file-row label,
+  #board .timer .modes button,
+  #board .timer .presets button,
+  #board .timer .ops-row button,
+  #board .checklist .add-row button,
+  #board .rand .roll-btn,
+  #board .board-add button{min-height:44px}
 }
 
 </style>

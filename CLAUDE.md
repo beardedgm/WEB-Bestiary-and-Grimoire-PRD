@@ -204,7 +204,10 @@ rejects a partly filled object.
 - Adding a new type size requires adding it to the `DESIGN.md` table **and** its frontmatter
   before using it in CSS.
 - 44px minimum targets on coarse pointers for tracker damage/heal/remove, reveal, catalog add, and
-  Board card ops.
+  Board card ops. Those rules live in **one block at the end of the stylesheet** (`coarse-pointer
+  targets`, `@media (max-width:760px), (hover:none), (pointer:coarse)`): they share specificity with
+  the component rules, so only source order lets them win. Add a new target there, never beside the
+  component it enlarges — a coarse rule placed above the component's own rule is silently dead.
 - The player display promotes no compositor layers: nothing in `pdCSS()` may use `transform`,
   `transition`, `animation`, `will-change`, `filter`, `backdrop-filter` or `position:fixed`. It is
   cast to a TV from a Chrome tab, and those are what freeze the cast. Insert and remove whole
