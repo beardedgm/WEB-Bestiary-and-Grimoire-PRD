@@ -46,9 +46,11 @@ There is no test suite and no linter. CI (`.github/workflows/ci.yml`) runs `py_c
 the Python scripts, `build_bundles.py --check`, `validate_schemas.py` (pinned
 `jsonschema`, including cross-bundle record-id uniqueness), and
 `check_inline_scripts.py` (`node --check` on each inline script). Verification of app behaviour is
-manual in the browser; `TRK._test` exposes the pure validators (`vEnc`, `vParty`, `vUi`,
-`autoName`, `hpClass`, `midInit`, `badgeOf`, `scalePd`, `evtLine`, `nextIdOf`) and `BUILD._test` the encounter
-budget helpers (`pf2eBudget`, `dnd2014Multiplier`, `dnd2024Budget`, …) for console checks.
+manual in the browser; `TRK._test` exposes the pure validators and helpers (`vEnc`, `vParty`,
+`vPresets`, `vDice`, `vUi`, `vBuilderMeta`, `autoName`, `hpClass`, `midInit`, `badgeOf`, `scalePd`,
+`evtLine`, `nextIdOf`, `pdMasked`, `pdLabel`, `pdColumns`, plus the `events` ring and `EVT_MAX`) and
+`BUILD._test` the encounter budget helpers (`pf2eBudget`, `dnd2014Multiplier`, `dnd2024Budget`, …)
+for console checks.
 
 ## Generated files
 
@@ -75,7 +77,7 @@ One HTML file, no framework, no dependencies. `app.template.html` holds sequenti
 | Block | Scope |
 |---|---|
 | 1 (`~1370–2930`) | Corpus load, custom library, portable save, campaign archive (`bg-campaign-archive/1`: `buildCampaignArchiveAsync` / `readCampaignArchive` / `applyCampaignArchiveAsync` over `BOARD_ZIP` from `lib/board-zip.js`), filters/`SCALES`, search, stat-block + spell rendering, spell peek, object → action chips (`actionsFor` / `mountActionChips`) |
-| `TRK` | Initiative tracker, dice, party/presets, player display, undo ring, glance strip (`#trkglance`: Now/Next + ephemeral `events` ring), column resize, mode chrome |
+| `TRK` | Initiative tracker, dice, party/presets, undo ring, glance strip (`#trkglance`: Now/Next + ephemeral `events` ring), column resize, mode chrome; player display (`pdHTML` / `pdCSS` / `scalePd`: stone board, ink active row, two columns past ten; monsters masked as `Enemy N` via per-combatant `alias` from the encounter's `aliasSeq` and `revealed` toggled by the card's reveal chip (`.cbt-rv`, reads `Enemy N` / `Revealed`) through `toggleReveal`; static roll card; `#pd` fallback repaints only when storage text changed) |
 | `CAMPAIGN` | Campaign container: `bg.campaign.v1` (party, presets, lore pages, maps meta); header picker + `renderResumeCue` (`#hdrResume`); one-shot migration from lore/party/presets; portable `campaigns` bag |
 | `BUILD` | Encounter Builder: draft `bg.builder.v1`, PF2e / 5e 2014 / 5e 2024 budgets, roster, Save/Load bridges, `fitContext` / `fits` behind the Library's **Fits remaining** chip |
 | `BOARD` | Session boards / session notes: markdown / image / audio / counter / dice / timer / checklist / random / record / encounter cards (`BOARD.addRecord` / `BOARD.addEncounter`; the Board chip from Library (Script 1 `addSendToBoard`), Table, Builder); `BOARD.lastOpen` / `BOARD.openBoard` back the header's **Continue Board** cue; markdown cards carry the **Copy to Lore…** chip (`startCopyToLore` → `pickLoreParent` → `LORE.createPage`) |
@@ -201,8 +203,12 @@ rejects a partly filled object.
   `window.*` API (or, for module-internal subjects, a run function the call site passes in).
 - Adding a new type size requires adding it to the `DESIGN.md` table **and** its frontmatter
   before using it in CSS.
-- 44px minimum targets on coarse pointers for tracker damage/heal/remove, catalog add, and
+- 44px minimum targets on coarse pointers for tracker damage/heal/remove, reveal, catalog add, and
   Board card ops.
+- The player display promotes no compositor layers: nothing in `pdCSS()` may use `transform`,
+  `transition`, `animation`, `will-change`, `filter`, `backdrop-filter` or `position:fixed`. It is
+  cast to a TV from a Chrome tab, and those are what freeze the cast. Insert and remove whole
+  elements instead.
 
 ## Documentation map
 

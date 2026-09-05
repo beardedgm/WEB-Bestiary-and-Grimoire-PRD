@@ -451,6 +451,7 @@ kbd{
   .cbt-x{width:44px; height:44px; font-size:16px}
   .cbt .dmg,.cbt .heal{width:44px; height:44px; font-size:16px}
   .cbt-amt{height:44px; width:52px}
+  .cbt-rv{min-height:44px; padding:0 10px}
   .sre,.dre{min-width:44px; min-height:44px}
 }
 @media (hover:none){
@@ -459,6 +460,7 @@ kbd{
   .cbt-x{width:44px; height:44px; font-size:16px}
   .cbt .dmg,.cbt .heal{width:44px; height:44px; font-size:16px}
   .cbt-amt{height:44px; width:52px}
+  .cbt-rv{min-height:44px; padding:0 10px}
 }
 @media (pointer:coarse){
   .chip{padding:10px 12px; min-height:44px}
@@ -466,6 +468,7 @@ kbd{
   .cbt-x{width:44px; height:44px; font-size:16px}
   .cbt .dmg,.cbt .heal{width:44px; height:44px; font-size:16px}
   .cbt-amt{height:44px; width:52px}
+  .cbt-rv{min-height:44px; padding:0 10px}
   .sre,.dre{min-width:44px; min-height:44px}
   .cbt-drag{width:22px; font-size:13px}
   #board .board-card .ops button{width:44px; height:44px; font-size:16px}
@@ -707,6 +710,17 @@ body:not(.trk):not(.build) .item .add{display:none}
   flex:none; padding:2px 5px; border:1px solid var(--hair); border-radius:2px;
   color:var(--faint); font:600 9px/1 var(--mono); text-transform:uppercase; letter-spacing:.07em;
 }
+/* Reveal chip: reads what the player display calls this monster ("Enemy 3"),
+   press it and the display shows the name ("Revealed", ink). It lives in the HP
+   row so the name row keeps its width beside the markers and AC. */
+.cbt-rv{
+  flex:none; align-self:center; padding:3px 6px; border:1px solid var(--hair); border-radius:2px;
+  background:var(--stone-3); color:var(--dim); cursor:pointer; white-space:nowrap;
+  font:600 9px/1 var(--mono); text-transform:uppercase; letter-spacing:.07em;
+  font-variant-numeric:tabular-nums;
+}
+.cbt-rv:hover{border-color:var(--gilt); color:var(--ink)}
+.cbt-rv[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--stone-3)}
 
 /* combat state */
 #trkbar .chip:disabled{opacity:.45; cursor:default; pointer-events:none}
@@ -886,7 +900,6 @@ button.cbt-init:hover{text-decoration:underline; text-decoration-color:var(--gil
 .dlg .dlghint{margin:0 0 6px; color:var(--dim); font-size:12.5px}
 body.pd header, body.pd #side, body.pd #trk, body.pd #builder, body.pd #pane, body.pd #board, body.pd #forge, body.pd #lore,
 body.pd #dpop, body.pd #trkovl, body.pd #load, body.pd #boardExpand, body.pd #boardToast{display:none !important}
-body.pd #pdisp{position:fixed; inset:0; z-index:60}
 
 @media (max-width:760px){
   body.trk #trk{width:100%; order:-1; border-right:none; border-bottom:1px solid var(--hair)}
@@ -5275,15 +5288,33 @@ const TRK = (() => {
     });
   }
 
+  /* The display masks by type and nowhere else: monsters read "Enemy N" until
+     the GM reveals them; players and NPCs always show their names. Nothing but
+     the display reads `alias` / `revealed` — cards, panes, Board, Maps keep the name. */
+  function pdMasked(c){ return !!c && c.type === "monster"; }
+  function toggleReveal(id){
+    const c0 = byId(id);
+    if (!c0 || !pdMasked(c0)) return;
+    mutate(e => {
+      const c = e.combatants.find(x => x.id === id);
+      if (c) c.revealed = !c.revealed;
+    }, e => {
+      const c = e.combatants.find(x => x.id === id);
+      return c ? { kind: "reveal", name: c.name, shown: !!c.revealed } : null;
+    });
+    const c1 = byId(id);
+    if (c1) announce(c1.name + (c1.revealed ? " shown on the display" : " hidden on the display"));
+  }
+
   function vEnc(raw){
-    const e = { name:"Encounter", round:0, activeId:null, seq:0, combatants:[],
+    const e = { name:"Encounter", round:0, activeId:null, seq:0, aliasSeq:0, combatants:[],
                 last:{kind:"dmg"} };
     if (!raw || typeof raw !== "object") return e;
     if (typeof raw.name === "string" && raw.name.trim()) e.name = raw.name.trim().slice(0, 80);
     e.round = Math.max(0, int(raw.round, 0));
     if (raw.last && raw.last.kind === "heal") e.last = {kind:"heal"};
-    const seen = new Set();
-    let maxN = 0;
+    const seen = new Set(), seenA = new Set();
+    let maxN = 0, maxA = 0;
     for (const c of Array.isArray(raw.combatants) ? raw.combatants : []){
       if (!c || typeof c !== "object") continue;
       if (typeof c.name !== "string" || !c.name.trim()) continue;
@@ -5291,10 +5322,16 @@ const TRK = (() => {
       if (id){ seen.add(id); maxN = Math.max(maxN, parseInt(id.slice(1), 10)); }
       const max = Math.max(1, int(c.hp && c.hp.max, 1));
       const cur = Math.min(max, Math.max(0, int(c.hp && c.hp.current, max)));
+      const type = c.type === "player" || c.type === "monster" ? c.type : "npc";
+      let alias = null;                        // display alias: masked types only, unique
+      if (pdMasked({ type })){
+        const a = int(c.alias, 0);
+        if (a > 0 && !seenA.has(a)){ alias = a; seenA.add(a); maxA = Math.max(maxA, a); }
+      }
       e.combatants.push({
         id,
         name: c.name.trim().slice(0, 80),
-        type: c.type === "player" || c.type === "monster" ? c.type : "npc",
+        type,
         initiative: fin(c.initiative, 0),
         initiativeModifier: fin(c.initiativeModifier, 0),
         ac: c.ac == null ? null : (Number.isFinite(+c.ac) ? +c.ac : null),
@@ -5303,10 +5340,17 @@ const TRK = (() => {
         ref: typeof c.ref === "string" ? c.ref : null,
         sys: c.sys === "dnd5e" || c.sys === "pf2e" ? c.sys : null,
         markers: vMarkers(c.markers),
+        alias,
+        revealed: c.revealed === true,
       });
     }
     for (const cb of e.combatants) if (!cb.id){ cb.id = "c" + (++maxN); }
     e.seq = Math.max(maxN, int(raw.seq, 0));
+    /* aliases are never reissued: absorb every number in use, then hand the
+       next ones to rows that lack one, in list order */
+    let aseq = Math.max(maxA, int(raw.aliasSeq, 0));
+    for (const cb of e.combatants) if (pdMasked(cb) && !cb.alias) cb.alias = ++aseq;
+    e.aliasSeq = aseq;
     e.activeId = (typeof raw.activeId === "string" &&
                   e.combatants.some(c => c.id === raw.activeId)) ? raw.activeId : null;
     if (e.round === 0) e.activeId = null;          // setup has no active turn
@@ -5544,6 +5588,7 @@ const TRK = (() => {
       case "clear": return "Encounter cleared";
       case "load":  return nm ? "Loaded " + nm : "Encounter replaced";
       case "mark":  return nm + " · " + m.color + " " + m.state;
+      case "reveal": return nm + (m.shown ? " shown on the display" : " hidden again");
       case "undo":  return "Undone";
       case "redo":  return "Redone";
       default:      return "";
@@ -5588,9 +5633,20 @@ const TRK = (() => {
     if (c.hp.current < c.hp.max) return "Hurt";
     return null;                                   // healthy carries no badge
   }
+  /* what the table reads: the name, or "Enemy N" while the GM keeps it masked */
+  function pdLabel(c){
+    return pdMasked(c) && !c.revealed ? "Enemy " + (c.alias || "") : c.name;
+  }
+  /* one column to ten combatants, then two read top to bottom; rows shrink inside them */
+  function pdColumns(n){
+    const cols = n > 10 ? 2 : 1;
+    return { cols, per: Math.ceil(n / cols) };
+  }
   function pdHTML(enc){
-    const head = `<div class="pdhead"><span>${esc(enc.name)}</span>` +
-                 (enc.round >= 1 ? `<span>Round ${esc(enc.round)}</span>` : "") + `</div>`;
+    const head = `<div class="pdhead"><span class="pdtitle">${esc(enc.name)}</span>` +
+                 (enc.round >= 1 ? `<span class="pdround"><span class="pdrlbl">Round</span>` +
+                                   `<span class="pdrnum">${esc(enc.round)}</span></span>` : "") +
+                 `</div>`;
     if (enc.round < 1){
       const pcs = enc.combatants.filter(c => c.type === "player");
       return head + `<div class="pdwait"><span>The GM is preparing the encounter…</span>` +
@@ -5599,80 +5655,107 @@ const TRK = (() => {
     }
     if (!enc.combatants.length)
       return head + `<div class="pdwait"><span>Combat in progress…</span></div>`;
-    const rows = enc.combatants.map(c => {
+    const list = enc.combatants;
+    const { cols, per } = pdColumns(list.length);
+    const row = c => {
       const b = badgeOf(c);
-      return `<div class="pdrow${c.id === enc.activeId ? " on" : ""}${c.hp.current === 0 ? " uncon" : ""}">
+      const masked = pdMasked(c) && !c.revealed;
+      return `<div class="pdrow${c.id === enc.activeId ? " on" : ""}${c.hp.current === 0 ? " uncon" : ""}${masked ? " masked" : ""}">
         <span class="pdinit">${esc(c.initiative)}</span>
-        <span class="pdnm">${esc(c.name)}</span>
+        <span class="pdnm">${esc(pdLabel(c))}</span>
         ${pdMarksHTML(c)}
         ${b ? `<span class="pdbadge ${b.toLowerCase()}">${b}</span>` : ""}
       </div>`;
-    }).join("");
-    return head + `<div class="pdrows">${rows}</div>`;
+    };
+    let out = "";
+    for (let i = 0; i < cols; i++){
+      const slice = list.slice(i * per, (i + 1) * per);
+      out += `<div class="pdcol">` + slice.map(row).join("") +
+             `<div class="pdpad"></div>`.repeat(per - slice.length) + `</div>`;   // equal heights
+    }
+    return head + `<div class="pdrows" data-cols="${cols}" data-per="${per}">${out}</div>`;
   }
+  /* Stone board, paper rows, the active row filled in ink: the list never moves,
+     the marker does. Sizes are ems of --pd-fs (set by scalePd) so a four-row and a
+     twenty-row board both fill the screen. Static by construction — no transform,
+     transition, animation, will-change or filter anywhere in here: the display is
+     cast to a TV from a Chrome tab, and promoted layers are what freeze the cast. */
   function pdCSS(){
     const g = t => getComputedStyle(document.documentElement).getPropertyValue(t).trim();
-    const ink = g("--ink"), st3 = g("--stone-3"), st2 = g("--stone-2"),
-          gilt = g("--gilt"), brick = g("--brick"), faint = g("--faint"),
+    const ink = g("--ink"), dim = g("--dim"), faint = g("--faint"),
+          stone = g("--stone"), st3 = g("--stone-3"), hair = g("--hair"),
+          paper = g("--paper"), pedge = g("--paper-edge"), vellum = g("--vellum"),
+          gilt = g("--gilt"), brick = g("--brick"), olive = g("--olive"), radius = g("--radius"),
           sans = g("--sans"), serif = g("--serif"), mono = g("--mono"),
           mw = g("--mark-white"), mr = g("--mark-red"), mb = g("--mark-blue"),
           mg = g("--mark-green"), my = g("--mark-yellow");
+    const sc = `font-family:${serif};font-variant:small-caps;font-weight:600;letter-spacing:.08em`;
     return `
-.pdbody{margin:0;height:100vh;background:${ink};overflow:hidden}
-.pdroot{height:100%;background:${ink};color:${st3};font-family:${sans};overflow:hidden;
-  display:flex;flex-direction:column}
-.pdroot .pdhead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;
-  padding:14px 22px;border-bottom:1px solid rgba(242,241,237,.16);
-  font-family:${serif};font-variant:small-caps;letter-spacing:.05em;font-size:22px;color:${st2}}
-.pdroot .pdrows{flex:1;display:flex;flex-direction:column;justify-content:center;
-  padding:10px 22px;min-height:0}
-.pdroot .pdrow{display:flex;align-items:center;gap:.55em;
-  font-size:var(--pd-fs,30px);line-height:1.35;padding:.1em .35em;
-  border-left:.14em solid transparent}
-.pdroot .pdrow.on{border-left-color:${gilt};background:rgba(156,124,28,.12)}
-.pdroot .pdinit{min-width:1.5em;text-align:right;font-family:${mono};font-weight:700;
-  font-variant-numeric:tabular-nums;color:${gilt};font-size:.85em}
+.pdbody{margin:0;height:100vh;background:${stone};overflow:hidden}
+.pdroot{height:100%;background:${stone};color:${ink};font-family:${sans};overflow:hidden;
+  display:flex;flex-direction:column;box-sizing:border-box}
+.pdroot .pdmain{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.pdroot .pdhead{flex:none;display:flex;justify-content:space-between;align-items:baseline;gap:24px;
+  padding:34px 64px 26px;border-bottom:2px solid ${hair}}
+.pdroot .pdtitle{${sc};font-size:40px;color:${ink};min-width:0;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.pdroot .pdround{flex:none;display:flex;align-items:baseline;gap:16px}
+.pdroot .pdrlbl{${sc};font-size:30px;color:${dim}}
+.pdroot .pdrnum{font-family:${mono};font-weight:700;font-size:56px;line-height:1;color:${ink};
+  font-variant-numeric:tabular-nums}
+.pdroot .pdrows{flex:1;min-height:0;display:flex;justify-content:center;gap:40px;padding:36px 64px 40px}
+.pdroot .pdrows[data-cols="2"]{padding:30px 64px 34px}
+.pdroot .pdcol{flex:1 1 0;max-width:1320px;min-width:0;min-height:0;display:flex;flex-direction:column;
+  justify-content:center;gap:var(--pd-gap,12px)}
+.pdroot .pdrows[data-cols="2"] .pdcol{max-width:860px}
+.pdroot .pdrow,.pdroot .pdpad{flex:1 1 0;min-height:40px;max-height:calc(var(--pd-fs,30px)*2.2);
+  box-sizing:border-box}
+.pdroot .pdrow{display:flex;align-items:center;gap:.45em;min-width:0;padding:0 .66em;
+  border-radius:${radius};background:${paper};border:1px solid ${pedge};color:${ink};
+  font-size:var(--pd-fs,30px);line-height:1.2}
+.pdroot .pdinit{flex:none;width:1.75em;text-align:right;font-family:${mono};font-weight:700;
+  font-variant-numeric:tabular-nums;font-size:.93em;color:${dim}}
 .pdroot .pdnm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  font-weight:600}
-.pdroot .pdrow.uncon .pdnm{color:${faint}}
-.pdroot .pddots{flex:none;display:inline-flex;align-items:center;gap:.22em}
-.pdroot .pddot{width:.45em;height:.45em;border-radius:50%;flex:none;box-sizing:border-box}
+  font-weight:600;letter-spacing:-.01em}
+.pdroot .pdrow.masked{color:${dim}}
+.pdroot .pdrow.masked .pdnm{font-style:italic;font-weight:500}
+.pdroot .pdrow.uncon{background:${st3};color:${faint}}
+.pdroot .pdrow.uncon .pdinit{color:${faint}}
+.pdroot .pdrow.on{background:${ink};border-color:${ink};color:${st3}}
+.pdroot .pdrow.on .pdinit{color:${st3}}
+.pdroot .pddots{flex:none;display:inline-flex;align-items:center;gap:.18em}
+.pdroot .pddot{width:.47em;height:.47em;border-radius:50%;flex:none;box-sizing:border-box}
 .pdroot .pddot[data-c="white"]{--mc:${mw}}
 .pdroot .pddot[data-c="red"]{--mc:${mr}}
 .pdroot .pddot[data-c="blue"]{--mc:${mb}}
 .pdroot .pddot[data-c="green"]{--mc:${mg}}
 .pdroot .pddot[data-c="yellow"]{--mc:${my}}
-.pdroot .pddot[data-state="solid"]{background:var(--mc);border:1px solid rgba(242,241,237,.28)}
-.pdroot .pddot[data-c="white"][data-state="solid"]{border-color:rgba(242,241,237,.55)}
-.pdroot .pddot[data-state="outline"]{background:transparent;border:.11em solid var(--mc)}
-.pdroot .pdbadge{flex:none;align-self:center;font-family:${mono};font-size:.34em;
-  font-weight:700;text-transform:uppercase;letter-spacing:.1em;
-  padding:.45em .8em;border-radius:.25em}
-.pdroot .pdbadge.hurt{background:none;border:1px solid ${gilt};color:${st3}}
-.pdroot .pdbadge.bloody{background:${brick};color:#FBF6EA}
-.pdroot .pdbadge.unconscious{background:none;border:1px solid ${faint};color:${st3}}
-.pdroot .pdwait{flex:1;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:.8em;padding:20px;
-  font-family:${serif};font-style:italic;font-size:26px;color:${st2};text-align:center}
-.pdroot .pdpcs{font-family:${sans};font-style:normal;font-size:20px;color:${st2};opacity:.75}
-.pdroot .pdmain{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
-.pdtoast-wrap{
-  position:fixed;left:0;right:0;bottom:0;pointer-events:none;z-index:5;
-  display:flex;justify-content:center;padding:20px 18px 28px}
-.pdtoast{
-  padding:.28em .55em;border-radius:.15em;
-  font-family:${mono};font-weight:700;font-size:clamp(52px,14vw,128px);
-  font-variant-numeric:tabular-nums;line-height:1;
-  background:rgba(36,33,28,.9);color:${st3};
-  border:2px solid rgba(242,241,237,.22);
-  transform:translateY(115%);opacity:0;
-  transition:transform .32s ease-out,opacity .32s ease-out}
-.pdtoast.show{transform:translateY(0);opacity:1}
-.pdtoast.nat20{color:#FBF6EA;background:${g("--olive")};border-color:rgba(242,241,237,.35)}
-.pdtoast.nat1{color:#FBF6EA;background:${brick};border-color:rgba(242,241,237,.35)}
-@media (prefers-reduced-motion:reduce){.pdtoast{transition:none}}
-.pddead{position:fixed;left:0;right:0;bottom:0;padding:10px;text-align:center;
-  background:${brick};color:#FBF6EA;font:600 14px ${sans}}`;
+.pdroot .pddot[data-state="solid"]{background:var(--mc);border:1px solid rgba(36,33,28,.25)}
+.pdroot .pddot[data-state="outline"]{background:transparent;border:.08em solid var(--mc)}
+.pdroot .pddot[data-c="white"][data-state="solid"]{border:2px solid ${faint}}
+.pdroot .pddot[data-c="white"][data-state="outline"]{box-shadow:0 0 0 1.5px ${faint},inset 0 0 0 1.5px ${faint}}
+.pdroot .pdrow.on .pddot[data-state="solid"]{border:1px solid rgba(242,241,237,.35)}
+.pdroot .pdrow.on .pddot[data-c="white"][data-state="outline"]{box-shadow:none}
+.pdroot .pdbadge{flex:none;font-family:${mono};font-size:.34em;font-weight:700;line-height:1;
+  text-transform:uppercase;letter-spacing:.12em;padding:.4em .72em;border-radius:2px;white-space:nowrap}
+.pdroot .pdbadge.hurt{border:2px solid ${gilt};color:${ink}}
+.pdroot .pdbadge.bloody{background:${brick};color:${vellum}}
+.pdroot .pdbadge.unconscious{border:2px solid ${faint};color:${ink}}
+.pdroot .pdrow.on .pdbadge.hurt,.pdroot .pdrow.on .pdbadge.unconscious{color:${st3}}
+.pdroot .pdwait{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.8em;padding:20px 64px;font-family:${serif};font-style:italic;font-size:36px;color:${dim};
+  text-align:center}
+.pdroot .pdpcs{font-family:${sans};font-style:normal;font-weight:600;font-size:30px;color:${ink}}
+.pdroll-wrap{flex:none;height:100px;box-sizing:border-box;display:flex;justify-content:flex-end;
+  align-items:flex-end;padding:0 64px 28px}
+.pdroll{display:flex;align-items:baseline;gap:18px}
+.pdroll-lbl{${sc};font-size:26px;color:${dim}}
+.pdroll-num{font-family:${mono};font-weight:700;font-size:72px;line-height:1;color:${ink};
+  font-variant-numeric:tabular-nums}
+.pdroll.nat20 .pdroll-num{color:${olive}}
+.pdroll.nat1 .pdroll-num{color:${brick}}
+.pddead{position:absolute;left:0;right:0;bottom:0;padding:10px;text-align:center;
+  background:${brick};color:${vellum};font:600 14px ${sans}}`;
   }
   function ensurePdStyle(doc){
     if (doc.getElementById("pdstyle")) return;
@@ -5680,45 +5763,54 @@ const TRK = (() => {
     s.id = "pdstyle"; s.textContent = pdCSS();
     doc.head.appendChild(s);
   }
-  /* the old tracker's best idea: scale type to fill the screen from the
-     combatant count, so a 4-row board and a 12-row board both fill a TV */
+  /* the old tracker's best idea, kept: size the rows from the count so a 4-row
+     board and a 20-row board both fill a TV. The row height comes from what is
+     left after the header, the column padding and the roll band; the type is a
+     line through both approved comps (67px at 145px rows, 41px at 72px). */
   function scalePd(main, h){
     if (!main) return;
     h = h || PD_H;
-    const rows = main.querySelectorAll(".pdrow").length;
+    const rows = main.querySelector(".pdrows");
     const head = main.querySelector(".pdhead");
-    const n = Math.max(4, rows);
-    const fs = Math.max(22, Math.min(84, (h - (head ? head.offsetHeight : 0) - 32) / n / 1.55));
+    const headH = head && head.offsetHeight ? head.offsetHeight : Math.round(h * .117);
+    const two = !!rows && rows.dataset.cols === "2";
+    const per = Math.max(4, rows ? int(rows.dataset.per, 0) : 0);
+    const gap = two ? 8 : 12;
+    const avail = h - headH - (two ? 64 : 76) - 100;
+    const row = Math.max(40, (avail - gap * (per - 1)) / per);
+    const fs = Math.max(22, Math.min(84, .36 * row + 15));
     main.style.setProperty("--pd-fs", fs.toFixed(1) + "px");
+    main.style.setProperty("--pd-gap", gap + "px");
   }
   function ensurePdLayout(root, boardHTML){
     let main = root.querySelector(".pdmain");
     if (!main){
-      root.innerHTML = `<div class="pdmain">${boardHTML}</div><div class="pdtoast-wrap"></div>`;
+      root.innerHTML = `<div class="pdmain">${boardHTML}</div><div class="pdroll-wrap"></div>`;
       return root.querySelector(".pdmain");
     }
     main.innerHTML = boardHTML;
     return main;
   }
+  /* The roll card is static: a fixed-height band always holds its place, the
+     card is inserted whole and removed whole, nothing transitions. */
   function flashPdToast(wrap, roll){
     if (!wrap || !roll) return;
     if (wrap.dataset.lastRoll === String(roll.id)) return;
     wrap.dataset.lastRoll = String(roll.id);
     clearTimeout(wrap._t);
     const nat = roll.nat === "nat20" ? " nat20" : roll.nat === "nat1" ? " nat1" : "";
-    const el = document.createElement("div");
-    el.className = "pdtoast" + nat;
-    el.textContent = String(roll.total);
+    const doc = wrap.ownerDocument;
+    const el = doc.createElement("div");
+    el.className = "pdroll" + nat;
+    const lbl = doc.createElement("span"); lbl.className = "pdroll-lbl"; lbl.textContent = "Roll";
+    const num = doc.createElement("span"); num.className = "pdroll-num"; num.textContent = String(roll.total);
+    el.append(lbl, num);
     wrap.replaceChildren(el);
-    requestAnimationFrame(() => el.classList.add("show"));
-    wrap._t = setTimeout(() => {
-      el.classList.remove("show");
-      setTimeout(() => { if (wrap.firstChild === el) wrap.replaceChildren(); }, 360);
-    }, 3200);
+    wrap._t = setTimeout(() => { if (wrap.firstChild === el) wrap.replaceChildren(); }, 3200);
   }
   function pdApplyRoll(root){
     if (!root || !state.pd.showRolls || !state.pd.roll) return;
-    flashPdToast(root.querySelector(".pdtoast-wrap"), state.pd.roll);
+    flashPdToast(root.querySelector(".pdroll-wrap"), state.pd.roll);
   }
   function broadcastPdRoll(entry){
     if (!state.pd.showRolls) return;
@@ -5827,6 +5919,7 @@ const TRK = (() => {
           ac: spec.ac, hp: { current: spec.hpMax, max: spec.hpMax },
           status: "normal", ref: spec.ref ?? null, sys: spec.sys ?? null,
           markers: {},
+          alias: pdMasked(spec) ? ++e.aliasSeq : null, revealed: false,
         });
       }
       if (e.round >= 1) sortEnc(e);
@@ -5953,12 +6046,12 @@ const TRK = (() => {
     mutate(e => {
       e.combatants = e.combatants.filter(c => c.type === "player");
       e.combatants.forEach(c => { c.initiative = 0; });
-      e.round = 0; e.activeId = null;
+      e.round = 0; e.activeId = null; e.aliasSeq = 0;
     }, { kind: "reset" });
     announce("Encounter reset — players kept");
   }
   function clearAll(){
-    mutate(e => { e.combatants = []; e.round = 0; e.activeId = null; }, { kind: "clear" });
+    mutate(e => { e.combatants = []; e.round = 0; e.activeId = null; e.aliasSeq = 0; }, { kind: "clear" });
     announce("Encounter cleared");
   }
 
@@ -6171,6 +6264,7 @@ const TRK = (() => {
     const viewing = c.id === state.ui.viewingId;
     return [c.id, c.name, c.initiative, c.hp.current, c.hp.max, c.status, c.ac,
             c.type, c.sys || "", active, upNext, viewing,
+            c.alias || "", c.revealed ? 1 : 0,
             markersSig(c.markers)].join("\0");
   }
   function mountCard(c, amt){
@@ -6188,6 +6282,7 @@ const TRK = (() => {
     const active = combat && c.id === state.enc.activeId;
     const upNext = c.id === nextIdOf(state.enc);
     const viewing = c.id === state.ui.viewingId;
+    const masked = pdMasked(c);
     const shown = initDisplay(c);
     const init = `<button type="button" class="cbt-init" data-act="init"
            aria-label="Initiative ${esc(shown)} for ${esc(c.name)} — press Enter to edit">${esc(shown)}</button>`;
@@ -6209,6 +6304,13 @@ const TRK = (() => {
         <button type="button" class="cbt-x" data-act="x" aria-label="Remove ${esc(c.name)}">✕</button>
       </div>
       <div class="cbt-r2">
+        ${masked ? (c.revealed
+          ? `<button type="button" class="cbt-rv" data-act="reveal" aria-pressed="true"
+               aria-label="Mask ${esc(c.name)} on the player display again"
+               title="Player display shows ${esc(c.name)} — click to mask it as Enemy ${esc(c.alias)} again">Revealed</button>`
+          : `<button type="button" class="cbt-rv" data-act="reveal" aria-pressed="false"
+               aria-label="Reveal ${esc(c.name)} on the player display"
+               title="Player display shows Enemy ${esc(c.alias)} — click to reveal ${esc(c.name)}">Enemy ${esc(c.alias)}</button>`) : ""}
         <span class="hpbar"><i class="${hpClass(c)}" style="width:${pct}%"></i></span>
         <span class="cbt-hp">${c.hp.current}/${c.hp.max}</span>
         <input class="cbt-amt" type="number" min="0" inputmode="numeric"
@@ -7100,6 +7202,10 @@ const TRK = (() => {
         editInit(btn);
       } else if (btn.dataset.act === "mark"){
         cycleMarker(id, btn.dataset.color);
+      } else if (btn.dataset.act === "reveal"){
+        toggleReveal(id);                      // the card repaints; put focus back on the chip
+        const rv = $("#trklist").querySelector(`.cbt[data-id="${id}"] .cbt-rv`);
+        if (rv) rv.focus();
       } else {
         const amt = card.querySelector(".cbt-amt");
         if (applyHP(id, amt.value, btn.dataset.act)) refocusAmt(id);
@@ -7231,26 +7337,38 @@ const TRK = (() => {
   $("#t-pd").onclick = openPdWindow;
   addEventListener("resize", () => { if (pw && !pw.closed) pdPush(); });
 
-  // #pd fallback page: no live state here — render from polled storage
+  // #pd fallback page: no live state here — render from polled storage, and
+  // only when the stored text changed, so an idle display never repaints
   if (PD_MODE){
     document.body.classList.add("pd");
     const p = $("#pdisp");
     p.hidden = false;
     ensurePdStyle(document);
-    let lastRollId = 0;
+    const raw = k => { try{ return localStorage.getItem(k); }catch(_){ return null; } };
+    const seed = vPd(load(LS.pd, null));
+    let lastEnc = null, lastPd = raw(LS.pd);
+    let lastRollId = seed.roll ? seed.roll.id : 0;   // a roll from before we opened is not news
     const tick = () => {
-      const enc = vEnc(load(LS.enc, null));
-      const pd = vPd(load(LS.pd, null));
-      const main = ensurePdLayout(p, pdHTML(enc));
-      scalePd(main, innerHeight || PD_H);
-      if (pd.showRolls && pd.roll && pd.roll.id !== lastRollId){
-        flashPdToast(p.querySelector(".pdtoast-wrap"), pd.roll);
-        lastRollId = pd.roll.id;
+      const rawEnc = raw(LS.enc);
+      if (rawEnc !== lastEnc || !p.querySelector(".pdmain")){
+        lastEnc = rawEnc;
+        const main = ensurePdLayout(p, pdHTML(vEnc(load(LS.enc, null))));
+        scalePd(main, innerHeight || PD_H);
+      }
+      const rawPd = raw(LS.pd);
+      if (rawPd !== lastPd){
+        lastPd = rawPd;
+        const pd = vPd(load(LS.pd, null));
+        if (pd.showRolls && pd.roll && pd.roll.id !== lastRollId){
+          flashPdToast(p.querySelector(".pdroll-wrap"), pd.roll);
+          lastRollId = pd.roll.id;
+        }
       }
     };
     tick();
     setInterval(tick, 500);
-    addEventListener("resize", tick);
+    addEventListener("storage", tick);
+    addEventListener("resize", () => scalePd(p.querySelector(".pdmain"), innerHeight || PD_H));
   }
   $("#t-undo").onclick = undo;
   $("#t-redo").onclick = redo;
@@ -7402,14 +7520,15 @@ const TRK = (() => {
            mutate, undo, redo, addMany, addFromView, addByRef, combatantsByRef,
            removeCombatant, applyHP,
            startCombat, endCombat, nextTurn, prevTurn, canPrev,
-           setInitiative, reorderTo, moveBy, resetEnc, clearAll,
+           setInitiative, reorderTo, moveBy, resetEnc, clearAll, toggleReveal,
            initModOf, acOf, hpOf, openAddForm, openStartModal, closeOvl, openOvl,
            confirmSwap, applyUserSave,
            rollDice, doRoll, savePreset, savePresetFull, loadPreset, replaceEncounter,
            getPreset, openPartyOvl, openPresetsOvl,
            pdHTML, openPdWindow, pickCombatant,
            _test: { vEnc, vParty, vPresets, vDice, vUi, vBuilderMeta, autoName, hpClass,
-                    midInit, badgeOf, scalePd, evtLine, nextIdOf, events, EVT_MAX } };
+                    midInit, badgeOf, scalePd, evtLine, nextIdOf, events, EVT_MAX,
+                    pdMasked, pdLabel, pdColumns } };
 })();
 /* const bindings don't become window properties; the start()/keydown hooks in
    the first script test window.TRK so they stay no-ops if this block is absent */

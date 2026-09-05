@@ -106,24 +106,32 @@ typography:
     fontSize: "25px"
     fontWeight: 600
     lineHeight: "1.2"
-  player-display:
-    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
-    fontSize: "clamp(52px, 14vw, 128px)"
-    fontWeight: 700
-    lineHeight: "1"
-  player-display-head:
-    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
-    fontSize: "22px"
-    fontWeight: 700
-    lineHeight: "1"
-  player-display-label:
-    fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif'
-    fontSize: "26px"
+  player-display-title:
+    fontFamily: '"Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif'
+    fontSize: "40px"
     fontWeight: 600
     lineHeight: "1.2"
-  player-display-sub:
+    letterSpacing: "0.08em"
+    fontVariant: "small-caps"
+  player-display-row:
     fontFamily: 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif'
-    fontSize: "20px"
+    fontSize: "clamp(22px, 0.36 x row height + 15px, 84px)"
+    fontWeight: 600
+    lineHeight: "1.2"
+  player-display-numeral:
+    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
+    fontSize: "56px round / 72px roll / .93em initiative"
+    fontWeight: 700
+    lineHeight: "1"
+  player-display-badge:
+    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace'
+    fontSize: ".34em"
+    fontWeight: 700
+    lineHeight: "1"
+    letterSpacing: "0.12em"
+  player-display-sub:
+    fontFamily: '"Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif'
+    fontSize: "36px"
     fontWeight: 400
     lineHeight: "1.2"
 rounded:
@@ -228,7 +236,10 @@ Documented size steps (use these literals in CSS; do not invent ad-hoc values):
 | UI sm | 12–12.5px | Loader log, dice history, confirm prompts |
 | UI xs | 13px | Inline hints, form warnings |
 | Data lg | 15px mono bold | Initiative on combatant cards |
-| Player display | clamp(52px–128px) mono | Second-screen initiative board |
+| Display title | 40px serif small caps | Player display encounter name; the `Round` label at 30px |
+| Display row | clamp(22–84px) sans 600 | Player display combatant rows, sized from the row height `scalePd` computes |
+| Display numeral | 56 / 72px mono bold | Player display round and roll; initiative at .93em of the row |
+| Display wait | 36px serif italic | Player display pre-combat line; player names at 30px sans |
 
 **The Mono Metadata Rule.** Numbers users hunt mid-combat (initiative, HP, CR, dice totals) use monospace with tabular numerals.
 
@@ -305,6 +316,7 @@ The verbs a GM can run on an object are painted by `mountActionChips` from `acti
 - Reuse spine colors; initiative in bold mono; HP bar 4px with olive/gilt/brick fill by percentage
 - Inline confirm replaces destructive chip — never `window.confirm`
 - Marker swatches sit in the name row immediately before AC (see Markers)
+- Monster cards carry a **reveal chip** at the head of the HP row (label sm, `aria-pressed`): it reads the display alias (`Enemy N`) while masked and `Revealed` in ink fill once the display shows the name, so one chip is both the readout and the control. It sits in the HP row, not the name row, so the name keeps its width beside the markers and AC. Players and NPCs never mask, so their cards have no chip
 - **Turn order carries three cues, none of them colour alone:** a mono `Now` / `Next` badge (label sm; ink fill versus stone outline) after the name, a 6px spine on the active card (left padding compensates so the row never shifts), and a heavier name. Gilt stays on the active card's inset ring, never on its text. `Now` is `aria-hidden` — `aria-current` already says it; `Next` keeps its text because nothing else does
 
 ### Tracker glance strip
@@ -321,8 +333,19 @@ The verbs a GM can run on an object are painted by `mountActionChips` from `acti
 - Fixed five colors: white, red, blue, green, yellow (`--mark-*` tokens)
 - Always-visible ~12px circles on every combatant card; click cycles `off → solid → outline → off`
 - No legend — ad-hoc table-ring shorthand only
-- Player display shows active markers only (solid fill / outline ring) in a cluster beside Hurt/Bloody/Unconscious badges
+- Player display shows active markers only (solid fill / outline ring) in a cluster beside Hurt/Bloody/Unconscious badges; white takes a `faint` edge there (2px border on solid, hairline ring on outline) so it survives paper rows, and drops it on the ink row
 - `aria-label` on each swatch includes color name and state so color is not the only cue for the GM
+
+### Player display
+
+The second screen the table reads, not a second tracker: one renderer (`pdHTML` / `pdCSS`) feeds the popup, the `#pd` fallback page and the layer on this screen. Comparison fixtures: `docs/mockups/player-display.html` and `player-display-twenty.html`.
+
+- **Stone ground, paper rows.** The board is `stone` with a 2px `hair` rule under the header (serif small-caps title, `Round` + mono numeral). Every combatant is an equal-height paper row (`paper` fill, `paper-edge` border, `radius`) in a centred column no wider than 1320px. Rows share the height, so four combatants and ten both fill a TV; past ten the list splits into two columns of ⌈n/2⌉ (860px each, the short column padded so heights stay equal) and rows shrink within them. Every size inside a row is an em of `--pd-fs`
+- **The active row is the marker.** It fills in `ink` with `stone-3` text and walks down a list that never moves. There is no `Now` / `Next` label on the display: the ink row says now, the row beneath it is next
+- **Masked enemies.** Monsters read `Enemy N` (dim, italic, 500) until the GM presses **Reveal** on the card; `N` is a per-encounter alias that never renumbers when rows move, leave or are revealed. Players and NPCs always show their names. Unconscious rows fade to `stone-3` fill with `faint` text
+- **Badges** (Hurt = 2px `gilt` outline, Bloody = `brick` fill with vellum text, Unconscious = 2px `faint` outline) are mono at .34em of the row; no HP number ever appears
+- **The roll card is static.** A 100px band at the foot always holds its place; the roll (serif small-caps `Roll` + 72px mono total; `olive` on a natural 20, `brick` on a natural 1) is inserted whole and removed whole after 3.2 s
+- **No motion, no promoted layers.** The display's CSS uses no `transform`, `transition`, `animation`, `will-change`, `filter` or `backdrop-filter`, and nothing is `position:fixed`; the only shadow is the white marker's hairline ring. A casting Chrome tab therefore has nothing to composite between repaints, and the `#pd` fallback repaints only when stored state changes
 
 ### Inputs
 
